@@ -1,27 +1,21 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth-service';
+import { AdminLayoutModule } from './layouts/admin-layout/admin-layout-module';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    AdminLayoutModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('nexus.las');
-  constructor(private authService: AuthService) {
-    this.login();
+  constructor() {
+
   }
 
-  login() {
-    this.authService.login({ email: "ward", password: "Ward12" }).subscribe({
-       next: (res) => {
-        this.authService.saveSession(res);
-      },
-      error: (err) => {
-        console.error('Login failed', err);
-      }
-    })
-  }
 }
