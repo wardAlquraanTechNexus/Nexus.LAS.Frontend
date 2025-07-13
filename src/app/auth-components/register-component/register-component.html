@@ -1,62 +1,60 @@
-  <div class="container">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                            </div>
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
-                                    </div>
-                                </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
-                            </form>
-                            <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
-                            </div>
-                        </div>
-                    </div>
+<div class="container d-flex align-items-center justify-content-center" >
+    <div class="row w-100 justify-content-center register-form">
+        <div class="col-md-6">
+            <div class="card shadow p-4">
+                <div class="text-center mb-4">
+                    <p class="h4 text-gray-900"> Register</p>
                 </div>
+
+                <form *ngIf="registerForm" class="row g-3 justify-content-center" [formGroup]="registerForm">
+                    <mat-form-field class="col-12" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input formControlName="firstName" matInput placeholder="Enter Your First Name" required>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input formControlName="lastName" matInput placeholder="Enter Your Last Name" required>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="outline">
+                        <mat-label>Mobile Number</mat-label>
+                        <input formControlName="phoneNumber" matInput placeholder="eg. 97150000000" required>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" matInput placeholder="name@example.com" required>
+                    </mat-form-field>
+                    <mat-form-field class="col-12" appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input formControlName="username" matInput placeholder="Enter your username" required>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 mb-1" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Enter Your Password"
+                            formControlName="password" />
+                        <button type="button" mat-icon-button matSuffix (click)="showPassword = !showPassword">
+                            <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary w-100 p-3 d-flex align-items-center justify-content-center"
+                            [disabled]="registerForm.invalid || isSaving" (click)="onRegister()">
+
+                            <ng-container *ngIf="!isSaving">Register</ng-container>
+
+                            <mat-progress-spinner *ngIf="isSaving" mode="indeterminate" diameter="24" color="accent"
+                                strokeWidth="3" class="spinner-centered">
+                            </mat-progress-spinner>
+
+                        </button>
+
+                    </div>
+                    <div class="col-12 text-center mt-5">
+                        Already have an account? <a routerLink="../">Login</a>
+                    </div>
+                </form>
             </div>
         </div>
-
     </div>
+</div>

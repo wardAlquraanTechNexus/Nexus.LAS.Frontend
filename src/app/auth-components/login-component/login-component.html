@@ -27,12 +27,20 @@
 
 
                     <div class="col-12 text-center">
-                        <button class="btn btn-primary w-100 p-3" [disabled]="loginForm.invalid" (click)="onLogin()">
-                            Login
+                        <button class="btn btn-primary w-100 p-3 d-flex align-items-center justify-content-center"
+                            [disabled]="loginForm.invalid || isSaving" (click)="onLogin()">
+
+                            <ng-container *ngIf="!isSaving">Login</ng-container>
+
+                            <mat-progress-spinner *ngIf="isSaving" mode="indeterminate" diameter="24" color="accent"
+                                strokeWidth="3" class="spinner-centered">
+                            </mat-progress-spinner>
+
                         </button>
+
                     </div>
                     <div class="col-12 text-center mt-5">
-                        Don't have an account? <a routerLink="register">Register</a>
+                        Don't have an account? <a routerLink="./register">Register</a>
                     </div>
                 </form>
             </div>

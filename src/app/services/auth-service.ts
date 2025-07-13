@@ -4,6 +4,8 @@ import { AuthRequest } from '../models/auth-request';
 import { environment } from '../../environment/environment.prod';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
+import { RegisterResponse } from '../models/register-response';
+import { RegisterRequest } from '../models/register-request';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,12 @@ export class AuthService {
   {
     return this.httpClient.post<AuthResponse>(this.url+"login",authRequest);
   }
-  getCompany(){
-    return this.httpClient.get("https://localhost:44325/api/Countries")
+
+  register(registerRequest:RegisterRequest):Observable<RegisterResponse>
+  {
+    return this.httpClient.post<RegisterResponse>(this.url+"register",registerRequest);
   }
+  
 
    saveSession(data: AuthResponse) {
     localStorage.setItem('token', data.token);
