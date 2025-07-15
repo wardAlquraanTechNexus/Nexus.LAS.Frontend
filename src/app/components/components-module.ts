@@ -11,6 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
+import {MatListModule} from '@angular/material/list';
+import { MatTreeModule } from '@angular/material/tree';
+
 
 
 
@@ -21,7 +24,6 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     Navbar,
-    Sidebar,
     Footer,
     MatIconModule,
     MatButtonModule,
@@ -29,12 +31,13 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatTreeModule
   ],
   exports: [
     CommonModule,
     RouterModule,
-    Sidebar,
     Navbar,
     Footer,
     MatIconModule,
@@ -43,7 +46,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatTreeModule
   ]
 })
 export class ComponentsModule { }

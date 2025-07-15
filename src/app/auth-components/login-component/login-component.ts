@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbar } from '../../components/snackbars/error-snackbar/error-snackbar';
 import { finalize } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuService } from '../../services/menu-service';
 
 @Component({
   selector: 'app-login-component',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private menuService: MenuService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -42,9 +44,14 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: (res) => {
             this.authService.saveSession(res);
-            this.isSaving = false;
-            this.router.navigate(['../'], { relativeTo: this.route });
-
+            this.menuService.getMenus().subscribe({
+              next: (menu => {
+                localStorage.setItem("menu", JSON.stringify(menu));
+                this.isSaving = false;
+                this.router.navigate(['../'], { relativeTo: this.route });
+              })
+            }
+            )
           },
           error: (err) => {
             this.snackBar.openFromComponent(ErrorSnackbar, {

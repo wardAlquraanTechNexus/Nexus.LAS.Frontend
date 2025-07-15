@@ -1,38 +1,34 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Navbar } from "../navbar/navbar";
+import { ComponentsModule } from "../components-module";
+import { MenuTree } from '../../models/menus/menu-tree';
+import { MenuService } from '../../services/menu-service';
 
-declare interface RouteInfo {
-  path: string;
-  title: string;
-  icon: string;
-  class: string;
-}
-export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-  { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
-  { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
-  { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
-  { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
-  { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
-  { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
-  { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
-];
+
 @Component({
   selector: 'app-sidebar',
-  standalone:true,
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.scss'
+  styleUrl: './sidebar.scss',
+  standalone: true,
+  imports: [ComponentsModule]
 })
 export class Sidebar {
-  menuItems: any[] = [];
+  menuItems: MenuTree[] = [];
+  childrenAccessor = (node: any) => node.children ?? [];
 
-  constructor() { 
-    this.menuItems = ROUTES
+  hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
+
+  constructor(
+  ) {
+
 
   }
 
   ngOnInit() {
+    const menuJson = localStorage.getItem("menu");
+    if (menuJson) {
+      this.menuItems = JSON.parse(menuJson) as MenuTree[];
+    } else {
+      this.menuItems = []; // or null or whatever default you want
+    }
   }
 }

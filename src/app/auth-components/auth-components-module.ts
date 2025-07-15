@@ -5,6 +5,7 @@ import { LoginComponent } from './login-component/login-component';
 import { RegisterComponent } from './register-component/register-component';
 import { ComponentsModule } from '../components/components-module';
 import { AuthComponentsRoutingModule } from './auth-components-routing-module';
+import { MenuService } from '../services/menu-service';
 
 
 @NgModule({
@@ -16,6 +17,9 @@ import { AuthComponentsRoutingModule } from './auth-components-routing-module';
     CommonModule,
     AuthComponentsRoutingModule,
     ComponentsModule
+  ],
+  providers:[
+    MenuService
   ]
 })
 export class AuthComponentsModule { }
