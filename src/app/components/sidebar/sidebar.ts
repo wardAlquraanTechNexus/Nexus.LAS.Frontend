@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentsModule } from "../components-module";
 import { MenuTree } from '../../models/menus/menu-tree';
 import { MenuService } from '../../services/menu-service';
+import { environment } from '../../../environment/environment';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class Sidebar {
   defaultItem: MenuTree = {
   name: 'Dashboard',
   menuId: 0,
-  path: '/dashboard',
+  path: environment.routes.dashboard,
   iconClass: "home",
   children: []
 };

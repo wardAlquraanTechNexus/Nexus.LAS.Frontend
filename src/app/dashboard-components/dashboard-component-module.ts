@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponentRoutingModule } from './dashboard-component-routing-module';
 import { ComponentsModule } from '../components/components-module';
 import { SharedTable } from './shared-components/shared-table/shared-table';
-import { AllPersons } from './all-persons/all-persons';
-import { ActivePersons } from './active-persons/active-persons';
+import { AllPersons } from './person-components/all-persons/all-persons';
+import { ActivePersons } from './person-components/active-persons/active-persons';
 
 
 @NgModule({

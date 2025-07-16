@@ -6,7 +6,7 @@ import { Footer } from './footer/footer';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -40,7 +40,8 @@ import { MatTableModule } from '@angular/material/table';
     MatTreeModule,
     MatMenuModule,
     MatPaginatorModule ,
-    MatTableModule 
+    MatTableModule ,
+    FormsModule 
   ],
   exports: [
     CommonModule,
@@ -59,7 +60,8 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule ,
     Navbar,
     Sidebar,
-    Footer
+    Footer,
+    FormsModule 
   ]
 })
 export class ComponentsModule { }

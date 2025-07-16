@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Footer } from './footer';
+import { AddDocumentTracking } from './add-document-tracking';
 
-describe('Footer', () => {
-  let component: Footer;
-  let fixture: ComponentFixture<Footer>;
+describe('AddDocumentTracking', () => {
+  let component: AddDocumentTracking;
+  let fixture: ComponentFixture<AddDocumentTracking>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Footer]
+      imports: [AddDocumentTracking]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Footer);
+    fixture = TestBed.createComponent(AddDocumentTracking);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

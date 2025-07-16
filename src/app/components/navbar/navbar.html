@@ -5,24 +5,48 @@
 
     <div class="col-6">
         <mat-form-field appearance="outline" class="w-100 mt-1">
-            <input matInput type="text" placeholder="Search for persons, Companies, Real Estates, Law F.."
-                aria-label="Search" aria-describedby="basic-addon2" />
+            <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+                placeholder="Search for persons, Companies, Real Estates, Law F.." aria-label="Search" #searchInput />
+
+            <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
+                [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
+                <mat-icon>search</mat-icon>
+            </button>
         </mat-form-field>
+
+        <!-- Search result menu -->
+        <mat-menu #searchMenu="matMenu">
+            <ng-container *ngIf="searchResults.length; else noResults">
+                <button mat-menu-item *ngFor="let result of searchResults">{{ result }}</button>
+            </ng-container>
+            <ng-template #noResults>
+                <span class="p-2 text-muted">No results found</span>
+            </ng-template>
+        </mat-menu>
     </div>
 
     <div class="col-2">
-        <button class="btn btn-primary" type="button"><span class="mr-3">Create new</span> <mat-icon>add</mat-icon></button>
+        <button class="btn btn-primary" type="button"><span class="mr-3" [matMenuTriggerFor]="listToCreate_menu">
+                Create new</span>
+            <mat-icon>add</mat-icon>
+        </button>
+        <mat-menu #listToCreate_menu="matMenu" class="list-to-create">
+            <button mat-menu-item *ngFor="let item of listToCreated" [routerLink]="item.value">
+                {{ item.name }}
+            </button>
+        </mat-menu>
+
     </div>
 
     <div class="col-3">
         <div class="d-flex justify-content-end align-items-center gap-2">
             <div class="languages">
-                <button class="btn" type="button" [matMenuTriggerFor]="languages">
-                    <mat-icon>language</mat-icon> {{ selectedMenuItem.name }}
+                <button class="btn" type="button" [matMenuTriggerFor]="languages_menu">
+                    <mat-icon>language</mat-icon> {{ selectedLanguage.name }}
                 </button>
-                <mat-menu #languages="matMenu">
-                    <button mat-menu-item *ngFor="let menuItem of menuItems" (click)="selectedMenuItem = menuItem">
-                        {{ menuItem.name }}
+                <mat-menu #languages_menu="matMenu">
+                    <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
+                        {{ language.name }}
                     </button>
                 </mat-menu>
 

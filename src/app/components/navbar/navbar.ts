@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentsModule } from '../components-module';
 import { Router } from '@angular/router';
+import { environment } from '../../../environment/environment';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-navbar',
@@ -9,27 +11,69 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class Navbar {
+  searchText = '';
+searchResults: string[] = [];
+  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
-  menuItems = [
+  languages = [
     {
-      name : "العربية",
+      name: "العربية",
       value: "arabic"
     },
     {
-      name : "English",
+      name: "English",
       value: "english"
     }
   ]
 
-  selectedMenuItem = this.menuItems[0];
+  listToCreated = [
+    {
+      name: "Person",
+      value: environment.routes.AddPerson
+    },
+    {
+      name: "Company",
+      value: environment.routes.AddCompany
+    },
+    {
+      name: "Real Estate",
+      value: environment.routes.AddRealEstate
+    },
+    {
+      name: "Law Firm",
+      value: environment.routes.AddLawFirm
+    },
+    {
+      name: "Transaction",
+      value: environment.routes.AddTransaction
+    },
+    {
+      name: "Documents Tracking",
+      value: environment.routes.AddDocumentTracking
+    },
+    {
+      name: "FPC",
+      value: environment.routes.AddFpc
+    }
+  ]
 
-  constructor(private router: Router){
+  selectedLanguage = this.languages[0];
+
+  constructor(private router: Router) {
 
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
     this.router.navigateByUrl("");
     window.location.reload();
   }
+
+onSearch() {
+  // Simulate a search; replace with actual logic
+  const allItems = ['Person A', 'Company B', 'Real Estate C', 'Law Firm D'];
+  this.searchResults = allItems.filter(item =>
+    item.toLowerCase().includes(this.searchText.toLowerCase())
+  );
+}
 }
