@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-active-persons',
-  imports: [],
+  standalone:false,
   templateUrl: './active-persons.html',
   styleUrl: './active-persons.scss'
 })

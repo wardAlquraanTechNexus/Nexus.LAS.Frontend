@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { AuthRequest } from '../../models/auth-request';
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private menuService: MenuService) { }
+    private menuService: MenuService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
               next: (menu => {
                 localStorage.setItem("menu", JSON.stringify(menu));
                 this.isSaving = false;
+                this.cdr.detectChanges();
                 this.router.navigate(['../'], { relativeTo: this.route });
               })
             }
@@ -58,11 +60,16 @@ export class LoginComponent implements OnInit {
               duration: 4000,
               data: err
             });
+
             this.isSaving = false
+            this.cdr.detectChanges();
           }
         })
     } else {
       this.loginForm.markAllAsTouched();
+      this.isSaving = false
+      this.cdr.detectChanges();
+
     }
   }
 

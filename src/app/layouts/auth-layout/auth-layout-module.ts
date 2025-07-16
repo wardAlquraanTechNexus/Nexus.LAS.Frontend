@@ -9,13 +9,13 @@ import { ComponentsModule } from "../../components/components-module";
 
 @NgModule({
   declarations: [
-    
+    AuthLayoutComponent
+
   ],
   imports: [
     CommonModule,
     AuthLayoutRoutingModule,
     ComponentsModule,
-    AuthLayoutComponent
 ]
 })
 export class AuthLayoutModule { }

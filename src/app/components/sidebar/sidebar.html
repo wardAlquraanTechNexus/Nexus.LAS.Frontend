@@ -1,5 +1,4 @@
 <mat-tree *ngIf="menuItems" class="navbar-nav sidebar sidebar-dark accordion" #tree [dataSource]="menuItems" [childrenAccessor]="childrenAccessor">
-  <!-- Leaf node -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
     <a *ngIf="node.path" [routerLink]="node.path" class="tree-link">
       <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
@@ -11,9 +10,8 @@
     </span>
   </mat-tree-node>
 
-  <!-- Expandable node -->
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button mat-icon-button matTreeNodeToggle>
+    <button mat-icon-button matTreeNodeToggle class="btn">
       <mat-icon>
         {{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
       </mat-icon>

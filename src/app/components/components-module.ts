@@ -13,18 +13,22 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import {MatListModule} from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 
 
 
 @NgModule({
   declarations: [
+    Navbar,
+    Sidebar,
+    Footer,
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     RouterModule,
-    Navbar,
-    Footer,
     MatIconModule,
     MatButtonModule,
     MatSnackBarModule,
@@ -33,13 +37,14 @@ import { MatTreeModule } from '@angular/material/tree';
     MatInputModule,
     MatProgressSpinnerModule,
     MatListModule,
-    MatTreeModule
+    MatTreeModule,
+    MatMenuModule,
+    MatPaginatorModule ,
+    MatTableModule 
   ],
   exports: [
     CommonModule,
     RouterModule,
-    Navbar,
-    Footer,
     MatIconModule,
     MatButtonModule,
     MatSnackBarModule,
@@ -48,7 +53,13 @@ import { MatTreeModule } from '@angular/material/tree';
     MatInputModule,
     MatProgressSpinnerModule,
     MatListModule,
-    MatTreeModule
+    MatTreeModule,
+    MatMenuModule,
+    MatPaginatorModule ,
+    MatTableModule ,
+    Navbar,
+    Sidebar,
+    Footer
   ]
 })
 export class ComponentsModule { }

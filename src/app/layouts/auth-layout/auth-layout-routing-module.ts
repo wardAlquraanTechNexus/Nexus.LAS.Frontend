@@ -7,7 +7,8 @@ import { RegisterComponent } from '../../auth-components/register-component/regi
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('../../auth-components/auth-components-module').then(m => m.AuthComponentsModule)
+    // loadChildren: () => import('../../auth-components/auth-components-module').then(m => m.AuthComponentsModule)
+    component: AuthLayoutComponent
   }
 ];
 

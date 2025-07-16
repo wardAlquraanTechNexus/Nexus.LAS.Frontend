@@ -1,0 +1,19 @@
+
+
+.account-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid;
+  margin-right: 5px;
+  border-radius: 0.5;
+}
+
+button .mat-icon {
+  vertical-align: middle;
+}

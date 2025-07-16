@@ -8,10 +8,18 @@ import { MenuService } from '../../services/menu-service';
   selector: 'app-sidebar',
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
-  standalone: true,
-  imports: [ComponentsModule]
+  standalone: false,
 })
 export class Sidebar {
+
+  defaultItem: MenuTree = {
+  name: 'Dashboard',
+  menuId: 0,
+  path: '/dashboard',
+  iconClass: "home",
+  children: []
+};
+
   menuItems: MenuTree[] = [];
   childrenAccessor = (node: any) => node.children ?? [];
 
@@ -22,13 +30,16 @@ export class Sidebar {
 
 
   }
+  
 
   ngOnInit() {
+    
     const menuJson = localStorage.getItem("menu");
     if (menuJson) {
       this.menuItems = JSON.parse(menuJson) as MenuTree[];
     } else {
       this.menuItems = []; // or null or whatever default you want
     }
+    this.menuItems.unshift(this.defaultItem);
   }
 }
