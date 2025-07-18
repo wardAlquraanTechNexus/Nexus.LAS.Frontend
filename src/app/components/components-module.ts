@@ -16,6 +16,9 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
 
 
@@ -41,7 +44,11 @@ import { MatTableModule } from '@angular/material/table';
     MatMenuModule,
     MatPaginatorModule ,
     MatTableModule ,
-    FormsModule 
+    FormsModule ,
+    MatTabsModule,
+    MatSelectModule,
+    MatRadioGroup,
+    MatRadioButton
   ],
   exports: [
     CommonModule,
@@ -61,7 +68,12 @@ import { MatTableModule } from '@angular/material/table';
     Navbar,
     Sidebar,
     Footer,
-    FormsModule 
+    FormsModule ,
+    MatTabsModule,
+    MatSelectModule,
+    MatRadioGroup,
+    MatRadioButton
+
   ]
 })
 export class ComponentsModule { }

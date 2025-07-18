@@ -6,13 +6,25 @@ import { ComponentsModule } from '../components/components-module';
 import { SharedTable } from './shared-components/shared-table/shared-table';
 import { AllPersons } from './person-components/all-persons/all-persons';
 import { ActivePersons } from './person-components/active-persons/active-persons';
+import { AddPerson } from './person-components/add-person/add-person';
+import { AddPersonDetails } from './person-components/add-person/add-person-details/add-person-details';
+import { AddPersonContactDetails } from './person-components/add-person/add-person-contact-details/add-person-contact-details';
+import { AddPersonEmailDetails } from './person-components/add-person/add-person-contact-details/add-person-email-details/add-person-email-details';
+import { AddPersonPhoneDetails } from './person-components/add-person/add-person-contact-details/add-person-phone-details/add-person-phone-details';
+import { AddPersonAddressDetails } from './person-components/add-person/add-person-contact-details/add-person-address-details/add-person-address-details';
 
 
 @NgModule({
   declarations: [
     SharedTable,
     AllPersons,
-    ActivePersons
+    ActivePersons,
+    AddPerson,
+    AddPersonDetails,
+    AddPersonContactDetails,
+    AddPersonEmailDetails,
+    AddPersonPhoneDetails,
+    AddPersonAddressDetails
   ],
   imports: [
     CommonModule,

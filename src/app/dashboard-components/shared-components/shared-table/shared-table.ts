@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,19 +23,39 @@ export class SharedTable implements AfterViewInit {
   @ViewChild(MatPaginator) paginator = {} as MatPaginator;
 
 
-  displayedColumns: string[] = ['id', 'title', 'category', 'writer'];
+  displayedColumns = [
+    {
+      key : "id",
+      label : "Id"
+    },
+    {
+      key : "title",
+      label : "Title"
+    },
+    {
+      key : "category",
+      label : "Category"
+    },
+    {
+      key : "writer",
+      label : "Writer Here"
+    },
+    
+  ];
   dataSource = new MatTableDataSource(All_ARTICLES);
   totalRecords = 0;
   totalPages = 0;
-
-  constructor() {
+  displayedColumnKeys:any;
+  constructor(private cdRef: ChangeDetectorRef) {
 
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.totalRecords = All_ARTICLES.length;
-    this.totalPages = this.totalRecords / this.dataSource.paginator.pageSize
+    this.totalPages = this.totalRecords / this.dataSource.paginator.pageSize;
+    this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
+    this.cdRef.detectChanges()
   }
 
 
