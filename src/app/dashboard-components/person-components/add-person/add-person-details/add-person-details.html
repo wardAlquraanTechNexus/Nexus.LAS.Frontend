@@ -1,106 +1,120 @@
-<h4>Contact Information</h4>
-<div class="container">
+<h4 class="m-4">Contact Information</h4>
+<form [formGroup]="personalDetailsForm">
+    <div class="container">
+        <!-- Upload Photo -->
+        <div class="upload-photo mb-5 mt-5 d-flex align-items-center gap-4">
+            <div>
+                <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" width="150" height="auto" class="rounded"
+                    style="object-fit: contain; border: 1px solid #ccc;" />
+            </div>
 
-<div class="upload-photo mb-5 mt-5 d-flex align-items-center gap-4">
-  <div>
-      <img
-      *ngIf="imagePreview"
-      [src]="imagePreview"
-      alt="Preview"
-      width="150"
-      height="auto"
-      class="rounded"
-      style="object-fit: contain; border: 1px solid #ccc;"
-    />
-
-  </div>
-
-  <div>
-    <input
-      type="file"
-      #fileUpload
-      accept="image/*"
-      hidden
-      (change)="onPhotoSelected($event)"
-    />
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="fileUpload.click()"
-      style="min-width: 140px;"
-    >
-      <mat-icon>cloud_upload</mat-icon>
-      Upload Photo
-    </button>
-  </div>
-</div>
-
-
-
-
-<h4>Personal Details</h4>
-
-<div class="name-en">
-    <h6>Name En</h6>
-    <div class="row">
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>First name</mat-label>
-                <input matInput placeholder="Add first Name" required>
-            </mat-form-field>
+            <div>
+                <input type="file" #fileUpload accept="image/*" hidden (change)="onPhotoSelected($event)" />
+                <button mat-raised-button color="primary" (click)="fileUpload.click()" style="min-width: 140px;">
+                    <mat-icon>cloud_upload</mat-icon>
+                    Upload Photo
+                </button>
+            </div>
         </div>
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Middle name</mat-label>
-                <input matInput placeholder="Add middle Name">
-            </mat-form-field>
+
+        <!-- English Name -->
+        <h4>Personal Details</h4>
+        <div class="name-en">
+            <h6>Name En</h6>
+            <div class="row">
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>First name</mat-label>
+                        <input matInput placeholder="Add first Name" formControlName="firstNameEn" required />
+                        <mat-error
+                            *ngIf="personalDetailsForm.get('firstNameEn')?.touched && personalDetailsForm.get('firstNameEn')?.hasError('required')">
+                            First Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Middle name</mat-label>
+                        <input matInput placeholder="Add middle Name" formControlName="middleNameEn" />
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Last name</mat-label>
+                        <input matInput placeholder="Add last Name" formControlName="lastNameEn" required />
+                        <mat-error
+                            *ngIf="personalDetailsForm.get('lastNameEn')?.touched && personalDetailsForm.get('lastNameEn')?.hasError('required')">
+                            Last Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Last name</mat-label>
-                <input matInput placeholder="Add last Name" required>
-            </mat-form-field>
+
+        <!-- Arabic Name -->
+        <div class="name-ar mt-4">
+            <h6>Name Ar</h6>
+            <div class="row">
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>First name</mat-label>
+                        <input matInput placeholder="Add first Name" formControlName="firstNameAr" required />
+                        <mat-error
+                            *ngIf="personalDetailsForm.get('firstNameAr')?.touched && personalDetailsForm.get('firstNameAr')?.hasError('required')">
+                            First Name (Arabic) is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Middle name</mat-label>
+                        <input matInput placeholder="Add middle Name" formControlName="middleNameAr" />
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Last name</mat-label>
+                        <input matInput placeholder="Add last Name" formControlName="lastNameAr" required />
+                        <mat-error
+                            *ngIf="personalDetailsForm.get('lastNameAr')?.touched && personalDetailsForm.get('lastNameAr')?.hasError('required')">
+                            Last Name (Arabic) is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <!-- Short Name -->
+        <div class="short-name mt-4">
+            <h6>Short name</h6>
+            <div class="row">
+                <div class="col-4">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Short name</mat-label>
+                        <input matInput placeholder="Add short Name" formControlName="shortName" required />
+                        <mat-error
+                            *ngIf="personalDetailsForm.get('shortName')?.touched && personalDetailsForm.get('shortName')?.hasError('required')">
+                            Short Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="container m-4 d-flex justify-content-end">
+            <button class="btn btn-primary d-flex align-items-center justify-content-center" type="button"
+                (click)="onSave()" [disabled]="isSaving" style="min-width: 140px; height: 36px;">
+                <ng-container *ngIf="!isSaving; else loading">
+                    <mat-icon class="me-2">save</mat-icon>
+                    Save Personal Details
+                </ng-container>
+
+                <ng-template #loading>
+                    <mat-progress-spinner diameter="24" mode="indeterminate" color="accent"></mat-progress-spinner>
+                </ng-template>
+            </button>
+
         </div>
     </div>
-</div>
-<div class="name-ar">
-    <h6>Name Ar</h6>
-    <div class="row">
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>First name</mat-label>
-                <input matInput placeholder="Add first Name" required>
-            </mat-form-field>
-        </div>
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Middle name</mat-label>
-                <input matInput placeholder="Add middle Name">
-            </mat-form-field>
-        </div>
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Last name</mat-label>
-                <input matInput placeholder="Add last Name" required>
-            </mat-form-field>
-        </div>
-    </div>
-</div>
-<div class="short-name">
-    <h6>Short name</h6>
-    <div class="row">
-        <div class="col-4">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Short name</mat-label>
-                <input matInput placeholder="Add short Name" required>
-            </mat-form-field>
-        </div>
-    </div>
-</div>
-</div>
-<div  class="container m-4 d-flex justify-content-end">
-  <button class="btn btn-primary">
-    <mat-icon>save</mat-icon>
-    Save Personal Details
-  </button>
-</div>
+</form>

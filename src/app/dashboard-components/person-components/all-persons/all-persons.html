@@ -1,4 +1,7 @@
 <h1>Persons</h1>
 <p>View All Persons, edit individual profiles and add new persons</p>
+<div *ngIf="showLoading" class="spinner-container">
+  <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
+</div>
 
-<app-shared-table></app-shared-table> 
+<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="allPersons" (onChangePage)="changePage($event)"></app-shared-table> 

@@ -18,8 +18,8 @@ import {
 })
 export class ErrorSnackbar {
   errorMsg:any;
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: HttpErrorResponse){
-    this.errorMsg = data.error.Title;
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public error: string){
+    this.errorMsg = error;
   }
     snackBarRef = inject(MatSnackBarRef);
 

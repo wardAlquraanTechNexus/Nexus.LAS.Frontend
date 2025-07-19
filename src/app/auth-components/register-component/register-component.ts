@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
           error: (err) => {
             this.snackBar.openFromComponent(ErrorSnackbar, {
               duration: 4000,
-              data: err
+              data: err.title
             });
           }
         })

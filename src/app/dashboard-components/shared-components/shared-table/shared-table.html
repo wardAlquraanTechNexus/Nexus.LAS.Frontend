@@ -12,7 +12,12 @@
   [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0 }">
 </tr>
   </table>
-  <mat-paginator (page)="onPageChange($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-    [length]="totalRecords">
-  </mat-paginator>
+<mat-paginator
+  (page)="onPageChange($event)"
+  [pageIndex]="pageEvent.pageIndex"
+  [pageSize]="pageEvent.pageSize"
+  [length]="paginateResult.totalRecords"
+  [pageSizeOptions]="[1, 20, 50]"
+  showFirstLastButtons>
+</mat-paginator>
 </div>

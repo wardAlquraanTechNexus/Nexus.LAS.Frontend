@@ -7,11 +7,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (isPlatformBrowser(platformId)) {
     const token = localStorage.getItem('token');
+    const headers: Record<string, string> = {};
+
+    
     if (token) {
-      req = req.clone({
-        setHeaders: { Authorization: `Bearer ${token}` }
-      });
+      headers['Authorization'] = `Bearer ${token}`;
     }
+
+    let pathname = window.location.pathname;
+    headers['pathname'] = pathname;
+
+    req = req.clone({
+      setHeaders: headers,
+    });
   }
   return next(req);
 };

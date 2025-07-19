@@ -12,24 +12,30 @@ import { AddPersonContactDetails } from './person-components/add-person/add-pers
 import { AddPersonEmailDetails } from './person-components/add-person/add-person-contact-details/add-person-email-details/add-person-email-details';
 import { AddPersonPhoneDetails } from './person-components/add-person/add-person-contact-details/add-person-phone-details/add-person-phone-details';
 import { AddPersonAddressDetails } from './person-components/add-person/add-person-contact-details/add-person-address-details/add-person-address-details';
+import { PersonAddressDetails } from './person-components/shared-person-components/person-address-details/person-address-details';
+import { PersonEmailDetails } from './person-components/shared-person-components/person-email-details/person-email-details';
+import { PersonPhoneDetails } from './person-components/shared-person-components/person-phone-details/person-phone-details';
 
 
 @NgModule({
   declarations: [
     SharedTable,
     AllPersons,
+    PersonAddressDetails,
+    PersonEmailDetails,
+    PersonPhoneDetails,
     ActivePersons,
     AddPerson,
     AddPersonDetails,
     AddPersonContactDetails,
     AddPersonEmailDetails,
     AddPersonPhoneDetails,
-    AddPersonAddressDetails
+    AddPersonAddressDetails,
   ],
   imports: [
     CommonModule,
     DashboardComponentRoutingModule,
-    ComponentsModule
+    ComponentsModule,
   ]
 })
 export class DashboardComponentModule { }

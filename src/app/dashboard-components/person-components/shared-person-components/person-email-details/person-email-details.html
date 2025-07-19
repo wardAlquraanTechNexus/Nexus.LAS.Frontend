@@ -1,0 +1,48 @@
+<form [formGroup]="contactForm">
+    <div class="container">
+        <h6>Email</h6>
+
+        <div formArrayName="emailAddresses">
+            <div class="row mb-3" *ngFor="let emailGroup of emailAddresses.controls; let i = index" [formGroupName]="i">
+                <div class="col-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Email" formControlName="email" />
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Type</mat-label>
+                        <mat-select formControlName="type">
+                            <mat-option [value]="1">Work</mat-option>
+                            <mat-option [value]="2">Personal</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <mat-radio-group [value]="primaryIndex" (change)="setPrimary(i)">
+                        <mat-radio-button [value]="i">Primary</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <a (click)="removeEmailAddress(i)" class="link-style">
+                        <mat-icon>delete</mat-icon>
+                        Remove
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <a (click)="addEmailAddress()" class="link-style">
+            <mat-icon>add</mat-icon>
+            Add Email Address
+        </a>
+    </div>
+</form>
+<div *ngIf="emailAddresses.controls.length>0" class="container m-4 d-flex justify-content-end">
+  <button class="btn btn-primary" (click)="onSave()">
+    <mat-icon>save</mat-icon>
+    Save Email Details
+  </button>
+</div>

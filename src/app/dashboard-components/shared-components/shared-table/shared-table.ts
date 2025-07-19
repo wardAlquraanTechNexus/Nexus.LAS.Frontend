@@ -1,20 +1,14 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-const All_ARTICLES: any[] = [
-  { id: 1, title: 'Angular 2 Tutorial', category: 'Angular', writer: 'Krishna' },
-  { id: 2, title: 'Angular 6 Tutorial', category: 'Angular', writer: 'Mahesh' },
-  { id: 3, title: 'Spring MVC tutorial', category: 'Spring', writer: 'Aman' },
-  { id: 4, title: 'Spring Boot tutorial', category: 'Spring', writer: 'Suraj' },
-  { id: 5, title: 'FreeMarker Tutorial', category: 'FreeMarker', writer: 'Krishna' },
-  { id: 6, title: 'Thymeleaf Tutorial', category: 'Thymeleaf', writer: 'Mahesh' },
-  { id: 7, title: 'Java 8 Tutorial', category: 'Java', writer: 'Aman' },
-  { id: 8, title: 'Java 9 Tutorial', category: 'Java', writer: 'Suraj' }
-];
+import { DisplayColumn } from '../../../models/columns/display-column';
+import { PaginateRsult } from '../../../models/paginate-result';
+import { BaseParam } from '../../../models/base/base-param';
+
 @Component({
   selector: 'app-shared-table',
-  standalone: false, 
+  standalone: false,
   templateUrl: './shared-table.html',
   styleUrl: './shared-table.scss'
 })
@@ -23,47 +17,54 @@ export class SharedTable implements AfterViewInit {
   @ViewChild(MatPaginator) paginator = {} as MatPaginator;
 
 
-  displayedColumns = [
-    {
-      key : "id",
-      label : "Id"
-    },
-    {
-      key : "title",
-      label : "Title"
-    },
-    {
-      key : "category",
-      label : "Category"
-    },
-    {
-      key : "writer",
-      label : "Writer Here"
-    },
-    
-  ];
-  dataSource = new MatTableDataSource(All_ARTICLES);
-  totalRecords = 0;
+  @Input() displayedColumns: DisplayColumn[] = [];
+
+  @Input() paginateResult!: PaginateRsult<any>;
+
+  @Output() onChangePage = new EventEmitter<BaseParam>;
+
+
+  dataSource!: MatTableDataSource<any, MatPaginator>
   totalPages = 0;
-  displayedColumnKeys:any;
+  pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 0
+  };
+  displayedColumnKeys: any;
   constructor(private cdRef: ChangeDetectorRef) {
 
   }
   ngAfterViewInit() {
+    this.dataSource = new MatTableDataSource(this.paginateResult.collection);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.totalRecords = All_ARTICLES.length;
-    this.totalPages = this.totalRecords / this.dataSource.paginator.pageSize;
+    this.totalPages = this.paginateResult.totalPages;
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
+    this.pageEvent = {
+      pageIndex: this.paginateResult.page - 1, // convert 1-based to 0-based
+      pageSize: this.paginateResult.pageSize,
+      length: this.paginateResult.totalRecords
+    };
     this.cdRef.detectChanges()
+    if (this.paginateResult.totalRecords <= this.pageEvent.pageSize) {
+    console.warn('Only one page of data is available. Ensure totalRecords is accurate from backend.');
+  }
   }
 
+onPageChange(event: PageEvent): void {
+  
+  this.pageEvent = {
+    pageIndex: event.pageIndex,
+    pageSize: event.pageSize,
+    length : this.paginateResult.totalRecords
+  };
 
-  onPageChange(event: PageEvent): void {
-  const pageIndex = event.pageIndex;
-  const pageSize = event.pageSize;
-
-  console.log('Page changed:', pageIndex);
-  console.log('Page size changed:', pageSize);
+  // Emit to parent or fetch data (1-based)
+  this.onChangePage.emit({
+    page: event.pageIndex + 1, // API expects 1-based
+    pageSize: event.pageSize
+  });
 }
+
 }
