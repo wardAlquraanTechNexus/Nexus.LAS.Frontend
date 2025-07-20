@@ -19,6 +19,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { TableDataPipePipe } from '../pipes/table-data-pipe-pipe';
+import { SharedTable } from '../dashboard-components/shared-components/shared-table/shared-table';
 
 
 
@@ -28,6 +32,8 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
     Navbar,
     Sidebar,
     Footer,
+    TableDataPipePipe,
+    SharedTable
   ],
   imports: [
   CommonModule,
@@ -48,7 +54,9 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
     MatTabsModule,
     MatSelectModule,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    MatButtonToggleModule,
+    MatSlideToggleModule
   ],
   exports: [
     CommonModule,
@@ -72,7 +80,10 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
     MatTabsModule,
     MatSelectModule,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    MatButtonToggleModule,
+    MatSlideToggleModule,
+    SharedTable
 
   ]
 })

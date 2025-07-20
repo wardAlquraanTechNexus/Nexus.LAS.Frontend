@@ -31,6 +31,9 @@ export class BaseService<T> {
     return this.httpClient.get<PaginateRsult<T>>(this.url, { params });
 
   }
+  getById(id: number): Observable<T> {
+    return this.httpClient.get<T>(this.url + "/" + id);
+  }
   create(item: T): Observable<number> {
     return this.httpClient.post<number>(this.url, item);
   }

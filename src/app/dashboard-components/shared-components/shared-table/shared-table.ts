@@ -22,49 +22,79 @@ export class SharedTable implements AfterViewInit {
   @Input() paginateResult!: PaginateRsult<any>;
 
   @Output() onChangePage = new EventEmitter<BaseParam>;
+  @Output() rowClick = new EventEmitter<any>()
 
 
   dataSource!: MatTableDataSource<any, MatPaginator>
-  totalPages = 0;
-  pageEvent: PageEvent = {
-    pageIndex: 0,
-    pageSize: 10,
-    length: 0
-  };
   displayedColumnKeys: any;
   constructor(private cdRef: ChangeDetectorRef) {
 
   }
   ngAfterViewInit() {
     this.dataSource = new MatTableDataSource(this.paginateResult.collection);
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.totalPages = this.paginateResult.totalPages;
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
-    this.pageEvent = {
-      pageIndex: this.paginateResult.page - 1, // convert 1-based to 0-based
-      pageSize: this.paginateResult.pageSize,
-      length: this.paginateResult.totalRecords
-    };
     this.cdRef.detectChanges()
-    if (this.paginateResult.totalRecords <= this.pageEvent.pageSize) {
-    console.warn('Only one page of data is available. Ensure totalRecords is accurate from backend.');
-  }
   }
 
-onPageChange(event: PageEvent): void {
-  
-  this.pageEvent = {
-    pageIndex: event.pageIndex,
-    pageSize: event.pageSize,
-    length : this.paginateResult.totalRecords
-  };
+  onPageChange(event: PageEvent): void {
+    this.onChangePage.emit({
+      page: event.pageIndex,
+      pageSize: event.pageSize
+    });
+  }
 
-  // Emit to parent or fetch data (1-based)
-  this.onChangePage.emit({
-    page: event.pageIndex + 1, // API expects 1-based
-    pageSize: event.pageSize
-  });
-}
+  onRowClick(element:any){
+    this.rowClick.emit(element);
+  }
+
+  getCellStyle(displayColumn: DisplayColumn, value: string) {
+    let borderColor = 'white';
+    let color = 'black';
+
+    switch (displayColumn.pipe?.toLowerCase()) {
+      case 'personstatus':
+        borderColor = '#9E77ED';
+        color = '#9E77ED';
+        if (value === '1') {
+          borderColor = '#22C993';
+          color = '#22C993';
+        } else if (value === '2') {
+          borderColor = '#423e3ede';
+          color = '#423e3ede';
+        }
+        return {
+          'border': `2px solid ${borderColor}`,
+          'color': color,
+          'border-radius': '20px',
+          'padding': '10px',
+
+        };
+
+      case 'privateperson':
+        borderColor = '#025EBA';
+        color = '#025EBA';
+        if (value.toString() === 'true') {
+          borderColor = '#025EBA';
+          color = '#025EBA';
+        } else {
+          borderColor = '#423e3ede';
+          color = '#423e3ede';
+        }
+        return {
+          'border': `2px solid ${borderColor}`,
+          'color': color,
+          'border-radius': '20px',
+          'padding': '10px'
+
+        };
+
+      default:
+        return {};
+    }
+  }
+
+
+
 
 }

@@ -6,10 +6,16 @@
   background-color: #ffffff;
 }
 
-.mat-mdc-header-cell{
-    border-bottom-style: none;
+.odd-row:hover , .even-row:hover {
+   background-color: #dfd6d6;
 }
-.mat-mdc-cell{
-    
-    border-bottom: none;
+
+
+.mat-mdc-header-cell {
+  border-bottom-style: none;
+}
+
+.mat-mdc-cell {
+
+  border-bottom: none;
 }

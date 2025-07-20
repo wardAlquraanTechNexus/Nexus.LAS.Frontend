@@ -3,5 +3,60 @@
 <div *ngIf="showLoading" class="spinner-container">
   <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
 </div>
+<div class="row">
+  <form [formGroup]="personForm" class="col-10">
+    <div class="row">
+      <mat-form-field class="col-6" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search by person, code, name en, name ar..." formControlName="searchBy">
+      </mat-form-field>
 
-<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="allPersons" (onChangePage)="changePage($event)"></app-shared-table> 
+      <mat-form-field class="col-2" appearance="outline">
+        <mat-label>Nationality</mat-label>
+        <mat-select formControlName="nationality">
+          <mat-option [value]="1">Dubay</mat-option>
+          <mat-option [value]="2">Abudhabi</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="col-2">
+        <mat-button-toggle-group class="private" formControlName="private" aria-label="Visibility">
+          <mat-button-toggle value="false">Public</mat-button-toggle>
+          <mat-button-toggle value="true">Private</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+      <div class="col-2">
+        <mat-button-toggle-group class="private" formControlName="status" aria-label="Status">
+          <mat-button-toggle value="0">New</mat-button-toggle>
+          <mat-button-toggle value="1">Active</mat-button-toggle>
+          <mat-button-toggle value="2">Inactive</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+    </div>
+  </form>
+  <div class="col-2 text-end position-relative">
+    <button mat-button (click)="toggleSettingsMenu()">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <div class="settings-menu-panel" *ngIf="settingsMenuOpen">
+      <mat-slide-toggle [(ngModel)]="columns.code"><span class="label-toggel">Code</span></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="columns.nameEn"><span class="label-toggel">Name en</span></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="columns.nameAr"><span class="label-toggel">Name ar</span></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="columns.status"><span class="label-toggel">Status</span></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="columns.private"><span class="label-toggel">Private</span></mat-slide-toggle>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="search()">Search</button>
+    </div>
+  </div>
+  <app-shared-table *ngIf="!showLoading" 
+    [displayedColumns]="displayColumns" 
+    [paginateResult]="allPersons"
+    (onChangePage)="changePage($event)"
+    (rowClick)="onRowClick($event)"
+    ></app-shared-table>

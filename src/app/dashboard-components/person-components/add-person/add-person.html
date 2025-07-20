@@ -1,26 +1,5 @@
-<mat-tab-group>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>info</mat-icon>
-      Details
-    </ng-template>
-    <app-add-person-details></app-add-person-details>
-    <app-add-person-contact-details></app-add-person-contact-details>
-  </mat-tab>
+<h4 class="m-4">Create Person</h4>
 
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>description</mat-icon>
-      Documents
-    </ng-template>
-    Documents content here
-  </mat-tab>
+<app-person-details [isSaving]="isSaving" (saveEmitter)="onSave($event)">
 
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <mat-icon>inventory_2</mat-icon>
-      Assets
-    </ng-template>
-    Assets content here
-  </mat-tab>
-</mat-tab-group>
+</app-person-details>

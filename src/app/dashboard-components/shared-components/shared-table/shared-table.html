@@ -1,23 +1,28 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.label}} </th>
-      <td mat-cell *matCellDef="let element"> {{element[column.key]}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </th>
+
+      <td mat-cell *matCellDef="let element" (click)="onRowClick(element)">
+        <ng-container *ngIf="column.pipe; else noPipe">
+          <span [ngStyle]="getCellStyle(column, element[column.key])">
+            {{ element[column.key] | tableDataPipe: column.pipe }}
+          </span> </ng-container>
+        <ng-template #noPipe>
+          {{ element[column.key] }}
+        </ng-template>
+      </td>
     </ng-container>
 
-    
 
- <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index"
-  [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0 }">
-</tr>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index"
+      [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0, 'hoverable-row': true }">
+    </tr>
+
   </table>
-<mat-paginator
-  (page)="onPageChange($event)"
-  [pageIndex]="pageEvent.pageIndex"
-  [pageSize]="pageEvent.pageSize"
-  [length]="paginateResult.totalRecords"
-  [pageSizeOptions]="[1, 20, 50]"
-  showFirstLastButtons>
-</mat-paginator>
+  <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
+    [length]="paginateResult.totalRecords" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+  </mat-paginator>
 </div>

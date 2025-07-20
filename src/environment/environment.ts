@@ -8,6 +8,7 @@ export const environment = {
     AllPersons : 'Persons/All-Persons',
     ActivePersons : 'Persons/Active-Persons',
     AddPerson : 'Persons/add-Person',
+    EditPerson : 'Persons/edit-Person',
     NotActivePersons: "Persons/Active-Persons",
     AddCompany : 'Companies/add-Company',
     AddRealEstate : 'Real-Estates/add-real-estate',
