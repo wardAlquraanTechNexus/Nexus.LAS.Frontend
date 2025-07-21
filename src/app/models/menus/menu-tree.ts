@@ -8,5 +8,6 @@ export interface MenuTree {
     canInsert?: boolean;
     canUpdate?: boolean;
     canDelete?: boolean;
+    inDashboard: boolean;
     children: MenuTree[];
 }

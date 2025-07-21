@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-person',
@@ -19,7 +20,8 @@ export class AddPerson implements OnInit {
     private personService: PersonService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+  private dialogRef: MatDialogRef<AddPerson>) {
 
   }
 
@@ -36,18 +38,20 @@ export class AddPerson implements OnInit {
       next: (res) => {
         this.snackBar.openFromComponent(SuccessSnackbar, {
           duration: 4000,
-          data: "Person Created Successfully",
+          data: 'Person Created Successfully',
         });
         this.isSaving = false;
         this.cdRef.detectChanges();
-        this.router.navigate([environment.routes.EditPerson], {
-          queryParams: { id: res }
-        });
+        this.dialogRef?.close(res); // close dialog with result
       },
       error: () => {
         this.isSaving = false;
         this.cdRef.detectChanges();
-      }
+      },
     });
+  }
+
+    onClose(): void {
+    this.dialogRef.close();
   }
 }

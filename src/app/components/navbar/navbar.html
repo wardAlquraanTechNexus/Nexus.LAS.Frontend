@@ -31,7 +31,7 @@
             <mat-icon>add</mat-icon>
         </button>
         <mat-menu #listToCreate_menu="matMenu" class="list-to-create">
-            <button mat-menu-item *ngFor="let item of listToCreated" [routerLink]="item.value">
+            <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)">
                 {{ item.name }}
             </button>
         </mat-menu>

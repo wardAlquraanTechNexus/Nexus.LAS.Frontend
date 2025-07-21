@@ -23,6 +23,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TableDataPipePipe } from '../pipes/table-data-pipe-pipe';
 import { SharedTable } from '../dashboard-components/shared-components/shared-table/shared-table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmDeleteComponent } from './confirm-delete-component/confirm-delete-component';
+import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
 
 
 
@@ -33,7 +36,9 @@ import { SharedTable } from '../dashboard-components/shared-components/shared-ta
     Sidebar,
     Footer,
     TableDataPipePipe,
-    SharedTable
+    SharedTable,
+    ConfirmDeleteComponent,
+    ConfirmDeleteDirective
   ],
   imports: [
   CommonModule,
@@ -56,7 +61,8 @@ import { SharedTable } from '../dashboard-components/shared-components/shared-ta
     MatRadioGroup,
     MatRadioButton,
     MatButtonToggleModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   exports: [
     CommonModule,
@@ -83,7 +89,10 @@ import { SharedTable } from '../dashboard-components/shared-components/shared-ta
     MatRadioButton,
     MatButtonToggleModule,
     MatSlideToggleModule,
-    SharedTable
+    SharedTable,
+    MatDialogModule,
+    ConfirmDeleteComponent,
+    ConfirmDeleteDirective
 
   ]
 })

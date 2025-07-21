@@ -3,6 +3,8 @@ import { ComponentsModule } from '../components-module';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { AddPerson } from '../../dashboard-components/person-components/add-person/add-person';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +14,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 })
 export class Navbar {
   searchText = '';
-searchResults: string[] = [];
+  searchResults: string[] = [];
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
   languages = [
@@ -59,7 +61,7 @@ searchResults: string[] = [];
 
   selectedLanguage = this.languages[0];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private dialog: MatDialog) {
 
   }
 
@@ -69,11 +71,38 @@ searchResults: string[] = [];
     window.location.reload();
   }
 
-onSearch() {
-  // Simulate a search; replace with actual logic
-  const allItems = ['Person A', 'Company B', 'Real Estate C', 'Law Firm D'];
-  this.searchResults = allItems.filter(item =>
-    item.toLowerCase().includes(this.searchText.toLowerCase())
-  );
-}
+  onSearch() {
+    // Simulate a search; replace with actual logic
+    const allItems = ['Person A', 'Company B', 'Real Estate C', 'Law Firm D'];
+    this.searchResults = allItems.filter(item =>
+      item.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+  }
+
+
+  openAddDialog(item: any): void {
+    switch (item.value) {
+      case environment.routes.AddPerson:
+        const dialogRef = this.dialog.open(AddPerson, {
+          width: '600px',
+          maxHeight: '90vh',
+          disableClose: true,
+          autoFocus: false,
+          panelClass: 'custom-dialog-container'
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            console.log('Person created with ID:', result);
+            // Handle after-close logic
+          }
+        });
+        break;
+      default:
+        console.log(item.value)
+        break;
+    }
+
+  }
 }

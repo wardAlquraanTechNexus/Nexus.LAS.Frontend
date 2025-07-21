@@ -22,12 +22,13 @@ import { PersonDetails } from './person-components/shared-person-components/pers
     PersonDetails,
     ActivePersons,
     AddPerson,
-    EditPerson
+    EditPerson,
   ],
   imports: [
     CommonModule,
     DashboardComponentRoutingModule,
     ComponentsModule,
+
   ]
 })
 export class DashboardComponentModule { }

@@ -18,6 +18,7 @@ export class Sidebar {
   menuId: 0,
   path: environment.routes.dashboard,
   iconClass: "home",
+  inDashboard : true,
   children: []
 };
 
@@ -38,9 +39,20 @@ export class Sidebar {
     const menuJson = localStorage.getItem("menu");
     if (menuJson) {
       this.menuItems = JSON.parse(menuJson) as MenuTree[];
+      this.menuItems = this.filterInDashboard(this.menuItems);
     } else {
       this.menuItems = []; // or null or whatever default you want
     }
     this.menuItems.unshift(this.defaultItem);
   }
+
+
+  filterInDashboard(items: MenuTree[]): MenuTree[] {
+  return items
+    .filter(item => item.inDashboard)
+    .map(item => ({
+      ...item,
+      children: this.filterInDashboard(item.children || [])
+    }));
+}
 }

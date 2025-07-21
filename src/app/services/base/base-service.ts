@@ -31,6 +31,19 @@ export class BaseService<T> {
     return this.httpClient.get<PaginateRsult<T>>(this.url, { params });
 
   }
+  getAllByParams(paramsObj?: { [param: string]: any }): Observable<T[]> {
+    let params = new HttpParams();
+    if (paramsObj) {
+      Object.keys(paramsObj).forEach(key => {
+        const value = paramsObj[key];
+        if (value !== null && value !== undefined) {
+          params = params.set(key, value);
+        }
+      });
+    }
+    return this.httpClient.get<T[]>(this.url + "/GetAllByQuery", { params });
+
+  }
   getById(id: number): Observable<T> {
     return this.httpClient.get<T>(this.url + "/" + id);
   }
@@ -39,6 +52,10 @@ export class BaseService<T> {
   }
   update(item: T) {
     return this.httpClient.put<number>(this.url, item);
+  }
+  bulkUpsert(items: T[]): Observable<T[]> {
+    return this.httpClient.post<T[]>(this.url +"/BulkUpsertAsync", items);
+
   }
   delete(id: number) {
     return this.httpClient.delete<number>(this.url + "/" + id);
