@@ -29,12 +29,18 @@
                             *ngIf="personalDetailsForm.get('firstNameEn')?.touched && personalDetailsForm.get('firstNameEn')?.hasError('required')">
                             First Name is required
                         </mat-error>
+                        <mat-error *ngIf="personalDetailsForm.get('firstNameEn')?.hasError('whitespace')">
+                            cannot contain only spaces.
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-4">
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>Middle name</mat-label>
                         <input matInput placeholder="Add middle Name" formControlName="middleNameEn" />
+                        <mat-error *ngIf="personalDetailsForm.get('middleNameEn')?.hasError('whitespace')">
+                            cannot contain only spaces.
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-4">
@@ -44,6 +50,9 @@
                         <mat-error
                             *ngIf="personalDetailsForm.get('lastNameEn')?.touched && personalDetailsForm.get('lastNameEn')?.hasError('required')">
                             Last Name is required
+                        </mat-error>
+                        <mat-error *ngIf="personalDetailsForm.get('lastNameEn')?.hasError('whitespace')">
+                            cannot contain only spaces.
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -58,22 +67,32 @@
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>First name</mat-label>
                         <input matInput placeholder="Add first Name" formControlName="firstNameAr" required />
+                        <mat-error *ngIf="personalDetailsForm.get('firstNameAr')?.hasError('whitespace')">
+                            cannot contain only spaces.
+                        </mat-error>
                         <mat-error
                             *ngIf="personalDetailsForm.get('firstNameAr')?.touched && personalDetailsForm.get('firstNameAr')?.hasError('required')">
                             First Name (Arabic) is required
                         </mat-error>
+
                     </mat-form-field>
                 </div>
                 <div class="col-4">
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>Middle name</mat-label>
                         <input matInput placeholder="Add middle Name" formControlName="middleNameAr" />
+                        <mat-error *ngIf="personalDetailsForm.get('middleNameAr')?.hasError('whitespace')">
+                            cannot contain only spaces.
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-4">
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>Last name</mat-label>
                         <input matInput placeholder="Add last Name" formControlName="lastNameAr" required />
+                        <mat-error *ngIf="personalDetailsForm.get('lastNameAr')?.hasError('whitespace')">
+                            cannot contain only spaces.
+                        </mat-error>
                         <mat-error
                             *ngIf="personalDetailsForm.get('lastNameAr')?.touched && personalDetailsForm.get('lastNameAr')?.hasError('required')">
                             Last Name (Arabic) is required
@@ -94,6 +113,9 @@
                         <mat-error
                             *ngIf="personalDetailsForm.get('shortName')?.touched && personalDetailsForm.get('shortName')?.hasError('required')">
                             Short Name is required
+                        </mat-error>
+                        <mat-error *ngIf="personalDetailsForm.get('shortName')?.hasError('whitespace')">
+                            cannot contain only spaces.
                         </mat-error>
                     </mat-form-field>
                 </div>

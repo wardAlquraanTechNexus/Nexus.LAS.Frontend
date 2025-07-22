@@ -96,7 +96,6 @@ export class PersonEmailDetails implements OnInit {
     return () => this.removeEmailAddress(index);
   }
   removeEmailAddress(index: number): void {
-    debugger;
     this.showLoading = true;
 
     const formGroup = this.emailAddresses.at(index);

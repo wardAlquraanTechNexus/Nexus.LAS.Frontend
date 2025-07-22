@@ -1,23 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
+import { CountryService } from '../../../../services/country-service';
+import { combineLatest, map, Observable, startWith } from 'rxjs';
+import { Country } from '../../../../models/country/country';
 
 @Component({
   selector: 'app-person-address-details',
-  standalone:false,
+  standalone: false,
   templateUrl: './person-address-details.html',
   styleUrl: './person-address-details.scss'
 })
 export class PersonAddressDetails implements OnInit {
 
-   primaryIndex: number = 0;
-
+  primaryIndex: number = 0;
+  showLoading = false;
   contactForm!: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  country$!: Observable<Country[]>;
+  searchControl = new FormControl('');
+  filteredCountries$!: Observable<Country[]>;
+  constructor(
+    private fb: FormBuilder,
+    private countryService: CountryService
+  ) { }
 
   setPrimary(index: number): void {
     this.primaryIndex = index;
-    this.addresses.controls.forEach((group, i) => {
-      group.get('isPrimary')?.setValue(i === index);
+    this.addressesFormArray.controls.forEach((group, i) => {
+      group.get('addressPrimary')?.setValue(i === index);
     });
   }
 
@@ -25,38 +34,53 @@ export class PersonAddressDetails implements OnInit {
     this.contactForm = this.fb.group({
       addresses: this.fb.array([])
     });
+
+    this.country$ = this.countryService.getAllCached();
+    this.filteredCountries$ = combineLatest([
+      this.country$, // your existing observable of countries
+      this.searchControl.valueChanges.pipe(startWith(''))
+    ]).pipe(
+      map(([countries, search]) =>
+        countries.filter(c =>
+          c.countryName?.toLowerCase().includes((search ?? '').toLowerCase())
+        )
+      )
+    );
   }
 
   createAddressGroup(): FormGroup {
     return this.fb.group({
-      address: [''],
-      country: [''],
-      city: [''],
-      isPrimary: [false]
+      addressLine1: ['', [Validators.required]],
+      addressLine2: [''],
+      addressLine3: [''],
+      pOBoxNumber: [''],
+      pOBoxCountry: ['', [Validators.required]],
+      pOBoxCity: [''],
+      addressPrimary: [false]
     });
   }
-  get addresses(): FormArray {
+  get addressesFormArray(): FormArray {
     return this.contactForm.get('addresses') as FormArray;
   }
 
   addAddress() {
-    this.addresses.push(this.createAddressGroup());
+    this.addressesFormArray.push(this.createAddressGroup());
 
   }
 
   removeAddress(index: number): void {
-  if (this.addresses.length > 1) {
-    this.addresses.removeAt(index);
+    if (this.addressesFormArray.length > 1) {
+      this.addressesFormArray.removeAt(index);
 
-    // If the removed contact was primary, reset primary to first one
-    if (this.primaryIndex === index) {
-      this.setPrimary(0);
-    } else if (this.primaryIndex > index) {
-      this.primaryIndex--; // adjust index due to shift
+      // If the removed contact was primary, reset primary to first one
+      if (this.primaryIndex === index) {
+        this.setPrimary(0);
+      } else if (this.primaryIndex > index) {
+        this.primaryIndex--; // adjust index due to shift
+      }
     }
   }
-}
-onSave(){
-  
-}
+  onSave() {
+
+  }
 }

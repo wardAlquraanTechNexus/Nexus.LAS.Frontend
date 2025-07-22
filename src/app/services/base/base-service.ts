@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { PaginateRsult } from '../../models/paginate-result';
 
 
@@ -10,6 +10,8 @@ import { PaginateRsult } from '../../models/paginate-result';
 })
 export class BaseService<T> {
   url!: string;
+  private cache = new Map<string, T[]>();
+
   constructor(protected httpClient: HttpClient) {
   }
 
@@ -18,6 +20,18 @@ export class BaseService<T> {
 
   }
 
+  getAllCached(paramsObj?: { [param: string]: any }){
+    const key = this.buildCacheKey(paramsObj);
+    if (this.cache.has(key)) {
+      return of(this.cache.get(key)!);
+    }
+    
+    let httpParams = this.httpParams(paramsObj);
+      return this.httpClient.get<T[]>(this.url + "/GetAllByQuery", { params: httpParams }).pipe(
+      tap(data => this.cache.set(key, data))
+    );
+
+  }
   getByParams(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<T>> {
     let params = new HttpParams();
     if (paramsObj) {
@@ -63,12 +77,23 @@ export class BaseService<T> {
 
   httpParams(obj: any) {
     let params = new HttpParams();
-    Object.keys(obj).forEach(key => {
-      const value = obj[key];
-      if (value !== null && value !== undefined) {
-        params = params.set(key, value);
-      }
-    });
+    if(obj){
+      Object.keys(obj).forEach(key => {
+        const value = obj[key];
+        if (value !== null && value !== undefined) {
+          params = params.set(key, value);
+        }
+      });
+
+    }
     return params;
   }
+
+private buildCacheKey(paramsObj?: { [param: string]: any }): string {
+  return Object.entries(paramsObj ?? {}) // use empty object if null/undefined
+    .filter(([_, value]) => value !== null && value !== undefined)
+    .sort()
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+}
 }

@@ -8,6 +8,7 @@ import { GetAllPersonQuery } from '../models/persons/get-all-person-query';
 import { PaginateRsult } from '../models/paginate-result';
 import { GetAllPersonDTO } from '../models/persons/get-all-person-dto';
 import { GetAllActivePersonQuery } from '../models/persons/get-all-active-person-query';
+import { UpdatePersonCommand } from '../models/persons/update-person';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ export class PersonService extends BaseService<Person> {
 
   createPerson(createPersonCommand:CreatePersonCommand):Observable<number>{
     return this.httpClient.post<number>(this.url + "/CreatePerson", createPersonCommand);
+  }
+  updatePerson(createPersonCommand:UpdatePersonCommand):Observable<Person>{
+    return this.httpClient.put<Person>(this.url + "/UpdatePerson", createPersonCommand);
   }
 
   getAllPerson(getAllPersonQuery:GetAllPersonQuery):Observable<PaginateRsult<GetAllPersonDTO>>{

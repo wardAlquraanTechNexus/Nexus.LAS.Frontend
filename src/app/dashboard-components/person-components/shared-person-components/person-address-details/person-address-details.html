@@ -3,28 +3,65 @@
         <h6>Address</h6>
 
         <div formArrayName="addresses">
-            <div class="row mb-3" *ngFor="let addressGroup of addresses.controls; let i = index" [formGroupName]="i">
-                <div class="col-12">
+            <div class="row mb-3" *ngFor="let addressGroup of addressesFormArray.controls; let i = index"
+                [formGroupName]="i">
+                <div class="col-3">
                     <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Address</mat-label>
-                        <input matInput placeholder="Address" formControlName="address" />
+                        <mat-label>Address Line 1</mat-label>
+                        <input matInput placeholder="Address" formControlName="addressLine1" />
+                        <mat-error *ngIf="addressGroup.get('addressLine1')?.hasError('required')">
+                            Address line 1 is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Address Line 2</mat-label>
+                        <input matInput placeholder="Address" formControlName="addressLine2" />
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Address Line 3</mat-label>
+                        <input matInput placeholder="Address" formControlName="addressLine2" />
+                    </mat-form-field>
+                </div>
+                <div class="col-3">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>PO Box Number</mat-label>
+                        <input matInput placeholder="Address" formControlName="pOBoxNumber" />
                     </mat-form-field>
                 </div>
                 <div class="col-3">
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>City</mat-label>
-                        <mat-select formControlName="city">
+                        <mat-select formControlName="pOBoxCity">
                             <mat-option [value]="1">Dubay</mat-option>
                             <mat-option [value]="2">Abudhabi</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="addressGroup.get('pOBoxCity')?.hasError('required')">
+                            City is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-3">
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>Country</mat-label>
-                        <mat-select formControlName="country">
-                            <mat-option [value]="1">United Arab Emirates</mat-option>
+                        <mat-select formControlName="pOBoxCountry">
+                            <mat-option>
+                                <input matInput [formControl]="searchControl" placeholder="Search country"
+                                    (click)="$event.stopPropagation()" 
+                                />
+                            </mat-option>
+
+                            <mat-option *ngFor="let country of filteredCountries$ | async"
+                                [value]="country.countryName">
+                                {{ country.countryName }}
+                            </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="addressGroup.get('pOBoxCountry')?.hasError('required')">
+                            Country is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-3 d-flex align-items-center">
@@ -48,9 +85,9 @@
         </a>
     </div>
 </form>
-<div *ngIf="addresses.controls.length>0" class="container m-4 d-flex justify-content-end">
-  <button class="btn btn-primary" (click)="onSave()">
-    <mat-icon>save</mat-icon>
-    Save Address Details
-  </button>
+<div *ngIf="addressesFormArray.controls.length>0" class="container m-4 d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="onSave()">
+        <mat-icon>save</mat-icon>
+        Save Address Details
+    </button>
 </div>
