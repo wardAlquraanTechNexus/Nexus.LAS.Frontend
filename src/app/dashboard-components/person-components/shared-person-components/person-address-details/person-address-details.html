@@ -1,20 +1,25 @@
-<form [formGroup]="contactForm">
-    <div class="container">
-        <h6>Address</h6>
+<div class="position-relative">
 
-        <div formArrayName="addresses">
-            <div class="row mb-3" *ngFor="let addressGroup of addressesFormArray.controls; let i = index"
-                [formGroupName]="i">
-                <div class="col-3">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Address Line 1</mat-label>
-                        <input matInput placeholder="Address" formControlName="addressLine1" />
-                        <mat-error *ngIf="addressGroup.get('addressLine1')?.hasError('required')">
-                            Address line 1 is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-3">
+    <div *ngIf="showLoading" class="spinner-overlay">
+        <mat-spinner diameter="50"></mat-spinner>
+    </div>
+    <form [formGroup]="contactForm">
+        <div class="container">
+            <h5 class="mt-4">Address</h5>
+
+            <div formArrayName="addresses">
+                <div class="row mb-3" *ngFor="let addressGroup of addressesFormArray.controls; let i = index"
+                    [formGroupName]="i">
+                    <div class="col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Address Line 1</mat-label>
+                            <input matInput placeholder="Address" formControlName="addressLine1" />
+                            <mat-error *ngIf="addressGroup.get('addressLine1')?.hasError('required')">
+                                Address line 1 is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-3">
                     <mat-form-field class="w-100" appearance="outline">
                         <mat-label>Address Line 2</mat-label>
                         <input matInput placeholder="Address" formControlName="addressLine2" />
@@ -31,63 +36,61 @@
                         <mat-label>PO Box Number</mat-label>
                         <input matInput placeholder="Address" formControlName="pOBoxNumber" />
                     </mat-form-field>
-                </div>
-                <div class="col-3">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>City</mat-label>
-                        <mat-select formControlName="pOBoxCity">
-                            <mat-option [value]="1">Dubay</mat-option>
-                            <mat-option [value]="2">Abudhabi</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="addressGroup.get('pOBoxCity')?.hasError('required')">
-                            City is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-3">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Country</mat-label>
-                        <mat-select formControlName="pOBoxCountry">
-                            <mat-option>
-                                <input matInput [formControl]="searchControl" placeholder="Search country"
-                                    (click)="$event.stopPropagation()" 
-                                />
-                            </mat-option>
+                </div> -->
+                    <div class="col-3">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="City" formControlName="pOBoxCity" />
 
-                            <mat-option *ngFor="let country of filteredCountries$ | async"
-                                [value]="country.countryName">
-                                {{ country.countryName }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="addressGroup.get('pOBoxCountry')?.hasError('required')">
-                            Country is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <mat-radio-group [value]="primaryIndex" (change)="setPrimary(i)">
-                        <mat-radio-button [value]="i">Primary</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <a (click)="removeAddress(i)" class="link-style">
-                        <mat-icon>delete</mat-icon>
-                        Remove
-                    </a>
-                </div>
+                            <mat-error *ngIf="addressGroup.get('pOBoxCity')?.hasError('required')">
+                                City is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select formControlName="pOBoxCountry">
+                                <mat-option>
+                                    <input matInput [formControl]="searchControl" placeholder="Search country"
+                                        (click)="$event.stopPropagation()" />
+                                </mat-option>
 
+                                <mat-option *ngFor="let country of filteredCountries$ | async"
+                                    [value]="country.countryName">
+                                    {{ country.countryName }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addressGroup.get('pOBoxCountry')?.hasError('required')">
+                                Country is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <mat-radio-group [value]="primaryIndex" (change)="setPrimary(i)">
+                            <mat-radio-button [value]="i">Primary</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <a [confirmDelete]="getRemoveCallback(i)" class="link-style">
+                            <mat-icon>delete</mat-icon>
+                            Remove
+                        </a>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
-        <a (click)="addAddress()" class="link-style">
-            <mat-icon>add</mat-icon>
-            Add Address
-        </a>
+            <a (click)="addAddress()" class="link-style">
+                <mat-icon>add</mat-icon>
+                Add Address
+            </a>
+        </div>
+    </form>
+    <div *ngIf="addressesFormArray.controls.length>0" class="container m-4 d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="onSave()">
+            <mat-icon>save</mat-icon>
+            Save Address Details
+        </button>
     </div>
-</form>
-<div *ngIf="addressesFormArray.controls.length>0" class="container m-4 d-flex justify-content-end">
-    <button class="btn btn-primary" (click)="onSave()">
-        <mat-icon>save</mat-icon>
-        Save Address Details
-    </button>
 </div>

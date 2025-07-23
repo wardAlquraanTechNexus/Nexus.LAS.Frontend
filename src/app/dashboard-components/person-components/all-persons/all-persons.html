@@ -54,9 +54,40 @@
       <button class="btn btn-primary" (click)="search()">Search</button>
     </div>
   </div>
-  <app-shared-table *ngIf="!showLoading" 
-    [displayedColumns]="displayColumns" 
-    [paginateResult]="allPersons"
-    (onChangePage)="changePage($event)"
-    (rowClick)="onRowClick($event)"
-    ></app-shared-table>
+  <app-shared-table 
+  *ngIf="!showLoading" 
+  [displayedColumns]="displayColumns" 
+  [paginateResult]="allPersons"
+  (onChangePage)="changePage($event)" 
+  (rowClick)="onRowClick($event)"
+  [action]="actionButtonsTemplate"
+  (onSortChangeEvent)="changeSort($event)"
+  [sortDir]="sort"
+  ></app-shared-table>
+
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="menuRow">
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+
+  <mat-menu #menuRow="matMenu">
+    <button mat-menu-item (click)="activate(row)">
+      <span>Activate</span>
+    </button>
+    <button mat-menu-item (click)="deactivate(row)">
+      <span>Inactivate</span>
+    </button>
+    <button mat-menu-item (click)="markPublic(row)">
+      <span>Mark Public</span>
+    </button>
+    <button mat-menu-item (click)="markPrivate(row)">
+      <span>Mark Private</span>
+    </button>
+    <button mat-menu-item>
+      <span>Print</span>
+    </button>
+    <button mat-menu-item (click)="deletePerson(row)">
+      <span>Delete</span>
+    </button>
+  </mat-menu>
+</ng-template>

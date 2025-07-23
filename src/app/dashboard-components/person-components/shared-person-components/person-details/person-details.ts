@@ -54,7 +54,10 @@ export class PersonDetails implements OnInit {
       firstNameAr: [firstNameAr, [Validators.required, this.noWhitespaceValidator]],
       middleNameAr: [middleNameAr,this.noWhitespaceValidator],
       lastNameAr: [lastNameAr, [Validators.required, this.noWhitespaceValidator]],
-      shortName: [this.person?.personShortName, [Validators.required, this.noWhitespaceValidator]]
+      shortName: [this.person?.personShortName, [Validators.required, this.noWhitespaceValidator]],
+      personStatus:[this.person?.personStatus],
+      private:[this.person?.private],
+
     });
   }
 

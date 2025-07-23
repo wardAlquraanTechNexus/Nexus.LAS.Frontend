@@ -1,6 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DisplayColumn } from '../../../models/columns/display-column';
 import { PaginateRsult } from '../../../models/paginate-result';
@@ -16,13 +16,16 @@ export class SharedTable implements AfterViewInit {
   @ViewChild(MatSort) sort = {} as MatSort;
   @ViewChild(MatPaginator) paginator = {} as MatPaginator;
 
-
+  @Input() sortDir: "asc" | "desc" = "asc";
   @Input() displayedColumns: DisplayColumn[] = [];
 
   @Input() paginateResult!: PaginateRsult<any>;
 
   @Output() onChangePage = new EventEmitter<BaseParam>;
-  @Output() rowClick = new EventEmitter<any>()
+  @Output() rowClick = new EventEmitter<any>();
+  @Output() onSortChangeEvent = new EventEmitter<Sort>();
+
+  @Input() action!: TemplateRef<any>;
 
 
   dataSource!: MatTableDataSource<any, MatPaginator>
@@ -30,6 +33,8 @@ export class SharedTable implements AfterViewInit {
   constructor(private cdRef: ChangeDetectorRef) {
 
   }
+
+  
   ngAfterViewInit() {
     this.dataSource = new MatTableDataSource(this.paginateResult.collection);
     this.dataSource.sort = this.sort;
@@ -44,11 +49,18 @@ export class SharedTable implements AfterViewInit {
     });
   }
 
-  onRowClick(element:any){
+  onRowClick(element: any) {
     this.rowClick.emit(element);
   }
 
-  getCellStyle(displayColumn: DisplayColumn, value: string) {
+  
+lastSortColumn: string | null = null;
+
+onSortChange(sortState: Sort) {
+    // this.onSortChangeEvent.emit(sortState);
+}
+
+  getCellStyle(displayColumn: DisplayColumn, value: any) {
     let borderColor = 'white';
     let color = 'black';
 
@@ -56,10 +68,10 @@ export class SharedTable implements AfterViewInit {
       case 'personstatus':
         borderColor = '#9E77ED';
         color = '#9E77ED';
-        if (value === '1') {
+        if (value === 1) {
           borderColor = '#22C993';
           color = '#22C993';
-        } else if (value === '2') {
+        } else if (value === 2) {
           borderColor = '#423e3ede';
           color = '#423e3ede';
         }
@@ -93,6 +105,7 @@ export class SharedTable implements AfterViewInit {
         return {};
     }
   }
+
 
 
 

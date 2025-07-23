@@ -9,6 +9,11 @@ import { BaseParam } from '../../../models/base/base-param';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environment/environment';
+import { UpdatePersonCommand } from '../../../models/persons/update-person';
+import { PersonStatus } from '../../../enums/person-status';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-all-persons',
@@ -39,40 +44,56 @@ export class AllPersons implements OnInit {
   }
   personForm!: FormGroup;
 
-
+  sort:"asc" | "desc" = "asc";
   displayColumns: DisplayColumn[] = [
     {
       key: "personCode",
-      label: "Code"
+      label: "Code",
+      sort: true
     },
     {
       key: "personEnglishName",
-      label: "Name En"
+      label: "Name En",
+      sort: true
     },
     {
       key: "personArabicName",
-      label: "Name Ar"
+      label: "Name Ar",
+      sort: true
     },
     {
       key: "personShortName",
-      label: "Short name"
+      label: "Short name",
+      sort: true
     },
     {
       key: "personStatus",
       label: "Status",
-      pipe: "personStatus"
+      pipe: "personStatus",
+      sort: true
+    },
+    {
+      key: "fpcCode",
+      label: "FPC Code"
     },
     {
       key: "private",
       label: "Private",
-      pipe: 'privatePerson'
+      pipe: 'privatePerson',
+      sort: true
     },
+    {
+      key: "action",
+      label: "Action",
+      sort: true
+    }
   ]
   constructor(
-    private personService: PersonService, 
-    private cdr: ChangeDetectorRef, 
+    private personService: PersonService,
+    private cdr: ChangeDetectorRef,
     private fb: FormBuilder,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {
 
   }
@@ -104,6 +125,12 @@ export class AllPersons implements OnInit {
     })
   }
 
+changeSort(sortState: Sort){
+  this.getAllPersonParams.orderBy = sortState.active;
+  this.getAllPersonParams.orderDir = sortState.direction;
+  this.getAllPerson();
+}
+
   changePage(pageEvent: BaseParam) {
     this.getAllPersonParams.page = pageEvent.page;
     this.getAllPersonParams.pageSize = pageEvent.pageSize;
@@ -117,9 +144,116 @@ export class AllPersons implements OnInit {
     this.getAllPerson();
   }
 
-  onRowClick(person:any){
-       this.router.navigate([environment.routes.EditPerson], {
-              queryParams: { id: person.id }
-            });
+  onRowClick(person: any) {
+    this.router.navigate([environment.routes.EditPerson], {
+      queryParams: { id: person.id }
+    });
+  }
+
+
+  activate(person: GetAllPersonDTO) {
+    const command = this.initUpdatePerson(person);
+    command.personStatus = PersonStatus.Active;
+    this.updatePerson(command);
+  }
+  deactivate(person: GetAllPersonDTO) {
+    const command = this.initUpdatePerson(person);
+    command.personStatus = PersonStatus.Inactive;
+    this.updatePerson(command);
+  }
+  markPublic(person: GetAllPersonDTO) {
+    const command = this.initUpdatePerson(person);
+    command.private = false;
+    this.updatePerson(command);
+  }
+  markPrivate(person: GetAllPersonDTO) {
+    const command = this.initUpdatePerson(person);
+    command.private = true;
+    this.updatePerson(command);
+  }
+
+  deletePerson(person: GetAllPersonDTO) {
+    this.showLoading = true;
+    this.personService.delete(person.id!).subscribe({
+      next: (res) => {
+        this.showLoading = false;
+        this.allPersons.collection = this.allPersons.collection.filter(p => p.id !== person.id);
+
+        this.snackBar.openFromComponent(SuccessSnackbar,
+          {
+            data: "Deleted Successfully",
+            duration: 4000
+          }
+        )
+        this.cdr.detectChanges();
+      },
+      error: (err => {
+        this.showLoading = false;
+        this.cdr.detectChanges();
+      })
+    })
+  }
+
+  updatePerson(command: UpdatePersonCommand) {
+    this.showLoading = true;
+    this.personService.updatePerson(command).subscribe({
+      next: (res => {
+        this.showLoading = false;
+        let updatedPerson: GetAllPersonDTO | null = this.allPersons.collection.find(p => p.id === command.id) ?? null;
+        if (updatedPerson) {
+          Object.assign(updatedPerson, res);
+        }
+        this.cdr.detectChanges();
+        this.snackBar.openFromComponent(SuccessSnackbar,
+          {
+            data: "Updated Successfully",
+            duration: 4000
+          }
+        )
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.detectChanges();
+      })
+    })
+  }
+
+  initUpdatePerson(person: GetAllPersonDTO): UpdatePersonCommand {
+    let firstNameEn: string = "";
+    let middleNameEn: string = "";
+    let lastNameEn: string = "";
+    let firstNameAr: string = "";
+    let middleNameAr: string = "";
+    let lastNameAr: string = "";
+
+    if (person?.personEnglishName) {
+      const parts = person.personEnglishName.trim().split(/\s+/);
+      if (parts.length === 2) {
+        [firstNameEn, lastNameEn] = parts;
+      } else if (parts.length >= 3) {
+        [firstNameEn, middleNameEn, lastNameEn] = parts;
+      }
+    }
+
+    if (person?.personArabicName) {
+      const parts = person.personArabicName.trim().split(/\s+/);
+      if (parts.length === 2) {
+        [firstNameAr, lastNameAr] = parts;
+      } else if (parts.length >= 3) {
+        [firstNameAr, middleNameAr, lastNameAr] = parts;
+      }
+    }
+
+    return {
+      firstNameEn: firstNameEn,
+      middleNameEn: middleNameEn,
+      lastNameEn: lastNameEn,
+      firstNameAr: firstNameAr,
+      middleNameAr: middleNameAr,
+      lastNameAr: lastNameAr,
+      shortName: person.personShortName ?? "",
+      personStatus: person.personStatus ?? PersonStatus.New,
+      private: person.private ?? true,
+      id: person.id ?? 0
+    }
   }
 }

@@ -11,11 +11,11 @@ export class TableDataPipePipe implements PipeTransform {
     switch (columnName.toLowerCase()) {
       case 'personstatus':
           switch (value) {
-            case "0":
+            case 0:
               return 'New';
-            case "1":
+            case 1:
               return 'Active';
-            case "2":
+            case 2:
               return 'Inactive';
               default:
                 return value;

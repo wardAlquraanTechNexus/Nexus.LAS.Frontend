@@ -6,7 +6,7 @@
 
     <form [formGroup]="contactForm">
         <div class="container">
-            <h6>Email</h6>
+            <h5 class="mt-4">Email</h5>
 
             <div formArrayName="emailAddresses">
                 <div class="row mb-3" *ngFor="let emailGroup of emailAddresses.controls; let i = index"

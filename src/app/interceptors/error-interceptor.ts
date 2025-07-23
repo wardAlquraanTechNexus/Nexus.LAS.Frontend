@@ -20,6 +20,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             } else if (error.status === 0) {
                 message = 'Network error. Please check your connection.';
             }else if(error.status == 401){
+                message = 'Unauthorization.';
                 router.navigateByUrl("auth");
             }
              else if (error.status >= 400 && error.status < 500) {

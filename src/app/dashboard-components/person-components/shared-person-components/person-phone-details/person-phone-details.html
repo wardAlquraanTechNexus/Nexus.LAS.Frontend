@@ -5,7 +5,7 @@
     </div>
     <form [formGroup]="contactForm">
         <div class="container">
-            <h6>Phone</h6>
+            <h5 class="mt-4">Phone</h5>
 
             <div formArrayName="phones">
                 <div class="row mb-3" *ngFor="let phoneGroup of phonesGroupArray.controls; let i = index"

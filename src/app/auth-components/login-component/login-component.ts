@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
           error: (err) => {
             this.snackBar.openFromComponent(ErrorSnackbar, {
               duration: 4000,
-              data: err
+              data: err.Title
             });
 
             this.isSaving = false

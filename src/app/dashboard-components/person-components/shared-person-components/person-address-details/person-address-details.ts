@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { CountryService } from '../../../../services/country-service';
 import { combineLatest, map, Observable, startWith } from 'rxjs';
 import { Country } from '../../../../models/country/country';
+import { PersonAddressService } from '../../../../services/person-address-service';
+import { ActivatedRoute } from '@angular/router';
+import { PersonAddress } from '../../../../models/person-address/person-address';
 
 @Component({
   selector: 'app-person-address-details',
@@ -18,9 +21,14 @@ export class PersonAddressDetails implements OnInit {
   country$!: Observable<Country[]>;
   searchControl = new FormControl('');
   filteredCountries$!: Observable<Country[]>;
+  personAddresses: PersonAddress[] = [];
+  personId = 0;
   constructor(
     private fb: FormBuilder,
-    private countryService: CountryService
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private countryService: CountryService,
+    private personAddressService: PersonAddressService
   ) { }
 
   setPrimary(index: number): void {
@@ -35,6 +43,8 @@ export class PersonAddressDetails implements OnInit {
       addresses: this.fb.array([])
     });
 
+
+
     this.country$ = this.countryService.getAllCached();
     this.filteredCountries$ = combineLatest([
       this.country$, // your existing observable of countries
@@ -46,17 +56,64 @@ export class PersonAddressDetails implements OnInit {
         )
       )
     );
+    this.showLoading = true;
+    let personId = this.route.snapshot.queryParamMap.get('id');
+    if (personId) {
+      this.personId = parseInt(personId);
+      this.personAddressService.getAllByParams({ "personsIdn": this.personId }).subscribe(
+        {
+          next: (res => {
+            this.showLoading = false;
+            this.personAddresses = res;
+            this.initFromArray(this.personAddresses);
+            this.cdr.detectChanges();
+          }),
+          error: (err => {
+            this.showLoading = false;
+            this.cdr.detectChanges();
+          })
+        }
+      )
+
+
+    }
+
   }
 
-  createAddressGroup(): FormGroup {
+  initFromArray(personAddresses: PersonAddress[]) {
+    this.addressesFormArray.clear();
+
+    // Ensure only one email has emailPrimary = true
+    let foundPrimary = false;
+    personAddresses.forEach((personAddress, index) => {
+      const isPrimary = personAddress.addressPrimary && !foundPrimary;
+      if (isPrimary) {
+        foundPrimary = true;
+        this.primaryIndex = index;
+      }
+      this.addressesFormArray.push(this.createAddressGroup({ ...personAddress }));
+    });
+
+    // If none is marked as primary, make the first one primary
+    if (!foundPrimary && this.personAddresses.length > 0) {
+      this.setPrimary(0);
+    }
+  }
+
+  createAddressGroup(personAddress?: PersonAddress): FormGroup {
     return this.fb.group({
-      addressLine1: ['', [Validators.required]],
-      addressLine2: [''],
-      addressLine3: [''],
-      pOBoxNumber: [''],
-      pOBoxCountry: ['', [Validators.required]],
-      pOBoxCity: [''],
-      addressPrimary: [false]
+      id:[personAddress?.id],
+      addressLine1: [personAddress?.addressLine1, [Validators.required]],
+      // addressLine2: [''],
+      // addressLine3: [''],
+      // pOBoxNumber: [''],
+      pOBoxCountry: [personAddress?.poBoxCountry, [Validators.required]],
+      pOBoxCity: [personAddress?.poBoxCity, [Validators.required]],
+      addressPrimary: [personAddress?.addressPrimary ?? false],
+      createdBy: [personAddress?.createdBy],
+      creationDate: [personAddress?.creationDate],
+      modefiedBy: [personAddress?.modefiedBy],
+      modificationDate: [personAddress?.modificationDate],
     });
   }
   get addressesFormArray(): FormArray {
@@ -68,19 +125,76 @@ export class PersonAddressDetails implements OnInit {
 
   }
 
+  getRemoveCallback(index: number): () => void {
+    return () => this.removeAddress(index);
+  }
+
   removeAddress(index: number): void {
-    if (this.addressesFormArray.length > 1) {
+    this.showLoading = true;
+
+    const formGroup = this.addressesFormArray.at(index);
+
+    let id = formGroup.get("id")?.value;
+    let isPrimary = formGroup.get("addressPrimary")?.value;
+    if (!id) {
       this.addressesFormArray.removeAt(index);
-
-      // If the removed contact was primary, reset primary to first one
-      if (this.primaryIndex === index) {
+      this.showLoading = false;
+      this.cdr.detectChanges();
+      if (isPrimary) {
         this.setPrimary(0);
-      } else if (this.primaryIndex > index) {
-        this.primaryIndex--; // adjust index due to shift
       }
-    }
-  }
-  onSave() {
 
+    } else {
+      this.personAddressService.delete(id).subscribe({
+        next: (res => {
+          this.addressesFormArray.removeAt(index);
+          this.showLoading = false;
+          if (isPrimary) {
+            this.setPrimary(0);
+          }
+          this.cdr.detectChanges();
+        }),
+        error: (err => {
+          this.addressesFormArray.removeAt(index);
+          this.showLoading = false;
+        })
+      })
+    }
+
+    return;
   }
+
+  onSave() {
+      if (this.contactForm.invalid) {
+        this.contactForm.markAllAsTouched();
+        return;
+      }
+      const personAddresses: PersonAddress[] = this.addressesFormArray.controls.map(control => ({
+        id: control.get('id')?.value,
+        addressLine1: control.get('addressLine1')?.value,
+        pOBoxCountry: control.get('pOBoxCountry')?.value,
+        pOBoxCity: control.get('pOBoxCity')?.value,
+        addressPrimary: control.get('addressPrimary')?.value,
+        createdBy: control.get('createdBy')?.value,
+        creationDate: control.get('creationDate')?.value,
+        modefiedBy: control.get('modefiedBy')?.value,
+        modificationDate: control.get('modificationDate')?.value,
+        personsIdn: this.personId
+      }));
+  
+      this.showLoading = true;
+      this.personAddressService.bulkUpsert(personAddresses).subscribe({
+        next: (res => {
+          this.initFromArray(res);
+          this.personAddresses = res;
+          this.showLoading = false;
+          this.cdr.detectChanges();
+        }),
+        error: (err => {
+          this.showLoading = false;
+          this.cdr.detectChanges();
+  
+        })
+      })
+    }
 }

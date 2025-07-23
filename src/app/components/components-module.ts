@@ -26,6 +26,7 @@ import { SharedTable } from '../dashboard-components/shared-components/shared-ta
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from './confirm-delete-component/confirm-delete-component';
 import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
@@ -62,7 +63,8 @@ import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
     MatRadioButton,
     MatButtonToggleModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule
   ],
   exports: [
     CommonModule,
@@ -92,7 +94,8 @@ import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
     SharedTable,
     MatDialogModule,
     ConfirmDeleteComponent,
-    ConfirmDeleteDirective
+    ConfirmDeleteDirective,
+    MatSortModule
 
   ]
 })

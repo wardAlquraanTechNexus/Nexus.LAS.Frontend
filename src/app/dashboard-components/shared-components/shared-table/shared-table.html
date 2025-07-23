@@ -1,28 +1,54 @@
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </th>
 
-      <td mat-cell *matCellDef="let element" (click)="onRowClick(element)">
-        <ng-container *ngIf="column.pipe; else noPipe">
-          <span [ngStyle]="getCellStyle(column, element[column.key])">
-            {{ element[column.key] | tableDataPipe: column.pipe }}
-          </span> </ng-container>
-        <ng-template #noPipe>
-          {{ element[column.key] }}
+      <ng-container *ngIf="column.sort; else noSort">
+        <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key">
+          {{ column.label }}
+        </th>
+      </ng-container>
+      
+      <ng-template #noSort>
+        <th mat-header-cell *matHeaderCellDef>
+          {{ column.label }}
+        </th>
+      </ng-template>
+
+      <td mat-cell *matCellDef="let element">
+        <!-- Action cell (do not trigger row click) -->
+        <ng-container *ngIf="column.key === 'action'; else defaultCell">
+          <ng-container *ngTemplateOutlet="action; context: { $implicit: element }"></ng-container>
+        </ng-container>
+
+        <!-- Default cell (row click applies here only) -->
+        <ng-template #defaultCell>
+          <div (click)="onRowClick(element)">
+            <ng-container *ngIf="column.pipe; else noPipe">
+              <span [ngStyle]="getCellStyle(column, element[column.key])">
+                {{ element[column.key] | tableDataPipe: column.pipe }}
+              </span>
+            </ng-container>
+            <ng-template #noPipe>
+              {{ element[column.key] }}
+            </ng-template>
+          </div>
         </ng-template>
       </td>
+
     </ng-container>
-
-
 
     <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index"
-      [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0, 'hoverable-row': true }">
+        [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0, 'hoverable-row': true }">
     </tr>
-
   </table>
-  <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
-    [length]="paginateResult.totalRecords" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+
+  <mat-paginator
+    (page)="onPageChange($event)"
+    [pageIndex]="paginateResult.page"
+    [pageSize]="paginateResult.pageSize"
+    [length]="paginateResult.totalRecords"
+    [pageSizeOptions]="[10, 25, 50]"
+    showFirstLastButtons>
   </mat-paginator>
 </div>

@@ -20,11 +20,11 @@ export class PersonService extends BaseService<Person> {
   }
 
 
-  createPerson(createPersonCommand:CreatePersonCommand):Observable<number>{
-    return this.httpClient.post<number>(this.url + "/CreatePerson", createPersonCommand);
+  createPerson(command:CreatePersonCommand):Observable<number>{
+    return this.httpClient.post<number>(this.url + "/CreatePerson", command);
   }
-  updatePerson(createPersonCommand:UpdatePersonCommand):Observable<Person>{
-    return this.httpClient.put<Person>(this.url + "/UpdatePerson", createPersonCommand);
+  updatePerson(command:UpdatePersonCommand):Observable<GetAllPersonDTO>{
+    return this.httpClient.put<GetAllPersonDTO>(this.url + "/UpdatePerson", command);
   }
 
   getAllPerson(getAllPersonQuery:GetAllPersonQuery):Observable<PaginateRsult<GetAllPersonDTO>>{
