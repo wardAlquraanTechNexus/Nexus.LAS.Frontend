@@ -7,13 +7,15 @@ import { GetAllPersonQuery } from '../../../models/persons/get-all-person-query'
 import { EventEmitter } from 'stream';
 import { BaseParam } from '../../../models/base/base-param';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../environment/environment';
 import { UpdatePersonCommand } from '../../../models/persons/update-person';
 import { PersonStatus } from '../../../enums/person-status';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { Sort } from '@angular/material/sort';
+import { TableFormComponent } from '../../base-components/table-form-component/table-form-component';
+import { Person } from '../../../models/persons/person';
 
 @Component({
   selector: 'app-all-persons',
@@ -21,10 +23,9 @@ import { Sort } from '@angular/material/sort';
   templateUrl: './all-persons.html',
   styleUrl: './all-persons.scss'
 })
-export class AllPersons implements OnInit {
+export class AllPersons extends TableFormComponent<Person> implements OnInit {
 
-  showLoading = true;
-  allPersons!: PaginateRsult<GetAllPersonDTO>
+
   settingsMenuOpen = false;
   columns = {
     code: true,
@@ -34,7 +35,7 @@ export class AllPersons implements OnInit {
     private: true
   };
 
-  getAllPersonParams: GetAllPersonQuery = {
+  override params: GetAllPersonQuery = {
     searchBy: null,
     nationality: null,
     private: null,
@@ -42,10 +43,9 @@ export class AllPersons implements OnInit {
     page: 0,
     pageSize: 10
   }
-  personForm!: FormGroup;
 
-  sort:"asc" | "desc" = "asc";
-  displayColumns: DisplayColumn[] = [
+
+  override displayColumns: DisplayColumn[] = [
     {
       key: "personCode",
       label: "Code",
@@ -88,32 +88,29 @@ export class AllPersons implements OnInit {
       sort: true
     }
   ]
+  personService!: PersonService;;
   constructor(
-    private personService: PersonService,
-    private cdr: ChangeDetectorRef,
-    private fb: FormBuilder,
-    private router: Router,
-    private snackBar: MatSnackBar,
+     service: PersonService,
+    cdr: ChangeDetectorRef,
+    fb: FormBuilder,
+    router: Router,
+    snackBar: MatSnackBar,
+    route: ActivatedRoute
   ) {
-
+    super(service, cdr, fb, router, snackBar, route);
+    this.personService = service;
   }
 
-  ngOnInit(): void {
-    this.personForm = this.fb.group({
-      searchBy: [null],
-      nationality: [null],
-      private: [null],
-      status: [null]
-    });
-    this.getAllPerson();
+  override ngOnInit(): void {
+    super.ngOnInit();
   }
+  
 
-
-  getAllPerson() {
+  override fetchData() {
     this.showLoading = true;
-    this.personService.getAllPerson(this.getAllPersonParams).subscribe({
+    this.personService.getAllPerson(this.params).subscribe({
       next: (res => {
-        this.allPersons = res;
+        this.data = res;
         this.showLoading = false;
         this.cdr.detectChanges();
       }),
@@ -125,24 +122,10 @@ export class AllPersons implements OnInit {
     })
   }
 
-changeSort(sortState: Sort){
-  this.getAllPersonParams.orderBy = sortState.active;
-  this.getAllPersonParams.orderDir = sortState.direction;
-  this.getAllPerson();
-}
-
-  changePage(pageEvent: BaseParam) {
-    this.getAllPersonParams.page = pageEvent.page;
-    this.getAllPersonParams.pageSize = pageEvent.pageSize;
-    this.getAllPerson();
-  }
   toggleSettingsMenu(): void {
     this.settingsMenuOpen = !this.settingsMenuOpen;
   }
-  search() {
-    this.getAllPersonParams = { ...this.personForm.getRawValue() };
-    this.getAllPerson();
-  }
+  
 
   onRowClick(person: any) {
     this.router.navigate([environment.routes.EditPerson], {
@@ -174,10 +157,10 @@ changeSort(sortState: Sort){
 
   deletePerson(person: GetAllPersonDTO) {
     this.showLoading = true;
-    this.personService.delete(person.id!).subscribe({
+    this.service.delete(person.id!).subscribe({
       next: (res) => {
         this.showLoading = false;
-        this.allPersons.collection = this.allPersons.collection.filter(p => p.id !== person.id);
+        this.data.collection = this.data.collection.filter(p => p.id !== person.id);
 
         this.snackBar.openFromComponent(SuccessSnackbar,
           {
@@ -199,7 +182,7 @@ changeSort(sortState: Sort){
     this.personService.updatePerson(command).subscribe({
       next: (res => {
         this.showLoading = false;
-        let updatedPerson: GetAllPersonDTO | null = this.allPersons.collection.find(p => p.id === command.id) ?? null;
+        let updatedPerson: Person | null = this.data.collection.find(p => p.id === command.id) ?? null;
         if (updatedPerson) {
           Object.assign(updatedPerson, res);
         }

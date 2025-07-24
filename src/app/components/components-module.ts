@@ -27,6 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from './confirm-delete-component/confirm-delete-component';
 import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
 import { MatSortModule } from '@angular/material/sort';
+import { TableFormComponent } from '../dashboard-components/base-components/table-form-component/table-form-component';
 
 
 
@@ -39,7 +40,7 @@ import { MatSortModule } from '@angular/material/sort';
     TableDataPipePipe,
     SharedTable,
     ConfirmDeleteComponent,
-    ConfirmDeleteDirective
+    ConfirmDeleteDirective,
   ],
   imports: [
   CommonModule,
@@ -95,7 +96,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatDialogModule,
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
-    MatSortModule
+    MatSortModule,
+
 
   ]
 })

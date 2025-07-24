@@ -13,10 +13,9 @@ import { BaseParam } from '../../../models/base/base-param';
   styleUrl: './shared-table.scss'
 })
 export class SharedTable implements AfterViewInit {
-  @ViewChild(MatSort) sort = {} as MatSort;
-  @ViewChild(MatPaginator) paginator = {} as MatPaginator;
-
-  @Input() sortDir: "asc" | "desc" = "asc";
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   @Input() displayedColumns: DisplayColumn[] = [];
 
   @Input() paginateResult!: PaginateRsult<any>;
@@ -34,11 +33,11 @@ export class SharedTable implements AfterViewInit {
 
   }
 
-  
+
   ngAfterViewInit() {
     this.dataSource = new MatTableDataSource(this.paginateResult.collection);
-    this.dataSource.sort = this.sort;
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
+
     this.cdRef.detectChanges()
   }
 
@@ -53,12 +52,12 @@ export class SharedTable implements AfterViewInit {
     this.rowClick.emit(element);
   }
 
-  
-lastSortColumn: string | null = null;
 
-onSortChange(sortState: Sort) {
-    // this.onSortChangeEvent.emit(sortState);
-}
+  lastSortColumn: string | null = null;
+
+  onSortChange(sortState: Sort) {
+    this.onSortChangeEvent.emit(sortState);
+  }
 
   getCellStyle(displayColumn: DisplayColumn, value: any) {
     let borderColor = 'white';

@@ -1,4 +1,6 @@
 export interface BaseParam{
     page:number,
-    pageSize:number
+    pageSize:number,
+    orderBy?:string;
+    orderDir?:string;
 }
