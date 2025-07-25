@@ -1,0 +1,111 @@
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
+import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
+import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GetPersonIdDetailsParams } from '../../../../models/person-id-details/get-person-id-details-params';
+import { DisplayColumn } from '../../../../models/columns/display-column';
+import { Sort } from '@angular/material/sort';
+import { BaseParam } from '../../../../models/base/base-param';
+
+@Component({
+  selector: 'app-person-id-documents-table-form',
+  standalone:false,
+  templateUrl: './person-id-documents-table-form.html',
+  styleUrl: './person-id-documents-table-form.scss'
+})
+export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDetail> {
+
+  override params: GetPersonIdDetailsParams = {
+    type: null,
+    nationality: null,
+    page: 0,
+    pageSize: 10
+  }
+
+  override displayColumns: DisplayColumn[] = [
+    {
+      key: "type",
+      label: "Type",
+      keysPipes: [
+        {
+          key: "type",
+          pipe: 'persondocumenttype'
+        },
+        {
+          key: "isPrimary",
+          pipe: 'persondocumentprimary'
+        }
+      ]
+    },
+    {
+      key: "nationality",
+      label: "Nationality",
+    },
+    {
+      key: "placeOfIssue",
+      label: "Place of Issue",
+    },
+    {
+      key: "idNumber",
+      label: "Number",
+    },
+    {
+      key: "idIssueDate",
+      label: "Issue Date",
+      pipe: 'date',
+    },
+    {
+      key: "expiryDate",
+      label: "Expiry Date",
+      pipe: 'date',
+      sort: true
+    },
+    {
+      key: "activeReminder",
+      label: "Active Reminder",
+      inputType: 'mat-slide-toggle'
+    },
+    {
+      key: "action",
+      label: "Action",
+    }
+  ]
+  constructor(
+    protected override service: PersonIdDetailService,
+    protected override cdr: ChangeDetectorRef,
+    protected override fb: FormBuilder,
+    protected override router: Router,
+    protected override snackBar: MatSnackBar,
+    protected override route: ActivatedRoute
+  ) {
+    super(service, cdr, fb, router, snackBar, route);
+  }
+
+  override ngOnInit(): void {
+    this.fetchData();
+  }
+  override search() {
+    this.fetchData();
+  }
+
+  override changeSort(sortState: Sort) {
+    if (this.sortState.active == sortState.active) {
+      this.sortState.direction = this.sortState.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortState.active = sortState.active;
+      this.sortState.direction = sortState.direction;;
+    }
+    this.params.orderBy = this.sortState.active;
+    this.params.orderDir = this.sortState.direction;
+    this.fetchData();
+  }
+
+  override changePage(pageEvent: BaseParam) {
+    this.params.page = pageEvent.page;
+    this.params.pageSize = pageEvent.pageSize;
+    this.fetchData();
+  }
+}

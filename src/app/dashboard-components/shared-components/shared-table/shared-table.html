@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-<table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
 
       <ng-container *ngIf="column.sort; else noSort">
@@ -7,7 +7,7 @@
           {{ column.label }}
         </th>
       </ng-container>
-      
+
       <ng-template #noSort>
         <th mat-header-cell *matHeaderCellDef>
           {{ column.label }}
@@ -23,13 +23,36 @@
         <!-- Default cell (row click applies here only) -->
         <ng-template #defaultCell>
           <div (click)="onRowClick(element)">
-            <ng-container *ngIf="column.pipe; else noPipe">
-              <span [ngStyle]="getCellStyle(column, element[column.key])">
-                {{ element[column.key] | tableDataPipe: column.pipe }}
+            <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
+              <span [ngStyle]="getCellStyle(column, element[column.key], column.pipe)">
+                
+
+                
+                <span *ngIf="!column.inputType">{{ element[column.key] | tableDataPipe: column.pipe }}</span>
+                <span *ngIf="column.inputType">
+
+                  <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
+                    <mat-slide-toggle 
+                      [checked]="element[column.key] === true" [color]="'primary'">
+                      
+                    </mat-slide-toggle>
+                  </ng-container>
+
+                  <ng-template #defaultInput>
+                    <input [value]="element[column.key]" [type]="column.inputType" [readonly]="true"
+                      class="form-control" />
+                  </ng-template>
+                  
+                </span>
               </span>
             </ng-container>
-            <ng-template #noPipe>
-              {{ element[column.key] }}
+            <ng-template #multiKeyCell>
+              <span *ngFor="let keyPipe of column.keysPipes" [ngStyle]="getCellStyle(column, element[keyPipe.key] , keyPipe.pipe)">
+                <span>
+                  {{ element[keyPipe.key] | tableDataPipe: keyPipe.pipe }}
+                </span>
+
+              </span>
             </ng-template>
           </div>
         </ng-template>
@@ -39,16 +62,11 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index"
-        [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0, 'hoverable-row': true }">
+      [ngClass]="{ 'odd-row': i % 2 === 1, 'even-row': i % 2 === 0, 'hoverable-row': true }">
     </tr>
   </table>
 
-  <mat-paginator
-    (page)="onPageChange($event)"
-    [pageIndex]="paginateResult.page"
-    [pageSize]="paginateResult.pageSize"
-    [length]="paginateResult.totalRecords"
-    [pageSizeOptions]="[10, 25, 50]"
-    showFirstLastButtons>
+  <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
+    [length]="paginateResult.totalRecords" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
   </mat-paginator>
 </div>

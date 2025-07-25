@@ -4,12 +4,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Person } from '../../../../models/persons/person';
 
 @Component({
-  selector: 'app-person-details',
+  selector: 'app-person-details-form',
   standalone: false,
-  templateUrl: './person-details.html',
-  styleUrl: './person-details.scss'
+  templateUrl: './person-details-form.html',
+  styleUrl: './person-details-form.scss'
 })
-export class PersonDetails implements OnInit {
+export class PersonDetailsForm implements OnInit {
   @Input() person: Person | null = null;
   @Input() isSaving = false;
   personalDetailsForm!: FormGroup;

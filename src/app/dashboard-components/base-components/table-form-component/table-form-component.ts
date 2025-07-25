@@ -11,7 +11,6 @@ import { PaginateRsult } from '../../../models/paginate-result';
 @Injectable({ providedIn: 'root' })
 export class TableFormComponent<T> implements OnInit {
 
-  form!: FormGroup;
   sortState: Sort = { active: '', direction: 'asc' };
   displayColumns: DisplayColumn[] = [];
   showLoading = false;
@@ -36,17 +35,10 @@ export class TableFormComponent<T> implements OnInit {
     protected snackBar: MatSnackBar,
     protected route: ActivatedRoute
   ) {
-    this.form = this.fb.group({
-      searchBy: [null],
-      nationality: [null],
-      private: [null],
-      status: [null]
-    });
   }
 
   ngOnInit(): void {
     this.fillParamsFromQP();
-    this.fillFormGroup();
     this.fetchData();
   }
 
@@ -66,22 +58,11 @@ export class TableFormComponent<T> implements OnInit {
   }
 
 
-  fillFormGroup() {
-    const formGroupConfig: { [key: string]: any } = {};
-    Object.keys(this.params).forEach(key => {
-      formGroupConfig[key] = [this.params[key as keyof BaseParam]];
-    });
-
-    this.form = this.fb.group(formGroupConfig);
-
-    this.form.patchValue(this.params);
-  }
 
 
 
 
   search() {
-    this.params = { ...this.form.getRawValue() };
     this.navigateByParams();
   }
 

@@ -1,0 +1,19 @@
+.tabs-container{
+    margin: 10px 0;
+}
+
+
+button{
+    border: 1px solid #ccc;
+    border-radius: 0;   
+    height: 50px;
+}
+.tabs button{
+    width: 50%;
+    border-radius: 0;
+    padding: 10px;
+    color:  #00000042;
+}
+.tabs button.active{
+    color: #025EBA;
+}

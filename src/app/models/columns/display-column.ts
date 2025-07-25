@@ -1,6 +1,13 @@
 export interface DisplayColumn{
-    key:string,
+    key: string,
+    keysPipes?:keysPipes[],
     label:string,
     pipe?:string,
-    sort?:boolean
+    sort?:boolean,
+    inputType?:string,
+}
+
+export interface keysPipes{
+    key: string,
+    pipe?: string
 }

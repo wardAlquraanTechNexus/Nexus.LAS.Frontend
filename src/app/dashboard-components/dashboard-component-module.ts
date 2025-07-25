@@ -10,7 +10,10 @@ import { PersonAddressDetails } from './person-components/shared-person-componen
 import { PersonEmailDetails } from './person-components/shared-person-components/person-email-details/person-email-details';
 import { PersonPhoneDetails } from './person-components/shared-person-components/person-phone-details/person-phone-details';
 import { EditPerson } from './person-components/edit-person/edit-person';
-import { PersonDetails } from './person-components/shared-person-components/person-details/person-details';
+import { PersonDetailsForm } from './person-components/shared-person-components/person-details-form/person-details-form';
+import { PersonIdDocumentsTableForm } from './person-components/shared-person-documents-components/person-id-documents-table-form/person-Id-documents-table-form';
+import { PersonOtherDocumentsTableForm } from './person-components/shared-person-documents-components/person-other-documents-table-form/person-other-documents-table-form';
+import { PersonDocumentsGroup } from './person-components/shared-person-documents-components/person-documents-group/person-documents-group';
 
 
 @NgModule({
@@ -19,16 +22,18 @@ import { PersonDetails } from './person-components/shared-person-components/pers
     PersonAddressDetails,
     PersonEmailDetails,
     PersonPhoneDetails,
-    PersonDetails,
+    PersonDetailsForm,
     ActivePersons,
     AddPerson,
     EditPerson,
+    PersonDocumentsGroup,
+    PersonIdDocumentsTableForm,
+    PersonOtherDocumentsTableForm
   ],
   imports: [
     CommonModule,
     DashboardComponentRoutingModule,
-    ComponentsModule,
-
-  ]
+    ComponentsModule
+]
 })
 export class DashboardComponentModule { }

@@ -15,7 +15,7 @@ import { BaseParam } from '../../../models/base/base-param';
 export class SharedTable implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
+
   @Input() displayedColumns: DisplayColumn[] = [];
 
   @Input() paginateResult!: PaginateRsult<any>;
@@ -39,6 +39,7 @@ export class SharedTable implements AfterViewInit {
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
 
     this.cdRef.detectChanges()
+    console.log(this.dataSource);
   }
 
   onPageChange(event: PageEvent): void {
@@ -59,11 +60,15 @@ export class SharedTable implements AfterViewInit {
     this.onSortChangeEvent.emit(sortState);
   }
 
-  getCellStyle(displayColumn: DisplayColumn, value: any) {
+  getCellStyle(displayColumn: DisplayColumn, value: any, pipe:string | undefined) {
+    if(!pipe){
+      return {};
+    }
     let borderColor = 'white';
     let color = 'black';
+    
 
-    switch (displayColumn.pipe?.toLowerCase()) {
+    switch (pipe?.toLowerCase()) {
       case 'personstatus':
         borderColor = '#9E77ED';
         color = '#9E77ED';
@@ -99,6 +104,23 @@ export class SharedTable implements AfterViewInit {
           'padding': '10px'
 
         };
+      case 'persondocumentprimary':
+          borderColor = '#025EBA';
+          color = '#025EBA';
+          if (value.toString() === 'true') {
+            borderColor = '#025EBA';
+            color = '#025EBA';
+          } else {
+            borderColor = '#423e3ede';
+            color = '#423e3ede';
+          }
+          return {
+            'border': `2px solid ${borderColor}`,
+            'color': color,
+            'border-radius': '20px',
+            'padding': '10px'
+
+          };
 
       default:
         return {};

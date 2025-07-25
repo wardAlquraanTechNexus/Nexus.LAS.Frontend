@@ -97,7 +97,7 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
     MatSortModule,
-
+    TableDataPipePipe
 
   ]
 })
