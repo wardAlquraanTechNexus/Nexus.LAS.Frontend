@@ -1,0 +1,49 @@
+
+.dialog-content {
+  padding: 16px;
+}
+
+.upload-area {
+  border: 2px dashed #ccc;
+  padding: 24px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload-button {
+  display: inline-block;
+  cursor: pointer;
+
+  input[type="file"] {
+    display: none;
+  }
+
+}
+.upload-button a{
+    border: 0;
+    
+}
+
+.upload-area.dragover {
+  background: #f0f0f0;
+  border-color: #025eba;
+}
+
+.upload-area button {
+  margin-bottom: 8px;
+}
+
+.upload-area small {
+  color: #666;
+}
+
+.file-info {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-size: 14px;
+}

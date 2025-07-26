@@ -1,0 +1,30 @@
+<!-- Dialog Header -->
+<div class="dialog-header">
+    <span class="dialog-title">Upload New Document</span>
+    <button mat-icon-button (click)="close()" aria-label="Close">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div class="custom-tab-wrapper">
+    <div class="row tabs-container">
+        <div class="col-6 tabs">
+            <button mat-button [class.active]="selectedTab === 0" (click)="selectedTab = 0">
+                Id Documents
+            </button>
+            <button mat-button [class.active]="selectedTab === 1" (click)="selectedTab = 1">
+                Other Documents
+            </button>
+        </div>
+    </div>
+</div>
+
+<ng-container [ngSwitch]="selectedTab">
+    <app-person-id-document-form (saveEmitter)="saved($event)" [personsIdn]="personId" *ngSwitchCase="0"></app-person-id-document-form>
+    <app-person-other-document-form *ngSwitchCase="1"></app-person-other-document-form>
+</ng-container>
+
+<div class="dialog-footer">
+    <button mat-button class="primary" color="primary" (click)="update()">Update</button>
+    <button mat-button color="warn" (click)="close()">Cancel</button>
+</div>

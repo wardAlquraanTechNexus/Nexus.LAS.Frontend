@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -28,6 +28,10 @@ import { ConfirmDeleteComponent } from './confirm-delete-component/confirm-delet
 import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
 import { MatSortModule } from '@angular/material/sort';
 import { TableFormComponent } from '../dashboard-components/base-components/table-form-component/table-form-component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { PersonOtherDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-other-document-form/person-other-document-form';
+import { PersonIdDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
 
 
 
@@ -41,9 +45,11 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
     SharedTable,
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
+    PersonIdDocumentForm,
+    PersonOtherDocumentForm
   ],
   imports: [
-  CommonModule,
+    CommonModule,
     RouterModule,
     MatIconModule,
     MatButtonModule,
@@ -55,9 +61,9 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
     MatListModule,
     MatTreeModule,
     MatMenuModule,
-    MatPaginatorModule ,
-    MatTableModule ,
-    FormsModule ,
+    MatPaginatorModule,
+    MatTableModule,
+    FormsModule,
     MatTabsModule,
     MatSelectModule,
     MatRadioGroup,
@@ -65,7 +71,9 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
     MatButtonToggleModule,
     MatSlideToggleModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     CommonModule,
@@ -80,12 +88,12 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
     MatListModule,
     MatTreeModule,
     MatMenuModule,
-    MatPaginatorModule ,
-    MatTableModule ,
+    MatPaginatorModule,
+    MatTableModule,
     Navbar,
     Sidebar,
     Footer,
-    FormsModule ,
+    FormsModule,
     MatTabsModule,
     MatSelectModule,
     MatRadioGroup,
@@ -97,8 +105,11 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
     MatSortModule,
-    TableDataPipePipe
-
+    TableDataPipePipe,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    PersonIdDocumentForm,
+    PersonOtherDocumentForm
   ]
 })
 export class ComponentsModule { }

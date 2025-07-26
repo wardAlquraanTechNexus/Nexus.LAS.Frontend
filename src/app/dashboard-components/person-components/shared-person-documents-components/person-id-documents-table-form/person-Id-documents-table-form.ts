@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
 import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
@@ -22,7 +22,8 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     type: null,
     nationality: null,
     page: 0,
-    pageSize: 10
+    pageSize: 10,
+    personsIdn:0
   }
 
   override displayColumns: DisplayColumn[] = [
@@ -85,6 +86,11 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
   }
 
   override ngOnInit(): void {
+    let personId = this.route.snapshot.queryParamMap.get('id');
+    if (personId) {
+      this.params.personsIdn = parseInt(personId);
+    }
+    
     this.fetchData();
   }
   override search() {

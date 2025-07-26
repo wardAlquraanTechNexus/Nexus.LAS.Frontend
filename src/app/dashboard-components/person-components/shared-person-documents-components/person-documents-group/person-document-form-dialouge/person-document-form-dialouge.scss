@@ -1,0 +1,49 @@
+.mat-mdc-dialog-surface::before{
+    border-radius: 0;
+}
+.mat-mdc-dialog-surface {
+  border-radius: 0;
+}
+
+button{
+    border: 1px solid #ccc;
+    border-radius: 0;   
+    
+}
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  font-weight: bold;
+}
+
+.dialog-title {
+  flex-grow: 1;
+}
+.tabs{
+    margin-left: 10px;
+}
+.tabs button{
+    width: 50%;
+    border-radius: 0;
+    padding: 10px;
+    color:  #00000042;
+}
+.tabs button.active{
+    color: #025EBA;
+}
+
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-start;
+  padding: 12px 16px;
+}
+.dialog-footer button {
+  margin-right: 8px;
+}
+.dialog-footer .primary {
+  background-color: #025EBA;
+  color: white;
+}

@@ -110,17 +110,16 @@ export class SharedTable implements AfterViewInit {
           if (value.toString() === 'true') {
             borderColor = '#025EBA';
             color = '#025EBA';
+            return {
+              'border': `2px solid ${borderColor}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+  
+            };
           } else {
-            borderColor = '#423e3ede';
-            color = '#423e3ede';
+            return {};
           }
-          return {
-            'border': `2px solid ${borderColor}`,
-            'color': color,
-            'border-radius': '20px',
-            'padding': '10px'
-
-          };
 
       default:
         return {};

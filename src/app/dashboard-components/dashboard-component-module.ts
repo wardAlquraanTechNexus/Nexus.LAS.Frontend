@@ -14,6 +14,9 @@ import { PersonDetailsForm } from './person-components/shared-person-components/
 import { PersonIdDocumentsTableForm } from './person-components/shared-person-documents-components/person-id-documents-table-form/person-Id-documents-table-form';
 import { PersonOtherDocumentsTableForm } from './person-components/shared-person-documents-components/person-other-documents-table-form/person-other-documents-table-form';
 import { PersonDocumentsGroup } from './person-components/shared-person-documents-components/person-documents-group/person-documents-group';
+import { PersonDocumentFormDialouge } from './person-components/shared-person-documents-components/person-documents-group/person-document-form-dialouge/person-document-form-dialouge';
+import { PersonIdDocumentForm } from './person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
+import { PersonOtherDocumentForm } from './person-components/shared-person-documents-components/person-other-document-form/person-other-document-form';
 
 
 @NgModule({
@@ -28,12 +31,15 @@ import { PersonDocumentsGroup } from './person-components/shared-person-document
     EditPerson,
     PersonDocumentsGroup,
     PersonIdDocumentsTableForm,
-    PersonOtherDocumentsTableForm
+    PersonOtherDocumentsTableForm,
+    PersonDocumentFormDialouge,
+    
   ],
   imports: [
     CommonModule,
     DashboardComponentRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    
 ]
 })
 export class DashboardComponentModule { }

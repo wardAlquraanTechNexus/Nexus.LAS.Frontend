@@ -1,0 +1,29 @@
+<div class="dialog-content">
+  <div
+    class="upload-area"
+    (drop)="onFileDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    [class.dragover]="isDragging"
+  >
+    <label class="upload-button">
+      <input
+        type="file"
+        accept=".svg,.png,.jpg,.jpeg,.pdf"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+      <a mat-raised-button color="primary" type="button">
+        Click to Upload
+      </a>
+    </label>
+
+    <p>or drag and drop</p>
+    <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
+  </div>
+
+  <div *ngIf="selectedFile" class="file-info">
+    <mat-icon>description</mat-icon>
+    {{ selectedFile.name }} ({{ selectedFile.size / 1024 | number:'1.0-0' }} KB)
+  </div>
+</div>

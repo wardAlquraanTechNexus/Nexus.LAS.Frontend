@@ -1,1 +1,33 @@
-<p>person-other-documents-table-form works!</p>
+<div class="table-container">
+    <div class="table">
+        <div *ngIf="showLoading" class="spinner-container">
+            <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
+        </div>
+        <div class="row form">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-3 w-100">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Type</mat-label>
+                            <mat-select [(ngModel)]="params.documentType" name="type" (selectionChange)="search()">
+                                <mat-option [value]="1">Personal</mat-option>
+                                <mat-option [value]="2">Work</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="empty-table" *ngIf="!showLoading && !data.collection.length">
+            No documents available
+        </div>
+             <app-shared-table *ngIf="!showLoading && data.collection.length" [displayedColumns]="displayColumns"
+                [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+                [action]="actionButtonsTemplate">
+                <ng-template #actionButtonsTemplate let-row>
+                    <mat-icon>visibility</mat-icon>
+                </ng-template>
+            </app-shared-table>
+    </div>
+</div>
