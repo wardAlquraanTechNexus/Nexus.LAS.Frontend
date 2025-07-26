@@ -42,7 +42,6 @@ export class PersonDocumentsGroup implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        debugger;
         if (this.selectedTab == 0) {
           setTimeout(() => {
             if (this.personIdDocumentsTableForm) {
