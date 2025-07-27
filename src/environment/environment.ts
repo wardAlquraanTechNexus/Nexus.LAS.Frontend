@@ -16,6 +16,7 @@ export const environment = {
     AddTransaction : "transactions/add-transaction",
     AddDocumentTracking : 'document-trackings/add-document-tracking',
     AddFpc : 'FPCs/add-FPC',
+    ViewPersonIdDetail : 'person/view-person-id-detail',
 
   }
 };

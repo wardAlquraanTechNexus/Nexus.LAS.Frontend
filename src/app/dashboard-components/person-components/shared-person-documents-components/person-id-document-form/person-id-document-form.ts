@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
+import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
 
 @Component({
   selector: 'app-person-id-document-form',
@@ -13,9 +14,9 @@ export class PersonIdDocumentForm implements OnInit {
   isDragging = false;
   selectedFile: File | null = null;
   isLoading = false;
-  
+
   @Input() personsIdn!: number;
-  @Output() saveEmitter = new EventEmitter<number>;
+  @Output() saveEmitter = new EventEmitter<PersonsIDDetail>;
 
   constructor(
     private fb: FormBuilder,
@@ -95,11 +96,15 @@ export class PersonIdDocumentForm implements OnInit {
       formData.append('file', this.selectedFile, this.selectedFile.name);
     }
 
+    
     this.isLoading = true;
     this.service.careateByForm(formData).subscribe({
       next: (res) => {
         this.isLoading = false;
-        this.saveEmitter.emit(res);
+        let personIdDetail:PersonsIDDetail = this.formGroup.value;
+        personIdDetail.personsIdn = this.personsIdn;
+        personIdDetail.id = res;
+        this.saveEmitter.emit(personIdDetail);
       }, error: (err) => {
         this.isLoading = false;
       }

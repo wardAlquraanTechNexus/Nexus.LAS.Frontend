@@ -9,10 +9,12 @@ import { GetPersonIdDetailsParams } from '../../../../models/person-id-details/g
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { Sort } from '@angular/material/sort';
 import { BaseParam } from '../../../../models/base/base-param';
+import { env } from 'process';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-id-documents-table-form',
-  standalone:false,
+  standalone: false,
   templateUrl: './person-id-documents-table-form.html',
   styleUrl: './person-id-documents-table-form.scss'
 })
@@ -23,7 +25,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     nationality: null,
     page: 0,
     pageSize: 10,
-    personsIdn:0
+    personsIdn: 0
   }
 
   override displayColumns: DisplayColumn[] = [
@@ -90,7 +92,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     if (personId) {
       this.params.personsIdn = parseInt(personId);
     }
-    
+
     this.fetchData();
   }
   override search() {
@@ -113,5 +115,20 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     this.params.page = pageEvent.page;
     this.params.pageSize = pageEvent.pageSize;
     this.fetchData();
+  }
+
+  viewDocument(item: PersonsIDDetail) {
+    this.router.navigate([environment.routes.ViewPersonIdDetail], {
+      queryParams: {
+        id: item.id
+      }
+    });
+  }
+  addToCollection(element: PersonsIDDetail) {
+    this.data.collection.push(element);
+    this.data.totalRecords++;
+    this.data.pageSize++;
+    this.cdr.detectChanges();
+
   }
 }

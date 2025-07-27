@@ -38,7 +38,9 @@
                 [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
                 [action]="actionButtonsTemplate">
                 <ng-template #actionButtonsTemplate let-row>
-                    <mat-icon>visibility</mat-icon>
+                    <a (click)="viewDocument(row)">
+                        <mat-icon>visibility</mat-icon>
+                    </a>
                 </ng-template>
             </app-shared-table>
         </div>

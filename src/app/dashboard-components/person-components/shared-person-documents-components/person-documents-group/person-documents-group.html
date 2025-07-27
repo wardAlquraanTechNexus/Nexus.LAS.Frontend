@@ -26,7 +26,7 @@
   <div class="custom-tab-content">
     <ng-container [ngSwitch]="selectedTab">
       <app-person-id-documents-table-form #PersonIdDocumentsTableForm *ngSwitchCase="0"></app-person-id-documents-table-form>
-      <app-person-other-documents-table-form *ngSwitchCase="1"></app-person-other-documents-table-form>
+      <app-person-other-documents-table-form #PersonOtherDocumentsTableForm *ngSwitchCase="1"></app-person-other-documents-table-form>
     </ng-container>
   </div>
 </div>

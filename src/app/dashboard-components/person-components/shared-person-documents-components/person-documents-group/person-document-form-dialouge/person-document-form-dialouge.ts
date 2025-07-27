@@ -2,6 +2,9 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDocumentForm } from '../../person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from '../../person-other-document-form/person-other-document-form';
+import { Person } from '../../../../../models/persons/person';
+import { PersonsIDDetail } from '../../../../../models/person-id-details/person-id-details';
+import { PersonOtherDocument } from '../../../../../models/person-other-document/person-other-document';
 
 @Component({
   selector: 'app-person-document-form-dialouge',
@@ -37,7 +40,7 @@ export class PersonDocumentFormDialouge {
     }
   }
 
-  saved(personIdDetailId: number){
-    this.dialogRef.close(personIdDetailId);
+  saved(personsDocument: PersonsIDDetail | PersonOtherDocument)  {
+    this.dialogRef.close(personsDocument);
   }
 }

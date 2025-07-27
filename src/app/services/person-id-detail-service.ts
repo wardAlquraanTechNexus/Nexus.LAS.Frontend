@@ -3,6 +3,7 @@ import { PersonsIDDetail } from '../models/person-id-details/person-id-details';
 import { BaseService } from './base/base-service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PersonIdDetailDto } from '../models/person-id-details/person-id-details-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,9 @@ export class PersonIdDetailService extends BaseService<PersonsIDDetail>
   careateByForm(formData: FormData): Observable<number> {
     return this.httpClient.post<number>(this.url , formData);
 
+  }
+
+    getDTOById(id: number): Observable<PersonIdDetailDto> {
+    return this.httpClient.get<PersonIdDetailDto>(`${this.url}/GetDTOById/${id}`);
   }
 }

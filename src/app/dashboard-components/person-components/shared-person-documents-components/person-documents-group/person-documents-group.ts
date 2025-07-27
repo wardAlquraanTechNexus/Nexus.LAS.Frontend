@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PersonDocumentFormDialouge } from './person-document-form-dialouge/person-document-form-dialouge';
 import { ActivatedRoute } from '@angular/router';
 import { PersonIdDocumentsTableForm } from '../person-id-documents-table-form/person-Id-documents-table-form';
+import { PersonOtherDocumentsTableForm } from '../person-other-documents-table-form/person-other-documents-table-form';
 
 @Component({
   selector: 'app-person-documents-group',
@@ -13,10 +14,9 @@ import { PersonIdDocumentsTableForm } from '../person-id-documents-table-form/pe
 export class PersonDocumentsGroup implements OnInit {
   selectedTab = 0;
   personId: number = 0;
-  personIdSaving = false;
-  personOtherSaving = false;
-  @ViewChild('PersonIdDocumentsTableForm') personIdDocumentsTableForm!: PersonIdDocumentsTableForm;
 
+  @ViewChild('PersonIdDocumentsTableForm') personIdDocumentsTableForm!: PersonIdDocumentsTableForm;
+  @ViewChild('PersonOtherDocumentsTableForm') personOtherDocumentsTableForm!: PersonOtherDocumentsTableForm;
 
   constructor(
     private dialog: MatDialog,
@@ -43,17 +43,14 @@ export class PersonDocumentsGroup implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (this.selectedTab == 0) {
-          setTimeout(() => {
-            if (this.personIdDocumentsTableForm) {
-              this.personIdDocumentsTableForm.fetchData();
-            }
-          }, 0);
+          this.personIdDocumentsTableForm.addToCollection(result);
         }
-        else if (this.selectedTab === 1) {
-          this.personOtherSaving = true;
-          this.personOtherSaving = false;
+        else if (this.selectedTab == 1) {
+          this.personOtherDocumentsTableForm.addToCollection(result);
         }
       }
     });
   }
+
+
 }

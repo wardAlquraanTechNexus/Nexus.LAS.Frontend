@@ -67,6 +67,6 @@
   </table>
 
   <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
-    [length]="paginateResult.totalRecords" [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
+    [length]="paginateResult.totalRecords" [pageSizeOptions]="[1,10, 25, 50]" showFirstLastButtons>
   </mat-paginator>
 </div>

@@ -72,4 +72,12 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     this.params.pageSize = pageEvent.pageSize;
     this.fetchData();
   }
+
+    addToCollection(element: PersonOtherDocument) 
+    {
+      this.data.collection.push(element);
+      this.data.totalRecords++;
+      this.data.pageSize++;
+      this.cdr.detectChanges();
+    }
 }
