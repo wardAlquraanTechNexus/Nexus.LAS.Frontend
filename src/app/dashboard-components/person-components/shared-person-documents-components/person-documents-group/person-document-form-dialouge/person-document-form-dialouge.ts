@@ -10,7 +10,7 @@ import { PersonOtherDocument } from '../../../../../models/person-other-document
   selector: 'app-person-document-form-dialouge',
   standalone: false,
   templateUrl: './person-document-form-dialouge.html',
-  styleUrl: './person-document-form-dialouge.scss'
+  styleUrls: ['./person-document-form-dialouge.scss']
 })
 export class PersonDocumentFormDialouge {
 
@@ -19,6 +19,7 @@ export class PersonDocumentFormDialouge {
 
   selectedTab = 0;
   personId: number;
+  
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { selectedTab: number, personId:number }, private dialogRef: MatDialogRef<PersonDocumentFormDialouge>) {
     this.selectedTab = data.selectedTab;

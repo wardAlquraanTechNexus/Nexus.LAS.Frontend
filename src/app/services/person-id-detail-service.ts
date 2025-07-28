@@ -19,6 +19,10 @@ export class PersonIdDetailService extends BaseService<PersonsIDDetail>
     return this.httpClient.post<number>(this.url , formData);
 
   }
+  updateByDto(personIdDetail:PersonIdDetailDto): Observable<number> {
+    return this.httpClient.put<number>(this.url , personIdDetail);
+
+  }
 
     getDTOById(id: number): Observable<PersonIdDetailDto> {
     return this.httpClient.get<PersonIdDetailDto>(`${this.url}/GetDTOById/${id}`);

@@ -17,6 +17,8 @@ export const environment = {
     AddDocumentTracking : 'document-trackings/add-document-tracking',
     AddFpc : 'FPCs/add-FPC',
     ViewPersonIdDetail : 'person/view-person-id-detail',
+    ViewPersonOtherDocument : 'person/view-person-other-document',
+
 
   }
 };

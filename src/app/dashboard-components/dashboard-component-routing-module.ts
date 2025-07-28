@@ -14,6 +14,7 @@ import { AddDocumentTracking } from './document-tracking-components/add-document
 import { AddFpc } from './fpc-components/add-fpc/add-fpc';
 import { EditPerson } from './person-components/edit-person/edit-person';
 import { PersonIdDetailView } from './person-components/person-id-detail-view/person-id-detail-view';
+import { PersonOtherDocumentView } from './person-components/person-other-document-view/person-other-document-view';
 
 const routes: Routes = [
   {
@@ -69,6 +70,11 @@ const routes: Routes = [
   {
     path: environment.routes.ViewPersonIdDetail,
     component: PersonIdDetailView,
+  }
+  ,
+  {
+    path: environment.routes.ViewPersonOtherDocument,
+    component: PersonOtherDocumentView,
   }
 ];
 

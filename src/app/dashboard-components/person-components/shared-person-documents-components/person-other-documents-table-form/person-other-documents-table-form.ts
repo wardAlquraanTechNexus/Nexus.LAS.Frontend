@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseParam } from '../../../../models/base/base-param';
 import { Sort } from '@angular/material/sort';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-other-documents-table-form',
@@ -25,6 +26,10 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     {
       key: "documentDescription",
       label: "Description"
+    },
+    {
+      key: "action",
+      label: "Action"
     }
   ];
 
@@ -80,4 +85,12 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
       this.data.pageSize++;
       this.cdr.detectChanges();
     }
+
+      viewDocument(item: PersonOtherDocument) {
+        this.router.navigate([environment.routes.ViewPersonOtherDocument], {
+          queryParams: {
+            id: item.id
+          }
+        });
+      }
 }

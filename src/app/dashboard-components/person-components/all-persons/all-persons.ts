@@ -201,39 +201,11 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
   }
 
   initUpdatePerson(person: GetAllPersonDTO): UpdatePersonCommand {
-    let firstNameEn: string = "";
-    let middleNameEn: string = "";
-    let lastNameEn: string = "";
-    let firstNameAr: string = "";
-    let middleNameAr: string = "";
-    let lastNameAr: string = "";
-
-    if (person?.personEnglishName) {
-      const parts = person.personEnglishName.trim().split(/\s+/);
-      if (parts.length === 2) {
-        [firstNameEn, lastNameEn] = parts;
-      } else if (parts.length >= 3) {
-        [firstNameEn, middleNameEn, lastNameEn] = parts;
-      }
-    }
-
-    if (person?.personArabicName) {
-      const parts = person.personArabicName.trim().split(/\s+/);
-      if (parts.length === 2) {
-        [firstNameAr, lastNameAr] = parts;
-      } else if (parts.length >= 3) {
-        [firstNameAr, middleNameAr, lastNameAr] = parts;
-      }
-    }
-
+    
     return {
-      firstNameEn: firstNameEn,
-      middleNameEn: middleNameEn,
-      lastNameEn: lastNameEn,
-      firstNameAr: firstNameAr,
-      middleNameAr: middleNameAr,
-      lastNameAr: lastNameAr,
-      shortName: person.personShortName ?? "",
+      personEnglishName: person.personEnglishName,
+      personArabicName: person.personArabicName,
+      personShortName: person.personShortName ?? "",
       personStatus: person.personStatus ?? PersonStatus.New,
       private: person.private ?? true,
       id: person.id ?? 0

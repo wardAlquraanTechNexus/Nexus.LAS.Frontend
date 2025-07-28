@@ -58,10 +58,7 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['../'], { relativeTo: this.route });
           },
           error: (err) => {
-            this.snackBar.openFromComponent(ErrorSnackbar, {
-              duration: 4000,
-              data: err.title
-            });
+            this.isSaving = false;
           }
         })
     } else {

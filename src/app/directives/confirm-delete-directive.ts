@@ -15,7 +15,7 @@ export class ConfirmDeleteDirective {
   async onClick(event: MouseEvent) {
     event.preventDefault();
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
-      width: '300px',
+      width: '500px',
     });
 
     const result = await dialogRef.afterClosed().toPromise();

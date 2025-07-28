@@ -1,0 +1,84 @@
+<div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+
+<form [formGroup]="formGroup" class="dialog-content">
+    <div class="row">
+        <mat-form-field appearance="outline" class="full-width col-6">
+            <mat-label>Document Type</mat-label>
+            <mat-select formControlName="type" required>
+                <mat-option value="passport">Passport</mat-option>
+                <mat-option value="national_id">National ID</mat-option>
+                <mat-option value="driver_license">Driver License</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('type')?.hasError('required') && formGroup.get('type')?.touched">
+                Document Type is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width col-6">
+            <mat-label>Nationality</mat-label>
+            <mat-select formControlName="nationality" required>
+                <mat-option value="1">Jordan</mat-option>
+                <mat-option value="2">UAE</mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="formGroup.get('nationality')?.hasError('required') && formGroup.get('nationality')?.touched">
+                Nationality is required
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width col-6">
+            <mat-label>Place of issue</mat-label>
+            <mat-select formControlName="placeOfIssue" required>
+                <mat-option value="1">Jordan</mat-option>
+                <mat-option value="2">UAE</mat-option>
+            </mat-select>
+            <mat-error
+                *ngIf="formGroup.get('placeOfIssue')?.hasError('required') && formGroup.get('placeOfIssue')?.touched">
+                Place of issue is required
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width col-6">
+            <mat-label>Number</mat-label>
+            <input matInput formControlName="idNumber" required />
+            <mat-error *ngIf="formGroup.get('idNumber')?.hasError('required') && formGroup.get('idNumber')?.touched">
+                Number is required
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width col-6">
+            <mat-label>Issue Date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="idIssueDate" required />
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error
+                *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
+                Issue Date is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width col-6">
+            <mat-label>Expiry Date</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="expiryDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <div class="full-width col-6">
+            <mat-slide-toggle formControlName="isPrimary"><span class="label-toggel">Primary</span></mat-slide-toggle>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <button [disabled]="isLoading" class="btn btn-primary" (click)="save()">Update</button>
+        </div>
+        <div class="col-3">
+            <button class="btn cancel-button" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</form>

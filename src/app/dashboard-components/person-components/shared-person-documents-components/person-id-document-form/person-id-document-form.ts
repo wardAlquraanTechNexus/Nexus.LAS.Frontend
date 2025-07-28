@@ -15,6 +15,7 @@ export class PersonIdDocumentForm implements OnInit {
   selectedFile: File | null = null;
   isLoading = false;
 
+  
   @Input() personsIdn!: number;
   @Output() saveEmitter = new EventEmitter<PersonsIDDetail>;
 

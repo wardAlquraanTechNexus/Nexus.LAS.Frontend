@@ -18,6 +18,9 @@ import { PersonDocumentFormDialouge } from './person-components/shared-person-do
 import { PersonIdDocumentForm } from './person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from './person-components/shared-person-documents-components/person-other-document-form/person-other-document-form';
 import { PersonIdDetailView } from './person-components/person-id-detail-view/person-id-detail-view';
+import { EditPersonIdDetailForm } from './person-components/person-id-detail-view/edit-person-id-detail-form/edit-person-id-detail-form';
+import { PersonOtherDocumentView } from './person-components/person-other-document-view/person-other-document-view';
+import { EditPersonOtherDocumentForm } from './person-components/person-other-document-view/edit-person-other-document-form/edit-person-other-document-form';
 
 
 @NgModule({
@@ -34,7 +37,10 @@ import { PersonIdDetailView } from './person-components/person-id-detail-view/pe
     PersonIdDocumentsTableForm,
     PersonOtherDocumentsTableForm,
     PersonDocumentFormDialouge,
-    PersonIdDetailView
+    PersonIdDetailView,
+    EditPersonIdDetailForm,
+    PersonOtherDocumentView,
+    EditPersonOtherDocumentForm
   ],
   imports: [
     CommonModule,

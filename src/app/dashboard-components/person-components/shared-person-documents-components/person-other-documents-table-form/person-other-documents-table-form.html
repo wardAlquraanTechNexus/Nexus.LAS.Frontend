@@ -22,12 +22,14 @@
         <div class="empty-table" *ngIf="!showLoading && !data.collection.length">
             No documents available
         </div>
-             <app-shared-table *ngIf="!showLoading && data.collection.length" [displayedColumns]="displayColumns"
-                [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
-                [action]="actionButtonsTemplate">
-                <ng-template #actionButtonsTemplate let-row>
+        <app-shared-table *ngIf="!showLoading && data.collection.length" [displayedColumns]="displayColumns"
+            [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+            [action]="actionButtonsTemplate">
+            <ng-template #actionButtonsTemplate let-row>
+                <a (click)="viewDocument(row)">
                     <mat-icon>visibility</mat-icon>
-                </ng-template>
-            </app-shared-table>
+                </a>
+            </ng-template>
+        </app-shared-table>
     </div>
 </div>
