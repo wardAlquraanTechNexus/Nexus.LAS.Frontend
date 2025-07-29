@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDocumentForm } from '../../person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from '../../person-other-document-form/person-other-document-form';
@@ -19,9 +19,12 @@ export class PersonDocumentFormDialouge {
 
   selectedTab = 0;
   personId: number;
-  
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { selectedTab: number, personId:number }, private dialogRef: MatDialogRef<PersonDocumentFormDialouge>) {
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { selectedTab: number, personId: number }
+    , private dialogRef: MatDialogRef<PersonDocumentFormDialouge>,
+    protected cdr: ChangeDetectorRef) {
     this.selectedTab = data.selectedTab;
     this.personId = data.personId;
   }
@@ -41,7 +44,8 @@ export class PersonDocumentFormDialouge {
     }
   }
 
-  saved(personsDocument: PersonsIDDetail | PersonOtherDocument)  {
+  saved(personsDocument: PersonsIDDetail | PersonOtherDocument) {
+    this.cdr.detectChanges();
     this.dialogRef.close(personsDocument);
   }
 }

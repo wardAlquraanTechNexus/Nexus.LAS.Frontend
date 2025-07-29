@@ -9,4 +9,5 @@ export interface Person extends BaseModel {
   website?: string | null;
   personStatus?: number | null;
   private?: boolean;
+  isSelectDisabled?:boolean;
 }

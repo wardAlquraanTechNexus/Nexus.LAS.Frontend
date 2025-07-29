@@ -35,11 +35,11 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
       keysPipes: [
         {
           key: "type",
-          pipe: 'persondocumenttype'
+          pipes: ['persondocumenttype']
         },
         {
           key: "isPrimary",
-          pipe: 'persondocumentprimary'
+          pipes: ['persondocumentprimary']
         }
       ]
     },
@@ -58,12 +58,12 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     {
       key: "idIssueDate",
       label: "Issue Date",
-      pipe: 'date',
+      pipes: ['date'],
     },
     {
       key: "expiryDate",
       label: "Expiry Date",
-      pipe: 'date',
+      pipes: ['date'],
       sort: true
     },
     {
@@ -125,10 +125,9 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     });
   }
   addToCollection(element: PersonsIDDetail) {
-    this.data.collection.push(element);
-    this.data.totalRecords++;
-    this.data.pageSize++;
+    this.data.collection = [];
     this.cdr.detectChanges();
+    this.fetchData();
 
   }
 }

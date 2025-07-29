@@ -25,6 +25,7 @@ import { Person } from '../../../models/persons/person';
 })
 export class AllPersons extends TableFormComponent<Person> implements OnInit {
 
+  selectedPersons: Person[] = [];
 
   settingsMenuOpen = false;
   columns = {
@@ -47,18 +48,25 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
 
   override displayColumns: DisplayColumn[] = [
     {
+      key: "select",
+      label: "",
+    },
+    {
       key: "personCode",
       label: "Code",
-      sort: true
+      sort: true,
+      pipes: ["link"]
     },
     {
       key: "personEnglishName",
       label: "Name En",
+      pipes: ["link"],
       sort: true
     },
     {
       key: "personArabicName",
       label: "Name Ar",
+      pipes: ["link"],
       sort: true
     },
     {
@@ -69,7 +77,7 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     {
       key: "personStatus",
       label: "Status",
-      pipe: "personStatus",
+      pipes: ["personStatus"],
       sort: true
     },
     {
@@ -79,18 +87,18 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     {
       key: "private",
       label: "Private",
-      pipe: 'privatePerson',
+      pipes: ['privatePerson'],
       sort: true
     },
     {
       key: "action",
       label: "Action",
       sort: true
-    }
+    },
   ]
   personService!: PersonService;;
   constructor(
-     service: PersonService,
+    service: PersonService,
     cdr: ChangeDetectorRef,
     fb: FormBuilder,
     router: Router,
@@ -104,9 +112,10 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
   override ngOnInit(): void {
     super.ngOnInit();
   }
-  
+
 
   override fetchData() {
+    this.cdr.detectChanges();
     this.showLoading = true;
     this.personService.getAllPerson(this.params).subscribe({
       next: (res => {
@@ -122,10 +131,12 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     })
   }
 
+
+
   toggleSettingsMenu(): void {
     this.settingsMenuOpen = !this.settingsMenuOpen;
   }
-  
+
 
   onRowClick(person: any) {
     this.router.navigate([environment.routes.EditPerson], {
@@ -201,7 +212,7 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
   }
 
   initUpdatePerson(person: GetAllPersonDTO): UpdatePersonCommand {
-    
+
     return {
       personEnglishName: person.personEnglishName,
       personArabicName: person.personArabicName,
@@ -210,5 +221,12 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
       private: person.private ?? true,
       id: person.id ?? 0
     }
+  }
+
+
+
+  onSelectionChange(selectedRows: Person[]) {
+    this.selectedPersons = selectedRows;
+    this.cdr.detectChanges();
   }
 }

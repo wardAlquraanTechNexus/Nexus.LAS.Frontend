@@ -32,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PersonOtherDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-other-document-form/person-other-document-form';
 import { PersonIdDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -73,7 +74,9 @@ import { PersonIdDocumentForm } from '../dashboard-components/person-components/
     MatDialogModule,
     MatSortModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
+
   ],
   exports: [
     CommonModule,
@@ -109,7 +112,8 @@ import { PersonIdDocumentForm } from '../dashboard-components/person-components/
     MatDatepickerModule,
     MatNativeDateModule,
     PersonIdDocumentForm,
-    PersonOtherDocumentForm
+    PersonOtherDocumentForm,
+    MatCheckboxModule
   ]
 })
 export class ComponentsModule { }

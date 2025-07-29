@@ -11,7 +11,7 @@
     <div *ngIf="showLoading" class="spinner-container">
       <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
     </div>
-    <div class="row form">
+    <div class="row form" *ngIf="!selectedPersons.length">
       <div class="col-10 container">
         <div class="row">
           <mat-form-field class="col-3 w-100" appearance="outline">
@@ -63,10 +63,28 @@
       </div>
 
     </div>
+    <div class="col-12 selected form" *ngIf="selectedPersons.length">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <p>{{ selectedPersons.length }} Selected</p>
+    </div>
+    <div>
+      <button class="btn btn-primary me-2">Activate</button>
+      <button class="btn btn-secondary">Inactivate</button>
+
+    </div>
+  </div>
+</div>
 
     <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
       (onChangePage)="changePage($event)" (rowClick)="onRowClick($event)" [action]="actionButtonsTemplate"
-      (onSortChangeEvent)="changeSort($event)"></app-shared-table>
+      (onSortChangeEvent)="changeSort($event)"
+      (selectionChange)="onSelectionChange($event)"
+      ></app-shared-table>
+
+
+   
+
 
     <ng-template #actionButtonsTemplate let-row>
       <button mat-icon-button [matMenuTriggerFor]="menuRow">

@@ -56,12 +56,10 @@ export class ActivePersons implements OnInit {
     {
       key: "personStatus",
       label: "Status",
-      pipe: "personStatus"
     },
     {
       key: "private",
       label: "Private",
-      pipe: 'privatePerson'
     },
   ]
   constructor(private personService: PersonService, private cdr: ChangeDetectorRef, private fb: FormBuilder) {

@@ -1,3 +1,4 @@
+
 .person-header{
   margin-top: 50px;
   margin-bottom: 50px;
@@ -80,3 +81,13 @@ mat-icon {
   width: 200px;
 }
 
+.selected.form {
+  background-color: #025EBA14;
+  padding: 1rem;
+  border-radius: 4px;
+  color: white;
+}
+
+.selected.form > .d-flex > div {
+  background-color: inherit; /* Inherits parent's background */
+}

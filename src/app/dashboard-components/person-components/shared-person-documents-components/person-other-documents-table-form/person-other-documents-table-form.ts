@@ -12,12 +12,11 @@ import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-other-documents-table-form',
-  standalone:false,
+  standalone: false,
   templateUrl: './person-other-documents-table-form.html',
   styleUrl: './person-other-documents-table-form.scss'
 })
-export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOtherDocument> 
-{
+export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOtherDocument> {
   override displayColumns = [
     {
       key: "documentType",
@@ -33,8 +32,8 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     }
   ];
 
-  override params : GetPerdonOtherDocument = {
-    personIdn:  null,
+  override params: GetPerdonOtherDocument = {
+    personsIdn: null,
     documentType: null,
     page: 0,
     pageSize: 10
@@ -51,15 +50,18 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     super(service, cdr, fb, router, snackBar, route);
   }
 
-  override ngOnInit(){
+  override ngOnInit() {
     let personId = this.route.snapshot.queryParamMap.get('id');
     if (personId) {
-      this.params.personIdn = parseInt(personId);
+      this.params.personsIdn = parseInt(personId);
     }
     this.fetchData();
 
   }
 
+   override search() {
+    this.fetchData();
+  }
   override changeSort(sortState: Sort) {
     if (this.sortState.active == sortState.active) {
       this.sortState.direction = this.sortState.direction === 'asc' ? 'desc' : 'asc';
@@ -78,19 +80,17 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     this.fetchData();
   }
 
-    addToCollection(element: PersonOtherDocument) 
-    {
-      this.data.collection.push(element);
-      this.data.totalRecords++;
-      this.data.pageSize++;
-      this.cdr.detectChanges();
-    }
+  addToCollection(element: PersonOtherDocument) {
+    this.data.collection = [];
+    this.cdr.detectChanges();
+    this.fetchData();
+  }
 
-      viewDocument(item: PersonOtherDocument) {
-        this.router.navigate([environment.routes.ViewPersonOtherDocument], {
-          queryParams: {
-            id: item.id
-          }
-        });
+  viewDocument(item: PersonOtherDocument) {
+    this.router.navigate([environment.routes.ViewPersonOtherDocument], {
+      queryParams: {
+        id: item.id
       }
+    });
+  }
 }
