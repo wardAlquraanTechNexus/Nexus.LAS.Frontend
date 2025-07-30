@@ -21,6 +21,7 @@ import { PersonIdDetailView } from './person-components/person-id-detail-view/pe
 import { EditPersonIdDetailForm } from './person-components/person-id-detail-view/edit-person-id-detail-form/edit-person-id-detail-form';
 import { PersonOtherDocumentView } from './person-components/person-other-document-view/person-other-document-view';
 import { EditPersonOtherDocumentForm } from './person-components/person-other-document-view/edit-person-other-document-form/edit-person-other-document-form';
+import { PersonView } from './person-components/person-view/person-view';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { EditPersonOtherDocumentForm } from './person-components/person-other-do
     PersonIdDetailView,
     EditPersonIdDetailForm,
     PersonOtherDocumentView,
-    EditPersonOtherDocumentForm
+    EditPersonOtherDocumentForm,
+    PersonView
   ],
   imports: [
     CommonModule,

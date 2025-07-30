@@ -1,0 +1,89 @@
+<div *ngIf="showLoading" class="spinner-container">
+  <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+</div>
+<div *ngIf="!showLoading" class="container-view">
+    <p class="breadcrumb">
+        <span class="fake-link">Persons</span> /
+        {{ person?.personEnglishName | titlecase }}
+    </p>
+    <div class="person-header-action">
+        <div class="person-header-container">
+            <div class="person-image-wrapper">
+                <img src="assets/images/Vector.svg" alt="Person Image" class="person-image" />
+                <button mat-icon-button class="camera-icon-btn">
+                    <mat-icon>photo_camera</mat-icon>
+                </button>
+            </div>
+
+            <div class="person-header-details">
+
+                <div class="person-header-info">
+                    <span class="person-header-person-name mr-3">
+                        {{ person?.personEnglishName | titlecase }}
+                    </span>
+                    <span class="mr-3" [ngStyle]="getPersonStatusStyle()">
+                        {{ person?.personStatus | tableDataPipe: 'personStatus' }}
+                    </span>
+                    <span class="mr-3" [ngStyle]="getPersonPrivateStyle()">
+                        {{ person?.private | tableDataPipe: 'privatePerson' }}
+                    </span>
+                </div>
+                <div class="person-header-person-arabic-name mr-3">
+                    {{ person?.personArabicName | titlecase }}
+                </div>
+                <div class="person-header-person-short-name mr-3">
+                    {{ person?.personShortName | uppercase }}
+                </div>
+                <div class="person-header-person-code mr-3">
+                    ID:  {{ person?.personCode }}
+                </div>
+            </div>
+        </div>
+        <div class="person-action">
+            <button class="default-button" (click)="openPersonDialog()">
+                <mat-icon>edit</mat-icon>
+                Edit
+            </button>
+            <button class="default-button">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+        </div>
+    </div>
+
+
+
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>apps</mat-icon>
+                Overview
+            </ng-template>
+            Overview
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>description</mat-icon>
+                Documents
+            </ng-template>
+            <app-person-documents-group></app-person-documents-group>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>contact_page</mat-icon>
+                Contacts
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>location_on</mat-icon>
+                Addresses
+            </ng-template>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>edit_note</mat-icon>
+                Notes
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>

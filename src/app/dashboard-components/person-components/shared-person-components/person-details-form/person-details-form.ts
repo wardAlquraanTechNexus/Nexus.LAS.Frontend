@@ -1,7 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Person } from '../../../../models/persons/person';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PersonService } from '../../../../services/person-service';
+import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 
 @Component({
   selector: 'app-person-details-form',
@@ -10,15 +13,17 @@ import { Person } from '../../../../models/persons/person';
   styleUrl: './person-details-form.scss'
 })
 export class PersonDetailsForm implements OnInit {
-  @Input() person: Person | null = null;
   @Input() isSaving = false;
+  person:Person | null = null;
   personalDetailsForm!: FormGroup;
-  @Output() saveEmitter = new EventEmitter<any>;
   constructor(
+    private dialogRef: MatDialogRef<PersonDetailsForm>,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
+    private personService:PersonService,
+    @Inject(MAT_DIALOG_DATA) public data: Person | null,
     private snackBar: MatSnackBar) {
-
+      this.person = data;
   }
 
   ngOnInit(): void {
@@ -26,6 +31,7 @@ export class PersonDetailsForm implements OnInit {
 
 
     this.personalDetailsForm = this.fb.group({
+      id:[this.person?.id],
       personEnglishName: [this.person?.personEnglishName, [Validators.required]],
       personArabicName: [this.person?.personArabicName, Validators.required],
       personShortName: [this.person?.personShortName, [Validators.required, this.noWhitespaceValidator]],
@@ -59,11 +65,36 @@ export class PersonDetailsForm implements OnInit {
 
   onSave(): void {
     if (this.personalDetailsForm.valid) {
+      this.isSaving = true;
       const person = { ...this.personalDetailsForm.getRawValue() };
-      this.saveEmitter.emit(person);
+      if(this.person){
+        this.personService.updatePerson(person).subscribe({
+          next:(res=>{
+            this.isSaving = false;
+            this.snackBar.openFromComponent(SuccessSnackbar,{
+              data: "Updated Successfully",
+              duration: 1000
+            });
+            this.dialogRef.close({ ...this.person, ...person });
+          })
+        })
+      }else{
+        this.personService.createPerson(person).subscribe({
+          next:(res=>{
+            this.isSaving = false;
+            this.snackBar.openFromComponent(SuccessSnackbar,{
+              data: "Updated Successfully"
+            });
+            this.dialogRef.close({ ...this.person, ...person });
+          })
+        })
+      }
     } else {
       this.personalDetailsForm.markAllAsTouched();
     }
   }
 
+    onCancel(): void {
+    this.dialogRef.close();
+  }
 }

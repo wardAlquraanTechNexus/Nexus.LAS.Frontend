@@ -15,6 +15,7 @@ import { AddFpc } from './fpc-components/add-fpc/add-fpc';
 import { EditPerson } from './person-components/edit-person/edit-person';
 import { PersonIdDetailView } from './person-components/person-id-detail-view/person-id-detail-view';
 import { PersonOtherDocumentView } from './person-components/person-other-document-view/person-other-document-view';
+import { PersonView } from './person-components/person-view/person-view';
 
 const routes: Routes = [
   {
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: environment.routes.EditPerson,
     component: EditPerson,
+  }
+  ,
+  {
+    path: environment.routes.ViewPersons,
+    component: PersonView,
   }
   ,
   {

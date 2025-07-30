@@ -53,8 +53,9 @@ export class SharedTable implements AfterViewInit {
     });
   }
 
-  onRowClick(element: any) {
-    this.rowClick.emit(element);
+  onRowClick(element: any, key:any) {  
+    let rowClick =  {element  , key }
+    this.rowClick.emit(rowClick);
   }
 
 
@@ -219,7 +220,7 @@ export class SharedTable implements AfterViewInit {
   }
   formatDate(date: Date): string {
     const pad = (n: number) => n.toString().padStart(2, '0');
-    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} `
+    return `${pad(date.getDate())}-${pad(date.getMonth() + 1)}-${date.getFullYear()} `
   }
 
  

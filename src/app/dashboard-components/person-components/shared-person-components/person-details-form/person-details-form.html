@@ -1,90 +1,81 @@
 <form [formGroup]="personalDetailsForm">
     <div class="container">
-        <!-- Upload Photo -->
-        <div class="upload-photo mb-5 mt-5 d-flex align-items-center gap-4">
-            <div>
-                <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" width="150" height="auto" class="rounded"
-                    style="object-fit: contain; border: 1px solid #ccc;" />
+        <div class="p-3">
+            <!-- English Name -->
+            <h4>Personal Details</h4>
+            <div class="name-en">
+                <h6>Name En</h6>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Person English Name</mat-label>
+                            <input matInput placeholder="Add Person English Name" formControlName="personEnglishName"
+                                required />
+                            <mat-error
+                                *ngIf="personalDetailsForm.get('personEnglishName')?.touched && personalDetailsForm.get('personEnglishName')?.hasError('required')">
+                                First Name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <input type="file" #fileUpload accept="image/*" hidden (change)="onPhotoSelected($event)" />
-                <button mat-raised-button color="primary" (click)="fileUpload.click()" style="min-width: 140px;">
-                    <mat-icon>cloud_upload</mat-icon>
-                    Upload Photo
+    
+            <!-- Arabic Name -->
+            <div class="name-ar mt-4">
+                <h6>Name Ar</h6>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>First name</mat-label>
+                            <input matInput placeholder="Add Person arabic name" formControlName="personArabicName"
+                                required />
+                            <mat-error
+                                *ngIf="personalDetailsForm.get('personArabicName')?.touched && personalDetailsForm.get('personArabicName')?.hasError('required')">
+                                First Name (Arabic) is required
+                            </mat-error>
+    
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Short Name -->
+            <div class="short-name mt-4">
+                <h6>Short name</h6>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Short name</mat-label>
+                            <input matInput placeholder="Add short Name" formControlName="personShortName" required />
+                            <mat-error
+                                *ngIf="personalDetailsForm.get('personShortName')?.touched && personalDetailsForm.get('personShortName')?.hasError('required')">
+                                Short Name is required
+                            </mat-error>
+                            <mat-error *ngIf="personalDetailsForm.get('personShortName')?.hasError('whitespace')">
+                                cannot contain spaces.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Submit Button -->
+            <div class="container m-4 d-flex justify-content-end">
+                <button class="default-button" type="button" (click)="onCancel()" [disabled]="isSaving"
+                    style="min-width: 140px; height: 36px;">
+                        Cancel
+                </button>
+                <button class="btn btn-primary" type="button" (click)="onSave()" [disabled]="isSaving"
+                    style="min-width: 140px; height: 36px;">
+                    <ng-container *ngIf="!isSaving; else loading">
+                        Save
+                    </ng-container>
+    
+                    <ng-template #loading>
+                        <mat-progress-spinner diameter="24" mode="indeterminate" color="accent"></mat-progress-spinner>
+                    </ng-template>
                 </button>
             </div>
-        </div>
-
-        <!-- English Name -->
-        <h4>Personal Details</h4>
-        <div class="name-en">
-            <h6>Name En</h6>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Person English Name</mat-label>
-                        <input matInput placeholder="Add Person English Name" formControlName="personEnglishName" required />
-                        <mat-error
-                            *ngIf="personalDetailsForm.get('personEnglishName')?.touched && personalDetailsForm.get('personEnglishName')?.hasError('required')">
-                            First Name is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-
-        <!-- Arabic Name -->
-        <div class="name-ar mt-4">
-            <h6>Name Ar</h6>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>First name</mat-label>
-                        <input matInput placeholder="Add first Name" formControlName="personArabicName" required />
-                        <mat-error
-                            *ngIf="personalDetailsForm.get('personArabicName')?.touched && personalDetailsForm.get('personArabicName')?.hasError('required')">
-                            First Name (Arabic) is required
-                        </mat-error>
-
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-
-        <!-- Short Name -->
-        <div class="short-name mt-4">
-            <h6>Short name</h6>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Short name</mat-label>
-                        <input matInput placeholder="Add short Name" formControlName="personShortName" required />
-                        <mat-error
-                            *ngIf="personalDetailsForm.get('personShortName')?.touched && personalDetailsForm.get('personShortName')?.hasError('required')">
-                            Short Name is required
-                        </mat-error>
-                        <mat-error *ngIf="personalDetailsForm.get('personShortName')?.hasError('whitespace')">
-                            cannot contain spaces.
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="container m-4 d-flex justify-content-end">
-            <button class="btn btn-primary d-flex align-items-center justify-content-center" type="button"
-                (click)="onSave()" [disabled]="isSaving" style="min-width: 140px; height: 36px;">
-                <ng-container *ngIf="!isSaving; else loading">
-                    <mat-icon class="me-2">save</mat-icon>
-                    Save Personal Details
-                </ng-container>
-
-                <ng-template #loading>
-                    <mat-progress-spinner diameter="24" mode="indeterminate" color="accent"></mat-progress-spinner>
-                </ng-template>
-            </button>
 
         </div>
     </div>

@@ -1,0 +1,125 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Adjust as needed */
+}
+.person-header-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.person-header-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    flex-wrap: wrap
+}
+
+.person-image-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.person-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.camera-icon-btn {
+  position: absolute;
+  bottom: 0;
+  left: 60px;
+  background-color: inherit;
+  padding: 2px;
+  border-radius: 50%;
+  border: none;
+  transform: translate(-20%, 20%);
+  z-index: 1; /* Ensure it's above the image */
+}
+
+.person-header-details {
+    color: #000;
+    font-weight: 500;
+}
+
+.breadcrumb {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    background-color: inherit;
+}
+
+.person-header-info {
+    // font-size: 1.25rem;
+
+}
+.person-header-person-arabic-name{
+    text-align: right;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.person-header-person-code{
+   font-weight: 100; 
+}
+.person-action{
+    display: flex;
+    justify-content: space-around;
+}
+.person-action>button{
+    margin-right: 10px;
+}
+.fake-link {
+    color: #1976d2;
+    text-decoration: underline;
+}
+
+.container-view {
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.tabs-container {
+    margin: 10px 0;
+}
+
+.tabs {
+    display: flex;
+    justify-content: start;
+}
+
+button {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    height: 50px;
+}
+
+.tabs button {
+    border-radius: 0;
+    padding: 10px;
+    color: #00000042;
+}
+
+.tabs button.active {
+    color: #025EBA;
+}
+
+.default-button {
+    background-color: inherit;
+    color: #025EBA;
+    border: 1px solid #025EBA;
+    border-radius: .35rem;
+    box-shadow: rgba(105, 136, 228, 0.05) 0px 0px 0px 0.335115px;
+    padding: 10px;
+}
+mat-icon{
+    vertical-align: middle;
+}

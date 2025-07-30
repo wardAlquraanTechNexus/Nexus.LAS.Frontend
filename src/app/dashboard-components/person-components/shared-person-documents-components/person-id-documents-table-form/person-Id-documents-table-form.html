@@ -31,11 +31,9 @@
 
                 </div>
             </div>
-            <div class="empty-table" *ngIf="!showLoading && !data.collection.length">
-                No documents available
-            </div>
+            
 
-            <app-shared-table *ngIf="!showLoading && data.collection.length" [displayedColumns]="displayColumns"
+            <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns"
                 [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
                 [action]="actionButtonsTemplate">
                 <ng-template #actionButtonsTemplate let-row>

@@ -14,15 +14,16 @@ import { environment } from '../../../environment/environment';
 export class Sidebar {
 
   defaultItem: MenuTree = {
-  name: 'Dashboard',
-  menuId: 0,
-  path: environment.routes.dashboard,
-  iconClass: "home",
-  inDashboard : true,
-  children: []
-};
+    name: 'Dashboard',
+    menuId: 0,
+    path: environment.routes.dashboard,
+    iconClass: "home",
+    inDashboard: true,
+    children: []
+  };
 
   menuItems: MenuTree[] = [];
+  sidebarOpen = true;
   childrenAccessor = (node: any) => node.children ?? [];
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
@@ -32,10 +33,21 @@ export class Sidebar {
 
 
   }
-  
+
+
+  iconClass = "sidebar-toggle-btn-opened";
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+    if(this.sidebarOpen){
+      this.iconClass = "sidebar-toggle-btn-opened";
+    }else{
+      this.iconClass = "sidebar-toggle-btn";
+    }
+
+  }
 
   ngOnInit() {
-    
+
     const menuJson = localStorage.getItem("menu");
     if (menuJson) {
       this.menuItems = JSON.parse(menuJson) as MenuTree[];
@@ -48,11 +60,11 @@ export class Sidebar {
 
 
   filterInDashboard(items: MenuTree[]): MenuTree[] {
-  return items
-    .filter(item => item.inDashboard)
-    .map(item => ({
-      ...item,
-      children: this.filterInDashboard(item.children || [])
-    }));
-}
+    return items
+      .filter(item => item.inDashboard)
+      .map(item => ({
+        ...item,
+        children: this.filterInDashboard(item.children || [])
+      }));
+  }
 }

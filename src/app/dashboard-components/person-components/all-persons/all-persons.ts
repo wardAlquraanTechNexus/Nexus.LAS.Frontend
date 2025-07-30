@@ -88,7 +88,7 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
       key: "private",
       label: "Private",
       pipes: ['privatePerson'],
-      sort: true
+      sort: true,
     },
     {
       key: "action",
@@ -138,10 +138,15 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
   }
 
 
-  onRowClick(person: any) {
-    this.router.navigate([environment.routes.EditPerson], {
-      queryParams: { id: person.id }
-    });
+  
+  
+  
+  onRowClick(elementRow: any) {
+    if(elementRow.key == "personArabicName" || elementRow.key == "personEnglishName" || elementRow.key == "personCode"){
+      this.router.navigate([environment.routes.ViewPersons], {
+        queryParams: { id: elementRow.element.id }
+      });
+    }
   }
 
 
