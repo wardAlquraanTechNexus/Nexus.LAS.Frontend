@@ -10,22 +10,10 @@
     align-items: center;
     justify-content: center;
 }
-
-
-.dialog-content {
-    padding: 30px;
-    border: 1px solid;
-    border-radius: 0;
-}
-
-.btn{
-    width: 100%;
-}
-.cancel-button {
-    background-color: inherit;
-    color: #025EBA;
-    border: 1px solid #025EBA;
-    border-radius: .35rem;
-    box-shadow: rgba(105, 136, 228, 0.05) 0px 0px 0px 0.335115px;
-
+.dialog-header-buttons {
+  display: flex;
+  justify-content: end;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
 }

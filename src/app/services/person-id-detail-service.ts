@@ -8,23 +8,22 @@ import { PersonIdDetailDto } from '../models/person-id-details/person-id-details
 @Injectable({
   providedIn: 'root'
 })
-export class PersonIdDetailService extends BaseService<PersonsIDDetail> 
-{
-  constructor(httpClient: HttpClient){
+export class PersonIdDetailService extends BaseService<PersonsIDDetail> {
+  constructor(httpClient: HttpClient) {
     super(httpClient);
     this.setPath('PersonIdDetails');
   }
 
   careateByForm(formData: FormData): Observable<number> {
-    return this.httpClient.post<number>(this.url , formData);
+    return this.httpClient.post<number>(this.url, formData);
 
   }
-  updateByDto(personIdDetail:PersonIdDetailDto): Observable<number> {
-    return this.httpClient.put<number>(this.url , personIdDetail);
+  updateByDto(formData: FormData): Observable<number> {
+    return this.httpClient.put<number>(this.url, formData);
 
   }
 
-    getDTOById(id: number): Observable<PersonIdDetailDto> {
+  getDTOById(id: number): Observable<PersonIdDetailDto> {
     return this.httpClient.get<PersonIdDetailDto>(`${this.url}/GetDTOById/${id}`);
   }
 }

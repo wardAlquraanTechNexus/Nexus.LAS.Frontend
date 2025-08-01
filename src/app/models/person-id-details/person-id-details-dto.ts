@@ -12,4 +12,5 @@ export interface PersonIdDetailDto {
   fileName: string;
   contentType: string;
   dataFile: number[];
+  imageUrl:any;
 }

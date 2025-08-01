@@ -1,5 +1,13 @@
-.tabs-container{
+.document-container{
     margin: 10px 0;
+    background-color: #FFF;
+    color: #000;
+    padding: 10px;
+    border-radius: 5px;
+}
+.document-header{
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -7,6 +15,7 @@ button{
     border: 1px solid #ccc;
     border-radius: 0;   
     height: 50px;
+    margin-bottom: 10px;
 }
 .tabs button{
     width: 50%;

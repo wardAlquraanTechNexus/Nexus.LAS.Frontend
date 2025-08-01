@@ -11,6 +11,8 @@ import { Sort } from '@angular/material/sort';
 import { BaseParam } from '../../../../models/base/base-param';
 import { env } from 'process';
 import { environment } from '../../../../../environment/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { PersonIdDetailView } from '../../person-id-detail-view/person-id-detail-view';
 
 @Component({
   selector: 'app-person-id-documents-table-form',
@@ -82,7 +84,8 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     protected override fb: FormBuilder,
     protected override router: Router,
     protected override snackBar: MatSnackBar,
-    protected override route: ActivatedRoute
+    protected override route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     super(service, cdr, fb, router, snackBar, route);
   }
@@ -118,9 +121,19 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
   }
 
   viewDocument(item: PersonsIDDetail) {
-    this.router.navigate([environment.routes.ViewPersonIdDetail], {
-      queryParams: {
-        id: item.id
+    const dialogRef = this.dialog.open(PersonIdDetailView, {
+      // minWidth:"95%",
+      panelClass: 'dialoug-container',
+      // maxWidth: '95%',
+      disableClose: true,
+      data: item
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+        this.cdr.detectChanges();
       }
     });
   }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { PersonIdDetailService } from '../../../services/person-id-detail-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,9 +6,11 @@ import { PersonsIDDetail } from '../../../models/person-id-details/person-id-det
 import { PersonIdDetailDto } from '../../../models/person-id-details/person-id-details-dto';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EditPersonIdDetailForm } from './edit-person-id-detail-form/edit-person-id-detail-form';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
+import { BaseDialougeComponent } from '../../base-components/base-dialouge-component/base-dialouge-component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-person-id-detail-view',
@@ -16,10 +18,10 @@ import { environment } from '../../../../environment/environment';
   templateUrl: './person-id-detail-view.html',
   styleUrl: './person-id-detail-view.scss'
 })
-export class PersonIdDetailView implements OnInit {
-  imageUrl: SafeResourceUrl | null = null;
+export class PersonIdDetailView extends BaseDialougeComponent {
+  isEdit = false;
   personIdDetail!: PersonIdDetailDto;
-  id: number = 0;
+
   showLoading = false;
   constructor(
     private service: PersonIdDetailService,
@@ -28,40 +30,45 @@ export class PersonIdDetailView implements OnInit {
     protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    protected override dialogRef: MatDialogRef<PersonIdDetailView>,
+    @Inject(MAT_DIALOG_DATA) public override data: any,
+    private fb: FormBuilder,
 
 
-  ngOnInit(): void {
-    let id = this.route.snapshot.queryParamMap.get('id');
-    if (id) {
-      this.id = parseInt(id);
-      this.showLoading = true;
-      this.service.getDTOById(this.id).subscribe(
-        {
-          next: (data) => {
-            this.personIdDetail = data;
+  ) {
+    super(dialogRef, data);
 
-            if (data.dataFile && data.contentType) {
+  }
 
-              // If dataFile is base64
-              const base64Data = data.dataFile;
-              const blob = this.base64ToBlob(base64Data, data.contentType);
-              const url = URL.createObjectURL(blob);
 
-              this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-            }
-            this.showLoading = false;
-            this.cdr.detectChanges();
-          },
-          error: (error) => {
-            this.showLoading = false;
-            this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
+  override ngOnInit(): void {
+    this.showLoading = true;
+    this.service.getDTOById(this.element.id).subscribe(
+      {
+        next: (data) => {
+
+          this.personIdDetail = data;
+
+          if (data.dataFile && data.contentType) {
+
+            // If dataFile is base64
+            const base64Data = data.dataFile;
+            const blob = this.base64ToBlob(base64Data, data.contentType);
+            const url = URL.createObjectURL(blob);
+            this.personIdDetail.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           }
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.showLoading = false;
+          this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
         }
-      )
+      }
+    )
 
-    }
+
   }
 
   base64ToBlob(base64: any, contentType: string): Blob {
@@ -88,22 +95,15 @@ export class PersonIdDetailView implements OnInit {
     return {}
   }
 
-  edit() {
-    const dialogRef = this.dialog.open(EditPersonIdDetailForm, {
-      width: '700px',
-      panelClass: 'no-radius-dialog',
-      disableClose: true,
-      data: {
-        personIdDetail: this.personIdDetail
-      }
-    });
+  openEdit() {
+    this.isEdit = true;
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.personIdDetail = result;
-        this.cdr.detectChanges();
-      }
-    });
+  cancelEdit() {
+    this.isEdit = false;
+  }
+  close() {
+    this.dialogRef.close(this.personIdDetail);
   }
 
   download() {
@@ -137,12 +137,63 @@ export class PersonIdDetailView implements OnInit {
           data: "Deleted Successfully"
         });
         this.cdr.detectChanges();
-        this.router.navigate([environment.routes.EditPerson], {
-          queryParams: { id: this.personIdDetail.personsIdn }
-        });
+        this.dialogRef.close(true);
       }), error: (err => {
         this.cdr.detectChanges();
       })
     })
   }
+
+  uploadedFile: File | null = null;
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files[0]) {
+      this.uploadedFile = input.files[0];
+      const file = this.uploadedFile;
+
+      this.personIdDetail.contentType = file.type;
+
+      if (file.type === 'application/pdf') {
+        const blobUrl = URL.createObjectURL(file);
+        this.personIdDetail.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
+      } else if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.personIdDetail.imageUrl = reader.result as string;
+          this.cdr.markForCheck();
+        };
+        reader.readAsDataURL(file);
+      }
+
+      this.cdr.markForCheck();
+    }
+  }
+
+
+  save(event: any) {
+    this.personIdDetail = event.element;
+
+
+    
+    this.showLoading = true;
+
+    this.service.updateByDto(event.formData).subscribe({
+      next: (res) => {
+        this.showLoading = false;
+        this.snackBar.openFromComponent(SuccessSnackbar, {
+          data: 'Updated Successfully'
+        });
+        this.cdr.markForCheck();
+        this.isEdit = false;
+      },
+      error: () => {
+        this.cdr.markForCheck();
+        this.showLoading = false;
+
+      }
+    });
+  }
+
+
 }

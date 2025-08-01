@@ -1,32 +1,18 @@
-<div class="custom-tab-wrapper">
-  <div class="row tabs-container">
-    <div class="col-6 tabs">
-        <button mat-button
-          [class.active]="selectedTab === 0"
-          (click)="selectedTab = 0">
-              Id Documents
-          </button>
-        <button mat-button
-          [class.active]="selectedTab === 1"
-          (click)="selectedTab = 1">
-          Other Documents
-        </button>   
+<div class="row document-container">
 
+  <div class="document-header">
+    <div>
+      <h4>Documents</h4>
     </div>
-    <div class="col-6">
-        <div class="d-flex justify-content-end">
-            <button mat-button color="primary" (click)="openAddDocumentDialog()">
-                Add Document
-                <mat-icon>description</mat-icon>
-            </button>
-        </div>
+    <div>
+      <button mat-button color="primary" (click)="openAddDocumentDialog()">
+        Upload Document
+        <mat-icon>description</mat-icon>
+      </button>
     </div>
   </div>
 
-  <div class="custom-tab-content">
-    <ng-container [ngSwitch]="selectedTab">
-      <app-person-id-documents-table-form #PersonIdDocumentsTableForm *ngSwitchCase="0"></app-person-id-documents-table-form>
-      <app-person-other-documents-table-form #PersonOtherDocumentsTableForm *ngSwitchCase="1"></app-person-other-documents-table-form>
-    </ng-container>
-  </div>
+  <app-person-id-documents-table-form #PersonIdDocumentsTableForm></app-person-id-documents-table-form>
+  <app-person-other-documents-table-form #PersonOtherDocumentsTableForm></app-person-other-documents-table-form>
+
 </div>

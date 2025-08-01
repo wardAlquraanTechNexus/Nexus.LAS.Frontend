@@ -242,6 +242,7 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
         )
       }), error: (err => {
         this.cdr.markForCheck();
+        this.selectedPersons = [];
         this.showLoading = false;
       })
     })

@@ -33,6 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { PersonOtherDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-other-document-form/person-other-document-form';
 import { PersonIdDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BaseDialougeComponent } from '../dashboard-components/base-components/base-dialouge-component/base-dialouge-component';
 
 
 
@@ -47,7 +48,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
     PersonIdDocumentForm,
-    PersonOtherDocumentForm
+    PersonOtherDocumentForm,
+    BaseDialougeComponent
   ],
   imports: [
     CommonModule,
@@ -113,7 +115,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatNativeDateModule,
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
-    MatCheckboxModule
+    MatCheckboxModule,
+    BaseDialougeComponent
   ]
 })
 export class ComponentsModule { }

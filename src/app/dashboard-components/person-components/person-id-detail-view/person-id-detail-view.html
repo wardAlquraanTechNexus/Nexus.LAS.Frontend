@@ -1,14 +1,18 @@
-<div class="back-view" *ngIf="!showLoading">
-    <div class="view-header d-flex justify-content-between align-items-center">
+<div *ngIf="showLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+
+<mat-dialog-content *ngIf="personIdDetail && !showLoading">
+    <div *ngIf="!isEdit" class="actions view-header d-flex justify-content-between align-items-start">
         <div class="view-subject d-flex align-items-center gap-2">
-            <mat-icon>arrow_back</mat-icon>
             <span>Passport.jpg</span>
             <span [ngStyle]="getPrimaryStyle()">
                 {{ personIdDetail.isPrimary | tableDataPipe: 'persondocumentprimary' }}
             </span>
         </div>
-        <div class="actions d-flex align-items-center gap-2">
-            <button class="btn" (click)="edit()">
+
+        <div *ngIf="!isEdit" class="d-flex align-items-center gap-2">
+            <button class="btn" (click)="openEdit()">
                 <mat-icon>edit</mat-icon>
             </button>
             <button class="btn" (click)="download()">
@@ -17,10 +21,13 @@
             <button class="btn" [confirmDelete]="getRemoveCallback()">
                 <mat-icon>delete</mat-icon>
             </button>
+            <button class="btn" mat-dialog-close>
+                <mat-icon>close</mat-icon>
+            </button>
         </div>
     </div>
-    <div class="row view">
-        <!-- Left: Text Details -->
+
+    <div *ngIf="!isEdit" class="row view">
         <div class="col-md-3 props">
             <div class="detail-box p-3">
                 <div class="detail-item d-flex justify-content-between mb-3">
@@ -28,40 +35,44 @@
                     <span class="value text-start ms-3">{{ personIdDetail.type }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted ">NATIONALITY</span>
+                    <span class="label text-muted">NATIONALITY</span>
                     <span class="value">{{ personIdDetail.nationality }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted ">PLACE OF ISSUE</span>
+                    <span class="label text-muted">PLACE OF ISSUE</span>
                     <span class="value">{{ personIdDetail.placeOfIssue }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted ">NUMBER</span>
+                    <span class="label text-muted">NUMBER</span>
                     <span class="value">{{ personIdDetail.idNumber }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted ">ISSUE DATE</span>
-                    <span class="value">{{ personIdDetail.idIssueDate | date:'dd/MM/yyyy' }}</span>
+                    <span class="label text-muted">ISSUE DATE</span>
+                    <span class="value">{{ personIdDetail.idIssueDate | date: 'dd/MM/yyyy' }}</span>
                 </div>
-                <div class="detail-item d-flex justify-content">
-                    <span class="label text-muted ">EXPIRY DATE</span>
-                    <span class="value">{{ personIdDetail.expiryDate | date:'dd/MM/yyyy' }}</span>
+                <div class="detail-item d-flex justify-content-between">
+                    <span class="label text-muted">EXPIRY DATE</span>
+                    <span class="value">{{ personIdDetail.expiryDate | date: 'dd/MM/yyyy' }}</span>
                 </div>
             </div>
         </div>
 
-        <!-- Right: Document Image -->
         <div class="col-md-9">
             <div class="image-wrapper">
                 <ng-container *ngIf="personIdDetail.contentType === 'application/pdf'; else showImage">
-                    <iframe [src]="imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
+                    <iframe [src]="personIdDetail.imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
                 </ng-container>
 
-                <!-- Show image -->
                 <ng-template #showImage>
-                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Document" class="img-fluid" />
+                    <img *ngIf="personIdDetail.imageUrl" [src]="personIdDetail.imageUrl" alt="Document" class="img-fluid" />
                 </ng-template>
             </div>
         </div>
     </div>
-</div>
+    <app-edit-person-id-detail-form 
+    *ngIf="isEdit !showLoading" 
+    [personIdDetail]="personIdDetail" 
+    (saveEmitter)="save($event)"
+    (cancelEditEmitter)="cancelEdit()"></app-edit-person-id-detail-form>
+
+</mat-dialog-content>
