@@ -4,16 +4,10 @@
   margin-bottom: 50px;
 }
 .spinner-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.7); /* optional backdrop */
-  z-index: 9999;
+  min-height: 200px; /* Adjust as needed */
 }
 .table-container {
   background-color: #FAFAFA;

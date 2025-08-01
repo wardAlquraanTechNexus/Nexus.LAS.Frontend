@@ -16,6 +16,8 @@ import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/
 import { Sort } from '@angular/material/sort';
 import { TableFormComponent } from '../../base-components/table-form-component/table-form-component';
 import { Person } from '../../../models/persons/person';
+import { BulkChangeStatusCommand } from '../../../models/persons/bulk-change-status-command';
+import { BulkChangePrivateCommand } from '../../../models/persons/bulk-change-private-command';
 
 @Component({
   selector: 'app-all-persons',
@@ -25,6 +27,8 @@ import { Person } from '../../../models/persons/person';
 })
 export class AllPersons extends TableFormComponent<Person> implements OnInit {
 
+  activeStatus = PersonStatus.Active;
+  inactiveStatus = PersonStatus.Inactive;
   selectedPersons: Person[] = [];
 
   settingsMenuOpen = false;
@@ -210,8 +214,62 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
           }
         )
       }), error: (err => {
+        this.cdr.markForCheck();
         this.showLoading = false;
-        this.cdr.detectChanges();
+      })
+    })
+  }
+
+  bulkChangeStatus(status:PersonStatus) {
+    let command : BulkChangeStatusCommand = {
+      ids: this.selectedPersons.map(x=>x.id).filter((id): id is number => id !== undefined),
+      status: status
+    }
+    this.showLoading = true;
+
+    this.personService.bulkChangeStatus(command).subscribe({
+      next: (res => {
+        this.cdr.markForCheck();
+        this.selectedPersons = [];
+
+        this.showLoading = false;
+        this.fetchData();
+        this.snackBar.openFromComponent(SuccessSnackbar,
+          {
+            data: "Updated Successfully",
+            duration: 4000
+          }
+        )
+      }), error: (err => {
+        this.cdr.markForCheck();
+        this.showLoading = false;
+      })
+    })
+  }
+
+    bulkChangePrivate(isPrivate:boolean) {
+    let command : BulkChangePrivateCommand = {
+      ids: this.selectedPersons.map(x=>x.id).filter((id): id is number => id !== undefined),
+      isPrivate: isPrivate
+    }
+    this.showLoading = true;
+
+    this.personService.bulkChangePrivate(command).subscribe({
+      next: (res => {
+        this.selectedPersons = [];
+        this.showLoading = false;
+        this.cdr.markForCheck();
+        this.fetchData();
+        this.snackBar.openFromComponent(SuccessSnackbar,
+          {
+            data: "Updated Successfully",
+            duration: 4000
+          }
+          
+        )
+      }), error: (err => {
+        this.cdr.markForCheck();
+        this.showLoading = false;
       })
     })
   }

@@ -9,6 +9,8 @@ import { PaginateRsult } from '../models/paginate-result';
 import { GetAllPersonDTO } from '../models/persons/get-all-person-dto';
 import { GetAllActivePersonQuery } from '../models/persons/get-all-active-person-query';
 import { UpdatePersonCommand } from '../models/persons/update-person';
+import { BulkChangeStatusCommand } from '../models/persons/bulk-change-status-command';
+import { BulkChangePrivateCommand } from '../models/persons/bulk-change-private-command';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +37,15 @@ export class PersonService extends BaseService<Person> {
     var params = this.httpParams(getAllPersonQuery);
     return this.httpClient.get<PaginateRsult<GetAllPersonDTO>>(this.url + "/GetAllActivePerson", {params});
   }
+
+  bulkChangeStatus(command:BulkChangeStatusCommand):Observable<number>
+  {
+    return this.httpClient.put<number>(this.url + "/BulkChangeStatus", command);
+  }
+
+  bulkChangePrivate(command:BulkChangePrivateCommand):Observable<number>
+  {
+    return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
+  }
+
 }
