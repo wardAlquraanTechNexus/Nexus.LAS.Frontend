@@ -1,0 +1,100 @@
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 10;
+}
+
+::ng-deep .mat-mdc-dialog-content{
+    height: 100%;
+    min-height: 100%;
+}
+
+::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
+  min-width: 90% !important;
+  max-width: 90% !important;
+  margin: auto !important;
+  height: 95%;
+}
+
+
+::ng-deep .mat-mdc-dialog-surface {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 0 !important;
+}
+::ng-deep .mat-mdc-dialog-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    
+}
+
+
+mat-dialog-content {
+  height: 90%;
+}
+
+mat-icon {
+    vertical-align: bottom;
+}
+.actions{
+ position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.view-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid;
+}
+
+.view {
+    margin: 5px;
+    min-height: 100vh;
+    box-shadow: 100px;
+    background-color: #fff;
+}
+
+.props {
+    height: 100vh;
+    padding: auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+
+}
+
+.detail-item {
+    height: 50px;
+}
+
+.label {
+    width: 60%;
+}
+
+.value {
+    color: #000;
+    width: 40%;
+}
+.image-edit-con{
+    background-color: #CCCCCC;
+    padding: 10px;
+}
+.image-wrapper {
+    margin-left: 5px;
+    height: 100%;
+    background-color: #f9f9f9;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}

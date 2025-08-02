@@ -5,5 +5,6 @@ export interface PersonOtherDocumentDTO {
   documentDescription?: string | null;
   fileName?: string | null;
   contentType?: string | null;
-  dataFile?: Uint8Array | null;  // or ArrayBuffer, depending on your usage
+  dataFile?: Uint8Array | null;
+  imageUrl:any;
 }

@@ -1,0 +1,6 @@
+<app-edit-person-other-document-form *ngIf="!showLoading"
+    [personOtherDocumentDto]="personOtherDocument" 
+    (saveEmitter)="save($event)"
+    (cancelEditEmitter)="cancelEdit()"></app-edit-person-other-document-form>
+
+    

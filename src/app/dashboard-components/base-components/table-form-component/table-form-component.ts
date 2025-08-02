@@ -85,13 +85,13 @@ export class TableFormComponent<T> implements OnInit {
     this.showLoading = true;
     this.service.getByParams(this.params).subscribe({
       next: (res => {
-        this.cdr.markForCheck();
         this.data = res;
         this.showLoading = false;
+        this.cdr.markForCheck();
       }),
       error: (err => {
-        this.cdr.markForCheck ();
         this.showLoading = false;
+        this.cdr.markForCheck ();
 
       })
     })

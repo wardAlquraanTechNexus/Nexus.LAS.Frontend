@@ -51,24 +51,32 @@ export class EditPersonIdDetailForm implements OnInit {
   }
 
   save() {
-    
-    this.formGroup.markAllAsTouched();
-   if (this.formGroup.valid) {
 
-    Object.keys(this.formGroup.controls).forEach(key => {
-      const control = this.formGroup.get(key);
-      if (control !== null) {
-        (this.personIdDetail as any)[key] = control.value;
-      }
-    });
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+
+      Object.keys(this.formGroup.controls).forEach(key => {
+        const control = this.formGroup.get(key);
+        if (control !== null) {
+          (this.personIdDetail as any)[key] = control.value;
+        }
+      });
+
       const formData = new FormData();
       const issueDateValue = this.formGroup.get('idIssueDate')?.value;
       if (issueDateValue) {
-        formData.append('idIssueDate', issueDateValue);
+        const issueDate = new Date(issueDateValue);
+        if (!isNaN(issueDate.getTime())) {
+          formData.append('idIssueDate', issueDate.toISOString());
+        }
       }
-      const expiryDate = this.formGroup.get('expiryDate')?.value;
-      if (expiryDate) {
-        formData.append('idIssueDate', expiryDate);
+
+      const expiryDateValue = this.formGroup.get('expiryDate')?.value;
+      if (expiryDateValue) {
+        const expiryDate = new Date(expiryDateValue);
+        if (!isNaN(expiryDate.getTime())) {
+          formData.append('expiryDate', expiryDate.toISOString());
+        }
       }
       formData.append('id', this.personIdDetail.id.toString());
       formData.append('isPrimary', this.formGroup.get('isPrimary')?.value);
@@ -82,10 +90,10 @@ export class EditPersonIdDetailForm implements OnInit {
       if (this.uploadedFile) {
         formData.append('file', this.uploadedFile!, this.uploadedFile!.name);
       }
-      
-      this.saveEmitter.emit({element: this.personIdDetail , formData:formData});
 
-  }
+      this.saveEmitter.emit({ element: this.personIdDetail, formData: formData });
+
+    }
   }
   cancelEdit() {
     this.cancelEditEmitter.emit();

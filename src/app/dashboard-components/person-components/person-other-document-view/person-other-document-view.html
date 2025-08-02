@@ -1,23 +1,26 @@
-<div class="back-view" *ngIf="!showLoading">
-    <div class="view-header d-flex justify-content-between align-items-center">
-        <div class="view-subject d-flex align-items-center gap-2">
-            <mat-icon>arrow_back</mat-icon>
-            <span>Passport.jpg</span>
-        </div>
-        <div class="actions d-flex align-items-center gap-2">
-            <button class="btn" (click)="edit()">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button class="btn" (click)="download()">
-                <mat-icon>download</mat-icon>
-            </button>
-            <button class="btn" [confirmDelete]="getRemoveCallback()">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
+<div *ngIf="showLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+
+<mat-dialog-content *ngIf="personOtherDocument && !showLoading">
+
+    <div *ngIf="!openEditForm" class="actions d-flex justify-content-end align-items-center gap-2">
+        <button class="btn" (click)="openEdit()">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button class="btn" (click)="download()">
+            <mat-icon>download</mat-icon>
+        </button>
+        <button class="btn" [confirmDelete]="getRemoveCallback()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button class="btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
     </div>
-    <div class="row view">
-        <!-- Left: Text Details -->
+
+
+    <div *ngIf="!openEditForm" class="row view">
         <div class="col-md-3 props">
             <div class="detail-box p-3">
                 <div class="detail-item d-flex justify-content-between mb-3">
@@ -25,24 +28,28 @@
                     <span class="value text-start ms-3">{{ personOtherDocument.documentType }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted ">Description</span>
+                    <span class="label text-muted">DESCRIPTION</span>
                     <span class="value">{{ personOtherDocument.documentDescription }}</span>
                 </div>
             </div>
         </div>
 
-        <!-- Right: Document Image -->
         <div class="col-md-9">
             <div class="image-wrapper">
                 <ng-container *ngIf="personOtherDocument.contentType === 'application/pdf'; else showImage">
-                    <iframe [src]="imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
+                    <iframe [src]="personOtherDocument.imageUrl" width="100%" height="100%"
+                        type="application/pdf"></iframe>
                 </ng-container>
 
-                <!-- Show image -->
                 <ng-template #showImage>
-                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Document" class="img-fluid" />
+                    <img *ngIf="personOtherDocument.imageUrl" [src]="personOtherDocument.imageUrl" alt="Document"
+                        class="img-fluid" />
                 </ng-template>
             </div>
         </div>
     </div>
-</div>
+    <app-edit-person-other-document-form *ngIf="openEditForm && !showLoading"
+        [personOtherDocumentDto]="personOtherDocument" (saveEmitter)="save($event)"
+        (cancelEditEmitter)="cancelEdit()"></app-edit-person-other-document-form>
+
+</mat-dialog-content>

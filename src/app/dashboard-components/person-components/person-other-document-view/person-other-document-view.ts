@@ -1,13 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PersonOtherDocumentDTO } from '../../../models/person-other-document/person-other-document-dto';
 import { PersonOtherDocumentService } from '../../../services/person-other-document-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
 import { EditPersonOtherDocumentForm } from './edit-person-other-document-form/edit-person-other-document-form';
+import { BaseDialougeComponent } from '../../base-components/base-dialouge-component/base-dialouge-component';
 
 @Component({
   selector: 'app-person-other-document-view',
@@ -15,11 +16,11 @@ import { EditPersonOtherDocumentForm } from './edit-person-other-document-form/e
   templateUrl: './person-other-document-view.html',
   styleUrl: './person-other-document-view.scss'
 })
-export class PersonOtherDocumentView implements OnInit {
-  imageUrl: SafeResourceUrl | null = null;
+export class PersonOtherDocumentView extends BaseDialougeComponent {
   personOtherDocument!: PersonOtherDocumentDTO;
-  id: number = 0;
   showLoading = false;
+  openEditForm = false;
+  isEdit = false;
   constructor(
     private service: PersonOtherDocumentService,
     protected router: Router,
@@ -27,39 +28,36 @@ export class PersonOtherDocumentView implements OnInit {
     protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    private dialog: MatDialog
-  ) { }
+    protected override dialogRef: MatDialogRef<PersonOtherDocumentView>,
+    @Inject(MAT_DIALOG_DATA) public override data: any
+  ) {
+    super(dialogRef, data)
+  }
 
-  ngOnInit(): void {
-    let id = this.route.snapshot.queryParamMap.get('id');
-    if (id) {
-      this.id = parseInt(id);
-      this.showLoading = true;
-      this.service.getDTOById(this.id).subscribe(
-        {
-          next: (data) => {
-            this.personOtherDocument = data;
+  override ngOnInit(): void {
+    this.showLoading = true;
+    this.service.getDTOById(this.element.id).subscribe(
+      {
+        next: (data) => {
 
-            if (data.dataFile && data.contentType) {
+          this.personOtherDocument = data;
 
-              // If dataFile is base64
-              const base64Data = data.dataFile;
-              const blob = this.base64ToBlob(base64Data, data.contentType);
-              const url = URL.createObjectURL(blob);
+          if (data.dataFile && data.contentType) {
 
-              this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-            }
-            this.showLoading = false;
-            this.cdr.detectChanges();
-          },
-          error: (error) => {
-            this.showLoading = false;
-            this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
+            // If dataFile is base64
+            const base64Data = data.dataFile;
+            const blob = this.base64ToBlob(base64Data, data.contentType);
+            const url = URL.createObjectURL(blob);
+            this.personOtherDocument.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           }
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.showLoading = false;
+          this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
         }
-      )
-
-    }
+      })
   }
 
 
@@ -74,7 +72,6 @@ export class PersonOtherDocumentView implements OnInit {
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: contentType });
   }
-
 
 
   download() {
@@ -94,31 +91,25 @@ export class PersonOtherDocumentView implements OnInit {
     }
   }
 
-  edit() {
-    const dialogRef = this.dialog.open(EditPersonOtherDocumentForm, {
-      width: '700px',
-      panelClass: 'no-radius-dialog',
-      disableClose: true,
-      data: {
-        personOtherDocument: this.personOtherDocument
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.personOtherDocument = result;
-        this.cdr.detectChanges();
-      }
-    });
+  openEdit() {
+    this.openEditForm = true;
   }
-
+  cancelEdit() {
+    this.openEditForm = false;
+  }
+  close() {
+    this.dialogRef.close(this.isEdit);
+  }
+  
   getRemoveCallback() {
-    return () => this.deleteIdDetail();
+    return () => this.deleteOtherDocument(this.personOtherDocument);
   }
 
 
-  deleteIdDetail() {
-    this.service.delete(this.personOtherDocument.id).subscribe({
+  
+
+  deleteOtherDocument(personOtherDocument:any) {
+    this.service.delete(personOtherDocument.id).subscribe({
       next: (res => {
         this.showLoading = false;
 
@@ -127,13 +118,34 @@ export class PersonOtherDocumentView implements OnInit {
           data: "Deleted Successfully"
         });
         this.cdr.detectChanges();
-        this.router.navigate([environment.routes.EditPerson], {
-          queryParams: { id: this.personOtherDocument.personsIdn }
-        });
+        this.isEdit = true;
+        this.close();
       }), error: (err => {
         this.cdr.detectChanges();
       })
     })
   }
 
+
+    save(event: any) {
+    this.personOtherDocument = event.element;
+    this.showLoading = true;
+
+    this.service.updateByDto(event.formData).subscribe({
+      next: (res) => {
+        this.showLoading = false;
+        this.snackBar.openFromComponent(SuccessSnackbar, {
+          data: 'Updated Successfully'
+        });
+        this.cdr.markForCheck();
+        this.openEditForm = false;
+        this.isEdit = true;
+      },
+      error: () => {
+        this.cdr.markForCheck();
+        this.showLoading = false;
+
+      }
+    });
+  }
 }

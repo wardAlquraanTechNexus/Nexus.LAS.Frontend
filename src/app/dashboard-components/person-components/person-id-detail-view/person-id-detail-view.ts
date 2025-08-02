@@ -19,6 +19,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './person-id-detail-view.scss'
 })
 export class PersonIdDetailView extends BaseDialougeComponent {
+  openEditForm = false;
   isEdit = false;
   personIdDetail!: PersonIdDetailDto;
 
@@ -96,14 +97,14 @@ export class PersonIdDetailView extends BaseDialougeComponent {
   }
 
   openEdit() {
-    this.isEdit = true;
+    this.openEditForm = true;
   }
 
   cancelEdit() {
-    this.isEdit = false;
+    this.openEditForm = false;
   }
   close() {
-    this.dialogRef.close(this.personIdDetail);
+    this.dialogRef.close(this.isEdit);
   }
 
   download() {
@@ -173,9 +174,6 @@ export class PersonIdDetailView extends BaseDialougeComponent {
 
   save(event: any) {
     this.personIdDetail = event.element;
-
-
-    
     this.showLoading = true;
 
     this.service.updateByDto(event.formData).subscribe({
@@ -185,11 +183,13 @@ export class PersonIdDetailView extends BaseDialougeComponent {
           data: 'Updated Successfully'
         });
         this.cdr.markForCheck();
-        this.isEdit = false;
+        this.openEditForm = false;
+        this.isEdit = true;
       },
       error: () => {
         this.cdr.markForCheck();
         this.showLoading = false;
+        this.isEdit = false;
 
       }
     });

@@ -13,6 +13,8 @@ import { env } from 'process';
 import { environment } from '../../../../../environment/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonIdDetailView } from '../../person-id-detail-view/person-id-detail-view';
+import { EditPersonIdDetailView } from '../../person-id-detail-view/edit-person-id-detail-view/edit-person-id-detail-view';
+import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 
 @Component({
   selector: 'app-person-id-documents-table-form',
@@ -122,9 +124,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
   viewDocument(item: PersonsIDDetail) {
     const dialogRef = this.dialog.open(PersonIdDetailView, {
-      // minWidth:"95%",
       panelClass: 'dialoug-container',
-      // maxWidth: '95%',
       disableClose: true,
       data: item
 
@@ -137,6 +137,60 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
       }
     });
   }
+
+  editDocument(item: PersonsIDDetail) {
+    const dialogRef = this.dialog.open(EditPersonIdDetailView, {
+      panelClass: 'dialoug-container',
+      disableClose: true,
+      data: item
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+
+  getRemoveCallback(id: number): () => void {
+    return () => this.deleteIdDetail(id);
+  }
+
+  deleteIdDetail(id: number) {
+    this.showLoading = true;
+    this.service.delete(id).subscribe({
+      next: (res) => {
+        this.showLoading = false;
+        
+        this.data = {
+          ...this.data,
+          collection: this.data.collection.filter(item => item.id !== id),
+          totalRecords: this.data.totalRecords - 1
+        };
+        
+
+        this.cdr.markForCheck();
+
+        this.snackBar.openFromComponent(SuccessSnackbar, {
+          duration: 4000,
+          data: "Deleted Successfully"
+        });
+
+      },
+      error: (err) => {
+        this.showLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+
+
+
+
   addToCollection(element: PersonsIDDetail) {
     this.data.collection = [];
     this.cdr.detectChanges();

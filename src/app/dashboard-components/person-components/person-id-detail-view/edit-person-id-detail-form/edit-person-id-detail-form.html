@@ -2,7 +2,7 @@
     <div class="dialog-header-buttons">
         <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
       <button class="btn btn-primary mr-2" (click)="save()">Save</button>
-      <button class="btn" mat-dialog-close>
+      <button *ngIf="!showLoading" class="btn"  (click)="cancelEdit()">
         <mat-icon>close</mat-icon>
       </button>
     </div>

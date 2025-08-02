@@ -3,7 +3,7 @@
 </div>
 
 <mat-dialog-content *ngIf="personIdDetail && !showLoading">
-    <div *ngIf="!isEdit" class="actions view-header d-flex justify-content-between align-items-start">
+    <div *ngIf="!openEditForm" class="actions view-header d-flex justify-content-between align-items-start">
         <div class="view-subject d-flex align-items-center gap-2">
             <span>Passport.jpg</span>
             <span [ngStyle]="getPrimaryStyle()">
@@ -11,7 +11,7 @@
             </span>
         </div>
 
-        <div *ngIf="!isEdit" class="d-flex align-items-center gap-2">
+        <div *ngIf="!openEditForm" class="d-flex align-items-center gap-2">
             <button class="btn" (click)="openEdit()">
                 <mat-icon>edit</mat-icon>
             </button>
@@ -21,13 +21,13 @@
             <button class="btn" [confirmDelete]="getRemoveCallback()">
                 <mat-icon>delete</mat-icon>
             </button>
-            <button class="btn" mat-dialog-close>
+            <button class="btn" (click)="close()">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
     </div>
 
-    <div *ngIf="!isEdit" class="row view">
+    <div *ngIf="!openEditForm" class="row view">
         <div class="col-md-3 props">
             <div class="detail-box p-3">
                 <div class="detail-item d-flex justify-content-between mb-3">
@@ -70,7 +70,7 @@
         </div>
     </div>
     <app-edit-person-id-detail-form 
-    *ngIf="isEdit !showLoading" 
+    *ngIf="openEditForm && !showLoading" 
     [personIdDetail]="personIdDetail" 
     (saveEmitter)="save($event)"
     (cancelEditEmitter)="cancelEdit()"></app-edit-person-id-detail-form>

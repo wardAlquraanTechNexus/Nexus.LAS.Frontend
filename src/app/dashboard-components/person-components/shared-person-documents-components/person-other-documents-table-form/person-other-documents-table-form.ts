@@ -9,6 +9,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseParam } from '../../../../models/base/base-param';
 import { Sort } from '@angular/material/sort';
 import { environment } from '../../../../../environment/environment';
+import { PersonOtherDocumentView } from '../../person-other-document-view/person-other-document-view';
+import { MatDialog } from '@angular/material/dialog';
+import { EditPersonOtherDocumentForm } from '../../person-other-document-view/edit-person-other-document-form/edit-person-other-document-form';
+import { EditPersonOtherDocumentView } from '../../person-other-document-view/edit-person-other-document-view/edit-person-other-document-view';
+import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 
 @Component({
   selector: 'app-person-other-documents-table-form',
@@ -45,7 +50,9 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     protected override fb: FormBuilder,
     protected override router: Router,
     protected override snackBar: MatSnackBar,
-    protected override route: ActivatedRoute
+    protected override route: ActivatedRoute,
+    private dialog: MatDialog
+
   ) {
     super(service, cdr, fb, router, snackBar, route);
   }
@@ -59,7 +66,7 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
 
   }
 
-   override search() {
+  override search() {
     this.fetchData();
   }
   override changeSort(sortState: Sort) {
@@ -87,10 +94,56 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
   }
 
   viewDocument(item: PersonOtherDocument) {
-    this.router.navigate([environment.routes.ViewPersonOtherDocument], {
-      queryParams: {
-        id: item.id
+    const dialogRef = this.dialog.open(PersonOtherDocumentView, {
+      panelClass: 'dialoug-container',
+      disableClose: true,
+      data: item
+
+    });
+      dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+        this.cdr.detectChanges();
       }
     });
   }
+  editDocument(item: PersonOtherDocument) {
+    const dialogRef = this.dialog.open(EditPersonOtherDocumentView, {
+      panelClass: 'dialoug-container',
+      disableClose: true,
+      data: item
+
+    });
+      dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+   getRemoveCallback(id:number) {
+     return () => this.deleteOtherDocument(id);
+    }
+    
+    
+    
+    
+    deleteOtherDocument(id:number) {
+      
+      this.service.delete(id).subscribe({
+        next: (res => {
+          this.showLoading = false;
+  
+          this.snackBar.openFromComponent(SuccessSnackbar, {
+            duration: 4000,
+            data: "Deleted Successfully"
+          });
+          this.cdr.detectChanges();
+          this.fetchData();
+        }), error: (err => {
+          this.cdr.detectChanges();
+        })
+      })
+    }
 }

@@ -23,10 +23,16 @@
         <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns"
             [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
             [action]="actionButtonsTemplate">
-            <ng-template #actionButtonsTemplate let-row>
-                <a (click)="viewDocument(row)">
-                    <mat-icon>visibility</mat-icon>
-                </a>
+            <ng-template class="actions" #actionButtonsTemplate let-row>
+                <a class="mr-1 action" [confirmDelete]="getRemoveCallback(row.id)">
+                        <mat-icon>delete</mat-icon>
+                    </a>
+                    <a class="mr-1 action" (click)="editDocument(row)">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    <a class="mr-1 action" (click)="viewDocument(row)">
+                        <mat-icon>visibility</mat-icon>
+                    </a>
             </ng-template>
         </app-shared-table>
     </div>
