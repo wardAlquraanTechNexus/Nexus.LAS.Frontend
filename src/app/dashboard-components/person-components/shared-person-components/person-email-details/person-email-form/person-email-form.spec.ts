@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SharedTable } from './shared-table';
+import { PersonEmailForm } from './person-email-form';
 
-describe('SharedTable', () => {
-  let component: SharedTable;
-  let fixture: ComponentFixture<SharedTable>;
+describe('PersonEmailForm', () => {
+  let component: PersonEmailForm;
+  let fixture: ComponentFixture<PersonEmailForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SharedTable]
+      imports: [PersonEmailForm]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SharedTable);
+    fixture = TestBed.createComponent(PersonEmailForm);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

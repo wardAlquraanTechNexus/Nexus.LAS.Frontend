@@ -1,10 +1,8 @@
-export interface PersonOtherDocumentDTO {
+import { FileDto } from "../base/file-dto";
+
+export interface PersonOtherDocumentDTO extends FileDto {
   id: number;
   personsIdn: number;
   documentType: string;
   documentDescription?: string | null;
-  fileName?: string | null;
-  contentType?: string | null;
-  dataFile?: Uint8Array | null;
-  imageUrl:any;
 }

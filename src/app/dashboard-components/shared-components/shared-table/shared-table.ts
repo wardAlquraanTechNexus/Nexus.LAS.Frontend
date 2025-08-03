@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { Person } from '../../../models/persons/person';
   templateUrl: './shared-table.html',
   styleUrl: './shared-table.scss'
 })
-export class SharedTable implements AfterViewInit {
+export class SharedTable implements OnInit, OnChanges {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -37,13 +37,21 @@ export class SharedTable implements AfterViewInit {
   constructor(private cdRef: ChangeDetectorRef) {
 
   }
-
-
-  ngAfterViewInit() {
+  ngOnChanges(changes: SimpleChanges): void {
+     if (changes['paginateResult'] && this.paginateResult?.collection) {
+      // Refresh the table data when collection changes
+      if (this.dataSource) {
+        this.dataSource.data = this.paginateResult.collection;
+      } else {
+        this.dataSource = new MatTableDataSource(this.paginateResult.collection);
+      }
+    }
+  }
+  ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.paginateResult.collection);
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
-
-    this.cdRef.detectChanges()
+  
+    this.cdRef.detectChanges();
   }
 
   onPageChange(event: PageEvent): void {

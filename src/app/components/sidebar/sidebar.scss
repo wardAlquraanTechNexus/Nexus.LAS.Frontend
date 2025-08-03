@@ -1,52 +1,85 @@
-.sidebar-container{
-  background-color: #F8F9FC;
-}
-.sidebar-toggle-btn,
-.sidebar-toggle-btn-opened {
-  position: absolute;
-  top: 3rem;
-  z-index: 1000;
-  background-color: white;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  padding: 0.3rem;
-  transition: width 0.3s ease, left 0.3s ease;
-  overflow: hidden; /* prevents overflow during animation */
-}
-
-/* Closed state */
-.sidebar-toggle-btn {
-  left: 1rem;
-  top: 4rem;
-}
-
-/* Open state */
-.sidebar-toggle-btn-opened {
-  left: 11.5rem;
-}
-
-.tree-container {
-  width: 100%;
+.sidebar-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
   transition: width 0.3s ease;
   overflow: hidden;
+
+  &.closed {
+    width: 48px;
+  }
+
+  .toggle-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    padding: 8px 0;
+    z-index: 1000;
+    background-color: #F8F9FC;
+
+    .toggle-btn {
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-icon {
+      font-size: 32px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+
+  .tree-container {
+    flex: 1;
+    transition: opacity 0.3s ease;
+    overflow-x: hidden;
+    padding: 8px;
+
+    .tree-link {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      color: #000;
+    }
+  }
+
+  &.closed {
+    .tree-container {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
 }
 
-.tree-container.closed {
-  width: 0;
-  padding: 0;
-  border: none;
-}
-
-.tree-container mat-tree {
-  width: 100%;
+mat-tree-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 8px; /* add some right padding */
 }
 
 .tree-link {
-  color: black;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-button .mat-icon,
-a .mat-icon,
-span .mat-icon {
-  vertical-align: middle;
+/* Optionally style toggle button on right */
+.toggle-btn-right {
+  min-width: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+mat-icon{
+  vertical-align: top;
 }

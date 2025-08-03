@@ -1,64 +1,70 @@
-<form class="row align-items-center nav-bar">
+<div class="container-fluid nav-bar">
+    <div class="row">
+        <div class="col-2">
+            <img src="../../../assets/images/Vector.svg" />
+        </div>
+        <div class="col-5">
+            <mat-form-field appearance="outline" class="w-100 mt-1">
+                <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+                    placeholder="Search for persons, Companies, Real Estates, Law F.." aria-label="Search"
+                    #searchInput />
 
-    <div class="col-5">
-        <mat-form-field appearance="outline" class="w-100 mt-1">
-            <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
-                placeholder="Search for persons, Companies, Real Estates, Law F.." aria-label="Search" #searchInput />
-
-            <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
-                [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-
-        <!-- Search result menu -->
-        <mat-menu #searchMenu="matMenu">
-            <ng-container *ngIf="searchResults.length; else noResults">
-                <button mat-menu-item *ngFor="let result of searchResults">{{ result }}</button>
-            </ng-container>
-            <ng-template #noResults>
-                <span class="p-2 text-muted">No results found</span>
-            </ng-template>
-        </mat-menu>
-    </div>
-
-    <div class="col-2">
-        <button class="btn btn-primary" type="button"><span class="mr-3" [matMenuTriggerFor]="listToCreate_menu">
-                Create new</span>
-            <mat-icon>add</mat-icon>
-        </button>
-        <mat-menu #listToCreate_menu="matMenu" class="list-to-create">
-            <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)">
-                {{ item.name }}
-            </button>
-        </mat-menu>
-
-    </div>
-
-    <div class="col-3">
-        <div class="d-flex justify-content-end align-items-center gap-2">
-            <div class="languages">
-                <button class="btn" type="button" [matMenuTriggerFor]="languages_menu">
-                    <mat-icon>language</mat-icon> {{ selectedLanguage.name }}
+                <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
+                    [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
+                    <mat-icon>search</mat-icon>
                 </button>
-                <mat-menu #languages_menu="matMenu">
-                    <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
-                        {{ language.name }}
+            </mat-form-field>
+
+            <mat-menu #searchMenu="matMenu">
+                <ng-container *ngIf="searchResults.length; else noResults">
+                    <button mat-menu-item *ngFor="let result of searchResults">{{ result }}</button>
+                </ng-container>
+                <ng-template #noResults>
+                    <span class="p-2 text-muted">No results found</span>
+                </ng-template>
+            </mat-menu>
+        </div>
+
+        <div class="col-2">
+            <button class="btn btn-primary" type="button"><span [matMenuTriggerFor]="listToCreate_menu">
+                    Create new</span>
+                <mat-icon>add</mat-icon>
+            </button>
+            <mat-menu #listToCreate_menu="matMenu" class="list-to-create">
+                <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)">
+                    {{ item.name }}
+                </button>
+            </mat-menu>
+
+        </div>
+
+        <div class="col-3">
+            <div class="d-flex justify-content-end align-items-center gap-2">
+                <div class="languages">
+                    <button class="btn" type="button" [matMenuTriggerFor]="languages_menu">
+                        <mat-icon>language</mat-icon> {{ selectedLanguage.name }}
                     </button>
-                </mat-menu>
+                    <mat-menu #languages_menu="matMenu">
+                        <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
+                            {{ language.name }}
+                        </button>
+                    </mat-menu>
 
-            </div>
-            <div class="profile">
-                <button type="button" class="btn account-button" [matMenuTriggerFor]="profile">
-                    <mat-icon>account_circle</mat-icon>
-                </button>
-                <mat-menu #profile="matMenu">
-                    <button mat-menu-item type="button">Profile</button>
-                    <button mat-menu-item type="button" (click)="logout()">Logout</button>
-                </mat-menu>
+                </div>
+                <div class="profile">
+                    <button type="button" class="btn account-button" [matMenuTriggerFor]="profile">
+                        <mat-icon>account_circle</mat-icon>
+                    </button>
+                    <mat-menu #profile="matMenu">
+                        <button mat-menu-item type="button">Profile</button>
+                        <button mat-menu-item type="button" (click)="logout()">Logout</button>
+                    </mat-menu>
 
+                </div>
             </div>
         </div>
+
+
     </div>
 
-</form>
+</div>

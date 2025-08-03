@@ -70,7 +70,6 @@ export class EditPersonOtherDocumentView extends BaseDialougeComponent {
       return new Blob([byteArray], { type: contentType });
     }
     cancelEdit(){
-      debugger;
       this.dialogRef.close(this.isEdit);
     }
   

@@ -1,47 +1,42 @@
-<div class="sidebar-container">
-
-  <div class="mt-2">
-    <img src="../../../assets/images/Vector.svg" />
+<div class="sidebar-container" [class.closed]="!sidebarOpen">
+  <!-- Toggle Button -->
+  <div class="toggle-button-wrapper">
+    <button mat-icon-button (click)="toggleSidebar()" class="toggle-btn">
+      <mat-icon class="toggle-icon">{{ sidebarOpen ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
   </div>
-
-  <button mat-icon-button (click)="toggleSidebar()" [ngClass]="iconClass">
-    <mat-icon class="toggle-icon">{{ sidebarOpen ? 'menu_open' : 'menu' }}</mat-icon>
-  </button>
 
   <!-- Sidebar -->
-  <div class="tree-container" [class.closed]="!sidebarOpen">
+  <div class="tree-container">
     <mat-tree *ngIf="menuItems" class="navbar-nav sidebar sidebar-dark accordion" #tree [dataSource]="menuItems"
       [childrenAccessor]="childrenAccessor">
-      <!-- Flat node -->
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <a *ngIf="node.path" [routerLink]="node.path" class="tree-link">
+          {{ node.name }}
+          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
+        </a>
+        <span *ngIf="!node.path" class="tree-link">
+          {{ node.name }}
+          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
+        </span>
+
+        <button mat-icon-button matTreeNodeToggle class="btn toggle-btn-right">
+          <mat-icon>{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
+        </button>
+      </mat-tree-node>
+
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <a *ngIf="node.path" [routerLink]="node.path" class="tree-link">
-          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
           {{ node.name }}
+          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
         </a>
         <span *ngIf="!node.path">
-          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
           {{ node.name }}
+          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
         </span>
       </mat-tree-node>
 
-      <!-- Nested node -->
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle class="btn">
-          <mat-icon>
-            {{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-          </mat-icon>
-        </button>
 
-        <a *ngIf="node.path" [routerLink]="node.path" class="tree-link">
-          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
-          {{ node.name }}
-        </a>
-        <span *ngIf="!node.path">
-          <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
-          {{ node.name }}
-        </span>
-      </mat-tree-node>
     </mat-tree>
   </div>
-
 </div>

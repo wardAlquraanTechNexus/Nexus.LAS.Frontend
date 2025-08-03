@@ -34,6 +34,7 @@ import { PersonOtherDocumentForm } from '../dashboard-components/person-componen
 import { PersonIdDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BaseDialougeComponent } from '../dashboard-components/base-components/base-dialouge-component/base-dialouge-component';
+import { BaseFormComponent } from '../dashboard-components/base-components/base-form-component/base-form-component';
 
 
 
@@ -49,7 +50,8 @@ import { BaseDialougeComponent } from '../dashboard-components/base-components/b
     ConfirmDeleteDirective,
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
-    BaseDialougeComponent
+    BaseDialougeComponent,
+    BaseFormComponent
   ],
   imports: [
     CommonModule,
@@ -116,7 +118,9 @@ import { BaseDialougeComponent } from '../dashboard-components/base-components/b
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
     MatCheckboxModule,
-    BaseDialougeComponent
+    BaseDialougeComponent,
+    BaseFormComponent
+
   ]
 })
 export class ComponentsModule { }

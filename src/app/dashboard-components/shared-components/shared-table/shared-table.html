@@ -1,7 +1,7 @@
 <div class="empty-table" *ngIf="paginateResult.totalRecords == 0">
   No records available
 </div>
-<div *ngIf="dataSource && dataSource.data.length" class="mat-elevation-z8">
+<div *ngIf="paginateResult.totalRecords > 0" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
 
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">

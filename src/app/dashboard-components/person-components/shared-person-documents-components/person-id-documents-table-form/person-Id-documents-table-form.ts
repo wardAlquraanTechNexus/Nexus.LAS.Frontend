@@ -165,12 +165,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
       next: (res) => {
         this.showLoading = false;
         
-        this.data = {
-          ...this.data,
-          collection: this.data.collection.filter(item => item.id !== id),
-          totalRecords: this.data.totalRecords - 1
-        };
-        
+        this.fetchData();
 
         this.cdr.markForCheck();
 
@@ -189,6 +184,28 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
 
 
+   onRowClick(elementRow: any) {
+  if (elementRow.key === "activeReminder") {
+    const personIdDetail: PersonsIDDetail = elementRow.element;
+
+    personIdDetail.activeReminder = !!personIdDetail.activeReminder ? false : true;
+    this.showLoading = true;
+
+    this.service.updateByBody(personIdDetail).subscribe({
+      next: () => {
+        this.snackBar.openFromComponent(SuccessSnackbar, {
+          data: "Updated Successfully"
+        });
+        this.cdr.markForCheck();
+        this.showLoading = false;
+      },
+      error: () => {
+        personIdDetail.activeReminder = !personIdDetail.activeReminder;
+        this.showLoading = false;
+      }
+    });
+  }
+}
 
 
   addToCollection(element: PersonsIDDetail) {

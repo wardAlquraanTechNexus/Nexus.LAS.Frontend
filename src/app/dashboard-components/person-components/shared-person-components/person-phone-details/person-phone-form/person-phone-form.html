@@ -1,0 +1,50 @@
+<div class="dialog">
+    <div class="actions d-flex justify-content-between align-items-center mb-3">
+        <div class="header-subject">
+            <h5>
+                <span *ngIf="personPhone?.id">Update Phone Number</span>
+                <span *ngIf="!personPhone?.id">Add New Phone Number</span>
+            </h5>
+        </div>
+        <div class="dialog-header-buttons actions">
+            <button class="btn" (click)="cancelEdit()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phoneNumber" required />
+                    <mat-error
+                        *ngIf="formGroup.get('phoneNumber')?.hasError('required') && formGroup.get('phoneNumber')?.touched">
+                        Phone Number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+
+                <mat-form-field  appearance="outline">
+                    <mat-label>Type</mat-label>
+                    <mat-select formControlName="phoneType">
+                        <mat-option [value]="1">Work</mat-option>
+                        <mat-option [value]="2">Home</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-slide-toggle formControlName="phonePrimary"><span
+                        class="label-toggel">Primary</span></mat-slide-toggle>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="dialog-footer-buttons">
+        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-primary" (click)="save()">Save</button>
+    </div>
+</div>

@@ -4,62 +4,34 @@
         <mat-spinner diameter="50"></mat-spinner>
     </div>
 
-    <form [formGroup]="contactForm">
-        <div class="container">
-            <h5 class="mt-4">Email</h5>
-
-            <div formArrayName="emailAddresses">
-                <div class="row mb-3" *ngFor="let emailGroup of emailAddresses.controls; let i = index"
-                    [formGroupName]="i">
-                    <div class="col-3">
-                        <mat-form-field class="w-100" appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput placeholder="Email" formControlName="email" />
-
-                            <mat-error *ngIf="emailGroup.get('email')?.hasError('required')">
-                                Email is required
-                            </mat-error>
-                            <mat-error
-                                *ngIf="emailGroup.get('email')?.hasError('email') && !emailGroup.get('email')?.hasError('required')">
-                                Enter a valid email
-                            </mat-error>
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-3">
-                        <mat-form-field class="w-100" appearance="outline">
-                            <mat-label>Type</mat-label>
-                            <mat-select formControlName="type">
-                                <mat-option [value]="1">Work</mat-option>
-                                <mat-option [value]="2">Personal</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-3 d-flex align-items-center">
-                        <mat-radio-group [value]="primaryIndex" (change)="setPrimary(i)">
-                            <mat-radio-button [value]="i">Primary</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="col-3 d-flex align-items-center">
-                        <a [confirmDelete]="getRemoveEmailCallback(i)" class="link-style">
-                            <mat-icon>delete</mat-icon>
-                            Remove
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-
-            <a (click)="addEmailAddress()" class="link-style">
-                <mat-icon>add</mat-icon>
-                Add Email Address
-            </a>
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Email Addresses</h5>
+            <button class="btn btn-outline-primary" (click)="openFormDetails()">
+                <mat-icon class="me-1">add</mat-icon>
+                Add Email
+            </button>
         </div>
-    </form>
-    <div *ngIf="emailAddresses.controls.length>0" class="container m-4 d-flex justify-content-end">
-        <button class="btn btn-primary" (click)="onSave()">
-            <mat-icon>save</mat-icon>
-            Save Email Details
-        </button>
+
+        <div *ngFor="let personEmail of personEmails" class="row align-items-center border rounded py-2 px-1 mb-2">
+            <div class="col-md-1 text-center">
+                <button class="btn btn-outline-primary btn-sm" style="border-radius: 50%;">
+                    <mat-icon>email</mat-icon>
+                </button>
+            </div>
+            <div class="col-md-7">
+                <div>{{ personEmail.email }} <span [ngStyle]="getPrimaryStyle(personEmail.emailPrimary)"  *ngIf="personEmail.emailPrimary">Primary</span> </div>
+                
+            </div>
+            <div class="col-md-4 text-end">
+                <button class="btn btn-outline-primary me-2" (click)="openFormDetails(personEmail)" title="Edit">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" title="Delete" [confirmDelete]="getRemoveCallback(personEmail.id!)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
+
 </div>

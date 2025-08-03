@@ -24,6 +24,12 @@ import { EditPersonOtherDocumentForm } from './person-components/person-other-do
 import { PersonView } from './person-components/person-view/person-view';
 import { EditPersonIdDetailView } from './person-components/person-id-detail-view/edit-person-id-detail-view/edit-person-id-detail-view';
 import { EditPersonOtherDocumentView } from './person-components/person-other-document-view/edit-person-other-document-view/edit-person-other-document-view';
+import { PersonEmailDialouge } from './person-components/shared-person-components/person-email-details/person-email-dialouge/person-email-dialouge';
+import { PersonEmailForm } from './person-components/shared-person-components/person-email-details/person-email-form/person-email-form';
+import { PersonPhoneForm } from './person-components/shared-person-components/person-phone-details/person-phone-form/person-phone-form';
+import { PersonPhoneDialouge } from './person-components/shared-person-components/person-phone-details/person-phone-dialouge/person-phone-dialouge';
+import { PersonAddressDialouge } from './person-components/shared-person-components/person-address-details/person-address-dialouge/person-address-dialouge';
+import { PersonAddressForm } from './person-components/shared-person-components/person-address-details/person-address-form/person-address-form';
 
 
 @NgModule({
@@ -46,7 +52,13 @@ import { EditPersonOtherDocumentView } from './person-components/person-other-do
     EditPersonOtherDocumentForm,
     PersonView,
     EditPersonIdDetailView,
-    EditPersonOtherDocumentView
+    EditPersonOtherDocumentView,
+    PersonEmailDialouge,
+    PersonEmailForm,
+    PersonPhoneForm,
+    PersonPhoneDialouge,
+    PersonAddressForm,
+    PersonAddressDialouge
   ],
   imports: [
     CommonModule,

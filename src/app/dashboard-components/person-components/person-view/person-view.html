@@ -72,12 +72,16 @@
                 <mat-icon>contact_page</mat-icon>
                 Contacts
             </ng-template>
+            <div class="row">
+                <app-person-email-details class="col-6"></app-person-email-details>
+                <app-person-phone-details class="col-6"></app-person-phone-details>
+            </div>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>
-                <mat-icon>location_on</mat-icon>
-                Addresses
+                <mat-icon>location_on</mat-icon> Address
             </ng-template>
+            <app-person-address-details></app-person-address-details>
         </mat-tab>
         <mat-tab>
             <ng-template mat-tab-label>

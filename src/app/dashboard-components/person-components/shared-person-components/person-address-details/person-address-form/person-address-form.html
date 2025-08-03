@@ -1,0 +1,87 @@
+<div class="dialog">
+    <div class="actions d-flex justify-content-between align-items-center mb-3">
+        <div class="header-subject">
+            <h5>
+                <span *ngIf="personAddress?.id">Update Address</span>
+                <span *ngIf="!personAddress?.id">Add New Address</span>
+            </h5>
+        </div>
+        <div class="dialog-header-buttons actions">
+            <button class="btn" (click)="cancelEdit()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <form *ngIf="formGroup" [formGroup]="formGroup" class="row w-100">
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Address Line 1</mat-label>
+                    <input matInput formControlName="addressLine1" required />
+                    <mat-error
+                        *ngIf="formGroup.get('addressLine1')?.hasError('required') && formGroup.get('addressLine1')?.touched">
+                        Address Line 1 is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Address Line 2</mat-label>
+                    <input matInput formControlName="addressLine2" required />
+                    <mat-error
+                        *ngIf="formGroup.get('addressLine2')?.hasError('required') && formGroup.get('addressLine2')?.touched">
+                        Address Line 2 is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Address Line 3</mat-label>
+                    <input matInput formControlName="addressLine3" required />
+                    <mat-error
+                        *ngIf="formGroup.get('addressLine3')?.hasError('required') && formGroup.get('addressLine3')?.touched">
+                        Address Line 3 is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>PO Box Number</mat-label>
+                    <input matInput formControlName="poBoxNumber" required />
+                    <mat-error
+                        *ngIf="formGroup.get('poBoxNumber')?.hasError('required') && formGroup.get('poBoxNumber')?.touched">
+                        PO Box Number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-4 pe-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="poBoxCity" required />
+                </mat-form-field>
+            </div>
+
+            <div class="col-4 ps-2">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Country</mat-label>
+                    <mat-select formControlName="poBoxCountry">
+                        <mat-option value="UAE">UAE</mat-option>
+                        <mat-option value="Jordan">Jordan</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-slide-toggle formControlName="addressPrimary"><span
+                        class="label-toggel">Primary</span></mat-slide-toggle>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="dialog-footer-buttons">
+        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-primary" (click)="save()">Save</button>
+    </div>
+</div>

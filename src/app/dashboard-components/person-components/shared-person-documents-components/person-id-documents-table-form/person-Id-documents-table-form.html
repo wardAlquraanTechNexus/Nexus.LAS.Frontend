@@ -1,7 +1,7 @@
 <div class="table-container">
     <div class="table">
-        <div *ngIf="showLoading" class="spinner-container">
-            <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
+        <div *ngIf="showLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
+            <mat-spinner diameter="40"></mat-spinner>
         </div>
         <div class="row form">
             <div class="col-10">
@@ -31,13 +31,13 @@
 
                 </div>
             </div>
-            
 
-            <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns"
+
+            <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" (rowClick)="onRowClick($event)"
                 [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
                 [action]="actionButtonsTemplate">
                 <ng-template class="actions" #actionButtonsTemplate let-row>
-                   <a class="mr-1 action" [confirmDelete]="getRemoveCallback(row)">
+                    <a class="mr-1 action" [confirmDelete]="getRemoveCallback(row.id)">
                         <mat-icon>delete</mat-icon>
                     </a>
                     <a class="mr-1 action" (click)="editDocument(row)">

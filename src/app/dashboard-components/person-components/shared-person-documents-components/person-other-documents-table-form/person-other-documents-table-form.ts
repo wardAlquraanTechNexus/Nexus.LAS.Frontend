@@ -88,8 +88,6 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
   }
 
   addToCollection(element: PersonOtherDocument) {
-    this.data.collection = [];
-    this.cdr.detectChanges();
     this.fetchData();
   }
 
