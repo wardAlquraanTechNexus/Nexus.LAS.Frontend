@@ -19,8 +19,8 @@ import { SuccessSnackbar } from '../../../../components/snackbars/success-snackb
 @Component({
   selector: 'app-person-id-documents-table-form',
   standalone: false,
-  templateUrl: './person-id-documents-table-form.html',
-  styleUrl: './person-id-documents-table-form.scss'
+  templateUrl: './person-Id-documents-table-form.html',
+  styleUrl: './person-Id-documents-table-form.scss'
 })
 export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDetail> {
 
