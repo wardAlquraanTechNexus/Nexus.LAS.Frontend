@@ -11,6 +11,8 @@ import { GetAllActivePersonQuery } from '../models/persons/get-all-active-person
 import { UpdatePersonCommand } from '../models/persons/update-person';
 import { BulkChangeStatusCommand } from '../models/persons/bulk-change-status-command';
 import { BulkChangePrivateCommand } from '../models/persons/bulk-change-private-command';
+import { ExportPersonToExcel } from '../models/persons/export-person-to-excel-dto';
+import { ExportPersonToPdf } from '../models/persons/export-person-to-pdf-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +48,15 @@ export class PersonService extends BaseService<Person> {
   bulkChangePrivate(command:BulkChangePrivateCommand):Observable<number>
   {
     return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
+  }
+
+  exportPersonToExcel(filter:any):Observable<ExportPersonToExcel>{
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportPersonToExcel>(this.url + "/ExportToExcel", {params});
+  }
+  exportPersonToPdf(filter:any):Observable<ExportPersonToPdf>{
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportPersonToPdf>(this.url + "/ExportToPdf", {params});
   }
 
 }

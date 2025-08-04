@@ -1,5 +1,5 @@
 <div *ngIf="showLoading" class="spinner-container">
-  <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+    <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
 </div>
 <div *ngIf="!showLoading" class="container-view">
     <p class="breadcrumb">
@@ -35,7 +35,7 @@
                     {{ person?.personShortName | uppercase }}
                 </div>
                 <div class="person-header-person-code mr-3">
-                    ID:  {{ person?.personCode }}
+                    ID: {{ person?.personCode }}
                 </div>
             </div>
         </div>
@@ -44,9 +44,16 @@
                 <mat-icon>edit</mat-icon>
                 Edit
             </button>
-            <button class="default-button">
+            <button class="default-button" [matMenuTriggerFor]="moreMenu">
                 <mat-icon>more_horiz</mat-icon>
             </button>
+
+            <mat-menu #moreMenu="matMenu">
+                <button mat-menu-item (click)="exportToPdf()">
+                    <mat-icon>description</mat-icon>
+                    Generate Report
+                </button>
+            </mat-menu>
         </div>
     </div>
 

@@ -2,10 +2,10 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PersonPhoneService } from '../../../../services/person-phone-service';
-import { PersonPhone } from '../../../../models/menus/person-phone/person-phone';
 import { PersonEmail } from '../../../../models/person-email/person-email';
 import { PersonPhoneDialouge } from './person-phone-dialouge/person-phone-dialouge';
 import { MatDialog } from '@angular/material/dialog';
+import { PersonPhone } from '../../../../models/person-phone/person-phone';
 
 @Component({
   selector: 'app-person-phone-details',

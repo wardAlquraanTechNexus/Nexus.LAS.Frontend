@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { PersonPhone } from '../models/menus/person-phone/person-phone';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base/base-service';
+import { PersonPhone } from '../models/person-phone/person-phone';
 
 @Injectable({
   providedIn: 'root'

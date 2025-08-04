@@ -100,4 +100,26 @@ export class PersonView implements OnInit {
       }
     });
   }
+
+exportToPdf() {
+  this.personService.exportPersonToPdf({id:this.personId}).subscribe(res => {
+    // Assuming res.data is a base64 string
+    const binaryString = atob(res.data);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    const blob = new Blob([bytes], {
+      type: 'application/pdf'
+    });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = res.fileName || 'report.pdf';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
+}
 }

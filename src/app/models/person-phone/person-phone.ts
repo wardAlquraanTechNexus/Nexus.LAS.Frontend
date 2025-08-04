@@ -1,4 +1,4 @@
-import { BaseModel } from "../../base/base-model";
+import { BaseModel } from "../base/base-model";
 
 export interface PersonPhone extends BaseModel {
     personsPhoneIdc?: string;

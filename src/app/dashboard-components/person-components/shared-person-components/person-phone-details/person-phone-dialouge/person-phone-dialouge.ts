@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
-import { PersonPhone } from '../../../../../models/menus/person-phone/person-phone';
 import { PersonPhoneService } from '../../../../../services/person-phone-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PersonPhone } from '../../../../../models/person-phone/person-phone';
 
 @Component({
   selector: 'app-person-phone-dialouge',

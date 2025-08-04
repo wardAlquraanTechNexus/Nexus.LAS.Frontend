@@ -12,12 +12,12 @@
       [childrenAccessor]="childrenAccessor">
       <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
         <a *ngIf="node.path" [routerLink]="node.path" class="tree-link">
-          {{ node.name }}
           <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
+          {{ node.name }}
         </a>
         <span *ngIf="!node.path" class="tree-link">
-          {{ node.name }}
           <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
+          {{ node.name }}
         </span>
 
         <button mat-icon-button matTreeNodeToggle class="btn toggle-btn-right">
@@ -27,12 +27,12 @@
 
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <a *ngIf="node.path" [routerLink]="node.path" class="tree-link">
-          {{ node.name }}
           <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
+          {{ node.name }}
         </a>
         <span *ngIf="!node.path">
-          {{ node.name }}
           <mat-icon *ngIf="node.iconClass">{{ node.iconClass }}</mat-icon>
+          {{ node.name }}
         </span>
       </mat-tree-node>
 

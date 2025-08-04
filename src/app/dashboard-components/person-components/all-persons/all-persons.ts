@@ -142,11 +142,34 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
   }
 
 
-  
-  
-  
+exportToExcel() {
+  this.personService.exportPersonToExcel(this.params).subscribe(res => {
+    // Assuming res.data is base64 string:
+    const binaryString = atob(res.data);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    const blob = new Blob([bytes], { 
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
+    });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = res.fileName || 'export.xlsx';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
+}
+
+
+
+
+
   onRowClick(elementRow: any) {
-    if(elementRow.key == "personArabicName" || elementRow.key == "personEnglishName" || elementRow.key == "personCode"){
+    if (elementRow.key == "personArabicName" || elementRow.key == "personEnglishName" || elementRow.key == "personCode") {
       this.router.navigate([environment.routes.ViewPersons], {
         queryParams: { id: elementRow.element.id }
       });
@@ -220,9 +243,9 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     })
   }
 
-  bulkChangeStatus(status:PersonStatus) {
-    let command : BulkChangeStatusCommand = {
-      ids: this.selectedPersons.map(x=>x.id).filter((id): id is number => id !== undefined),
+  bulkChangeStatus(status: PersonStatus) {
+    let command: BulkChangeStatusCommand = {
+      ids: this.selectedPersons.map(x => x.id).filter((id): id is number => id !== undefined),
       status: status
     }
     this.showLoading = true;
@@ -248,9 +271,9 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     })
   }
 
-    bulkChangePrivate(isPrivate:boolean) {
-    let command : BulkChangePrivateCommand = {
-      ids: this.selectedPersons.map(x=>x.id).filter((id): id is number => id !== undefined),
+  bulkChangePrivate(isPrivate: boolean) {
+    let command: BulkChangePrivateCommand = {
+      ids: this.selectedPersons.map(x => x.id).filter((id): id is number => id !== undefined),
       isPrivate: isPrivate
     }
     this.showLoading = true;
@@ -266,7 +289,7 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
             data: "Updated Successfully",
             duration: 4000
           }
-          
+
         )
       }), error: (err => {
         this.cdr.markForCheck();
