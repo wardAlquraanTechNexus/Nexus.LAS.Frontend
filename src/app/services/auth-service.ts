@@ -11,28 +11,37 @@ import { RegisterRequest } from '../models/register-request';
   providedIn: 'root'
 })
 export class AuthService {
-  url:string = environment.serverUrls.host+"Auth/";
-  constructor(private httpClient:HttpClient){
-    
+  url: string = environment.serverUrls.host + "Auth/";
+  constructor(private httpClient: HttpClient) {
+
   }
 
-  login(authRequest:AuthRequest):Observable<AuthResponse>
-  {
-    return this.httpClient.post<AuthResponse>(this.url+"login",authRequest);
+  login(authRequest: AuthRequest): Observable<AuthResponse> {
+    return this.httpClient.post<AuthResponse>(this.url + "login", authRequest);
   }
 
-  register(registerRequest:RegisterRequest):Observable<RegisterResponse>
-  {
-    return this.httpClient.post<RegisterResponse>(this.url+"register",registerRequest);
+  register(registerRequest: RegisterRequest): Observable<RegisterResponse> {
+    return this.httpClient.post<RegisterResponse>(this.url + "register", registerRequest);
   }
-  
 
-   saveSession(data: AuthResponse) {
+
+  saveSession(data: AuthResponse) {
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
   }
 
-  checkAuth(){
-    
+  checkAuth() {
+
+  }
+
+  getUser(): AuthResponse | null {
+    const userJson = localStorage.getItem('user');
+    if (!userJson) return null;
+
+    try {
+      return JSON.parse(userJson) as AuthResponse;
+    } catch (e) {
+      return null;
+    }
   }
 }

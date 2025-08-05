@@ -5,6 +5,8 @@ import { environment } from '../../../environment/environment';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPerson } from '../../dashboard-components/person-components/add-person/add-person';
+import { AuthService } from '../../services/auth-service';
+import { AuthResponse } from '../../models/auth-response';
 
 @Component({
   selector: 'app-navbar',
@@ -61,8 +63,9 @@ export class Navbar {
 
   selectedLanguage = this.languages[0];
 
-  constructor(private router: Router, private dialog: MatDialog) {
-
+  user:AuthResponse|null;
+  constructor(private router: Router, private dialog: MatDialog, private authService:AuthService) {
+    this.user = this.authService.getUser();
   }
 
   logout() {

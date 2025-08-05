@@ -5,6 +5,13 @@ import { PersonService } from '../../../services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
 import { PersonDetailsForm } from '../shared-person-components/person-details-form/person-details-form';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from '../../../services/user-service';
+import { AuthService } from '../../../services/auth-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackbar } from '../../../components/snackbars/error-snackbar/error-snackbar';
+import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
+import { PersonDto } from '../../../models/persons/person-dto';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-person-view',
@@ -13,34 +20,65 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './person-view.scss'
 })
 export class PersonView implements OnInit {
-
+  imageUrl:any;
+  fallbackImage: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mP8z8BQDwAFgwJ/lcu6zQAAAABJRU5ErkJggg==';
   selectedTab = 0
   showLoading = false;
-  person: Person | null = null;
+  person: PersonDto | null = null;
   personId = 0;
   constructor(
     private route: ActivatedRoute,
     private personService: PersonService,
     private cdr: ChangeDetectorRef,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer,
+    private snackbar: MatSnackBar) { }
   ngOnInit(): void {
     let personId = this.route.snapshot.queryParamMap.get('id');
     if (personId) {
       this.personId = parseInt(personId);
-      this.showLoading = true;
-      this.personService.getById(this.personId).subscribe({
-        next: (res) => {
-          this.person = res;
-          this.showLoading = false;
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          this.showLoading = false;
-          this.cdr.detectChanges();
-
-        }
-      })
+      this.getPerson();
     }
+  }
+
+
+  private getPerson() {
+    this.showLoading = true;
+    this.personService.getPersonDto(this.personId).subscribe({
+      next: (data) => {
+        this.person = data;
+
+        this.showLoading = false;
+        if (data?.personImage && data?.contentType) {
+
+            // If dataFile is base64
+            const base64Data = data?.personImage;
+            const blob = this.base64ToBlob(base64Data, data.contentType);
+            const url = URL.createObjectURL(blob);
+            this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          }
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.showLoading = false;
+        this.cdr.detectChanges();
+
+      }
+    });
+  }
+
+
+  
+  base64ToBlob(base64: any, contentType: string): Blob {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
   }
 
 
@@ -93,33 +131,56 @@ export class PersonView implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-            this.cdr.markForCheck();
+        this.cdr.markForCheck();
 
         this.person = result;
-        
+
       }
     });
   }
 
-exportToPdf() {
-  this.personService.exportPersonToPdf({id:this.personId}).subscribe(res => {
-    // Assuming res.data is a base64 string
-    const binaryString = atob(res.data);
-    const len = binaryString.length;
-    const bytes = new Uint8Array(len);
-    for (let i = 0; i < len; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
+  exportToPdf() {
+    this.personService.exportPersonToPdf({ id: this.personId }).subscribe(res => {
+      // Assuming res.data is a base64 string
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
 
-    const blob = new Blob([bytes], {
-      type: 'application/pdf'
+      const blob = new Blob([bytes], {
+        type: 'application/pdf'
+      });
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = res.fileName || 'report.pdf';
+      link.click();
+      URL.revokeObjectURL(link.href);
     });
+  }
 
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = res.fileName || 'report.pdf';
-    link.click();
-    URL.revokeObjectURL(link.href);
-  });
+  openFilePicker(fileInput: HTMLInputElement) {
+    fileInput.click();
+  }
+
+  onFileSelected(event: any) {
+
+    const file = event.target.files[0];
+    this.showLoading = true;
+    this.personService.uploadImage({file:file , personId: this.personId}).subscribe({
+      next:(res=>{
+        this.snackbar.openFromComponent(SuccessSnackbar,{
+          data:"Image Uploaded Successfully"
+        })
+        this.getPerson();
+      }),error:(err=>{
+        this.showLoading = false;
+      })
+    })
+  }
 }
-}
+
+
+

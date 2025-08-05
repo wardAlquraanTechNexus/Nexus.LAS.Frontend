@@ -13,6 +13,9 @@ import { BulkChangeStatusCommand } from '../models/persons/bulk-change-status-co
 import { BulkChangePrivateCommand } from '../models/persons/bulk-change-private-command';
 import { ExportPersonToExcel } from '../models/persons/export-person-to-excel-dto';
 import { ExportPersonToPdf } from '../models/persons/export-person-to-pdf-dto';
+import { UploadPersonImageCommand } from '../models/persons/upload-person-image/upload-person-image-command';
+import { UploadImageDto } from '../models/base/upload-image-dto';
+import { PersonDto } from '../models/persons/person-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,10 @@ export class PersonService extends BaseService<Person> {
     this.setPath('Persons');
   }
 
+  getPersonDto(id:number):Observable<PersonDto>{
+    return this.httpClient.get<PersonDto>(this.url + "/" + id);
+
+  }
 
   createPerson(command:CreatePersonCommand):Observable<number>{
     return this.httpClient.post<number>(this.url + "/CreatePerson", command);
@@ -59,4 +66,12 @@ export class PersonService extends BaseService<Person> {
     return this.httpClient.get<ExportPersonToPdf>(this.url + "/ExportToPdf", {params});
   }
 
+  uploadImage(command: UploadPersonImageCommand): Observable<UploadImageDto> {
+      let formData: FormData = new FormData();
+      formData.append("personId", command.personId.toString());
+      formData.append("file", command.file);
+  
+      return this.httpClient.post<UploadImageDto>(this.url + "/UploadImage", formData);
+  
+    }
 }

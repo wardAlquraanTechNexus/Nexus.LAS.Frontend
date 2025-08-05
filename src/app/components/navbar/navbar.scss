@@ -13,3 +13,14 @@ mat-toolbar {
 mat-form-field {
   margin-top: 24px;
 }
+.button-content {
+  display: flex;
+  align-items: center;
+}
+.button-content mat-icon:last-child {
+  margin-left: 4px;
+}
+
+mat-icon{
+  vertical-align: middle;
+}

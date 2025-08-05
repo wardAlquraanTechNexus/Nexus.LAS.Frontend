@@ -2,8 +2,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 230px;
   transition: width 0.3s ease;
+  background-color: #F8F9FC;
   overflow: hidden;
 
   &.closed {
@@ -11,25 +12,26 @@
   }
 
   .toggle-button-wrapper {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 56px;
-    padding: 8px 0;
-    z-index: 1000;
-    background-color: #F8F9FC;
+    height: 40px;
+    width: 40px;
 
     .toggle-btn {
       background-color: white;
       border-radius: 50%;
-      transition: transform 0.3s ease;
+      width: 40px;
+      height: 40px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     }
 
     .toggle-icon {
-      font-size: 32px;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
+      font-size: 24px;
     }
   }
 
@@ -55,31 +57,4 @@
       pointer-events: none;
     }
   }
-}
-
-mat-tree-node {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 8px; /* add some right padding */
-}
-
-.tree-link {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-/* Optionally style toggle button on right */
-.toggle-btn-right {
-  min-width: 32px;
-  width: 32px;
-  height: 32px;
-}
-
-mat-icon{
-  vertical-align: top;
 }

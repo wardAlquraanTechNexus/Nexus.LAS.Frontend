@@ -9,11 +9,17 @@
     <div class="person-header-action">
         <div class="person-header-container">
             <div class="person-image-wrapper">
-                <img src="assets/images/Vector.svg" alt="Person Image" class="person-image" />
-                <button mat-icon-button class="camera-icon-btn">
+                <img *ngIf="imageUrl" [src]="imageUrl" alt="Personal image" class="img-fluid" />
+                <img *ngIf="!imageUrl" [src]="fallbackImage" alt="Personal image" class="img-fluid" />
+                <!-- Hidden file input -->
+                <input type="file" accept="image/*" #fileInput style="display: none"
+                    (change)="onFileSelected($event)" />
+
+                <button mat-icon-button class="camera-icon-btn" (click)="openFilePicker(fileInput)">
                     <mat-icon>photo_camera</mat-icon>
                 </button>
             </div>
+
 
             <div class="person-header-details">
 
