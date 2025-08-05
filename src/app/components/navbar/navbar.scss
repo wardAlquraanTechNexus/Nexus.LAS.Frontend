@@ -1,31 +1,15 @@
 
-.nav-bar{
-  border-bottom: 1px solid;
-  margin: auto;
-  
-}
-.nav-bar .row {
-  align-items: center;
-  display: flex;
-}
-.account-button {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  border: 1px solid;
-  margin-right: 5px;
-  border-radius: 0.5;
+/* 
+ * Navbar component using Angular Material Toolbar
+ * Relying on Material Design default styles for consistent theming
+ */
+
+mat-toolbar {
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 70px;
+  height: 70px;
 }
 
-button .mat-icon {
-  vertical-align: middle;
-}
-
-.mat-mdc-menu-content, .mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text{
- background-color:  #fff;
+mat-form-field {
+  margin-top: 24px;
 }

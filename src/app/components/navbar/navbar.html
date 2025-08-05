@@ -1,70 +1,76 @@
-<div class="container-fluid nav-bar">
-    <div class="row">
-        <div class="col-2">
-            <img src="../../../assets/images/Vector.svg" />
-        </div>
-        <div class="col-5">
-            <mat-form-field appearance="outline" class="w-100 mt-1">
-                <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
-                    placeholder="Search for persons, Companies, Real Estates, Law F.." aria-label="Search"
-                    #searchInput />
+<mat-toolbar color="primary">
+    <!-- Logo Section -->
+    <img src="../../../assets/images/Vector.svg" alt="Logo" style="height: 50px; margin-right: 24px;" />
+    
+    <!-- Left Spacer -->
+    <span style="flex: 1;"></span>
+    
+    <!-- Centered Search and Create Section -->
+    <div style="display: flex; align-items: center; gap: 16px;">
+        <!-- Search Section -->
+        <mat-form-field appearance="outline" style="width: 500px;">
 
-                <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
-                    [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </mat-form-field>
-
-            <mat-menu #searchMenu="matMenu">
-                <ng-container *ngIf="searchResults.length; else noResults">
-                    <button mat-menu-item *ngFor="let result of searchResults">{{ result }}</button>
-                </ng-container>
-                <ng-template #noResults>
-                    <span class="p-2 text-muted">No results found</span>
-                </ng-template>
-            </mat-menu>
-        </div>
-
-        <div class="col-2">
-            <button class="btn btn-primary" type="button"><span [matMenuTriggerFor]="listToCreate_menu">
-                    Create new</span>
-                <mat-icon>add</mat-icon>
+            <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+                placeholder="Type to search for people, companies, properties, or law firms..." aria-label="Search"
+                #searchInput />
+            <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
+                [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
+                <mat-icon>search</mat-icon>
             </button>
-            <mat-menu #listToCreate_menu="matMenu" class="list-to-create">
-                <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)">
-                    {{ item.name }}
-                </button>
-            </mat-menu>
+        </mat-form-field>
 
-        </div>
-
-        <div class="col-3">
-            <div class="d-flex justify-content-end align-items-center gap-2">
-                <div class="languages">
-                    <button class="btn" type="button" [matMenuTriggerFor]="languages_menu">
-                        <mat-icon>language</mat-icon> {{ selectedLanguage.name }}
-                    </button>
-                    <mat-menu #languages_menu="matMenu">
-                        <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
-                            {{ language.name }}
-                        </button>
-                    </mat-menu>
-
-                </div>
-                <div class="profile">
-                    <button type="button" class="btn account-button" [matMenuTriggerFor]="profile">
-                        <mat-icon>account_circle</mat-icon>
-                    </button>
-                    <mat-menu #profile="matMenu">
-                        <button mat-menu-item type="button">Profile</button>
-                        <button mat-menu-item type="button" (click)="logout()">Logout</button>
-                    </mat-menu>
-
-                </div>
-            </div>
-        </div>
-
-
+        <!-- Create Button -->
+        <button mat-raised-button color="accent" [matMenuTriggerFor]="listToCreate_menu">
+            <mat-icon>add</mat-icon>
+            Create New
+        </button>
     </div>
 
-</div>
+    <mat-menu #searchMenu="matMenu">
+        <ng-container *ngIf="searchResults.length; else noResults">
+            <button mat-menu-item *ngFor="let result of searchResults">{{ result }}</button>
+        </ng-container>
+        <ng-template #noResults>
+            <div style="padding: 16px; text-align: center; color: #666;">No results found</div>
+        </ng-template>
+    </mat-menu>
+
+    <mat-menu #listToCreate_menu="matMenu">
+        <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)">
+            <mat-icon>add</mat-icon>
+            <span>{{ item.name }}</span>
+        </button>
+    </mat-menu>
+
+    <!-- Right Spacer -->
+    <span style="flex: 1;"></span>
+
+    <!-- Language Selection -->
+    <button mat-button [matMenuTriggerFor]="languages_menu" style="margin-right: 8px; font-size: 16px;">
+        <mat-icon style="font-size: 30px; width: 30px; height: 30px;">language</mat-icon>
+        <span style="margin-left: 8px; font-size: 16px;">{{ selectedLanguage.name }}</span>
+    </button>
+    <mat-menu #languages_menu="matMenu">
+        <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
+            <mat-icon>language</mat-icon>
+            <span>{{ language.name }}</span>
+        </button>
+    </mat-menu>
+
+    <!-- Profile Menu -->
+    <button mat-button [matMenuTriggerFor]="profile" aria-label="User profile" style="margin-left: 8px; font-size: 16px;">
+        <mat-icon style="font-size: 30px; width: 30px; height: 30px;">account_circle</mat-icon>
+        <span style="margin-left: 8px; margin-right: 4px; font-size: 16px;">Ahmed Mostapha</span>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #profile="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
