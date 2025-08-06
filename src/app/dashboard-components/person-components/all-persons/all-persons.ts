@@ -75,7 +75,7 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     },
     {
       key: "personShortName",
-      label: "Short name",
+      label: "Short Name",
       sort: true
     },
     {

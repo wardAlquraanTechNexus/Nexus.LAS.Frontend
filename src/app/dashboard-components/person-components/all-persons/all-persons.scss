@@ -161,6 +161,93 @@
       }
     }
   }
+
+  // Actions row styling to match form field height and appearance
+  .actions-row {
+    height: 56px; // Match form field height
+    
+    .export-btn,
+    .settings-btn {
+      height: 56px !important; // Match form field height
+      min-height: 56px !important; // Ensure minimum height
+      border: 1px solid rgba(0, 0, 0, 0.12) !important; // Match form field border
+      border-radius: 4px !important; // Match form field border radius
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: white !important;
+      color: rgba(0, 0, 0, 0.87) !important;
+      font-weight: 500 !important;
+      line-height: 1 !important;
+      transition: all 0.2s ease-in-out;
+      box-sizing: border-box !important;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+        border-color: rgba(0, 0, 0, 0.23) !important;
+      }
+      
+      &:focus {
+        border-color: #1976d2 !important;
+        outline: none !important;
+      }
+      
+      mat-icon {
+        color: rgba(0, 0, 0, 0.54) !important;
+      }
+      
+      // Override Angular Material default styles
+      &.mat-mdc-button {
+        height: 56px !important;
+        min-height: 56px !important;
+        padding: 0 16px !important;
+        
+        .mat-mdc-button-touch-target {
+          height: 56px !important;
+          width: 100% !important;
+        }
+        
+        .mdc-button__label {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+      }
+    }
+    
+    .export-btn {
+      flex: 1; // Take available space
+      min-width: 0; // Allow shrinking
+      
+      &.mat-primary {
+        border-color: #1976d2 !important;
+        color: #1976d2 !important;
+        
+        &:hover {
+          background-color: rgba(25, 118, 210, 0.04) !important;
+        }
+        
+        mat-icon {
+          color: #1976d2 !important;
+        }
+      }
+    }
+    
+    .settings-btn {
+      width: 56px !important; // Square button
+      min-width: 56px !important; // Prevent shrinking
+      max-width: 56px !important; // Prevent growing
+      padding: 0 !important;
+      
+      &.mat-mdc-button {
+        padding: 0 !important;
+        
+        .mat-mdc-button-touch-target {
+          width: 56px !important;
+        }
+      }
+    }
+  }
 }
 
 .settings-button {
