@@ -4,9 +4,7 @@ import { Person } from '../models/persons/person';
 import { HttpClient } from '@angular/common/http';
 import { CreatePersonCommand } from '../models/persons/create-person';
 import { Observable } from 'rxjs';
-import { GetAllPersonQuery } from '../models/persons/get-all-person-query';
 import { PaginateRsult } from '../models/paginate-result';
-import { GetAllPersonDTO } from '../models/persons/get-all-person-dto';
 import { GetAllActivePersonQuery } from '../models/persons/get-all-active-person-query';
 import { UpdatePersonCommand } from '../models/persons/update-person';
 import { BulkChangeStatusCommand } from '../models/persons/bulk-change-status-command';
@@ -16,6 +14,8 @@ import { ExportPersonToPdf } from '../models/persons/export-person-to-pdf-dto';
 import { UploadPersonImageCommand } from '../models/persons/upload-person-image/upload-person-image-command';
 import { UploadImageDto } from '../models/base/upload-image-dto';
 import { PersonDto } from '../models/persons/person-dto';
+import { GetPersonsDTO } from '../models/persons/get-persons/get-person-dto';
+import { GetPersonsQuery } from '../models/persons/get-persons/get-persons-query';
 
 @Injectable({
   providedIn: 'root'
@@ -34,17 +34,17 @@ export class PersonService extends BaseService<Person> {
   createPerson(command:CreatePersonCommand):Observable<number>{
     return this.httpClient.post<number>(this.url + "/CreatePerson", command);
   }
-  updatePerson(command:UpdatePersonCommand):Observable<GetAllPersonDTO>{
-    return this.httpClient.put<GetAllPersonDTO>(this.url + "/UpdatePerson", command);
+  updatePerson(command:UpdatePersonCommand):Observable<GetPersonsDTO>{
+    return this.httpClient.put<GetPersonsDTO>(this.url + "/UpdatePerson", command);
   }
 
-  getAllPerson(getAllPersonQuery:GetAllPersonQuery):Observable<PaginateRsult<GetAllPersonDTO>>{
+  getPersons(getAllPersonQuery:GetPersonsQuery):Observable<PaginateRsult<GetPersonsDTO>>{
     var params = this.httpParams(getAllPersonQuery);
-    return this.httpClient.get<PaginateRsult<GetAllPersonDTO>>(this.url + "/GetAllPerson", {params});
+    return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetPersons", {params});
   }
-  getAllActivePerson(getAllPersonQuery:GetAllActivePersonQuery):Observable<PaginateRsult<GetAllPersonDTO>>{
+  getAllActivePerson(getAllPersonQuery:GetAllActivePersonQuery):Observable<PaginateRsult<GetPersonsDTO>>{
     var params = this.httpParams(getAllPersonQuery);
-    return this.httpClient.get<PaginateRsult<GetAllPersonDTO>>(this.url + "/GetAllActivePerson", {params});
+    return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetAllActivePerson", {params});
   }
 
   bulkChangeStatus(command:BulkChangeStatusCommand):Observable<number>

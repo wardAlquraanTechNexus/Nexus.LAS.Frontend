@@ -1,6 +1,6 @@
-import { BaseParam } from "../base/base-param";
+import { BaseParam } from "../../base/base-param";
 
-export interface GetAllPersonQuery extends BaseParam{
+export interface GetPersonsQuery extends BaseParam{
     searchBy?:string | null,
     nationality?:string | null,
     private?:boolean | null,

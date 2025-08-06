@@ -20,7 +20,31 @@ export class MenuService {
       )
   }
 
-  getMenusCached(){
+  getMenuByPath(path:string):MenuTree | null{
+     const menuJson = localStorage.getItem('menu');
+        if (!menuJson) return null;
     
+        try {
+          let menus = JSON.parse(menuJson) as MenuTree[];
+          return this.findMenuByPath(menus , path);
+
+        } catch (e) {
+          return null;
+        }
   }
+
+  private findMenuByPath(menuList: MenuTree[], path: string): MenuTree | null {
+  for (const menu of menuList) {
+    if (menu.path === path) {
+      return menu;
+    }
+    if (menu.children?.length) {
+      const found = this.findMenuByPath(menu.children, path);
+      if (found) {
+        return found;
+      }
+    }
+  }
+  return null;
+}
 }

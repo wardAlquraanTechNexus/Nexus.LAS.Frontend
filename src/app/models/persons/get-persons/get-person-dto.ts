@@ -1,4 +1,4 @@
-export interface GetAllPersonDTO {
+export interface GetPersonsDTO {
     id?: number;
     personIdc?: string;
     personCode?: string;

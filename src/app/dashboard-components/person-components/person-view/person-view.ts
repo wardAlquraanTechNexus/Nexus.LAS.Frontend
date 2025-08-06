@@ -1,17 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Person } from '../../../models/persons/person';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
 import { PersonDetailsForm } from '../shared-person-components/person-details-form/person-details-form';
 import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../../../services/user-service';
-import { AuthService } from '../../../services/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorSnackbar } from '../../../components/snackbars/error-snackbar/error-snackbar';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { PersonDto } from '../../../models/persons/person-dto';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MenuService } from '../../../services/menu-service';
+import { environment } from '../../../../environment/environment';
 
 @Component({
   selector: 'app-person-view',
@@ -20,7 +18,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrl: './person-view.scss'
 })
 export class PersonView implements OnInit {
-  imageUrl:any;
+  personsUrl: any;
+  imageUrl: any;
   fallbackImage: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mP8z8BQDwAFgwJ/lcu6zQAAAABJRU5ErkJggg==';
   selectedTab = 0
   showLoading = false;
@@ -28,7 +27,9 @@ export class PersonView implements OnInit {
   personId = 0;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private personService: PersonService,
+    private menuService: MenuService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
@@ -38,6 +39,9 @@ export class PersonView implements OnInit {
     if (personId) {
       this.personId = parseInt(personId);
       this.getPerson();
+      this.personsUrl = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
     }
   }
 
@@ -51,12 +55,12 @@ export class PersonView implements OnInit {
         this.showLoading = false;
         if (data?.personImage && data?.contentType) {
 
-            // If dataFile is base64
-            const base64Data = data?.personImage;
-            const blob = this.base64ToBlob(base64Data, data.contentType);
-            const url = URL.createObjectURL(blob);
-            this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-          }
+          // If dataFile is base64
+          const base64Data = data?.personImage;
+          const blob = this.base64ToBlob(base64Data, data.contentType);
+          const url = URL.createObjectURL(blob);
+          this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        }
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -68,7 +72,7 @@ export class PersonView implements OnInit {
   }
 
 
-  
+
   base64ToBlob(base64: any, contentType: string): Blob {
     const byteCharacters = atob(base64);
     const byteNumbers = new Array(byteCharacters.length);
@@ -81,7 +85,10 @@ export class PersonView implements OnInit {
     return new Blob([byteArray], { type: contentType });
   }
 
+  navigateToPersons() {
+    this.router.navigateByUrl(this.personsUrl.path);
 
+  }
   getPersonStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
@@ -169,13 +176,13 @@ export class PersonView implements OnInit {
 
     const file = event.target.files[0];
     this.showLoading = true;
-    this.personService.uploadImage({file:file , personId: this.personId}).subscribe({
-      next:(res=>{
-        this.snackbar.openFromComponent(SuccessSnackbar,{
-          data:"Image Uploaded Successfully"
+    this.personService.uploadImage({ file: file, personId: this.personId }).subscribe({
+      next: (res => {
+        this.snackbar.openFromComponent(SuccessSnackbar, {
+          data: "Image Uploaded Successfully"
         })
         this.getPerson();
-      }),error:(err=>{
+      }), error: (err => {
         this.showLoading = false;
       })
     })

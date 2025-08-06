@@ -30,16 +30,20 @@ import { PersonPhoneForm } from './person-components/shared-person-components/pe
 import { PersonPhoneDialouge } from './person-components/shared-person-components/person-phone-details/person-phone-dialouge/person-phone-dialouge';
 import { PersonAddressDialouge } from './person-components/shared-person-components/person-address-details/person-address-dialouge/person-address-dialouge';
 import { PersonAddressForm } from './person-components/shared-person-components/person-address-details/person-address-form/person-address-form';
+import { BasePersonsComponent } from './person-components/_base/base-persons-component/base-persons-component';
+import { ActivePrivatePersons } from './person-components/active-private-persons/active-private-persons';
 
 
 @NgModule({
   declarations: [
+    BasePersonsComponent,
     AllPersons,
     PersonAddressDetails,
     PersonEmailDetails,
     PersonPhoneDetails,
     PersonDetailsForm,
     ActivePersons,
+    ActivePrivatePersons,
     AddPerson,
     EditPerson,
     PersonDocumentsGroup,

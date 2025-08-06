@@ -28,14 +28,6 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-button-toggle-group [(ngModel)]="params.private" 
-                              name="privateToggle" 
-                              (change)="search()" 
-                              [ngModelOptions]="{standalone: true}"
-                              multiple>
-        <mat-button-toggle [value]="false">Public</mat-button-toggle>
-        <mat-button-toggle [value]="true">Private</mat-button-toggle>
-      </mat-button-toggle-group>
     </div>
 
     <div class="action-row">
@@ -65,19 +57,19 @@
     <div class="bulk-actions-header">
       <span class="selected-count">{{ selectedPersons.length }} Selected</span>
       <div class="bulk-actions-buttons">
-        <button mat-button color="primary" *ngIf="currentMenu?.canUpdate" (click)="bulkChangeStatus(activeStatus)">
+        <button mat-button color="primary" (click)="bulkChangeStatus(activeStatus)">
           <mat-icon>check_circle</mat-icon> 
           Activate
         </button>
-        <button mat-button color="accent" *ngIf="currentMenu?.canUpdate" (click)="bulkChangeStatus(inactiveStatus)">
+        <button mat-button color="accent" (click)="bulkChangeStatus(inactiveStatus)">
           <mat-icon>cancel</mat-icon> 
           Inactivate
         </button>
-        <button mat-button color="primary" *ngIf="currentMenu?.canUpdate" (click)="bulkChangePrivate(false)">
+        <button mat-button color="primary" (click)="bulkChangePrivate(false)">
           <mat-icon>visibility</mat-icon> 
           Mark Public
         </button>
-        <button mat-button color="accent" *ngIf="currentMenu?.canUpdate" (click)="bulkChangePrivate(true)">
+        <button mat-button color="accent" (click)="bulkChangePrivate(true)">
           <mat-icon>visibility_off</mat-icon> 
           Mark Private
         </button>
@@ -108,15 +100,7 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu">
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)">
-        <mat-icon>visibility</mat-icon>
-        <span>Mark Public</span>
-      </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
-        <mat-icon>visibility_off</mat-icon>
-        <span>Mark Private</span>
-      </button>
-      <button mat-menu-item (click)="exportToPdf(row.id)">
+       <button mat-menu-item (click)="exportToPdf(row.id)">
         <mat-icon>print</mat-icon>
         <span>Print</span>
       </button>

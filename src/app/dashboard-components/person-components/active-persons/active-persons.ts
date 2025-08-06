@@ -1,108 +1,87 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { GetAllPersonDTO } from '../../../models/persons/get-all-person-dto';
-import { PaginateRsult } from '../../../models/paginate-result';
-import { GetAllActivePersonQuery } from '../../../models/persons/get-all-active-person-query';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { DisplayColumn } from '../../../models/columns/display-column';
+import { BasePersonsComponent } from '../_base/base-persons-component/base-persons-component';
+import { PersonStatus } from '../../../enums/person-status';
+import { GetPersonsQuery } from '../../../models/persons/get-persons/get-persons-query';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MenuService } from '../../../services/menu-service';
 import { PersonService } from '../../../services/person-service';
-import { BaseParam } from '../../../models/base/base-param';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-active-persons',
   standalone:false,
   templateUrl: './active-persons.html',
-  styleUrl: './active-persons.scss'
+  styleUrls: ['./active-persons.scss','../_base/base-persons-component/base-persons-component.scss']
 })
-export class ActivePersons implements OnInit {
+export class ActivePersons extends BasePersonsComponent {
 
-  showLoading = true;
-  allPersons!: PaginateRsult<GetAllPersonDTO>
-  settingsMenuOpen = false;
-  columns = {
-    code: true,
-    nameEn: true,
-    nameAr: true,
-    status: true,
-    private: true
-  };
-
-  getAllActivePersonParams: GetAllActivePersonQuery = {
-    searchBy: null,
-    nationality: null,
-    private: null,
-    page: 0,
-    pageSize: 10
-  }
-  personForm!: FormGroup;
-
-
-  displayColumns: DisplayColumn[] = [
+  override params: GetPersonsQuery = {
+      searchBy: null,
+      nationality: null,
+      private: null,
+      status: PersonStatus.Active,
+      page: 0,
+      pageSize: 10
+    }
+  override displayColumns: DisplayColumn[] = [
+    {
+      key: "select",
+      label: "",
+    },
     {
       key: "personCode",
-      label: "Code"
+      label: "Code",
+      sort: true,
+      pipes: ["link"]
     },
     {
       key: "personEnglishName",
-      label: "Name En"
+      label: "Name En",
+      pipes: ["link"],
+      sort: true
     },
     {
       key: "personArabicName",
-      label: "Name Ar"
+      label: "Name Ar",
+      pipes: ["link"],
+      sort: true
     },
     {
       key: "personShortName",
-      label: "Short name"
+      label: "Short Name",
+      sort: true
     },
     {
-      key: "personStatus",
-      label: "Status",
+      key: "fpcCode",
+      label: "FPC Code"
     },
     {
       key: "private",
       label: "Private",
+      pipes: ['privatePerson'],
+      sort: true,
+    },
+    {
+      key: "action",
+      label: "Action",
     },
   ]
-  constructor(private personService: PersonService, private cdr: ChangeDetectorRef, private fb: FormBuilder) {
 
+  constructor(
+    override service: PersonService,
+    override cdr: ChangeDetectorRef,
+    override fb: FormBuilder,
+    override router: Router,
+    override snackBar: MatSnackBar,
+    override route: ActivatedRoute,
+    override menuService:MenuService,
+    override dialog: MatDialog
+  ) {
+    super(service, cdr, fb, router, snackBar, route,menuService,dialog);
   }
 
-  ngOnInit(): void {
-    this.personForm = this.fb.group({
-      searchBy: [null],
-      nationality: [null],
-      private: [null],
-      status: [null]
-    });
-    this.getAllActivePerson();
-  }
-
-
-  getAllActivePerson() {
-    this.showLoading = true;
-    this.personService.getAllActivePerson(this.getAllActivePersonParams).subscribe({
-      next: (res => {
-        this.allPersons = res;
-        this.showLoading = false;
-        this.cdr.detectChanges();
-      }),
-      error: (err => {
-        this.showLoading = false;
-        this.cdr.detectChanges();
-
-      })
-    })
-  }
-
-  changePage(pageEvent: BaseParam) {
-    this.getAllActivePersonParams.page = pageEvent.page;
-    this.getAllActivePersonParams.pageSize = pageEvent.pageSize;
-    this.getAllActivePerson();
-  }
-  toggleSettingsMenu(): void {
-    this.settingsMenuOpen = !this.settingsMenuOpen;
-  }
-  search() {
-    this.getAllActivePersonParams = { ...this.personForm.getRawValue() };
-    this.getAllActivePerson();
-  }
+  
 }

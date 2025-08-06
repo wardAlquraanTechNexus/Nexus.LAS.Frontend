@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainDashboardComponent } from './main-dashboard-component/main-dashboard-components';
 import { AllPersons } from './person-components/all-persons/all-persons';
 import { ActivePersons } from './person-components/active-persons/active-persons';
-import { NotActivePersons } from './person-components/not-active-persons/not-active-persons';
+import { ActivePrivatePersons } from './person-components/active-private-persons/active-private-persons';
 import { AddPerson } from './person-components/add-person/add-person';
 import { environment } from '../../environment/environment';
 import { AddCompany } from './company-components/add-company/add-company';
@@ -31,8 +31,8 @@ const routes: Routes = [
     component: ActivePersons,
   },
   {
-    path: environment.routes.NotActivePersons,
-    component: NotActivePersons,
+    path: environment.routes.ActivePrivatePersons,
+    component: ActivePrivatePersons,
   },
   {
     path: environment.routes.AddPerson,

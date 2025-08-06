@@ -10,4 +10,5 @@ export interface MenuTree {
     canDelete?: boolean;
     inDashboard: boolean;
     children: MenuTree[];
+    rank?:number;
 }

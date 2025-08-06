@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="!showLoading" class="container-view">
     <p class="breadcrumb">
-        <span class="fake-link">Persons</span> /
+        <a (click)="navigateToPersons()" class="fake-link">Persons</a> /
         {{ person?.personEnglishName | titlecase }}
     </p>
     <div class="person-header-action">
