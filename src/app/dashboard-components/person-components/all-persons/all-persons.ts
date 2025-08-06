@@ -31,7 +31,6 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
   inactiveStatus = PersonStatus.Inactive;
   selectedPersons: Person[] = [];
 
-  settingsMenuOpen = false;
   columns = {
     code: true,
     nameEn: true,
@@ -135,11 +134,6 @@ export class AllPersons extends TableFormComponent<Person> implements OnInit {
     })
   }
 
-
-
-  toggleSettingsMenu(): void {
-    this.settingsMenuOpen = !this.settingsMenuOpen;
-  }
 
 
 exportToExcel() {

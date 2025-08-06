@@ -22,6 +22,8 @@ import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TableDataPipePipe } from '../pipes/table-data-pipe-pipe';
 import { SharedTable } from '../dashboard-components/shared-components/shared-table/shared-table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -81,7 +83,9 @@ import { BaseFormComponent } from '../dashboard-components/base-components/base-
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatTooltipModule
 
   ],
   exports: [
@@ -122,7 +126,9 @@ import { BaseFormComponent } from '../dashboard-components/base-components/base-
     MatCheckboxModule,
     BaseDialougeComponent,
     BaseFormComponent,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatTooltipModule
 
   ]
 })
