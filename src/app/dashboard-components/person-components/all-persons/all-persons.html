@@ -34,9 +34,9 @@
   <div class="table">
 
     <!-- Filter Form -->
-    <div class="row form align-items-stretch" *ngIf="!selectedPersons.length">
+    <div class="row form align-items-end" *ngIf="!selectedPersons.length">
       <div class="col-md-9">
-        <div class="row g-3 h-100 align-items-end">
+        <div class="row g-3">
           <div class="col-md-3">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Search</mat-label>
@@ -83,25 +83,23 @@
       </div>
 
       <div class="col-md-3">
-        <div class="h-100 d-flex align-items-end">
-          <div class="d-flex gap-2 w-100 actions-row">
-            <button mat-stroked-button color="primary" (click)="exportToExcel()" class="export-btn">
-              <mat-icon class="me-1">download</mat-icon>
-              Export
-            </button>
+        <div class="d-flex gap-2 actions-row">
+          <button mat-raised-button color="primary" (click)="exportToExcel()" class="export-btn">
+            <mat-icon class="me-1">download</mat-icon>
+            Export
+          </button>
+          
+          <button mat-icon-button (click)="toggleSettingsMenu()" class="settings-btn position-relative">
+            <mat-icon>settings</mat-icon>
             
-            <button mat-stroked-button (click)="toggleSettingsMenu()" class="settings-btn position-relative">
-              <mat-icon>settings</mat-icon>
-              
-              <div class="settings-menu-panel" *ngIf="settingsMenuOpen">
-                <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
-                <mat-slide-toggle [(ngModel)]="columns.nameEn">Name En</mat-slide-toggle>
-                <mat-slide-toggle [(ngModel)]="columns.nameAr">Name Ar</mat-slide-toggle>
-                <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
-                <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
-              </div>
-            </button>
-          </div>
+            <div class="settings-menu-panel" *ngIf="settingsMenuOpen">
+              <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="columns.nameEn">Name En</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="columns.nameAr">Name Ar</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
+            </div>
+          </button>
         </div>
       </div>
 
