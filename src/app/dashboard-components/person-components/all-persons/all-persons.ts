@@ -316,4 +316,8 @@ exportToExcel() {
     this.selectedPersons = selectedRows;
     this.cdr.detectChanges();
   }
+
+  navigateToAdd() {
+    this.router.navigate([environment.routes.AddPerson]);
+  }
 }

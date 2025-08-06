@@ -1,24 +1,48 @@
-<div class="row person-header">
-  <div class="col-12">
-    <h1>Persons</h1>
-    <p>View All Persons, edit individual profiles and add new persons</p>
+<!-- Page Header -->
+<header class="page-header mb-4">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <div class="header-content">
+          <h1 class="page-title mb-2">Persons Management</h1>
+          <p class="page-subtitle text-muted mb-0">Manage person profiles and information</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-end">
+        <div class="header-actions d-flex justify-content-end align-items-center gap-3">
+          <div class="records-count">
+            <span class="badge bg-light text-dark px-3 py-2">
+              <i class="material-icons me-1" style="font-size: 16px; vertical-align: middle;">people</i>
+              {{ data.totalRecords || 0 }} Records
+            </span>
+          </div>
+          <button mat-raised-button 
+                  color="primary" 
+                  (click)="navigateToAdd()"
+                  class="add-person-btn">
+            <mat-icon class="me-1">add</mat-icon>
+            Add Person
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</header>
 
 <div class="table-container">
-  <p>{{ data.totalRecords }} Records Returned</p>
 
   <div class="table">
 
     <!-- Filter Form -->
-    <div class="row form align-items-start" *ngIf="!selectedPersons.length">
+    <div class="row form align-items-center" *ngIf="!selectedPersons.length">
       <div class="col-md-9">
         <div class="row g-3">
           <div class="col-md-3">
             <mat-form-field class="w-100" appearance="outline">
               <mat-label>Search</mat-label>
-              <input matInput placeholder="Search by person, code, name en, name ar..." [(ngModel)]="params.searchBy"
+              <input matInput placeholder="Search by name, code..." [(ngModel)]="params.searchBy"
                 name="searchBy" (keyup.enter)="search()">
+              <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
           </div>
 
@@ -27,50 +51,54 @@
               <mat-label>Nationality</mat-label>
               <mat-select [(ngModel)]="params.nationality" name="nationality" (selectionChange)="search()">
                 <mat-option value="">All</mat-option>
-                <mat-option [value]="1">Dubay</mat-option>
-                <mat-option [value]="2">Abudhabi</mat-option>
+                <mat-option [value]="1">Dubai</mat-option>
+                <mat-option [value]="2">Abu Dhabi</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
           <div class="col-md-3">
-            <mat-button-toggle-group  [(ngModel)]="params.private" name="private" (change)="search()">
-              <mat-button-toggle value="false">Public</mat-button-toggle>
-              <mat-button-toggle value="true">Private</mat-button-toggle>
+            <mat-button-toggle-group [(ngModel)]="params.private" 
+                                    name="privateToggle" 
+                                    (change)="search()" 
+                                    [ngModelOptions]="{standalone: true}"
+                                    class="w-100 uniform-toggle-group">
+              <mat-button-toggle [value]="false" class="flex-fill">Public</mat-button-toggle>
+              <mat-button-toggle [value]="true" class="flex-fill">Private</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
 
           <div class="col-md-3">
-            <mat-button-toggle-group  [(ngModel)]="params.status" name="status" (change)="search()">
-              <mat-button-toggle value="0">New</mat-button-toggle>
-              <mat-button-toggle value="1">Active</mat-button-toggle>
-              <mat-button-toggle value="2">Inactive</mat-button-toggle>
+            <mat-button-toggle-group [(ngModel)]="params.status" 
+                                    name="statusToggle" 
+                                    (change)="search()" 
+                                    [ngModelOptions]="{standalone: true}"
+                                    class="w-100 uniform-toggle-group">
+              <mat-button-toggle [value]="0" class="flex-fill">New</mat-button-toggle>
+              <mat-button-toggle [value]="1" class="flex-fill">Active</mat-button-toggle>
+              <mat-button-toggle [value]="2" class="flex-fill">Inactive</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
         </div>
       </div>
 
       <div class="col-3">
-        <div class="position-relative">
-
-          <button class="mr-3" mat-raised-button color="primary" (click)="exportToExcel()">
+        <div class="d-flex gap-2 align-items-center actions-row">
+          <button mat-raised-button color="primary" (click)="exportToExcel()" class="flex-fill">
             <mat-icon class="me-1">download</mat-icon>
-            Export to Excel
+            Export
           </button>
           
+          <button mat-icon-button (click)="toggleSettingsMenu()" class="settings-button">
+            <mat-icon>settings</mat-icon>
+          </button>
 
-          <div class="setting-position-relative">
-            <button mat-icon-button (click)="toggleSettingsMenu()" class="settings-button">
-              <mat-icon>settings</mat-icon>
-            </button>
-
-            <div class="settings-menu-panel" *ngIf="settingsMenuOpen">
-              <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
-              <mat-slide-toggle [(ngModel)]="columns.nameEn">Name en</mat-slide-toggle>
-              <mat-slide-toggle [(ngModel)]="columns.nameAr">Name ar</mat-slide-toggle>
-              <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
-              <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
-            </div>
+          <div class="settings-menu-panel" *ngIf="settingsMenuOpen">
+            <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="columns.nameEn">Name En</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="columns.nameAr">Name Ar</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
+            <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
           </div>
         </div>
       </div>
