@@ -10,7 +10,7 @@
         <mat-form-field appearance="outline" style="width: 500px;">
 
             <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
-                placeholder="Type to search for people, companies, properties, or law firms..." aria-label="Search"
+                placeholder="Type to search in persons, companies etc." aria-label="Search"
                 #searchInput />
             <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
                 [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
