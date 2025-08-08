@@ -33,11 +33,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { TableFormComponent } from '../dashboard-components/base-components/table-form-component/table-form-component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { PersonOtherDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-other-document-form/person-other-document-form';
-import { PersonIdDocumentForm } from '../dashboard-components/person-components/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BaseDialougeComponent } from '../dashboard-components/base-components/base-dialouge-component/base-dialouge-component';
 import { BaseFormComponent } from '../dashboard-components/base-components/base-form-component/base-form-component';
+import { PersonIdDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-id-document-form/person-id-document-form';
+import { PersonOtherDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-other-document-form/person-other-document-form';
 
 
 

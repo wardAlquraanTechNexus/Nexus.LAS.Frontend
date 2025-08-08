@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { ComponentsModule } from "../components-module";
 import { MenuTree } from '../../models/menus/menu-tree';
-import { MenuService } from '../../services/menu-service';
 import { environment } from '../../../environment/environment';
-
 
 @Component({
   selector: 'app-sidebar',
@@ -25,39 +22,33 @@ export class Sidebar {
   menuItems: MenuTree[] = [];
   sidebarOpen = true;
   childrenAccessor = (node: any) => node.children ?? [];
-
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
-  constructor(
-  ) {
-
-
-  }
-
-
   iconClass = "sidebar-toggle-btn-opened";
+
+  constructor() {}
+
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
-    if(this.sidebarOpen){
-      this.iconClass = "sidebar-toggle-btn-opened";
-    }else{
-      this.iconClass = "sidebar-toggle-btn";
-    }
-
+    this.iconClass = this.sidebarOpen
+      ? "sidebar-toggle-btn-opened"
+      : "sidebar-toggle-btn";
   }
 
   ngOnInit() {
-
     const menuJson = localStorage.getItem("menu");
     if (menuJson) {
       this.menuItems = JSON.parse(menuJson) as MenuTree[];
       this.menuItems = this.filterInDashboard(this.menuItems);
+
+      // Build full paths for all menu items
+      this.buildFullPaths(this.menuItems);
     } else {
-      this.menuItems = []; // or null or whatever default you want
+      this.menuItems = [];
     }
+
     this.menuItems.unshift(this.defaultItem);
   }
-
 
   filterInDashboard(items: MenuTree[]): MenuTree[] {
     return items
@@ -66,5 +57,22 @@ export class Sidebar {
         ...item,
         children: this.filterInDashboard(item.children || [])
       }));
+  }
+
+  private buildFullPaths(items: MenuTree[], parentPath: string = ''): void {
+    for (let item of items) {
+      // Combine parent path + current path
+      if (item.path) {
+        // Ensure no double slashes
+        item.path = `${parentPath}/${item.path}`.replace(/\/+/g, '/');
+      } else {
+        // If no path, inherit parent path
+        item.path = parentPath;
+      }
+
+      if (item.children && item.children.length > 0) {
+        this.buildFullPaths(item.children, item.path);
+      }
+    }
   }
 }

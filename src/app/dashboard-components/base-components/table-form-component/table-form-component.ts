@@ -38,7 +38,6 @@ export class TableFormComponent<T> implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fillParamsFromQP();
     this.fetchData();
   }
 
@@ -63,7 +62,7 @@ export class TableFormComponent<T> implements OnInit {
 
 
   search() {
-    this.navigateByParams();
+    this.fetchData();
   }
 
   navigateByParams() {
@@ -107,13 +106,13 @@ export class TableFormComponent<T> implements OnInit {
     }
     this.params.orderBy = this.sortState.active;
     this.params.orderDir = this.sortState.direction;
-    this.navigateByParams();
+    this.fetchData();
   }
 
   changePage(pageEvent: BaseParam) {
     this.params.page = pageEvent.page;
     this.params.pageSize = pageEvent.pageSize;
-    this.navigateByParams();
+    this.fetchData();
   }
 
 

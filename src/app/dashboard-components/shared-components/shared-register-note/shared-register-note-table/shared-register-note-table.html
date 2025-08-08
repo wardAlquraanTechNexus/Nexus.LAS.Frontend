@@ -1,0 +1,36 @@
+<div class="note-container">
+    <div class="note-header">
+        <div>
+            <h4>Note</h4>
+        </div>
+        <div>
+            <button class="btn btn-outline-primary" (click)="addNote()">Add Note</button>
+        </div>
+    </div>
+
+
+
+    <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+        (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate">
+    </app-shared-table>
+
+    <ng-template class="actions" #actionButtonsTemplate let-row>
+        <a class="mr-1 action" [confirmDelete]="getRemoveCallback(row.id)">
+            <mat-icon>delete</mat-icon>
+        </a>
+        <a class="mr-1 action" (click)="edit(row)">
+            <mat-icon>edit</mat-icon>
+        </a>
+    </ng-template>
+</div>
+
+<!-- <app-shared-table 
+    *ngIf="!showLoading" 
+    [displayedColumns]="displayColumns" 
+    [paginateResult]="data"
+    [action]="actionButtonsTemplate" 
+    (onChangePage)="changePage($event)" 
+    (rowClick)="onRowClick($event)"
+    (onSortChangeEvent)="changeSort($event)" 
+    (selectionChange)="onSelectionChange($event)">
+  </app-shared-table> -->

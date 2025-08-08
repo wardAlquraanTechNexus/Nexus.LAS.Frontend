@@ -5,13 +5,13 @@ export const environment = {
   },
   routes:{
     dashboard : "dashboard",
-    AllPersons : 'Persons/All-Persons',
-    ActivePersons : 'Persons/Active-Persons',
-    ViewPersons : 'Persons/view',
-    AddPerson : 'Persons/add-Person',
-    EditPerson : 'Persons/edit-Person',
-    ActivePrivatePersons: "Persons/Active-private-Persons",
-    AddCompany : 'Companies/add-Company',
+    Persons : 'Persons',
+    AllPersons : 'All-Persons',
+    ActivePersons : 'Active-Persons',
+    ViewPersons : 'view',
+    AddPerson : 'add-Person',
+    EditPerson : 'edit-Person',
+    ActivePrivatePersons: "Active-private-Persons",
     AddRealEstate : 'Real-Estates/add-real-estate',
     AddLawFirm : "law-firms/add-law-firm",
     AddTransaction : "transactions/add-transaction",
@@ -19,7 +19,13 @@ export const environment = {
     AddFpc : 'FPCs/add-FPC',
     ViewPersonIdDetail : 'person/view-person-id-detail',
     ViewPersonOtherDocument : 'person/view-person-other-document',
+    
+    Companies : "Companies",
+    AllCompanies : "all-companies",
+    AddCompany : 'add-Company',
 
-
+    Setting: "Settings",
+    DynamicList:"Dynamic-List",
+    Menus:"Menus",
   }
 };

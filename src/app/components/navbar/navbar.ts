@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPerson } from '../../dashboard-components/person-components/add-person/add-person';
 import { AuthService } from '../../services/auth-service';
 import { AuthResponse } from '../../models/auth-response';
+import { AddPerson } from '../../dashboard-components/person-module/add-person/add-person';
 
 @Component({
   selector: 'app-navbar',

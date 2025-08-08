@@ -1,0 +1,51 @@
+<div class="dialog">
+    <div class="actions d-flex justify-content-between align-items-center mb-3">
+        <div class="header-subject">
+            <h5>
+                <span *ngIf="registerNote?.id">Update Note</span>
+                <span *ngIf="!registerNote?.id">Add Note</span>
+            </h5>
+        </div>
+        <div class="dialog-header-buttons actions">
+            <button class="btn" (click)="cancelEdit()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Note</mat-label>
+                    <textarea matInput formControlName="registersNotesText" required> </textarea>
+                    @if(formGroup.get('registersNotesText')?.hasError('required') &&
+                    formGroup.get('registersNotesText')?.touched){
+                    <mat-error>
+                        Note is required
+                    </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Note Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="noteDate" required />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+
+                    @if(formGroup.get('noteDate')?.hasError('required') && formGroup.get('noteDate')?.touched){
+                        <mat-error>
+                            Date is required
+                        </mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="dialog-footer-buttons">
+        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-primary" (click)="save()">Save</button>
+    </div>
+</div>
