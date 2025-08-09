@@ -10,7 +10,7 @@
                 <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="action-btn delete-btn" (click)="onDelete(node)">
+                <button mat-icon-button class="action-btn delete-btn" [confirmDelete]="onDeleteWrapper.bind(this, node)">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-icon-button class="action-btn view-btn" (click)="onView(node)">
@@ -31,7 +31,7 @@
                 <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="action-btn delete-btn" (click)="onDelete(node)">
+                <button mat-icon-button class="action-btn delete-btn" [confirmDelete]="onDeleteWrapper.bind(this, node)">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-icon-button class="action-btn view-btn" (click)="onView(node)">

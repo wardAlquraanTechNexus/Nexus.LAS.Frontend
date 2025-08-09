@@ -3,10 +3,16 @@
     <!-- Header: Pathname left, Add New button right -->
     <div class="tree-header"
         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <nav class="breadcrumb">
-            <a>Root/</a>
-            <a *ngFor="let parent of reversedParents; let last = last" (click)="onPathClick(parent)">{{ parent.menuValue }}</a>
-        </nav>
+        <div class="breadcrumb">
+            <a (click)="onPathClick(null)" class="breadcrumb-link">Root</a>
+            <ng-container *ngFor="let parent of parents">
+                <span class="breadcrumb-separator"> / </span>
+                <a (click)="onPathClick(parent)" class="breadcrumb-link">
+                    {{ parent.menuValue }}
+                </a>
+            </ng-container>
+        </div>
+
 
         <button mat-raised-button color="primary" (click)="onAddNew()">
             <mat-icon>add</mat-icon> Add New

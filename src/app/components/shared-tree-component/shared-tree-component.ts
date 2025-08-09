@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 
 interface FlatTreeNode {
@@ -8,11 +8,11 @@ interface FlatTreeNode {
   icon?: string;
   level: number;
   hasChildren: boolean;
-  id:number;
+  id: number;
 }
 
 interface TreeNode {
-  id:number,
+  id: number,
   name: string;
   icon?: string;
   children?: TreeNode[];
@@ -28,10 +28,16 @@ interface TreeNode {
 export class SharedTreeComponent implements OnInit {
 
   @Input() treeData!: TreeNode[];
-  @Input() listName!:string;
+
   @Output() editEmitter = new EventEmitter<any>();
   @Output() deleteEmitter = new EventEmitter<any>();
   @Output() viewEmitter = new EventEmitter<any>();
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['treeData']) {
+      this.dataSource.data = this.treeData;
+    }
+  }
 
   private transformer = (node: TreeNode, level: number) => {
     return {
@@ -40,7 +46,7 @@ export class SharedTreeComponent implements OnInit {
       level: level,
       icon: node.icon, // keep if you want icons,
       hasChildren: !!node.children && node.children.length > 0,
-      id:node.id
+      id: node.id
     };
   };
 
@@ -62,11 +68,10 @@ export class SharedTreeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.dataSource.data = this.treeData
-    console.log(this.treeData)
   }
 
 
-hasChild = (_: number, node: FlatTreeNode) => node.hasChildren;
+  hasChild = (_: number, node: FlatTreeNode) => node.hasChildren;
 
   onView(node: any) {
     this.viewEmitter.emit(node);
@@ -76,7 +81,13 @@ hasChild = (_: number, node: FlatTreeNode) => node.hasChildren;
     this.editEmitter.emit(node);
   }
 
-  onDelete(node: any) {
+  onDeleteWrapper(node: any) {
+  this.emitDelete(node);
+}
+
+
+  emitDelete(node: any) {
     this.deleteEmitter.emit(node);
+
   }
 }

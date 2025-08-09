@@ -42,39 +42,29 @@ export class DynamicListTable implements OnInit {
   }
 
   private loadData() {
-    debugger
-    this.route.queryParams.subscribe(params => {
-      const id = params['parentId'];
-      if (id) {
-        this.params.mainListId = id;
-      }else{
-        this.params.mainListId = null;
-      }
-      this.fetchData();
-      this.getPath();
-
-    });
+    this.fetchData();
   }
-  onPathClick(parent: DynamicList) {
-    const queryParams = parent.mainListId ? { parentId: parent.mainListId } : {};
+  onPathClick(parent?: DynamicList | null) {
 
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      replaceUrl: true
-    });
-    this.params.mainListId = parent.mainListId || null
-    this.loadData();
+    this.params.mainListId = parent?.id || null;
+    if (!parent) {
+      this.parents = [];
+    }
+    this.fetchData();
   }
-
+  pathname = 'root';
   private fetchData() {
     this.showLoading = true;
     this.dynamicListService.getByParams(this.params).subscribe({
       next: (res => {
         this.dynamicLists = res;
         this.getTreeData();
-        this.showLoading = false;
-        this.cdr.detectChanges();
+        if (this.params.mainListId) {
+          this.getPath();
+        } else {
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }
 
       }),
       error: (err => {
@@ -100,9 +90,6 @@ export class DynamicListTable implements OnInit {
     }
   }
 
-  get reversedParents(): DynamicList[] {
-    return [...this.parents].reverse();
-  }
 
 
 
@@ -111,31 +98,56 @@ export class DynamicListTable implements OnInit {
       name: dl.menuValue,
       id: dl.id
     }));
+    this.treeData = [...this.treeData]; // new array reference
+    this.cdr.markForCheck();           // force CD now
   }
-
   onView(node: any) {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { parentId: node.id },
-      replaceUrl: true
-    });
+    this.params.mainListId = node.id;
     this.loadData();
   }
 
   onEdit(node: any) {
     let dl = this.dynamicLists.collection.find(x => x.id == node.id);
-    this.dialog.open(DynamicListDialog, {
+    if (!dl) return;
+
+    const dialogRef = this.dialog.open(DynamicListDialog, {
       disableClose: true,
       data: dl
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(updatedItem => {
+      if (updatedItem) {
+        this.dynamicLists.collection = this.dynamicLists.collection.map(item =>
+          item.id === updatedItem.id ? updatedItem : item
+        );
+
+        this.getTreeData();
+      }
+    });
   }
 
   onDelete(node: any) {
-    console.log("Delete:", node);
-  }
+  this.showLoading = true;
+  this.dynamicListService.delete(node.id).subscribe({
+    next: (res) => {
+      this.dynamicLists.collection = this.dynamicLists.collection.filter(item => item.id !== node.id);
+
+      this.getTreeData();
+
+      this.showLoading = false;
+      this.cdr.markForCheck();
+    },
+    error: (err) => {
+      this.showLoading = false;
+      console.error('Delete failed', err);
+    }
+  });
+}
+
+  
 
   onAddNew() {
-    this.dialog.open(DynamicListDialog, {
+    const dialogRef = this.dialog.open(DynamicListDialog, {
       disableClose: true,
       data: {
         id: 0,
@@ -145,7 +157,18 @@ export class DynamicListTable implements OnInit {
         active: false,
         rank: null
       }
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dynamicLists.collection = [
+          ...this.dynamicLists.collection,
+          result
+        ];
+        this.getTreeData();
+      }
+    });
   }
+
 
 }

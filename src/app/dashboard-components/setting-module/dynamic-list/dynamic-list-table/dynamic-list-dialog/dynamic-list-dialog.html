@@ -1,4 +1,8 @@
-<app-dynamic-list-form 
+  <div class="spinner-overlay" *ngIf="showLoading">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+  </div>
+
+<app-dynamic-list-form *ngIf="!showLoading"
 [dynamicList]="element"
 (saveEmitter)="onSave($event)"
 (cancelEditEmitter)="onCancel($event)"
