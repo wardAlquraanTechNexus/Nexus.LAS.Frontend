@@ -64,7 +64,10 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
   override ngOnInit(): void {
-    this.currentMenu = this.menuService.getMenuByPath(this.router.url.substring(1));
+    let routerSplitted = this.router.url.split('/');
+    let roterLen = routerSplitted.length;
+
+    this.currentMenu = this.menuService.getMenuByPath(routerSplitted[roterLen-1]);
     this.fetchData();
   }
   override search() {

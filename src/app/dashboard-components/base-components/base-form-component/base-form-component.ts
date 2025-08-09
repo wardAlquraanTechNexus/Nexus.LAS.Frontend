@@ -45,7 +45,6 @@ export class BaseFormComponent implements OnInit {
         group[key] = new FormControl(this.object[key]);
       }
       this.formGroup = this.fb.group(group);
-      console.log(this.formGroup.value)
       this.cdr.detectChanges();
     }
   }

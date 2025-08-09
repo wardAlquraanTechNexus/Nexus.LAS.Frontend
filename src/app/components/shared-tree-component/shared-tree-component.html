@@ -1,0 +1,43 @@
+<div class="tree-wrapper">
+
+    <!-- Tree -->
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+            <mat-icon class="node-icon">{{ node.icon }}</mat-icon>
+            <span class="node-name">{{ node.name }}</span>
+            <span class="node-actions">
+                <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="action-btn delete-btn" (click)="onDelete(node)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button class="action-btn view-btn" (click)="onView(node)">
+                    <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </span>
+        </mat-tree-node>
+
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+            <button mat-icon-button matTreeNodeToggle>
+                <mat-icon>
+                    {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                </mat-icon>
+            </button>
+            <mat-icon class="node-icon">{{ node.icon }}</mat-icon>
+            <span class="node-name">{{ node.name }}</span>
+            <span class="node-actions">
+                <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="action-btn delete-btn" (click)="onDelete(node)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button class="action-btn view-btn" (click)="onView(node)">
+                    <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </span>
+        </mat-tree-node>
+    </mat-tree>
+</div>

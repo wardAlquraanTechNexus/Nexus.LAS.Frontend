@@ -38,6 +38,7 @@ import { BaseDialougeComponent } from '../dashboard-components/base-components/b
 import { BaseFormComponent } from '../dashboard-components/base-components/base-form-component/base-form-component';
 import { PersonIdDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-other-document-form/person-other-document-form';
+import { SharedTreeComponent } from './shared-tree-component/shared-tree-component';
 
 
 
@@ -54,7 +55,8 @@ import { PersonOtherDocumentForm } from '../dashboard-components/person-module/s
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
     BaseDialougeComponent,
-    BaseFormComponent
+    BaseFormComponent,
+    SharedTreeComponent
   ],
   imports: [
     CommonModule,
@@ -128,7 +130,8 @@ import { PersonOtherDocumentForm } from '../dashboard-components/person-module/s
     BaseFormComponent,
     MatToolbarModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    SharedTreeComponent
 
   ]
 })

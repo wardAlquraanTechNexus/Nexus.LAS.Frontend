@@ -1,0 +1,28 @@
+::ng-deep .mat-mdc-dialog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px !important;  /* fixed width */
+  max-width: 90vw !important;
+  margin: auto;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-radius: 4px !important; /* better to have some rounding */
+  overflow: hidden;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+mat-dialog-content {
+  flex: 1 1 auto;
+  overflow: auto;
+  height: auto !important;
+  min-height: 0;
+  padding: 16px;
+}

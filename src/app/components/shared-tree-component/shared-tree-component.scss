@@ -1,0 +1,69 @@
+
+.tree-wrapper {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  
+}
+
+.tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.tree-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+mat-tree-node {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  margin-bottom: 4px;
+}
+
+.node-icon {
+  color: #555;
+  margin-right: 6px;
+}
+
+.node-name {
+  flex: 1;
+}
+
+.node-actions {
+  display: flex;
+  gap: 4px;
+
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+
+  .view-btn {
+    color: #1976d2;
+  }
+
+  .edit-btn {
+    color: #ff9800;
+  }
+
+  .delete-btn {
+    color: #f44336;
+  }
+
+  .action-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+  }
+}

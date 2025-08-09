@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamicListTable } from './dynamic-list-table';
+import { SharedTreeComponent } from './shared-tree-component';
 
-describe('DynamicListTable', () => {
-  let component: DynamicListTable;
-  let fixture: ComponentFixture<DynamicListTable>;
+describe('SharedTreeComponent', () => {
+  let component: SharedTreeComponent;
+  let fixture: ComponentFixture<SharedTreeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DynamicListTable]
+      imports: [SharedTreeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DynamicListTable);
+    fixture = TestBed.createComponent(SharedTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

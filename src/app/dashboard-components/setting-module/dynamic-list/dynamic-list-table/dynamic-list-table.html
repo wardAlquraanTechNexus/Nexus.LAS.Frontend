@@ -1,1 +1,25 @@
-<p>dynamic-list-table works!</p>
+<div class="tree-wrapper mt-2" style="position: relative;">
+
+    <!-- Header: Pathname left, Add New button right -->
+    <div class="tree-header"
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <nav class="breadcrumb">
+            <a>Root/</a>
+            <a *ngFor="let parent of reversedParents; let last = last" (click)="onPathClick(parent)">{{ parent.menuValue }}</a>
+        </nav>
+
+        <button mat-raised-button color="primary" (click)="onAddNew()">
+            <mat-icon>add</mat-icon> Add New
+        </button>
+    </div>
+
+
+    <app-shared-tree-component *ngIf="!showLoading" [treeData]="treeData" (addEmitter)="onAddNew()"
+        (editEmitter)="onEdit($event)" (deleteEmitter)="onDelete($event)"
+        (viewEmitter)="onView($event)"></app-shared-tree-component>
+
+    <div class="spinner-overlay" *ngIf="showLoading"
+        style="display: flex; justify-content: center; align-items: center;">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+</div>
