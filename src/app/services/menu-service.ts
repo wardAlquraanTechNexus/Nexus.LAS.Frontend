@@ -3,48 +3,55 @@ import { environment } from '../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { MenuTree } from '../models/menus/menu-tree';
 import { Observable, shareReplay, tap } from 'rxjs';
+import { BaseService } from './base/base-service';
+import { Menu } from '../models/menus/menu';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MenuService {
-  private cachedMenus$: Observable<MenuTree[]> | null = null;
-  url: string = environment.serverUrls.host + "Menus/";
-  constructor(private httpClient: HttpClient) {
-
+export class MenuService extends BaseService<Menu> {
+  constructor(override httpClient: HttpClient) {
+    super(httpClient);
+    this.setPath("Menus");
   }
 
   getMenus(): Observable<any> {
-      return this.httpClient.get<any>(this.url + 'GetAllMenus').pipe(
-        tap(data=>console.log("from pipe ", data))
-      )
+    return this.httpClient.get<any>(this.url + '/GetAllMenus').pipe(
+      tap(menus => {
+        localStorage.setItem('menu', JSON.stringify(menus));
+      })
+    );
   }
 
-  getMenuByPath(path:string):MenuTree | null{
-     const menuJson = localStorage.getItem('menu');
-        if (!menuJson) return null;
-    
-        try {
-          let menus = JSON.parse(menuJson) as MenuTree[];
-          return this.findMenuByPath(menus , path);
+  GetParents(id: number): Observable<Menu[]> {
+    return this.httpClient.get<Menu[]>(this.url + "/GetParents/" + id);
+  }
 
-        } catch (e) {
-          return null;
-        }
+  getMenuByPath(path: string): MenuTree | null {
+    const menuJson = localStorage.getItem('menu');
+    if (!menuJson) return null;
+
+    try {
+      let menus = JSON.parse(menuJson) as MenuTree[];
+      return this.findMenuByPath(menus, path);
+
+    } catch (e) {
+      return null;
+    }
   }
 
   private findMenuByPath(menuList: MenuTree[], path: string): MenuTree | null {
-  for (const menu of menuList) {
-    if (menu.path === path) {
-      return menu;
-    }
-    if (menu.children?.length) {
-      const found = this.findMenuByPath(menu.children, path);
-      if (found) {
-        return found;
+    for (const menu of menuList) {
+      if (menu.path === path) {
+        return menu;
+      }
+      if (menu.children?.length) {
+        const found = this.findMenuByPath(menu.children, path);
+        if (found) {
+          return found;
+        }
       }
     }
+    return null;
   }
-  return null;
-}
 }

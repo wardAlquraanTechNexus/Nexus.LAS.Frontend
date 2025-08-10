@@ -12,18 +12,29 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
 
     return next(req).pipe(
-        catchError((error: HttpErrorResponse) => {
+        catchError((error: any) => {
             let message = 'An unexpected error occurred.';
 
-            if (error.error?.Title) {
+            if (error.error?.Errors) {
+                // Collect all error messages into a single string
+                const errors = error.error.Errors;
+                const messages: string[] = [];
+
+                for (const key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        messages.push(...errors[key]);
+                    }
+                }
+
+                message = messages.join('\n');  // Or use '<br>' if showing in HTML
+            } else if (error.error?.Title) {
                 message = error.error.Title;
             } else if (error.status === 0) {
                 message = 'Network error. Please check your connection.';
-            }else if(error.status == 401){
-                message = 'Unauthorization.';
-                router.navigateByUrl("auth");
-            }
-             else if (error.status >= 400 && error.status < 500) {
+            } else if (error.status == 401) {
+                message = 'Unauthorized.';
+                router.navigateByUrl('auth');
+            } else if (error.status >= 400 && error.status < 500) {
                 message = `Request error: ${error.status}`;
             } else if (error.status >= 500) {
                 message = `Server error: ${error.status}`;

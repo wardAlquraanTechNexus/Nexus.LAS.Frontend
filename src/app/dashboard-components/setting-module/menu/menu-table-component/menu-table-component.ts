@@ -1,6 +1,12 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
+import { GetMenuParam } from '../../../../models/menus/params/get-menu-param';
+import { MenuService } from '../../../../services/menu-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Menu } from '../../../../models/menus/menu';
+import { MenuDialog } from './menu-dialog/menu-dialog';
 
 @Component({
   selector: 'app-menu-table-component',
@@ -8,32 +14,164 @@ import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree'
   templateUrl: './menu-table-component.html',
   styleUrl: './menu-table-component.scss'
 })
-export class MenuTableComponent {
-  treeData: any[] = [
-  {
-    name: 'Fruit',
-    children: [
-      { name: 'Apple' },
-      { name: 'Banana' },
-      { name: 'Fruit loops' },
-    ]
-  }, {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [
-          { name: 'Broccoli' },
-          { name: 'Brussel sprouts' },
-        ]
-      }, {
-        name: 'Orange',
-        children: [
-          { name: 'Pumpkins' },
-          { name: 'Carrots' },
-        ]
+export class MenuTableComponent implements OnInit {
+
+  parents: Menu[] = [];
+  params: GetMenuParam = {
+    page: 0,
+    pageSize: 10,
+    id: null,
+    name:null,
+    path:null,
+    parentId: null
+  }
+  showLoading = false;
+  menus!: Menu[];
+  treeData: any[] = [];
+
+  constructor(
+    private menuService: MenuService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {
+  }
+  ngOnInit(): void {
+      this.loadData();
+    }
+  
+    private loadData() {
+      this.fetchData();
+    }
+    onPathClick(parent?: Menu | null) {
+  
+      this.params.parentId = parent?.id || null;
+      if (!parent) {
+        this.parents = [];
+      }
+      this.fetchData();
+    }
+    pathname = 'root';
+    private fetchData() {
+      this.showLoading = true;
+      this.menuService.getAllByParams(this.params).subscribe({
+        next: (res => {
+          this.menus = res;
+          this.getTreeData();
+          if (this.params.parentId) {
+            this.getPath();
+          } else {
+            this.showLoading = false;
+            this.cdr.markForCheck();
+          }
+  
+        }),
+        error: (err => {
+          this.showLoading = false;
+        })
+      });
+    }
+  
+    private getPath() {
+      if (this.params.parentId) {
+        this.showLoading = true;
+        this.menuService.GetParents(this.params.parentId).subscribe({
+          next: (parents => {
+            this.parents = parents;
+            this.showLoading = false;
+            this.cdr.markForCheck();
+          }),
+          error: (err => {
+            this.showLoading = false;
+            this.cdr.markForCheck();
+          })
+        });
+      }
+    }
+  
+  
+  
+  
+    getTreeData() {
+      this.treeData = this.menus.map(dl => ({
+        name: dl.name,
+        id: dl.id
+      }));
+      this.treeData = [...this.treeData]; // new array reference
+      this.cdr.markForCheck();           // force CD now
+    }
+    onView(node: any) {
+      this.params.parentId = node.id;
+      this.loadData();
+    }
+  
+    onEdit(node: any) {
+      let menu = this.menus.find(x => x.id == node.id);
+      if (!menu) return;
+  
+      const dialogRef = this.dialog.open(MenuDialog, {
+        disableClose: true,
+        data: menu
+      });
+  
+      dialogRef.afterClosed().subscribe(updatedItem => {
+        if (updatedItem) {
+          this.menus = this.menus.map(item =>
+            item.id === updatedItem.id ? updatedItem : item
+          );
+  
+          this.getTreeData();
+        }
+      });
+    }
+  
+    onDelete(node: any) {
+    this.showLoading = true;
+    this.menuService.delete(node.id).subscribe({
+      next: (res) => {
+        this.menus = this.menus.filter(item => item.id !== node.id);
+  
+        this.getTreeData();
+  
+        this.showLoading = false;
+        this.cdr.markForCheck();
       },
-    ]
-  },
-];
+      error: (err) => {
+        this.showLoading = false;
+        console.error('Delete failed', err);
+      }
+    });
+  }
+  
+    
+  
+    onAddNew() {
+      let menu:Menu = {
+         id: 0,
+          parentId: this.params.parentId,
+          name: "",
+          description: "",
+          path:null,
+          rank: null,
+          inDashboard:false,
+          iconClass:null
+      };
+      const dialogRef = this.dialog.open(MenuDialog, {
+        disableClose: true,
+        data: menu
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.menus = [
+            ...this.menus,
+            result
+          ];
+          this.getTreeData();
+        }
+      });
+    }
+  
+
 }

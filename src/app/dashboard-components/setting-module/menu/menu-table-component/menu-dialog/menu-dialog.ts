@@ -1,20 +1,20 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DynamicListService } from '../../../../../services/dynamic-list-service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MenuService } from '../../../../../services/menu-service';
 
 @Component({
-  selector: 'app-dynamic-list-dialog',
-  standalone: false,
-  templateUrl: './dynamic-list-dialog.html',
-  styleUrl: './dynamic-list-dialog.scss'
+  selector: 'app-menu-dialog',
+  standalone:false,
+  templateUrl: './menu-dialog.html',
+  styleUrl: './menu-dialog.scss'
 })
-export class DynamicListDialog extends BaseDialougeComponent {
+export class MenuDialog extends BaseDialougeComponent {
   showLoading = false;
   constructor(
-    protected override dialogRef: MatDialogRef<DynamicListDialog>, 
+    protected override dialogRef: MatDialogRef<MenuDialog>, 
     @Inject(MAT_DIALOG_DATA) public override data: any,
-    private dlService:DynamicListService,
+    private service:MenuService,
     protected cdr: ChangeDetectorRef,
   ) {
     super(dialogRef, data)
@@ -23,7 +23,7 @@ export class DynamicListDialog extends BaseDialougeComponent {
   onSave(element: any) {
     if(!element.element.id){
       this.showLoading = true;
-      this.dlService.create(element.element).subscribe({
+      this.service.create(element.element).subscribe({
         next:(res=>{
           this.showLoading = false;
           element.element.id = res;
@@ -36,7 +36,7 @@ export class DynamicListDialog extends BaseDialougeComponent {
       })
     }else{
       this.showLoading = true;
-      this.dlService.update(element.element).subscribe({
+      this.service.update(element.element).subscribe({
         next:(res=>{
           this.showLoading = false;
           this.dialogRef.close(element.element);

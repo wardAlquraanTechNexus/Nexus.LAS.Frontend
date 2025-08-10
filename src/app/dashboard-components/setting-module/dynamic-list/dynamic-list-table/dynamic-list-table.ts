@@ -26,7 +26,7 @@ export class DynamicListTable implements OnInit {
   }
   showLoading = false;
   parent: DynamicList | null = null;
-  dynamicLists!: PaginateRsult<DynamicList>;
+  dynamicLists: DynamicList[] = [];
   treeData: any[] = [];
 
   constructor(
@@ -55,7 +55,7 @@ export class DynamicListTable implements OnInit {
   pathname = 'root';
   private fetchData() {
     this.showLoading = true;
-    this.dynamicListService.getByParams(this.params).subscribe({
+    this.dynamicListService.getAllByParams(this.params).subscribe({
       next: (res => {
         this.dynamicLists = res;
         this.getTreeData();
@@ -94,7 +94,7 @@ export class DynamicListTable implements OnInit {
 
 
   getTreeData() {
-    this.treeData = this.dynamicLists.collection.map(dl => ({
+    this.treeData = this.dynamicLists.map(dl => ({
       name: dl.menuValue,
       id: dl.id
     }));
@@ -107,7 +107,7 @@ export class DynamicListTable implements OnInit {
   }
 
   onEdit(node: any) {
-    let dl = this.dynamicLists.collection.find(x => x.id == node.id);
+    let dl = this.dynamicLists.find(x => x.id == node.id);
     if (!dl) return;
 
     const dialogRef = this.dialog.open(DynamicListDialog, {
@@ -117,7 +117,7 @@ export class DynamicListTable implements OnInit {
 
     dialogRef.afterClosed().subscribe(updatedItem => {
       if (updatedItem) {
-        this.dynamicLists.collection = this.dynamicLists.collection.map(item =>
+        this.dynamicLists = this.dynamicLists.map(item =>
           item.id === updatedItem.id ? updatedItem : item
         );
 
@@ -130,7 +130,7 @@ export class DynamicListTable implements OnInit {
   this.showLoading = true;
   this.dynamicListService.delete(node.id).subscribe({
     next: (res) => {
-      this.dynamicLists.collection = this.dynamicLists.collection.filter(item => item.id !== node.id);
+      this.dynamicLists = this.dynamicLists.filter(item => item.id !== node.id);
 
       this.getTreeData();
 
@@ -161,8 +161,8 @@ export class DynamicListTable implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dynamicLists.collection = [
-          ...this.dynamicLists.collection,
+        this.dynamicLists = [
+          ...this.dynamicLists,
           result
         ];
         this.getTreeData();

@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
             this.authService.saveSession(res);
             this.menuService.getMenus().subscribe({
               next: (menu => {
-                localStorage.setItem("menu", JSON.stringify(menu));
                 this.isSaving = false;
                 this.cdr.detectChanges();
                 this.router.navigate(['../'], { relativeTo: this.route });

@@ -1,1 +1,31 @@
-<app-shared-tree-component [treeData]="treeData"></app-shared-tree-component>
+<div class="tree-wrapper mt-2" style="position: relative;">
+
+    <!-- Header: Pathname left, Add New button right -->
+    <div class="tree-header"
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div class="breadcrumb">
+            <a (click)="onPathClick(null)" class="breadcrumb-link">Root</a>
+            <ng-container *ngFor="let parent of parents">
+                <span class="breadcrumb-separator"> / </span>
+                <a (click)="onPathClick(parent)" class="breadcrumb-link">
+                    {{ parent.name }}
+                </a>
+            </ng-container>
+        </div>
+
+
+        <button mat-raised-button color="primary" (click)="onAddNew()">
+            <mat-icon>add</mat-icon> Add New
+        </button>
+    </div>
+
+
+    <app-shared-tree-component *ngIf="!showLoading" [treeData]="treeData" (addEmitter)="onAddNew()"
+        (editEmitter)="onEdit($event)" (deleteEmitter)="onDelete($event)"
+        (viewEmitter)="onView($event)"></app-shared-tree-component>
+
+    <div class="spinner-overlay" *ngIf="showLoading"
+        style="display: flex; justify-content: center; align-items: center;">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+</div>
