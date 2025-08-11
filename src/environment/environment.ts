@@ -43,6 +43,10 @@ export const environment: Environment = {
   AddDocumentTracking : 'document-trackings/add-document-tracking',
   AddFpc : 'FPCs/add-FPC',
 
+  Users:"users",
+  UserGroups:"user-groups",
+
+
   // Settings
   Setting: 'Settings',
   DynamicList: 'Dynamic-List',

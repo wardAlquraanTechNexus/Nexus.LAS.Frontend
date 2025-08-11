@@ -39,6 +39,9 @@ export interface Routes {
   Setting: string;
   DynamicList: string;
   Menus: string;
+
+  Users:string;
+  UserGroups:string;
 }
 
 export interface Environment {

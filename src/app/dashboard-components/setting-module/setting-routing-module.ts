@@ -14,6 +14,16 @@ const routes: Routes = [
     path: environment.routes.Menus,
     loadChildren: () => import('./menu/menu-module').then(m => m.MenuModule),
     canActivate: [authGuard]
+  },
+  {
+    path: environment.routes.Users,
+    loadChildren: () => import('./user/user-module').then(m => m.UserModule),
+    canActivate: [authGuard]
+  },
+  {
+    path: environment.routes.UserGroups,
+    loadChildren: () => import('./user-group/user-group-module').then(m => m.UserGroupModule),
+    canActivate: [authGuard]
   }
 ];
 
