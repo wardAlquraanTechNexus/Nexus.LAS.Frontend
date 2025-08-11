@@ -14,7 +14,7 @@ export class Sidebar {
     name: 'Dashboard',
     menuId: 0,
     path: environment.routes.dashboard,
-    iconClass: "home",
+    iconClass: "dashboard",
     inDashboard: true,
     children: []
   };

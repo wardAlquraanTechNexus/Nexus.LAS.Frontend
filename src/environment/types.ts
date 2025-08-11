@@ -10,10 +10,10 @@ export interface Routes {
   ActivePersons: string;
   ActivePrivatePersons: string;
   ActivePublicPersons: string;
+  InactivePersons: string;
   ViewPersons: string;
   AddPerson: string;
   EditPerson: string;
-  NotActivePersons: string;
   ViewPersonIdDetail: string;
   ViewPersonOtherDocument: string;
 
@@ -23,10 +23,11 @@ export interface Routes {
   ActiveCompanies: string;
   ActivePrivateCompanies: string;
   ActivePublicCompanies: string;
+  InactiveCompanies: string;
   ViewCompanies: string;
   AddCompany: string;
   EditCompany: string;
-  
+
   // Other modules
   AddRealEstate: string;
   AddLawFirm: string;
