@@ -28,20 +28,67 @@ export interface Routes {
   AddCompany: string;
   EditCompany: string;
 
-  // Other modules
+  // Real Estates module
+  RealEstates: string;
+  AllRealEstates: string;
+  ActiveRealEstates: string;
+  ActivePrivateRealEstates: string;
+  ActivePublicRealEstates: string;
+  InactiveRealEstates: string;
+  ViewRealEstates: string;
   AddRealEstate: string;
+  EditRealEstate: string;
+
+  // Law Firms module
+  LawFirms: string;
+  AllLawFirms: string;
+  ActiveLawFirms: string;
+  ActivePrivateLawFirms: string;
+  ActivePublicLawFirms: string;
+  InactiveLawFirms: string;
+  ViewLawFirms: string;
   AddLawFirm: string;
+  EditLawFirm: string;
+
+  // Transactions module
+  Transactions: string;
+  AllTransactions: string;
+  ActiveTransactions: string;
+  ActivePrivateTransactions: string;
+  ActivePublicTransactions: string;
+  InactiveTransactions: string;
+  ViewTransactions: string;
   AddTransaction: string;
+  EditTransaction: string;
+
+  // FPCs module
+  FPCs: string;
+  AllFPCs: string;
+  ActiveFPCs: string;
+  ActivePrivateFPCs: string;
+  ActivePublicFPCs: string;
+  InactiveFPCs: string;
+  ViewFPCs: string;
+  AddFpc: string; // note existing casing in current routes
+  EditFpc: string;
+
+  // Document Trackings module
+  DocumentTrackings: string;
+  AllDocumentTrackings: string;
+  ActiveDocumentTrackings: string;
+  ActivePrivateDocumentTrackings: string;
+  ActivePublicDocumentTrackings: string;
+  InactiveDocumentTrackings: string;
+  ViewDocumentTrackings: string;
   AddDocumentTracking: string;
-  AddFpc: string;
+  EditDocumentTracking: string;
 
   // Settings
   Setting: string;
   DynamicList: string;
   Menus: string;
-
-  Users:string;
-  UserGroups:string;
+  Users: string;
+  UserGroups: string;
 }
 
 export interface Environment {
