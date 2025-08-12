@@ -1,9 +1,11 @@
-<div class="tree-wrapper mt-2" style="position: relative;">
+<div class="tree-wrapper mt-2" style="position: relative; min-height: 400px;">
 
-    <!-- Header: Pathname left, Add New button right -->
-    <div class="tree-header"
-        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-        <div class="breadcrumb">
+    <!-- Header -->
+     <div class="tree-header"
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 16px;">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" style="flex-grow: 1;">
             <a (click)="onPathClick(null)" class="breadcrumb-link">Root</a>
             <ng-container *ngFor="let parent of parents">
                 <span class="breadcrumb-separator"> / </span>
@@ -13,13 +15,23 @@
             </ng-container>
         </div>
 
+        <!-- Search input -->
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <mat-form-field appearance="outline" style="width: 220px; margin: 0;">
+                <mat-label>Search by name</mat-label>
+                <input matInput [(ngModel)]="params.name" (keyup.enter)="onSearchByName()" placeholder="Enter name"
+                    autocomplete="off" />
+            </mat-form-field>
+        </div>
 
+
+        <!-- Add New Button -->
         <button mat-raised-button color="primary" (click)="onAddNew()">
             <mat-icon>add</mat-icon> Add New
         </button>
     </div>
 
-
+    <!-- Tree Component -->
     <app-shared-tree-component *ngIf="!showLoading" [treeData]="treeData" (addEmitter)="onAddNew()"
         (editEmitter)="onEdit($event)" (deleteEmitter)="onDelete($event)"
         (viewEmitter)="onView($event)"></app-shared-tree-component>
@@ -28,4 +40,40 @@
         style="display: flex; justify-content: center; align-items: center;">
         <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
     </div>
+
+    <!-- Bottom Navigation -->
+    <div style="
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+    gap: 12px;
+">
+        <!-- Prev Button -->
+        <button mat-raised-button color="accent" (click)="onPrev()" [disabled]="params.page === 0">
+            <mat-icon>chevron_left</mat-icon> Prev
+        </button>
+
+        <!-- Center info -->
+        <div style="flex-grow: 1; text-align: center;">
+            Page <b>{{ params.page + 1 }}</b> of <b>{{ !menus.totalPages ? 1 : menus.totalPages }}</b>
+            &nbsp;|&nbsp;
+            Page Size: <b>{{ params.pageSize }}</b>
+            &nbsp;|&nbsp;
+            Total Records: <b>{{ menus.totalRecords }}</b>
+        </div>
+
+        <!-- Next Button -->
+        <button mat-raised-button color="accent" (click)="onNext()"
+            [disabled]="(params.page + 1) >= menus.totalPages">
+            Next <mat-icon>chevron_right</mat-icon>
+        </button>
+    </div>
+
+
 </div>

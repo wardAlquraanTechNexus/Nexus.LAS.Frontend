@@ -29,8 +29,7 @@ export class UserGroupForm extends BaseFormComponent {
 
 
   isLoadingUsers = false;
-
-
+  loadGroupFn!: (search: string) => Observable<PaginateRsult<Group>>;
   private subscriptions = new Subscription();
 
   constructor(
@@ -49,6 +48,8 @@ export class UserGroupForm extends BaseFormComponent {
     super.ngOnInit();
     this.loadUsers();
     this.loadGroups();
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search);
+
 
   }
 
@@ -63,12 +64,13 @@ export class UserGroupForm extends BaseFormComponent {
 
   loadGroups() {
     this.isLoadingUsers = true;
-    this.groupService.searchGroup({ groupName: this.userSearchText }).subscribe(groups => {
+    this.groupService.searchGroup({ groupName: this.groupSearchText }).subscribe(groups => {
       this.allGroups = groups.collection;
       this.filteredGroups = groups.collection;
       this.isLoadingUsers = false;
     });
   }
+
 
   // Optional: Clear search input when dropdown closes
   onUserSelectOpened(opened: boolean) {

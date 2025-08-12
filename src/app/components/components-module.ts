@@ -39,6 +39,7 @@ import { BaseFormComponent } from '../dashboard-components/base-components/base-
 import { PersonIdDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-other-document-form/person-other-document-form';
 import { SharedTreeComponent } from './shared-tree-component/shared-tree-component';
+import { SelectAutoComplete } from './select-auto-complete/select-auto-complete';
 
 
 
@@ -56,7 +57,8 @@ import { SharedTreeComponent } from './shared-tree-component/shared-tree-compone
     PersonOtherDocumentForm,
     BaseDialougeComponent,
     BaseFormComponent,
-    SharedTreeComponent
+    SharedTreeComponent,
+    SelectAutoComplete
   ],
   imports: [
     CommonModule,
@@ -131,7 +133,8 @@ import { SharedTreeComponent } from './shared-tree-component/shared-tree-compone
     MatToolbarModule,
     MatCardModule,
     MatTooltipModule,
-    SharedTreeComponent
+    SharedTreeComponent,
+    SelectAutoComplete
 
   ]
 })

@@ -27,4 +27,12 @@ export class GroupService extends BaseService<Group> {
     return this.httpClient.get<PaginateRsult<Group>>(this.url+ "/SearchGroup", { params });
 
   }
+
+  searchGroupByName(name:string): Observable<PaginateRsult<Group>> {
+
+    let params = new HttpParams();
+    params = params.set("groupName", name);
+    return this.httpClient.get<PaginateRsult<Group>>(this.url+ "/SearchGroup", { params });
+
+  }
 }

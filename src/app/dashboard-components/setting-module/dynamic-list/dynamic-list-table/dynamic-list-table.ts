@@ -17,16 +17,24 @@ import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 export class DynamicListTable implements OnInit {
 
 
+  rowsPerPageOptions = [5, 10, 25, 50, 100]
   parents: DynamicList[] = [];
   params: GetDynamicListParam = {
-    mainListId: null,
+    parentId: null,
     page: 0,
     pageSize: 10,
-    id: null
+    id: null,
+    name:null
   }
   showLoading = false;
   parent: DynamicList | null = null;
-  dynamicLists: DynamicList[] = [];
+  dynamicLists: PaginateRsult<DynamicList> = {
+    page: 0,
+    pageSize: 10,
+    totalPages: 0,
+    totalRecords: 0,
+    collection: []
+  };
   treeData: any[] = [];
 
   constructor(
@@ -46,7 +54,7 @@ export class DynamicListTable implements OnInit {
   }
   onPathClick(parent?: DynamicList | null) {
 
-    this.params.mainListId = parent?.id || null;
+    this.params.parentId = parent?.id || null;
     if (!parent) {
       this.parents = [];
     }
@@ -55,11 +63,11 @@ export class DynamicListTable implements OnInit {
   pathname = 'root';
   private fetchData() {
     this.showLoading = true;
-    this.dynamicListService.getAllByParams(this.params).subscribe({
+    this.dynamicListService.getByParams(this.params).subscribe({
       next: (res => {
         this.dynamicLists = res;
         this.getTreeData();
-        if (this.params.mainListId) {
+        if (this.params.parentId) {
           this.getPath();
         } else {
           this.showLoading = false;
@@ -74,9 +82,9 @@ export class DynamicListTable implements OnInit {
   }
 
   private getPath() {
-    if (this.params.mainListId) {
+    if (this.params.parentId) {
       this.showLoading = true;
-      this.dynamicListService.GetParents(this.params.mainListId).subscribe({
+      this.dynamicListService.GetParents(this.params.parentId).subscribe({
         next: (parents => {
           this.parents = parents;
           this.showLoading = false;
@@ -94,20 +102,21 @@ export class DynamicListTable implements OnInit {
 
 
   getTreeData() {
-    this.treeData = this.dynamicLists.map(dl => ({
-      name: dl.menuValue,
+    this.treeData = this.dynamicLists.collection.map(dl => ({
+      name: dl.name,
       id: dl.id
     }));
     this.treeData = [...this.treeData]; // new array reference
     this.cdr.markForCheck();           // force CD now
   }
   onView(node: any) {
-    this.params.mainListId = node.id;
+    this.params.parentId = node.id;
+    this.params.page = 0;
     this.loadData();
   }
 
   onEdit(node: any) {
-    let dl = this.dynamicLists.find(x => x.id == node.id);
+    let dl = this.dynamicLists.collection.find(x => x.id == node.id);
     if (!dl) return;
 
     const dialogRef = this.dialog.open(DynamicListDialog, {
@@ -117,7 +126,7 @@ export class DynamicListTable implements OnInit {
 
     dialogRef.afterClosed().subscribe(updatedItem => {
       if (updatedItem) {
-        this.dynamicLists = this.dynamicLists.map(item =>
+        this.dynamicLists.collection = this.dynamicLists.collection.map(item =>
           item.id === updatedItem.id ? updatedItem : item
         );
 
@@ -127,48 +136,66 @@ export class DynamicListTable implements OnInit {
   }
 
   onDelete(node: any) {
-  this.showLoading = true;
-  this.dynamicListService.delete(node.id).subscribe({
-    next: (res) => {
-      this.dynamicLists = this.dynamicLists.filter(item => item.id !== node.id);
+    this.showLoading = true;
+    this.dynamicListService.delete(node.id).subscribe({
+      next: (res) => {
+        this.dynamicLists.collection = this.dynamicLists.collection.filter(item => item.id !== node.id);
+        this.dynamicLists.pageSize--;
+        this.dynamicLists.totalRecords--;
 
-      this.getTreeData();
+        this.getTreeData();
 
-      this.showLoading = false;
-      this.cdr.markForCheck();
-    },
-    error: (err) => {
-      this.showLoading = false;
-      console.error('Delete failed', err);
-    }
-  });
-}
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        this.showLoading = false;
+        console.error('Delete failed', err);
+      }
+    });
+  }
 
-  
+
 
   onAddNew() {
+    let dl: DynamicList = {
+      id: 0,
+      parentId: this.params.parentId,
+      name: "",
+      active: false,
+      rank: 0
+    }
     const dialogRef = this.dialog.open(DynamicListDialog, {
       disableClose: true,
-      data: {
-        id: 0,
-        mainListId: this.params.mainListId,
-        menuCategory: null,
-        menuValue: null,
-        active: false,
-        rank: null
-      }
+      data: dl
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dynamicLists = [
-          ...this.dynamicLists,
+        this.dynamicLists.collection = [
+          ...this.dynamicLists.collection,
           result
         ];
+        this.dynamicLists.pageSize++;
+        this.dynamicLists.totalRecords++;
         this.getTreeData();
       }
     });
   }
 
+  onPrev() {
+    this.params.page--;
+    this.params.name = null;
+    this.loadData();
+  }
+  onNext() {
+    this.params.page++;
+    this.params.name = null;
+    this.loadData();
+  }
+
+  onSearchByName(){
+    this.loadData();
+  }
 
 }

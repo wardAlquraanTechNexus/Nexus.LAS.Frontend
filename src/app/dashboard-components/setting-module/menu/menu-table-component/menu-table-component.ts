@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Menu } from '../../../../models/menus/menu';
 import { MenuDialog } from './menu-dialog/menu-dialog';
+import { PaginateRsult } from '../../../../models/paginate-result';
 
 @Component({
   selector: 'app-menu-table-component',
@@ -19,14 +20,20 @@ export class MenuTableComponent implements OnInit {
   parents: Menu[] = [];
   params: GetMenuParam = {
     page: 0,
-    pageSize: 10,
+    pageSize: 5,
     id: null,
     name:null,
     path:null,
     parentId: null
   }
   showLoading = false;
-  menus!: Menu[];
+  menus: PaginateRsult<Menu> = {
+    page:0,
+    pageSize:10,
+    totalPages:0,
+    totalRecords:0,
+    collection:[]
+  };
   treeData: any[] = [];
 
   constructor(
@@ -55,7 +62,7 @@ export class MenuTableComponent implements OnInit {
     pathname = 'root';
     private fetchData() {
       this.showLoading = true;
-      this.menuService.getAllByParams(this.params).subscribe({
+      this.menuService.getByParams(this.params).subscribe({
         next: (res => {
           this.menus = res;
           this.getTreeData();
@@ -94,7 +101,7 @@ export class MenuTableComponent implements OnInit {
   
   
     getTreeData() {
-      this.treeData = this.menus.map(dl => ({
+      this.treeData = this.menus.collection.map(dl => ({
         name: dl.name,
         id: dl.id
       }));
@@ -107,7 +114,7 @@ export class MenuTableComponent implements OnInit {
     }
   
     onEdit(node: any) {
-      let menu = this.menus.find(x => x.id == node.id);
+      let menu = this.menus.collection.find(x => x.id == node.id);
       if (!menu) return;
   
       const dialogRef = this.dialog.open(MenuDialog, {
@@ -117,7 +124,7 @@ export class MenuTableComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(updatedItem => {
         if (updatedItem) {
-          this.menus = this.menus.map(item =>
+          this.menus.collection = this.menus.collection.map(item =>
             item.id === updatedItem.id ? updatedItem : item
           );
   
@@ -130,7 +137,7 @@ export class MenuTableComponent implements OnInit {
     this.showLoading = true;
     this.menuService.delete(node.id).subscribe({
       next: (res) => {
-        this.menus = this.menus.filter(item => item.id !== node.id);
+        this.menus.collection = this.menus.collection.filter(item => item.id !== node.id);
   
         this.getTreeData();
   
@@ -164,14 +171,28 @@ export class MenuTableComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.menus = [
-            ...this.menus,
+          this.menus.collection = [
+            ...this.menus.collection,
             result
           ];
           this.getTreeData();
         }
       });
     }
-  
+
+  onPrev() {
+    this.params.page--;
+    this.params.name = null;
+    this.loadData();
+  }
+  onNext() {
+    this.params.page++;
+    this.params.name = null;
+    this.loadData();
+  }
+
+  onSearchByName(){
+    this.loadData();
+  }
 
 }

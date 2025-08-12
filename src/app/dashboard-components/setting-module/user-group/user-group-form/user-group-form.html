@@ -32,10 +32,9 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width col-12">
+        <!-- <mat-form-field appearance="outline" class="full-width col-12">
             <mat-label>Select Group</mat-label>
             <mat-select formControlName="groupId" required (openedChange)="onUserSelectOpened($event)">
-                <!-- Search input as first option -->
                 <mat-option>
                     <input matInput placeholder="Search group..." [(ngModel)]="groupSearchText"
                         [ngModelOptions]="{standalone: true}" (ngModelChange)="loadGroups()" autocomplete="off"
@@ -55,7 +54,17 @@
             <mat-error *ngIf="formGroup.get('userId')?.hasError('required') && formGroup.get('userId')?.touched">
                 Username is required
             </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
+
+        <select-auto-complete *ngIf="loadGroupFn"
+        [controlName]="'groupId'"
+        [fnGet]="loadGroupFn"
+        [formGroup]="formGroup"
+        [isRequired]="true"
+        [label]="'Group'"
+        [keyToShow]="'groupName'"
+        
+        ></select-auto-complete>
 
 
     </form>

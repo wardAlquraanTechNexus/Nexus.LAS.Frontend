@@ -1,0 +1,27 @@
+<mat-form-field appearance="outline" class="full-width col-12">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [formControlName]="controlName" required (openedChange)="onSelect($event)">
+    <!-- Search input as first option -->
+    <mat-option>
+      <input matInput placeholder="Search user..."
+             [(ngModel)]="searchText"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="loadData()"
+             autocomplete="off"
+             (click)="$event.stopPropagation()" />
+    </mat-option>
+
+    <mat-option *ngIf="isLoading" disabled>
+      <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
+      Loading...
+    </mat-option>
+
+    <mat-option *ngFor="let item of data.collection" [value]="item[controlName]">
+      {{ item[keyToShow] }}
+    </mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="isRequired && formGroup.get(controlName)?.hasError('required') && formGroup.get(controlName)?.touched">
+    {{ label }} is required
+  </mat-error>
+</mat-form-field>

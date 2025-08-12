@@ -44,7 +44,7 @@ export const environment: Environment = {
   AddFpc : 'FPCs/add-FPC',
 
   Users:"users",
-  UserGroups:"user-groups",
+  UserGroups:"User-Groups",
 
 
   // Settings
