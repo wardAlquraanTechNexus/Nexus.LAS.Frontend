@@ -89,6 +89,8 @@ export interface Routes {
   Menus: string;
   Users: string;
   UserGroups: string;
+  Groups: string;
+
 }
 
 export interface Environment {

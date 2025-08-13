@@ -25,6 +25,12 @@ const routes: Routes = [
     loadChildren: () => import('./user-group/user-group-module').then(m => m.UserGroupModule),
     canActivate: [authGuard]
   }
+  ,
+  {
+    path: environment.routes.Groups,
+    loadChildren: () => import('./group/group-module').then(m => m.GroupModule),
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({

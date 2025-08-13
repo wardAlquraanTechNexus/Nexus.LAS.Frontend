@@ -32,30 +32,6 @@
             </mat-error>
         </mat-form-field>
 
-        <!-- <mat-form-field appearance="outline" class="full-width col-12">
-            <mat-label>Select Group</mat-label>
-            <mat-select formControlName="groupId" required (openedChange)="onUserSelectOpened($event)">
-                <mat-option>
-                    <input matInput placeholder="Search group..." [(ngModel)]="groupSearchText"
-                        [ngModelOptions]="{standalone: true}" (ngModelChange)="loadGroups()" autocomplete="off"
-                        (click)="$event.stopPropagation()" />
-                </mat-option>
-
-                <mat-option *ngIf="isLoadingUsers" disabled>
-                    <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-                    Loading...
-                </mat-option>
-
-                <mat-option *ngFor="let group of filteredGroups" [value]="group.id">
-                    {{ group.groupName }}
-                </mat-option>
-            </mat-select>
-
-            <mat-error *ngIf="formGroup.get('userId')?.hasError('required') && formGroup.get('userId')?.touched">
-                Username is required
-            </mat-error>
-        </mat-form-field> -->
-
         <select-auto-complete *ngIf="loadGroupFn"
         [controlName]="'groupId'"
         [fnGet]="loadGroupFn"

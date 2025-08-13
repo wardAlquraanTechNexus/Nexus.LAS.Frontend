@@ -93,6 +93,8 @@ export const environment: Environment = {
     DynamicList: 'Dynamic-List',
     Menus: 'Menus',
     Users: 'Users',
-    UserGroups: 'User-Groups'
+    UserGroups: 'User-Groups',
+    Groups: 'Groups'
+
   }
 } as const;

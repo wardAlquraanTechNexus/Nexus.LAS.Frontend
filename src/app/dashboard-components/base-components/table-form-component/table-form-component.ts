@@ -14,7 +14,7 @@ export class TableFormComponent<T> implements OnInit {
   sortState: Sort = { active: '', direction: 'asc' };
   displayColumns: DisplayColumn[] = [];
   showLoading = false;
-  data: PaginateRsult<T> = {
+  data: PaginateRsult<any> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,
@@ -28,7 +28,7 @@ export class TableFormComponent<T> implements OnInit {
   };
 
   constructor(
-    protected service: BaseService<T>,
+    protected service: BaseService<any>,
     protected cdr: ChangeDetectorRef,
     protected fb: FormBuilder,
     protected router: Router,
