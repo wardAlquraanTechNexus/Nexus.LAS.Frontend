@@ -1,114 +1,185 @@
-<div *ngIf="showLoading" class="spinner-container">
+<div class="main-container">
+
+<!-- SECTION 1: Loading State -->
+<div *ngIf="showLoading" class="section loading-section">
+  <div class="loading">
     <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+  </div>
 </div>
-<div *ngIf="!showLoading" class="container-view">
-    <p class="breadcrumb">
-        <a (click)="navigateToPersons()" class="fake-link">Persons</a> /
-        {{ person?.personEnglishName | titlecase }}
-    </p>
-    <div class="person-header-action">
-        <div class="person-header-container">
-            <div class="person-image-wrapper">
-                <img *ngIf="imageUrl" [src]="imageUrl" alt="Personal image" class="img-fluid" />
-                <img *ngIf="!imageUrl" [src]="fallbackImage" alt="Personal image" class="img-fluid" />
-                <!-- Hidden file input -->
-                <input type="file" accept="image/*" #fileInput style="display: none"
-                    (change)="onFileSelected($event)" />
 
-                <button mat-icon-button class="camera-icon-btn" (click)="openFilePicker(fileInput)">
-                    <mat-icon>photo_camera</mat-icon>
-                </button>
-            </div>
-
-
-            <div class="person-header-details">
-
-                <div class="person-header-info">
-                    <span class="person-header-person-name mr-3">
-                        {{ person?.personEnglishName | titlecase }}
-                    </span>
-                    <span class="mr-3" [ngStyle]="getPersonStatusStyle()">
-                        {{ person?.personStatus | tableDataPipe: 'personStatus' }}
-                    </span>
-                    <span class="mr-3" [ngStyle]="getPersonPrivateStyle()">
-                        {{ person?.private | tableDataPipe: 'privatePerson' }}
-                    </span>
-                </div>
-                <div class="person-header-person-arabic-name mr-3">
-                    {{ person?.personArabicName | titlecase }}
-                </div>
-                <div class="person-header-person-short-name mr-3">
-                    {{ person?.personShortName | uppercase }}
-                </div>
-                <div class="person-header-person-code mr-3">
-                    ID: {{ person?.personCode }}
-                </div>
-            </div>
+<!-- SECTION 2: Person Header -->
+<div *ngIf="!showLoading" class="section section-header">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-nav">
+    <a (click)="navigateToPersons()" class="breadcrumb-link">
+      <mat-icon>arrow_back</mat-icon>
+      Persons
+    </a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="current-page">{{ person?.personEnglishName | titlecase }}</span>
+  </div>
+  
+  <!-- Person Header Card -->
+  <div class="person-header-card">
+    <div class="person-profile-section">
+      <!-- Profile Image -->
+      <div class="person-image-container">
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Person image" class="person-image" />
+        <img *ngIf="!imageUrl" [src]="fallbackImage" alt="Person image" class="person-image" />
+        
+        <!-- Hidden file input -->
+        <input type="file" accept="image/*" #fileInput style="display: none" 
+               (change)="onFileSelected($event)" />
+        
+        <button mat-icon-button class="upload-btn" (click)="openFilePicker(fileInput)" 
+                title="Update Photo">
+          <mat-icon>photo_camera</mat-icon>
+        </button>
+      </div>
+      
+      <!-- Person Details -->
+      <div class="person-details">
+        <div class="person-name-section">
+          <h1 class="person-name">{{ person?.personEnglishName | titlecase }}</h1>
+          <div class="person-name-arabic">{{ person?.personArabicName | titlecase }}</div>
         </div>
-        <div class="person-action">
-            <button class="default-button" (click)="openPersonDialog()">
-                <mat-icon>edit</mat-icon>
-                Edit
-            </button>
-            <button class="default-button" [matMenuTriggerFor]="moreMenu">
-                <mat-icon>more_horiz</mat-icon>
-            </button>
-
-            <mat-menu #moreMenu="matMenu">
-                <button mat-menu-item (click)="exportToPdf()">
-                    <mat-icon>description</mat-icon>
-                    Generate Report
-                </button>
-            </mat-menu>
+        
+        <div class="person-meta-info">
+          <div class="info-item">
+            <span class="info-label">ID:</span>
+            <span class="info-value">{{ person?.personCode }}</span>
+          </div>
+          <div class="info-item" *ngIf="person?.personShortName">
+            <span class="info-label">Short Name:</span>
+            <span class="info-value">{{ person?.personShortName | uppercase }}</span>
+          </div>
         </div>
+        
+        <div class="person-status-badges">
+          <span class="status-badge" [ngStyle]="getPersonStatusStyle()">
+            <mat-icon>{{ person?.personStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+            {{ person?.personStatus | tableDataPipe: 'personStatus' }}
+          </span>
+          <span class="privacy-badge" [ngStyle]="getPersonPrivateStyle()">
+            <mat-icon>{{ person?.private ? 'lock' : 'public' }}</mat-icon>
+            {{ person?.private | tableDataPipe: 'privatePerson' }}
+          </span>
+        </div>
+      </div>
     </div>
+    
+    <!-- Action Buttons -->
+    <div class="person-actions">
+      <button mat-raised-button color="primary" (click)="openPersonDialog()" class="action-btn">
+        <mat-icon>edit</mat-icon>
+        Edit Person
+      </button>
+      
+      <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
+        <mat-icon>more_vert</mat-icon>
+        More Actions
+      </button>
+      
+      <mat-menu #moreMenu="matMenu">
+        <button mat-menu-item (click)="exportToPdf()">
+          <mat-icon>picture_as_pdf</mat-icon>
+          Generate Report
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>
 
-
-
-    <mat-tab-group>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>apps</mat-icon>
-                Overview
-            </ng-template>
-            Overview
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>description</mat-icon>
-                Documents
-            </ng-template>
-            <app-person-documents-group></app-person-documents-group>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>contact_page</mat-icon>
-                Contacts
-            </ng-template>
-            <div class="row">
-                <app-person-email-details class="col-6"></app-person-email-details>
-                <app-person-phone-details class="col-6"></app-person-phone-details>
+<!-- SECTION 3: Content Tabs -->
+<div *ngIf="!showLoading" class="section section-content">
+  <div class="tabs-container">
+    <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab = $event">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            <mat-icon>dashboard</mat-icon>
+            <span>Overview</span>
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <div class="overview-placeholder">
+            <mat-icon class="placeholder-icon">info</mat-icon>
+            <p>Overview content will be displayed here</p>
+          </div>
+        </div>
+      </mat-tab>
+      
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            <mat-icon>folder</mat-icon>
+            <span>Documents</span>
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <app-person-documents-group></app-person-documents-group>
+        </div>
+      </mat-tab>
+      
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            <mat-icon>contacts</mat-icon>
+            <span>Contacts</span>
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <div class="contacts-grid">
+            <div class="contact-section">
+              <app-person-email-details></app-person-email-details>
             </div>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>location_on</mat-icon> Address
-            </ng-template>
-            <app-person-address-details></app-person-address-details>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>work</mat-icon>
-                Assets
-            </ng-template>
-            Assets
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-icon>edit_note</mat-icon>
-                Notes
-            </ng-template>
-            <app-shared-register-note-table [registersIdc]="personIdc" [registersIdn]="personId"></app-shared-register-note-table>
-        </mat-tab>
+            <div class="contact-section">
+              <app-person-phone-details></app-person-phone-details>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            <mat-icon>location_on</mat-icon>
+            <span>Address</span>
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <app-person-address-details></app-person-address-details>
+        </div>
+      </mat-tab>
+      
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            <mat-icon>business_center</mat-icon>
+            <span>Assets</span>
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <div class="assets-placeholder">
+            <mat-icon class="placeholder-icon">business_center</mat-icon>
+            <p>Assets information will be displayed here</p>
+          </div>
+        </div>
+      </mat-tab>
+      
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label">
+            <mat-icon>notes</mat-icon>
+            <span>Notes</span>
+          </div>
+        </ng-template>
+        <div class="tab-content">
+          <app-shared-register-note-table [registersIdc]="personIdc" [registersIdn]="personId"></app-shared-register-note-table>
+        </div>
+      </mat-tab>
     </mat-tab-group>
+  </div>
+</div>
+
 </div>
