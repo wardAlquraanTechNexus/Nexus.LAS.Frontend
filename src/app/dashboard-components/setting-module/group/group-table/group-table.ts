@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { GroupDTO } from '../../../../models/group/group-dto/group-dto';
+import { GetGroupDTOQuery } from '../../../../models/group/group-dto/get-group-dto';
+
 import { PaginateRsult } from '../../../../models/paginate-result';
-import { GetGroupDTOQuery } from '../../../../models/group/group-dto/get-droup-dto';
+
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GroupService } from '../../../../services/group-service';
 import { FormBuilder } from '@angular/forms';

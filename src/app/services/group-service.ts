@@ -5,7 +5,7 @@ import { BaseService } from './base/base-service';
 import { PaginateRsult } from '../models/paginate-result';
 import { Observable } from 'rxjs';
 import { GroupDTO } from '../models/group/group-dto/group-dto';
-import { GetGroupDTOQuery } from '../models/group/group-dto/get-droup-dto';
+import { GetGroupDTOQuery } from '../models/group/group-dto/get-group-dto';
 
 @Injectable({
   providedIn: 'root'
