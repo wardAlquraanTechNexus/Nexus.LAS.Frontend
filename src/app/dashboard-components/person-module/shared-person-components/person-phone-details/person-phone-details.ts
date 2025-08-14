@@ -85,7 +85,7 @@ export class PersonPhoneDetails implements OnInit {
     phoneType: 0
   }) {
   const dialogRef = this.dialog.open(PersonPhoneDialog, {
-      panelClass: 'dialoug-container',
+      panelClass: 'dialog-container',
       disableClose: true,
       data: personPhone
 

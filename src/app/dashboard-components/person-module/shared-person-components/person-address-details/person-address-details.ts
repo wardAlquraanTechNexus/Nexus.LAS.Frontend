@@ -139,7 +139,7 @@ export class PersonAddressDetails implements OnInit {
     creationDate: ""
   }) {
   const dialogRef = this.dialog.open(PersonAddressDialog, {
-      panelClass: 'dialoug-container',
+      panelClass: 'dialog-container',
       disableClose: true,
       data: personAddress
 

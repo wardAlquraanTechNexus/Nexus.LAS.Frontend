@@ -93,7 +93,7 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
 
   viewDocument(item: PersonOtherDocument) {
     const dialogRef = this.dialog.open(PersonOtherDocumentView, {
-      panelClass: 'dialoug-container',
+      panelClass: 'dialog-container',
       disableClose: true,
       data: item
 
@@ -107,7 +107,7 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
   }
   editDocument(item: PersonOtherDocument) {
     const dialogRef = this.dialog.open(EditPersonOtherDocumentView, {
-      panelClass: 'dialoug-container',
+      panelClass: 'dialog-container',
       disableClose: true,
       data: item
 

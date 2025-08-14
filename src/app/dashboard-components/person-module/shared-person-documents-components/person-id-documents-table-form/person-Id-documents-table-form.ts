@@ -124,7 +124,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
   viewDocument(item: PersonsIDDetail) {
     const dialogRef = this.dialog.open(PersonIdDetailView, {
-      panelClass: 'dialoug-container',
+      panelClass: 'dialog-container',
       disableClose: true,
       data: item
 
@@ -140,7 +140,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
   editDocument(item: PersonsIDDetail) {
     const dialogRef = this.dialog.open(EditPersonIdDetailView, {
-      panelClass: 'dialoug-container',
+      panelClass: 'dialog-container',
       disableClose: true,
       data: item
 

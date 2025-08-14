@@ -68,7 +68,7 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
   }
 
   addNote() {
-    this.upsertDialoug({
+    this.upsertDialog({
         id: null,
         registersNotesText: "",
         noteDate: null,
@@ -79,7 +79,7 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
   
 
 
-  upsertDialoug(data:any){
+  upsertDialog(data:any){
 const dialogRef = this.dialog.open(SharedRegisterNoteFormDialog, {
       maxHeight: '90vh',
       disableClose: true,
@@ -112,7 +112,7 @@ const dialogRef = this.dialog.open(SharedRegisterNoteFormDialog, {
     })
   }
   edit(row: any) {
-    this.upsertDialoug(row);
+    this.upsertDialog(row);
   }
 
 

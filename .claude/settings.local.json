@@ -6,7 +6,9 @@
       "Bash(rm:*)",
       "Bash(cp:*)",
       "Bash(mv:*)",
-      "Bash(ng build:*)"
+      "Bash(ng build:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": [],

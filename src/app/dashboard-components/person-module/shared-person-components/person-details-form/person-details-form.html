@@ -3,7 +3,6 @@
         <div class="p-3">
             <!-- English Name -->
             <div class="name-en">
-                <h6>Name En</h6>
                 <div class="row">
                     <div class="col-12">
                         <mat-form-field class="w-100" appearance="outline">
@@ -21,7 +20,6 @@
     
             <!-- Arabic Name -->
             <div class="name-ar mt-4">
-                <h6>Name Ar</h6>
                 <div class="row">
                     <div class="col-12">
                         <mat-form-field class="w-100" appearance="outline">
@@ -40,11 +38,10 @@
     
             <!-- Short Name -->
             <div class="short-name mt-4">
-                <h6>Short Name</h6>
                 <div class="row">
                     <div class="col-12">
                         <mat-form-field class="w-100" appearance="outline">
-                            <mat-label>Short name</mat-label>
+                            <mat-label>Short Name</mat-label>
                             <input matInput placeholder="Add Short Name" formControlName="personShortName" required />
                             <mat-error
                                 *ngIf="personalDetailsForm.get('personShortName')?.touched && personalDetailsForm.get('personShortName')?.hasError('required')">
@@ -58,20 +55,21 @@
                 </div>
             </div>
     
-            <!-- Submit Button -->
-            <div class="container m-4 d-flex justify-content-end">
-                <button class="default-button" type="button" (click)="onCancel()" [disabled]="isSaving"
-                    style="min-width: 140px; height: 36px;">
-                        Cancel
+            <!-- Modern Action Buttons -->
+            <div class="action-buttons">
+                <button mat-stroked-button class="cancel-btn" type="button" (click)="onCancel()" [disabled]="isSaving">
+                    <mat-icon>close</mat-icon>
+                    Cancel
                 </button>
-                <button class="btn btn-primary" type="button" (click)="onSave()" [disabled]="isSaving"
-                    style="min-width: 140px; height: 36px;">
+                <button mat-flat-button class="save-btn" type="button" (click)="onSave()" [disabled]="isSaving">
                     <ng-container *ngIf="!isSaving; else loading">
-                        Save
+                        <mat-icon>save</mat-icon>
+                        Save Person
                     </ng-container>
     
                     <ng-template #loading>
-                        <mat-progress-spinner diameter="24" mode="indeterminate" color="accent"></mat-progress-spinner>
+                        <mat-spinner diameter="20"></mat-spinner>
+                        Creating...
                     </ng-template>
                 </button>
             </div>
