@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { BaseDialougeComponent } from '../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
 import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
@@ -13,7 +13,7 @@ import { SuccessSnackbar } from '../../../../components/snackbars/success-snackb
   templateUrl: './edit-person-id-detail-view.html',
   styleUrls: ['./edit-person-id-detail-view.scss', '../person-id-detail-view.scss']
 })
-export class EditPersonIdDetailView extends BaseDialougeComponent {
+export class EditPersonIdDetailView extends BaseDialogComponent {
   showLoading = false;
   isEdit = false;
   personIdDetail!: PersonIdDetailDto;

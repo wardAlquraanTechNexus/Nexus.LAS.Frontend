@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MenuService } from '../../../../../services/menu-service';
 
@@ -9,7 +9,7 @@ import { MenuService } from '../../../../../services/menu-service';
   templateUrl: './menu-dialog.html',
   styleUrl: './menu-dialog.scss'
 })
-export class MenuDialog extends BaseDialougeComponent {
+export class MenuDialog extends BaseDialogComponent {
   showLoading = false;
   constructor(
     protected override dialogRef: MatDialogRef<MenuDialog>, 

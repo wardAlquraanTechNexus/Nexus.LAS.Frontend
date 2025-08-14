@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RegisterNoteService } from '../../../../services/register-note-service';
 
@@ -9,7 +9,7 @@ import { RegisterNoteService } from '../../../../services/register-note-service'
   templateUrl: './shared-register-note-form-dialog.html',
   styleUrl: './shared-register-note-form-dialog.scss'
 })
-export class SharedRegisterNoteFormDialog extends BaseDialougeComponent {
+export class SharedRegisterNoteFormDialog extends BaseDialogComponent {
 
 
   showLoading = false;

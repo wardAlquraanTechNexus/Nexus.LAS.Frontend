@@ -34,7 +34,7 @@ import { TableFormComponent } from '../dashboard-components/base-components/tabl
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { BaseDialougeComponent } from '../dashboard-components/base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../dashboard-components/base-components/base-dialog-component/base-dialog-component';
 import { BaseFormComponent } from '../dashboard-components/base-components/base-form-component/base-form-component';
 import { PersonIdDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-other-document-form/person-other-document-form';
@@ -55,7 +55,7 @@ import { SelectAutoComplete } from './select-auto-complete/select-auto-complete'
     ConfirmDeleteDirective,
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
-    BaseDialougeComponent,
+  BaseDialogComponent,
     BaseFormComponent,
     SharedTreeComponent,
     SelectAutoComplete
@@ -128,7 +128,7 @@ import { SelectAutoComplete } from './select-auto-complete/select-auto-complete'
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
     MatCheckboxModule,
-    BaseDialougeComponent,
+  BaseDialogComponent,
     BaseFormComponent,
     MatToolbarModule,
     MatCardModule,

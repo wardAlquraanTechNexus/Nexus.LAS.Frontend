@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { PersonAddress } from '../../../../../models/person-address/person-address';
 import { PersonAddressService } from '../../../../../services/person-address-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';

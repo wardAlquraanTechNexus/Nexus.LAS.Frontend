@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { PersonPhoneService } from '../../../../../services/person-phone-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonPhone } from '../../../../../models/person-phone/person-phone';
@@ -10,7 +10,7 @@ import { PersonPhone } from '../../../../../models/person-phone/person-phone';
   templateUrl: './person-phone-dialouge.html',
   styleUrl: './person-phone-dialouge.scss'
 })
-export class PersonPhoneDialouge extends BaseDialougeComponent {
+export class PersonPhoneDialouge extends BaseDialogComponent {
   showLoading = false;
   personPhone?: PersonPhone;
   isInsert = true;

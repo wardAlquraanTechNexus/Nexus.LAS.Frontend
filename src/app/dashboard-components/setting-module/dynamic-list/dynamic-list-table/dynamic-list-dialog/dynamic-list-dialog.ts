@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 
@@ -9,7 +9,7 @@ import { DynamicListService } from '../../../../../services/dynamic-list-service
   templateUrl: './dynamic-list-dialog.html',
   styleUrl: './dynamic-list-dialog.scss'
 })
-export class DynamicListDialog extends BaseDialougeComponent {
+export class DynamicListDialog extends BaseDialogComponent {
   showLoading = false;
   constructor(
     protected override dialogRef: MatDialogRef<DynamicListDialog>, 

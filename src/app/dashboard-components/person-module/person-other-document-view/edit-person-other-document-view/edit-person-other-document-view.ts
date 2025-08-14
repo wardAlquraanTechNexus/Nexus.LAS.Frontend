@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { PersonOtherDocumentDTO } from '../../../../models/person-other-document/person-other-document-dto';
 import { PersonOtherDocumentService } from '../../../../services/person-other-document-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ import { SuccessSnackbar } from '../../../../components/snackbars/success-snackb
   templateUrl: './edit-person-other-document-view.html',
   styleUrls: ['./edit-person-other-document-view.scss', '../person-other-document-view.scss']
 })
-export class EditPersonOtherDocumentView extends BaseDialougeComponent {
+export class EditPersonOtherDocumentView extends BaseDialogComponent {
 
   showLoading = false;
   isEdit = false;

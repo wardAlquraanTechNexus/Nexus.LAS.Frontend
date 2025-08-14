@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { PersonAddress } from '../../../../../models/person-address/person-address';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonAddressService } from '../../../../../services/person-address-service';
@@ -10,7 +10,7 @@ import { PersonAddressService } from '../../../../../services/person-address-ser
   templateUrl: './person-address-dialouge.html',
   styleUrl: './person-address-dialouge.scss'
 })
-export class PersonAddressDialouge extends BaseDialougeComponent {
+export class PersonAddressDialouge extends BaseDialogComponent {
   showLoading = false;
   personAddress?: PersonAddress;
   isInsert = true;

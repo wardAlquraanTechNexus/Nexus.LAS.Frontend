@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { UserGroupService } from '../../../../services/user-group-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './user-group-form-dialog.html',
   styleUrl: './user-group-form-dialog.scss'
 })
-export class UserGroupFormDialog extends BaseDialougeComponent {
+export class UserGroupFormDialog extends BaseDialogComponent {
   showLoading = false;
   constructor(
     protected override dialogRef: MatDialogRef<UserGroupFormDialog>, 

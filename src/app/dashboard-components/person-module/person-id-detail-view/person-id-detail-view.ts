@@ -9,7 +9,7 @@ import { EditPersonIdDetailForm } from './edit-person-id-detail-form/edit-person
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
-import { BaseDialougeComponent } from '../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './person-id-detail-view.html',
   styleUrl: './person-id-detail-view.scss'
 })
-export class PersonIdDetailView extends BaseDialougeComponent {
+export class PersonIdDetailView extends BaseDialogComponent {
   openEditForm = false;
   isEdit = false;
   personIdDetail!: PersonIdDetailDto;

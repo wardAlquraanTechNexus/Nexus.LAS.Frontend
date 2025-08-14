@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PersonEmail } from '../../../../../models/person-email/person-email';
 import { PersonEmailService } from '../../../../../services/person-email-service';
@@ -10,7 +10,7 @@ import { PersonEmailService } from '../../../../../services/person-email-service
   templateUrl: './person-email-dialouge.html',
   styleUrl: './person-email-dialouge.scss'
 })
-export class PersonEmailDialouge extends BaseDialougeComponent {
+export class PersonEmailDialouge extends BaseDialogComponent {
   showLoading = false;
   personEmail?: PersonEmail;
   isInsert = true;

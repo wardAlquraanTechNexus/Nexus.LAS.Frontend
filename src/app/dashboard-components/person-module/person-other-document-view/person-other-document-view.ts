@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
 import { EditPersonOtherDocumentForm } from './edit-person-other-document-form/edit-person-other-document-form';
-import { BaseDialougeComponent } from '../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
 
 @Component({
   selector: 'app-person-other-document-view',
@@ -16,7 +16,7 @@ import { BaseDialougeComponent } from '../../base-components/base-dialouge-compo
   templateUrl: './person-other-document-view.html',
   styleUrl: './person-other-document-view.scss'
 })
-export class PersonOtherDocumentView extends BaseDialougeComponent {
+export class PersonOtherDocumentView extends BaseDialogComponent {
   personOtherDocument!: PersonOtherDocumentDTO;
   showLoading = false;
   openEditForm = false;
@@ -28,8 +28,8 @@ export class PersonOtherDocumentView extends BaseDialougeComponent {
     protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    protected override dialogRef: MatDialogRef<PersonOtherDocumentView>,
-    @Inject(MAT_DIALOG_DATA) public override data: any
+  protected override dialogRef: MatDialogRef<PersonOtherDocumentView>,
+  @Inject(MAT_DIALOG_DATA) public override data: any
   ) {
     super(dialogRef, data)
   }

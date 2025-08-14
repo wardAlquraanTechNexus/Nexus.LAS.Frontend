@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
-import { BaseDialougeComponent } from '../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RegisterNoteService } from '../../../../services/register-note-service';
 import { RegisterNote } from '../../../../models/register-note/register-note';

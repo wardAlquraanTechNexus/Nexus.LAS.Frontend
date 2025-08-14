@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseDialougeComponent } from '../../../../base-components/base-dialouge-component/base-dialouge-component';
+import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GroupDTO } from '../../../../../models/group/group-dto/group-dto';
 import { GroupService } from '../../../../../services/group-service';
@@ -10,7 +10,7 @@ import { GroupService } from '../../../../../services/group-service';
   templateUrl: './group-form-dialog.html',
   styleUrl: './group-form-dialog.scss'
 })
-export class GroupFormDialog extends BaseDialougeComponent {
+export class GroupFormDialog extends BaseDialogComponent {
  showLoading = false;
   constructor(
     protected override dialogRef: MatDialogRef<GroupFormDialog>, 
