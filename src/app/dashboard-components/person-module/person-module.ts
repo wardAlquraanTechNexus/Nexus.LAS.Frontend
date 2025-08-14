@@ -17,16 +17,16 @@ import { EditPersonOtherDocumentView } from "./person-other-document-view/edit-p
 import { PersonOtherDocumentView } from "./person-other-document-view/person-other-document-view";
 import { PersonView } from "./person-view/person-view";
 import { PersonAddressDetails } from "./shared-person-components/person-address-details/person-address-details";
-import { PersonAddressDialouge } from "./shared-person-components/person-address-details/person-address-dialouge/person-address-dialouge";
+import { PersonAddressDialog } from "./shared-person-components/person-address-details/person-address-dialog/person-address-dialog";
 import { PersonAddressForm } from "./shared-person-components/person-address-details/person-address-form/person-address-form";
 import { PersonDetailsForm } from "./shared-person-components/person-details-form/person-details-form";
 import { PersonEmailDetails } from "./shared-person-components/person-email-details/person-email-details";
-import { PersonEmailDialouge } from "./shared-person-components/person-email-details/person-email-dialouge/person-email-dialouge";
+import { PersonEmailDialog } from "./shared-person-components/person-email-details/person-email-dialog/person-email-dialog";
 import { PersonEmailForm } from "./shared-person-components/person-email-details/person-email-form/person-email-form";
 import { PersonPhoneDetails } from "./shared-person-components/person-phone-details/person-phone-details";
-import { PersonPhoneDialouge } from "./shared-person-components/person-phone-details/person-phone-dialouge/person-phone-dialouge";
+import { PersonPhoneDialog } from "./shared-person-components/person-phone-details/person-phone-dialog/person-phone-dialog";
 import { PersonPhoneForm } from "./shared-person-components/person-phone-details/person-phone-form/person-phone-form";
-import { PersonDocumentFormDialouge } from "./shared-person-documents-components/person-documents-group/person-document-form-dialouge/person-document-form-dialouge";
+import { PersonDocumentFormDialog } from "./shared-person-documents-components/person-documents-group/person-document-form-dialog/person-document-form-dialog";
 import { PersonDocumentsGroup } from "./shared-person-documents-components/person-documents-group/person-documents-group";
 import { PersonOtherDocumentsTableForm } from "./shared-person-documents-components/person-other-documents-table-form/person-other-documents-table-form";
 import { SharedRegisterNoteTable } from "../shared-components/shared-register-note/shared-register-note-table/shared-register-note-table";
@@ -48,7 +48,7 @@ import { SharedRegisterNoteFormDialog } from "../shared-components/shared-regist
         PersonDocumentsGroup,
         PersonIdDocumentsTableForm,
         PersonOtherDocumentsTableForm,
-        PersonDocumentFormDialouge,
+    PersonDocumentFormDialog,
         PersonIdDetailView,
         EditPersonIdDetailForm,
         PersonOtherDocumentView,
@@ -56,12 +56,12 @@ import { SharedRegisterNoteFormDialog } from "../shared-components/shared-regist
         PersonView,
         EditPersonIdDetailView,
         EditPersonOtherDocumentView,
-        PersonEmailDialouge,
+    PersonEmailDialog,
         PersonEmailForm,
         PersonPhoneForm,
-        PersonPhoneDialouge,
+    PersonPhoneDialog,
         PersonAddressForm,
-        PersonAddressDialouge,
+    PersonAddressDialog,
         SharedRegisterNoteTable,
         SharedRegisterNoteForm,
         SharedRegisterNoteFormDialog

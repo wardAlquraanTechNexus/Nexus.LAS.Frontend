@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PersonPhoneService } from '../../../../services/person-phone-service';
 import { PersonEmail } from '../../../../models/person-email/person-email';
-import { PersonPhoneDialouge } from './person-phone-dialouge/person-phone-dialouge';
+import { PersonPhoneDialog } from './person-phone-dialog/person-phone-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonPhone } from '../../../../models/person-phone/person-phone';
 
@@ -84,7 +84,7 @@ export class PersonPhoneDetails implements OnInit {
     creationDate: "",
     phoneType: 0
   }) {
-    const dialogRef = this.dialog.open(PersonPhoneDialouge, {
+  const dialogRef = this.dialog.open(PersonPhoneDialog, {
       panelClass: 'dialoug-container',
       disableClose: true,
       data: personPhone

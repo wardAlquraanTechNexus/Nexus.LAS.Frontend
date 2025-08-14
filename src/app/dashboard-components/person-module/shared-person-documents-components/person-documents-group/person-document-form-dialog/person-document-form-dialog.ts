@@ -2,17 +2,16 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDocumentForm } from '../../person-id-document-form/person-id-document-form';
 import { PersonOtherDocumentForm } from '../../person-other-document-form/person-other-document-form';
-import { Person } from '../../../../../models/persons/person';
 import { PersonsIDDetail } from '../../../../../models/person-id-details/person-id-details';
 import { PersonOtherDocument } from '../../../../../models/person-other-document/person-other-document';
 
 @Component({
-  selector: 'app-person-document-form-dialouge',
+  selector: 'app-person-document-form-dialog',
   standalone: false,
-  templateUrl: './person-document-form-dialouge.html',
-  styleUrls: ['./person-document-form-dialouge.scss']
+  templateUrl: './person-document-form-dialog.html',
+  styleUrls: ['./person-document-form-dialog.scss']
 })
-export class PersonDocumentFormDialouge {
+export class PersonDocumentFormDialog {
 
   @ViewChild(PersonIdDocumentForm) idDocumentForm?: PersonIdDocumentForm;
   @ViewChild(PersonOtherDocumentForm) otherDocumentForm?: PersonOtherDocumentForm;
@@ -20,25 +19,21 @@ export class PersonDocumentFormDialouge {
   selectedTab = 0;
   personId: number;
 
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { selectedTab: number, personId: number }
-    , private dialogRef: MatDialogRef<PersonDocumentFormDialouge>,
+    , private dialogRef: MatDialogRef<PersonDocumentFormDialog>,
     protected cdr: ChangeDetectorRef) {
     this.selectedTab = data.selectedTab;
     this.personId = data.personId;
   }
 
-
-
   close(): void {
     this.dialogRef.close();
   }
 
-
   update(): void {
     if (this.selectedTab === 0 && this.idDocumentForm) {
-      this.idDocumentForm.update(); // triggers save and emits event
+      this.idDocumentForm.update();
     } else if (this.selectedTab === 1 && this.otherDocumentForm) {
       this.otherDocumentForm.update();
     }

@@ -1,30 +1,30 @@
 import { Component, Inject } from '@angular/core';
 import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PersonEmail } from '../../../../../models/person-email/person-email';
-import { PersonEmailService } from '../../../../../services/person-email-service';
+import { PersonAddress } from '../../../../../models/person-address/person-address';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PersonAddressService } from '../../../../../services/person-address-service';
 
 @Component({
-  selector: 'app-person-email-dialouge',
-  standalone: false,
-  templateUrl: './person-email-dialouge.html',
-  styleUrl: './person-email-dialouge.scss'
+  selector: 'app-person-address-dialog',
+  standalone:false,
+  templateUrl: './person-address-dialog.html',
+  styleUrl: './person-address-dialog.scss'
 })
-export class PersonEmailDialouge extends BaseDialogComponent {
+export class PersonAddressDialog extends BaseDialogComponent {
   showLoading = false;
-  personEmail?: PersonEmail;
+  personAddress?: PersonAddress;
   isInsert = true;
   constructor(
-    protected override dialogRef: MatDialogRef<PersonEmailDialouge>,
+    protected override dialogRef: MatDialogRef<PersonAddressDialog>,
     @Inject(MAT_DIALOG_DATA) public override data: any,
-    private service: PersonEmailService,
+    private service: PersonAddressService,
   ) {
     super(dialogRef, data)
   }
 
   override ngOnInit(): void {
-    this.personEmail = this.data;
-    this.isInsert = this.personEmail?.id ? false : true;
+    this.personAddress = this.data;
+    this.isInsert = this.personAddress?.id ? false : true;
   }
 
   onSave(object: any) {
@@ -51,5 +51,4 @@ export class PersonEmailDialouge extends BaseDialogComponent {
   onCancel() {
     this.dialogRef.close();
   }
-
 }

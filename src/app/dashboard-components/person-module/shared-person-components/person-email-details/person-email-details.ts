@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { ActivatedRoute } from '@angular/router';
 import { PersonEmailService } from '../../../../services/person-email-service';
 import { PersonEmail } from '../../../../models/person-email/person-email';
-import { PersonEmailDialouge } from './person-email-dialouge/person-email-dialouge';
+import { PersonEmailDialog } from './person-email-dialog/person-email-dialog';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -76,7 +76,7 @@ export class PersonEmailDetails implements OnInit {
     createdBy: "",
     creationDate: ""
   }) {
-    const dialogRef = this.dialog.open(PersonEmailDialouge, {
+  const dialogRef = this.dialog.open(PersonEmailDialog, {
       panelClass: 'dialoug-container',
       disableClose: true,
       data: personEmail

@@ -7,7 +7,7 @@ import { PersonAddressService } from '../../../../services/person-address-servic
 import { ActivatedRoute } from '@angular/router';
 import { PersonAddress } from '../../../../models/person-address/person-address';
 import { MatDialog } from '@angular/material/dialog';
-import { PersonAddressDialouge } from './person-address-dialouge/person-address-dialouge';
+import { PersonAddressDialog } from './person-address-dialog/person-address-dialog';
 
 @Component({
   selector: 'app-person-address-details',
@@ -138,7 +138,7 @@ export class PersonAddressDetails implements OnInit {
     createdBy: "",
     creationDate: ""
   }) {
-    const dialogRef = this.dialog.open(PersonAddressDialouge, {
+  const dialogRef = this.dialog.open(PersonAddressDialog, {
       panelClass: 'dialoug-container',
       disableClose: true,
       data: personAddress

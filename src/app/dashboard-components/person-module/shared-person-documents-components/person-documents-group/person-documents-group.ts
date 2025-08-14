@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PersonDocumentFormDialouge } from './person-document-form-dialouge/person-document-form-dialouge';
+import { PersonDocumentFormDialog } from './person-document-form-dialog/person-document-form-dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PersonIdDocumentsTableForm } from '../person-id-documents-table-form/person-Id-documents-table-form';
 import { PersonOtherDocumentsTableForm } from '../person-other-documents-table-form/person-other-documents-table-form';
@@ -31,7 +31,7 @@ export class PersonDocumentsGroup implements OnInit {
   }
 
   openAddDocumentDialog(): void {
-    const dialogRef = this.dialog.open(PersonDocumentFormDialouge, {
+  const dialogRef = this.dialog.open(PersonDocumentFormDialog, {
       width: '700px',
       panelClass: 'no-radius-dialog',
       data: {
