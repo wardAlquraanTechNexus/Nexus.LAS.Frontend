@@ -3,7 +3,7 @@
 <!-- SECTION 1: Title and Records -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>Active Private Persons</h2>
+    <h2>Active Public Persons</h2>
   </div>
   <button *ngIf="currentMenu?.canInsert" mat-raised-button color="primary" (click)="openAddDialog()">
     <mat-icon>add</mat-icon> Add Person
@@ -59,11 +59,8 @@
       <button mat-button (click)="bulkChangeStatus(inactiveStatus)">
         <mat-icon>cancel</mat-icon> Deactivate
       </button>
-      <button mat-button (click)="bulkChangePrivate(false)">
-        <mat-icon>visibility</mat-icon> Mark Public
-      </button>
-      <button mat-button (click)="exportToExcel()">
-        <mat-icon>print</mat-icon> Print
+      <button mat-button (click)="bulkChangePrivate(true)">
+        <mat-icon>visibility_off</mat-icon> Mark Private
       </button>
     </div>
   </div>
@@ -89,22 +86,20 @@
   </app-shared-table>
 </div>
 
-</div>
-
-<!-- Row Actions Menu -->
+<!-- Row Actions -->
 <ng-template #actionButtonsTemplate let-row>
   <button mat-icon-button [matMenuTriggerFor]="menuRow">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menuRow="matMenu">
-    <button mat-menu-item *ngIf="currentMenu?.canUpdate && row.personStatus !== activeStatus" (click)="activate(row)">
+    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)">
       <mat-icon>check_circle</mat-icon> Activate
     </button>
-    <button mat-menu-item *ngIf="currentMenu?.canUpdate && row.personStatus !== inactiveStatus" (click)="deactivate(row)">
+    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)">
       <mat-icon>cancel</mat-icon> Deactivate
     </button>
-    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)">
-      <mat-icon>visibility</mat-icon> Mark Public
+    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
+      <mat-icon>visibility_off</mat-icon> Mark Private
     </button>
     <button mat-menu-item (click)="exportToPdf(row.id)">
       <mat-icon>print</mat-icon> Print
@@ -114,3 +109,5 @@
     </button>
   </mat-menu>
 </ng-template>
+
+</div>

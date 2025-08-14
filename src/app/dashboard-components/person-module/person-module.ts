@@ -6,6 +6,7 @@ import { NgModule } from "@angular/core";
 import { BasePersonsComponent } from "./_base/base-persons-component/base-persons-component";
 import { ActivePersons } from "./active-persons/active-persons";
 import { ActivePrivatePersons } from "./active-private-persons/active-private-persons";
+import { ActivePublicPersons } from "./active-public-persons/active-public-persons";
 import { AddPerson } from "./add-person/add-person";
 import { AllPersons } from "./all-persons/all-persons";
 import { EditPerson } from "./edit-person/edit-person";
@@ -43,6 +44,7 @@ import { SharedRegisterNoteFormDialog } from "../shared-components/shared-regist
         PersonDetailsForm,
         ActivePersons,
         ActivePrivatePersons,
+        ActivePublicPersons,
         AddPerson,
         EditPerson,
         PersonDocumentsGroup,

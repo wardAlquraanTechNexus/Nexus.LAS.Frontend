@@ -1,11 +1,88 @@
+/* Admin Layout Styles - Full Width Header Layout */
 .default-button {
     background-color: inherit;
     color: #025EBA;
     border: 1px solid #025EBA;
     border-radius: .35rem;
     box-shadow: rgba(105, 136, 228, 0.05) 0px 0px 0px 0.335115px;
-
 }
-.content{
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Minimum viewport height */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 64px - 45px); /* Fixed height without extra space */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent overflow causing extra space */
+}
+
+.content {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+    flex: 1;
+    height: 100%; /* Take full height of parent */
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Allow scrolling within content area only */
+    
+    /* Content area styling */
+    & > div {
+        flex: 1;
+        padding: 24px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border-radius: 24px 0 0 0;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        min-height: 100%; /* Minimum height, can grow */
+        margin: 0;
+        
+        /* Smooth transition between navbar and content */
+        position: relative;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(1, 55, 114, 0.1), transparent);
+        }
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-container {
+        min-height: calc(100vh - 56px - 45px); /* Minimum height for mobile navbar and footer */
+    }
+    
+    .content > div {
+        padding: 16px;
+        border-radius: 16px 0 0 0;
+    }
+}
+
+/* Global improvements for better coordination */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #f0f2f5;
 }

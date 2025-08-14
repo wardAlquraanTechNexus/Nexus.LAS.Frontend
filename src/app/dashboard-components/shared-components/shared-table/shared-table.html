@@ -78,7 +78,12 @@
     </tr>
   </table>
 
-  <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
-    [length]="paginateResult.totalRecords" [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons>
-  </mat-paginator>
+  <div class="paginator-container">
+    <div class="records-count">
+      <span>{{ paginateResult.totalRecords || 0 }} Records has been returned</span>
+    </div>
+    <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
+      [length]="paginateResult.totalRecords" [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons>
+    </mat-paginator>
+  </div>
 </div>

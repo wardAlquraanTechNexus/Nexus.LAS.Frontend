@@ -1,33 +1,433 @@
-.filter-section {
-  margin-bottom: 24px;
-  padding: 16px;
-  background: #fafafa;
-  border-radius: 8px;
+/* Modern All-Persons Component - Consistent with App Theme */
+
+// Main container with modern background
+.main-container {
+  padding: 0; /* Remove padding to eliminate white space */
+  background: transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+// Main sections
+.section {
+  margin: 24px; /* Add margin to all sections instead of container padding */
   
-  .filter-row {
+  &:last-child {
+    margin-bottom: 24px; /* Ensure last section has bottom margin */
+  }
+}
+
+// SECTION 1: Title and Records
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 32px rgba(1, 55, 114, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(1, 55, 114, 0.1);
+  margin-bottom: 0; /* Remove margin since section handles it */
+  
+  .title-content {
     display: flex;
+    align-items: baseline;
     gap: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
     
-    mat-form-field {
-      min-width: 100px;
-      width: 100px;
-      flex: 1;
+    h2 {
+      margin: 0;
+      color: #013772;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
     
-    mat-button-toggle-group {
-      min-width: 100px;
-      width: 100px;
+  }
+}
 
+// SECTION 2: Filters and Actions
+.section-filters {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+  // Filters
+  .filters {
+    display: flex;
+    gap: 16px;
+    align-items: stretch; /* Changed from center to stretch for consistent heights */
+    flex-wrap: wrap;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    box-shadow: 
+      0 8px 32px rgba(1, 55, 114, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(1, 55, 114, 0.1);
+    
+    .search {
+      flex: 1;
+      min-width: 250px; /* Minimum width for better responsiveness */
+    }
+    
+    // Consistent height for all form fields
+    mat-form-field {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      height: 56px; /* Fixed consistent height */
+      
+      .mat-mdc-form-field-wrapper {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        height: 56px;
+      }
+      
+      .mat-mdc-form-field-flex {
+        height: 56px;
+        align-items: center;
+      }
+      
+      .mat-mdc-form-field-infix {
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+      }
+      
+      input, .mat-mdc-select-value, .mat-mdc-form-field-label {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      }
+      
+      // Consistent outlined field styling
+      &.mat-mdc-form-field-appearance-outline {
+        .mdc-notched-outline {
+          border-color: rgba(1, 55, 114, 0.2);
+          border-radius: 12px;
+        }
+        
+        &:hover .mdc-notched-outline {
+          border-color: rgba(1, 55, 114, 0.3);
+        }
+        
+        &.mat-focused .mdc-notched-outline {
+          border-color: #013772;
+          border-width: 2px;
+        }
+      }
+    }
+    
+    // Consistent button toggle group height
+    mat-button-toggle-group {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      height: 56px; /* Match form field height */
+      border-radius: 12px;
+      overflow: hidden;
+      
+      .mat-button-toggle-button {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        height: 56px;
+        padding: 0 16px;
+        font-size: 14px;
+        min-width: auto;
+        border: 1px solid rgba(1, 55, 114, 0.2);
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(5px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &:first-child {
+          border-radius: 12px 0 0 12px;
+        }
+        
+        &:last-child {
+          border-radius: 0 12px 12px 0;
+        }
+        
+        &:only-child {
+          border-radius: 12px;
+        }
+        
+        &:hover {
+          background: rgba(1, 55, 114, 0.1);
+        }
+        
+        &.mat-button-toggle-checked {
+          background: linear-gradient(135deg, #013772, #0056b3);
+          color: white;
+          box-shadow: 0 4px 15px rgba(1, 55, 114, 0.3);
+          border-color: #013772;
+        }
+        
+        .mat-button-toggle-label-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          width: 100%;
+          line-height: normal; /* Reset line-height to prevent conflicts */
+        }
+      }
+    }
+    
+    .actions {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      
+      button {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        height: 56px; /* Match form field height */
+        padding: 0 20px;
+        background: linear-gradient(135deg, rgba(1, 55, 114, 0.1), rgba(0, 86, 179, 0.05));
+        border: 1px solid rgba(1, 55, 114, 0.2);
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+        color: #013772;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        
+        &:hover {
+          background: linear-gradient(135deg, #013772, #0056b3);
+          color: white;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(1, 55, 114, 0.2);
+        }
+        
+        // Special styling for create button
+        &.create-btn {
+          background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(67, 160, 71, 0.05));
+          border-color: rgba(46, 125, 50, 0.3);
+          color: #2e7d32;
+          
+          &:hover {
+            background: linear-gradient(135deg, #2e7d32, #43a047);
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+          }
+        }
+        
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
     }
   }
   
-  .action-row {
+  // Bulk actions
+  .bulk-actions {
     display: flex;
-    gap: 12px;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-end;
+    padding: 16px 24px;
+    margin-top: 16px;
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(25, 118, 210, 0.05));
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.1);
+    min-height: 56px;
+    
+    span {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    
+    .bulk-buttons {
+      display: flex;
+      gap: 12px;
+      
+      button {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        height: 40px; /* Slightly smaller than filter buttons */
+        padding: 0 16px;
+        background: linear-gradient(135deg, rgba(25, 118, 210, 0.1), rgba(33, 150, 243, 0.05));
+        border: 1px solid rgba(25, 118, 210, 0.3);
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        color: #1976d2;
+        font-weight: 500;
+        font-size: 13px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        
+        &:hover {
+          background: linear-gradient(135deg, #1976d2, #2196f3);
+          color: white;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+        }
+        
+        &.mat-warn {
+          background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(229, 57, 53, 0.05));
+          border-color: rgba(244, 67, 54, 0.3);
+          color: #d32f2f;
+          
+          &:hover {
+            background: linear-gradient(135deg, #d32f2f, #f44336);
+            color: white;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+          }
+        }
+        
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+
+// SECTION 3: Data Grid
+.section-data {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+  // Loading
+  .loading {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    box-shadow: 
+      0 8px 32px rgba(1, 55, 114, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(1, 55, 114, 0.1);
+  }
+  
+  // Table container with improved styling
+  app-shared-table {
+    display: block;
+    
+    // Modern table styling consistent with app theme
+    ::ng-deep {
+      .mat-mdc-table {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+        backdrop-filter: blur(15px);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 
+          0 8px 32px rgba(1, 55, 114, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(1, 55, 114, 0.1);
+      }
+      
+      .mat-mdc-header-row {
+        background: linear-gradient(135deg, rgba(1, 55, 114, 0.1), rgba(0, 86, 179, 0.05));
+        backdrop-filter: blur(10px);
+        
+        .mat-mdc-header-cell {
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: 600;
+          color: #013772;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          border-bottom: 1px solid rgba(1, 55, 114, 0.1);
+          padding: 12px 16px;
+          text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
+        }
+      }
+      
+      .mat-mdc-row {
+        &:nth-child(even) {
+          background: rgba(255, 255, 255, 0.6);
+        }
+        
+        &:nth-child(odd) {
+          background: rgba(248, 249, 250, 0.4);
+        }
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba(1, 55, 114, 0.08), rgba(0, 86, 179, 0.04)) !important;
+          backdrop-filter: blur(5px);
+          transform: translateY(-1px);
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mat-mdc-cell {
+          border-bottom: 1px solid rgba(1, 55, 114, 0.08);
+          padding: 12px 16px;
+          font-size: 15px;
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          color: #333;
+          backdrop-filter: blur(5px);
+        }
+      }
+      
+      // Pagination styling
+      .mat-mdc-paginator {
+        border-top: 1px solid rgba(1, 55, 114, 0.1);
+        background: linear-gradient(135deg, rgba(1, 55, 114, 0.05), rgba(0, 86, 179, 0.03));
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 16px 16px;
+        color: #013772;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+    }
+  }
+  
+}
+
+// Column settings
+.column-settings {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 150px;
+}
+
+// Row menu items alignment
+.mat-mdc-menu-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  
+  mat-icon {
+    margin-right: 8px !important;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .search {
+      flex: none;
+    }
+    
+    .actions {
+      margin-left: 0;
+      justify-content: flex-end;
+    }
+  }
+  
+  .bulk-actions {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    
+    .bulk-buttons {
+      justify-content: center;
+    }
   }
 }

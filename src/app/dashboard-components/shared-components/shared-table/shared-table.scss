@@ -35,3 +35,30 @@
   opacity: 0.5;    
   color: gray;    
 }
+
+// Paginator container with records count
+.paginator-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  .records-count {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    
+    span {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 12px;
+      font-weight: 400;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      letter-spacing: 0.4px;
+    }
+  }
+  
+  mat-paginator {
+    flex: 1;
+  }
+}

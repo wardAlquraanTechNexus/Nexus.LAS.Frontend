@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ComponentsModule } from '../components-module';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
@@ -17,6 +18,7 @@ import { AddPerson } from '../../dashboard-components/person-module/add-person/a
 export class Navbar {
   searchText = '';
   searchResults: string[] = [];
+  sidebarOpen = true;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
 
   languages = [
@@ -64,14 +66,26 @@ export class Navbar {
   selectedLanguage = this.languages[0];
 
   user:AuthResponse|null;
-  constructor(private router: Router, private dialog: MatDialog, private authService:AuthService) {
+  
+  constructor(
+    private router: Router, 
+    private dialog: MatDialog, 
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     this.user = this.authService.getUser();
   }
 
+  private get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
   logout() {
-    localStorage.clear();
+    if (this.isBrowser) {
+      localStorage.clear();
+      window.location.reload();
+    }
     this.router.navigateByUrl("");
-    window.location.reload();
   }
 
   onSearch() {
@@ -82,6 +96,27 @@ export class Navbar {
     );
   }
 
+
+  toggleSidebar() {
+    if (!this.isBrowser) return;
+    
+    // Check if sidebar exists in current layout
+    const sidebarElement = document.querySelector('app-sidebar');
+    if (!sidebarElement) {
+      return; // Don't toggle if no sidebar present
+    }
+    
+    this.sidebarOpen = !this.sidebarOpen;
+    // Emit event or use a service to communicate with sidebar component
+    const event = new CustomEvent('toggleSidebar', { detail: this.sidebarOpen });
+    document.dispatchEvent(event);
+  }
+
+  // Check if sidebar should be shown (for conditional display of toggle button)
+  get shouldShowToggle(): boolean {
+    if (!this.isBrowser) return false;
+    return !!document.querySelector('app-sidebar');
+  }
 
   openAddDialog(item: any): void {
     switch (item.value) {

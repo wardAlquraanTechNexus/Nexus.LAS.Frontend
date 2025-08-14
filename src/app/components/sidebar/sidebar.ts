@@ -11,22 +11,31 @@ import { environment } from '../../../environment/environment';
 export class Sidebar {
 
   defaultItem: MenuTree = {
-    name: 'Dashboard',
+    name: 'Home',
     menuId: 0,
     path: environment.routes.dashboard,
-    iconClass: "dashboard",
+    iconClass: "home",
     inDashboard: true,
     children: []
   };
 
   menuItems: MenuTree[] = [];
   sidebarOpen = true;
+  expandedNodes = new Set<number>(); // Track expanded menu items
   childrenAccessor = (node: any) => node.children ?? [];
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
   iconClass = "sidebar-toggle-btn-opened";
 
-  constructor() {}
+  constructor() {
+    // Listen for toggle events from navbar
+    document.addEventListener('toggleSidebar', (event: any) => {
+      this.sidebarOpen = event.detail;
+      this.iconClass = this.sidebarOpen
+        ? "sidebar-toggle-btn-opened"
+        : "sidebar-toggle-btn";
+    });
+  }
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
@@ -74,5 +83,32 @@ export class Sidebar {
         this.buildFullPaths(item.children, item.path);
       }
     }
+  }
+
+  // Toggle expansion of menu items
+  toggleNode(node: MenuTree): void {
+    if (this.hasChild(0, node)) {
+      if (this.expandedNodes.has(node.menuId)) {
+        this.expandedNodes.delete(node.menuId);
+      } else {
+        this.expandedNodes.add(node.menuId);
+      }
+    }
+  }
+
+  // Check if node is expanded
+  isExpanded(node: MenuTree): boolean {
+    return this.expandedNodes.has(node.menuId);
+  }
+
+  // Handle menu item click
+  onMenuItemClick(node: MenuTree, event: Event): void {
+    event.stopPropagation();
+    
+    if (this.hasChild(0, node)) {
+      // If it has children, toggle expansion
+      this.toggleNode(node);
+    }
+    // If it has a path, navigation will be handled by routerLink
   }
 }

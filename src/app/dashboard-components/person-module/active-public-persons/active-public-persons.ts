@@ -1,0 +1,80 @@
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PersonStatus } from '../../../enums/person-status';
+import { DisplayColumn } from '../../../models/columns/display-column';
+import { GetPersonsQuery } from '../../../models/persons/get-persons/get-persons-query';
+import { MenuService } from '../../../services/menu-service';
+import { PersonService } from '../../../services/person-service';
+import { BasePersonsComponent } from '../_base/base-persons-component/base-persons-component';
+import { MatDialog } from '@angular/material/dialog';
+
+@Component({
+  selector: 'app-active-public-persons',
+  standalone: false,
+  templateUrl: './active-public-persons.html',
+  styleUrls: ['./active-public-persons.scss', '../_base/base-persons-component/base-persons-component.scss']
+})
+export class ActivePublicPersons extends BasePersonsComponent {
+
+  override params: GetPersonsQuery = {
+      searchBy: null,
+      nationality: null,
+      private: false,
+      status: PersonStatus.Active,
+      page: 0,
+      pageSize: 10
+    }
+  override displayColumns: DisplayColumn[] = [
+    {
+      key: "select",
+      label: "",
+    },
+    {
+      key: "personCode",
+      label: "Code",
+      sort: true,
+      pipes: ["link"]
+    },
+    {
+      key: "personEnglishName",
+      label: "Name En",
+      pipes: ["link"],
+      sort: true
+    },
+    {
+      key: "personArabicName",
+      label: "Name Ar",
+      pipes: ["link"],
+      sort: true
+    },
+    {
+      key: "personShortName",
+      label: "Short Name",
+      sort: true
+    },
+    {
+      key: "fpcCode",
+      label: "FPC Code"
+    },
+    {
+      key: "action",
+      label: "Action",
+    },
+  ]
+
+  constructor(
+    override service: PersonService,
+    override cdr: ChangeDetectorRef,
+    override fb: FormBuilder,
+    override router: Router,
+    override snackBar: MatSnackBar,
+    override route: ActivatedRoute,
+    override menuService: MenuService,
+    override dialog: MatDialog
+  ) {
+    super(service, cdr, fb, router, snackBar, route, menuService, dialog);
+  }
+
+}

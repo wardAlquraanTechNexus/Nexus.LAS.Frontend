@@ -1,0 +1,133 @@
+/* Modern Theme Variables and Mixins - Consistent App-wide Design */
+
+// Color Variables
+$primary-dark: #013772;
+$primary-light: #0056b3;
+$primary-alpha-10: rgba(1, 55, 114, 0.1);
+$primary-alpha-15: rgba(1, 55, 114, 0.15);
+$primary-alpha-08: rgba(1, 55, 114, 0.08);
+
+$white-90: rgba(255, 255, 255, 0.9);
+$white-95: rgba(255, 255, 255, 0.95);
+$gray-light: rgba(248, 249, 250, 0.8);
+$gray-light-90: rgba(248, 249, 250, 0.9);
+
+// Typography
+$font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+// Border Radius
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+$border-radius-xl: 20px;
+
+// Shadows
+$shadow-light: 0 2px 10px rgba(1, 55, 114, 0.08);
+$shadow-medium: 0 4px 20px rgba(1, 55, 114, 0.12);
+$shadow-heavy: 0 8px 32px rgba(1, 55, 114, 0.1);
+
+// Mixins
+@mixin glass-container {
+  background: linear-gradient(135deg, $white-90, $gray-light);
+  backdrop-filter: blur(15px);
+  border-radius: $border-radius-lg;
+  box-shadow: 
+    $shadow-heavy,
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid $primary-alpha-10;
+}
+
+@mixin glass-input {
+  background: linear-gradient(135deg, $white-95, $gray-light-90);
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius-md;
+  color: #333;
+  box-shadow: $shadow-light;
+  border: 1px solid $primary-alpha-10;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    box-shadow: $shadow-medium;
+    border-color: $primary-alpha-15;
+  }
+}
+
+@mixin modern-button {
+  background: linear-gradient(135deg, $primary-alpha-10, rgba(0, 86, 179, 0.05));
+  border: 1px solid $primary-alpha-15;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  color: $primary-dark;
+  font-weight: 500;
+  font-family: $font-family;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background: linear-gradient(135deg, $primary-dark, $primary-light);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(1, 55, 114, 0.2);
+  }
+}
+
+@mixin modern-table {
+  background: linear-gradient(135deg, $white-95, $gray-light-90);
+  backdrop-filter: blur(15px);
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  box-shadow: 
+    $shadow-heavy,
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid $primary-alpha-10;
+}
+
+@mixin page-header {
+  @include glass-container;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  
+  h1, h2, h3 {
+    margin: 0;
+    color: $primary-dark;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
+    font-family: $font-family;
+  }
+  
+  .records-count, .badge {
+    color: $primary-light;
+    font-weight: 500;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, $primary-alpha-10, rgba(0, 86, 179, 0.05));
+    border-radius: $border-radius-sm;
+    border: 1px solid $primary-alpha-15;
+  }
+}
+
+// Component-specific utilities
+.modern-container {
+  padding: 24px;
+  background: transparent;
+  min-height: 100%;
+}
+
+.glass-section {
+  @include glass-container;
+  margin-bottom: 24px;
+  padding: 20px;
+}
+
+.modern-input {
+  @include glass-input;
+}
+
+.modern-btn {
+  @include modern-button;
+}
+
+.page-title-section {
+  @include page-header;
+}

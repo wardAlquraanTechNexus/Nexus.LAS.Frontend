@@ -1,53 +1,334 @@
+/* Modern Sidebar - Coordinated with Navbar */
 .sidebar-container {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 230px;
-  transition: width 0.3s ease;
-  background-color: #F8F9FC;
-  overflow: hidden;
+  width: 280px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(180deg, #013772 0%, #0056b3 100%);
+  background-attachment: fixed; /* Keep gradient fixed during expansion */
+  background-size: 100% 100vh; /* Ensure gradient covers full viewport height */
+  box-shadow: 2px 0 20px rgba(1, 55, 114, 0.15);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%; /* Take full height of parent container */
+  overflow-y: auto; /* Allow scrolling when content exceeds viewport */
+  overflow-x: visible; /* Allow horizontal expansion for child menus */
+  z-index: 500; /* Ensure sidebar stays above content but below modals */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+
+  /* Ensure gradient covers expanded content */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, #013772 0%, #0056b3 100%);
+    z-index: -1;
+    pointer-events: none;
+  }
 
   &.closed {
-    width: 48px;
+    width: 64px;
   }
 
   .toggle-button-wrapper {
     position: absolute;
-    top: 8px;
-    right: 5px;
+    top: 16px;
+    right: 16px;
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 40px;
+    height: 48px;
+    width: 48px;
+    pointer-events: auto; /* Ensure toggle button is always clickable */
 
     .toggle-btn {
-      background-color: white;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      width: 48px;
+      height: 48px;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* Subtle glow effect */
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+        border-radius: inherit;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15));
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 
+          0 12px 40px rgba(0, 0, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.4);
+
+        &::before {
+          opacity: 1;
+        }
+
+        .toggle-icon {
+          transform: scale(1.1);
+          color: rgba(255, 255, 255, 1);
+        }
+      }
+
+      &:active {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow: 
+          0 6px 20px rgba(0, 0, 0, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      /* Ripple effect on click */
+      &:active::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        animation: ripple 0.4s ease-out;
+      }
     }
 
     .toggle-icon {
       font-size: 24px;
+      width: 24px;
+      height: 24px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+  }
+
+  /* Ripple animation */
+  @keyframes ripple {
+    from {
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    to {
+      width: 100px;
+      height: 100px;
+      opacity: 0;
     }
   }
 
   .tree-container {
     flex: 1;
-    transition: opacity 0.3s ease;
-    overflow-x: hidden;
-    padding: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+    padding: 20px 16px;
+    padding-top: 20px; /* Start from top, beside toggle button */
+    padding-bottom: 20px; /* Ensure bottom padding */
+    position: relative;
+    min-height: 100%; /* Ensure full height coverage */
+    background: inherit; /* Inherit gradient background */
+
+    /* Dynamic Menu Styling */
+    .menu-items {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-height: 100%; /* Ensure full height */
+    }
+
+    .menu-item-container {
+      position: relative;
+    }
+
+    .menu-item {
+      cursor: pointer;
+      
+      &.has-children {
+        .expandable-link {
+          justify-content: space-between;
+          
+          .expand-icon {
+            margin-left: auto;
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+            transition: all 0.2s;
+          }
+        }
+      }
+    }
 
     .tree-link {
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       white-space: nowrap;
-      color: #000;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 4px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
+      font-size: 14px;
+      position: relative;
+      backdrop-filter: blur(10px);
+      width: 100%;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 1);
+        transform: translateX(4px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      &.router-link-active {
+        background: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 0 4px 4px 0;
+        }
+      }
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        opacity: 0.9;
+        transition: all 0.2s;
+      }
+
+      &:hover mat-icon {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    .expandable-link {
+      cursor: pointer;
+      
+      &:hover .expand-icon {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Child Menu Container - Vertical Expansion */
+    .child-menu-container {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid rgba(255, 255, 255, 0.2);
+      margin-left: 16px;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      padding: 8px 0;
+      border-radius: 0 8px 8px 0;
+      overflow: hidden;
+      
+      &.slide-down {
+        animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+      
+      .child-menu-item {
+        .child-link {
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          color: rgba(255, 255, 255, 0.8);
+          padding: 8px 16px;
+          border-radius: 6px;
+          margin: 2px 8px;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          font-weight: 400;
+          font-size: 13px;
+          position: relative;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 1);
+            transform: translateX(4px);
+          }
+          
+          &.router-link-active {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 1);
+            
+            &::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              top: 0;
+              bottom: 0;
+              width: 3px;
+              background: rgba(255, 255, 255, 0.6);
+              border-radius: 0 2px 2px 0;
+            }
+          }
+          
+          mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+            transition: all 0.2s;
+          }
+          
+          &:hover mat-icon {
+            opacity: 1;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    /* CSS Animation for slide down */
+    @keyframes slideDown {
+      from {
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        max-height: 1000px; /* Large enough for most content */
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 
@@ -55,6 +336,52 @@
     .tree-container {
       opacity: 0;
       pointer-events: none;
+      transform: translateX(-20px);
+    }
+    
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 100%;
+    position: fixed;
+    top: 56px; /* Account for mobile header height */
+    left: 0;
+    z-index: 999;
+    min-height: calc(100vh - 56px - 45px); /* Minimum height to fill space */
+    max-height: none; /* Allow expansion when needed */
+    overflow-y: auto; /* Allow scrolling when needed */
+    transform: translateX(-100%);
+    
+    &.open {
+      transform: translateX(0);
+    }
+    
+    &.closed {
+      width: 100%;
+      transform: translateX(-100%);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-container {
+    .tree-container {
+      padding: 16px 12px;
+      padding-top: 16px; /* Start from top on mobile too */
+    }
+    
+    .tree-link {
+      padding: 10px 12px;
+      font-size: 13px;
+      
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 }

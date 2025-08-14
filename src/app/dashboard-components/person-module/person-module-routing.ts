@@ -8,6 +8,7 @@ import { AddRealEstate } from '../real-estate-components/add-real-estate/add-rea
 import { AddTransaction } from '../transaction-components/add-transaction/add-transaction';
 import { ActivePersons } from './active-persons/active-persons';
 import { ActivePrivatePersons } from './active-private-persons/active-private-persons';
+import { ActivePublicPersons } from './active-public-persons/active-public-persons';
 import { AddPerson } from './add-person/add-person';
 import { AllPersons } from './all-persons/all-persons';
 import { EditPerson } from './edit-person/edit-person';
@@ -23,6 +24,10 @@ const routes: Routes = [
     {
       path: environment.routes.ActivePersons,
       component: ActivePersons,
+    },
+    {
+      path: environment.routes.ActivePublicPersons,
+      component: ActivePublicPersons,
     },
     {
       path: environment.routes.ActivePrivatePersons,

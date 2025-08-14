@@ -1,0 +1,53 @@
+/* Auth Layout Styles - Consistent with AdminLayout */
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Minimum viewport height */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.auth-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 64px - 45px); /* Viewport minus header and footer */
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 24px;
+  position: relative;
+  
+  /* Smooth transition between navbar and content */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(1, 55, 114, 0.1), transparent);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-container {
+    min-height: calc(100vh - 56px - 45px); /* Mobile navbar height adjustment */
+    padding: 16px;
+  }
+}
+
+/* Global improvements for better coordination */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #f0f2f5;
+}

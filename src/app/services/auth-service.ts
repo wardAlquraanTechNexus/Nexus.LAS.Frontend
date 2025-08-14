@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { AuthRequest } from '../models/auth-request';
 import { environment } from '../../environment/environment.prod';
 import { Observable } from 'rxjs';
@@ -12,8 +13,14 @@ import { RegisterRequest } from '../models/register-request';
 })
 export class AuthService {
   url: string = environment.serverUrls.host + "Auth/";
-  constructor(private httpClient: HttpClient) {
+  
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
+  private get isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
   }
 
   login(authRequest: AuthRequest): Observable<AuthResponse> {
@@ -26,8 +33,10 @@ export class AuthService {
 
 
   saveSession(data: AuthResponse) {
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data));
+    if (this.isBrowser) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data));
+    }
   }
 
   checkAuth() {
@@ -35,6 +44,10 @@ export class AuthService {
   }
 
   getUser(): AuthResponse | null {
+    if (!this.isBrowser) {
+      return null; // Return null during SSR
+    }
+    
     const userJson = localStorage.getItem('user');
     if (!userJson) return null;
 

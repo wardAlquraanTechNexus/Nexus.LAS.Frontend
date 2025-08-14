@@ -1,8 +1,83 @@
-footer{
-    background-color: #0271D6;
+/* Modern Footer - Coordinated with Header and Sidebar */
+footer {
+    background: linear-gradient(135deg, #013772 0%, #0056b3 100%);
     height: 45px;
-    color: white;
+    color: rgba(255, 255, 255, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 -2px 20px rgba(1, 55, 114, 0.15);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    z-index: 100;
+    margin: 0;
+    padding: 0;
+
+    .container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .copyright {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            opacity: 0.9;
+            text-align: center;
+            
+            span {
+                color: rgba(255, 255, 255, 0.95) !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                transition: all 0.2s;
+                
+                &:hover {
+                    color: rgba(255, 255, 255, 1) !important;
+                    opacity: 1;
+                }
+                
+                img {
+                    filter: brightness(0) invert(1) opacity(0.8);
+                    transition: all 0.2s;
+                    
+                    &:hover {
+                        opacity: 1;
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    footer {
+        .container .copyright {
+            font-size: 12px;
+            
+            span img {
+                height: 16px !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        .container .copyright {
+            font-size: 11px;
+            letter-spacing: 0.1px;
+            
+            span {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    }
 }

@@ -1,79 +1,137 @@
-<mat-toolbar color="primary">
-    <!-- Logo Section -->
-
-    <!-- Left Spacer -->
-    <span style="flex: 1;"></span>
-
-    <!-- Centered Search and Create Section -->
-    <div style="display: flex; align-items: center; gap: 16px;">
-        <!-- Search Section -->
-        <mat-form-field appearance="outline" style="width: 500px;">
-
-            <input matInput type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
-                placeholder="Type to search in persons, companies etc." aria-label="Search"
-                #searchInput />
-            <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(); menuTrigger.openMenu()"
-                [matMenuTriggerFor]="searchMenu" #menuTrigger="matMenuTrigger">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-
-        <!-- Create Button -->
-        <button mat-raised-button color="accent" [matMenuTriggerFor]="listToCreate_menu">
-            <mat-icon>add</mat-icon>
-            Create New
-        </button>
+<header class="modern-navbar">
+  <div class="navbar-container">
+    
+    <!-- Left Section: Logo/Brand -->
+    <div class="navbar-left">
+      <!-- Sidebar Toggle Button (only show if sidebar exists) -->
+      <button *ngIf="shouldShowToggle" class="sidebar-toggle-btn" (click)="toggleSidebar()">
+        <mat-icon>{{ sidebarOpen ? 'menu_open' : 'menu' }}</mat-icon>
+      </button>
+      
+      <div class="logo-container">
+        <img src="../../../assets/images/Vector.svg" alt="Legal Assistance System Logo" class="header-logo" />
+        <span class="app-title">Legal Assistance System</span>
+      </div>
     </div>
 
-    <mat-menu #searchMenu="matMenu">
-        <ng-container *ngIf="searchResults.length; else noResults">
-            <button mat-menu-item *ngFor="let result of searchResults">{{ result }}</button>
-        </ng-container>
-        <ng-template #noResults>
-            <div style="padding: 16px; text-align: center; color: #666;">No results found</div>
-        </ng-template>
-    </mat-menu>
-
-    <mat-menu #listToCreate_menu="matMenu">
-        <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)">
-            <mat-icon>add</mat-icon>
-            <span>{{ item.name }}</span>
+    <!-- Center Section: Search -->
+    <div class="navbar-center">
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input 
+            type="text" 
+            class="search-input" 
+            [(ngModel)]="searchText" 
+            [ngModelOptions]="{standalone: true}"
+            placeholder="Search persons, companies, documents..." 
+            (keyup.enter)="onSearch(); menuTrigger.openMenu()"
+            #searchInput
+          />
+          <button 
+            class="search-button" 
+            (click)="onSearch(); menuTrigger.openMenu()"
+            [matMenuTriggerFor]="searchMenu" 
+            #menuTrigger="matMenuTrigger"
+            *ngIf="searchText"
+          >
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+        
+        <!-- Quick Create Button -->
+        <button class="create-button" [matMenuTriggerFor]="listToCreate_menu">
+          <mat-icon>add</mat-icon>
+          <span>Create</span>
         </button>
-    </mat-menu>
+      </div>
+    </div>
 
-    <!-- Right Spacer -->
-    <span style="flex: 1;"></span>
+    <!-- Right Section: User Controls -->
+    <div class="navbar-right">
+      
+      <!-- Language Selector -->
+      <div class="control-item">
+        <button class="control-button" [matMenuTriggerFor]="languages_menu">
+          <mat-icon>language</mat-icon>
+          <span class="control-text">{{ selectedLanguage.name }}</span>
+          <mat-icon class="dropdown-icon">expand_more</mat-icon>
+        </button>
+      </div>
 
-    <!-- Language Selection -->
-    <button mat-button [matMenuTriggerFor]="languages_menu" style="margin-right: 8px; font-size: 16px;">
-        <mat-icon style="font-size: 30px; width: 30px; height: 30px;">language</mat-icon>
-        <span style="margin-left: 8px; font-size: 16px;">{{ selectedLanguage.name }}</span>
+      <!-- User Profile -->
+      <div class="control-item">
+        <button class="control-button user-profile" [matMenuTriggerFor]="profile">
+          <div class="avatar-container">
+            <mat-icon>account_circle</mat-icon>
+          </div>
+          <div class="user-info">
+            <span class="username">{{user?.userName}}</span>
+            <mat-icon class="dropdown-icon">expand_more</mat-icon>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Search Results Menu -->
+  <mat-menu #searchMenu="matMenu" class="search-menu">
+    <div class="search-results">
+      <ng-container *ngIf="searchResults.length; else noResults">
+        <button mat-menu-item *ngFor="let result of searchResults" class="search-result-item">
+          <mat-icon>search</mat-icon>
+          <span>{{ result }}</span>
+        </button>
+      </ng-container>
+      <ng-template #noResults>
+        <div class="no-results">
+          <mat-icon>search_off</mat-icon>
+          <span>No results found</span>
+        </div>
+      </ng-template>
+    </div>
+  </mat-menu>
+
+  <!-- Create Menu -->
+  <mat-menu #listToCreate_menu="matMenu" class="create-menu">
+    <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)" class="create-menu-item">
+      <mat-icon>add_circle_outline</mat-icon>
+      <span>{{ item.name }}</span>
     </button>
-    <mat-menu #languages_menu="matMenu">
-        <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
-            <mat-icon>language</mat-icon>
-            <span>{{ language.name }}</span>
-        </button>
-    </mat-menu>
+  </mat-menu>
 
-    <!-- Profile Menu -->
-<button mat-button [matMenuTriggerFor]="profile" aria-label="User profile" style="margin-left: 8px; font-size: 16px;">
-  <span class="button-content">
-    <mat-icon style="font-size: 30px; width: 30px; height: 30px;">account_circle</mat-icon>
-    <span style="margin-left: 8px; margin-right: 4px;">{{user?.userName}}</span>
-    <mat-icon>keyboard_arrow_down</mat-icon>
-  </span>
-</button>
+  <!-- Language Menu -->
+  <mat-menu #languages_menu="matMenu">
+    <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
+      <mat-icon>language</mat-icon>
+      <span>{{ language.name }}</span>
+    </button>
+  </mat-menu>
 
+  <!-- Profile Menu -->
+  <mat-menu #profile="matMenu" class="profile-menu">
+    <div class="profile-header">
+      <mat-icon class="profile-avatar">account_circle</mat-icon>
+      <div class="profile-details">
+        <span class="profile-name">{{user?.userName}}</span>
+        <span class="profile-email">{{user?.email || 'user@las.com'}}</span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon>person_outline</mat-icon>
+      <span>Profile Settings</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Preferences</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()" class="logout-item">
+      <mat-icon>logout</mat-icon>
+      <span>Sign Out</span>
+    </button>
+  </mat-menu>
 
-    <mat-menu #profile="matMenu">
-        <button mat-menu-item>
-            <mat-icon>person</mat-icon>
-            <span>Profile</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
-        </button>
-    </mat-menu>
-</mat-toolbar>
+</header>
