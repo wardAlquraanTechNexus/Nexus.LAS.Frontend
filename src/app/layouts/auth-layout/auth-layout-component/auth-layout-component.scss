@@ -9,31 +9,22 @@
 }
 
 .auth-container {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 64px - 45px); /* Viewport minus header and footer */
+  min-height: 100vh; /* Allow scrolling for long forms */
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  padding: 24px;
+  padding: 20px;
   position: relative;
-  
-  /* Smooth transition between navbar and content */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(1, 55, 114, 0.1), transparent);
-  }
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow vertical scrolling when needed */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .auth-container {
-    min-height: calc(100vh - 56px - 45px); /* Mobile navbar height adjustment */
+    min-height: 100vh; /* Full height on mobile too */
     padding: 16px;
   }
 }

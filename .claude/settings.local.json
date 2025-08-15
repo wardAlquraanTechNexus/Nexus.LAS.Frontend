@@ -8,7 +8,8 @@
       "Bash(mv:*)",
       "Bash(ng build:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(ng serve:*)"
     ],
     "deny": [],
     "ask": [],

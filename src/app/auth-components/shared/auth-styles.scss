@@ -1,0 +1,111 @@
+/* ===== SHARED AUTH COMPONENT STYLES ===== */
+
+/* Primary Button Styles */
+.btn-primary {
+    background-color: #025EBA;
+    border-color: #025EBA;
+    color: white;
+    font-weight: 500;
+    border-radius: .35rem;
+    box-shadow: rgba(105, 136, 228, 0.05) 0px 0px 0px 0.335115px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background-color: #013D82;
+        border-color: #013D82;
+        box-shadow: rgba(105, 136, 228, 0.2) 0px 4px 16px;
+    }
+    
+    &:focus, &:active {
+        background-color: #013D82;
+        border-color: #013D82;
+        box-shadow: 0 0 0 0.2rem rgba(2, 94, 186, 0.25);
+    }
+    
+    &:disabled {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        opacity: 0.65;
+    }
+}
+
+/* Link Styles */
+a {
+    color: #025EBA;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    
+    &:hover {
+        color: #013D82;
+        text-decoration: none;
+    }
+    
+    &:focus {
+        color: #013D82;
+        outline: none;
+        text-decoration: none;
+    }
+}
+
+/* Text Styles */
+.text-gray {
+    color: #6c757d;
+}
+
+/* Logo and Branding */
+.logo-img {
+    max-width: 80px;
+    max-height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.system-name {
+    color: #013772;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.system-subtitle {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+/* Material Form Field Overrides */
+::ng-deep .mat-mdc-form-field-infix {
+    background-color: white !important;
+}
+
+::ng-deep input.mat-mdc-input-element {
+    background-color: white !important;
+}
+
+/* Snackbar Error Styles */
+::ng-deep .mat-mdc-snack-bar-container.snack-error {
+    background-color: #f44336 !important;
+    color: #ffffff !important;
+    
+    .mdc-button__label {
+        color: #ffffff !important;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .logo-img {
+        max-width: 70px;
+        max-height: 70px;
+    }
+    
+    .system-name {
+        font-size: 1.3rem;
+    }
+    
+    .system-subtitle {
+        font-size: 0.85rem;
+    }
+}
