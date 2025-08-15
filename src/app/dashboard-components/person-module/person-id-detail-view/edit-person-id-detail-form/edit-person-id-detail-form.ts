@@ -1,6 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
-import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
+import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';

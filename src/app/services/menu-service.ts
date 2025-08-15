@@ -6,6 +6,7 @@ import { MenuTree } from '../models/menus/menu-tree';
 import { Observable, shareReplay, tap } from 'rxjs';
 import { BaseService } from './base/base-service';
 import { Menu } from '../models/menus/menu';
+import { PaginateRsult } from '../models/paginate-result';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,11 @@ export class MenuService extends BaseService<Menu> {
     super(httpClient);
     this.setPath("Menus");
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+    searchMenu(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<Menu>> {
+    return this.httpClient.get<PaginateRsult<Menu>>(this.url+"/searchMenu", { params: this.httpParams(paramsObj) });
+
   }
 
   getMenus(): Observable<any> {

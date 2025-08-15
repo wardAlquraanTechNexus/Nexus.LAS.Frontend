@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { PersonIdDetailService } from '../../../services/person-id-detail-service';
+import { PersonIdDetailService } from '../../../services/person-services/person-id-detail-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonsIDDetail } from '../../../models/person-id-details/person-id-details';

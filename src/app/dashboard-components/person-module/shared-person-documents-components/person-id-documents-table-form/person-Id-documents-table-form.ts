@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
-import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
+import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';

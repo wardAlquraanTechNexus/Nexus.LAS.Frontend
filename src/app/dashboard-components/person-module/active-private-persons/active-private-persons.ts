@@ -6,7 +6,7 @@ import { PersonStatus } from '../../../enums/person-status';
 import { DisplayColumn } from '../../../models/columns/display-column';
 import { GetPersonsQuery } from '../../../models/persons/get-persons/get-persons-query';
 import { MenuService } from '../../../services/menu-service';
-import { PersonService } from '../../../services/person-service';
+import { PersonService } from '../../../services/person-services/person-service';
 import { BasePersonsComponent } from '../_base/base-persons-component/base-persons-component';
 import { MatDialog } from '@angular/material/dialog';
 

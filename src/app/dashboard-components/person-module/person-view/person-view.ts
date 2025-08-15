@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonService } from '../../../services/person-service';
+import { PersonService } from '../../../services/person-services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
 import { PersonDetailsForm } from '../shared-person-components/person-details-form/person-details-form';
 import { MatDialog } from '@angular/material/dialog';

@@ -25,7 +25,13 @@ export class UserService extends BaseService<User> {
 
   }
 
-    searchUser(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<User>> {
+  searchUserByName(username: string): Observable<PaginateRsult<User>> {
+    let params = new HttpParams();
+    params = params.set("username", username);
+    return this.httpClient.get<PaginateRsult<User>>(this.url + "/", { params });
+  }
+
+  searchUser(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<User>> {
     let params = new HttpParams();
     if (paramsObj) {
       Object.keys(paramsObj).forEach(key => {
@@ -36,6 +42,5 @@ export class UserService extends BaseService<User> {
       });
     }
     return this.httpClient.get<PaginateRsult<User>>(this.url + "/", { params });
-
   }
 }

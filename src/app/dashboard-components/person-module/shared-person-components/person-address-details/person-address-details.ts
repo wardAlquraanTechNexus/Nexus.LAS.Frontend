@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { CountryService } from '../../../../services/country-service';
 import { combineLatest, map, Observable, of, startWith } from 'rxjs';
 import { Country } from '../../../../models/country/country';
-import { PersonAddressService } from '../../../../services/person-address-service';
+import { PersonAddressService } from '../../../../services/person-services/person-address-service';
 import { ActivatedRoute } from '@angular/router';
 import { PersonAddress } from '../../../../models/person-address/person-address';
 import { MatDialog } from '@angular/material/dialog';

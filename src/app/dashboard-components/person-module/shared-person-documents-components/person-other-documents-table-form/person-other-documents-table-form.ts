@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { PersonOtherDocument } from '../../../../models/person-other-document/person-other-document';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { GetPerdonOtherDocument } from '../../../../models/person-other-document/get-person-other-document';
-import { PersonOtherDocumentService } from '../../../../services/person-other-document-service';
+import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -96,26 +96,14 @@ export class GroupTable extends TableFormComponent<Group> {
       data: group
     });
     
-    this.showLoading = true;
     dialogRef.afterClosed().subscribe(result => {
-      setTimeout(() => {
         if (result) {
-          this.data.collection = [
-            ...this.data.collection,
-            result
-          ];
-          this.cdr.markForCheck();
-        }
-        this.showLoading = false;
-        
-      }, 100);
-
-    });
+          this.fetchData();
+    }})
   }
 
 
   edit(group: any) {
-    this.showLoading = true;
     const dialogRef = this.dialog.open(GroupFormDialog, {
       disableClose: true,
       data: group
@@ -129,8 +117,6 @@ export class GroupTable extends TableFormComponent<Group> {
         ];
         this.cdr.markForCheck();
       }
-      this.showLoading = false;
-
     });
   }
 

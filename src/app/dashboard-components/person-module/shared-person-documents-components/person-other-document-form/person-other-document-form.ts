@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PersonOtherDocumentService } from '../../../../services/person-other-document-service';
+import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { PersonOtherDocument } from '../../../../models/person-other-document/person-other-document';
 
 @Component({

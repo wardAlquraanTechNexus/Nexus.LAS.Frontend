@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
-import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
+import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';

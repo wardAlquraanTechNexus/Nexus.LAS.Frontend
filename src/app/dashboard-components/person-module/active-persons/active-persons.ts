@@ -7,7 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../../services/menu-service';
-import { PersonService } from '../../../services/person-service';
+import { PersonService } from '../../../services/person-services/person-service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

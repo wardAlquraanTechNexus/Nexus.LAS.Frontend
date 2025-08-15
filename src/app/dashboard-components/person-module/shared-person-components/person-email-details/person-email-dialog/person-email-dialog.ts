@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PersonEmail } from '../../../../../models/person-email/person-email';
-import { PersonEmailService } from '../../../../../services/person-email-service';
+import { PersonEmailService } from '../../../../../services/person-services/person-email-service';
 
 @Component({
   selector: 'app-person-email-dialog',

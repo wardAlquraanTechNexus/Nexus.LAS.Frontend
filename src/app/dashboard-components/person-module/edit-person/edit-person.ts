@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PersonService } from '../../../services/person-service';
+import { PersonService } from '../../../services/person-services/person-service';
 import { Person } from '../../../models/persons/person';
 import { UpdatePersonCommand } from '../../../models/persons/update-person';
 import { PersonStatus } from '../../../enums/person-status';

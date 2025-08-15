@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PersonService } from '../../../services/person-service';
+import { PersonService } from '../../../services/person-services/person-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';

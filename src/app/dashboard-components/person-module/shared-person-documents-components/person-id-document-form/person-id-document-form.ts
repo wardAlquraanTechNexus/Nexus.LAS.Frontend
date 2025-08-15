@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PersonIdDetailService } from '../../../../services/person-id-detail-service';
+import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
 
 @Component({

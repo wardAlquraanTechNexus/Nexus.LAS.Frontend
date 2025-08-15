@@ -5,7 +5,7 @@ import { PersonStatus } from '../../../../enums/person-status';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonService } from '../../../../services/person-service';
+import { PersonService } from '../../../../services/person-services/person-service';
 import { environment } from '../../../../../environment/environment';
 import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 import { BulkChangePrivateCommand } from '../../../../models/persons/bulk-change-private-command';

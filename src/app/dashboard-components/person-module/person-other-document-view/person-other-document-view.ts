@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PersonOtherDocumentDTO } from '../../../models/person-other-document/person-other-document-dto';
-import { PersonOtherDocumentService } from '../../../services/person-other-document-service';
+import { PersonOtherDocumentService } from '../../../services/person-services/person-other-document-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';

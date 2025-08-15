@@ -90,6 +90,8 @@ export interface Routes {
   Users: string;
   UserGroups: string;
   Groups: string;
+  GroupsMenus: string;
+
 
 }
 

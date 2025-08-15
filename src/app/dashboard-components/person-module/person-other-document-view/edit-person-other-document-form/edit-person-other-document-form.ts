@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { PersonOtherDocumentDTO } from '../../../../models/person-other-document/person-other-document-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PersonOtherDocumentService } from '../../../../services/person-other-document-service';
+import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';

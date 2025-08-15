@@ -1,0 +1,52 @@
+import { ChangeDetectorRef, Component, Inject, Input, Optional, PLATFORM_ID } from '@angular/core';
+import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
+import { GroupMenu } from '../../../../../models/group-menu/group-menu';
+import { PaginateRsult } from '../../../../../models/paginate-result';
+import { Group } from '../../../../../models/group/group';
+import { Observable } from 'rxjs';
+import { MenuService } from '../../../../../services/menu-service';
+import { GroupService } from '../../../../../services/group-service';
+import { Menu } from '../../../../../models/menus/menu';
+import { SearchGroupMenuDTO } from '../../../../../models/group-menu/search-group-menu/search-group-menu-dto';
+
+@Component({
+  selector: 'app-user-group-form',
+  standalone: false,
+  templateUrl: './group-menu-form.html',
+  styleUrl: './group-menu-form.scss'
+})
+export class GroupMenuForm extends BaseFormComponent {
+  @Input() groupMenu!: SearchGroupMenuDTO;
+
+  loadGroupFn!: (search: string) => Observable<PaginateRsult<Group>>;
+  loadMenusFn!: (search: string) => Observable<PaginateRsult<Menu>>;
+
+  constructor(
+    protected override fb: FormBuilder,
+    protected override cdr: ChangeDetectorRef,
+    protected override snackBar: MatSnackBar,
+    protected override sanitizer: DomSanitizer,
+    protected menuService: MenuService,
+    protected groupService: GroupService,
+  ) {
+    super(fb, cdr, snackBar, sanitizer);
+  }
+
+  override ngOnInit(): void {
+    this.setup(this.groupMenu);
+    super.ngOnInit();
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search);
+    this.loadMenusFn = (search: string) => this.getMenusByName(search);
+
+  }
+
+
+  getMenusByName(menuName:string):Observable<PaginateRsult<Menu>>
+  {
+    return this.menuService.searchMenu({name:menuName , pageSize:100});
+  }
+
+}

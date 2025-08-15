@@ -1,4 +1,8 @@
-
+.dl-container{
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .toggle{
     margin-bottom: 10px;
     margin-left: 10px;
@@ -10,3 +14,4 @@
   margin-bottom: 10px;
   background-color: #fff;
 }
+

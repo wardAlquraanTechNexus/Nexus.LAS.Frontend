@@ -1,0 +1,206 @@
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { GroupMenu } from '../../../../models/group-menu/group-menu';
+import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
+import { PaginateRsult } from '../../../../models/paginate-result';
+import { SearchGroupMenuQuery } from '../../../../models/group-menu/search-group-menu/search-group-menu-query';
+import { DisplayColumn } from '../../../../models/columns/display-column';
+import { GroupMenuService } from '../../../../services/group-menu-service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchGroupMenuDTO } from '../../../../models/group-menu/search-group-menu/search-group-menu-dto';
+import { Observable, takeUntil } from 'rxjs';
+import { GroupMenuFormDialog } from './group-menu-form-dialog/group-menu-form-dialog';
+import { Group } from '../../../../models/group/group';
+import { Menu } from '../../../../models/menus/menu';
+import { GroupService } from '../../../../services/group-service';
+import { MenuService } from '../../../../services/menu-service';
+
+@Component({
+  selector: 'app-group-menu-table',
+  standalone: false,
+  templateUrl: './group-menu-table.html',
+  styleUrl: './group-menu-table.scss'
+})
+export class GroupMenuTable extends TableFormComponent<GroupMenu> {
+  override data: PaginateRsult<SearchGroupMenuDTO> = {
+    collection: [],
+    totalPages: 0,
+    totalRecords: 0,
+    pageSize: 10,
+    page: 0
+  };
+
+  override params: SearchGroupMenuQuery = {
+    menuName: null,
+    groupName: null,
+    groupId: null,
+    menuId: null,
+    page: 0,
+    pageSize: 10
+  };
+
+
+  override displayColumns: DisplayColumn[] = [
+
+    {
+      key: "menuName",
+      label: "Menu",
+      sort: true
+    },
+    {
+      key: "groupName",
+      label: "Group",
+      sort: true
+    },
+    {
+      key: "access",
+      label: "Access",
+    },
+    {
+      key: "canInsert",
+      label: "Can Insert",
+    },
+    {
+      key: "canUpdate",
+      label: "Can Update",
+    },
+    {
+      key: "canDelete",
+      label: "Can Delete",
+    },
+    {
+      key: "admin",
+      label: "Admin",
+    },
+    {
+      key: "action",
+      label: "Action",
+    },
+
+  ]
+  formGroup!: FormGroup;
+
+
+  loadGroupFn!: (search: string) => Observable<PaginateRsult<Group>>;
+  loadMenusFn!: (search: string) => Observable<PaginateRsult<Menu>>;
+
+  constructor(
+    override service: GroupMenuService,
+    override cdr: ChangeDetectorRef,
+    override fb: FormBuilder,
+    override router: Router,
+    override snackBar: MatSnackBar,
+    override route: ActivatedRoute,
+    protected dialog: MatDialog,
+    protected menuService: MenuService,
+    protected groupService: GroupService,
+  ) {
+    super(service, cdr, fb, router, snackBar, route);
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.formGroup = this.fb.group({
+      menuId: [''],
+      groupId:['']
+    });
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search);
+    this.loadMenusFn = (search: string) => this.getMenusByName(search);
+  }
+
+  getMenusByName(menuName: string): Observable<PaginateRsult<Menu>> {
+    return this.menuService.searchMenu({ name: menuName, pageSize: 100 });
+  }
+  override fetchData() {
+    this.showLoading = true;
+    this.loadingService.startLoading('Loading data');
+
+    this.service.searchGroup(this.params)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res => {
+          this.data = res;
+          this.showLoading = false;
+          this.loadingService.stopLoading('Loading data');
+          this.cdr.markForCheck();
+        }),
+        error: (err => {
+          this.showLoading = false;
+          this.loadingService.stopLoading('Loading data');
+          this.errorHandler.handleApiError(err, 'Failed to load data');
+          this.cdr.markForCheck();
+        })
+      })
+  }
+
+
+  onAddNew() {
+    let groupMenu: SearchGroupMenuDTO = {
+      id: 0,
+      menuId: 0,
+      groupId: 0,
+      access: false,
+      canInsert: false,
+      canUpdate: false,
+      canDelete: false,
+      admin: false,
+      groupName: '',
+      menuName: ''
+    };
+    const dialogRef = this.dialog.open(GroupMenuFormDialog, {
+      disableClose: true,
+      data: groupMenu
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+
+  edit(group: any) {
+    const dialogRef = this.dialog.open(GroupMenuFormDialog, {
+      disableClose: true,
+      data: group
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.data.collection = [
+          ...this.data.collection,
+          result
+        ];
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
+
+  getRemoveCallback(id: number): () => void {
+    return () => this.delete(id);
+  }
+
+  delete(id: number) {
+    this.showLoading = true;
+    this.service.delete(id).subscribe({
+      next: res => {
+        this.fetchData();
+      },
+      error: (err => {
+        this.showLoading = false;
+      })
+    })
+  }
+
+  onSelectMenu(event:any){
+    this.params.menuId = event;
+    this.fetchData();
+  }
+  onSelectGroup(event:any){
+    this.params.groupId = event;
+    this.fetchData();
+  }
+}

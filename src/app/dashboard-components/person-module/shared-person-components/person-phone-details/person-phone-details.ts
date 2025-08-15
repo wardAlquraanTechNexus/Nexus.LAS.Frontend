@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { PersonPhoneService } from '../../../../services/person-phone-service';
+import { PersonPhoneService } from '../../../../services/person-services/person-phone-service';
 import { PersonEmail } from '../../../../models/person-email/person-email';
 import { PersonPhoneDialog } from './person-phone-dialog/person-phone-dialog';
 import { MatDialog } from '@angular/material/dialog';

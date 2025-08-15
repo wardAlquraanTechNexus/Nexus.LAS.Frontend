@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Person } from '../../../../models/persons/person';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PersonService } from '../../../../services/person-service';
+import { PersonService } from '../../../../services/person-services/person-service';
 import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 
 @Component({

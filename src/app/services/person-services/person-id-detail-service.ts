@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { PersonsIDDetail } from '../models/person-id-details/person-id-details';
-import { BaseService } from './base/base-service';
+import { PersonsIDDetail } from '../../models/person-id-details/person-id-details';
+import { BaseService } from '../base/base-service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PersonIdDetailDto } from '../models/person-id-details/person-id-details-dto';
+import { PersonIdDetailDto } from '../../models/person-id-details/person-id-details-dto';
 
 @Injectable({
   providedIn: 'root'

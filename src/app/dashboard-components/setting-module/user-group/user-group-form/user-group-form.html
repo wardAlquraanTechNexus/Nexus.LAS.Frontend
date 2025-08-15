@@ -7,31 +7,15 @@
         </button>
     </div>
     <form [formGroup]="formGroup">
-        <mat-form-field appearance="outline" class="full-width col-12">
-            <mat-label>Select User</mat-label>
-            <mat-select formControlName="userId" required (openedChange)="onUserSelectOpened($event)">
-                <!-- Search input as first option -->
-                <mat-option>
-                    <input matInput placeholder="Search user..." [(ngModel)]="userSearchText"
-                        [ngModelOptions]="{standalone: true}" (ngModelChange)="loadUsers()" autocomplete="off"
-                        (click)="$event.stopPropagation()" />
-                </mat-option>
-
-                <mat-option *ngIf="isLoadingUsers" disabled>
-                    <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-                    Loading...
-                </mat-option>
-
-                <mat-option *ngFor="let user of filteredUsers" [value]="user.id">
-                    {{ user.username }}
-                </mat-option>
-            </mat-select>
-
-            <mat-error *ngIf="formGroup.get('userId')?.hasError('required') && formGroup.get('userId')?.touched">
-                Username is required
-            </mat-error>
-        </mat-form-field>
-
+        <select-auto-complete *ngIf="loadUsersFn"
+        [controlName]="'userId'"
+        [fnGet]="loadUsersFn"
+        [formGroup]="formGroup"
+        [isRequired]="true"
+        [label]="'Username'"
+        [keyToShow]="'username'"
+        [valueKey]="'username'"
+        ></select-auto-complete>
         <select-auto-complete *ngIf="loadGroupFn"
         [controlName]="'groupId'"
         [fnGet]="loadGroupFn"
@@ -39,9 +23,7 @@
         [isRequired]="true"
         [label]="'Group'"
         [keyToShow]="'groupName'"
-        
+        [valueKey]="'id'"
         ></select-auto-complete>
-
-
     </form>
 </div>

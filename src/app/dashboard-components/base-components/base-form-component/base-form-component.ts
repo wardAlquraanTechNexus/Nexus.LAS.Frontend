@@ -193,7 +193,6 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
         this.saveEmitter.emit({ element: this.object });
       }
       
-      this.errorHandler.showSuccess('Form saved successfully!');
     } catch (error) {
       this.errorHandler.handleError('Failed to save form', 'An error occurred while processing the form data.');
     } finally {
@@ -203,15 +202,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
     }
   }
 
-  /**
-   * Handle form save success
-   */
-  protected onSaveSuccess(message: string = 'Saved successfully!'): void {
-    this.isSubmitting = false;
-    this.loadingService.stopLoading('Saving form');
-    this.errorHandler.showSuccess(message);
-    this.cdr.markForCheck();
-  }
+
 
   /**
    * Handle form save error

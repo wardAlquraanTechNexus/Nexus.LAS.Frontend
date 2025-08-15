@@ -30,6 +30,11 @@ const routes: Routes = [
     path: environment.routes.Groups,
     loadChildren: () => import('./group/group-module').then(m => m.GroupModule),
     canActivate: [authGuard]
+  },
+  {
+    path: environment.routes.GroupsMenus,
+    loadChildren: () => import('./group-menu/group-menu-module').then(m => m.GroupMenuModule),
+    canActivate: [authGuard]
   }
 ];
 

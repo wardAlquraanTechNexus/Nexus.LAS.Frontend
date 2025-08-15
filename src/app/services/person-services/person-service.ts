@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from './base/base-service';
-import { Person } from '../models/persons/person';
+import { BaseService } from '../base/base-service';
+import { Person } from '../../models/persons/person';
 import { HttpClient } from '@angular/common/http';
-import { CreatePersonCommand } from '../models/persons/create-person';
+import { CreatePersonCommand } from '../../models/persons/create-person';
 import { Observable } from 'rxjs';
-import { PaginateRsult } from '../models/paginate-result';
-import { GetAllActivePersonQuery } from '../models/persons/get-all-active-person-query';
-import { UpdatePersonCommand } from '../models/persons/update-person';
-import { BulkChangeStatusCommand } from '../models/persons/bulk-change-status-command';
-import { BulkChangePrivateCommand } from '../models/persons/bulk-change-private-command';
-import { ExportPersonToExcel } from '../models/persons/export-person-to-excel-dto';
-import { ExportPersonToPdf } from '../models/persons/export-person-to-pdf-dto';
-import { UploadPersonImageCommand } from '../models/persons/upload-person-image/upload-person-image-command';
-import { UploadImageDto } from '../models/base/upload-image-dto';
-import { PersonDto } from '../models/persons/person-dto';
-import { GetPersonsDTO } from '../models/persons/get-persons/get-person-dto';
-import { GetPersonsQuery } from '../models/persons/get-persons/get-persons-query';
+import { PaginateRsult } from '../../models/paginate-result';
+import { GetAllActivePersonQuery } from '../../models/persons/get-all-active-person-query';
+import { UpdatePersonCommand } from '../../models/persons/update-person';
+import { BulkChangeStatusCommand } from '../../models/persons/bulk-change-status-command';
+import { BulkChangePrivateCommand } from '../../models/persons/bulk-change-private-command';
+import { ExportPersonToExcel } from '../../models/persons/export-person-to-excel-dto';
+import { ExportPersonToPdf } from '../../models/persons/export-person-to-pdf-dto';
+import { UploadPersonImageCommand } from '../../models/persons/upload-person-image/upload-person-image-command';
+import { UploadImageDto } from '../../models/base/upload-image-dto';
+import { PersonDto } from '../../models/persons/person-dto';
+import { GetPersonsDTO } from '../../models/persons/get-persons/get-person-dto';
+import { GetPersonsQuery } from '../../models/persons/get-persons/get-persons-query';
 
 @Injectable({
   providedIn: 'root'

@@ -94,7 +94,9 @@ export const environment: Environment = {
     Menus: 'Menus',
     Users: 'Users',
     UserGroups: 'User-Groups',
-    Groups: 'Groups'
+    Groups: 'Groups',
+    GroupsMenus: 'GroupsMenus'
+
 
   }
 } as const;

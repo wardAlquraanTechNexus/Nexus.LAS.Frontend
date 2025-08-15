@@ -1,0 +1,43 @@
+<div class="dl-container">
+    <div class="dialog-header-buttons">
+        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
+        <button class="btn btn-primary mr-2" (click)="save(true)">Save</button>
+        <button class="btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <form *ngIf="formGroup" [formGroup]="formGroup">
+        <select-auto-complete *ngIf="loadMenusFn" [controlName]="'menuId'" [fnGet]="loadMenusFn" [formGroup]="formGroup"
+            [isRequired]="true" [label]="'Menu'" [keyToShow]="'name'" [valueKey]="'id'" 
+            [searchText]="groupMenu.menuName">
+        </select-auto-complete>
+        
+        <select-auto-complete *ngIf="loadGroupFn" [controlName]="'groupId'" [fnGet]="loadGroupFn"
+            [formGroup]="formGroup" [isRequired]="true" [label]="'Group'"
+            [keyToShow]="'groupName'" [valueKey]="'id'" [searchText]="groupMenu.groupName">
+            
+        </select-auto-complete>
+        <div class="row mt-2">
+            <div class="col-6">
+                <mat-slide-toggle formControlName="access">Access</mat-slide-toggle>
+            </div>
+            <div class="col-6">
+                <mat-slide-toggle formControlName="canInsert">Can Insert?</mat-slide-toggle>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <mat-slide-toggle formControlName="canUpdate">Can Update?</mat-slide-toggle>
+            </div>
+            <div class="col-6">
+                <mat-slide-toggle formControlName="canDelete">Can Delete</mat-slide-toggle>
+            </div>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <mat-slide-toggle formControlName="admin">Admin?</mat-slide-toggle>
+            </div>
+        </div>
+    </form>
+</div>

@@ -15,7 +15,7 @@ import { LoadingStateService } from '../../../services/loading-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+  protected destroy$ = new Subject<void>();
   protected errorHandler!: ErrorHandlerService;
   protected loadingService!: LoadingStateService;
   

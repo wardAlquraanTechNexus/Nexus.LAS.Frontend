@@ -1,13 +1,16 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { PaginateRsult } from '../../models/paginate-result';
 import { Observable, Subscription } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'select-auto-complete',
   standalone: false,
   templateUrl: './select-auto-complete.html',
-  styleUrl: './select-auto-complete.scss'
+  styleUrl: './select-auto-complete.scss',
+  viewProviders: [
+    { provide: ControlContainer, useExisting: FormGroupDirective }
+  ]
 })
 export class SelectAutoComplete implements OnInit, OnDestroy {
   @Input() fnGet!: (search: string) => Observable<PaginateRsult<any>>;
@@ -16,9 +19,12 @@ export class SelectAutoComplete implements OnInit, OnDestroy {
   @Input() keyToShow!: any;
   @Input() isRequired = false;
   @Input() label!: string;
+  @Input() valueKey!:string;
+  @Input() searchText! : string ;
+
+  @Output() selectEmitter = new EventEmitter<any>();
 
   isLoading = false;
-  searchText = '';
   data: PaginateRsult<any> = {
     page: 0,
     pageSize: 25,
@@ -29,6 +35,13 @@ export class SelectAutoComplete implements OnInit, OnDestroy {
 
   private subscription?: Subscription;
 
+  constructor(
+    private cdr: ChangeDetectorRef,
+  ) {
+
+  }
+
+  
   ngOnInit(): void {
     this.loadData();
   }
@@ -42,16 +55,25 @@ export class SelectAutoComplete implements OnInit, OnDestroy {
 
     this.subscription?.unsubscribe();
 
-    this.subscription = this.fnGet(this.searchText).subscribe({
+    this.subscription = this.fnGet(this.searchText || '').subscribe({
       next: (res) => {
         this.data = res;
         this.isLoading = false;
+        this.cdr.markForCheck();
       },
-      error: () => (this.isLoading = false)
-    });
+      error: () => {
+        this.cdr.markForCheck();
+      }
+    })
+  }
+
+  selectionChange(event:any){
+    this.selectEmitter.emit(event.value);
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
+
+
 }

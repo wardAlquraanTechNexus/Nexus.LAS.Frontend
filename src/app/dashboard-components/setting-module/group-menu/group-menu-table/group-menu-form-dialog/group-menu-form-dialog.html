@@ -1,0 +1,6 @@
+<div class="spinner-overlay" *ngIf="showLoading">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+</div>
+
+<app-user-group-form *ngIf="!showLoading" [groupMenu]="element" (saveEmitter)="onSave($event)"
+    (cancelEditEmitter)="onCancel($event)"></app-user-group-form>

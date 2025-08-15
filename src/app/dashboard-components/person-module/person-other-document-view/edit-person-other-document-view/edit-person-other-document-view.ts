@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { PersonOtherDocumentDTO } from '../../../../models/person-other-document/person-other-document-dto';
-import { PersonOtherDocumentService } from '../../../../services/person-other-document-service';
+import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
