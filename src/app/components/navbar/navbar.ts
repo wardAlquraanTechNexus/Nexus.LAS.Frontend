@@ -1,4 +1,4 @@
-import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ComponentsModule } from '../components-module';
 import { Router } from '@angular/router';
@@ -7,6 +7,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth-service';
 import { AuthResponse } from '../../models/auth-response';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AddPerson } from '../../dashboard-components/person-module/add-person/add-person';
 
 @Component({
@@ -15,11 +17,12 @@ import { AddPerson } from '../../dashboard-components/person-module/add-person/a
   styleUrl: './navbar.scss',
   standalone: false
 })
-export class Navbar {
+export class Navbar implements OnDestroy {
   searchText = '';
   searchResults: string[] = [];
   sidebarOpen = true;
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
+  private destroy$ = new Subject<void>();
 
   languages = [
     {
@@ -130,17 +133,24 @@ export class Navbar {
 
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            console.log('Person created with ID:', result);
-            // Handle after-close logic
-          }
-        });
+        dialogRef.afterClosed()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(result => {
+            if (result) {
+              console.log('Person created with ID:', result);
+              // Handle after-close logic
+            }
+          });
         break;
       default:
         console.log(item.value)
         break;
     }
 
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
