@@ -1,8 +1,10 @@
-/* Modern Theme Variables and Mixins - Consistent App-wide Design */
+/* Modern Theme - Now using unified Nexus theme variables */
 
-// Color Variables
-$primary-dark: #013772;
-$primary-light: #0056b3;
+@use '../../../../styles/themes/variables' as vars;
+
+// Legacy color variables for backward compatibility
+$primary-dark: vars.$nexus-primary-dark;
+$primary-light: vars.$nexus-primary-light;
 $primary-alpha-10: rgba(1, 55, 114, 0.1);
 $primary-alpha-15: rgba(1, 55, 114, 0.15);
 $primary-alpha-08: rgba(1, 55, 114, 0.08);
@@ -12,19 +14,15 @@ $white-95: rgba(255, 255, 255, 0.95);
 $gray-light: rgba(248, 249, 250, 0.8);
 $gray-light-90: rgba(248, 249, 250, 0.9);
 
-// Typography
-$font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-// Border Radius
-$border-radius-sm: 8px;
-$border-radius-md: 12px;
-$border-radius-lg: 16px;
-$border-radius-xl: 20px;
-
-// Shadows
-$shadow-light: 0 2px 10px rgba(1, 55, 114, 0.08);
-$shadow-medium: 0 4px 20px rgba(1, 55, 114, 0.12);
-$shadow-heavy: 0 8px 32px rgba(1, 55, 114, 0.1);
+// Use unified theme variables
+$font-family: vars.$nexus-font-family;
+$border-radius-sm: vars.$nexus-border-radius-sm;
+$border-radius-md: vars.$nexus-border-radius-md;
+$border-radius-lg: vars.$nexus-border-radius-lg;
+$border-radius-xl: vars.$nexus-border-radius-xl;
+$shadow-light: vars.$nexus-shadow-sm;
+$shadow-medium: vars.$nexus-shadow-md;
+$shadow-heavy: vars.$nexus-shadow-lg;
 
 // Mixins
 @mixin glass-container {

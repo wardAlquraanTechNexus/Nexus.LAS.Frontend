@@ -1,0 +1,150 @@
+@use '../themes/variables' as vars;
+
+// Custom button styles that complement Angular Material
+.nexus-btn {
+  font-family: vars.$nexus-font-family;
+  font-weight: vars.$nexus-font-weight-medium;
+  border-radius: vars.$nexus-border-radius-md;
+  transition: all vars.$nexus-transition-normal;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: vars.$nexus-shadow-sm;
+  
+  &:hover {
+    box-shadow: vars.$nexus-shadow-md;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: vars.$nexus-shadow-xs;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: vars.$nexus-shadow-xs;
+  }
+}
+
+// Primary button variant
+.nexus-btn-primary {
+  background: linear-gradient(135deg, vars.$nexus-primary, vars.$nexus-primary-light);
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, vars.$nexus-primary-light, vars.$nexus-primary);
+  }
+}
+
+// Secondary button variant
+.nexus-btn-secondary {
+  background: vars.$nexus-bg-card;
+  color: vars.$nexus-primary;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  
+  &:hover:not(:disabled) {
+    background: vars.$nexus-light-gray;
+    border-color: vars.$nexus-primary;
+  }
+}
+
+// Success button variant
+.nexus-btn-success {
+  background: linear-gradient(135deg, vars.$nexus-success, #66bb6a);
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #66bb6a, vars.$nexus-success);
+  }
+}
+
+// Warning button variant
+.nexus-btn-warning {
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ffb74d, #ff9800);
+  }
+}
+
+// Danger button variant
+.nexus-btn-danger {
+  background: linear-gradient(135deg, vars.$nexus-warn, #ef5350);
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ef5350, vars.$nexus-warn);
+  }
+}
+
+// Button sizes
+.nexus-btn-sm {
+  padding: vars.$nexus-spacing-xs vars.$nexus-spacing-md;
+  font-size: vars.$nexus-font-size-sm;
+  min-height: 32px;
+}
+
+.nexus-btn-md {
+  padding: vars.$nexus-spacing-sm vars.$nexus-spacing-lg;
+  font-size: vars.$nexus-font-size-base;
+  min-height: 40px;
+}
+
+.nexus-btn-lg {
+  padding: vars.$nexus-spacing-md vars.$nexus-spacing-xl;
+  font-size: vars.$nexus-font-size-lg;
+  min-height: 48px;
+}
+
+// Icon button styles
+.nexus-btn-icon {
+  padding: vars.$nexus-spacing-sm;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: vars.$nexus-border-radius-full;
+  
+  &.nexus-btn-sm {
+    min-width: 32px;
+    min-height: 32px;
+    padding: vars.$nexus-spacing-xs;
+  }
+  
+  &.nexus-btn-lg {
+    min-width: 48px;
+    min-height: 48px;
+    padding: vars.$nexus-spacing-md;
+  }
+}
+
+// Floating action button
+.nexus-fab {
+  position: fixed;
+  bottom: vars.$nexus-spacing-xl;
+  right: vars.$nexus-spacing-xl;
+  width: 56px;
+  height: 56px;
+  border-radius: vars.$nexus-border-radius-full;
+  background: linear-gradient(135deg, vars.$nexus-accent, #ba68c8);
+  color: vars.$nexus-white;
+  border: none;
+  cursor: pointer;
+  box-shadow: vars.$nexus-shadow-lg;
+  transition: all vars.$nexus-transition-normal;
+  z-index: vars.$nexus-z-fixed;
+  
+  &:hover {
+    box-shadow: vars.$nexus-shadow-xl;
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(1.05);
+  }
+}

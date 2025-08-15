@@ -1,0 +1,185 @@
+// Custom theme variables for use throughout the application
+:root {
+  --nexus-primary: #013772;
+  --nexus-primary-light: #0056b3;
+  --nexus-primary-dark: #001122;
+  --nexus-accent: #9c27b0;
+  --nexus-warn: #f44336;
+  --nexus-success: #4caf50;
+  --nexus-info: #2196f3;
+  
+  // Background gradients
+  --nexus-bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  --nexus-card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+  --nexus-input-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+  
+  // Shadows
+  --nexus-shadow-light: 0 2px 10px rgba(1, 55, 114, 0.08);
+  --nexus-shadow-medium: 0 8px 32px rgba(1, 55, 114, 0.1);
+  --nexus-shadow-heavy: 0 16px 48px rgba(1, 55, 114, 0.15);
+  
+  // Border radius
+  --nexus-border-radius: 12px;
+  --nexus-border-radius-large: 16px;
+  
+  // Borders
+  --nexus-border: 1px solid rgba(1, 55, 114, 0.1);
+  --nexus-border-light: 1px solid rgba(1, 55, 114, 0.05);
+}
+
+// Global Material Design overrides using CSS custom properties
+.mat-mdc-form-field {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  width: 100%;
+  margin-bottom: 16px;
+  
+  // Outlined style (most common)
+  .mdc-text-field--outlined {
+    background: var(--nexus-input-gradient) !important;
+    backdrop-filter: blur(10px);
+    border-radius: var(--nexus-border-radius) !important;
+    box-shadow: var(--nexus-shadow-light);
+    transition: all 0.25s ease-in-out;
+    
+    // Completely hide default Material outline system
+    .mdc-notched-outline {
+      display: none !important;
+    }
+    
+    // Create our own simple border system
+    border: 1px solid rgba(1, 55, 114, 0.1) !important;
+    border-radius: var(--nexus-border-radius) !important;
+    
+    // Hover state - simple border change
+    &:hover:not(.mdc-text-field--focused) {
+      border-color: var(--nexus-primary) !important;
+      border-width: 1px !important;
+      box-shadow: var(--nexus-shadow-medium);
+    }
+    
+    // Focused state - enhanced border and glow
+    &.mdc-text-field--focused {
+      border-color: var(--nexus-primary) !important;
+      border-width: 2px !important;
+      box-shadow: var(--nexus-shadow-medium), 0 0 0 3px rgba(1, 55, 114, 0.15) !important;
+    }
+    
+    // Error state override
+    &.mdc-text-field--invalid {
+      border-color: var(--nexus-warn) !important;
+      border-width: 2px !important;
+      box-shadow: var(--nexus-shadow-medium), 0 0 0 3px rgba(244, 67, 54, 0.15) !important;
+    }
+  }
+  
+  // Label styling - positioned without notched outline interference
+  .mdc-floating-label {
+    color: rgba(1, 55, 114, 0.7) !important;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    background: transparent !important;
+    padding: 0 4px !important;
+    
+    &.mdc-floating-label--float-above {
+      color: var(--nexus-primary) !important;
+      background: white !important;
+      transform: translateY(-50%) scale(0.75) !important;
+      top: 0 !important;
+      left: 12px !important;
+      z-index: 2 !important;
+      border-radius: 4px !important;
+    }
+  }
+  
+  // Input text styling
+  .mdc-text-field__input {
+    color: #333 !important;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    padding: 16px 12px !important;
+    
+    // Ensure placeholder text is visible
+    &::placeholder {
+      color: rgba(1, 55, 114, 0.6) !important;
+      opacity: 1 !important;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+  }
+  
+  // Error state - use our custom border system
+  &.mat-form-field-invalid {
+    .mdc-text-field--outlined {
+      border-color: var(--nexus-warn) !important;
+      border-width: 2px !important;
+      box-shadow: var(--nexus-shadow-medium), 0 0 0 3px rgba(244, 67, 54, 0.15) !important;
+    }
+    
+    .mdc-floating-label {
+      color: var(--nexus-warn) !important;
+      
+      &.mdc-floating-label--float-above {
+        background: white !important;
+      }
+    }
+  }
+}
+
+// Form field hint and error text
+.mat-mdc-form-field-subscript-wrapper {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  
+  .mat-mdc-form-field-error-wrapper {
+    .mat-mdc-form-field-error {
+      color: var(--nexus-warn) !important;
+      font-size: 12px;
+    }
+  }
+  
+  .mat-mdc-form-field-hint-wrapper {
+    .mat-mdc-form-field-hint {
+      color: rgba(1, 55, 114, 0.6) !important;
+      font-size: 12px;
+    }
+  }
+}
+
+// Button styling
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-outlined-button {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  border-radius: var(--nexus-border-radius) !important;
+  transition: all 0.25s ease-in-out;
+  
+  &.mat-primary {
+    background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-primary-light)) !important;
+    color: white !important;
+    
+    &:hover {
+      background: linear-gradient(135deg, var(--nexus-primary-light), var(--nexus-primary)) !important;
+      box-shadow: var(--nexus-shadow-medium);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Select styling
+.mat-mdc-select {
+  .mat-mdc-select-trigger {
+    .mat-mdc-select-value {
+      color: #333 !important;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    }
+    
+    .mat-mdc-select-arrow {
+      color: var(--nexus-primary) !important;
+    }
+  }
+}
+
+// Checkbox and Radio styling
+.mat-mdc-checkbox, .mat-mdc-radio-button {
+  .mdc-checkbox, .mdc-radio {
+    .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background,
+    .mdc-radio__native-control:checked ~ .mdc-radio__background .mdc-radio__inner-circle {
+      background-color: var(--nexus-primary) !important;
+      border-color: var(--nexus-primary) !important;
+    }
+  }
+}

@@ -1,0 +1,160 @@
+@use '../themes/variables' as vars;
+
+// Card component styles
+.nexus-card {
+  background: vars.$nexus-bg-card;
+  backdrop-filter: blur(15px);
+  border-radius: vars.$nexus-border-radius-lg;
+  box-shadow: vars.$nexus-shadow-md;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  transition: all vars.$nexus-transition-normal;
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: vars.$nexus-shadow-lg;
+    transform: translateY(-2px);
+  }
+}
+
+.nexus-card-header {
+  padding: vars.$nexus-spacing-lg;
+  border-bottom: vars.$nexus-border-width solid vars.$nexus-border-color-light;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+  
+  .nexus-card-title {
+    margin: 0;
+    font-size: vars.$nexus-font-size-xl;
+    font-weight: vars.$nexus-font-weight-semibold;
+    color: vars.$nexus-primary;
+    line-height: vars.$nexus-line-height-tight;
+  }
+  
+  .nexus-card-subtitle {
+    margin: vars.$nexus-spacing-xs 0 0 0;
+    font-size: vars.$nexus-font-size-sm;
+    color: vars.$nexus-medium-gray;
+    font-weight: vars.$nexus-font-weight-normal;
+  }
+}
+
+.nexus-card-body {
+  padding: vars.$nexus-spacing-lg;
+  
+  &.nexus-card-body-sm {
+    padding: vars.$nexus-spacing-md;
+  }
+  
+  &.nexus-card-body-lg {
+    padding: vars.$nexus-spacing-xl;
+  }
+}
+
+.nexus-card-footer {
+  padding: vars.$nexus-spacing-md vars.$nexus-spacing-lg;
+  border-top: vars.$nexus-border-width solid vars.$nexus-border-color-light;
+  background: rgba(248, 249, 250, 0.5);
+  display: flex;
+  justify-content: flex-end;
+  gap: vars.$nexus-spacing-md;
+}
+
+// Card variants
+.nexus-card-elevated {
+  box-shadow: vars.$nexus-shadow-lg;
+  
+  &:hover {
+    box-shadow: vars.$nexus-shadow-xl;
+  }
+}
+
+.nexus-card-flat {
+  box-shadow: none;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  
+  &:hover {
+    box-shadow: vars.$nexus-shadow-sm;
+  }
+}
+
+.nexus-card-outlined {
+  background: transparent;
+  backdrop-filter: none;
+  border: 2px solid vars.$nexus-border-color;
+  box-shadow: none;
+  
+  &:hover {
+    border-color: vars.$nexus-primary;
+    box-shadow: vars.$nexus-shadow-sm;
+  }
+}
+
+// Status cards
+.nexus-card-success {
+  border-left: 4px solid vars.$nexus-success;
+  
+  .nexus-card-header {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(102, 187, 106, 0.05));
+  }
+}
+
+.nexus-card-warning {
+  border-left: 4px solid #ff9800;
+  
+  .nexus-card-header {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 183, 77, 0.05));
+  }
+}
+
+.nexus-card-danger {
+  border-left: 4px solid vars.$nexus-warn;
+  
+  .nexus-card-header {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(239, 83, 80, 0.05));
+  }
+}
+
+.nexus-card-info {
+  border-left: 4px solid vars.$nexus-info;
+  
+  .nexus-card-header {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(66, 165, 245, 0.05));
+  }
+}
+
+// Compact card for lists and tables
+.nexus-card-compact {
+  padding: vars.$nexus-spacing-md;
+  margin-bottom: vars.$nexus-spacing-sm;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  .nexus-card-title {
+    font-size: vars.$nexus-font-size-base;
+    font-weight: vars.$nexus-font-weight-medium;
+    margin-bottom: vars.$nexus-spacing-xs;
+  }
+}
+
+// Card grid layout
+.nexus-card-grid {
+  display: grid;
+  gap: vars.$nexus-spacing-lg;
+  
+  &.nexus-card-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  &.nexus-card-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  &.nexus-card-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  @media (max-width: vars.$nexus-breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}

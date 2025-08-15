@@ -11,6 +11,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Watch build**: `ng build --watch --configuration development`
 - **Serve SSR**: `npm run serve:ssr:nexus.las`
 
+### Build Validation
+- **Always run build after style changes**: `ng build` to ensure no compilation errors or warnings
+- **Development build verification**: `ng build --configuration development` for faster testing  
+- **Production build test**: `ng build --configuration production`
+- **Watch mode for development**: `ng build --watch --configuration development`
+- **Warning-free requirement**: All builds must complete without any warnings or deprecation notices
+
 ### Angular CLI
 - **Generate component**: `ng generate component component-name`
 - **Generate service**: `ng generate service service-name`
@@ -77,6 +84,17 @@ This is an Angular 20+ application using Server-Side Rendering (SSR) with the fo
 - Base64 encoding/decoding utilities
 - File download functionality in BaseFormComponent
 
+#### Styling System
+- **Unified theme system** using SCSS variables and Angular Material
+- **Global Material overrides**: All Material form fields styled consistently across the app
+- **Component classes**: `.nexus-btn`, `.nexus-card`, `.nexus-form` for consistent styling
+- **Theme variables**: Centralized in `src/styles/themes/_variables.scss`
+- **Input field styling**: Global Material form field styling with custom Nexus design
+- **Modern SCSS syntax**: Uses `@use` and `@forward` instead of deprecated `@import`
+- **Warning-free builds**: All SCSS compilation produces no warnings or deprecation notices
+- **Build requirement**: Always run `ng build` after modifying SCSS files to validate compilation
+- **Documentation**: See `src/styles/README.md` for complete styling guide
+
 #### Testing
 - Jasmine/Karma setup
 - Spec files alongside components
@@ -87,3 +105,18 @@ This is an Angular 20+ application using Server-Side Rendering (SSR) with the fo
 - Extensive use of dependency injection
 - TypeScript strict mode enabled
 - Angular SSR configured for better performance
+
+## Claude Code Instructions
+When making changes to styling or SCSS files:
+1. **Always run build validation**: Execute `ng build` after any SCSS changes
+2. **Ensure warning-free builds**: Both `ng build` and `ng build --configuration development` must complete without warnings
+3. **Use modern SCSS syntax**: Always use `@use` and `@forward` instead of deprecated `@import`
+4. **Test in development mode**: Use `ng build --configuration development` for faster feedback during development
+5. **Verify theme consistency**: Ensure new styles use variables from `src/styles/themes/_variables.scss`
+6. **Update component documentation**: If adding new component classes, document them in the relevant SCSS file
+
+### Warning-Free Build Requirements
+- ✅ All @import statements converted to @use/@forward
+- ✅ No deprecation warnings during compilation
+- ✅ Clean builds in both production and development modes
+- ✅ SCSS module system properly configured with forwarding

@@ -60,7 +60,7 @@
     display: flex;
     gap: 16px;
     align-items: stretch; /* Changed from center to stretch for consistent heights */
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Prevent wrapping to keep filters on one line */
     padding: 24px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
     backdrop-filter: blur(15px);
@@ -72,28 +72,78 @@
     
     .search {
       flex: 1;
-      min-width: 250px; /* Minimum width for better responsiveness */
+      min-width: 220px; /* Reduced minimum width to fit better */
+      max-width: 300px; /* Add max width to prevent it from taking too much space */
+      
+      // Force exact height alignment with other elements
+      .mat-mdc-form-field-wrapper {
+        height: 56px !important;
+      }
+      
+      .mat-mdc-form-field-flex {
+        height: 56px !important;
+        align-items: center !important;
+      }
+      
+      .mat-mdc-form-field-infix {
+        min-height: 56px !important;
+        padding: 0 !important;
+        border-top: 14px solid transparent !important;
+        border-bottom: 14px solid transparent !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      
+      .mdc-text-field__input {
+        height: 28px !important; /* Exact input height for centering */
+        line-height: 28px !important;
+      }
+    }
+    
+    // Specific widths for form fields to ensure single line layout
+    mat-form-field:not(.search) {
+      flex: 0 0 auto; /* Don't grow or shrink */
+      width: 140px; /* Fixed width for dropdowns */
+      
+      // Ensure exact height alignment for dropdowns
+      .mat-mdc-form-field-wrapper {
+        height: 56px !important;
+      }
+      
+      .mat-mdc-form-field-flex {
+        height: 56px !important;
+        align-items: center !important;
+      }
+      
+      .mat-mdc-form-field-infix {
+        min-height: 56px !important;
+        padding: 0 !important;
+        border-top: 14px solid transparent !important;
+        border-bottom: 14px solid transparent !important;
+        display: flex !important;
+        align-items: center !important;
+      }
     }
     
     // Consistent height for all form fields
     mat-form-field {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-      height: 56px; /* Fixed consistent height */
+      height: 56px !important; /* Fixed consistent height with !important */
       
       .mat-mdc-form-field-wrapper {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-        height: 56px;
+        height: 56px !important;
       }
       
       .mat-mdc-form-field-flex {
-        height: 56px;
-        align-items: center;
+        height: 56px !important;
+        align-items: center !important;
       }
       
       .mat-mdc-form-field-infix {
-        min-height: 56px;
-        display: flex;
-        align-items: center;
+        min-height: 56px !important;
+        display: flex !important;
+        align-items: center !important;
       }
       
       input, .mat-mdc-select-value, .mat-mdc-form-field-label {
@@ -124,11 +174,20 @@
       height: 56px; /* Match form field height */
       border-radius: 12px;
       overflow: hidden;
+      flex: 0 0 auto; /* Don't grow or shrink */
+      
+      &:first-of-type {
+        min-width: 140px; /* Compact width for Public/Private toggle */
+      }
+      
+      &:last-of-type {
+        min-width: 180px; /* Slightly wider for New/Active/Inactive toggle */
+      }
       
       .mat-button-toggle-button {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
         height: 56px;
-        padding: 0 16px;
+        padding: 0 12px; /* Reduced padding for more compact buttons */
         font-size: 14px;
         min-width: auto;
         border: 1px solid rgba(1, 55, 114, 0.2);
@@ -237,7 +296,7 @@
       button {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
         height: 40px; /* Slightly smaller than filter buttons */
-        padding: 0 16px;
+        padding: 0 12px; /* Reduced padding for more compact buttons */
         background: linear-gradient(135deg, rgba(25, 118, 210, 0.1), rgba(33, 150, 243, 0.05));
         border: 1px solid rgba(25, 118, 210, 0.3);
         border-radius: 10px;
@@ -301,6 +360,12 @@
   // Table container with improved styling
   app-shared-table {
     display: block;
+    border-radius: 16px; /* Match table border-radius */
+    overflow: hidden; /* Ensure no angular corners show */
+    box-shadow: 
+      0 8px 32px rgba(1, 55, 114, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(1, 55, 114, 0.1);
     
     // Modern table styling consistent with app theme
     ::ng-deep {
@@ -309,10 +374,9 @@
         backdrop-filter: blur(15px);
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 
-          0 8px 32px rgba(1, 55, 114, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(1, 55, 114, 0.1);
+        border: none; /* Remove border since wrapper has it */
+        box-shadow: none; /* Remove shadow since wrapper has it */
+        width: 100%;
       }
       
       .mat-mdc-header-row {
@@ -409,6 +473,27 @@
 }
 
 // Responsive
+@media (max-width: 1200px) {
+  .filters {
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    
+    .search {
+      flex: 1 1 100%; /* Full width on smaller screens */
+      min-width: 220px;
+      max-width: none;
+    }
+    
+    mat-form-field:not(.search) {
+      width: auto; /* Auto width on smaller screens */
+      min-width: 120px;
+    }
+    
+    mat-button-toggle-group {
+      min-width: 120px; /* Smaller minimum width */
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .filters {
     flex-direction: column;

@@ -1,48 +1,56 @@
-/* ===== SHARED AUTH COMPONENT STYLES ===== */
+/* ===== SHARED AUTH COMPONENT STYLES - Using Unified Theme ===== */
+
+@use '../../../styles/themes/variables' as vars;
+
+// Forward variables so they can be used when this file is @use'd
+@forward '../../../styles/themes/variables';
 
 /* Primary Button Styles */
 .btn-primary {
-    background-color: #025EBA;
-    border-color: #025EBA;
-    color: white;
-    font-weight: 500;
-    border-radius: .35rem;
-    box-shadow: rgba(105, 136, 228, 0.05) 0px 0px 0px 0.335115px;
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, vars.$nexus-primary, vars.$nexus-primary-light);
+    border-color: vars.$nexus-primary;
+    color: vars.$nexus-white;
+    font-weight: vars.$nexus-font-weight-medium;
+    border-radius: vars.$nexus-border-radius-md;
+    box-shadow: vars.$nexus-shadow-sm;
+    transition: all vars.$nexus-transition-normal;
+    font-family: vars.$nexus-font-family;
     
     &:hover {
-        background-color: #013D82;
-        border-color: #013D82;
-        box-shadow: rgba(105, 136, 228, 0.2) 0px 4px 16px;
+        background: linear-gradient(135deg, vars.$nexus-primary-light, vars.$nexus-primary);
+        border-color: vars.$nexus-primary-light;
+        box-shadow: vars.$nexus-shadow-md;
+        transform: translateY(-1px);
     }
     
     &:focus, &:active {
-        background-color: #013D82;
-        border-color: #013D82;
-        box-shadow: 0 0 0 0.2rem rgba(2, 94, 186, 0.25);
+        background: linear-gradient(135deg, vars.$nexus-primary-dark, vars.$nexus-primary);
+        border-color: vars.$nexus-primary-dark;
+        box-shadow: 0 0 0 0.2rem rgba(1, 55, 114, 0.25);
     }
     
     &:disabled {
-        background-color: #6c757d;
-        border-color: #6c757d;
+        background: vars.$nexus-medium-gray;
+        border-color: vars.$nexus-medium-gray;
         opacity: 0.65;
+        transform: none;
     }
 }
 
 /* Link Styles */
 a {
-    color: #025EBA;
+    color: vars.$nexus-primary;
     text-decoration: underline;
-    transition: color 0.3s ease;
-    font-weight: 500;
+    transition: color vars.$nexus-transition-normal;
+    font-weight: vars.$nexus-font-weight-medium;
     
     &:hover {
-        color: #013D82;
+        color: vars.$nexus-primary-light;
         text-decoration: none;
     }
     
     &:focus {
-        color: #013D82;
+        color: vars.$nexus-primary-light;
         outline: none;
         text-decoration: none;
     }
@@ -50,7 +58,7 @@ a {
 
 /* Text Styles */
 .text-gray {
-    color: #6c757d;
+    color: vars.$nexus-medium-gray;
 }
 
 /* Logo and Branding */
@@ -58,54 +66,59 @@ a {
     max-width: 80px;
     max-height: 80px;
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: vars.$nexus-border-radius-sm;
     background: transparent;
 }
 
 .system-name {
-    color: #013772;
-    font-weight: 600;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    color: vars.$nexus-primary;
+    font-weight: vars.$nexus-font-weight-semibold;
+    font-size: vars.$nexus-font-size-2xl;
+    margin-bottom: vars.$nexus-spacing-sm;
+    font-family: vars.$nexus-font-family;
 }
 
 .system-subtitle {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #6c757d;
+    font-size: vars.$nexus-font-size-sm;
+    font-weight: vars.$nexus-font-weight-medium;
+    color: vars.$nexus-medium-gray;
+    font-family: vars.$nexus-font-family;
 }
 
-/* Material Form Field Overrides */
-::ng-deep .mat-mdc-form-field-infix {
-    background-color: white !important;
-}
-
-::ng-deep input.mat-mdc-input-element {
-    background-color: white !important;
+/* Material Form Field Overrides for Auth Components */
+::ng-deep .mat-mdc-form-field {
+    // Ensure auth forms have proper spacing
+    margin-bottom: vars.$nexus-spacing-lg;
+    
+    .mdc-text-field__input {
+        background-color: transparent !important; // Let the gradient background show through
+    }
 }
 
 /* Snackbar Error Styles */
 ::ng-deep .mat-mdc-snack-bar-container.snack-error {
-    background-color: #f44336 !important;
-    color: #ffffff !important;
+    background: linear-gradient(135deg, vars.$nexus-warn, #ef5350) !important;
+    color: vars.$nexus-white !important;
+    border-radius: vars.$nexus-border-radius-md !important;
+    box-shadow: vars.$nexus-shadow-lg !important;
     
     .mdc-button__label {
-        color: #ffffff !important;
+        color: vars.$nexus-white !important;
     }
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: vars.$nexus-breakpoint-md) {
     .logo-img {
         max-width: 70px;
         max-height: 70px;
     }
     
     .system-name {
-        font-size: 1.3rem;
+        font-size: vars.$nexus-font-size-xl;
     }
     
     .system-subtitle {
-        font-size: 0.85rem;
+        font-size: vars.$nexus-font-size-xs;
     }
 }

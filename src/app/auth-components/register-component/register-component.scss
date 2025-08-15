@@ -1,8 +1,5 @@
 /* ===== REGISTER COMPONENT STYLES ===== */
 
-// Use modern @use instead of deprecated @import
-@use '../shared/auth-styles.scss';
-
 /* Register-specific styles */
 .register-form {
     margin: 20px;
