@@ -1,51 +1,85 @@
-<div class="dialog">
-    <div class="actions d-flex justify-content-between align-items-center mb-3">
-        <div class="header-subject">
-            <h5>
-                <span *ngIf="registerNote?.id">Update Note</span>
-                <span *ngIf="!registerNote?.id">Add Note</span>
-            </h5>
-        </div>
-        <div class="dialog-header-buttons actions">
-            <button class="btn" (click)="cancelEdit()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
-    </div>
-    <div class="container">
-        <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Note</mat-label>
-                    <textarea matInput formControlName="registersNotesText" required> </textarea>
-                    @if(formGroup.get('registersNotesText')?.hasError('required') &&
-                    formGroup.get('registersNotesText')?.touched){
-                    <mat-error>
-                        Note is required
-                    </mat-error>
-                    }
-                </mat-form-field>
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>{{ registerNote && registerNote.id ? 'edit_note' : 'note_add' }}</mat-icon>
             </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Note Date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="noteDate" required />
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    <span *ngIf="registerNote && registerNote.id">Update Note</span>
+                    <span *ngIf="!registerNote || !registerNote.id">Create New Note</span>
+                </h2>
+                <p class="dialog-subtitle">
+                    <span *ngIf="registerNote && registerNote.id">Modify existing note details</span>
+                    <span *ngIf="!registerNote || !registerNote.id">Add a new note to the record</span>
+                </p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 
-                    @if(formGroup.get('noteDate')?.hasError('required') && formGroup.get('noteDate')?.touched){
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" *ngIf="formGroup">
+                <!-- Note Text Field -->
+                <div class="form-field-wrapper">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Note</mat-label>
+                        <textarea 
+                            matInput 
+                            formControlName="registersNotesText" 
+                            placeholder="Enter your note here..."
+                            rows="4"
+                            required>
+                        </textarea>
+                        <mat-icon matPrefix>description</mat-icon>
+                        @if(formGroup.get('registersNotesText')?.hasError('required') &&
+                        formGroup.get('registersNotesText')?.touched){
                         <mat-error>
-                            Date is required
+                            Note is required
                         </mat-error>
-                    }
-                </mat-form-field>
-            </div>
+                        }
+                    </mat-form-field>
+                </div>
 
-        </form>
+                <!-- Note Date Field -->
+                <div class="form-field-wrapper">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Note Date</mat-label>
+                        <input 
+                            matInput 
+                            [matDatepicker]="picker" 
+                            formControlName="noteDate"
+                            placeholder="Select date..."
+                            required />
+                        <mat-icon matPrefix>calendar_today</mat-icon>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+
+                        @if(formGroup.get('noteDate')?.hasError('required') && formGroup.get('noteDate')?.touched){
+                            <mat-error>
+                                Date is required
+                            </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="dialog-footer-buttons">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-        <button class="btn btn-primary" (click)="save()">Save</button>
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save()">
+            <mat-icon>{{ registerNote && registerNote.id ? 'save' : 'add' }}</mat-icon>
+            {{ registerNote && registerNote.id ? 'Update Note' : 'Save Note' }}
+        </button>
     </div>
 </div>

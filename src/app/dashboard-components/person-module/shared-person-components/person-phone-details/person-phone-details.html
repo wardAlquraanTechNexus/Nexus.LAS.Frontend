@@ -1,38 +1,60 @@
-<div class="position-relative">
+<div class="main-container">
 
-    <div *ngIf="showLoading" class="spinner-overlay">
-        <mat-spinner diameter="50"></mat-spinner>
-    </div>
+<!-- SECTION 1: Title and Add Button -->
+<div class="section section-title">
+  <div class="title-content">
+    <h2>Phone Numbers</h2>
+  </div>
+  <button mat-raised-button color="primary" (click)="openFormDetails()">
+    <mat-icon>add</mat-icon> Add Phone
+  </button>
+</div>
 
-    <div class="container my-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="mb-0">Phone Numbers</h5>
-            <button class="btn btn-outline-primary" (click)="openFormDetails()">
-                <mat-icon class="me-1">add</mat-icon>
-                Add Phone
-            </button>
+<!-- SECTION 2: Phone List -->
+<div class="section section-content">
+  <!-- Loading State -->
+  <div *ngIf="showLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!-- Phone Items -->
+  <div *ngIf="!showLoading" class="content-list">
+    <div *ngFor="let personPhone of personPhones" class="content-item">
+      
+      <!-- Phone Icon -->
+      <div class="item-icon">
+        <div class="icon-container">
+          <mat-icon>phone</mat-icon>
         </div>
+      </div>
 
-        <div *ngFor="let personPhone of personPhones" class="row align-items-center border rounded py-2 px-1 mb-2">
-            <div class="col-md-1 text-center">
-                <button class="btn btn-outline-primary btn-sm" style="border-radius: 50%;">
-                    <mat-icon>phone</mat-icon>
-                </button>
-            </div>
-            <div class="col-md-7">
-                <div>{{ personPhone.phoneNumber }}
-                <span  *ngIf="personPhone.phonePrimary" [ngStyle]="getPrimaryStyle(personPhone.phonePrimary)">Primary</span>
-                </div>
-            </div>
-            <div class="col-md-4 text-end">
-                <button class="btn btn-outline-primary me-2" title="Edit" (click)="openFormDetails(personPhone)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button class="btn btn-sm btn-outline-danger" title="Delete" [confirmDelete]="getRemoveCallback(personPhone.id!)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
+      <!-- Phone Info -->
+      <div class="item-content">
+        <div class="primary-text">
+          <span>{{ personPhone.phoneNumber }}</span>
+          <span *ngIf="personPhone.phonePrimary" class="primary-badge">Primary</span>
         </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="item-actions">
+        <button mat-icon-button [matMenuTriggerFor]="phoneMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #phoneMenu="matMenu">
+          <button mat-menu-item (click)="openFormDetails(personPhone)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit Phone</span>
+          </button>
+          <button mat-menu-item [confirmDelete]="getRemoveCallback(personPhone.id!)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete Phone</span>
+          </button>
+        </mat-menu>
+      </div>
+
     </div>
+  </div>
+</div>
 
 </div>

@@ -1,18 +1,19 @@
-<div class="row document-container">
+<div class="main-container">
 
-  <div class="document-header">
-    <div>
-      <h4>Documents</h4>
-    </div>
-    <div>
-      <button mat-button color="primary" (click)="openAddDocumentDialog()">
-        Upload Document
-        <mat-icon>description</mat-icon>
-      </button>
-    </div>
+<!-- SECTION 1: Title and Add Button -->
+<div class="section section-title">
+  <div class="title-content">
+    <h2>Documents</h2>
   </div>
+  <button mat-raised-button color="primary" (click)="openAddDocumentDialog()">
+    <mat-icon>add</mat-icon> Upload Document
+  </button>
+</div>
 
+<!-- SECTION 2: Document Tables -->
+<div class="section section-content">
   <app-person-id-documents-table-form #PersonIdDocumentsTableForm></app-person-id-documents-table-form>
   <app-person-other-documents-table-form #PersonOtherDocumentsTableForm></app-person-other-documents-table-form>
+</div>
 
 </div>

@@ -1,24 +1,35 @@
-<div class="dialog">
-    <div class="actions d-flex justify-content-between align-items-center mb-3">
-        <div class="header-subject">
-            <h5>
-                <span *ngIf="personEmail?.id">Update Email Address</span>
-                <span *ngIf="!personEmail?.id">Add new Email Address</span>
-            </h5>
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>{{ personEmail && personEmail.id ? 'edit' : 'email' }}</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    <span *ngIf="personEmail && personEmail.id">Update Email Address</span>
+                    <span *ngIf="!personEmail || !personEmail.id">Add New Email Address</span>
+                </h2>
+                <p class="dialog-subtitle">
+                    <span *ngIf="personEmail && personEmail.id">Modify existing email details</span>
+                    <span *ngIf="!personEmail || !personEmail.id">Add a new email address to the record</span>
+                </p>
+            </div>
         </div>
-        <div class="dialog-header-buttons actions">
-            <button class="btn" (click)="cancelEdit()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
     </div>
-    <div class="container">
-        <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
             <div class="col-12">
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Email Address</mat-label>
-                    <input matInput formControlName="email" required />
+                    <input matInput formControlName="email" placeholder="Enter email address..." required />
                     <mat-error *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
                         Email is required
                     </mat-error>
@@ -31,11 +42,19 @@
                         class="label-toggel">Primary</span></mat-slide-toggle>
 
             </div>
-        </form>
+            </form>
+        </div>
     </div>
 
-    <div class="dialog-footer-buttons">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-        <button class="btn btn-primary" (click)="save()">Save</button>
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save()">
+            <mat-icon>{{ personEmail && personEmail.id ? 'save' : 'add' }}</mat-icon>
+            {{ personEmail && personEmail.id ? 'Update Email' : 'Save Email' }}
+        </button>
     </div>
 </div>

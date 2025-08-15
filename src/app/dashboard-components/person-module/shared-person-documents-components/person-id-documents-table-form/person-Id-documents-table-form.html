@@ -1,53 +1,71 @@
-<div class="table-container">
-    <div class="table">
-        <div *ngIf="showLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
-            <mat-spinner diameter="40"></mat-spinner>
-        </div>
-        <div class="row form">
-            <div class="col-10">
-                <div class="row">
-                    <div class="col-3 w-100">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Document Type</mat-label>
-                            <mat-select [(ngModel)]="params.type" name="type" (selectionChange)="search()">
-                                <mat-option value="passport">Passport</mat-option>
-                                <mat-option value="national_id">National ID</mat-option>
-                                <mat-option value="driver_license">Driver License</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-3 w-100">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Nationaloty</mat-label>
-                            <mat-select [(ngModel)]="params.nationality" name="nationality"
-                                (selectionChange)="search()">
-                                <mat-option [value]="1">Dubay</mat-option>
-                                <mat-option [value]="2">Abudhabi</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="col-2">
+<div class="table-section">
 
-                </div>
-            </div>
+<!-- ID Documents Section Title -->
+<div class="section-subtitle">
+  <div class="subtitle-content">
+    <mat-icon>badge</mat-icon>
+    <h3>ID Documents</h3>
+  </div>
+</div>
 
+<!-- Filters Section -->
+<div class="section-filters" *ngIf="!showLoading">
+  <mat-form-field appearance="outline" class="filter-field" floatLabel="auto">
+    <mat-label>Document Type</mat-label>
+    <mat-select [(ngModel)]="params.type" name="type" (selectionChange)="search()" placeholder="Filter by type...">
+      <mat-option value="">All Types</mat-option>
+      <mat-option value="passport">Passport</mat-option>
+      <mat-option value="national_id">National ID</mat-option>
+      <mat-option value="driver_license">Driver License</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline" class="filter-field" floatLabel="auto">
+    <mat-label>Nationality</mat-label>
+    <mat-select [(ngModel)]="params.nationality" name="nationality" (selectionChange)="search()" placeholder="Filter by nationality...">
+      <mat-option value="">All Nationalities</mat-option>
+      <mat-option [value]="1">Dubai</mat-option>
+      <mat-option [value]="2">Abu Dhabi</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
-            <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" (rowClick)="onRowClick($event)"
-                [paginateResult]="data" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
-                [action]="actionButtonsTemplate">
-                <ng-template class="actions" #actionButtonsTemplate let-row>
-                    <a class="mr-1 action" [confirmDelete]="getRemoveCallback(row.id)">
-                        <mat-icon>delete</mat-icon>
-                    </a>
-                    <a class="mr-1 action" (click)="editDocument(row)">
-                        <mat-icon>edit</mat-icon>
-                    </a>
-                    <a class="mr-1 action" (click)="viewDocument(row)">
-                        <mat-icon>visibility</mat-icon>
-                    </a>
-                </ng-template>
-            </app-shared-table>
-        </div>
-    </div>
+<!-- Loading State -->
+<div *ngIf="showLoading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<!-- Table Section -->
+<div class="section-table" *ngIf="!showLoading">
+  <app-shared-table 
+    [displayedColumns]="displayColumns" 
+    (rowClick)="onRowClick($event)"
+    [paginateResult]="data" 
+    (onChangePage)="changePage($event)" 
+    (onSortChangeEvent)="changeSort($event)"
+    [action]="actionButtonsTemplate">
+  </app-shared-table>
+</div>
+
+<!-- Row Actions -->
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="idDocMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #idDocMenu="matMenu">
+    <button mat-menu-item (click)="editDocument(row)">
+      <mat-icon>edit</mat-icon>
+      <span>Edit Document</span>
+    </button>
+    <button mat-menu-item (click)="viewDocument(row)">
+      <mat-icon>visibility</mat-icon>
+      <span>View Document</span>
+    </button>
+    <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete Document</span>
+    </button>
+  </mat-menu>
+</ng-template>
+
 </div>

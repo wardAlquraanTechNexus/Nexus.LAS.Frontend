@@ -1,28 +1,46 @@
-<div class="note-container">
-    <div class="note-header">
-        <div>
-            <h4>Note</h4>
-        </div>
-        <div>
-            <button class="btn btn-outline-primary" (click)="addNote()">Add Note</button>
-        </div>
-    </div>
+<div class="main-container">
 
-
-
-    <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-        (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate">
-    </app-shared-table>
-
-    <ng-template class="actions" #actionButtonsTemplate let-row>
-        <a class="mr-1 action" [confirmDelete]="getRemoveCallback(row.id)">
-            <mat-icon>delete</mat-icon>
-        </a>
-        <a class="mr-1 action" (click)="edit(row)">
-            <mat-icon>edit</mat-icon>
-        </a>
-    </ng-template>
+<!-- SECTION 1: Title and Add Button -->
+<div class="section section-title">
+  <div class="title-content">
+    <h2>Notes</h2>
+  </div>
+  <button mat-raised-button color="primary" (click)="addNote()">
+    <mat-icon>add</mat-icon> Add Note
+  </button>
 </div>
+
+<!-- SECTION 2: Table -->
+<div class="section section-table">
+  <!-- Table -->
+  <app-shared-table 
+    *ngIf="!showLoading" 
+    [displayedColumns]="displayColumns" 
+    [paginateResult]="data"
+    [action]="actionButtonsTemplate" 
+    (onChangePage)="changePage($event)" 
+    (onSortChangeEvent)="changeSort($event)">
+  </app-shared-table>
+</div>
+
+</div>
+
+<!-- Row Actions -->
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="menuRow">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menuRow="matMenu">
+    <button mat-menu-item (click)="edit(row)">
+      <mat-icon>edit</mat-icon>
+      <span>Edit Note</span>
+    </button>
+    <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete Note</span>
+    </button>
+  </mat-menu>
+</ng-template>
 
 <!-- <app-shared-table 
     *ngIf="!showLoading" 

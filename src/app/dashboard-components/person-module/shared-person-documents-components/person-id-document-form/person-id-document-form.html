@@ -29,9 +29,10 @@
     <br />
 
     <div class="row">
-        <mat-form-field appearance="outline" class="full-width col-6">
+        <mat-form-field appearance="outline" class="full-width col-6" floatLabel="auto">
             <mat-label>Document Type</mat-label>
-            <mat-select formControlName="type" required>
+            <mat-select formControlName="type" placeholder="Select document type..." required>
+                <mat-option value="" disabled>Select document type...</mat-option>
                 <mat-option value="passport">Passport</mat-option>
                 <mat-option value="national_id">National ID</mat-option>
                 <mat-option value="driver_license">Driver License</mat-option>
@@ -41,9 +42,10 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width col-6">
+        <mat-form-field appearance="outline" class="full-width col-6" floatLabel="auto">
             <mat-label>Nationality</mat-label>
-            <mat-select formControlName="nationality" required>
+            <mat-select formControlName="nationality" placeholder="Select nationality..." required>
+                <mat-option value="" disabled>Select nationality...</mat-option>
                 <mat-option value="1">Jordan</mat-option>
                 <mat-option value="2">UAE</mat-option>
             </mat-select>
@@ -54,9 +56,10 @@
         </mat-form-field>
 
 
-        <mat-form-field appearance="outline" class="full-width col-6">
+        <mat-form-field appearance="outline" class="full-width col-6" floatLabel="auto">
             <mat-label>Place of issue</mat-label>
-            <mat-select formControlName="placeOfIssue" required>
+            <mat-select formControlName="placeOfIssue" placeholder="Select place of issue..." required>
+                <mat-option value="" disabled>Select place of issue...</mat-option>
                 <mat-option value="1">Jordan</mat-option>
                 <mat-option value="2">UAE</mat-option>
             </mat-select>
@@ -69,7 +72,7 @@
 
         <mat-form-field appearance="outline" class="full-width col-6">
             <mat-label>Number</mat-label>
-            <input matInput formControlName="idNumber" required />
+            <input matInput formControlName="idNumber" placeholder="Enter document number..." required />
             <mat-error *ngIf="formGroup.get('idNumber')?.hasError('required') && formGroup.get('idNumber')?.touched">
                 Number is required
             </mat-error>
@@ -78,7 +81,7 @@
 
         <mat-form-field appearance="outline" class="full-width col-6">
             <mat-label>Issue Date</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="idIssueDate" required />
+            <input matInput [matDatepicker]="picker1" formControlName="idIssueDate" placeholder="Select issue date..." required />
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             <mat-error
@@ -89,7 +92,7 @@
 
         <mat-form-field appearance="outline" class="full-width col-6">
             <mat-label>Expiry Date</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName="expiryDate" />
+            <input matInput [matDatepicker]="picker2" formControlName="expiryDate" placeholder="Select expiry date..." />
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>

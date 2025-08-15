@@ -1,10 +1,211 @@
-.note-container{
-    padding: 10px;
+/* Enhanced Notes Table Styles - Consistent with Persons Tables */
+
+.main-container {
+  padding: 0;
+  background: transparent;
 }
-.note-header {
-    margin: 4px;
+
+/* SECTION 1: Title Section */
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(1, 55, 114, 0.1);
+  margin-bottom: 24px;
+
+  .title-content {
+    h2 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #013772;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+
+  button {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    height: 100px;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    background: linear-gradient(135deg, #013772, #0056b3) !important;
+    color: white !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(1, 55, 114, 0.3);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    border: none;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, #0056b3, #013772) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(1, 55, 114, 0.4);
+    }
+  }
+}
+
+/* SECTION 2: Table Section */
+.section-table {
+  // Table wrapper styling
+  app-shared-table {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(1, 55, 114, 0.1);
+    background: white;
+    border: 1px solid rgba(1, 55, 114, 0.05);
+
+    // Enhanced table styling
+    ::ng-deep {
+      .mat-mdc-table {
+        background: white;
+        
+        .mat-mdc-header-row {
+          background: linear-gradient(135deg, rgba(1, 55, 114, 0.05), rgba(0, 86, 179, 0.02));
+          
+          .mat-mdc-header-cell {
+            color: #013772;
+            font-weight: 600;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            border-bottom: 1px solid rgba(1, 55, 114, 0.1);
+            padding: 16px 24px;
+          }
+        }
+
+        .mat-mdc-row {
+          transition: all 0.2s ease;
+          
+          &:hover {
+            background: rgba(1, 55, 114, 0.02);
+          }
+
+          .mat-mdc-cell {
+            color: #333;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            border-bottom: 1px solid rgba(1, 55, 114, 0.05);
+            padding: 16px 24px;
+          }
+        }
+      }
+
+      // Pagination styling
+      .mat-mdc-paginator {
+        background: rgba(248, 249, 250, 0.8);
+        border-top: 1px solid rgba(1, 55, 114, 0.1);
+        
+        .mat-mdc-paginator-page-size-label,
+        .mat-mdc-paginator-range-label {
+          color: rgba(1, 55, 114, 0.8);
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+      }
+    }
+  }
+}
+
+/* Action Menu Styling */
+::ng-deep .mat-mdc-menu-panel {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(1, 55, 114, 0.15) !important;
+  border: 1px solid rgba(1, 55, 114, 0.1) !important;
+
+  .mat-mdc-menu-content {
+    padding: 8px 0 !important;
+
+    .mat-mdc-menu-item {
+      padding: 12px 16px !important;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      color: #333 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      transition: all 0.2s ease !important;
+
+      mat-icon {
+        color: rgba(1, 55, 114, 0.7) !important;
+        font-size: 18px !important;
+        width: 18px !important;
+        height: 18px !important;
+      }
+
+      &:hover {
+        background: rgba(1, 55, 114, 0.05) !important;
+        
+        mat-icon {
+          color: #013772 !important;
+        }
+      }
+
+      // Delete action specific styling
+      &:last-child {
+        &:hover {
+          background: rgba(244, 67, 54, 0.05) !important;
+          color: #d32f2f !important;
+          
+          mat-icon {
+            color: #d32f2f !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Loading state
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+
+  mat-spinner {
+    ::ng-deep .mat-mdc-progress-spinner {
+      --mdc-circular-progress-active-indicator-color: #013772;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+
+    .title-content h2 {
+      font-size: 1.5rem;
+    }
+
+    button {
+      align-self: stretch;
+      justify-content: center;
+    }
+  }
+
+  .section-table {
+    app-shared-table {
+      border-radius: 12px;
+      
+      ::ng-deep {
+        .mat-mdc-table {
+          .mat-mdc-header-cell,
+          .mat-mdc-cell {
+            padding: 12px 16px;
+          }
+        }
+      }
+    }
+  }
 }
