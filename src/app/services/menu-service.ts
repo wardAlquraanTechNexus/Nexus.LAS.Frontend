@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { MenuTree } from '../models/menus/menu-tree';
@@ -10,15 +11,23 @@ import { Menu } from '../models/menus/menu';
   providedIn: 'root'
 })
 export class MenuService extends BaseService<Menu> {
-  constructor(override httpClient: HttpClient) {
+  private isBrowser: boolean;
+
+  constructor(
+    override httpClient: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     super(httpClient);
     this.setPath("Menus");
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   getMenus(): Observable<any> {
     return this.httpClient.get<any>(this.url + '/GetAllMenus').pipe(
       tap(menus => {
-        localStorage.setItem('menu', JSON.stringify(menus));
+        if (this.isBrowser) {
+          localStorage.setItem('menu', JSON.stringify(menus));
+        }
       })
     );
   }
@@ -28,6 +37,8 @@ export class MenuService extends BaseService<Menu> {
   }
 
   getMenuByPath(path: string): MenuTree | null {
+    if (!this.isBrowser) return null;
+    
     const menuJson = localStorage.getItem('menu');
     if (!menuJson) return null;
 

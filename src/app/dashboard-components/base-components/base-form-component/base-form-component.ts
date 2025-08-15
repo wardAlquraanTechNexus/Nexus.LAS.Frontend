@@ -1,10 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Injectable, Input, OnInit, Output, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Injectable, Input, OnInit, Output, OnDestroy, PLATFORM_ID, Optional } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileDto } from '../../../models/base/file-dto';
 import { BaseEntity } from '../../../models/base/base-entity';
 import { Subject } from 'rxjs';
+import { ValidationUtils } from '../../../utils/validation-utils';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
+import { LoadingStateService } from '../../../services/loading-state.service';
 
 @Component({
   selector: 'app-base-form-component',
@@ -15,20 +19,33 @@ import { Subject } from 'rxjs';
 export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
+  protected isBrowser: boolean = true;
   uploadedFile: File | null = null;
   @Input() object: T | null = null;
+  @Input() validationRules: { [key: string]: ValidatorFn[] } = {};
   @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelEditEmitter: EventEmitter<void> = new EventEmitter<void>();
 
   formGroup!: FormGroup;
+  validationUtils = ValidationUtils;
+  isSubmitting = false;
+  protected errorHandler!: ErrorHandlerService;
+  protected loadingService!: LoadingStateService;
 
   constructor(
     protected fb: FormBuilder,
     protected cdr: ChangeDetectorRef,
     protected snackBar: MatSnackBar,
     protected sanitizer: DomSanitizer,
+    errorHandler?: ErrorHandlerService,
+    loadingService?: LoadingStateService,
+    @Inject(PLATFORM_ID) @Optional() protected platformId?: Object
   ) {
-
+    this.isBrowser = !platformId || isPlatformBrowser(platformId);
+    
+    // Fallback if services not provided
+    this.errorHandler = errorHandler || new ErrorHandlerService(this.snackBar);
+    this.loadingService = loadingService || new LoadingStateService();
   }
 
   protected setup(object: T): void {
@@ -44,10 +61,47 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
       const group: { [key: string]: FormControl } = {};
 
       for (const key of Object.keys(this.object)) {
-        group[key] = new FormControl((this.object as any)[key]);
+        const validators = this.validationRules[key] || [];
+        group[key] = new FormControl((this.object as any)[key], validators);
       }
       this.formGroup = this.fb.group(group);
       this.cdr.detectChanges();
+    }
+  }
+
+  /**
+   * Get validation error message for a specific field
+   */
+  getFieldError(fieldName: string): string {
+    const control = this.formGroup?.get(fieldName);
+    if (!control || !control.touched || !control.errors) return '';
+    
+    return ValidationUtils.getErrorMessage(control, this.getFieldDisplayName(fieldName));
+  }
+
+  /**
+   * Check if a field has validation errors
+   */
+  hasFieldError(fieldName: string): boolean {
+    const control = this.formGroup?.get(fieldName);
+    return !!(control && control.invalid && control.touched);
+  }
+
+  /**
+   * Get display name for field (override in child components)
+   */
+  protected getFieldDisplayName(fieldName: string): string {
+    return fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+  }
+
+  /**
+   * Mark all form fields as touched to show validation errors
+   */
+  protected markAllFieldsAsTouched(): void {
+    if (this.formGroup) {
+      Object.keys(this.formGroup.controls).forEach(key => {
+        this.formGroup.get(key)?.markAsTouched();
+      });
     }
   }
 
@@ -56,6 +110,11 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   }
 
   download(): void {
+    if (!this.isBrowser) {
+      this.snackBar.open('Download not available in server mode.', 'Close', { duration: 3000 });
+      return;
+    }
+    
     if (this.object && (this.object as any).dataFile && (this.object as any).contentType && (this.object as any).fileName) {
       const blob = this.base64ToBlob((this.object as any).dataFile, (this.object as any).contentType);
       const url = window.URL.createObjectURL(blob);
@@ -86,9 +145,21 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
 
 
   save(isFormData: boolean = false): void {
-    this.formGroup.markAllAsTouched();
+    this.markAllFieldsAsTouched();
 
-    if (this.formGroup.valid) {
+    if (!this.formGroup.valid) {
+      this.errorHandler.showWarning('Please fix the form errors before submitting.');
+      return;
+    }
+
+    if (this.isSubmitting) {
+      return; // Prevent double submission
+    }
+
+    this.isSubmitting = true;
+    this.loadingService.startLoading('Saving form');
+
+    try {
       const formData = new FormData();
 
       Object.keys(this.formGroup.controls).forEach(key => {
@@ -121,7 +192,35 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
       } else {
         this.saveEmitter.emit({ element: this.object });
       }
+      
+      this.errorHandler.showSuccess('Form saved successfully!');
+    } catch (error) {
+      this.errorHandler.handleError('Failed to save form', 'An error occurred while processing the form data.');
+    } finally {
+      this.isSubmitting = false;
+      this.loadingService.stopLoading('Saving form');
+      this.cdr.markForCheck();
     }
+  }
+
+  /**
+   * Handle form save success
+   */
+  protected onSaveSuccess(message: string = 'Saved successfully!'): void {
+    this.isSubmitting = false;
+    this.loadingService.stopLoading('Saving form');
+    this.errorHandler.showSuccess(message);
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Handle form save error
+   */
+  protected onSaveError(error: any, context: string = 'Save operation failed'): void {
+    this.isSubmitting = false;
+    this.loadingService.stopLoading('Saving form');
+    this.errorHandler.handleError(context, error?.message || 'Unknown error occurred');
+    this.cdr.markForCheck();
   }
 
 

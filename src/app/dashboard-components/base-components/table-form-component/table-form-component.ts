@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Injectable, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Injectable, OnInit, OnDestroy, Optional } from '@angular/core';
 import { BaseService } from '../../../services/base/base-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,10 +10,14 @@ import { PaginateRsult } from '../../../models/paginate-result';
 import { BaseEntity } from '../../../models/base/base-entity';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
+import { LoadingStateService } from '../../../services/loading-state.service';
 
 @Injectable({ providedIn: 'root' })
 export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
+  protected errorHandler!: ErrorHandlerService;
+  protected loadingService!: LoadingStateService;
   
   sortState: Sort = { active: '', direction: 'asc' };
   displayColumns: DisplayColumn[] = [];
@@ -37,8 +41,13 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
     protected fb: FormBuilder,
     protected router: Router,
     protected snackBar: MatSnackBar,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    errorHandler?: ErrorHandlerService,
+    loadingService?: LoadingStateService
   ) {
+    // Fallback if services not provided
+    this.errorHandler = errorHandler || new ErrorHandlerService(this.snackBar);
+    this.loadingService = loadingService || new LoadingStateService();
   }
 
   ngOnInit(): void {
@@ -89,24 +98,24 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
 
   fetchData(): void {
     this.showLoading = true;
+    this.loadingService.startLoading('Loading data');
+    
     this.service.getByParams(this.params)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-      next: (res => {
-        this.data = res;
-        this.showLoading = false;
-        this.cdr.markForCheck();
-      }),
-      error: (err => {
-        this.showLoading = false;
-        this.cdr.markForCheck();
-        console.error('Error fetching data:', err);
-        this.snackBar.open('Error loading data. Please try again.', 'Close', {
-          duration: 3000,
-          panelClass: ['error-snackbar']
-        });
+        next: (res => {
+          this.data = res;
+          this.showLoading = false;
+          this.loadingService.stopLoading('Loading data');
+          this.cdr.markForCheck();
+        }),
+        error: (err => {
+          this.showLoading = false;
+          this.loadingService.stopLoading('Loading data');
+          this.errorHandler.handleApiError(err, 'Failed to load data');
+          this.cdr.markForCheck();
+        })
       })
-    })
   }
 
 

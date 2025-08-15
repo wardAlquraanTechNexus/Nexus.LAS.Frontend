@@ -1,0 +1,106 @@
+/* Snackbar styles for different message types */
+
+/* Success messages */
+.success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+  
+  .mat-mdc-snack-bar-action {
+    color: white !important;
+  }
+}
+
+/* Error messages */
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+  
+  .mat-mdc-snack-bar-action {
+    color: white !important;
+  }
+}
+
+/* Warning messages */
+.warning-snackbar {
+  background-color: #ff9800 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+  
+  .mat-mdc-snack-bar-action {
+    color: white !important;
+  }
+}
+
+/* Info messages */
+.info-snackbar {
+  background-color: #2196f3 !important;
+  color: white !important;
+  
+  .mat-mdc-button {
+    color: white !important;
+  }
+  
+  .mat-mdc-snack-bar-action {
+    color: white !important;
+  }
+}
+
+/* Form validation error styles */
+.mat-mdc-form-field.mat-form-field-invalid {
+  .mat-mdc-text-field-wrapper {
+    border-color: #f44336 !important;
+  }
+  
+  .mat-mdc-form-field-error {
+    color: #f44336 !important;
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+}
+
+/* Loading state styles */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    
+    .loading-text {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+}
+
+/* Disabled state for forms during submission */
+.form-submitting {
+  pointer-events: none;
+  opacity: 0.6;
+  
+  .mat-mdc-button {
+    pointer-events: none;
+  }
+}

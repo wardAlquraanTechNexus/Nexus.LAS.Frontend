@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MenuTree } from '../../models/menus/menu-tree';
 import { environment } from '../../../environment/environment';
 
@@ -8,7 +9,9 @@ import { environment } from '../../../environment/environment';
   styleUrl: './sidebar.scss',
   standalone: false,
 })
-export class Sidebar {
+export class Sidebar implements OnDestroy {
+  private isBrowser: boolean;
+  private toggleListener: ((event: any) => void) | null = null;
 
   defaultItem: MenuTree = {
     name: 'Home',
@@ -27,14 +30,19 @@ export class Sidebar {
 
   iconClass = "sidebar-toggle-btn-opened";
 
-  constructor() {
-    // Listen for toggle events from navbar
-    document.addEventListener('toggleSidebar', (event: any) => {
-      this.sidebarOpen = event.detail;
-      this.iconClass = this.sidebarOpen
-        ? "sidebar-toggle-btn-opened"
-        : "sidebar-toggle-btn";
-    });
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    
+    // Listen for toggle events from navbar only in browser
+    if (this.isBrowser) {
+      this.toggleListener = (event: any) => {
+        this.sidebarOpen = event.detail;
+        this.iconClass = this.sidebarOpen
+          ? "sidebar-toggle-btn-opened"
+          : "sidebar-toggle-btn";
+      };
+      document.addEventListener('toggleSidebar', this.toggleListener);
+    }
   }
 
   toggleSidebar() {
@@ -45,18 +53,28 @@ export class Sidebar {
   }
 
   ngOnInit() {
-    const menuJson = localStorage.getItem("menu");
-    if (menuJson) {
-      this.menuItems = JSON.parse(menuJson) as MenuTree[];
-      this.menuItems = this.filterInDashboard(this.menuItems);
+    if (this.isBrowser) {
+      const menuJson = localStorage.getItem("menu");
+      if (menuJson) {
+        this.menuItems = JSON.parse(menuJson) as MenuTree[];
+        this.menuItems = this.filterInDashboard(this.menuItems);
 
-      // Build full paths for all menu items
-      this.buildFullPaths(this.menuItems);
+        // Build full paths for all menu items
+        this.buildFullPaths(this.menuItems);
+      } else {
+        this.menuItems = [];
+      }
     } else {
       this.menuItems = [];
     }
 
     this.menuItems.unshift(this.defaultItem);
+  }
+
+  ngOnDestroy(): void {
+    if (this.isBrowser && this.toggleListener) {
+      document.removeEventListener('toggleSidebar', this.toggleListener);
+    }
   }
 
   filterInDashboard(items: MenuTree[]): MenuTree[] {
