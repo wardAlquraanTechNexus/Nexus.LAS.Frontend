@@ -1,12 +1,36 @@
-app-shared-register-note-form{
-    margin: 10px;
+// Dialog Container Override to remove rectangle background
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 16px !important;
+  overflow: visible !important;
 }
+
+// Remove default dialog panel styling
+::ng-deep .mat-mdc-dialog-surface {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 16px !important;
+  overflow: visible !important;
+}
+
+app-shared-register-note-form {
+  display: block;
+  width: 100%;
+}
+
 .spinner-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 400px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
   z-index: 10;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

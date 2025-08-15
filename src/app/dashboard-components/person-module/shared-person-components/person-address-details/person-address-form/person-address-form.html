@@ -1,23 +1,34 @@
-<div class="dialog">
-    <div class="actions d-flex justify-content-between align-items-center mb-3">
-        <div class="header-subject">
-            <h5>
-                <span *ngIf="personAddress?.id">Update Address</span>
-                <span *ngIf="!personAddress?.id">Add New Address</span>
-            </h5>
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>{{ personAddress && personAddress.id ? 'edit_location' : 'add_location' }}</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    <span *ngIf="personAddress && personAddress.id">Update Address</span>
+                    <span *ngIf="!personAddress || !personAddress.id">Add New Address</span>
+                </h2>
+                <p class="dialog-subtitle">
+                    <span *ngIf="personAddress && personAddress.id">Modify existing address details</span>
+                    <span *ngIf="!personAddress || !personAddress.id">Add a new address to the record</span>
+                </p>
+            </div>
         </div>
-        <div class="dialog-header-buttons actions">
-            <button class="btn" (click)="cancelEdit()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
     </div>
-    <div class="container">
-        <form *ngIf="formGroup" [formGroup]="formGroup" class="row w-100">
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form *ngIf="formGroup" [formGroup]="formGroup" class="row w-100">
             <div class="col-12">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Address Line 1</mat-label>
-                    <input matInput formControlName="addressLine1" required />
+                    <input matInput formControlName="addressLine1" placeholder="Enter street address, building number..." required />
                     <mat-error
                         *ngIf="formGroup.get('addressLine1')?.hasError('required') && formGroup.get('addressLine1')?.touched">
                         Address Line 1 is required
@@ -27,7 +38,7 @@
             <div class="col-12">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Address Line 2</mat-label>
-                    <input matInput formControlName="addressLine2" required />
+                    <input matInput formControlName="addressLine2" placeholder="Enter apartment, suite, unit..." required />
                     <mat-error
                         *ngIf="formGroup.get('addressLine2')?.hasError('required') && formGroup.get('addressLine2')?.touched">
                         Address Line 2 is required
@@ -37,7 +48,7 @@
             <div class="col-12">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Address Line 3</mat-label>
-                    <input matInput formControlName="addressLine3" required />
+                    <input matInput formControlName="addressLine3" placeholder="Enter additional address details..." required />
                     <mat-error
                         *ngIf="formGroup.get('addressLine3')?.hasError('required') && formGroup.get('addressLine3')?.touched">
                         Address Line 3 is required
@@ -47,7 +58,7 @@
             <div class="col-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>PO Box Number</mat-label>
-                    <input matInput formControlName="poBoxNumber" required />
+                    <input matInput formControlName="poBoxNumber" placeholder="Enter P.O. Box number..." required />
                     <mat-error
                         *ngIf="formGroup.get('poBoxNumber')?.hasError('required') && formGroup.get('poBoxNumber')?.touched">
                         PO Box Number is required
@@ -58,14 +69,15 @@
             <div class="col-4 pe-2">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>City</mat-label>
-                    <input matInput formControlName="poBoxCity" required />
+                    <input matInput formControlName="poBoxCity" placeholder="Enter city name..." required />
                 </mat-form-field>
             </div>
 
             <div class="col-4 ps-2">
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field appearance="outline" class="w-100" floatLabel="auto">
                     <mat-label>Country</mat-label>
-                    <mat-select formControlName="poBoxCountry">
+                    <mat-select formControlName="poBoxCountry" placeholder="Select country...">
+                        <mat-option value="" disabled>Select country...</mat-option>
                         <mat-option value="UAE">UAE</mat-option>
                         <mat-option value="Jordan">Jordan</mat-option>
                     </mat-select>
@@ -77,11 +89,19 @@
                         class="label-toggel">Primary</span></mat-slide-toggle>
 
             </div>
-        </form>
+            </form>
+        </div>
     </div>
 
-    <div class="dialog-footer-buttons">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-        <button class="btn btn-primary" (click)="save()">Save</button>
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save()">
+            <mat-icon>{{ personAddress && personAddress.id ? 'save' : 'add' }}</mat-icon>
+            {{ personAddress && personAddress.id ? 'Update Address' : 'Save Address' }}
+        </button>
     </div>
 </div>

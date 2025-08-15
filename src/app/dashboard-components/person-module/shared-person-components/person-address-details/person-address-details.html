@@ -1,60 +1,67 @@
-<div class="position-relative">
+<div class="main-container">
 
-    <!-- Loading Spinner Overlay -->
-    <div *ngIf="showLoading" class="spinner-overlay d-flex justify-content-center align-items-center">
-        <mat-spinner diameter="50"></mat-spinner>
-    </div>
+<!-- SECTION 1: Title and Add Button -->
+<div class="section section-title">
+  <div class="title-content">
+    <h2>Addresses</h2>
+  </div>
+  <button mat-raised-button color="primary" (click)="openFormDetails()">
+    <mat-icon>add</mat-icon> Add Address
+  </button>
+</div>
 
-    <!-- Content -->
-    <div class="container my-4" *ngIf="!showLoading">
+<!-- SECTION 2: Address List -->
+<div class="section section-content">
+  <!-- Loading State -->
+  <div *ngIf="showLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
 
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="mb-0 fw-semibold">Addresses</h5>
-            <button class="btn btn-outline-primary d-flex align-items-center" (click)="openFormDetails()">
-                <mat-icon class="me-1">add</mat-icon>
-                Add Address
-            </button>
+  <!-- Address Items -->
+  <div *ngIf="!showLoading" class="content-list">
+    <div *ngFor="let personAddress of personAddresses" class="content-item">
+      
+      <!-- Address Icon -->
+      <div class="item-icon">
+        <div class="icon-container">
+          <mat-icon>location_on</mat-icon>
         </div>
+      </div>
 
-        <!-- Address List -->
-        <div *ngFor="let personAddress of personAddresses"
-            class="row align-items-start border rounded p-3 mb-3 shadow-sm bg-white">
-
-            <!-- Icon -->
-            <div class="col-md-1 d-flex justify-content-center align-items-start pt-1">
-                <div class="rounded-circle border border-primary text-primary d-flex justify-content-center align-items-center"
-                    style="width: 36px; height: 36px;">
-                    <mat-icon>location_on</mat-icon>
-                </div>
-            </div>
-
-            <!-- Address Info -->
-            <div class="col-md-7">
-                <div>
-                    <span *ngIf="personAddress.addressLine1">{{personAddress.addressLine1}}</span>
-                    <span *ngIf="personAddress.addressLine2">, {{personAddress.addressLine2}}</span>
-                    <span *ngIf="personAddress.addressLine3">, {{personAddress.addressLine3}}</span>
-                    
-                    <span *ngIf="personAddress.addressPrimary"
-                        [ngStyle]="getPrimaryStyle(personAddress.addressPrimary)">Primary</span>
-                </div>
-                <div class="text-muted small">{{ personAddress.poBoxNumber }}</div>
-                <div class="text-muted small">{{ personAddress.poBoxCity }}</div>
-                <div class="text-muted small">{{ personAddress.poBoxCountry }}</div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="col-md-4 text-end pt-1">
-                <button class="btn btn-outline-primary btn-sm me-2" (click)="openFormDetails(personAddress)"
-                    title="Edit">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button class="btn btn-outline-danger btn-sm" title="Delete" [confirmDelete]="getRemoveCallback(personAddress.id!)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
+      <!-- Address Info -->
+      <div class="item-content">
+        <div class="primary-text">
+          <span *ngIf="personAddress.addressLine1">{{personAddress.addressLine1}}</span>
+          <span *ngIf="personAddress.addressLine2">, {{personAddress.addressLine2}}</span>
+          <span *ngIf="personAddress.addressLine3">, {{personAddress.addressLine3}}</span>
+          <span *ngIf="personAddress.addressPrimary" class="primary-badge">Primary</span>
         </div>
+        <div class="secondary-text">
+          <div *ngIf="personAddress.poBoxNumber">{{ personAddress.poBoxNumber }}</div>
+          <div *ngIf="personAddress.poBoxCity">{{ personAddress.poBoxCity }}</div>
+          <div *ngIf="personAddress.poBoxCountry">{{ personAddress.poBoxCountry }}</div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="item-actions">
+        <button mat-icon-button [matMenuTriggerFor]="addressMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #addressMenu="matMenu">
+          <button mat-menu-item (click)="openFormDetails(personAddress)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit Address</span>
+          </button>
+          <button mat-menu-item [confirmDelete]="getRemoveCallback(personAddress.id!)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete Address</span>
+          </button>
+        </mat-menu>
+      </div>
 
     </div>
+  </div>
+</div>
+
 </div>
