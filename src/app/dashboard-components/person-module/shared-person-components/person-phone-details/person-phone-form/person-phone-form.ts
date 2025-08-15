@@ -23,7 +23,9 @@ export class PersonPhoneForm extends BaseFormComponent {
   }
 
   override ngOnInit(): void {
-    this.setup(this.personPhone);
+    if (this.personPhone) {
+      this.setup(this.personPhone);
+    }
     super.ngOnInit();
   }
 }

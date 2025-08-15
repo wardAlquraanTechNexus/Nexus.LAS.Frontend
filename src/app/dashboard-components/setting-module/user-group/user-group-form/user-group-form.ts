@@ -80,7 +80,8 @@ export class UserGroupForm extends BaseFormComponent {
     }
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    super.ngOnDestroy();
   }
 }

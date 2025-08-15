@@ -23,7 +23,9 @@ export class PersonEmailForm extends BaseFormComponent {
   }
 
   override ngOnInit(): void {
-    this.setup(this.personEmail);
+    if (this.personEmail) {
+      this.setup(this.personEmail);
+    }
     super.ngOnInit();
   }
 }

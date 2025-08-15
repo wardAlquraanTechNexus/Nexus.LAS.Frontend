@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileDto } from '../../../models/base/file-dto';
-import { BaseEntity, FormData } from '../../../models/base/base-entity';
+import { BaseEntity } from '../../../models/base/base-entity';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -17,7 +17,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   private destroy$ = new Subject<void>();
   uploadedFile: File | null = null;
   @Input() object: T | null = null;
-  @Output() saveEmitter: EventEmitter<T> = new EventEmitter<T>();
+  @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelEditEmitter: EventEmitter<void> = new EventEmitter<void>();
 
   formGroup!: FormGroup;
@@ -132,16 +132,22 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
       this.uploadedFile = input.files[0];
       const file = this.uploadedFile;
 
-      this.object.contentType = file.type;
+      if (this.object) {
+        (this.object as any).contentType = file.type;
+      }
       this.formGroup.get('file')?.setValue(file);
 
       if (file.type === 'application/pdf') {
         const blobUrl = URL.createObjectURL(file);
-        this.object.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
+        if (this.object) {
+          (this.object as any).imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
+        }
       } else if (file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = () => {
-          this.object.imageUrl = reader.result as string;
+          if (this.object) {
+            (this.object as any).imageUrl = reader.result as string;
+          }
           this.cdr.markForCheck();
         };
         reader.readAsDataURL(file);
