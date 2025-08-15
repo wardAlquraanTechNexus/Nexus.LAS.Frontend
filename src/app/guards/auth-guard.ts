@@ -1,6 +1,7 @@
 import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { isTokenValid, shouldRefreshToken } from '../utils/jwt-utils';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
@@ -8,9 +9,26 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (isPlatformBrowser(platformId)) {
     const token = localStorage.getItem('token');
-    if (token) return true;
+    
+    // Check if token exists and is valid
+    if (token && isTokenValid(token)) {
+      // Optional: Log warning if token needs refresh soon
+      if (shouldRefreshToken(token)) {
+        console.warn('Token will expire soon. Consider refreshing.');
+      }
+      return true;
+    }
+    
+    // Clear invalid token from storage
+    if (token && !isTokenValid(token)) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      console.error('Token is invalid or expired. Please login again.');
+    }
   }
 
-  return router.createUrlTree(['/auth']);
-
+  // Redirect to auth page with return URL
+  return router.createUrlTree(['/auth'], {
+    queryParams: { returnUrl: state.url }
+  });
 };

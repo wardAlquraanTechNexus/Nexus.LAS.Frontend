@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Injectable, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Injectable, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileDto } from '../../../models/base/file-dto';
+import { BaseEntity, FormData } from '../../../models/base/base-entity';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-base-form-component',
@@ -10,13 +12,13 @@ import { FileDto } from '../../../models/base/file-dto';
   templateUrl: './base-form-component.html',
   styleUrl: './base-form-component.scss'
 })
-@Injectable({ providedIn: 'root' })
-export class BaseFormComponent implements OnInit {
+export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnInit, OnDestroy {
 
+  private destroy$ = new Subject<void>();
   uploadedFile: File | null = null;
-  @Input() object: any;
-  @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();
-  @Output() cancelEditEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Input() object: T | null = null;
+  @Output() saveEmitter: EventEmitter<T> = new EventEmitter<T>();
+  @Output() cancelEditEmitter: EventEmitter<void> = new EventEmitter<void>();
 
   formGroup!: FormGroup;
 
@@ -29,7 +31,7 @@ export class BaseFormComponent implements OnInit {
 
   }
 
-  protected setup(object: any) {
+  protected setup(object: T): void {
     this.object = object;
   }
 
@@ -37,30 +39,30 @@ export class BaseFormComponent implements OnInit {
     this.initFormGroup();
   }
 
-  initFormGroup() {
+  initFormGroup(): void {
     if (this.object) {
       const group: { [key: string]: FormControl } = {};
 
       for (const key of Object.keys(this.object)) {
-        group[key] = new FormControl(this.object[key]);
+        group[key] = new FormControl((this.object as any)[key]);
       }
       this.formGroup = this.fb.group(group);
       this.cdr.detectChanges();
     }
   }
 
-  cancelEdit() {
+  cancelEdit(): void {
     this.cancelEditEmitter.emit();
   }
 
-  download() {
-    if (this.object.dataFile && this.object.contentType && this.object.fileName) {
-      const blob = this.base64ToBlob(this.object.dataFile, this.object.contentType);
+  download(): void {
+    if (this.object && (this.object as any).dataFile && (this.object as any).contentType && (this.object as any).fileName) {
+      const blob = this.base64ToBlob((this.object as any).dataFile, (this.object as any).contentType);
       const url = window.URL.createObjectURL(blob);
 
       const a = document.createElement('a');
       a.href = url;
-      a.download = this.object.fileName;
+      a.download = (this.object as any).fileName;
       a.click();
 
       // Optional cleanup
@@ -70,7 +72,7 @@ export class BaseFormComponent implements OnInit {
     }
   }
 
-  base64ToBlob(base64: any, contentType: string): Blob {
+  base64ToBlob(base64: string, contentType: string): Blob {
     const byteCharacters = atob(base64);
     const byteNumbers = new Array(byteCharacters.length);
 
@@ -83,7 +85,7 @@ export class BaseFormComponent implements OnInit {
   }
 
 
-  save(isFormData: boolean = false) {
+  save(isFormData: boolean = false): void {
     this.formGroup.markAllAsTouched();
 
     if (this.formGroup.valid) {
@@ -93,7 +95,9 @@ export class BaseFormComponent implements OnInit {
         const control = this.formGroup.get(key);
         if (control !== null) {
           const value = control.value;
-          (this.object as any)[key] = value;
+          if (this.object) {
+            (this.object as any)[key] = value;
+          }
 
           if (value instanceof Date) {
             if(value != null){
@@ -147,4 +151,8 @@ export class BaseFormComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

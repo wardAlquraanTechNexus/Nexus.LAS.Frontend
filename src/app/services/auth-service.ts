@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { RegisterResponse } from '../models/register-response';
 import { RegisterRequest } from '../models/register-request';
+import { isTokenValid, getTokenRemainingTime, shouldRefreshToken } from '../utils/jwt-utils';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class AuthService {
   
   constructor(
     private httpClient: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
   ) {}
 
   private get isBrowser(): boolean {
@@ -39,8 +42,73 @@ export class AuthService {
     }
   }
 
-  checkAuth() {
-
+  /**
+   * Checks if the current authentication is valid
+   * @returns true if authenticated and token is valid
+   */
+  checkAuth(): boolean {
+    if (!this.isBrowser) {
+      return false;
+    }
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return false;
+    }
+    
+    // Validate token
+    if (!isTokenValid(token)) {
+      this.clearSession();
+      return false;
+    }
+    
+    // Check if token needs refresh
+    if (shouldRefreshToken(token)) {
+      console.warn('Token expiring soon. Time remaining:', getTokenRemainingTime(token), 'seconds');
+      // TODO: Implement token refresh logic here if your backend supports it
+    }
+    
+    return true;
+  }
+  
+  /**
+   * Clears the user session and redirects to login
+   */
+  clearSession(): void {
+    if (this.isBrowser) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    }
+  }
+  
+  /**
+   * Logs out the user and redirects to login page
+   */
+  logout(): void {
+    this.clearSession();
+    this.router.navigate(['/auth']);
+  }
+  
+  /**
+   * Gets the current token if valid
+   * @returns token string or null
+   */
+  getValidToken(): string | null {
+    if (!this.isBrowser) {
+      return null;
+    }
+    
+    const token = localStorage.getItem('token');
+    if (token && isTokenValid(token)) {
+      return token;
+    }
+    
+    // Clear invalid token
+    if (token) {
+      this.clearSession();
+    }
+    
+    return null;
   }
 
   getUser(): AuthResponse | null {
