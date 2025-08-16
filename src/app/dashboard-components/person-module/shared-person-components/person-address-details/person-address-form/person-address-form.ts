@@ -7,6 +7,10 @@ import { BaseFormComponent } from '../../../../base-components/base-form-compone
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DynamicListService } from '../../../../../services/dynamic-list-service';
+import { Observable } from 'rxjs';
+import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
+import { environment } from '../../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-address-form',
@@ -14,13 +18,19 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './person-address-form.html',
   styleUrl: './person-address-form.scss'
 })
-export class PersonAddressForm  extends BaseFormComponent {
+export class PersonAddressForm extends BaseFormComponent {
   @Input() personAddress?: PersonAddress;
+  countryId!: number;
+  loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
+  loadCitiesFn!: (search: string) => Observable<DynamicList[]>;
+
+
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override snackBar: MatSnackBar,
     protected override sanitizer: DomSanitizer,
+    private dlService: DynamicListService
   ) {
     super(fb, cdr, snackBar, sanitizer);
   }
@@ -30,6 +40,21 @@ export class PersonAddressForm  extends BaseFormComponent {
       this.setup(this.personAddress);
     }
     super.ngOnInit();
+
+    this.loadNationalitiesFn = (search: string) =>
+      this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search);
+
+    this.loadCitiesFn = (search: string) => this.loadCitis(search);
   }
 
+  onSelectCountry(event: number) {
+    this.countryId = event;
+    this.formGroup.get('poBoxCity')?.reset();
+
+    this.loadCitiesFn = (search: string) => this.dlService.GetAllByParentId(this.countryId, search);
+    this.cdr.markForCheck();
+  }
+  loadCitis(search: string = "") {
+    return this.dlService.GetAllByParentId(this.countryId, search);
+  }
 }

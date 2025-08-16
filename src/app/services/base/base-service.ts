@@ -10,8 +10,6 @@ import { PaginateRsult } from '../../models/paginate-result';
 })
 export class BaseService<T> {
   url!: string;
-  private cache = new Map<string, T[]>();
-
   constructor(protected httpClient: HttpClient) {
   }
 
@@ -20,18 +18,6 @@ export class BaseService<T> {
 
   }
 
-  getAllCached(paramsObj?: { [param: string]: any }){
-    const key = this.buildCacheKey(paramsObj);
-    if (this.cache.has(key)) {
-      return of(this.cache.get(key)!);
-    }
-    
-    let httpParams = this.httpParams(paramsObj);
-      return this.httpClient.get<T[]>(this.url + "/GetAllByQuery", { params: httpParams }).pipe(
-      tap(data => this.cache.set(key, data))
-    );
-
-  }
   getByParams(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<T>> {
     let params = new HttpParams();
     if (paramsObj) {

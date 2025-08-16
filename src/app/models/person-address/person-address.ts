@@ -7,7 +7,7 @@ export interface PersonAddress extends BaseModel{
   addressLine1?: string | null;
   addressLine2?: string | null;
   addressLine3?: string | null;
-  poBoxCity?: string | null;
-  poBoxCountry?: string | null;
+  poBoxCity?: number | null;
+  poBoxCountry?: number | null;
   poBoxNumber?:string | null
 }

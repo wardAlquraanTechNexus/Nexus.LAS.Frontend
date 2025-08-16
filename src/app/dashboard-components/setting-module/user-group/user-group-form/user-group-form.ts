@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../../../../services/user-service';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { User } from '../../../../models/user/user';
 import { GroupService } from '../../../../services/group-service';
 import { Group } from '../../../../models/group/group';
@@ -29,8 +29,8 @@ export class UserGroupForm extends BaseFormComponent {
 
 
   isLoadingUsers = false;
-  loadGroupFn!: (search: string) => Observable<PaginateRsult<Group>>;
-  loadUsersFn!: (search: string) => Observable<PaginateRsult<User>>;
+  loadGroupFn!: (search: string) => Observable<Group[]>;
+  loadUsersFn!: (search: string) => Observable<User[]>;
   private subscriptions = new Subscription();
 
   constructor(
@@ -47,8 +47,8 @@ export class UserGroupForm extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.userGroup);
     super.ngOnInit();
-    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search);
-    this.loadUsersFn = (search: string) => this.userService.searchUserByName(search);
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search).pipe(map(res=>res.collection));
+    this.loadUsersFn = (search: string) => this.userService.searchUserByName(search).pipe(map(res=>res.collection));
   }
 
   // Optional: Clear search input when dropdown closes

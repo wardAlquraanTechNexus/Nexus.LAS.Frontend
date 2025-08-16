@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchGroupMenuDTO } from '../../../../models/group-menu/search-group-menu/search-group-menu-dto';
-import { Observable, takeUntil } from 'rxjs';
+import { map, Observable, takeUntil, tap } from 'rxjs';
 import { GroupMenuFormDialog } from './group-menu-form-dialog/group-menu-form-dialog';
 import { Group } from '../../../../models/group/group';
 import { Menu } from '../../../../models/menus/menu';
@@ -83,8 +83,8 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
   formGroup!: FormGroup;
 
 
-  loadGroupFn!: (search: string) => Observable<PaginateRsult<Group>>;
-  loadMenusFn!: (search: string) => Observable<PaginateRsult<Menu>>;
+  loadGroupFn!: (search: string) => Observable<Group[]>;
+  loadMenusFn!: (search: string) => Observable<Menu[]>;
 
   constructor(
     override service: GroupMenuService,
@@ -106,8 +106,16 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
       menuId: [''],
       groupId:['']
     });
-    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search);
-    this.loadMenusFn = (search: string) => this.getMenusByName(search);
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search).pipe(
+      map(res=>{
+        return res.collection
+      })
+    );
+    this.loadMenusFn = (search: string) => this.getMenusByName(search).pipe(
+      map(res=>{
+        return res.collection
+      })
+    );
   }
 
   getMenusByName(menuName: string): Observable<PaginateRsult<Menu>> {
@@ -169,11 +177,7 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.data.collection = [
-          ...this.data.collection,
-          result
-        ];
-        this.cdr.markForCheck();
+        this.fetchData();
       }
     });
   }

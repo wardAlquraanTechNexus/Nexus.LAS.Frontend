@@ -20,14 +20,10 @@
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Nationality</mat-label>
-      <mat-select [(ngModel)]="params.nationality" (selectionChange)="search()">
-        <mat-option value="">All</mat-option>
-        <mat-option [value]="1">Dubai</mat-option>
-        <mat-option [value]="2">Abu Dhabi</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
+        [formGroup]="formGroup" [label]="'Nationality'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+        (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
+      </select-auto-complete>
 
     <div class="actions">
       <button mat-button (click)="exportToExcel()">
@@ -40,11 +36,11 @@
 
     <mat-menu #columnMenu="matMenu" [hasBackdrop]="false">
       <div class="column-settings" (click)="$event.stopPropagation()">
-        <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
+        <!-- <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
         <mat-slide-toggle [(ngModel)]="columns.nameEn">Name En</mat-slide-toggle>
         <mat-slide-toggle [(ngModel)]="columns.nameAr">Name Ar</mat-slide-toggle>
         <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
-        <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle> -->
       </div>
     </mat-menu>
   </div>

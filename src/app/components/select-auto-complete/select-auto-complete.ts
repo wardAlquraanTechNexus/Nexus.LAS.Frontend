@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PaginateRsult } from '../../models/paginate-result';
 import { Observable, Subscription } from 'rxjs';
 import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
@@ -12,26 +12,21 @@ import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms'
     { provide: ControlContainer, useExisting: FormGroupDirective }
   ]
 })
-export class SelectAutoComplete implements OnInit, OnDestroy {
-  @Input() fnGet!: (search: string) => Observable<PaginateRsult<any>>;
+export class SelectAutoComplete implements OnInit, OnChanges, OnDestroy {
+  @Input() fnGet!: (search: string) => Observable<any[]>;
+  @Input() withNullOption: boolean = false;
   @Input() formGroup!: FormGroup;
   @Input() controlName!: string;
   @Input() keyToShow!: any;
   @Input() isRequired = false;
   @Input() label!: string;
-  @Input() valueKey!:string;
-  @Input() searchText! : string ;
+  @Input() valueKey!: string;
+  @Input() searchText!: string;
 
   @Output() selectEmitter = new EventEmitter<any>();
 
   isLoading = false;
-  data: PaginateRsult<any> = {
-    page: 0,
-    pageSize: 25,
-    totalPages: 0,
-    totalRecords: 0,
-    collection: []
-  };
+  data!: any[];
 
   private subscription?: Subscription;
 
@@ -41,9 +36,14 @@ export class SelectAutoComplete implements OnInit, OnDestroy {
 
   }
 
-  
+
   ngOnInit(): void {
     this.loadData();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['fnGet'] && !changes['fnGet'].firstChange) {
+      this.loadData();
+    }
   }
 
   onSelect(event: any) {
@@ -67,7 +67,7 @@ export class SelectAutoComplete implements OnInit, OnDestroy {
     })
   }
 
-  selectionChange(event:any){
+  selectionChange(event: any) {
     this.selectEmitter.emit(event.value);
   }
 

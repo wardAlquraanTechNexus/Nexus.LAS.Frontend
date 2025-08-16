@@ -13,16 +13,29 @@
     <form *ngIf="formGroup" [formGroup]="formGroup" class="row">
 
         <div class="col-6">
-            <select-auto-complete *ngIf="loadMenusFn" [controlName]="'menuId'" [fnGet]="loadMenusFn"
-                [formGroup]="formGroup"  [label]="'Menu'" [keyToShow]="'name'" [valueKey]="'id'" (selectEmitter)="onSelectMenu($event)">
+            <select-auto-complete *ngIf="loadMenusFn" 
+            [controlName]="'menuId'" 
+            [fnGet]="loadMenusFn"
+            [formGroup]="formGroup"  
+            [label]="'Menu'" 
+            [keyToShow]="'name'" 
+            [valueKey]="'id'" 
+            [withNullOption]="true"
+            (selectEmitter)="onSelectMenu($event)">
             </select-auto-complete>
 
         </div>
 
         <div class="col-6">
-            <select-auto-complete *ngIf="loadGroupFn" [controlName]="'groupId'" [fnGet]="loadGroupFn"
-                [formGroup]="formGroup"  [label]="'Group'" [keyToShow]="'groupName'"
-                [valueKey]="'id'" (selectEmitter)="onSelectGroup($event)">
+            <select-auto-complete *ngIf="loadGroupFn" 
+            [controlName]="'groupId'" 
+            [fnGet]="loadGroupFn"
+            [formGroup]="formGroup"  
+            [label]="'Group'" 
+            [keyToShow]="'groupName'"
+            [valueKey]="'id'"
+            [withNullOption]="true" 
+            (selectEmitter)="onSelectGroup($event)">
             </select-auto-complete>
 
 

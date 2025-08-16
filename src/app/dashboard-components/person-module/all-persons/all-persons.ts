@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { PersonService } from '../../../services/person-services/person-service';
 import { DisplayColumn } from '../../../models/columns/display-column';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../environment/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,12 +9,15 @@ import { BasePersonsComponent } from '../_base/base-persons-component/base-perso
 import { MenuService } from '../../../services/menu-service';
 import { GetPersonsQuery } from '../../../models/persons/get-persons/get-persons-query';
 import { MatDialog } from '@angular/material/dialog';
+import { DynamicListService } from '../../../services/dynamic-list-service';
+import { DynamicList } from '../../../models/dynamic-list/dynamic-list';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-all-persons',
   standalone: false,
   templateUrl: './all-persons.html',
-  styleUrls: ['./all-persons.scss' , '../_base/base-persons-component/base-persons-component.scss']
+  styleUrls: ['./all-persons.scss', '../_base/base-persons-component/base-persons-component.scss']
 })
 export class AllPersons extends BasePersonsComponent {
 
@@ -68,6 +71,8 @@ export class AllPersons extends BasePersonsComponent {
     },
   ]
 
+ 
+
   constructor(
     override service: PersonService,
     override cdr: ChangeDetectorRef,
@@ -75,11 +80,20 @@ export class AllPersons extends BasePersonsComponent {
     override router: Router,
     override snackBar: MatSnackBar,
     override route: ActivatedRoute,
-    override menuService:MenuService,
-    override dialog: MatDialog
+    override menuService: MenuService,
+    override dialog: MatDialog,
+    override dlService: DynamicListService
   ) {
-    super(service, cdr, fb, router, snackBar, route,menuService,dialog);
+    super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService);
   }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    
+  }
+
+
+ 
 
 
 }

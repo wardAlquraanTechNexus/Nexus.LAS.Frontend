@@ -13,15 +13,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(req).pipe(
         catchError((error: any) => {
-            let message = 'An unexpected error occurred.';
+            debugger
+            let message = '';
 
             if (error.error?.Title) {
                 message = error.error.Title;
             } else if (error.status === 0) {
                 message = 'Network error. Please check your connection.';
-            } else if (error.status == 401) {
-                message = 'Unauthorized.';
-                router.navigateByUrl('auth');
             } else if (error.status >= 400 && error.status < 500) {
                 message = `Request error: ${error.status}`;
             } else if (error.status >= 500) {
@@ -41,6 +39,14 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
                 message += messages.join('\n');  // Or use '<br>' if showing in HTML
             }
+
+            if (error.status == 401) {
+                if(message == '')
+                    message = 'Unauthorized.';
+                router.navigateByUrl('auth');
+            }else if(message == '')
+                message = 'An unexpected error occurred.';
+            
 
             snackBar.openFromComponent(ErrorSnackbar, {
                 duration: 4000,

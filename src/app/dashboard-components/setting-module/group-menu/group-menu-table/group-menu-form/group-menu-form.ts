@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { GroupMenu } from '../../../../../models/group-menu/group-menu';
 import { PaginateRsult } from '../../../../../models/paginate-result';
 import { Group } from '../../../../../models/group/group';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { MenuService } from '../../../../../services/menu-service';
 import { GroupService } from '../../../../../services/group-service';
 import { Menu } from '../../../../../models/menus/menu';
@@ -21,8 +21,8 @@ import { SearchGroupMenuDTO } from '../../../../../models/group-menu/search-grou
 export class GroupMenuForm extends BaseFormComponent {
   @Input() groupMenu!: SearchGroupMenuDTO;
 
-  loadGroupFn!: (search: string) => Observable<PaginateRsult<Group>>;
-  loadMenusFn!: (search: string) => Observable<PaginateRsult<Menu>>;
+  loadGroupFn!: (search: string) => Observable<Group[]>;
+  loadMenusFn!: (search: string) => Observable<Menu[]>;
 
   constructor(
     protected override fb: FormBuilder,
@@ -38,15 +38,17 @@ export class GroupMenuForm extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.groupMenu);
     super.ngOnInit();
-    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search);
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search).pipe(map(res=>res.collection));
     this.loadMenusFn = (search: string) => this.getMenusByName(search);
 
   }
 
 
-  getMenusByName(menuName:string):Observable<PaginateRsult<Menu>>
+  getMenusByName(menuName:string):Observable<Menu[]>
   {
-    return this.menuService.searchMenu({name:menuName , pageSize:100});
+    return this.menuService.searchMenu({name:menuName , pageSize:100}).pipe(
+      map(res => res.collection)
+    );
   }
 
 }

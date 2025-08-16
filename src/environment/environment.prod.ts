@@ -98,5 +98,9 @@ export const environment: Environment = {
     GroupsMenus: 'GroupsMenus'
 
 
+  },
+
+  rootDynamicLists:{
+    nationality: 1036
   }
 } as const;

@@ -8,6 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 import { PersonAddress } from '../../../../models/person-address/person-address';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonAddressDialog } from './person-address-dialog/person-address-dialog';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-address-details',
@@ -18,17 +21,9 @@ import { PersonAddressDialog } from './person-address-dialog/person-address-dial
 export class PersonAddressDetails implements OnInit {
 
   showLoading = false;
-  country$!: Observable<Country[]>;
-  // [
-  //   {
-  //     countryName: "UAE",
-  //     id: 1
-  //   },
-  //   {
-  //     countryName: "Jordan",
-  //     id: 2
-  //   }
-  // ];
+  countries:Map<number , string> = new Map<number,string>();
+  cities:Map<number , string> = new Map<number,string>();
+
   searchControl = new FormControl('');
   filteredCountries$!: Observable<Country[]>;
   personAddresses: PersonAddress[] = [];
@@ -37,56 +32,33 @@ export class PersonAddressDetails implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private countryService: CountryService,
     private personAddressService: PersonAddressService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dlService: DynamicListService
+
   ) { }
 
 
 
   ngOnInit(): void {
 
-    // this.country$ = this.countryService.getAllCached();
-    // this.filteredCountries$ = combineLatest([
-    //   this.country$, // your existing observable of countries
-    //   this.searchControl.valueChanges.pipe(startWith(''))
-    // ]).pipe(
-    //   map(([countries, search]) =>
-    //     countries.filter(c =>
-    //       c.countryName?.toLowerCase().includes((search ?? '').toLowerCase())
-    //     )
-    //   )
-    // );
-
-    this.country$ = of([
-      {
-        countryName: "UAE",
-        id: 1
-      },
-      {
-        countryName: "Jordan",
-        id: 2
-      }
-    ]);
-
-    this.filteredCountries$ = combineLatest([
-      this.country$,
-      this.searchControl.valueChanges.pipe(startWith(''))
-    ]).pipe(
-      map(([countries, search]) =>
-        countries.filter(c =>
-          c.countryName?.toLowerCase().includes((search ?? '').toLowerCase())
-        )
-      ))
     this.showLoading = true;
     let personId = this.route.snapshot.queryParamMap.get('id');
     if (personId) {
       this.personId = parseInt(personId);
       this.fetchData();
-
-
     }
 
+    this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).subscribe(res=>{
+      res.forEach(country=>{
+        this.countries.set(country.id,country.name);
+        this.dlService.GetAllByParentId(country.id).subscribe(res=>{
+          res.forEach(city=>{
+            this.cities.set(city.id,city.name);
+          })
+        })
+      })
+    })
   }
 
 
@@ -132,13 +104,13 @@ export class PersonAddressDetails implements OnInit {
     addressLine1: "",
     addressLine2: "",
     addressLine3: "",
-    poBoxCity: "",
-    poBoxCountry: "",
+    poBoxCity: null,
+    poBoxCountry: null,
     poBoxNumber: "",
     createdBy: "",
     creationDate: ""
   }) {
-  const dialogRef = this.dialog.open(PersonAddressDialog, {
+    const dialogRef = this.dialog.open(PersonAddressDialog, {
       panelClass: 'dialog-container',
       disableClose: true,
       data: personAddress

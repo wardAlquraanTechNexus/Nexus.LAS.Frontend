@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Person } from '../../../../models/persons/person';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonStatus } from '../../../../enums/person-status';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../../services/person-services/person-service';
@@ -19,6 +19,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../../../services/menu-service';
 import { AddPerson } from '../../add-person/add-person';
 import { MenuTree } from '../../../../models/menus/menu-tree';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { Observable } from 'rxjs';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -48,8 +51,9 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     private: true
   };
 
-  currentMenu:MenuTree | null = null;
-
+  currentMenu: MenuTree | null = null;
+  formGroup!: FormGroup;
+  loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
   constructor(
     override service: PersonService,
     override cdr: ChangeDetectorRef,
@@ -59,6 +63,8 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     override route: ActivatedRoute,
     protected menuService: MenuService,
     protected dialog: MatDialog,
+    protected dlService: DynamicListService
+
   ) {
     super(service, cdr, fb, router, snackBar, route);
   }
@@ -67,8 +73,15 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     let routerSplitted = this.router.url.split('/');
     let roterLen = routerSplitted.length;
 
-    this.currentMenu = this.menuService.getMenuByPath(routerSplitted[roterLen-1]);
+    this.currentMenu = this.menuService.getMenuByPath(routerSplitted[roterLen - 1]);
     this.fetchData();
+    this.formGroup = this.fb.group(
+      {
+        nationality: [''],
+      },
+    )
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+
   }
   override search() {
     this.fetchData();
@@ -299,7 +312,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
   }
 
-  exportToPdf(id:number) {
+  exportToPdf(id: number) {
     this.service.exportPersonToPdf({ id: id }).subscribe(res => {
       // Assuming res.data is a base64 string
       const binaryString = atob(res.data);
@@ -319,6 +332,11 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       link.click();
       URL.revokeObjectURL(link.href);
     });
+  }
+
+  onSelectNationality(event: any) {
+    this.params.nationality = event;
+    this.fetchData();
   }
 
 

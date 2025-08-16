@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../../services/menu-service';
 import { PersonService } from '../../../services/person-services/person-service';
 import { MatDialog } from '@angular/material/dialog';
+import { DynamicListService } from '../../../services/dynamic-list-service';
 
 @Component({
   selector: 'app-active-persons',
@@ -77,11 +78,16 @@ export class ActivePersons extends BasePersonsComponent {
     override router: Router,
     override snackBar: MatSnackBar,
     override route: ActivatedRoute,
-    override menuService:MenuService,
-    override dialog: MatDialog
+    override menuService: MenuService,
+    override dialog: MatDialog,
+    override dlService: DynamicListService
   ) {
-    super(service, cdr, fb, router, snackBar, route,menuService,dialog);
+    super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService);
   }
 
+  override ngOnInit(): void {
+    super.ngOnInit();
+    
+  }
   
 }

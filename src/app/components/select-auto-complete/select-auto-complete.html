@@ -1,9 +1,10 @@
 
   <mat-form-field  appearance="outline" class="full-width col-12">
-    <mat-select [formControlName]="controlName" (selectionChange)="selectionChange($event)" required (openedChange)="onSelect($event)" [placeholder]="'select '+ label">
+    <mat-select [placeholder]="label" [formControlName]="controlName" (selectionChange)="selectionChange($event)" required (openedChange)="onSelect($event)">
       <!-- Search input as first option -->
       <mat-option>
-        <input matInput placeholder="Search user..."
+        <input matInput 
+                placeholder="Search..."
                [(ngModel)]="searchText"
                [ngModelOptions]="{standalone: true}"
                (ngModelChange)="loadData()"
@@ -15,8 +16,10 @@
         <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
         Loading...
       </mat-option>
-  
-      <mat-option *ngFor="let item of data.collection" [value]="item[valueKey]">
+      <mat-option *ngIf="withNullOption" [value]="null">
+        All
+      </mat-option>
+      <mat-option *ngFor="let item of data" [value]="item[valueKey]">
         {{ item[keyToShow] }}
       </mat-option>
     </mat-select>

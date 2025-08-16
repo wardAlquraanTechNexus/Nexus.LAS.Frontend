@@ -38,8 +38,8 @@
         </div>
         <div class="secondary-text">
           <div *ngIf="personAddress.poBoxNumber">{{ personAddress.poBoxNumber }}</div>
-          <div *ngIf="personAddress.poBoxCity">{{ personAddress.poBoxCity }}</div>
-          <div *ngIf="personAddress.poBoxCountry">{{ personAddress.poBoxCountry }}</div>
+          <div *ngIf="personAddress.poBoxCity && cities">{{ cities.get(personAddress.poBoxCity) }}</div>
+          <div *ngIf="personAddress.poBoxCountry && countries">{{ countries.get(personAddress.poBoxCountry) }}</div>
         </div>
       </div>
 

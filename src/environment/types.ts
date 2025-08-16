@@ -101,4 +101,9 @@ export interface Environment {
     host: string;
   };
   routes: Routes;
+
+  rootDynamicLists: {
+    nationality:number
+  }
 }
+
