@@ -60,7 +60,7 @@
     display: flex;
     gap: 16px;
     align-items: stretch; /* Changed from center to stretch for consistent heights */
-    flex-wrap: nowrap; /* Prevent wrapping to keep filters on one line */
+    flex-wrap: wrap; /* Prevent wrapping to keep filters on one line */
     padding: 24px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
     backdrop-filter: blur(15px);

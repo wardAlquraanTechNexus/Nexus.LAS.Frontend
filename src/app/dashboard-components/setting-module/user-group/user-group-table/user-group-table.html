@@ -2,14 +2,15 @@
   <span class="page-title">Users Groups</span>
   <span class="flex-spacer"></span>
   <span class="records-count">{{ data.totalRecords || 0 }} Records</span>
-  <button  mat-raised-button color="accent" (click)="onAddNew()">
+  <button mat-raised-button color="accent" (click)="onAddNew()">
     <mat-icon>add</mat-icon>
     Add User Group
   </button>
 </mat-toolbar>
 <div class="content-container">
+
   
-  
+
 
   <!-- Loading Spinner -->
   <div *ngIf="showLoading" class="loading-container">
@@ -17,13 +18,8 @@
   </div>
 
   <!-- Data Table -->
-  <app-shared-table 
-    *ngIf="!showLoading" 
-    [displayedColumns]="displayColumns" 
-    [paginateResult]="data"
-    [action]="actionButtonsTemplate" 
-    (onChangePage)="changePage($event)" 
-    (onSortChangeEvent)="changeSort($event)" >
+  <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+    [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
   </app-shared-table>
 
   <!-- Row Menu Template -->
@@ -32,14 +28,14 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu">
-       <!-- <button mat-menu-item>
+      <button mat-menu-item (click)="onEdit(row)">
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)">
         <mat-icon>delete</mat-icon>
         <span>Delete</span>
-      </button> -->
+      </button>
     </mat-menu>
   </ng-template>
 

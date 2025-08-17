@@ -60,7 +60,7 @@
     display: flex;
     gap: 16px;
     align-items: stretch; /* Changed from center to stretch for consistent heights */
-    flex-wrap: nowrap; /* Prevent wrapping to keep filters on one line */
+    flex-wrap: wrap; /* Prevent wrapping to keep filters on one line */
     padding: 24px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
     backdrop-filter: blur(15px);
@@ -261,18 +261,6 @@
           box-shadow: 0 4px 15px rgba(1, 55, 114, 0.2);
         }
         
-        // Special styling for create button
-        &.create-btn {
-          background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(67, 160, 71, 0.05));
-          border-color: rgba(46, 125, 50, 0.3);
-          color: #2e7d32;
-          
-          &:hover {
-            background: linear-gradient(135deg, #2e7d32, #43a047);
-            color: white;
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
-          }
-        }
         
         mat-icon {
           font-size: 18px;
@@ -446,6 +434,21 @@
     }
   }
   
+  // Records info section at bottom left
+  .records-info {
+    padding: 12px 0;
+    
+    .records-count {
+      color: #0056b3;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      background: linear-gradient(135deg, rgba(1, 55, 114, 0.1), rgba(0, 86, 179, 0.05));
+      border-radius: 8px;
+      border: 1px solid rgba(1, 55, 114, 0.15);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
 }
 
 // Column settings

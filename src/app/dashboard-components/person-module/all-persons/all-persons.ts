@@ -92,8 +92,4 @@ export class AllPersons extends BasePersonsComponent {
     
   }
 
-
- 
-
-
 }

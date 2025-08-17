@@ -6,6 +6,7 @@ import { UploadUserImageCommand } from '../models/user/upload-user-image/upload-
 import { Observable } from 'rxjs';
 import { UploadImageDto } from '../models/base/upload-image-dto';
 import { PaginateRsult } from '../models/paginate-result';
+import { UserDto } from '../models/user/get-user-dto/user-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -31,16 +32,8 @@ export class UserService extends BaseService<User> {
     return this.httpClient.get<PaginateRsult<User>>(this.url + "/", { params });
   }
 
-  searchUser(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<User>> {
-    let params = new HttpParams();
-    if (paramsObj) {
-      Object.keys(paramsObj).forEach(key => {
-        const value = paramsObj[key];
-        if (value !== null && value !== undefined) {
-          params = params.set(key, value);
-        }
-      });
-    }
-    return this.httpClient.get<PaginateRsult<User>>(this.url + "/", { params });
+  searchUser(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<UserDto>> {
+    let params = this.httpParams(paramsObj)
+    return this.httpClient.get<PaginateRsult<UserDto>>(this.url + "/SearchUser", { params });
   }
 }

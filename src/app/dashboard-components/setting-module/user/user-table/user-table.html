@@ -4,22 +4,38 @@
   <span class="records-count">{{ data.totalRecords || 0 }} Records</span>
 </mat-toolbar>
 <div class="content-container">
-  
-  
 
+
+  <div class="row">
+    <div class="col-3">
+      <mat-form-field appearance="outline" class="search">
+        <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" placeholder="Username">
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field appearance="outline" class="search">
+        <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" placeholder="First name">
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field appearance="outline" class="search">
+        <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" placeholder="Last name">
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field appearance="outline" class="search">
+        <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" placeholder="Email">
+      </mat-form-field>
+    </div>
+  </div>
   <!-- Loading Spinner -->
   <div *ngIf="showLoading" class="loading-container">
     <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
   </div>
 
   <!-- Data Table -->
-  <app-shared-table 
-    *ngIf="!showLoading" 
-    [displayedColumns]="displayColumns" 
-    [paginateResult]="data"
-    [action]="actionButtonsTemplate" 
-    (onChangePage)="changePage($event)" 
-    (onSortChangeEvent)="changeSort($event)" >
+  <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+    [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
   </app-shared-table>
 
   <!-- Row Menu Template -->
@@ -28,7 +44,7 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu">
-       <!-- <button mat-menu-item>
+      <!-- <button mat-menu-item>
         <mat-icon>edit</mat-icon>
         <span>Edit</span>
       </button>

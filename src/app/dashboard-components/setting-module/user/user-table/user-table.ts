@@ -5,12 +5,13 @@ import { Sort } from '@angular/material/sort';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { BaseParam } from '../../../../models/base/base-param';
-import { GetUserParam } from '../../../../models/user/param/get-user-param';
+import { GetUserParam } from '../../../../models/user/get-user-dto/get-user-param';
 import { UserService } from '../../../../services/user-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { UserDto } from '../../../../models/user/get-user-dto/user-dto';
 
 @Component({
   selector: 'app-user-table',
@@ -20,7 +21,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class UserTable extends TableFormComponent<User> 
 {
-  override data: PaginateRsult<User> = {
+  override data: PaginateRsult<UserDto> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,
@@ -41,27 +42,31 @@ export class UserTable extends TableFormComponent<User>
     {
       key: "username",
       label: "Username",
-      sort: true
     },
     {
       key: "personsIdN",
       label: "Person Id",
-      sort: true
+    },
+    {
+      key: "email",
+      label: "Email",
+    },
+    {
+      key: "firstName",
+      label: "First Name",
+    },
+    {
+      key: "lastName",
+      label: "Last Name",
     },
     {
       key: "loginName",
       label: "Login Name",
-      sort: true
     }
     ,
     {
       key: "nTLogin",
       label: "NT Login",
-      sort: true
-    },
-    {
-      key: "action",
-      label: "Action",
     },
     
   ]
@@ -78,5 +83,20 @@ export class UserTable extends TableFormComponent<User>
     super(service, cdr, fb, router, snackBar, route);
   }
 
+    override fetchData() {
+    this.showLoading = true;
+    this.service.searchUser(this.params).subscribe({
+      next: (res => {
+        this.data = res;
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      }),
+      error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+
+      })
+    })
+  }
 
 }

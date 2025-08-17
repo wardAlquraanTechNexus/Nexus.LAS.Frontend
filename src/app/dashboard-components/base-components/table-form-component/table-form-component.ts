@@ -22,7 +22,7 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
   sortState: Sort = { active: '', direction: 'asc' };
   displayColumns: DisplayColumn[] = [];
   showLoading = false;
-  data: PaginateRsult<T> = {
+  data: PaginateRsult<any> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,

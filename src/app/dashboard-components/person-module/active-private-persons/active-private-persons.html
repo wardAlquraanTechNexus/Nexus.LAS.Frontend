@@ -25,6 +25,15 @@
         (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
       </select-auto-complete>
 
+        <mat-form-field appearance="outline" class="search">
+        <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()" placeholder="Is Ld Staff">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+
     <div class="actions">
       <button mat-button (click)="exportToExcel()">
         <mat-icon>download</mat-icon> Export

@@ -11,10 +11,10 @@
   </div>
 
   <!-- SECTION 2: Filters and Actions -->
-  <div  class="section section-filters">
+  <div class="section section-filters">
     <!-- Filters -->
     <div class="filters" *ngIf="!selectedPersons.length">
-      <mat-form-field appearance="outline" class="search" >
+      <mat-form-field appearance="outline" class="search">
         <mat-label>Search</mat-label>
         <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [ngModelOptions]="{standalone: true}">
         <mat-icon matSuffix>search</mat-icon>
@@ -34,9 +34,18 @@
         <mat-button-toggle [value]="0">New</mat-button-toggle>
         <mat-button-toggle [value]="1">Active</mat-button-toggle>
         <mat-button-toggle [value]="2">Inactive</mat-button-toggle>
-      </mat-button-toggle-group> 
+      </mat-button-toggle-group>
 
-       <div class="actions">
+      <mat-form-field appearance="outline" class="search">
+        <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()" placeholder="Is Ld Staff">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+          
+        </mat-select>
+      </mat-form-field>
+
+      <div class="actions">
         <button mat-button (click)="exportToExcel()">
           <mat-icon>download</mat-icon> Export
         </button>

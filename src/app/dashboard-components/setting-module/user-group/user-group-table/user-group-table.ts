@@ -13,13 +13,13 @@ import { UserGroupFormDialog } from '../user-group-form-dialog/user-group-form-d
 
 @Component({
   selector: 'app-user-group-table',
-  standalone:false,
+  standalone: false,
   templateUrl: './user-group-table.html',
   styleUrl: './user-group-table.scss'
 })
 export class UserGroupTable extends TableFormComponent<UserGroup> {
 
-   override data: PaginateRsult<UserGroup> = {
+  override data: PaginateRsult<UserGroup> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,
@@ -37,11 +37,7 @@ export class UserGroupTable extends TableFormComponent<UserGroup> {
   };
 
 
-   override displayColumns: DisplayColumn[] = [
-    {
-      key: "userId",
-      label: "User Id",
-    },
+  override displayColumns: DisplayColumn[] = [
     {
       key: "username",
       label: "Username",
@@ -51,17 +47,12 @@ export class UserGroupTable extends TableFormComponent<UserGroup> {
       label: "Group Name",
     },
     {
-      key: "groupId",
-      label: "Group Id",
-    },
-    {
       key: "action",
       label: "Action",
     },
-    
   ]
 
-   constructor(
+  constructor(
     override service: UserGroupService,
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
@@ -73,7 +64,7 @@ export class UserGroupTable extends TableFormComponent<UserGroup> {
     super(service, cdr, fb, router, snackBar, route);
   }
 
-    override fetchData() {
+  override fetchData() {
     this.showLoading = true;
     this.service.getUserGroupDTOs(this.params).subscribe({
       next: (res => {
@@ -83,31 +74,59 @@ export class UserGroupTable extends TableFormComponent<UserGroup> {
       }),
       error: (err => {
         this.showLoading = false;
-        this.cdr.markForCheck ();
+        this.cdr.markForCheck();
 
       })
     })
   }
 
-     onAddNew() {
-        let userGroup:UserGroup = {
-           id:0,
-           userId:0,
-          groupId:0
-        };
-        const dialogRef = this.dialog.open(UserGroupFormDialog, {
-          disableClose: true,
-          data: userGroup
-        });
-    
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            this.data.collection = [
-              ...this.data.collection,
-              result
-            ];
-          }
-        });
+  onAddNew() {
+    let userGroup: UserGroup = {
+      id: 0,
+      userId: 0,
+      groupId: 0
+    };
+    const dialogRef = this.dialog.open(UserGroupFormDialog, {
+      disableClose: true,
+      data: userGroup
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
       }
+    });
+  }
+
+  onEdit(userGroup: UserGroup) {
+
+    const dialogRef = this.dialog.open(UserGroupFormDialog, {
+      disableClose: true,
+      data: userGroup
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+
+  getRemoveCallback(id: number): () => void {
+    return () => this.delete(id);
+  }
+
+  delete(id: number) {
+    this.showLoading = true;
+    this.service.delete(id).subscribe({
+      next: res => {
+        this.fetchData();
+      },
+      error: (err => {
+        this.showLoading = false;
+      })
+    })
+  }
+
 
 }
