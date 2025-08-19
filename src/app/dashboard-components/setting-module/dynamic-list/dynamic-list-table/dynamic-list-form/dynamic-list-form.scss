@@ -1,12 +1,117 @@
-
-.toggle{
-    margin-bottom: 10px;
-    margin-left: 10px;
+/* Toggle Container */
+.toggle-container {
+  padding: 12px;
+  background: rgba(1, 55, 114, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(1, 55, 114, 0.1);
+  
+  .toggle-label {
+    font-weight: 500;
+    color: #333;
+    margin-left: 8px;
+  }
+  
+  mat-slide-toggle {
+    ::ng-deep {
+      .mdc-switch__track {
+        background-color: rgba(1, 55, 114, 0.2) !important;
+      }
+      
+      &.mat-mdc-slide-toggle-checked {
+        .mdc-switch__track {
+          background-color: #013772 !important;
+        }
+        
+        .mdc-switch__handle-track {
+          .mdc-switch__icons {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
 }
-.dialog-header-buttons {
+
+/* Modern Action Buttons */
+.action-buttons {
   display: flex;
-  justify-content: end;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #fff;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(1, 55, 114, 0.1);
+
+  button {
+    min-width: 140px;
+    height: 48px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .cancel-btn {
+    background: rgba(244, 67, 54, 0.05);
+    border: 1px solid rgba(244, 67, 54, 0.2);
+    color: #d32f2f;
+
+    &:hover:not(:disabled) {
+      background: rgba(244, 67, 54, 0.1);
+      border-color: rgba(244, 67, 54, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(244, 67, 54, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .save-btn {
+    background: linear-gradient(135deg, #013772, #0056b3);
+    color: white;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 15px rgba(1, 55, 114, 0.2);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #0056b3, #1976d2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(1, 55, 114, 0.3);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* Form Field Sections */
+.form-field-section {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
