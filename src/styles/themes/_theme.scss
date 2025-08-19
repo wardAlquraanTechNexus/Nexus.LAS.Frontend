@@ -41,52 +41,148 @@
     box-shadow: var(--nexus-shadow-light);
     transition: all 0.25s ease-in-out;
     
-    // Completely hide default Material outline system
+    // Style the Material outline system instead of hiding it
     .mdc-notched-outline {
-      display: none !important;
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: rgba(1, 55, 114, 0.1) !important;
+        border-width: 1px !important;
+        transition: border-color 0.25s ease-in-out;
+      }
+      
+      .mdc-notched-outline__leading {
+        border-radius: var(--nexus-border-radius) 0 0 var(--nexus-border-radius) !important;
+        border-right: none !important;
+      }
+      
+      .mdc-notched-outline__trailing {
+        border-radius: 0 var(--nexus-border-radius) var(--nexus-border-radius) 0 !important;
+        border-left: none !important;
+      }
+      
+      .mdc-notched-outline__notch {
+        border-left: none !important;
+        border-right: none !important;
+      }
     }
     
-    // Create our own simple border system
-    border: 1px solid rgba(1, 55, 114, 0.1) !important;
-    border-radius: var(--nexus-border-radius) !important;
-    
-    // Hover state - simple border change
+    // Hover state
     &:hover:not(.mdc-text-field--focused) {
-      border-color: var(--nexus-primary) !important;
-      border-width: 1px !important;
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading {
+          border-color: var(--nexus-primary) !important;
+          border-width: 1px !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__notch {
+          border-color: var(--nexus-primary) !important;
+          border-width: 1px !important;
+          border-left: none !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__trailing {
+          border-color: var(--nexus-primary) !important;
+          border-width: 1px !important;
+          border-left: none !important;
+        }
+      }
       box-shadow: var(--nexus-shadow-medium);
     }
     
-    // Focused state - enhanced border and glow
+    // Focused state
     &.mdc-text-field--focused {
-      border-color: var(--nexus-primary) !important;
-      border-width: 2px !important;
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading {
+          border-color: var(--nexus-primary) !important;
+          border-width: 2px !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__notch {
+          border-color: var(--nexus-primary) !important;
+          border-width: 2px !important;
+          border-left: none !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__trailing {
+          border-color: var(--nexus-primary) !important;
+          border-width: 2px !important;
+          border-left: none !important;
+        }
+      }
       box-shadow: var(--nexus-shadow-medium), 0 0 0 3px rgba(1, 55, 114, 0.15) !important;
     }
     
-    // Error state override
-    &.mdc-text-field--invalid {
-      border-color: var(--nexus-warn) !important;
-      border-width: 2px !important;
+    // Error state - only apply to invalid fields that are not focused
+    &.mdc-text-field--invalid:not(.mdc-text-field--focused) {
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading {
+          border-color: var(--nexus-warn) !important;
+          border-width: 1px !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__notch {
+          border-color: var(--nexus-warn) !important;
+          border-width: 1px !important;
+          border-left: none !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__trailing {
+          border-color: var(--nexus-warn) !important;
+          border-width: 1px !important;
+          border-left: none !important;
+        }
+      }
+      box-shadow: 0 0 0 1px rgba(244, 67, 54, 0.2) !important;
+    }
+    
+    // Error state when focused
+    &.mdc-text-field--invalid.mdc-text-field--focused {
+      .mdc-notched-outline {
+        .mdc-notched-outline__leading {
+          border-color: var(--nexus-warn) !important;
+          border-width: 2px !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__notch {
+          border-color: var(--nexus-warn) !important;
+          border-width: 2px !important;
+          border-left: none !important;
+          border-right: none !important;
+        }
+        .mdc-notched-outline__trailing {
+          border-color: var(--nexus-warn) !important;
+          border-width: 2px !important;
+          border-left: none !important;
+        }
+      }
       box-shadow: var(--nexus-shadow-medium), 0 0 0 3px rgba(244, 67, 54, 0.15) !important;
     }
   }
   
-  // Label styling - positioned without notched outline interference
-  .mdc-floating-label {
-    color: rgba(1, 55, 114, 0.7) !important;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-    background: transparent !important;
-    padding: 0 4px !important;
+  // Label styling for outlined appearance
+  &.mat-form-field-appearance-outline {
+    .mdc-floating-label {
+      color: rgba(1, 55, 114, 0.7) !important;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      
+      &.mdc-floating-label--float-above {
+        color: var(--nexus-primary) !important;
+        background: white !important;
+        padding: 0 4px !important;
+      }
+    }
     
-    &.mdc-floating-label--float-above {
-      color: var(--nexus-primary) !important;
-      background: white !important;
-      transform: translateY(-50%) scale(0.75) !important;
-      top: 0 !important;
-      left: 12px !important;
-      z-index: 2 !important;
-      border-radius: 4px !important;
+    &.mat-focused {
+      .mdc-floating-label {
+        color: var(--nexus-primary) !important;
+      }
+    }
+    
+    &.mat-form-field-invalid {
+      .mdc-floating-label {
+        color: var(--nexus-warn) !important;
+      }
     }
   }
   
@@ -96,30 +192,31 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
     padding: 16px 12px !important;
     
-    // Ensure placeholder text is visible
+    // Hide placeholder by default to prevent overlap with label
     &::placeholder {
-      color: rgba(1, 55, 114, 0.6) !important;
+      color: transparent !important;
+      transition: color 0.2s ease;
+    }
+  }
+  
+  // Show placeholder only when field is focused and label has floated
+  .mdc-text-field--focused {
+    .mdc-text-field__input::placeholder {
+      color: rgba(1, 55, 114, 0.4) !important;
       opacity: 1 !important;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
     }
   }
   
-  // Error state - use our custom border system
-  &.mat-form-field-invalid {
-    .mdc-text-field--outlined {
-      border-color: var(--nexus-warn) !important;
-      border-width: 2px !important;
-      box-shadow: var(--nexus-shadow-medium), 0 0 0 3px rgba(244, 67, 54, 0.15) !important;
-    }
-    
-    .mdc-floating-label {
-      color: var(--nexus-warn) !important;
-      
-      &.mdc-floating-label--float-above {
-        background: white !important;
-      }
+  // Also show placeholder when field has value (label is already floated)
+  .mdc-text-field--label-floating {
+    .mdc-text-field__input::placeholder {
+      color: rgba(1, 55, 114, 0.4) !important;
+      opacity: 1 !important;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
     }
   }
+  
 }
 
 // Form field hint and error text
