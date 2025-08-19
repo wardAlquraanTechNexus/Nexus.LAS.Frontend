@@ -82,12 +82,15 @@ export class SharedTreeComponent implements OnInit {
   }
 
   onDeleteWrapper(node: any) {
-  this.emitDelete(node);
-}
+    this.emitDelete(node);
+  }
 
+  onRowClick(event: Event, node: any) {
+    // Trigger the same action as arrow_forward button
+    this.onView(node);
+  }
 
   emitDelete(node: any) {
     this.deleteEmitter.emit(node);
-
   }
 }

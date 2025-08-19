@@ -2,25 +2,25 @@
 
     <!-- Tree -->
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="tree-row" (click)="onRowClick($event, node)">
             <button mat-icon-button disabled></button>
             <mat-icon class="node-icon">{{ node.icon }}</mat-icon>
             <span class="node-name">{{ node.name }}</span>
             <span class="node-actions">
-                <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node)">
+                <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node); $event.stopPropagation()">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="action-btn delete-btn" [confirmDelete]="onDeleteWrapper.bind(this, node)">
+                <button mat-icon-button class="action-btn delete-btn" [confirmDelete]="onDeleteWrapper.bind(this, node)" (click)="$event.stopPropagation()">
                     <mat-icon>delete</mat-icon>
                 </button>
-                <button mat-icon-button class="action-btn view-btn" (click)="onView(node)">
+                <button mat-icon-button class="action-btn view-btn" (click)="onView(node); $event.stopPropagation()">
                     <mat-icon>arrow_forward</mat-icon>
                 </button>
             </span>
         </mat-tree-node>
 
-        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-            <button mat-icon-button matTreeNodeToggle>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding class="tree-row" (click)="onRowClick($event, node)">
+            <button mat-icon-button matTreeNodeToggle (click)="$event.stopPropagation()">
                 <mat-icon>
                     {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                 </mat-icon>
@@ -28,13 +28,13 @@
             <mat-icon class="node-icon">{{ node.icon }}</mat-icon>
             <span class="node-name">{{ node.name }}</span>
             <span class="node-actions">
-                <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node)">
+                <button mat-icon-button class="action-btn edit-btn" (click)="onEdit(node); $event.stopPropagation()">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="action-btn delete-btn" [confirmDelete]="onDeleteWrapper.bind(this, node)">
+                <button mat-icon-button class="action-btn delete-btn" [confirmDelete]="onDeleteWrapper.bind(this, node)" (click)="$event.stopPropagation()">
                     <mat-icon>delete</mat-icon>
                 </button>
-                <button mat-icon-button class="action-btn view-btn" (click)="onView(node)">
+                <button mat-icon-button class="action-btn view-btn" (click)="onView(node); $event.stopPropagation()">
                     <mat-icon>arrow_forward</mat-icon>
                 </button>
             </span>

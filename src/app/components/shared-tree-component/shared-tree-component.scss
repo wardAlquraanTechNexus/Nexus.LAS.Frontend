@@ -25,6 +25,24 @@ mat-tree-node {
   justify-content: space-between;
   background-color: #fff;
   margin-bottom: 4px;
+  
+  &.tree-row {
+    cursor: pointer;
+    padding: 8px 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(1, 55, 114, 0.04);
+      transform: translateX(2px);
+      box-shadow: 0 2px 8px rgba(1, 55, 114, 0.1);
+    }
+    
+    &:active {
+      background-color: rgba(1, 55, 114, 0.08);
+      transform: translateX(1px);
+    }
+  }
 }
 
 .node-icon {
@@ -41,29 +59,51 @@ mat-tree-node {
   gap: 4px;
 
   .action-btn {
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    
     mat-icon {
       font-size: 18px;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   .view-btn {
     color: #1976d2;
+    
+    &:hover {
+      background-color: rgba(25, 118, 210, 0.08);
+      color: #0d47a1;
+      transform: scale(1.05);
+    }
   }
 
   .edit-btn {
     color: #ff9800;
+    
+    &:hover {
+      background-color: rgba(255, 152, 0, 0.08);
+      color: #e65100;
+      transform: scale(1.05);
+    }
   }
 
   .delete-btn {
     color: #f44336;
-  }
-
-  .action-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
+    
+    &:hover {
+      background-color: rgba(244, 67, 54, 0.08);
+      color: #c62828;
+      transform: scale(1.05);
+    }
   }
 }
