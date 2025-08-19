@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
 import { MatDialogRef } from '@angular/material/dialog';
+import { LanguageService } from '../../../services/language-service';
 
 @Component({
   selector: 'app-add-person',
@@ -14,19 +15,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddPerson implements OnInit {
 
+  labels: any;
 
   constructor(
     private cdRef: ChangeDetectorRef,
     private personService: PersonService,
     private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<AddPerson>,
     private router: Router,
-    private route: ActivatedRoute,
-  private dialogRef: MatDialogRef<AddPerson>) {
+    private langService: LanguageService) {
 
   }
 
   ngOnInit(): void {
-
+    this.langService.language$.subscribe(lang => {
+      this.labels = this.langService.getLabels(lang);
+    });
   }
 
 
@@ -38,20 +42,21 @@ export class AddPerson implements OnInit {
       next: (res) => {
         this.snackBar.openFromComponent(SuccessSnackbar, {
           duration: 4000,
-          data: 'Person Created Successfully',
+          data: this.labels.personCreatedSuccessfully,
         });
         this.isSaving = false;
         this.cdRef.detectChanges();
-        this.dialogRef?.close(res); // close dialog with result
+        this.dialogRef?.close(res);
+        this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });
       },
       error: () => {
         this.isSaving = false;
-        this.cdRef.detectChanges();
+        this.cdRef.markForCheck();
       },
     });
   }
 
-    onClose(): void {
+  onClose(): void {
     this.dialogRef.close();
   }
 }

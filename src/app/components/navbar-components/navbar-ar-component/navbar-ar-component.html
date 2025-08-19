@@ -9,8 +9,8 @@
       </button>
       
       <div class="logo-container">
-        <img src="../../../assets/images/Vector.svg" alt="Legal Assistance System Logo" class="header-logo" />
-        <span class="app-title">Legal Assistance System</span>
+        <img src="../../../assets/images/Vector.svg" alt="نظام المساعدة القانونية" class="header-logo" />
+        <span class="app-title">نظام المساعدة القانونية</span>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
             class="search-input" 
             [(ngModel)]="searchText" 
             [ngModelOptions]="{standalone: true}"
-            placeholder="Search persons, companies, real estates..." 
+            placeholder="ابحث عن الأشخاص والشركات والعقارات..." 
             (keyup.enter)="onSearch(); menuTrigger.openMenu()"
             #searchInput
           />
@@ -42,7 +42,7 @@
         <!-- Quick Create Button -->
         <button class="create-button" [matMenuTriggerFor]="listToCreate_menu">
           <mat-icon>add</mat-icon>
-          <span>Create</span>
+          <span>اضافة</span>
         </button>
       </div>
     </div>
@@ -54,7 +54,7 @@
       <div class="control-item">
         <button class="control-button" [matMenuTriggerFor]="languages_menu">
           <mat-icon>language</mat-icon>
-          <span class="control-text">{{ selectedLanguage.name }}</span>
+          <span class="control-text">العربية</span>
           <mat-icon class="dropdown-icon">expand_more</mat-icon>
         </button>
       </div>
@@ -75,23 +75,9 @@
     </div>
   </div>
 
-  <!-- Search Results Menu -->
-  <mat-menu #searchMenu="matMenu" class="search-menu">
-    <div class="search-results">
-      <ng-container *ngIf="searchResults.length; else noResults">
-        <button mat-menu-item *ngFor="let result of searchResults" class="search-result-item">
-          <mat-icon>search</mat-icon>
-          <span>{{ result }}</span>
-        </button>
-      </ng-container>
-      <ng-template #noResults>
-        <div class="no-results">
-          <mat-icon>search_off</mat-icon>
-          <span>No results found</span>
-        </div>
-      </ng-template>
-    </div>
-  </mat-menu>
+
+
+</header>
 
   <!-- Create Menu -->
   <mat-menu #listToCreate_menu="matMenu" class="create-menu">
@@ -101,15 +87,15 @@
     </button>
   </mat-menu>
 
-  <!-- Language Menu -->
+    <!-- Language Menu -->
   <mat-menu #languages_menu="matMenu">
-    <button mat-menu-item *ngFor="let language of languages" (click)="selectedLanguage = language">
+    <button mat-menu-item *ngFor="let language of languages" (click)="selectDirection(language)">
       <mat-icon>language</mat-icon>
       <span>{{ language.name }}</span>
     </button>
   </mat-menu>
 
-  <!-- Profile Menu -->
+    <!-- Profile Menu -->
   <mat-menu #profile="matMenu" class="profile-menu">
     <div class="profile-header">
       <mat-icon class="profile-avatar">account_circle</mat-icon>
@@ -134,4 +120,20 @@
     </button>
   </mat-menu>
 
-</header>
+    <!-- Search Results Menu -->
+  <mat-menu #searchMenu="matMenu" class="search-menu">
+    <div class="search-results">
+      <ng-container *ngIf="searchResults.length; else noResults">
+        <button mat-menu-item *ngFor="let result of searchResults" class="search-result-item">
+          <mat-icon>search</mat-icon>
+          <span>{{ result }}</span>
+        </button>
+      </ng-container>
+      <ng-template #noResults>
+        <div class="no-results">
+          <mat-icon>search_off</mat-icon>
+          <span>No results found</span>
+        </div>
+      </ng-template>
+    </div>
+  </mat-menu>

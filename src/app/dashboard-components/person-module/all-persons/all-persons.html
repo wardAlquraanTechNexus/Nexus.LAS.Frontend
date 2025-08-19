@@ -3,10 +3,10 @@
   <!-- SECTION 1: Title and Records -->
   <div class="section section-title">
     <div class="title-content">
-      <h2>All Persons</h2>
+      <h2>{{label.allPersons}}</h2>
     </div>
     <button *ngIf="currentMenu?.canInsert" mat-raised-button color="primary" (click)="openAddDialog()">
-      <mat-icon>add</mat-icon> Add Person
+      <mat-icon>add</mat-icon> {{label.addPerson}}
     </button>
   </div>
 
@@ -15,71 +15,60 @@
     <!-- Filters -->
     <div class="filters" *ngIf="!selectedPersons.length">
       <mat-form-field appearance="outline" class="search">
-        <mat-label>Search</mat-label>
+        <mat-label>{{label.search}}</mat-label>
         <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [ngModelOptions]="{standalone: true}">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 
       <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
-        [formGroup]="formGroup" [label]="'Nationality'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+        [formGroup]="formGroup" [label]="label.nationality" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
         (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
       </select-auto-complete>
 
       <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple>
-        <mat-button-toggle [value]="false">Public</mat-button-toggle>
-        <mat-button-toggle [value]="true">Private</mat-button-toggle>
+        <mat-button-toggle [value]="false">{{label.public}}</mat-button-toggle>
+        <mat-button-toggle [value]="true">{{label.private}}</mat-button-toggle>
       </mat-button-toggle-group>
 
       <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple>
-        <mat-button-toggle [value]="0">New</mat-button-toggle>
-        <mat-button-toggle [value]="1">Active</mat-button-toggle>
-        <mat-button-toggle [value]="2">Inactive</mat-button-toggle>
+        <mat-button-toggle [value]="0">{{label.new}}</mat-button-toggle>
+        <mat-button-toggle [value]="1">{{label.active}}</mat-button-toggle>
+        <mat-button-toggle [value]="2">{{label.inactive}}</mat-button-toggle>
       </mat-button-toggle-group>
 
       <mat-form-field appearance="outline" class="search">
-        <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()" placeholder="Is Ld Staff">
-          <mat-option [value]="null">All</mat-option>
-          <mat-option [value]="true">Yes</mat-option>
-          <mat-option [value]="false">No</mat-option>
+        <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()" [placeholder]="label.isLdStaff">
+          <mat-option [value]="null">{{label.all}}</mat-option>
+          <mat-option [value]="true">{{label.yes}}</mat-option>
+          <mat-option [value]="false">{{label.no}}</mat-option>
           
         </mat-select>
       </mat-form-field>
 
       <div class="actions">
         <button mat-button (click)="exportToExcel()">
-          <mat-icon>download</mat-icon> Export
-        </button>
-        <button mat-icon-button [matMenuTriggerFor]="columnMenu">
-          <mat-icon>settings</mat-icon>
+          <mat-icon>download</mat-icon> {{label.export}}
         </button>
       </div>
 
-      <mat-menu #columnMenu="matMenu" [hasBackdrop]="false">
-        <div class="column-settings" (click)="$event.stopPropagation()">
-          <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
-          <mat-slide-toggle [(ngModel)]="columns.nameEn">Name En</mat-slide-toggle>
-          <mat-slide-toggle [(ngModel)]="columns.nameAr">Name Ar</mat-slide-toggle>
-          <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
-          <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
-        </div>
-      </mat-menu>
+      
     </div>
 
     <!-- Bulk Actions -->
     <div class="bulk-actions" *ngIf="selectedPersons.length">
-      <span>{{ selectedPersons.length }} selected</span>
+      <span>{{ selectedPersons.length }} {{label.selected}}</span>
       <div class="bulk-buttons" *ngIf="currentMenu?.canUpdate">
         <button mat-button (click)="bulkChangeStatus(activeStatus)">
-          <mat-icon>check_circle</mat-icon> Activate
+          <mat-icon>check_circle</mat-icon> {{label.activate}}
         </button>
         <button mat-button (click)="bulkChangeStatus(inactiveStatus)">
-          <mat-icon>cancel</mat-icon> Deactivate
+          <mat-icon>cancel</mat-icon> {{label.deactivate}}
         </button>
         <button mat-button (click)="bulkChangePrivate(false)">
-          <mat-icon>visibility</mat-icon> Public
+          <mat-icon>visibility</mat-icon> {{label.public}}
         </button>
         <button mat-button (click)="bulkChangePrivate(true)">
-          <mat-icon>visibility_off</mat-icon> Private
+          <mat-icon>visibility_off</mat-icon> {{label.private}}
         </button>
       </div>
     </div>
@@ -106,22 +95,22 @@
     </button>
     <mat-menu #menuRow="matMenu">
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)">
-        <mat-icon>check_circle</mat-icon> Activate
+        <mat-icon>check_circle</mat-icon> {{label.activate}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)">
-        <mat-icon>cancel</mat-icon> Deactivate
+        <mat-icon>cancel</mat-icon> {{label.deactivate}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)">
-        <mat-icon>visibility</mat-icon> Public
+        <mat-icon>visibility</mat-icon> {{label.public}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
-        <mat-icon>visibility_off</mat-icon> Private
+        <mat-icon>visibility_off</mat-icon> {{label.private}}
       </button>
       <button mat-menu-item (click)="exportToPdf(row.id)">
-        <mat-icon>print</mat-icon> Print
+        <mat-icon>print</mat-icon> {{label.print}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)">
-        <mat-icon>delete</mat-icon> Delete
+        <mat-icon>delete</mat-icon> {{label.delete}}
       </button>
     </mat-menu>
   </ng-template>

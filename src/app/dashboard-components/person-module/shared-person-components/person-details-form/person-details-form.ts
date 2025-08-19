@@ -5,6 +5,8 @@ import { Person } from '../../../../models/persons/person';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonService } from '../../../../services/person-services/person-service';
 import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { Router } from '@angular/router';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-details-form',
@@ -14,16 +16,17 @@ import { SuccessSnackbar } from '../../../../components/snackbars/success-snackb
 })
 export class PersonDetailsForm implements OnInit {
   @Input() isSaving = false;
-  person:Person | null = null;
+  person: Person | null = null;
   personalDetailsForm!: FormGroup;
   constructor(
     private dialogRef: MatDialogRef<PersonDetailsForm>,
     private cdRef: ChangeDetectorRef,
     private fb: FormBuilder,
-    private personService:PersonService,
+    private personService: PersonService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: Person | null,
     private snackBar: MatSnackBar) {
-      this.person = data;
+    this.person = data;
   }
 
   ngOnInit(): void {
@@ -31,7 +34,7 @@ export class PersonDetailsForm implements OnInit {
 
 
     this.personalDetailsForm = this.fb.group({
-      id:[this.person?.id],
+      id: [this.person?.id],
       personEnglishName: [this.person?.personEnglishName, [Validators.required]],
       personArabicName: [this.person?.personArabicName, Validators.required],
       personShortName: [this.person?.personShortName, [Validators.required, this.noWhitespaceValidator]],
@@ -67,25 +70,32 @@ export class PersonDetailsForm implements OnInit {
     if (this.personalDetailsForm.valid) {
       this.isSaving = true;
       const person = { ...this.personalDetailsForm.getRawValue() };
-      if(this.person){
+      if (this.person) {
         this.personService.updatePerson(person).subscribe({
-          next:(res=>{
+          next: (res => {
             this.isSaving = false;
-            this.snackBar.openFromComponent(SuccessSnackbar,{
+            this.snackBar.openFromComponent(SuccessSnackbar, {
               data: "Updated Successfully",
               duration: 1000
             });
             this.dialogRef.close({ ...this.person, ...person });
+          }), error: (err => {
+            this.isSaving = false;
+            this.cdRef.markForCheck();
           })
         })
-      }else{
+      } else {
         this.personService.createPerson(person).subscribe({
-          next:(res=>{
+          next: (res => {
             this.isSaving = false;
-            this.snackBar.openFromComponent(SuccessSnackbar,{
+            this.snackBar.openFromComponent(SuccessSnackbar, {
               data: "Updated Successfully"
             });
             this.dialogRef.close({ ...this.person, ...person });
+            this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });
+          }), error: (err => {
+            this.isSaving = false;
+            this.cdRef.markForCheck();
           })
         })
       }
@@ -94,7 +104,7 @@ export class PersonDetailsForm implements OnInit {
     }
   }
 
-    onCancel(): void {
+  onCancel(): void {
     this.dialogRef.close();
   }
 }

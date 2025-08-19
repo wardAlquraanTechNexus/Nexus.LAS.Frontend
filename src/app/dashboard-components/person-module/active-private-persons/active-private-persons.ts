@@ -10,6 +10,7 @@ import { PersonService } from '../../../services/person-services/person-service'
 import { BasePersonsComponent } from '../_base/base-persons-component/base-persons-component';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../services/dynamic-list-service';
+import { LanguageService } from '../../../services/language-service';
 
 @Component({
   selector: 'app-not-active-persons',
@@ -65,19 +66,20 @@ export class ActivePrivatePersons extends BasePersonsComponent {
     },
   ]
 
-    constructor(
-      override service: PersonService,
-      override cdr: ChangeDetectorRef,
-      override fb: FormBuilder,
-      override router: Router,
-      override snackBar: MatSnackBar,
-      override route: ActivatedRoute,
-      override menuService: MenuService,
-      override dialog: MatDialog,
-      override dlService: DynamicListService
-    ) {
-      super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService);
-    }
+     constructor(
+       override service: PersonService,
+       override cdr: ChangeDetectorRef,
+       override fb: FormBuilder,
+       override router: Router,
+       override snackBar: MatSnackBar,
+       override route: ActivatedRoute,
+       override menuService: MenuService,
+       override dialog: MatDialog,
+       override dlService: DynamicListService,
+       override langService: LanguageService,
+     ) {
+       super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService, langService);
+     }
   
     override ngOnInit(): void {
       super.ngOnInit();

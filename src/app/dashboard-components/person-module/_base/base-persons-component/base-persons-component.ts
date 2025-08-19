@@ -22,6 +22,8 @@ import { MenuTree } from '../../../../models/menus/menu-tree';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -43,14 +45,11 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   inactiveStatus = PersonStatus.Inactive;
   selectedPersons: Person[] = [];
 
-  columns = {
-    code: true,
-    nameEn: true,
-    nameAr: true,
-    status: true,
-    private: true
-  };
+  currentLang: LanguageCode = 'en';
 
+  get label() {
+    return Labels[this.currentLang];
+  }
   currentMenu: MenuTree | null = null;
   formGroup!: FormGroup;
   loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
@@ -63,7 +62,8 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     override route: ActivatedRoute,
     protected menuService: MenuService,
     protected dialog: MatDialog,
-    protected dlService: DynamicListService
+    protected dlService: DynamicListService,
+    protected langService: LanguageService,
 
   ) {
     super(service, cdr, fb, router, snackBar, route);
@@ -82,6 +82,9 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     )
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
 
+    this.langService.language$.subscribe(lang => {
+      this.applyLanguage(lang);
+    });
   }
   override search() {
     this.fetchData();
@@ -337,6 +340,11 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   onSelectNationality(event: any) {
     this.params.nationality = event;
     this.fetchData();
+  }
+
+
+  protected applyLanguage(lang: LanguageCode) {
+    this.currentLang = lang;
   }
 
 

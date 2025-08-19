@@ -1,31 +1,36 @@
+<mat-form-field [dir]="dir" appearance="outline" class="full-width col-12">
+  <mat-select
+    [placeholder]="label"
+    [formControlName]="controlName"
+    (selectionChange)="selectionChange($event)"
+    required
+    (openedChange)="onSelect($event)"
+  >
+    <!-- Search input as first option -->
+    <mat-option>
+      <input
+        matInput
+        class="input-search"
+        [placeholder]="labels[label]"
+        [(ngModel)]="searchText"
+        [ngModelOptions]="{standalone: true}"
+        (ngModelChange)="loadData()"
+        autocomplete="off"
+        (click)="$event.stopPropagation()"
+        (keydown)="$event.stopPropagation()"
+      />
+    </mat-option>
 
-  <mat-form-field  appearance="outline" class="full-width col-12">
-    <mat-select [placeholder]="label" [formControlName]="controlName" (selectionChange)="selectionChange($event)" required (openedChange)="onSelect($event)">
-      <!-- Search input as first option -->
-      <mat-option>
-        <input matInput 
-                placeholder="Search..."
-               [(ngModel)]="searchText"
-               [ngModelOptions]="{standalone: true}"
-               (ngModelChange)="loadData()"
-               autocomplete="off"
-               (click)="$event.stopPropagation()" />
-      </mat-option>
-  
-      <mat-option *ngIf="isLoading" disabled>
-        <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
-        Loading...
-      </mat-option>
-      <mat-option *ngIf="withNullOption" [value]="null">
-        All
-      </mat-option>
-      <mat-option *ngFor="let item of data" [value]="item[valueKey]">
-        {{ item[keyToShow] }}
-      </mat-option>
-    </mat-select>
-  
-    <mat-error *ngIf="isRequired && formGroup.get(controlName)?.hasError('required') && formGroup.get(controlName)?.touched">
-      {{ label }} is required
-    </mat-error>
-  </mat-form-field>
+    <mat-option *ngIf="withNullOption" [value]="null">
+      {{ dir === 'rtl' ? labels['ar'].all : labels['en'].all }}
+    </mat-option>
 
+    <mat-option *ngFor="let item of data" [value]="item[valueKey]">
+      {{ item[keyToShow] }}
+    </mat-option>
+  </mat-select>
+
+  <mat-error *ngIf="isRequired && formGroup.get(controlName)?.hasError('required') && formGroup.get(controlName)?.touched">
+    {{ label }} is required
+  </mat-error>
+</mat-form-field>

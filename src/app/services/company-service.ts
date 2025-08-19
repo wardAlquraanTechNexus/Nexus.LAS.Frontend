@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { GetCompanyDto } from '../models/company/get-company-query/get-company-dto';
 import { Observable } from 'rxjs';
 import GetCompanyQuery from '../models/company/get-company-query/get-company-dto-command';
+import { PaginateRsult } from '../models/paginate-result';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class CompanyService extends BaseService<Company>
     this.setPath('Company');
   }
 
-  getCompanies(query: GetCompanyQuery): Observable<GetCompanyDto[]> {
+  getCompanies(query: GetCompanyQuery): Observable<PaginateRsult<GetCompanyDto>> {
     let params = new HttpParams();
 
     Object.entries(query).forEach(([key, value]) => {
@@ -29,6 +30,6 @@ export class CompanyService extends BaseService<Company>
       }
     });
 
-    return this.httpClient.get<GetCompanyDto[]>(`${this.url}/GetCompanies`, { params });
+    return this.httpClient.get<PaginateRsult<GetCompanyDto>>(`${this.url}/GetCompanies`, { params });
   }
 }
