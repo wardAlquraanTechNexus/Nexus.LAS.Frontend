@@ -89,7 +89,7 @@ export class PersonDetailsForm implements OnInit {
           next: (res => {
             this.isSaving = false;
             this.snackBar.openFromComponent(SuccessSnackbar, {
-              data: "Updated Successfully"
+              data: "Created Successfully"
             });
             this.dialogRef.close({ ...this.person, ...person });
             this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });

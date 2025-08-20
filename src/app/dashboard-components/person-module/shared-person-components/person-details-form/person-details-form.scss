@@ -80,3 +80,14 @@
     border-radius: .35rem;
     margin-right: 10px;
 }
+
+// Arabic name RTL styling
+.name-ar {
+  mat-form-field {
+    input {
+      direction: rtl;
+      text-align: right;
+      unicode-bidi: embed;
+    }
+  }
+}
