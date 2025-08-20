@@ -1,2 +1,26 @@
-.container{
+/* Simple and Consistent Confirm Delete Dialog */
+.confirm-dialog {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-width: 320px;
+  
+  h2 {
+    color: #013772;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 0;
+  }
+  
+  mat-dialog-content {
+    color: #333;
+    font-size: 14px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  mat-dialog-actions {
+    justify-content: flex-end;
+    gap: 8px;
+    
+    button {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
 }

@@ -419,6 +419,13 @@
           font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
           color: #333;
           backdrop-filter: blur(5px);
+          
+          // RTL alignment for Arabic name column
+          &.mat-column-personArabicName {
+            direction: rtl;
+            text-align: right;
+            unicode-bidi: embed;
+          }
         }
       }
       
