@@ -108,7 +108,7 @@ export class PersonAddressDetails implements OnInit {
     poBoxCountry: null,
     poBoxNumber: "",
     createdBy: "",
-    creationDate: ""
+    createdAt: ""
   }) {
     const dialogRef = this.dialog.open(PersonAddressDialog, {
       panelClass: 'dialog-container',

@@ -90,6 +90,17 @@
 
   <!-- Row Actions -->
   <ng-template #actionButtonsTemplate let-row>
+    <!-- Audit Info Tooltip -->
+    <button mat-icon-button 
+            [matTooltip]="getAuditTooltip(row)"
+            matTooltipClass="audit-tooltip"
+            matTooltipPosition="left"
+            [matTooltipShowDelay]="300"
+            class="audit-info-btn">
+      <mat-icon>info</mat-icon>
+    </button>
+    
+    <!-- Actions Menu -->
     <button mat-icon-button [matMenuTriggerFor]="menuRow">
       <mat-icon>more_vert</mat-icon>
     </button>

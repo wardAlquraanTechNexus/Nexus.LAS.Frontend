@@ -40,7 +40,19 @@
       <!-- Person Details -->
       <div class="person-details">
         <div class="person-name-section">
-          <h1 class="person-name">{{ person?.personEnglishName | titlecase }}</h1>
+          <div class="name-and-badges">
+            <h1 class="person-name">{{ person?.personEnglishName | titlecase }}</h1>
+            <div class="person-status-badges">
+              <span class="status-badge" [ngStyle]="getPersonStatusStyle()">
+                <mat-icon>{{ person?.personStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                {{ person?.personStatus | tableDataPipe: 'personStatus' }}
+              </span>
+              <span class="privacy-badge" [ngStyle]="getPersonPrivateStyle()">
+                <mat-icon>{{ person?.private ? 'lock' : 'public' }}</mat-icon>
+                {{ person?.private | tableDataPipe: 'privatePerson' }}
+              </span>
+            </div>
+          </div>
           <div class="person-name-arabic">{{ person?.personArabicName | titlecase }}</div>
         </div>
         
@@ -53,17 +65,6 @@
             <span class="info-label">Short Name:</span>
             <span class="info-value">{{ person?.personShortName | uppercase }}</span>
           </div>
-        </div>
-        
-        <div class="person-status-badges">
-          <span class="status-badge" [ngStyle]="getPersonStatusStyle()">
-            <mat-icon>{{ person?.personStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
-            {{ person?.personStatus | tableDataPipe: 'personStatus' }}
-          </span>
-          <span class="privacy-badge" [ngStyle]="getPersonPrivateStyle()">
-            <mat-icon>{{ person?.private ? 'lock' : 'public' }}</mat-icon>
-            {{ person?.private | tableDataPipe: 'privatePerson' }}
-          </span>
         </div>
       </div>
     </div>

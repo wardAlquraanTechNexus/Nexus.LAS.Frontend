@@ -156,21 +156,64 @@
         .person-name-section {
           margin-bottom: 16px;
           
-          .person-name {
-            margin: 0 0 8px 0;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #013772;
-            text-shadow: 0 2px 4px rgba(1, 55, 114, 0.1);
-            line-height: 1.2;
+          .name-and-badges {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+            
+            .person-name {
+              margin: 0;
+              font-size: 2rem;
+              font-weight: 700;
+              color: #013772;
+              text-shadow: 0 2px 4px rgba(1, 55, 114, 0.1);
+              line-height: 1.2;
+            }
+            
+            .person-status-badges {
+              display: flex;
+              gap: 8px;
+              flex-wrap: wrap;
+              
+              .status-badge,
+              .privacy-badge {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                padding: 4px 8px;
+                border-radius: 12px;
+                font-size: 11px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                
+                mat-icon {
+                  font-size: 14px;
+                  width: 14px;
+                  height: 14px;
+                }
+                
+                &:hover {
+                  transform: translateY(-1px);
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                }
+              }
+            }
           }
           
           .person-name-arabic {
             font-size: 1.25rem;
             color: #666;
             font-weight: 500;
+            direction: rtl;
             text-align: right;
+            unicode-bidi: embed;
             font-style: italic;
+            width: 100%;
+            display: block;
           }
         }
         
@@ -205,37 +248,6 @@
           }
         }
         
-        .person-status-badges {
-          display: flex;
-          gap: 12px;
-          flex-wrap: wrap;
-          
-          .status-badge,
-          .privacy-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            mat-icon {
-              font-size: 16px;
-              width: 16px;
-              height: 16px;
-            }
-            
-            &:hover {
-              transform: translateY(-1px);
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-          }
-        }
       }
     }
     
@@ -467,8 +479,31 @@
         height: 100px;
       }
       
-      .person-details .person-name {
-        font-size: 1.5rem;
+      .person-details {
+        .person-name-section {
+          .name-and-badges {
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            
+            .person-name {
+              font-size: 1.5rem;
+              text-align: center;
+            }
+            
+            .person-status-badges {
+              justify-content: center;
+            }
+          }
+          
+          .person-name-arabic {
+            direction: rtl;
+            text-align: center;
+            unicode-bidi: embed;
+            width: 100%;
+            display: block;
+          }
+        }
       }
     }
     

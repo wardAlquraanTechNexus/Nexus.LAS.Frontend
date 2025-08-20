@@ -69,4 +69,23 @@ export class AllPersons extends BasePersonsComponent {
     super.applyLanguage(lang);
   }
 
+  /**
+   * Get audit information tooltip for a person record
+   */
+  getAuditTooltip(person: any): string {
+    const createdBy = person?.createdBy || 'N/A';
+    const createdAt = person?.createdAt ? new Date(person.createdAt).toLocaleDateString('en-GB') : 'N/A';
+    const modifiedBy = person?.modifiedBy || 'N/A';
+    const modifiedAt = person?.modifiedAt ? new Date(person.modifiedAt).toLocaleDateString('en-GB') : 'N/A';
+
+    return `Created by: ${createdBy}\nCreated at: ${createdAt}\n\nModified by: ${modifiedBy}\nModified at: ${modifiedAt}`;
+  }
+
+  /**
+   * TrackBy function for performance optimization
+   */
+  trackByPersonId(index: number, person: any): any {
+    return person.id;
+  }
+
 }

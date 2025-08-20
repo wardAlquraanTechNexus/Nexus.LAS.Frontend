@@ -74,7 +74,7 @@ export class PersonEmailDetails implements OnInit {
     personsIdn: this.personId,
     emailPrimary: false,
     createdBy: "",
-    creationDate: ""
+    createdAt: ""
   }) {
   const dialogRef = this.dialog.open(PersonEmailDialog, {
       panelClass: 'dialog-container',

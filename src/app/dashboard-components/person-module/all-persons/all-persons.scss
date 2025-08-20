@@ -434,6 +434,25 @@
     }
   }
   
+  // Audit info button styling
+  .audit-info-btn {
+    color: rgba(1, 55, 114, 0.7);
+    transition: all 0.2s ease;
+    margin-right: 4px;
+    
+    &:hover {
+      color: #013772;
+      background: rgba(1, 55, 114, 0.1);
+      transform: scale(1.1);
+    }
+    
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
   // Records info section at bottom left
   .records-info {
     padding: 12px 0;
@@ -517,5 +536,13 @@
     .bulk-buttons {
       justify-content: center;
     }
+  }
+}
+
+// Global tooltip styling
+::ng-deep .audit-tooltip {
+  .mat-mdc-tooltip {
+    max-width: 600px;
+    white-space: pre-line;
   }
 }

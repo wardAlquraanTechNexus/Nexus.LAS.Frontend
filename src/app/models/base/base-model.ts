@@ -1,7 +1,7 @@
 export interface BaseModel {
     id?: number;
     createdBy?: string;
-    creationDate?: string;
-    modefiedBy?: string | null;
-    modificationDate?: string | null;
+    createdAt?: string;
+    modifiedBy?: string | null;
+    modifiedAt?: string | null;
 }
