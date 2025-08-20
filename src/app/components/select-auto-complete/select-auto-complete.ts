@@ -2,6 +2,9 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy
 import { PaginateRsult } from '../../models/paginate-result';
 import { Observable, Subscription } from 'rxjs';
 import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
+import { LanguageService } from '../../services/language-service';
+import { Labels } from '../../models/consts/labels';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'select-auto-complete',
@@ -30,14 +33,22 @@ export class SelectAutoComplete implements OnInit, OnChanges, OnDestroy {
 
   private subscription?: Subscription;
 
+  dir!: Direction;
+  labels:any;
+
   constructor(
     private cdr: ChangeDetectorRef,
+    private langService: LanguageService
   ) {
 
   }
 
 
   ngOnInit(): void {
+    this.langService.language$.subscribe(lang => {
+      this.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      this.labels = Labels[lang];
+    });
     this.loadData();
   }
   ngOnChanges(changes: SimpleChanges): void {

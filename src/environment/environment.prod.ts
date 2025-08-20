@@ -100,7 +100,13 @@ export const environment: Environment = {
 
   },
 
-  rootDynamicLists:{
-    nationality: 1036
+  rootDynamicLists: {
+    nationality: 1036,
+    companyType: 1008,
+    companyClass: 1006,
+    groupCompany: 1004,
+    relevantCompany: 1032,
+    legalType: 1005,
+    placeOfRegistration: 1025
   }
 } as const;

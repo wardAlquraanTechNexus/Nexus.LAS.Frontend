@@ -1,6 +1,5 @@
-import { Component, ViewChild, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, OnDestroy, Output, EventEmitter, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ComponentsModule } from '../components-module';
 import { Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -10,28 +9,36 @@ import { AuthResponse } from '../../models/auth-response';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AddPerson } from '../../dashboard-components/person-module/add-person/add-person';
+import { Direction } from '@angular/cdk/bidi';
+import { Language } from './models/language';
+import { LanguageService } from '../../services/language-service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.scss',
+  selector: 'app-navbar-component',
+  templateUrl: './navbar-components.html',
+  styleUrl: './navbar-components.scss',
   standalone: false
 })
-export class Navbar implements OnDestroy {
+export class NavbarComponent implements OnDestroy , OnInit {
   searchText = '';
   searchResults: string[] = [];
   sidebarOpen = true;
+
+  @Output() changeLanguageEmitter = new EventEmitter<Language>();
+
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
   private destroy$ = new Subject<void>();
 
-  languages = [
-    {
-      name: "العربية",
-      value: "arabic"
-    },
+  languages: Language[] = [
     {
       name: "English",
-      value: "english"
+      value: "en",
+      dir: "ltr"
+    },
+    {
+      name: "العربية",
+      value: "ar",
+      dir: "rtl"
     }
   ]
 
@@ -68,15 +75,22 @@ export class Navbar implements OnDestroy {
 
   selectedLanguage = this.languages[0];
 
-  user:AuthResponse|null;
-  
+  user: AuthResponse | null;
+
   constructor(
-    private router: Router, 
-    private dialog: MatDialog, 
+    private router: Router,
+    private dialog: MatDialog,
     private authService: AuthService,
+    protected langService: LanguageService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.user = this.authService.getUser();
+  }
+
+  ngOnInit(){
+    this.langService.language$.subscribe(lang => {
+      this.selectedLanguage = this.languages.find(x=>x.value == lang) || this.languages[0];
+    });
   }
 
   private get isBrowser(): boolean {
@@ -102,13 +116,13 @@ export class Navbar implements OnDestroy {
 
   toggleSidebar() {
     if (!this.isBrowser) return;
-    
+
     // Check if sidebar exists in current layout
     const sidebarElement = document.querySelector('app-sidebar');
     if (!sidebarElement) {
       return; // Don't toggle if no sidebar present
     }
-    
+
     this.sidebarOpen = !this.sidebarOpen;
     // Emit event or use a service to communicate with sidebar component
     const event = new CustomEvent('toggleSidebar', { detail: this.sidebarOpen });
@@ -143,10 +157,14 @@ export class Navbar implements OnDestroy {
           });
         break;
       default:
-        console.log(item.value)
         break;
     }
 
+  }
+
+  selectDirection(language: Language) {
+    this.selectedLanguage = language;
+    this.changeLanguageEmitter.emit(language);
   }
 
   ngOnDestroy(): void {
@@ -154,3 +172,5 @@ export class Navbar implements OnDestroy {
     this.destroy$.complete();
   }
 }
+
+

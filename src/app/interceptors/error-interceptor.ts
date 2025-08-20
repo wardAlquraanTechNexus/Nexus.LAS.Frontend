@@ -13,7 +13,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
     return next(req).pipe(
         catchError((error: any) => {
-            debugger
             let message = '';
 
             if (error.error?.Title) {

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ComponentsModule } from '../../../components/components-module';
-import { Sidebar } from "../../../components/sidebar/sidebar";
-import { Navbar } from "../../../components/navbar/navbar";
+import { Direction } from '@angular/cdk/bidi';
+import { Component, OnInit } from '@angular/core';
+import { Language } from '../../../components/navbar-components/models/language';
+import { LanguageService } from '../../../services/language-service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -9,6 +9,22 @@ import { Navbar } from "../../../components/navbar/navbar";
   styleUrl: './admin-layout-component.scss',
   standalone: false
 })
-export class AdminLayoutComponent {
+export class AdminLayoutComponent implements OnInit {
+
+  dir:Direction = "ltr";
+
+  constructor(private langService:LanguageService){
+
+  }
+  ngOnInit(): void {
+    this.langService.language$.subscribe(lang => {
+      this.dir = lang == 'en' ? 'ltr' : 'rtl';
+    });
+  }
+
+  changeLanguage(lang:Language){
+    this.dir = lang.dir;
+    this.langService.setLanguage(lang.value);
+  }
 
 }

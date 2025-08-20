@@ -1,89 +1,93 @@
-<div class="empty-table" *ngIf="paginateResult.totalRecords == 0">
-  No records available
-</div>
-<div *ngIf="paginateResult.totalRecords > 0" class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
+<div *ngIf="labels">
+  <div class="empty-table" *ngIf="paginateResult.totalRecords == 0">
+    {{labels.noRecords}}
+  </div>
+  <div *ngIf="paginateResult.totalRecords > 0" class="mat-elevation-z8">
+    <table [dir]="dir" mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
 
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
 
-      <!-- Header Cell -->
-      <ng-container *ngIf="column.key === 'select'; else regularHeader">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()" [indeterminate]="isSomeSelected()">
-          </mat-checkbox>
-        </th>
-      </ng-container>
-
-      <ng-template #regularHeader>
-        <ng-container *ngIf="column.sort; else noSort">
-          <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key">
-            {{ column.label }}
-          </th>
-        </ng-container>
-        <ng-template #noSort>
+        <!-- Header Cell -->
+        <ng-container *ngIf="column.key === 'select'; else regularHeader">
           <th mat-header-cell *matHeaderCellDef>
-            {{ column.label }}
+            <mat-checkbox (change)="masterToggle()" [checked]="isAllSelected()" [indeterminate]="isSomeSelected()">
+            </mat-checkbox>
           </th>
-        </ng-template>
-      </ng-template>
-
-      <!-- Cell -->
-      <td mat-cell *matCellDef="let element">
-        <ng-container *ngIf="column.key === 'select'; else regularCell">
-          <mat-checkbox (click)="$event.stopPropagation()" [checked]="selection.isSelected(element)"
-            (change)="toggleRow(element)">
-          </mat-checkbox>
         </ng-container>
 
-        <ng-template #regularCell>
-          <!-- Action cell (do not trigger row click) -->
-          <ng-container *ngIf="column.key === 'action'; else defaultCell">
-            <ng-container *ngTemplateOutlet="action; context: { $implicit: element }"></ng-container>
+        <ng-template #regularHeader>
+          <ng-container *ngIf="column.sort; else noSort">
+            <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key">
+              {{ column.label }}
+            </th>
           </ng-container>
-
-          <!-- Default cell (row click applies here only) -->
-          <ng-template #defaultCell>
-            <div (click)="onRowClick(element, column.key)">
-              <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
-                <span [ngStyle]="getCellStyle(element[column.key], column.pipes)">
-                  <span *ngIf="!column.inputType">{{ transform(element[column.key], column.pipes) }}</span>
-
-                  <span *ngIf="column.inputType">
-                    <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
-                      <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'">
-                      </mat-slide-toggle>
-                    </ng-container>
-                    <ng-template #defaultInput>
-                      <input [value]="element[column.key]" [type]="column.inputType" readonly class="form-control" />
-                    </ng-template>
-                  </span>
-                </span>
-              </ng-container>
-
-              <!-- Multi-key pipe support -->
-              <ng-template #multiKeyCell>
-                <span *ngFor="let keyPipe of column.keysPipes"
-                  [ngStyle]="getCellStyle(element[keyPipe.key] , keyPipe.pipes)">
-                  <span>{{ transform(element[keyPipe.key], keyPipe.pipes) }}</span>
-                </span>
-              </ng-template>
-            </div>
+          <ng-template #noSort>
+            <th mat-header-cell *matHeaderCellDef>
+              {{ column.label }}
+            </th>
           </ng-template>
         </ng-template>
-      </td>
-    </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index">
-    </tr>
-  </table>
+        <!-- Cell -->
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="column.key === 'select'; else regularCell">
+            <mat-checkbox (click)="$event.stopPropagation()" [checked]="selection.isSelected(element)"
+              (change)="toggleRow(element)">
+            </mat-checkbox>
+          </ng-container>
 
-  <div class="paginator-container">
-    <div class="records-count">
-      <span>{{ paginateResult.totalRecords || 0 }} Records has been returned</span>
+          <ng-template #regularCell>
+            <!-- Action cell (do not trigger row click) -->
+            <ng-container *ngIf="column.key === 'action'; else defaultCell">
+              <ng-container *ngTemplateOutlet="action; context: { $implicit: element }"></ng-container>
+            </ng-container>
+
+            <!-- Default cell (row click applies here only) -->
+            <ng-template #defaultCell>
+              <div (click)="onRowClick(element, column.key)">
+                <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
+                  <span [ngStyle]="getCellStyle(element[column.key], column.pipes)">
+                    <span *ngIf="!column.inputType">{{ transform(element[column.key], column.pipes) }}</span>
+
+                    <span *ngIf="column.inputType">
+                      <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
+                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'">
+                        </mat-slide-toggle>
+                      </ng-container>
+                      <ng-template #defaultInput>
+                        <input [value]="element[column.key]" [type]="column.inputType" readonly class="form-control" />
+                      </ng-template>
+                    </span>
+                  </span>
+                </ng-container>
+
+                <!-- Multi-key pipe support -->
+                <ng-template #multiKeyCell>
+                  <span *ngFor="let keyPipe of column.keysPipes"
+                    [ngStyle]="getCellStyle(element[keyPipe.key] , keyPipe.pipes)">
+                    <span>{{ transform(element[keyPipe.key], keyPipe.pipes) }}</span>
+                  </span>
+                </ng-template>
+              </div>
+            </ng-template>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index">
+      </tr>
+    </table>
+
+    <div class="paginator-container" [ngClass]="{'rtl': dir === 'rtl'}">
+      <div class="records-count">
+        <span>{{ paginateResult.totalRecords || 0 }} {{labels.recordsReturned}}</span>
+      </div>
+      <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page"
+        [pageSize]="paginateResult.pageSize" [length]="paginateResult.totalRecords" [pageSizeOptions]="[5,10,20,50,100]"
+        showFirstLastButtons>
+      </mat-paginator>
     </div>
-    <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page" [pageSize]="paginateResult.pageSize"
-      [length]="paginateResult.totalRecords" [pageSizeOptions]="[5,10,20,50,100]" showFirstLastButtons>
-    </mat-paginator>
+
   </div>
 </div>

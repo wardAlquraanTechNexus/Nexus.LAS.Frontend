@@ -1,17 +1,13 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { PersonService } from '../../../services/person-services/person-service';
-import { DisplayColumn } from '../../../models/columns/display-column';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../environment/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BasePersonsComponent } from '../_base/base-persons-component/base-persons-component';
 import { MenuService } from '../../../services/menu-service';
-import { GetPersonsQuery } from '../../../models/persons/get-persons/get-persons-query';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../services/dynamic-list-service';
-import { DynamicList } from '../../../models/dynamic-list/dynamic-list';
-import { Observable } from 'rxjs';
+import { LanguageService } from '../../../services/language-service';
 
 @Component({
   selector: 'app-all-persons',
@@ -20,58 +16,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./all-persons.scss', '../_base/base-persons-component/base-persons-component.scss']
 })
 export class AllPersons extends BasePersonsComponent {
-
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "select",
-      label: "",
-    },
-    {
-      key: "personCode",
-      label: "Code",
-      sort: true,
-      pipes: ["link"]
-    },
-    {
-      key: "personEnglishName",
-      label: "Name En",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "personArabicName",
-      label: "Name Ar",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "personShortName",
-      label: "Short Name",
-      sort: true
-    },
-    {
-      key: "personStatus",
-      label: "Status",
-      pipes: ["personStatus"],
-      sort: true
-    },
-    {
-      key: "fpcCode",
-      label: "FPC Code"
-    },
-    {
-      key: "private",
-      label: "Private",
-      pipes: ['privatePerson'],
-      sort: true,
-    },
-    {
-      key: "action",
-      label: "Action",
-    },
-  ]
-
- 
 
   constructor(
     override service: PersonService,
@@ -82,14 +26,47 @@ export class AllPersons extends BasePersonsComponent {
     override route: ActivatedRoute,
     override menuService: MenuService,
     override dialog: MatDialog,
-    override dlService: DynamicListService
+    override dlService: DynamicListService,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService);
+    super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService, langService);
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    
+  }
+
+
+  override applyLanguage(lang: LanguageCode) {
+
+    if (lang === 'ar') {
+      this.displayColumns = [
+        { key: "select", label: "" },
+        { key: "personCode", label: "الكود", sort: true, pipes: ["link"] },
+        { key: "personEnglishName", label: "الاسم بالانجليزية", pipes: ["link"], sort: true },
+        { key: "personArabicName", label: "الاسم بالعربية", pipes: ["link"], sort: true },
+        { key: "personShortName", label: "الاسم المختصر", sort: true },
+        { key: "personStatus", label: "الحالة", pipes: ["personStatus"], sort: true },
+        { key: "fpcCode", label: "رمز FPC" },
+        { key: "private", label: "خاص", pipes: ['privatePerson'], sort: true },
+        { key: "action", label: "إجراءات" },
+      ];
+    } else {
+      // default English
+      this.displayColumns = [
+        { key: "select", label: "" },
+        { key: "personCode", label: "Code", sort: true, pipes: ["link"] },
+        { key: "personEnglishName", label: "Name En", pipes: ["link"], sort: true },
+        { key: "personArabicName", label: "Name Ar", pipes: ["link"], sort: true },
+        { key: "personShortName", label: "Short Name", sort: true },
+        { key: "personStatus", label: "Status", pipes: ["personStatus"], sort: true },
+        { key: "fpcCode", label: "FPC Code" },
+        { key: "private", label: "Private", pipes: ['privatePerson'], sort: true },
+        { key: "action", label: "Action" },
+      ];
+    }
+
+    super.applyLanguage(lang);
   }
 
 }

@@ -103,7 +103,13 @@ export interface Environment {
   routes: Routes;
 
   rootDynamicLists: {
-    nationality:number
+    nationality:number,
+    companyType:number,
+    companyClass:number,
+    groupCompany:number,
+    relevantCompany:number,
+    legalType:number,
+    placeOfRegistration:number,
   }
 }
 

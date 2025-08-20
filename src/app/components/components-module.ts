@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Sidebar } from './sidebar/sidebar';
-import { Navbar } from './navbar/navbar';
+import { NavbarComponent } from './navbar-components/navbar-components';
 import { Footer } from './footer/footer';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,13 +40,17 @@ import { PersonIdDocumentForm } from '../dashboard-components/person-module/shar
 import { PersonOtherDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-other-document-form/person-other-document-form';
 import { SharedTreeComponent } from './shared-tree-component/shared-tree-component';
 import { SelectAutoComplete } from './select-auto-complete/select-auto-complete';
+import { NavbarEnComponent } from './navbar-components/navbar-en-component/navbar-en-component';
+import { NavbarArComponent } from './navbar-components/navbar-ar-component/navbar-ar-component';
 
 
 
 
 @NgModule({
   declarations: [
-    Navbar,
+    NavbarComponent,
+    NavbarEnComponent,
+    NavbarArComponent,
     Sidebar,
     Footer,
     TableDataPipePipe,
@@ -55,7 +59,7 @@ import { SelectAutoComplete } from './select-auto-complete/select-auto-complete'
     ConfirmDeleteDirective,
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
-  BaseDialogComponent,
+    BaseDialogComponent,
     BaseFormComponent,
     SharedTreeComponent,
     SelectAutoComplete
@@ -107,7 +111,9 @@ import { SelectAutoComplete } from './select-auto-complete/select-auto-complete'
     MatMenuModule,
     MatPaginatorModule,
     MatTableModule,
-    Navbar,
+    NavbarComponent,
+    NavbarEnComponent,
+    NavbarArComponent,
     Sidebar,
     Footer,
     FormsModule,
@@ -128,7 +134,7 @@ import { SelectAutoComplete } from './select-auto-complete/select-auto-complete'
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
     MatCheckboxModule,
-  BaseDialogComponent,
+    BaseDialogComponent,
     BaseFormComponent,
     MatToolbarModule,
     MatCardModule,

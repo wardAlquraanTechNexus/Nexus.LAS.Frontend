@@ -165,6 +165,9 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchData();
+        this.menuService.getMenus().subscribe({
+          
+        });
       }
     });
   }
@@ -178,6 +181,9 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchData();
+         this.menuService.getMenus().subscribe({
+          
+        });
       }
     });
   }

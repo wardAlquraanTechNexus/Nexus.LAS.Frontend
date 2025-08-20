@@ -7,6 +7,8 @@ import { PaginateRsult } from '../../../models/paginate-result';
 import { BaseParam } from '../../../models/base/base-param';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Person } from '../../../models/persons/person';
+import { LanguageService } from '../../../services/language-service';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-shared-table',
@@ -34,7 +36,11 @@ export class SharedTable implements OnInit, OnChanges {
 
   dataSource!: MatTableDataSource<any, MatPaginator>
   displayedColumnKeys: any;
-  constructor(private cdRef: ChangeDetectorRef) {
+
+  dir:Direction = "ltr";
+  labels:any;
+
+  constructor(private cdRef: ChangeDetectorRef, protected langService: LanguageService,) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -52,6 +58,18 @@ export class SharedTable implements OnInit, OnChanges {
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
   
     this.cdRef.detectChanges();
+
+    this.langService.language$.subscribe(lang => {
+      if(lang == 'en')
+        this.dir = 'ltr';
+      else
+        this.dir = 'rtl';
+
+      this.labels = this.langService.getLabels(lang);
+    });
+
+
+    
   }
 
   onPageChange(event: PageEvent): void {

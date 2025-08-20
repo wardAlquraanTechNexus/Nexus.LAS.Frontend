@@ -1,0 +1,7 @@
+@if(selectedLanguage.dir == "ltr"){
+  <app-navbar-en-component (changeLanguageEmitter)="selectDirection($event)"></app-navbar-en-component>
+} @else {
+  <app-navbar-ar-component (changeLanguageEmitter)="selectDirection($event)"></app-navbar-ar-component>
+}
+
+

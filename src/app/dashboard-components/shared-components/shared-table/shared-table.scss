@@ -38,17 +38,25 @@
 
 // Paginator container with records count
 .paginator-container {
-  position: relative;
   display: flex;
   align-items: center;
-  
+  justify-content: space-between; // default: records left, paginator right
+
+  &.rtl {
+    flex-direction: row-reverse; // swap sides
+    text-align: right;
+  }
+
   .records-count {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    
+    position: static; // remove absolute
+    margin-left: 16px;
+    margin-right: 16px;
+
+    &.rtl {
+      margin-left: 0;
+      margin-right: 16px;
+    }
+
     span {
       color: rgba(0, 0, 0, 0.6);
       font-size: 12px;
@@ -57,8 +65,11 @@
       letter-spacing: 0.4px;
     }
   }
-  
+
   mat-paginator {
     flex: 1;
   }
 }
+
+
+
