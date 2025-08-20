@@ -58,17 +58,17 @@
     <div class="bulk-actions" *ngIf="selectedPersons.length">
       <span>{{ selectedPersons.length }} {{label.selected}}</span>
       <div class="bulk-buttons" *ngIf="currentMenu?.canUpdate">
-        <button mat-button (click)="bulkChangeStatus(activeStatus)">
-          <mat-icon>check_circle</mat-icon> {{label.activate}}
+        <button mat-button (click)="bulkChangeStatus(activeStatus)" class="nexus-bulk-btn success">
+          <mat-icon>check_circle_outline</mat-icon> {{label.activate}}
         </button>
-        <button mat-button (click)="bulkChangeStatus(inactiveStatus)">
-          <mat-icon>cancel</mat-icon> {{label.deactivate}}
+        <button mat-button (click)="bulkChangeStatus(inactiveStatus)" class="nexus-bulk-btn warning">
+          <mat-icon>highlight_off</mat-icon> {{label.deactivate}}
         </button>
-        <button mat-button (click)="bulkChangePrivate(false)">
-          <mat-icon>visibility</mat-icon> {{label.public}}
+        <button mat-button (click)="bulkChangePrivate(false)" class="nexus-bulk-btn info">
+          <mat-icon>public</mat-icon> {{label.public}}
         </button>
-        <button mat-button (click)="bulkChangePrivate(true)">
-          <mat-icon>visibility_off</mat-icon> {{label.private}}
+        <button mat-button (click)="bulkChangePrivate(true)" class="nexus-bulk-btn info">
+          <mat-icon>lock</mat-icon> {{label.private}}
         </button>
       </div>
     </div>
@@ -104,24 +104,24 @@
     <button mat-icon-button [matMenuTriggerFor]="menuRow">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu #menuRow="matMenu">
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)">
-        <mat-icon>check_circle</mat-icon> {{label.activate}}
+    <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)" class="nexus-menu-item success">
+        <mat-icon>check_circle_outline</mat-icon> {{label.activate}}
       </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)">
-        <mat-icon>cancel</mat-icon> {{label.deactivate}}
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)" class="nexus-menu-item warning">
+        <mat-icon>highlight_off</mat-icon> {{label.deactivate}}
       </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)">
-        <mat-icon>visibility</mat-icon> {{label.public}}
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)" class="nexus-menu-item info">
+        <mat-icon>public</mat-icon> {{label.public}}
       </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
-        <mat-icon>visibility_off</mat-icon> {{label.private}}
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)" class="nexus-menu-item info">
+        <mat-icon>lock</mat-icon> {{label.private}}
       </button>
-      <button mat-menu-item (click)="exportToPdf(row.id)">
-        <mat-icon>print</mat-icon> {{label.print}}
+      <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item neutral">
+        <mat-icon>description</mat-icon> {{label.print}}
       </button>
-      <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)">
-        <mat-icon>delete</mat-icon> {{label.delete}}
+      <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)" class="nexus-menu-item danger">
+        <mat-icon>delete_outline</mat-icon> {{label.delete}}
       </button>
     </mat-menu>
   </ng-template>

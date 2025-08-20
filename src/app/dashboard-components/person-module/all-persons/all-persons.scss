@@ -452,6 +452,18 @@
       height: 18px;
     }
   }
+
+  // Action menu button styling 
+  button[mat-icon-button] {
+    color: rgba(1, 55, 114, 0.7);
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: #013772;
+      background: rgba(1, 55, 114, 0.1);
+      transform: scale(1.05);
+    }
+  }
   
   // Records info section at bottom left
   .records-info {
@@ -535,6 +547,132 @@
     
     .bulk-buttons {
       justify-content: center;
+    }
+  }
+}
+
+// Action Menu Styling
+::ng-deep .nexus-action-menu {
+  .mat-mdc-menu-panel {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(1, 55, 114, 0.1);
+    backdrop-filter: blur(10px);
+  }
+  
+  .nexus-menu-item {
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin: 4px 8px;
+    
+    mat-icon {
+      margin-right: 12px;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+    
+    &.success {
+      &:hover {
+        background: rgba(76, 175, 80, 0.1);
+        color: #4caf50;
+        
+        mat-icon {
+          color: #4caf50;
+        }
+      }
+    }
+    
+    &.warning {
+      &:hover {
+        background: rgba(255, 152, 0, 0.1);
+        color: #ff9800;
+        
+        mat-icon {
+          color: #ff9800;
+        }
+      }
+    }
+    
+    &.info {
+      &:hover {
+        background: rgba(33, 150, 243, 0.1);
+        color: #2196f3;
+        
+        mat-icon {
+          color: #2196f3;
+        }
+      }
+    }
+    
+    &.neutral {
+      &:hover {
+        background: rgba(96, 125, 139, 0.1);
+        color: #607d8b;
+        
+        mat-icon {
+          color: #607d8b;
+        }
+      }
+    }
+    
+    &.danger {
+      &:hover {
+        background: rgba(244, 67, 54, 0.1);
+        color: #f44336;
+        
+        mat-icon {
+          color: #f44336;
+        }
+      }
+    }
+  }
+}
+
+// Bulk Action Buttons Styling
+.nexus-bulk-btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin: 0 4px;
+  
+  mat-icon {
+    margin-right: 8px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  &.success {
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    color: #4caf50;
+    
+    &:hover {
+      background: rgba(76, 175, 80, 0.1);
+      border-color: #4caf50;
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.warning {
+    border: 1px solid rgba(255, 152, 0, 0.3);
+    color: #ff9800;
+    
+    &:hover {
+      background: rgba(255, 152, 0, 0.1);
+      border-color: #ff9800;
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.info {
+    border: 1px solid rgba(33, 150, 243, 0.3);
+    color: #2196f3;
+    
+    &:hover {
+      background: rgba(33, 150, 243, 0.1);
+      border-color: #2196f3;
+      transform: translateY(-1px);
     }
   }
 }
