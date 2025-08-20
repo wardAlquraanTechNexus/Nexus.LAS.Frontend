@@ -162,28 +162,12 @@
       }
     }
 
-    // Toggle styling
-    mat-slide-toggle {
-      margin-top: 16px;
-      
-      ::ng-deep .mat-mdc-slide-toggle-bar {
-        background-color: rgba(1, 55, 114, 0.2);
-      }
-
-      ::ng-deep .mat-mdc-slide-toggle.mat-checked .mat-mdc-slide-toggle-bar {
-        background-color: rgba(1, 55, 114, 0.5);
-      }
-
-      ::ng-deep .mat-mdc-slide-toggle-thumb {
-        background-color: #013772;
-      }
-
-      .label-toggel {
-        color: #013772;
-        font-weight: 500;
-        margin-left: 8px;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
+    // Toggle label styling
+    .label-toggel {
+      color: #013772;
+      font-weight: 500;
+      margin-left: 8px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
   }
 
