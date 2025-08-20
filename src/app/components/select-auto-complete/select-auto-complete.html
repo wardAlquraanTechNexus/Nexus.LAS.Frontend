@@ -22,7 +22,7 @@
     </mat-option>
 
     <mat-option *ngIf="withNullOption" [value]="null">
-      {{ dir === 'rtl' ? labels['ar'].all : labels['en'].all }}
+      {{ dir === 'rtl' ? labels.all : labels.all }}
     </mat-option>
 
     <mat-option *ngFor="let item of data" [value]="item[valueKey]">
