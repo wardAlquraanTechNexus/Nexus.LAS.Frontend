@@ -91,7 +91,7 @@ export interface Routes {
   UserGroups: string;
   Groups: string;
   GroupsMenus: string;
-
+  UserSettings:string;
 
 }
 

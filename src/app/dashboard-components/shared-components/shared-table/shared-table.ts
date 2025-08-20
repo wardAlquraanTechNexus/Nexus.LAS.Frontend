@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Person } from '../../../models/persons/person';
 import { LanguageService } from '../../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-shared-table',
@@ -28,6 +29,7 @@ export class SharedTable implements OnInit, OnChanges {
   @Output() rowClick = new EventEmitter<any>();
   @Output() onSortChangeEvent = new EventEmitter<Sort>();
   @Output() selectionChange = new EventEmitter<any[]>();
+  @Input() keyToCheck!: string;
 
   @Input() action!: TemplateRef<any>;
 
@@ -37,14 +39,14 @@ export class SharedTable implements OnInit, OnChanges {
   dataSource!: MatTableDataSource<any, MatPaginator>
   displayedColumnKeys: any;
 
-  dir:Direction = "ltr";
-  labels:any;
+  dir: Direction = "ltr";
+  labels: any;
 
   constructor(private cdRef: ChangeDetectorRef, protected langService: LanguageService,) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-     if (changes['paginateResult'] && this.paginateResult?.collection) {
+    if (changes['paginateResult'] && this.paginateResult?.collection) {
       // Refresh the table data when collection changes
       if (this.dataSource) {
         this.dataSource.data = this.paginateResult.collection;
@@ -56,11 +58,11 @@ export class SharedTable implements OnInit, OnChanges {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.paginateResult.collection);
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
-  
+
     this.cdRef.detectChanges();
 
     this.langService.language$.subscribe(lang => {
-      if(lang == 'en')
+      if (lang == 'en')
         this.dir = 'ltr';
       else
         this.dir = 'rtl';
@@ -69,7 +71,7 @@ export class SharedTable implements OnInit, OnChanges {
     });
 
 
-    
+
   }
 
   onPageChange(event: PageEvent): void {
@@ -79,8 +81,8 @@ export class SharedTable implements OnInit, OnChanges {
     });
   }
 
-  onRowClick(element: any, key:any) {  
-    let rowClick =  {element  , key }
+  onRowClick(element: any, key: any) {
+    let rowClick = { element, key }
     this.rowClick.emit(rowClick);
   }
 
@@ -149,10 +151,48 @@ export class SharedTable implements OnInit, OnChanges {
     return styles;
   }
 
+  masterToggle(event: MatCheckboxChange): void {
+    if (event.checked) {
+      // select all rows
+      this.dataSource.data.forEach(row => {
+        if (this.keyToCheck) {
+          row[this.keyToCheck] = true;
+        }
+        this.selection.select(row)
+      });
+    } else {
+
+      this.dataSource.data.forEach(row => {
+        if (this.keyToCheck) {
+          row[this.keyToCheck] = false;
+        }
+        this.selection.deselect(row)
+      });
+    }
+
+    // emit the current selection
+    this.selectionChange.emit(this.selection.selected);
+  }
+
+  // Individual row checkbox: add/remove based on checked state
+  toggleRow(event: MatCheckboxChange, row: any): void {
+    if (event.checked) {
+      this.selection.select(row); // add
+    } else {
+      this.selection.deselect(row); // remove
+    }
+    if (this.keyToCheck) {
+      row[this.keyToCheck] = event.checked;
+    }
+
+    this.selectionChange.emit(this.selection.selected);
+  }
+
+  // Helpers
   isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    return numSelected === numRows && numRows > 0;
   }
 
   isSomeSelected(): boolean {
@@ -160,23 +200,6 @@ export class SharedTable implements OnInit, OnChanges {
     const numRows = this.dataSource.data.length;
     return numSelected > 0 && numSelected < numRows;
   }
-
-  masterToggle(): void {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-    } else {
-      this.dataSource.data.forEach(row => {
-          this.selection.select(row);
-      });
-    }
-     this.selectionChange.emit(this.selection.selected);
-  }
-
-  toggleRow(row: any): void {
-    this.selection.toggle(row);
-     this.selectionChange.emit(this.selection.selected);
-  }
-
 
   transform(value: any, pipes?: string[]) {
 
@@ -249,7 +272,7 @@ export class SharedTable implements OnInit, OnChanges {
     return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} `
   }
 
- 
+
 
 
 

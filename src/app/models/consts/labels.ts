@@ -2,6 +2,8 @@ export const Labels = {
     en: {
         allPersons: "All Persons",
         addPerson: "Add Person",
+        addUser:"Add User",
+        addUsers:"Add Users",
         search: "Search",
         public: "Public",
         private: "Private",
@@ -26,6 +28,8 @@ export const Labels = {
     ar: {
         allPersons: "جميع الأشخاص",
         addPerson: "إضافة شخص",
+        addUser:"Add Users",
+        addUsers:"اضافة المستخدمين",
         search: "بحث",
         public: "عام",
         private: "خاص",

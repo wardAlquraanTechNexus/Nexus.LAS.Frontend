@@ -62,7 +62,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
 
       for (const key of Object.keys(this.object)) {
         const validators = this.validationRules[key] || [];
-        group[key] = new FormControl((this.object as any)[key], validators);
+        group[key] = new FormControl((this.object as any)[key]);
       }
       this.formGroup = this.fb.group(group);
       this.cdr.detectChanges();

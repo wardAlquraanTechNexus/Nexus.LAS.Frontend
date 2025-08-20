@@ -1,0 +1,336 @@
+/* Modern Users Component - Consistent with All-Persons */
+
+// Main container with modern background
+.main-container {
+  padding: 0; /* Remove padding to eliminate white space */
+  background: transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+// Main sections
+.section {
+  margin: 24px; /* Add margin to all sections instead of container padding */
+  
+  &:last-child {
+    margin-bottom: 24px; /* Ensure last section has bottom margin */
+  }
+}
+
+// SECTION 1: Title and Records
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 32px rgba(1, 55, 114, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(1, 55, 114, 0.1);
+  margin-bottom: 0; /* Remove margin since section handles it */
+  
+  .title-content {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    
+    h2 {
+      margin: 0;
+      color: #013772;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+}
+
+// SECTION 2: Filters and Actions
+.section-filters {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+  // Filters
+  .filters {
+    display: flex;
+    gap: 16px;
+    align-items: stretch; /* Changed from center to stretch for consistent heights */
+    flex-wrap: wrap; /* Prevent wrapping to keep filters on one line */
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    box-shadow: 
+      0 8px 32px rgba(1, 55, 114, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(1, 55, 114, 0.1);
+    
+    .search {
+      flex: 1;
+      min-width: 220px; /* Reduced minimum width to fit better */
+      max-width: 300px; /* Add max width to prevent it from taking too much space */
+      
+      // Force exact height alignment with other elements
+      .mat-mdc-form-field-wrapper {
+        height: 56px !important;
+      }
+      
+      .mat-mdc-form-field-flex {
+        height: 56px !important;
+        align-items: center !important;
+      }
+      
+      .mat-mdc-form-field-infix {
+        min-height: 56px !important;
+        padding: 0 !important;
+        border-top: 14px solid transparent !important;
+        border-bottom: 14px solid transparent !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      
+      .mdc-text-field__input {
+        height: 28px !important; /* Exact input height for centering */
+        line-height: 28px !important;
+      }
+    }
+    
+    // Consistent height for all form fields
+    mat-form-field {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      height: 56px !important; /* Fixed consistent height with !important */
+      
+      .mat-mdc-form-field-wrapper {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        height: 56px !important;
+      }
+      
+      .mat-mdc-form-field-flex {
+        height: 56px !important;
+        align-items: center !important;
+      }
+      
+      .mat-mdc-form-field-infix {
+        min-height: 56px !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      
+      input, .mat-mdc-select-value, .mat-mdc-form-field-label {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+      }
+      
+      // Consistent outlined field styling
+      &.mat-mdc-form-field-appearance-outline {
+        .mdc-notched-outline {
+          border-color: rgba(1, 55, 114, 0.2);
+          border-radius: 12px;
+        }
+        
+        &:hover .mdc-notched-outline {
+          border-color: rgba(1, 55, 114, 0.3);
+        }
+        
+        &.mat-focused .mdc-notched-outline {
+          border-color: #013772;
+          border-width: 2px;
+        }
+      }
+    }
+    
+    .actions {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      
+      button {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+        height: 56px; /* Match form field height */
+        padding: 0 20px;
+        background: linear-gradient(135deg, rgba(1, 55, 114, 0.1), rgba(0, 86, 179, 0.05));
+        border: 1px solid rgba(1, 55, 114, 0.2);
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+        color: #013772;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        
+        &:hover {
+          background: linear-gradient(135deg, #013772, #0056b3);
+          color: white;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(1, 55, 114, 0.2);
+        }
+        
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+// SECTION 3: Data Grid
+.section-data {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+  // Loading
+  .loading {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    box-shadow: 
+      0 8px 32px rgba(1, 55, 114, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(1, 55, 114, 0.1);
+  }
+  
+  // Table container with improved styling
+  app-shared-table {
+    display: block;
+    border-radius: 16px; /* Match table border-radius */
+    overflow: hidden; /* Ensure no angular corners show */
+    box-shadow: 
+      0 8px 32px rgba(1, 55, 114, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(1, 55, 114, 0.1);
+    
+    // Modern table styling consistent with app theme
+    ::ng-deep {
+      .mat-mdc-table {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+        backdrop-filter: blur(15px);
+        border-radius: 16px;
+        overflow: hidden;
+        border: none; /* Remove border since wrapper has it */
+        box-shadow: none; /* Remove shadow since wrapper has it */
+        width: 100%;
+      }
+      
+      .mat-mdc-header-row {
+        background: linear-gradient(135deg, rgba(1, 55, 114, 0.1), rgba(0, 86, 179, 0.05));
+        backdrop-filter: blur(10px);
+        
+        .mat-mdc-header-cell {
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: 600;
+          color: #013772;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          border-bottom: 1px solid rgba(1, 55, 114, 0.1);
+          padding: 12px 16px;
+          text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
+        }
+      }
+      
+      .mat-mdc-row {
+        &:nth-child(even) {
+          background: rgba(255, 255, 255, 0.6);
+        }
+        
+        &:nth-child(odd) {
+          background: rgba(248, 249, 250, 0.4);
+        }
+        
+        &:hover {
+          background: linear-gradient(135deg, rgba(1, 55, 114, 0.08), rgba(0, 86, 179, 0.04)) !important;
+          backdrop-filter: blur(5px);
+          transform: translateY(-1px);
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .mat-mdc-cell {
+          border-bottom: 1px solid rgba(1, 55, 114, 0.08);
+          padding: 12px 16px;
+          font-size: 15px;
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          color: #333;
+          backdrop-filter: blur(5px);
+        }
+      }
+      
+      // Pagination styling
+      .mat-mdc-paginator {
+        border-top: 1px solid rgba(1, 55, 114, 0.1);
+        background: linear-gradient(135deg, rgba(1, 55, 114, 0.05), rgba(0, 86, 179, 0.03));
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 16px 16px;
+        color: #013772;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+    }
+  }
+}
+
+// Column settings
+.column-settings {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 150px;
+}
+
+// Row menu items alignment
+.mat-mdc-menu-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  
+  mat-icon {
+    margin-right: 8px !important;
+  }
+}
+
+// Responsive
+@media (max-width: 1200px) {
+  .filters {
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    
+    .search {
+      flex: 1 1 100%; /* Full width on smaller screens */
+      min-width: 220px;
+      max-width: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .search {
+      flex: none;
+    }
+    
+    .actions {
+      margin-left: 0;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.next-button-container {
+  display: flex;
+  justify-content: flex-end; // aligns button to the right
+  margin-top: 10px;          // spacing from the table
+  margin-right: 10px;
+}

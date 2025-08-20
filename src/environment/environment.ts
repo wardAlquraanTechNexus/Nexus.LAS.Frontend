@@ -95,7 +95,8 @@ export const environment: Environment = {
     Users: 'Users',
     UserGroups: 'User-Groups',
     Groups: 'Groups',
-    GroupsMenus: 'GroupsMenus'
+    GroupsMenus: 'GroupsMenus',
+    UserSettings:"user-settings"
   },
 
   rootDynamicLists: {

@@ -11,8 +11,7 @@ import { GroupForm } from './group-table/group-form/group-form';
 @NgModule({
   declarations: [
     GroupTable,
-    GroupFormDialog,
-    GroupForm
+    
   ],
   imports: [
     CommonModule,

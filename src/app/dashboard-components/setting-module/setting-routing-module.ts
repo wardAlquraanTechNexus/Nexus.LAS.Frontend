@@ -1,11 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DynamicListModule } from './dynamic-list/dynamic-list-module';
 import { environment } from '../../../environment/environment';
 import { authGuard } from '../../guards/auth-guard';
+import { GroupSettingComponent } from './setting-components/group-setting-component/group-setting-component';
+import { UserSettingsComponent } from './setting-components/user-settings-component/user-settings-component';
 
 const routes: Routes = [
-   {
+  {
+    path:"",
+    component: GroupSettingComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path:environment.routes.UserSettings,
+    component: UserSettingsComponent,
+    canActivate: [authGuard]
+  },
+  {
     path: environment.routes.DynamicList,
     loadChildren: () => import('./dynamic-list/dynamic-list-module').then(m => m.DynamicListModule),
     canActivate: [authGuard]
