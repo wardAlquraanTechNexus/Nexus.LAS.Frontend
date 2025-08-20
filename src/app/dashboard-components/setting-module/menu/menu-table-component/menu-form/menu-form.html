@@ -1,51 +1,78 @@
-<div class="dl-container">
-    <div class="dialog-header-buttons">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-        <button class="btn btn-primary mr-2" (click)="save(true)">Save</button>
-        <button class="btn" (click)="cancelEdit()">
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>menu</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Add New Menu Item</h2>
+                <p class="dialog-subtitle">Create a new menu item for navigation</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
             <mat-icon>close</mat-icon>
         </button>
     </div>
-    <form [formGroup]="formGroup" *ngIf="formGroup">
-        <div class="row">
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <input matInput formControlName="name" required placeholder="Name"/>
-                    <mat-error *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
-                        Name is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Path</mat-label>
-                    <input matInput formControlName="path" placeholder="Path"/>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput formControlName="description" placeholder="Description"> </textarea>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <input matInput formControlName="iconClass" placeholder="Icon"/>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <input matInput formControlName="rank" required type="number" placeholder="Rank" />
-                    <mat-error *ngIf="formGroup.get('rank')?.hasError('required') && formGroup.get('rank')?.touched">
-                        Rank is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-12 toggle">
-                <mat-slide-toggle class="w-50" formControlName="inDashboard"><span class="label-toggel">In
-                        Dashboard?</span></mat-slide-toggle>
-            </div>
-        </div>
-    </form>
 
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" required placeholder="Enter menu name"/>
+                        <mat-error *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
+                            Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Path</mat-label>
+                        <input matInput formControlName="path" placeholder="Enter navigation path"/>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" placeholder="Enter description" rows="3"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Icon Class</mat-label>
+                        <input matInput formControlName="iconClass" placeholder="Enter icon class"/>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Rank</mat-label>
+                        <input matInput formControlName="rank" required type="number" placeholder="Enter display order"/>
+                        <mat-error *ngIf="formGroup.get('rank')?.hasError('required') && formGroup.get('rank')?.touched">
+                            Rank is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-slide-toggle formControlName="inDashboard">
+                        <span class="label-toggel">Show in Dashboard</span>
+                    </mat-slide-toggle>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Menu
+        </button>
+    </div>
 </div>

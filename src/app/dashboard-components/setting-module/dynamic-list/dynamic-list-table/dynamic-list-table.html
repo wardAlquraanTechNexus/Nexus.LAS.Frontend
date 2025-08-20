@@ -1,56 +1,58 @@
-<div class="nexus-table-container">
-    <!-- Modern Table Header -->
-    <div class="nexus-table-header">
-        <!-- Breadcrumb Navigation -->
-        <div class="breadcrumb-container">
-            <nav class="breadcrumb">
-                <a (click)="onPathClick(null)" class="breadcrumb-link">
-                    <mat-icon class="breadcrumb-icon">home</mat-icon>
-                    Root
-                </a>
-                <ng-container *ngFor="let parent of parents">
-                    <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
-                    <a (click)="onPathClick(parent)" class="breadcrumb-link">
-                        {{ parent.name }}
-                    </a>
-                </ng-container>
-            </nav>
-        </div>
+<div class="main-container">
 
-        <!-- Actions Section -->
-        <div class="table-actions">
-            <!-- Search Input -->
-            <div class="search-container">
-                <mat-form-field class="search-field" appearance="outline">
-                    <mat-label>Search by name</mat-label>
-                    <input matInput [(ngModel)]="params.name" (keyup.enter)="onSearchByName()" 
-                           placeholder="Enter name" autocomplete="off" />
-                    <mat-icon matSuffix class="search-icon">search</mat-icon>
-                </mat-form-field>
-            </div>
-
-            <!-- Add New Button -->
-            <button mat-flat-button class="add-button" (click)="onAddNew()">
-                <mat-icon>add</mat-icon>
-                Add New
-            </button>
-        </div>
+  <!-- SECTION 1: Title and Records -->
+  <div class="section section-title">
+    <div class="title-content">
+      <h2>Dynamic Lists</h2>
     </div>
+    <button mat-raised-button color="primary" (click)="onAddNew()">
+      <mat-icon>add</mat-icon> Add Dynamic List
+    </button>
+  </div>
 
+  <!-- SECTION 2: Filters and Actions -->
+  <div class="section section-filters">
+    <div class="filters">
+      <!-- Breadcrumb Navigation -->
+      <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+          <a (click)="onPathClick(null)" class="breadcrumb-link">
+            <mat-icon class="breadcrumb-icon">home</mat-icon>
+            Root
+          </a>
+          <ng-container *ngFor="let parent of parents">
+            <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+            <a (click)="onPathClick(parent)" class="breadcrumb-link">
+              {{ parent.name }}
+            </a>
+          </ng-container>
+        </nav>
+      </div>
+
+      <!-- Search Input -->
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>Search by name</mat-label>
+        <input matInput [(ngModel)]="params.name" (keyup.enter)="onSearchByName()" placeholder="Enter name">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: Data Grid -->
+  <div class="section section-data">
+    <!-- Loading -->
+    <div *ngIf="showLoading" class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
 
     <!-- Tree Component -->
     <app-shared-tree-component *ngIf="!showLoading" [treeData]="treeData" (addEmitter)="onAddNew()"
         (editEmitter)="onEdit($event)" (deleteEmitter)="onDelete($event)"
         (viewEmitter)="onView($event)"></app-shared-tree-component>
 
-    <!-- Loading Spinner -->
-    <div class="loading-container" *ngIf="showLoading">
-        <mat-progress-spinner mode="indeterminate" diameter="50" color="primary"></mat-progress-spinner>
-        <p class="loading-text">Loading...</p>
-    </div>
-
     <!-- Modern Pagination -->
-    <div class="nexus-pagination">
+    <div class="nexus-pagination" *ngIf="!showLoading">
         <!-- Previous Button -->
         <button mat-stroked-button class="pagination-btn" (click)="onPrev()" [disabled]="params.page === 0">
             <mat-icon>chevron_left</mat-icon>
@@ -79,4 +81,5 @@
             <mat-icon>chevron_right</mat-icon>
         </button>
     </div>
+  </div>
 </div>
