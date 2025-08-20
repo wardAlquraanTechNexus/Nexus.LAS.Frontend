@@ -1,47 +1,62 @@
-<mat-toolbar color="primary" class="page-header">
-  <span class="page-title">Users</span>
-  <span class="flex-spacer"></span>
-  <span class="records-count">{{ data.totalRecords || 0 }} Records</span>
-</mat-toolbar>
-<div class="content-container">
+<div class="main-container">
 
-
-  <div class="row">
-    <div class="col-3">
-      <mat-form-field appearance="outline" class="search">
-        <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" placeholder="Username">
-      </mat-form-field>
-    </div>
-    <div class="col-3">
-      <mat-form-field appearance="outline" class="search">
-        <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" placeholder="First name">
-      </mat-form-field>
-    </div>
-    <div class="col-3">
-      <mat-form-field appearance="outline" class="search">
-        <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" placeholder="Last name">
-      </mat-form-field>
-    </div>
-    <div class="col-3">
-      <mat-form-field appearance="outline" class="search">
-        <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" placeholder="Email">
-      </mat-form-field>
+  <!-- SECTION 1: Title and Records -->
+  <div class="section section-title">
+    <div class="title-content">
+      <h2>Users</h2>
     </div>
   </div>
-  <!-- Loading Spinner -->
-  <div *ngIf="showLoading" class="loading-container">
-    <mat-spinner diameter="40" strokeWidth="4" color="accent"></mat-spinner>
+
+  <!-- SECTION 2: Filters and Actions -->
+  <div class="section section-filters">
+    <div class="filters">
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" placeholder="Enter username">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>First Name</mat-label>
+        <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" placeholder="Enter first name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>Last Name</mat-label>
+        <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" placeholder="Enter last name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" placeholder="Enter email">
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-button (click)="search()">
+          <mat-icon>search</mat-icon> Search
+        </button>
+
+      </div>
+
+    </div>
   </div>
 
-  <!-- Data Table -->
-  <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-    [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
-  </app-shared-table>
+  <!-- SECTION 3: Data Grid -->
+  <div class="section section-data">
+    <!-- Loading -->
+    <div *ngIf="showLoading" class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <!-- Table -->
+    <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+      [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+    </app-shared-table>
+  </div>
 
   <!-- Row Menu Template -->
   <ng-template #actionButtonsTemplate let-row>
     <button mat-icon-button [matMenuTriggerFor]="menuRow">
-      <mat-icon>more_horiz</mat-icon>
+      <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu">
       <!-- <button mat-menu-item>

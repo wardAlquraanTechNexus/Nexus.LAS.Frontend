@@ -1,34 +1,49 @@
-<div class="tree-wrapper mt-2" style="position: relative; min-height: 400px;">
+<div class="main-container">
 
-    <!-- Header -->
-     <div class="tree-header"
-        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 16px;">
+  <!-- SECTION 1: Title and Records -->
+  <div class="section section-title">
+    <div class="title-content">
+      <h2>Menus</h2>
+    </div>
+    <button mat-raised-button color="primary" (click)="onAddNew()">
+      <mat-icon>add</mat-icon> Add Menu
+    </button>
+  </div>
 
-        <!-- Breadcrumb -->
-        <div class="breadcrumb" style="flex-grow: 1;">
-            <a (click)="onPathClick(null)" class="breadcrumb-link">Root</a>
-            <ng-container *ngFor="let parent of parents">
-                <span class="breadcrumb-separator"> / </span>
-                <a (click)="onPathClick(parent)" class="breadcrumb-link">
-                    {{ parent.name }}
-                </a>
-            </ng-container>
-        </div>
+  <!-- SECTION 2: Filters and Actions -->
+  <div class="section section-filters">
+    <div class="filters">
+      <!-- Breadcrumb Navigation -->
+      <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+          <a (click)="onPathClick(null)" class="breadcrumb-link">
+            <mat-icon class="breadcrumb-icon">home</mat-icon>
+            Root
+          </a>
+          <ng-container *ngFor="let parent of parents">
+            <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+            <a (click)="onPathClick(parent)" class="breadcrumb-link">
+              {{ parent.name }}
+            </a>
+          </ng-container>
+        </nav>
+      </div>
 
-        <!-- Search input -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <mat-form-field appearance="outline" style="width: 220px; margin: 0;">
-                <mat-label>Search by name</mat-label>
-                <input matInput [(ngModel)]="params.name" (keyup.enter)="onSearchByName()" placeholder="Enter name"
-                    autocomplete="off" />
-            </mat-form-field>
-        </div>
+      <!-- Search Input -->
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>Search by name</mat-label>
+        <input matInput [(ngModel)]="params.name" (keyup.enter)="onSearchByName()" placeholder="Enter name">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
 
+    </div>
+  </div>
 
-        <!-- Add New Button -->
-        <button mat-raised-button color="primary" (click)="onAddNew()">
-            <mat-icon>add</mat-icon> Add New
-        </button>
+  <!-- SECTION 3: Data Grid -->
+  <div class="section section-data">
+    <!-- Loading -->
+    <div *ngIf="showLoading" class="loading">
+      <mat-spinner></mat-spinner>
     </div>
 
     <!-- Tree Component -->
@@ -36,44 +51,35 @@
         (editEmitter)="onEdit($event)" (deleteEmitter)="onDelete($event)"
         (viewEmitter)="onView($event)"></app-shared-tree-component>
 
-    <div class="spinner-overlay" *ngIf="showLoading"
-        style="display: flex; justify-content: center; align-items: center;">
-        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
-    </div>
-
-    <!-- Bottom Navigation -->
-    <div style="
-    position: sticky;
-    bottom: 0;
-    background: white;
-    padding: 8px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    font-size: 14px;
-    gap: 12px;
-">
-        <!-- Prev Button -->
-        <button mat-raised-button color="accent" (click)="onPrev()" [disabled]="params.page === 0">
-            <mat-icon>chevron_left</mat-icon> Prev
+    <!-- Modern Pagination -->
+    <div class="nexus-pagination" *ngIf="!showLoading">
+        <!-- Previous Button -->
+        <button mat-stroked-button class="pagination-btn" (click)="onPrev()" [disabled]="params.page === 0">
+            <mat-icon>chevron_left</mat-icon>
+            Previous
         </button>
 
-        <!-- Center info -->
-        <div style="flex-grow: 1; text-align: center;">
-            Page <b>{{ params.page + 1 }}</b> of <b>{{ !menus.totalPages ? 1 : menus.totalPages }}</b>
-            &nbsp;|&nbsp;
-            Page Size: <b>{{ params.pageSize }}</b>
-            &nbsp;|&nbsp;
-            Total Records: <b>{{ menus.totalRecords }}</b>
+        <!-- Pagination Info -->
+        <div class="pagination-info">
+            <div class="page-info">
+                Page <span class="highlight">{{ params.page + 1 }}</span> 
+                of <span class="highlight">{{ !menus.totalPages ? 1 : menus.totalPages }}</span>
+            </div>
+            <div class="records-info">
+                <span class="info-label">Page Size:</span> 
+                <span class="highlight">{{ params.pageSize }}</span>
+                <span class="divider">|</span>
+                <span class="info-label">Total Records:</span> 
+                <span class="highlight">{{ menus.totalRecords }}</span>
+            </div>
         </div>
 
         <!-- Next Button -->
-        <button mat-raised-button color="accent" (click)="onNext()"
-            [disabled]="(params.page + 1) >= menus.totalPages">
-            Next <mat-icon>chevron_right</mat-icon>
+        <button mat-stroked-button class="pagination-btn" (click)="onNext()"
+                [disabled]="(params.page + 1) >= menus.totalPages">
+            Next
+            <mat-icon>chevron_right</mat-icon>
         </button>
     </div>
-
-
+  </div>
 </div>
