@@ -44,7 +44,7 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
         ]
       },{
         key:"action",
-        label:"actions"
+        label:"Action"
       }
     ];
 

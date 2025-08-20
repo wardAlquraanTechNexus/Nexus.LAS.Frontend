@@ -72,7 +72,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     },
     {
       key: "activeReminder",
-      label: "Active Reminder",
+      label: "Reminder",
       inputType: 'mat-slide-toggle'
     },
     {

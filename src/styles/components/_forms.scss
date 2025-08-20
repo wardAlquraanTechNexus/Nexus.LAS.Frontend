@@ -203,3 +203,25 @@
     justify-content: flex-start;
   }
 }
+
+// Form actions
+.nexus-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: vars.$nexus-spacing-md;
+  margin-top: vars.$nexus-spacing-xl;
+  padding-top: vars.$nexus-spacing-lg;
+  border-top: vars.$nexus-border-width solid vars.$nexus-border-color-light;
+  
+  &.nexus-form-actions-between {
+    justify-content: space-between;
+  }
+  
+  &.nexus-form-actions-center {
+    justify-content: center;
+  }
+  
+  &.nexus-form-actions-start {
+    justify-content: flex-start;
+  }
+}

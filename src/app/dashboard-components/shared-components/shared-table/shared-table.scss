@@ -40,15 +40,18 @@
 .paginator-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; // default: records left, paginator right
+  justify-content: space-between;
+  border-top: 1px solid rgba(1, 55, 114, 0.1);
+  background: linear-gradient(135deg, rgba(1, 55, 114, 0.05), rgba(0, 86, 179, 0.03));
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 16px 16px;
 
   &.rtl {
-    flex-direction: row-reverse; // swap sides
+    flex-direction: row-reverse;
     text-align: right;
   }
 
   .records-count {
-    position: static; // remove absolute
     margin-left: 16px;
     margin-right: 16px;
 
@@ -58,16 +61,18 @@
     }
 
     span {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 12px;
+      color: #013772;
+      font-size: 14px;
       font-weight: 400;
-      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-      letter-spacing: 0.4px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
   }
 
   mat-paginator {
     flex: 1;
+    background: transparent;
+    color: #013772;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 }
 
