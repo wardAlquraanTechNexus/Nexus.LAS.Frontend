@@ -24,6 +24,7 @@ import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
+import { ConfirmDeleteComponent } from '../../../../components/confirm-delete-component/confirm-delete-component';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -191,25 +192,33 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
   deletePerson(person: GetPersonsDTO) {
-    this.showLoading = true;
-    this.service.delete(person.id!).subscribe({
-      next: (res) => {
-        this.showLoading = false;
-        this.data.collection = this.data.collection.filter(p => p.id !== person.id);
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '400px',
+      data: person
+    });
 
-        this.snackBar.openFromComponent(SuccessSnackbar,
-          {
-            data: "Deleted Successfully",
-            duration: 4000
-          }
-        )
-        this.cdr.detectChanges();
-      },
-      error: (err => {
-        this.showLoading = false;
-        this.cdr.detectChanges();
-      })
-    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.showLoading = true;
+        this.service.delete(person.id!).subscribe({
+          next: (res) => {
+            // Refresh data from server after successful deletion
+            this.search();
+            
+            this.snackBar.openFromComponent(SuccessSnackbar,
+              {
+                data: "Deleted Successfully",
+                duration: 4000
+              }
+            )
+          },
+          error: (err => {
+            this.showLoading = false;
+            this.cdr.detectChanges();
+          })
+        })
+      }
+    });
   }
 
   updatePerson(command: UpdatePersonCommand) {
