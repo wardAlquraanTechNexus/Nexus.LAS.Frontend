@@ -1,112 +1,136 @@
-<div>
-    <div class="dialog-header-buttons">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-      <button class="btn btn-primary mr-2" (click)="save(true)">Save</button>
-      <button  class="btn"  (click)="cancelEdit()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-    <form [formGroup]="formGroup" *ngIf="formGroup" class="view">
-        <div class="row">
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Document Type</mat-label>
-                    <mat-select formControlName="type" required>
-                        <mat-option value="passport">Passport</mat-option>
-                        <mat-option value="national_id">National ID</mat-option>
-                        <mat-option value="driver_license">Driver License</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('type')?.hasError('required') && formGroup.get('type')?.touched">
-                        Document Type is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Nationality</mat-label>
-                    <mat-select formControlName="nationality" required>
-                        <mat-option value="1">Jordan</mat-option>
-                        <mat-option value="2">UAE</mat-option>
-                    </mat-select>
-                    <mat-error
-                        *ngIf="formGroup.get('nationality')?.hasError('required') && formGroup.get('nationality')?.touched">
-                        Nationality is required
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Place of issue</mat-label>
-                    <mat-select formControlName="placeOfIssue" required>
-                        <mat-option value="1">Jordan</mat-option>
-                        <mat-option value="2">UAE</mat-option>
-                    </mat-select>
-                    <mat-error
-                        *ngIf="formGroup.get('placeOfIssue')?.hasError('required') && formGroup.get('placeOfIssue')?.touched">
-                        Place of issue is required
-                    </mat-error>
-                </mat-form-field>
-    
-    
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Number</mat-label>
-                    <input matInput formControlName="idNumber" required />
-                    <mat-error
-                        *ngIf="formGroup.get('idNumber')?.hasError('required') && formGroup.get('idNumber')?.touched">
-                        Number is required
-                    </mat-error>
-                </mat-form-field>
-    
-    
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Issue Date</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="idIssueDate" required />
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error
-                        *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
-                        Issue Date is required
-                    </mat-error>
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Expiry Date</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="expiryDate" />
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
-    
-                <div class="col-12">
-                    <mat-slide-toggle class="w-50" formControlName="isPrimary"><span
-                            class="label-toggel">Primary</span></mat-slide-toggle>
-                    <mat-slide-toggle class="w-50" formControlName="activeReminder"><span class="label-toggel">Active
-                            Reminder</span></mat-slide-toggle>
-                </div>
-                <div class="col-6">
-                </div>
-            </div>
-            <div class="col-6 image-edit-con">
-                <div align="end">
-                    <button class="btn" (click)="download()">
-                        <mat-icon>download</mat-icon>
-                    </button>
-    
-                    <!-- Attach File Button -->
-                    <button class="btn" (click)="fileInput.click()">
-                        <mat-icon>attach_file</mat-icon>
-                    </button>
-    
-                    <!-- Hidden File Input -->
-                    <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*,.pdf" hidden />
-                </div>
-                <div class="image-wrapper mt-3">
-                    <ng-container *ngIf="personIdDetail.contentType === 'application/pdf'; else showImage">
-                        <iframe [src]="personIdDetail.imageUrl" width="100%" height="400px" type="application/pdf"></iframe>
-                    </ng-container>
-    
-                    <ng-template #showImage>
-                        <img *ngIf="personIdDetail.imageUrl" [src]="personIdDetail.imageUrl" alt="Document" class="img-fluid" />
-                    </ng-template>
-                </div>
-            </div>
-    
+<div class="edit-form-section">
+    <!-- Enhanced Header -->
+    <div class="section-header">
+        <div class="header-content">
+            <mat-icon>badge</mat-icon>
+            <h3>Edit ID Document</h3>
         </div>
-    </form>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" matTooltip="Close">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
 
+    <!-- Form Content -->
+    <div class="form-content">
+        <form [formGroup]="formGroup" *ngIf="formGroup" class="enhanced-form">
+            <div class="row">
+                <!-- Form Fields Column -->
+                <div class="col-6 form-fields">
+                    <div class="fields-container">
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Document Type</mat-label>
+                            <mat-select formControlName="type" placeholder="Select document type..." required>
+                                <mat-option value="passport">Passport</mat-option>
+                                <mat-option value="national_id">National ID</mat-option>
+                                <mat-option value="driver_license">Driver License</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.get('type')?.hasError('required') && formGroup.get('type')?.touched">
+                                Document Type is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Nationality</mat-label>
+                            <mat-select formControlName="nationality" placeholder="Select nationality..." required>
+                                <mat-option value="1">Jordan</mat-option>
+                                <mat-option value="2">UAE</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.get('nationality')?.hasError('required') && formGroup.get('nationality')?.touched">
+                                Nationality is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Place of Issue</mat-label>
+                            <mat-select formControlName="placeOfIssue" placeholder="Select place of issue..." required>
+                                <mat-option value="1">Jordan</mat-option>
+                                <mat-option value="2">UAE</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.get('placeOfIssue')?.hasError('required') && formGroup.get('placeOfIssue')?.touched">
+                                Place of issue is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Document Number</mat-label>
+                            <input matInput formControlName="idNumber" placeholder="Enter document number..." required />
+                            <mat-error *ngIf="formGroup.get('idNumber')?.hasError('required') && formGroup.get('idNumber')?.touched">
+                                Number is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Issue Date</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="idIssueDate" placeholder="Select issue date..." required />
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
+                                Issue Date is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Expiry Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="expiryDate" placeholder="Select expiry date..." />
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+
+                        <!-- Toggles Section -->
+                        <div class="toggles-section">
+                            <mat-slide-toggle formControlName="isPrimary">
+                                <span class="label-toggel">Primary Document</span>
+                            </mat-slide-toggle>
+                            <mat-slide-toggle formControlName="activeReminder">
+                                <span class="label-toggel">Active Reminder</span>
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Preview Column -->
+                <div class="col-6 document-preview">
+                    <div class="preview-container">
+                        <div class="preview-header">
+                            <h4>Document Preview</h4>
+                            <div class="preview-actions">
+                                <button mat-icon-button class="preview-btn" (click)="download()" matTooltip="Download Document">
+                                    <mat-icon>download</mat-icon>
+                                </button>
+                                <button mat-icon-button class="preview-btn" (click)="fileInput.click()" matTooltip="Replace Document">
+                                    <mat-icon>attach_file</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-viewer">
+                            <ng-container *ngIf="personIdDetail.contentType === 'application/pdf'; else showImage">
+                                <iframe [src]="personIdDetail.imageUrl" class="pdf-viewer" type="application/pdf"></iframe>
+                            </ng-container>
+                            
+                            <ng-template #showImage>
+                                <img *ngIf="personIdDetail.imageUrl" [src]="personIdDetail.imageUrl" alt="Document" class="document-image" />
+                            </ng-template>
+                        </div>
+                        
+                        <!-- Hidden File Input -->
+                        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*,.pdf" hidden />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="dialog-actions">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Changes
+        </button>
+    </div>
+    
 </div>

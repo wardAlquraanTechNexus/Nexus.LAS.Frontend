@@ -1,65 +1,89 @@
-<div>
-    <div class="actions dialog-header-buttons d-flex justify-content-end align-items-center gap-2">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-      <button class="btn btn-primary mr-2" (click)="save(true)">Save</button>
-      <button class="btn"  (click)="cancelEdit()">
-        <mat-icon>close</mat-icon>
-      </button>
+<div class="edit-form-section">
+    <!-- Enhanced Header -->
+    <div class="section-header">
+        <div class="header-content">
+            <mat-icon>description</mat-icon>
+            <h3>Edit Other Document</h3>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" matTooltip="Close">
+            <mat-icon>close</mat-icon>
+        </button>
     </div>
 
-    <form [formGroup]="formGroup" *ngIf="formGroup" class="view mt-4">
-        <div class="row">
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Document Type</mat-label>
-                    <mat-select formControlName="documentType" required>
-                        <mat-option value="passport">Passport</mat-option>
-                        <mat-option value="national_id">National ID</mat-option>
-                        <mat-option value="driver_license">Driver License</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('documentType')?.hasError('required') && formGroup.get('documentType')?.touched">
-                        Document Type is required
-                    </mat-error>
-                </mat-form-field>
-    
-    
-                <mat-form-field appearance="outline" class="full-width col-12">
-                    <mat-label>Description</mat-label>
-                    <input matInput formControlName="documentDescription" required />
-                    <mat-error
-                        *ngIf="formGroup.get('documentDescription')?.hasError('required') && formGroup.get('documentDescription')?.touched">
-                        Description is required
-                    </mat-error>
-                </mat-form-field>
-    
- 
-            </div>
-            <div class="col-6 image-edit-con">
-                <div align="end">
-                    <button class="btn" (click)="download()">
-                        <mat-icon>download</mat-icon>
-                    </button>
-    
-                    <!-- Attach File Button -->
-                    <button class="btn" (click)="fileInput.click()">
-                        <mat-icon>attach_file</mat-icon>
-                    </button>
-    
-                    <!-- Hidden File Input -->
-                    <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*,.pdf" hidden />
-                </div>
-                <div class="image-wrapper mt-3">
-                    <ng-container *ngIf="personOtherDocumentDto.contentType === 'application/pdf'; else showImage">
-                        <iframe [src]="personOtherDocumentDto.imageUrl" width="100%" height="400px" type="application/pdf"></iframe>
-                    </ng-container>
-    
-                    <ng-template #showImage>
-                        <img *ngIf="personOtherDocumentDto.imageUrl" [src]="personOtherDocumentDto.imageUrl" alt="Document" class="img-fluid" />
-                    </ng-template>
-                </div>
-            </div>
-    
-        </div>
-    </form>
+    <!-- Form Content -->
+    <div class="form-content">
+        <form [formGroup]="formGroup" *ngIf="formGroup" class="enhanced-form">
+            <div class="row">
+                <!-- Form Fields Column -->
+                <div class="col-6 form-fields">
+                    <div class="fields-container">
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Document Type</mat-label>
+                            <mat-select formControlName="documentType" placeholder="Select document type..." required>
+                                <mat-option value="passport">Passport</mat-option>
+                                <mat-option value="national_id">National ID</mat-option>
+                                <mat-option value="driver_license">Driver License</mat-option>
+                                <mat-option value="certificate">Certificate</mat-option>
+                                <mat-option value="contract">Contract</mat-option>
+                                <mat-option value="other">Other</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.get('documentType')?.hasError('required') && formGroup.get('documentType')?.touched">
+                                Document Type is required
+                            </mat-error>
+                        </mat-form-field>
 
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Description</mat-label>
+                            <input matInput formControlName="documentDescription" placeholder="Enter document description..." required />
+                            <mat-error *ngIf="formGroup.get('documentDescription')?.hasError('required') && formGroup.get('documentDescription')?.touched">
+                                Description is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Document Preview Column -->
+                <div class="col-6 document-preview">
+                    <div class="preview-container">
+                        <div class="preview-header">
+                            <h4>Document Preview</h4>
+                            <div class="preview-actions">
+                                <button mat-icon-button class="preview-btn" (click)="download()" matTooltip="Download Document">
+                                    <mat-icon>download</mat-icon>
+                                </button>
+                                <button mat-icon-button class="preview-btn" (click)="fileInput.click()" matTooltip="Replace Document">
+                                    <mat-icon>attach_file</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-viewer">
+                            <ng-container *ngIf="personOtherDocumentDto.contentType === 'application/pdf'; else showImage">
+                                <iframe [src]="personOtherDocumentDto.imageUrl" class="pdf-viewer" type="application/pdf"></iframe>
+                            </ng-container>
+                            
+                            <ng-template #showImage>
+                                <img *ngIf="personOtherDocumentDto.imageUrl" [src]="personOtherDocumentDto.imageUrl" alt="Document" class="document-image" />
+                            </ng-template>
+                        </div>
+                        
+                        <!-- Hidden File Input -->
+                        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*,.pdf" hidden />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="dialog-actions">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Changes
+        </button>
+    </div>
 </div>
