@@ -137,6 +137,24 @@
           font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
       }
+
+      // Ensure empty table styling is preserved and enhanced
+      .empty-table {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 256px;
+        width: 100%;
+        font-size: 18px;
+        color: rgba(1, 55, 114, 0.8);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+        border: 1px solid rgba(1, 55, 114, 0.1);
+        border-radius: 12px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(1, 55, 114, 0.05);
+      }
     }
   }
 }
