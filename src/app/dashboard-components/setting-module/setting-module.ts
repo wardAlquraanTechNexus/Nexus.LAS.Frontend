@@ -6,6 +6,8 @@ import { ComponentsModule } from '../../components/components-module';
 import { GroupFormDialog } from './group/group-table/group-form-dialog/group-form-dialog';
 import { GroupForm } from './group/group-table/group-form/group-form';
 import { UserSettingsComponent } from './setting-components/user-settings-component/user-settings-component';
+import { SettingsTapsComponent } from './setting-components/settings-taps-component/settings-taps-component';
+import { MenuSettingComponent } from './setting-components/menu-setting-component/menu-setting-component';
 
 
 
@@ -14,7 +16,9 @@ import { UserSettingsComponent } from './setting-components/user-settings-compon
     GroupSettingComponent,
     GroupFormDialog,
     GroupForm,
-    UserSettingsComponent
+    UserSettingsComponent,
+    SettingsTapsComponent,
+    MenuSettingComponent
   ],
   imports: [
     CommonModule,

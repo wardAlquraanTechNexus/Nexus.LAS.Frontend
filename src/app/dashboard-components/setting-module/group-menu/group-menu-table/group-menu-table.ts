@@ -125,7 +125,7 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
     this.showLoading = true;
     this.loadingService.startLoading('Loading data');
 
-    this.service.searchGroup(this.params)
+    this.service.searchGroupMenu(this.params)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res => {

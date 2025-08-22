@@ -7,4 +7,5 @@ export interface Menu {
     description?: string | null;
     iconClass?: string | null;
     inDashboard: boolean;
+    isChecked?:boolean;
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../services/person-services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
@@ -26,6 +26,8 @@ export class PersonView implements OnInit {
   showLoading = false;
   person: PersonDto | null = null;
   personId = 0;
+
+  @Output() backToTableEmit = new EventEmitter();
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -88,8 +90,7 @@ export class PersonView implements OnInit {
   }
 
   navigateToPersons() {
-    this.router.navigateByUrl(`${environment.routes.Persons}/${this.personsUrl.path}`);
-
+    this.backToTableEmit.emit();
   }
   getPersonStatusStyle() {
     let borderColor = '#9E77ED';

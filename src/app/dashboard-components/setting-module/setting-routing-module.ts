@@ -4,6 +4,7 @@ import { environment } from '../../../environment/environment';
 import { authGuard } from '../../guards/auth-guard';
 import { GroupSettingComponent } from './setting-components/group-setting-component/group-setting-component';
 import { UserSettingsComponent } from './setting-components/user-settings-component/user-settings-component';
+import { SettingsTapsComponent } from './setting-components/settings-taps-component/settings-taps-component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
   },
   {
     path:environment.routes.UserSettings,
-    component: UserSettingsComponent,
+    component: SettingsTapsComponent,
     canActivate: [authGuard]
   },
   {

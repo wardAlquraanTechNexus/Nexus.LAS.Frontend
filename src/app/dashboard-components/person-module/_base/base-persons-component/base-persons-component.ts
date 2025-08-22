@@ -128,9 +128,14 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
 
   onRowClick(elementRow: any) {
-    if (elementRow.key == "personArabicName" || elementRow.key == "personEnglishName" || elementRow.key == "personCode") {
-      this.router.navigate([`${environment.routes.Persons}/${environment.routes.ViewPersons}`], {
-        queryParams: { id: elementRow.element.id }
+    if (
+      elementRow.key === "personArabicName" ||
+      elementRow.key === "personEnglishName" ||
+      elementRow.key === "personCode"
+    ) {
+      this.router.navigate([], {
+        relativeTo: this.route, 
+        queryParams: { id: elementRow.element.id }, 
       });
     }
   }
@@ -204,8 +209,13 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
           next: (res) => {
             // Refresh data from server after successful deletion
             this.search();
-            
-            this.errorHandler.showSuccess("Deleted Successfully");
+
+            this.snackBar.openFromComponent(SuccessSnackbar,
+              {
+                data: "Deleted Successfully",
+                duration: 4000
+              }
+            )
           },
           error: (err => {
             this.showLoading = false;

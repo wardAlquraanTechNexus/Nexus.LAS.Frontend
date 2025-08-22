@@ -273,6 +273,9 @@ export class SharedTable implements OnInit, OnChanges {
   }
 
 
+  onToggleChange(element: any, key: string, newValue: boolean){
+    element[key] = newValue;
+  }
 
 
 

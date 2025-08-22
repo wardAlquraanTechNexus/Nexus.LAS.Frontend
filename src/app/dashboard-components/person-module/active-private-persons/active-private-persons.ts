@@ -11,6 +11,7 @@ import { BasePersonsComponent } from '../_base/base-persons-component/base-perso
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../services/dynamic-list-service';
 import { LanguageService } from '../../../services/language-service';
+import { PersonTableView } from '../_base/person-table-view/person-table-view';
 
 @Component({
   selector: 'app-not-active-persons',
@@ -18,71 +19,4 @@ import { LanguageService } from '../../../services/language-service';
   templateUrl: './active-private-persons.html',
   styleUrls: ['./active-private-persons.scss', '../_base/base-persons-component/base-persons-component.scss']
 })
-export class ActivePrivatePersons extends BasePersonsComponent {
-
-  override params: GetPersonsQuery = {
-      searchBy: null,
-      nationality: null,
-      private: true,
-      status: PersonStatus.Active,
-      page: 0,
-      pageSize: 10
-    }
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "select",
-      label: "",
-    },
-    {
-      key: "personCode",
-      label: "Code",
-      sort: true,
-      pipes: ["link"]
-    },
-    {
-      key: "personEnglishName",
-      label: "Name En",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "personArabicName",
-      label: "Name Ar",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "personShortName",
-      label: "Short Name",
-      sort: true
-    },
-    {
-      key: "fpcCode",
-      label: "FPC Code"
-    },
-    {
-      key: "action",
-      label: "Action",
-    },
-  ]
-
-     constructor(
-       override service: PersonService,
-       override cdr: ChangeDetectorRef,
-       override fb: FormBuilder,
-       override router: Router,
-       override errorHandler: ErrorHandlerService,
-       override route: ActivatedRoute,
-       override menuService: MenuService,
-       override dialog: MatDialog,
-       override dlService: DynamicListService,
-       override langService: LanguageService,
-     ) {
-       super(service, cdr, fb, router, errorHandler, route, menuService, dialog, dlService, langService);
-     }
-  
-    override ngOnInit(): void {
-      super.ngOnInit();
-      
-    }
-}
+export class ActivePrivatePersons extends PersonTableView {}

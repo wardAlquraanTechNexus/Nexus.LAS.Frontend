@@ -53,8 +53,7 @@
 
                     <span *ngIf="column.inputType">
                       <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
-                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'">
-                        </mat-slide-toggle>
+                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'" (change)="onToggleChange(element, column.key, $event.checked)"></mat-slide-toggle>
                       </ng-container>
                       <ng-template #defaultInput>
                         <input [value]="element[column.key]" [type]="column.inputType" readonly class="form-control" />

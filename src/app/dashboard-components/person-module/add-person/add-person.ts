@@ -22,6 +22,7 @@ export class AddPerson implements OnInit {
     private errorHandler: ErrorHandlerService,
     private dialogRef: MatDialogRef<AddPerson>,
     private router: Router,
+    private activatedRoute:ActivatedRoute,
     private langService: LanguageService) {
 
   }
@@ -43,7 +44,10 @@ export class AddPerson implements OnInit {
         this.isSaving = false;
         this.cdRef.detectChanges();
         this.dialogRef?.close(res);
-        this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });
+        this.router.navigate([], {
+          relativeTo: this.activatedRoute,
+          queryParams: { id: res }, 
+        });
       },
       error: (error) => {
         this.isSaving = false;

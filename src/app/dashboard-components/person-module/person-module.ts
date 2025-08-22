@@ -33,6 +33,10 @@ import { PersonOtherDocumentsTableForm } from "./shared-person-documents-compone
 import { SharedRegisterNoteTable } from "../shared-components/shared-register-note/shared-register-note-table/shared-register-note-table";
 import { SharedRegisterNoteForm } from "../shared-components/shared-register-note/shared-register-note-form/shared-register-note-form";
 import { SharedRegisterNoteFormDialog } from "../shared-components/shared-register-note/shared-register-note-form-dialog/shared-register-note-form-dialog";
+import { AllPersonTable } from "./all-persons/all-person-table/all-person-table";
+import { ActivePersonsTable } from "./active-persons/active-persons-table/active-persons-table";
+import { ActivePrivatePersonsTable } from "./active-private-persons/active-private-persons-table/active-private-persons-table";
+import { ActivePublicPersonsTable } from "./active-public-persons/active-public-persons-table/active-public-persons-table";
 
 @NgModule({
     declarations: [
@@ -66,7 +70,11 @@ import { SharedRegisterNoteFormDialog } from "../shared-components/shared-regist
     PersonAddressDialog,
         SharedRegisterNoteTable,
         SharedRegisterNoteForm,
-        SharedRegisterNoteFormDialog
+        SharedRegisterNoteFormDialog,
+        AllPersonTable,
+        ActivePersonsTable,
+        ActivePrivatePersonsTable,
+        ActivePublicPersonsTable
     ],
     imports: [
         CommonModule,

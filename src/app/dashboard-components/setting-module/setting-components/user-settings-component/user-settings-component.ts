@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +26,7 @@ export class UserSettingsComponent extends TableFormComponent<User> {
 
   selectedUsers: UserDto[] = [];
   labels: any;
-  groupId!: number;
+  @Input() groupId!: number;
   userGroups: UserGroupDto[] = [];
   override data: PaginateRsult<UserDto> = {
     collection: [],
@@ -109,8 +109,6 @@ export class UserSettingsComponent extends TableFormComponent<User> {
       next: (users => {
         this.data = users;
         this.selectedUsers = this.data.collection;
-        this.route.queryParams.subscribe(params => {
-          this.groupId = +params['id'];
           this.userGroupService.getAllUserGroupDTOs({
             groupId: this.groupId
           }).subscribe({
@@ -129,7 +127,7 @@ export class UserSettingsComponent extends TableFormComponent<User> {
 
             })
           })
-        });
+        
       }),
       error: (err => {
         this.showLoading = false;
