@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface Company extends BaseModel{
+export interface Company extends BaseEntity{
   companyIdc: string;
   id: number;
   companyCode: string;

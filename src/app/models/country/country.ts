@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface Country extends BaseModel {
+export interface Country extends BaseEntity {
   countryName?: string;
   fips104?: string;
   iso2?: string;

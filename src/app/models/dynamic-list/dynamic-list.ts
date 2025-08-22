@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface DynamicList extends BaseModel
+export interface DynamicList extends BaseEntity
 {
     id:number,
     parentId:number | null,

@@ -1,11 +1,16 @@
 /**
  * Base interface for all entities in the system
+ * Provides audit trail fields and common entity properties
  */
 export interface BaseEntity {
-  id?: string | number;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-  [key: string]: any; // Allow additional properties but encourage specific typing
+  id?: number;
+  createdBy?: string;
+  createdAt?: string;
+  modifiedBy?: string | null;
+  modifiedAt?: string | null;
+  
+  // Allow additional properties while maintaining type safety
+  [key: string]: any;
 }
 
 /**
@@ -22,5 +27,5 @@ export type FormData<T> = Partial<T>;
  * Type for entity with required ID (for updates)
  */
 export type EntityWithId<T extends BaseEntity> = T & {
-  id: string | number;
+  id: number;
 };

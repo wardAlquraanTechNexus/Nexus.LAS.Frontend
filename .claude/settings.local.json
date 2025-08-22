@@ -13,6 +13,9 @@
     ],
     "deny": [],
     "ask": [],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "C:\\c\\Dev\\Nexus.LAS.Frontend\\src\\app"
+    ]
   }
 }

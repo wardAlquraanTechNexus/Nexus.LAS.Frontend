@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface RegisterNote extends BaseModel {
+export interface RegisterNote extends BaseEntity {
   registersIdc: string;
   registersIdn: number;
   registersNotesText: string;

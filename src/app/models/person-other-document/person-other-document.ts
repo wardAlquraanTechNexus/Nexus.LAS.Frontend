@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface PersonOtherDocument extends BaseModel
+export interface PersonOtherDocument extends BaseEntity
 {
     personIdn: number;
     documentType: string;

@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface GroupMenu extends BaseModel
+export interface GroupMenu extends BaseEntity
 {
     groupId:number;
     menuId:number;

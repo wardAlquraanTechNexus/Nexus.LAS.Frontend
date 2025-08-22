@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface UserGroup extends BaseModel{
+export interface UserGroup extends BaseEntity{
     userId:number,
     groupId:number
 }

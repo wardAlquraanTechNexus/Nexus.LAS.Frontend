@@ -1,6 +1,6 @@
-import { BaseModel } from "../base/base-model";
+import { BaseEntity } from "../base/base-entity";
 
-export interface User extends BaseModel{
+export interface User extends BaseEntity{
     userIdc:string,
     username:string,
     loginName:string|null,
