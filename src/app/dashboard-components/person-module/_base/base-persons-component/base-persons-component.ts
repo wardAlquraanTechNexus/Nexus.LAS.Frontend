@@ -25,6 +25,7 @@ import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
 import { LanguageCode } from '../../../../models/types/lang-type';
 import { ConfirmDeleteComponent } from '../../../../components/confirm-delete-component/confirm-delete-component';
+import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -65,6 +66,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     protected dialog: MatDialog,
     protected dlService: DynamicListService,
     protected langService: LanguageService,
+    
 
   ) {
     super(service, cdr, fb, router, errorHandler, route);
@@ -210,12 +212,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
             // Refresh data from server after successful deletion
             this.search();
 
-            this.snackBar.openFromComponent(SuccessSnackbar,
-              {
-                data: "Deleted Successfully",
-                duration: 4000
-              }
-            )
+            this.errorHandler.showSuccess("Deleted Successfully");
           },
           error: (err => {
             this.showLoading = false;

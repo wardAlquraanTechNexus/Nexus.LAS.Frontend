@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Labels } from '../models/consts/labels';
+import { LanguageCode } from '../models/types/lang-type';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
