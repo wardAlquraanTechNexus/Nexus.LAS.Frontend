@@ -4,18 +4,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DATA, MatSnackBarAction, MatSnackBarActions, MatSnackBarLabel, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-success-snackbar',
+  selector: 'app-info-snackbar',
   imports: [MatButtonModule, MatIconModule, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
   standalone: true,
-  templateUrl: './success-snackbar.html',
-  styleUrl: './success-snackbar.scss'
+  templateUrl: './info-snackbar.html',
+  styleUrl: './info-snackbar.scss'
 })
-export class SuccessSnackbar {
+export class InfoSnackbar {
 
-    successMsg:any;
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string){
-    this.successMsg = data;
+  infoMsg: any;
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: string) {
+    this.infoMsg = data;
   }
-    snackBarRef = inject(MatSnackBarRef);
+  snackBarRef = inject(MatSnackBarRef);
 
 }

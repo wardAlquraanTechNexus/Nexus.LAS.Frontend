@@ -1,23 +1,13 @@
-.error-text {
+/* Error snackbar component styles */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.error-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: red;
   color: white;
-  padding: 10px;
-}
-
-.error-text button {
-  background-color: transparent;
-  color: white;
-  border: none;
-}
-
-.error-text button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{
-    background-color: red;
 }

@@ -9,7 +9,11 @@
       "Bash(ng build:*)",
       "mcp__ide__getDiagnostics",
       "Bash(git checkout:*)",
-      "Bash(ng serve:*)"
+      "Bash(ng serve:*)",
+      "Bash(ng generate component:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": [],

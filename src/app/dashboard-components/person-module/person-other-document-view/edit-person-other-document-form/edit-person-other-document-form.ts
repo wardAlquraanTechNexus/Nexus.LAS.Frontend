@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Outp
 import { PersonOtherDocumentDTO } from '../../../../models/person-other-document/person-other-document-dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
 import { FileDto } from '../../../../models/base/file-dto';
@@ -21,12 +20,11 @@ export class EditPersonOtherDocumentForm extends BaseFormComponent {
     protected  service: PersonOtherDocumentService,
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
-    protected override snackBar: MatSnackBar,
     protected override sanitizer: DomSanitizer,
 
 
   ) {
-    super(fb,cdr,snackBar,sanitizer);
+    super(fb, cdr, sanitizer);
   }
   
   override ngOnInit(): void {

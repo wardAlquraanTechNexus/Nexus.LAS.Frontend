@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Person } from '../../../../models/persons/person';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonService } from '../../../../services/person-services/person-service';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environment/environment';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-person-details-form',
@@ -25,7 +24,7 @@ export class PersonDetailsForm implements OnInit {
     private personService: PersonService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: Person | null,
-    private snackBar: MatSnackBar) {
+    private errorHandler: ErrorHandlerService) {
     this.person = data;
   }
 
@@ -74,10 +73,7 @@ export class PersonDetailsForm implements OnInit {
         this.personService.updatePerson(person).subscribe({
           next: (res => {
             this.isSaving = false;
-            this.snackBar.openFromComponent(SuccessSnackbar, {
-              data: "Updated Successfully",
-              duration: 1000
-            });
+            this.errorHandler.showSuccess('Updated Successfully');
             this.dialogRef.close({ ...this.person, ...person });
           }), error: (err => {
             this.isSaving = false;
@@ -88,9 +84,7 @@ export class PersonDetailsForm implements OnInit {
         this.personService.createPerson(person).subscribe({
           next: (res => {
             this.isSaving = false;
-            this.snackBar.openFromComponent(SuccessSnackbar, {
-              data: "Created Successfully"
-            });
+            this.errorHandler.showSuccess('Created Successfully');
             this.dialogRef.close({ ...this.person, ...person });
             this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });
           }), error: (err => {

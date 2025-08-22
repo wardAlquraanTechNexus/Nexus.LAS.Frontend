@@ -4,7 +4,7 @@ import { BasePersonsComponent } from '../_base/base-persons-component/base-perso
 import { PersonStatus } from '../../../enums/person-status';
 import { GetPersonsQuery } from '../../../models/persons/get-persons/get-persons-query';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../../services/menu-service';
 import { PersonService } from '../../../services/person-services/person-service';
@@ -77,14 +77,14 @@ export class ActivePersons extends BasePersonsComponent {
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     override menuService: MenuService,
     override dialog: MatDialog,
     override dlService: DynamicListService,
     override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService, langService);
+    super(service, cdr, fb, router, errorHandler, route, menuService, dialog, dlService, langService);
   }
 
   override ngOnInit(): void {

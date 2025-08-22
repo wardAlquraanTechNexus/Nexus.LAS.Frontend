@@ -5,7 +5,6 @@ import { PersonAddressService } from '../../../../../services/person-services/pe
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { Observable } from 'rxjs';
@@ -28,11 +27,10 @@ export class PersonAddressForm extends BaseFormComponent {
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
-    protected override snackBar: MatSnackBar,
     protected override sanitizer: DomSanitizer,
     private dlService: DynamicListService
   ) {
-    super(fb, cdr, snackBar, sanitizer);
+    super(fb, cdr, sanitizer);
   }
 
   override ngOnInit(): void {

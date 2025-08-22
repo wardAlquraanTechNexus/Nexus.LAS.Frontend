@@ -1,69 +1,109 @@
-@use '../../../styles/themes/variables' as vars;
+@use '../../styles/themes/variables' as vars;
 
 /* Snackbar styles using unified theme variables */
 
-/* Success messages */
-.success-snackbar {
-  background: linear-gradient(135deg, vars.$nexus-success, #66bb6a) !important;
-  color: vars.$nexus-white !important;
-  border-radius: vars.$nexus-border-radius-md !important;
-  box-shadow: vars.$nexus-shadow-lg !important;
-  
-  .mat-mdc-button {
-    color: vars.$nexus-white !important;
-  }
-  
-  .mat-mdc-snack-bar-action {
-    color: vars.$nexus-white !important;
-  }
-}
-
-/* Error messages */
-.error-snackbar {
-  background: linear-gradient(135deg, vars.$nexus-warn, #ef5350) !important;
-  color: vars.$nexus-white !important;
-  border-radius: vars.$nexus-border-radius-md !important;
-  box-shadow: vars.$nexus-shadow-lg !important;
-  
-  .mat-mdc-button {
-    color: vars.$nexus-white !important;
-  }
-  
-  .mat-mdc-snack-bar-action {
-    color: vars.$nexus-white !important;
-  }
-}
-
-/* Warning messages */
-.warning-snackbar {
-  background: linear-gradient(135deg, #ff9800, #ffb74d) !important;
-  color: vars.$nexus-white !important;
-  border-radius: vars.$nexus-border-radius-md !important;
-  box-shadow: vars.$nexus-shadow-lg !important;
-  
-  .mat-mdc-button {
-    color: vars.$nexus-white !important;
-  }
-  
-  .mat-mdc-snack-bar-action {
-    color: vars.$nexus-white !important;
-  }
-}
-
-/* Info messages */
+/* Shared snackbar content layout and close icon styles */
+.success-snackbar,
+.error-snackbar,
+.warning-snackbar,
 .info-snackbar {
-  background: linear-gradient(135deg, vars.$nexus-info, #64b5f6) !important;
+  .success-content,
+  .error-content,
+  .warning-content,
+  .info-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  
+  .mat-mdc-snack-bar-actions {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+  
+  .close-icon {
+    color: vars.$nexus-white !important;
+    background-color: transparent !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    padding: 0 !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    mat-icon {
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+    }
+  }
+}
+
+/* Success messages - Green */
+.mat-mdc-snack-bar-container .success-snackbar,
+.success-snackbar {
+  background: linear-gradient(135deg, #2e7d32, #4caf50) !important;
   color: vars.$nexus-white !important;
   border-radius: vars.$nexus-border-radius-md !important;
   box-shadow: vars.$nexus-shadow-lg !important;
-  
-  .mat-mdc-button {
-    color: vars.$nexus-white !important;
-  }
-  
-  .mat-mdc-snack-bar-action {
-    color: vars.$nexus-white !important;
-  }
+  border-left: 4px solid #1b5e20 !important;
+}
+
+/* Override Material default snackbar background for success */
+.mat-mdc-snack-bar-container.success-snackbar .mdc-snackbar__surface {
+  background: linear-gradient(135deg, #2e7d32, #4caf50) !important;
+  color: vars.$nexus-white !important;
+}
+
+/* Error messages - Red */
+.mat-mdc-snack-bar-container .error-snackbar,
+.error-snackbar {
+  background: linear-gradient(135deg, #c62828, #f44336) !important;
+  color: vars.$nexus-white !important;
+  border-radius: vars.$nexus-border-radius-md !important;
+  box-shadow: vars.$nexus-shadow-lg !important;
+  border-left: 4px solid #b71c1c !important;
+}
+
+/* Override Material default snackbar background for error */
+.mat-mdc-snack-bar-container.error-snackbar .mdc-snackbar__surface {
+  background: linear-gradient(135deg, #c62828, #f44336) !important;
+  color: vars.$nexus-white !important;
+}
+
+/* Warning messages - Orange/Amber */
+.mat-mdc-snack-bar-container .warning-snackbar,
+.warning-snackbar {
+  background: linear-gradient(135deg, #f57c00, #ff9800) !important;
+  color: vars.$nexus-white !important;
+  border-radius: vars.$nexus-border-radius-md !important;
+  box-shadow: vars.$nexus-shadow-lg !important;
+  border-left: 4px solid #ef6c00 !important;
+}
+
+/* Override Material default snackbar background for warning */
+.mat-mdc-snack-bar-container.warning-snackbar .mdc-snackbar__surface {
+  background: linear-gradient(135deg, #f57c00, #ff9800) !important;
+  color: vars.$nexus-white !important;
+}
+
+/* Info messages - Blue */
+.mat-mdc-snack-bar-container .info-snackbar,
+.info-snackbar {
+  background: linear-gradient(135deg, #1976d2, #2196f3) !important;
+  color: vars.$nexus-white !important;
+  border-radius: vars.$nexus-border-radius-md !important;
+  box-shadow: vars.$nexus-shadow-lg !important;
+  border-left: 4px solid #0d47a1 !important;
+}
+
+/* Override Material default snackbar background for info */
+.mat-mdc-snack-bar-container.info-snackbar .mdc-snackbar__surface {
+  background: linear-gradient(135deg, #1976d2, #2196f3) !important;
+  color: vars.$nexus-white !important;
 }
 
 /* Form validation error styles using theme variables */

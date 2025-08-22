@@ -7,7 +7,7 @@ import { DisplayColumn } from '../../../../models/columns/display-column';
 import { UserGroupService } from '../../../../services/user-group-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserGroupFormDialog } from '../user-group-form-dialog/user-group-form-dialog';
 
@@ -57,11 +57,11 @@ export class UserGroupTable extends TableFormComponent<UserGroup> {
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override fetchData() {

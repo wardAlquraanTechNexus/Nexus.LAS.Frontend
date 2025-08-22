@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { AuthRequest } from '../../models/auth-request';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbar } from '../../components/snackbars/error-snackbar/error-snackbar';
 import { finalize } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
     private menuService: MenuService,

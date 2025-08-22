@@ -3,9 +3,8 @@ import { BaseDialogComponent } from '../../../base-components/base-dialog-compon
 import { PersonOtherDocumentDTO } from '../../../../models/person-other-document/person-other-document-dto';
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-edit-person-other-document-view',
@@ -23,7 +22,7 @@ export class EditPersonOtherDocumentView extends BaseDialogComponent {
     private service: PersonOtherDocumentService,
     protected override dialogRef: MatDialogRef<EditPersonOtherDocumentView>,
     @Inject(MAT_DIALOG_DATA) public override data: any,
-  protected snackBar: MatSnackBar,
+  private errorHandler: ErrorHandlerService,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
 
@@ -52,7 +51,7 @@ export class EditPersonOtherDocumentView extends BaseDialogComponent {
           },
           error: (error) => {
             this.showLoading = false;
-            this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
+            this.errorHandler.handleError('Error loading person ID details');
           }
         }
       )
@@ -80,9 +79,7 @@ export class EditPersonOtherDocumentView extends BaseDialogComponent {
         this.service.updateByDto(event.formData).subscribe({
           next: (res) => {
             this.showLoading = false;
-            this.snackBar.openFromComponent(SuccessSnackbar, {
-              data: 'Updated Successfully'
-            });
+            this.errorHandler.showSuccess('Updated Successfully');
             this.cdr.markForCheck();
             this.isEdit = true;
           },

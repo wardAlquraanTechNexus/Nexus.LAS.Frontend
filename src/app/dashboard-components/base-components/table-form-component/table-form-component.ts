@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, Injectable, OnInit, OnDestroy, Optional } from '@angular/core';
 import { BaseService } from '../../../services/base/base-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
 import { DisplayColumn } from '../../../models/columns/display-column';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +15,6 @@ import { LoadingStateService } from '../../../services/loading-state.service';
 @Injectable({ providedIn: 'root' })
 export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestroy {
   protected destroy$ = new Subject<void>();
-  protected errorHandler!: ErrorHandlerService;
   protected loadingService!: LoadingStateService;
   
   sortState: Sort = { active: '', direction: 'asc' };
@@ -40,13 +38,10 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
     protected cdr: ChangeDetectorRef,
     protected fb: FormBuilder,
     protected router: Router,
-    protected snackBar: MatSnackBar,
+    protected errorHandler: ErrorHandlerService,
     protected route: ActivatedRoute,
-    errorHandler?: ErrorHandlerService,
     loadingService?: LoadingStateService
   ) {
-    // Fallback if services not provided
-    this.errorHandler = errorHandler || new ErrorHandlerService(this.snackBar);
     this.loadingService = loadingService || new LoadingStateService();
   }
 

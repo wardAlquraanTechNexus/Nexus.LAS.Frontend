@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { PersonService } from '../../../services/person-services/person-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { BasePersonsComponent } from '../_base/base-persons-component/base-persons-component';
 import { MenuService } from '../../../services/menu-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../services/dynamic-list-service';
 import { LanguageService } from '../../../services/language-service';
+import { LanguageCode } from '../../../models/types/lang-type';
 
 @Component({
   selector: 'app-all-persons',
@@ -22,14 +23,14 @@ export class AllPersons extends BasePersonsComponent {
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     override menuService: MenuService,
     override dialog: MatDialog,
     override dlService: DynamicListService,
     override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, snackBar, route, menuService, dialog, dlService, langService);
+    super(service, cdr, fb, router, errorHandler, route, menuService, dialog, dlService, langService);
   }
 
   override ngOnInit(): void {

@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorSnackbar } from '../../components/snackbars/error-snackbar/error-snackbar';
 import { AuthRequest } from '../../models/auth-request';
 import { AuthService } from '../../services/auth-service';
 import { RegisterRequest } from '../../models/register-request';
 import { finalize } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SuccessSnackbar } from '../../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-register-component',
@@ -24,7 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
+    private errorHandler: ErrorHandlerService,
     private router: Router,
     private route: ActivatedRoute
 
@@ -51,10 +49,7 @@ export class RegisterComponent implements OnInit {
         .pipe(finalize(() => this.isSaving = false))
         .subscribe({
           next: (res) => {
-            this.snackBar.openFromComponent(SuccessSnackbar, {
-              duration: 4000,
-              data: "Registered Successfully"
-            });
+            this.errorHandler.showSuccess('Registration successful');
             this.router.navigate(['../'], { relativeTo: this.route });
           },
           error: (err) => {

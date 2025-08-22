@@ -8,7 +8,7 @@ import { PaginateRsult } from '../../../../models/paginate-result';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GroupService } from '../../../../services/group-service';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Group } from '../../../../models/group/group';
@@ -62,11 +62,11 @@ export class GroupTable extends TableFormComponent<Group> {
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override fetchData() {

@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, Input, Optional, PLATFORM_ID } from '@angular/core';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GroupMenu } from '../../../../../models/group-menu/group-menu';
 import { PaginateRsult } from '../../../../../models/paginate-result';
@@ -27,12 +26,11 @@ export class GroupMenuForm extends BaseFormComponent {
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
-    protected override snackBar: MatSnackBar,
     protected override sanitizer: DomSanitizer,
     protected menuService: MenuService,
     protected groupService: GroupService,
   ) {
-    super(fb, cdr, snackBar, sanitizer);
+    super(fb, cdr, sanitizer);
   }
 
   override ngOnInit(): void {

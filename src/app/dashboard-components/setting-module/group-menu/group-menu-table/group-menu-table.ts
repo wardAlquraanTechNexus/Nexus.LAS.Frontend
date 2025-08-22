@@ -6,7 +6,7 @@ import { SearchGroupMenuQuery } from '../../../../models/group-menu/search-group
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GroupMenuService } from '../../../../services/group-menu-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchGroupMenuDTO } from '../../../../models/group-menu/search-group-menu/search-group-menu-dto';
@@ -91,13 +91,13 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
     protected menuService: MenuService,
     protected groupService: GroupService,
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override ngOnInit() {

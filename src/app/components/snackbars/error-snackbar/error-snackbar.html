@@ -1,9 +1,10 @@
-<div class="error-text">
-    <span  matSnackBarLabel>
+<div class="error-content">
+    <span matSnackBarLabel>
       {{errorMsg}}
     </span>
     <span matSnackBarActions>
-      <button matButton matSnackBarAction (click)="snackBarRef.dismissWithAction()">Close</button>
+      <button mat-icon-button matSnackBarAction (click)="snackBarRef.dismissWithAction()" class="close-icon" aria-label="Close">
+        <mat-icon>close</mat-icon>
+      </button>
     </span>
-
 </div>

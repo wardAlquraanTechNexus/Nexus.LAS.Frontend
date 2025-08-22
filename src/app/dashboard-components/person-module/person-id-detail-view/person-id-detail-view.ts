@@ -1,16 +1,15 @@
 import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { PersonIdDetailService } from '../../../services/person-services/person-id-detail-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonsIDDetail } from '../../../models/person-id-details/person-id-details';
 import { PersonIdDetailDto } from '../../../models/person-id-details/person-id-details-dto';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EditPersonIdDetailForm } from './edit-person-id-detail-form/edit-person-id-detail-form';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
 import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 
 @Component({
   selector: 'app-person-id-detail-view',
@@ -27,7 +26,7 @@ export class PersonIdDetailView extends BaseDialogComponent {
   constructor(
     private service: PersonIdDetailService,
     protected router: Router,
-    protected snackBar: MatSnackBar,
+    protected errorHandler: ErrorHandlerService,
     protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
@@ -64,7 +63,7 @@ export class PersonIdDetailView extends BaseDialogComponent {
         },
         error: (error) => {
           this.showLoading = false;
-          this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
+          this.errorHandler.handleError('Error loading person ID details');
         }
       }
     )
@@ -120,7 +119,7 @@ export class PersonIdDetailView extends BaseDialogComponent {
       // Optional cleanup
       window.URL.revokeObjectURL(url);
     } else {
-      this.snackBar.open('No file available to download.', 'Close', { duration: 3000 });
+      this.errorHandler.showInfo('No file available to download.');
     }
   }
 
@@ -133,10 +132,7 @@ export class PersonIdDetailView extends BaseDialogComponent {
       next: (res => {
         this.showLoading = false;
 
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          duration: 4000,
-          data: "Deleted Successfully"
-        });
+        this.errorHandler.showSuccess("Deleted Successfully");
         this.cdr.detectChanges();
         this.dialogRef.close(true);
       }), error: (err => {
@@ -179,9 +175,7 @@ export class PersonIdDetailView extends BaseDialogComponent {
     this.service.updateByDto(event.formData).subscribe({
       next: (res) => {
         this.showLoading = false;
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          data: 'Updated Successfully'
-        });
+        this.errorHandler.showSuccess('Updated Successfully');
         this.cdr.markForCheck();
         this.openEditForm = false;
         this.isEdit = true;

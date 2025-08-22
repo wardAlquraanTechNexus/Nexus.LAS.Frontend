@@ -2,8 +2,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
@@ -23,10 +21,9 @@ export class EditPersonIdDetailForm extends BaseFormComponent {
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
-    protected override snackBar: MatSnackBar,
 
   ) {
-    super(fb, cdr, snackBar, sanitizer);
+    super(fb, cdr, sanitizer);
   }
   override ngOnInit(): void {
     this.setup(this.personIdDetail);

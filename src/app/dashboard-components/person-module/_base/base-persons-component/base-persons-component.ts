@@ -3,11 +3,10 @@ import { Person } from '../../../../models/persons/person';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonStatus } from '../../../../enums/person-status';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../../services/person-services/person-service';
 import { environment } from '../../../../../environment/environment';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
 import { BulkChangePrivateCommand } from '../../../../models/persons/bulk-change-private-command';
 import { BulkChangeStatusCommand } from '../../../../models/persons/bulk-change-status-command';
 import { UpdatePersonCommand } from '../../../../models/persons/update-person';
@@ -24,6 +23,7 @@ import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
 import { ConfirmDeleteComponent } from '../../../../components/confirm-delete-component/confirm-delete-component';
 
 @Component({
@@ -49,7 +49,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   currentLang: LanguageCode = 'en';
 
   get label() {
-    return Labels[this.currentLang];
+    return Labels[this.currentLang as keyof typeof Labels];
   }
   currentMenu: MenuTree | null = null;
   formGroup!: FormGroup;
@@ -59,7 +59,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected menuService: MenuService,
     protected dialog: MatDialog,
@@ -67,7 +67,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     protected langService: LanguageService,
 
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override ngOnInit(): void {
@@ -205,12 +205,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
             // Refresh data from server after successful deletion
             this.search();
             
-            this.snackBar.openFromComponent(SuccessSnackbar,
-              {
-                data: "Deleted Successfully",
-                duration: 4000
-              }
-            )
+            this.errorHandler.showSuccess("Deleted Successfully");
           },
           error: (err => {
             this.showLoading = false;
@@ -231,12 +226,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
           Object.assign(updatedPerson, res);
         }
         this.cdr.detectChanges();
-        this.snackBar.openFromComponent(SuccessSnackbar,
-          {
-            data: "Updated Successfully",
-            duration: 4000
-          }
-        )
+        this.errorHandler.showSuccess("Updated Successfully");
       }), error: (err => {
         this.cdr.markForCheck();
         this.showLoading = false;
@@ -258,12 +248,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
         this.showLoading = false;
         this.fetchData();
-        this.snackBar.openFromComponent(SuccessSnackbar,
-          {
-            data: "Updated Successfully",
-            duration: 4000
-          }
-        )
+        this.errorHandler.showSuccess("Updated Successfully");
       }), error: (err => {
         this.cdr.markForCheck();
         this.selectedPersons = [];
@@ -285,13 +270,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
         this.showLoading = false;
         this.cdr.markForCheck();
         this.fetchData();
-        this.snackBar.openFromComponent(SuccessSnackbar,
-          {
-            data: "Updated Successfully",
-            duration: 4000
-          }
-
-        )
+        this.errorHandler.showSuccess("Updated Successfully");
       }), error: (err => {
         this.cdr.markForCheck();
         this.showLoading = false;

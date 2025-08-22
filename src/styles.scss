@@ -8,6 +8,9 @@
 // Use auth component styles globally
 @use 'app/auth-components/shared/auth-styles';
 
+// Import snackbar styles globally
+@use 'app/styles/snackbar-styles';
+
 /* Global Styles - Unified Nexus Theme */
 html, body { 
   height: 100%; 

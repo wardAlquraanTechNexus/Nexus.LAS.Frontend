@@ -5,7 +5,7 @@ import GetCompanyQuery from '../../../../models/company/get-company-query/get-co
 import { CompanyService } from '../../../../services/company-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MenuService } from '../../../../services/menu-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
@@ -53,14 +53,14 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected menuService: MenuService,
     protected dialog: MatDialog,
     protected dlService: DynamicListService
 
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override ngOnInit(): void {

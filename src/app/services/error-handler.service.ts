@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SuccessSnackbar } from '../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorSnackbar } from '../components/snackbars/error-snackbar/error-snackbar';
+import { WarningSnackbar } from '../components/snackbars/warning-snackbar/warning-snackbar';
+import { InfoSnackbar } from '../components/snackbars/info-snackbar/info-snackbar';
 
 export interface AppError {
   message: string;
@@ -45,8 +49,9 @@ export class ErrorHandlerService {
    * Show success message
    */
   showSuccess(message: string, duration: number = 3000): void {
-    this.snackBar.open(message, 'Close', {
+    this.snackBar.openFromComponent(SuccessSnackbar, {
       duration,
+      data: message,
       panelClass: ['success-snackbar']
     });
   }
@@ -55,8 +60,9 @@ export class ErrorHandlerService {
    * Show warning message
    */
   showWarning(message: string, duration: number = 4000): void {
-    this.snackBar.open(message, 'Close', {
+    this.snackBar.openFromComponent(WarningSnackbar, {
       duration,
+      data: message,
       panelClass: ['warning-snackbar']
     });
   }
@@ -65,8 +71,9 @@ export class ErrorHandlerService {
    * Show info message
    */
   showInfo(message: string, duration: number = 3000): void {
-    this.snackBar.open(message, 'Close', {
+    this.snackBar.openFromComponent(InfoSnackbar, {
       duration,
+      data: message,
       panelClass: ['info-snackbar']
     });
   }
@@ -77,8 +84,9 @@ export class ErrorHandlerService {
   private displayError(appError: AppError): void {
     const message = this.formatErrorMessage(appError);
     
-    this.snackBar.open(message, 'Close', {
+    this.snackBar.openFromComponent(ErrorSnackbar, {
       duration: 5000,
+      data: message,
       panelClass: ['error-snackbar']
     });
   }

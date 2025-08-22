@@ -49,7 +49,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
             snackBar.openFromComponent(ErrorSnackbar, {
                 duration: 4000,
-                data: message
+                data: message,
+                panelClass: ['error-snackbar']
             });
 
             return throwError(() => error);

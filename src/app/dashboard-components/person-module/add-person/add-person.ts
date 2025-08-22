@@ -1,11 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PersonService } from '../../../services/person-services/person-service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
 import { environment } from '../../../../environment/environment';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LanguageService } from '../../../services/language-service';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 
 @Component({
   selector: 'app-add-person',
@@ -20,7 +19,7 @@ export class AddPerson implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     private personService: PersonService,
-    private snackBar: MatSnackBar,
+    private errorHandler: ErrorHandlerService,
     private dialogRef: MatDialogRef<AddPerson>,
     private router: Router,
     private langService: LanguageService) {
@@ -40,16 +39,13 @@ export class AddPerson implements OnInit {
     this.isSaving = true;
     this.personService.createPerson(person).subscribe({
       next: (res) => {
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          duration: 4000,
-          data: this.labels.personCreatedSuccessfully,
-        });
+        this.errorHandler.showSuccess('Person added successfully');
         this.isSaving = false;
         this.cdRef.detectChanges();
         this.dialogRef?.close(res);
         this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });
       },
-      error: () => {
+      error: (error) => {
         this.isSaving = false;
         this.cdRef.markForCheck();
       },

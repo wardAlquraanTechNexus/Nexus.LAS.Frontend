@@ -2,10 +2,9 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PersonOtherDocumentDTO } from '../../../models/person-other-document/person-other-document-dto';
 import { PersonOtherDocumentService } from '../../../services/person-services/person-other-document-service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { environment } from '../../../../environment/environment';
 import { EditPersonOtherDocumentForm } from './edit-person-other-document-form/edit-person-other-document-form';
 import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
@@ -24,7 +23,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
   constructor(
     private service: PersonOtherDocumentService,
     protected router: Router,
-    protected snackBar: MatSnackBar,
+    private errorHandler: ErrorHandlerService,
     protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
@@ -55,7 +54,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
         },
         error: (error) => {
           this.showLoading = false;
-          this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
+          this.errorHandler.handleError('Error loading person ID details');
         }
       })
   }
@@ -87,7 +86,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
       // Optional cleanup
       window.URL.revokeObjectURL(url);
     } else {
-      this.snackBar.open('No file available to download.', 'Close', { duration: 3000 });
+      this.errorHandler.showInfo('No file available to download.');
     }
   }
 
@@ -113,10 +112,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
       next: (res => {
         this.showLoading = false;
 
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          duration: 4000,
-          data: "Deleted Successfully"
-        });
+        this.errorHandler.showSuccess('Deleted Successfully');
         this.cdr.detectChanges();
         this.isEdit = true;
         this.close();
@@ -134,9 +130,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
     this.service.updateByDto(event.formData).subscribe({
       next: (res) => {
         this.showLoading = false;
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          data: 'Updated Successfully'
-        });
+        this.errorHandler.showSuccess('Updated Successfully');
         this.cdr.markForCheck();
         this.openEditForm = false;
         this.isEdit = true;

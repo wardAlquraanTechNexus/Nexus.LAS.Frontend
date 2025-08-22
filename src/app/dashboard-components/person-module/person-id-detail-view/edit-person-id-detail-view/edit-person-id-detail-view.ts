@@ -3,9 +3,8 @@ import { BaseDialogComponent } from '../../../base-components/base-dialog-compon
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-edit-person-id-detail-view',
@@ -22,7 +21,7 @@ export class EditPersonIdDetailView extends BaseDialogComponent {
     private service: PersonIdDetailService,
     protected override dialogRef: MatDialogRef<EditPersonIdDetailView>,
     @Inject(MAT_DIALOG_DATA) public override data: any,
-  protected snackBar: MatSnackBar,
+  private errorHandler: ErrorHandlerService,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
 
@@ -50,7 +49,7 @@ export class EditPersonIdDetailView extends BaseDialogComponent {
         },
         error: (error) => {
           this.showLoading = false;
-          this.snackBar.open('Error loading person ID details', 'Close', { duration: 3000 });
+          this.errorHandler.handleError('Error loading person ID details');
         }
       }
     )
@@ -78,9 +77,7 @@ export class EditPersonIdDetailView extends BaseDialogComponent {
       this.service.updateByDto(event.formData).subscribe({
         next: (res) => {
           this.showLoading = false;
-          this.snackBar.openFromComponent(SuccessSnackbar, {
-            data: 'Updated Successfully'
-          });
+          this.errorHandler.showSuccess('Updated Successfully');
           this.cdr.markForCheck();
           this.isEdit = true;
         },

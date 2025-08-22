@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { PaginateRsult } from '../../../../models/paginate-result';
@@ -15,7 +14,7 @@ import { UserGroupDto } from '../../../../models/user-group/user-group-dto/user-
 import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
 import { UpsertCollectionOfUsersCommand, UpsertUserCommand } from '../../../../models/user-group/upsert-collection-of-users/upsert-collection-of-users';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-user-settings-component',
@@ -87,20 +86,20 @@ export class UserSettingsComponent extends TableFormComponent<User> {
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
-    override snackBar: MatSnackBar,
+    override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private userGroupService: UserGroupService,
     protected dialog: MatDialog,
     private langService: LanguageService
 
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override ngOnInit() {
     super.ngOnInit();
     this.langService.language$.subscribe(lang => {
-      this.labels = Labels[lang];
+      this.labels = Labels[lang as keyof typeof Labels];
     });
   }
 
@@ -166,9 +165,7 @@ export class UserSettingsComponent extends TableFormComponent<User> {
     this.userGroupService.upsertCollectionOfUsers(params).subscribe({
       next: (res => {
         this.showLoading = false;
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          data: "Users Added Successfully"
-        });
+        this.errorHandler.showSuccess('Users updated successfully.');
         this.fetchData();
       }), error: (err => {
         this.showLoading = false;

@@ -47,7 +47,7 @@ export class SelectAutoComplete implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     this.langService.language$.subscribe(lang => {
       this.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      this.labels = Labels[lang];
+      this.labels = Labels[lang as keyof typeof Labels];
     });
     this.loadData();
   }

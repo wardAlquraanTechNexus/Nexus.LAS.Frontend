@@ -5,7 +5,7 @@ import { GetPerdonOtherDocument } from '../../../../models/person-other-document
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { BaseParam } from '../../../../models/base/base-param';
 import { Sort } from '@angular/material/sort';
 import { environment } from '../../../../../environment/environment';
@@ -49,12 +49,12 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     protected override cdr: ChangeDetectorRef,
     protected override fb: FormBuilder,
     protected override router: Router,
-    protected override snackBar: MatSnackBar,
+    protected override errorHandler: ErrorHandlerService,
     protected override route: ActivatedRoute,
     private dialog: MatDialog
 
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override ngOnInit() {
@@ -133,10 +133,7 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
         next: (res => {
           this.showLoading = false;
   
-          this.snackBar.openFromComponent(SuccessSnackbar, {
-            duration: 4000,
-            data: "Deleted Successfully"
-          });
+          this.errorHandler.showSuccess("Deleted Successfully");
           this.cdr.detectChanges();
           this.fetchData();
         }), error: (err => {

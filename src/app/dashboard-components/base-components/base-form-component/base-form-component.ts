@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Injectable, Input, OnInit, Output, OnDestroy, PLATFORM_ID, Optional } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileDto } from '../../../models/base/file-dto';
 import { BaseEntity } from '../../../models/base/base-entity';
@@ -35,7 +34,6 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   constructor(
     protected fb: FormBuilder,
     protected cdr: ChangeDetectorRef,
-    protected snackBar: MatSnackBar,
     protected sanitizer: DomSanitizer,
     errorHandler?: ErrorHandlerService,
     loadingService?: LoadingStateService,
@@ -44,7 +42,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
     this.isBrowser = !platformId || isPlatformBrowser(platformId);
     
     // Fallback if services not provided
-    this.errorHandler = errorHandler || new ErrorHandlerService(this.snackBar);
+    this.errorHandler = errorHandler!;
     this.loadingService = loadingService || new LoadingStateService();
   }
 
@@ -111,7 +109,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
 
   download(): void {
     if (!this.isBrowser) {
-      this.snackBar.open('Download not available in server mode.', 'Close', { duration: 3000 });
+      this.errorHandler.showInfo('Download not available in server mode.');
       return;
     }
     
@@ -127,7 +125,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
       // Optional cleanup
       window.URL.revokeObjectURL(url);
     } else {
-      this.snackBar.open('No file available to download.', 'Close', { duration: 3000 });
+      this.errorHandler.showInfo('No file available to download.');
     }
   }
 

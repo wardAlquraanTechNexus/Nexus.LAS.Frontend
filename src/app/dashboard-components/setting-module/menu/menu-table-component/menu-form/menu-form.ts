@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -17,10 +16,9 @@ export class MenuForm extends BaseFormComponent
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
-    protected override snackBar: MatSnackBar,
     protected override sanitizer: DomSanitizer,
   ) {
-    super(fb , cdr , snackBar , sanitizer);
+    super(fb, cdr, sanitizer);
   }
 
   override ngOnInit(): void {

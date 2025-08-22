@@ -4,8 +4,7 @@ import { PersonService } from '../../../services/person-services/person-service'
 import { PersonStatus } from '../../../enums/person-status';
 import { PersonDetailsForm } from '../shared-person-components/person-details-form/person-details-form';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SuccessSnackbar } from '../../../components/snackbars/success-snackbar/success-snackbar';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { PersonDto } from '../../../models/persons/person-dto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MenuService } from '../../../services/menu-service';
@@ -35,7 +34,7 @@ export class PersonView implements OnInit {
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
-    private snackbar: MatSnackBar) { }
+    private errorHandler: ErrorHandlerService) { }
   ngOnInit(): void {
     let personId = this.route.snapshot.queryParamMap.get('id');
     if (personId) {
@@ -181,12 +180,11 @@ export class PersonView implements OnInit {
     this.showLoading = true;
     this.personService.uploadImage({ file: file, personId: this.personId }).subscribe({
       next: (res => {
-        this.snackbar.openFromComponent(SuccessSnackbar, {
-          data: "Image Uploaded Successfully"
-        })
+        this.errorHandler.showSuccess("Image Uploaded Successfully")
         this.getPerson();
       }), error: (err => {
         this.showLoading = false;
+        this.errorHandler.handleApiError(err, 'Image Upload');
       })
     })
   }

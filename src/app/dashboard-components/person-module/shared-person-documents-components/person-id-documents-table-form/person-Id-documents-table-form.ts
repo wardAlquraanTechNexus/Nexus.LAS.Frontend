@@ -4,7 +4,7 @@ import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { GetPersonIdDetailsParams } from '../../../../models/person-id-details/get-person-id-details-params';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { Sort } from '@angular/material/sort';
@@ -85,11 +85,11 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     protected override cdr: ChangeDetectorRef,
     protected override fb: FormBuilder,
     protected override router: Router,
-    protected override snackBar: MatSnackBar,
+    protected override errorHandler: ErrorHandlerService,
     protected override route: ActivatedRoute,
     private dialog: MatDialog
   ) {
-    super(service, cdr, fb, router, snackBar, route);
+    super(service, cdr, fb, router, errorHandler, route);
   }
 
   override ngOnInit(): void {
@@ -169,10 +169,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
         this.cdr.markForCheck();
 
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          duration: 4000,
-          data: "Deleted Successfully"
-        });
+        this.errorHandler.showSuccess("Deleted Successfully");
 
       },
       error: (err) => {
@@ -193,9 +190,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
     this.service.updateByBody(personIdDetail).subscribe({
       next: () => {
-        this.snackBar.openFromComponent(SuccessSnackbar, {
-          data: "Updated Successfully"
-        });
+        this.errorHandler.showSuccess("Updated Successfully");
         this.cdr.markForCheck();
         this.showLoading = false;
       },
