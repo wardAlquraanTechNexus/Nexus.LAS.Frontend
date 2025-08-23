@@ -3,6 +3,7 @@ import { BaseFormComponent } from '../../../../base-components/base-form-compone
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GroupDTO } from '../../../../../models/group/group-dto/group-dto';
+import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-group-form',
@@ -17,8 +18,10 @@ export class GroupForm extends BaseFormComponent
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
+        protected override errorHandler: ErrorHandlerService,
+    
   ) {
-    super(fb, cdr, sanitizer);
+    super(fb, cdr, sanitizer,errorHandler);
   }
 
   override ngOnInit(): void {

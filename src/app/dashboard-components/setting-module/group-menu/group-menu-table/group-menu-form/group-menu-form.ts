@@ -10,6 +10,7 @@ import { MenuService } from '../../../../../services/menu-service';
 import { GroupService } from '../../../../../services/group-service';
 import { Menu } from '../../../../../models/menus/menu';
 import { SearchGroupMenuDTO } from '../../../../../models/group-menu/search-group-menu/search-group-menu-dto';
+import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-user-group-form',
@@ -29,8 +30,10 @@ export class GroupMenuForm extends BaseFormComponent {
     protected override sanitizer: DomSanitizer,
     protected menuService: MenuService,
     protected groupService: GroupService,
+        protected override errorHandler: ErrorHandlerService,
+    
   ) {
-    super(fb, cdr, sanitizer);
+    super(fb, cdr, sanitizer,errorHandler);
   }
 
   override ngOnInit(): void {

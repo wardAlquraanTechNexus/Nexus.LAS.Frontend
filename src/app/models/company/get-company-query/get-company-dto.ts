@@ -4,6 +4,7 @@ export interface GetCompanyDto {
   companyEnglishName?: string | null;
   companyArabicName?: string | null;
   companyShortName?: string | null;
+  incorporationDate?:Date | null;
   companyStatus: number;
   companyTypeIdn?: number | null;
   companyClassIdn?: number | null;

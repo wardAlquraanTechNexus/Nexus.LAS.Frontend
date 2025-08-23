@@ -20,9 +20,7 @@ The focus state issues were caused by:
 **Problem**: Material's `.mdc-notched-outline` was creating unwanted border artifacts
 **Solution**: Completely hide the notched outline system
 ```scss
-.mdc-notched-outline {
-  display: none !important;
-}
+
 ```
 
 ### **2. Custom Border System** ✅

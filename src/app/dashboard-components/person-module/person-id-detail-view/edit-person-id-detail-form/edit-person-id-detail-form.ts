@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-edit-person-id-detail-form',
@@ -21,9 +22,10 @@ export class EditPersonIdDetailForm extends BaseFormComponent {
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
+    protected override errorHandler: ErrorHandlerService,
 
   ) {
-    super(fb, cdr, sanitizer);
+    super(fb, cdr, sanitizer,errorHandler);
   }
   override ngOnInit(): void {
     this.setup(this.personIdDetail);

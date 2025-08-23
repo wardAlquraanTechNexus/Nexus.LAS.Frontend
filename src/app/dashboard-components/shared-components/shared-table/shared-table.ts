@@ -111,6 +111,8 @@ export class SharedTable implements OnInit, OnChanges {
           break;
 
         case 'personstatus':
+        case 'companystatus':
+
           let statusBorder = '#9E77ED';
           let statusColor = '#9E77ED';
           if (value === 1) {
@@ -127,6 +129,7 @@ export class SharedTable implements OnInit, OnChanges {
           break;
 
         case 'privateperson':
+        case 'privatecompany':
           let privateColor = value.toString() === 'true' ? '#025EBA' : '#423e3ede';
           styles['border'] = `2px solid ${privateColor}`;
           styles['color'] = privateColor;
@@ -207,6 +210,7 @@ export class SharedTable implements OnInit, OnChanges {
     for (const pipe of pipes) {
       switch (pipe.toLowerCase()) {
         case 'personstatus':
+        case 'companystatus':
           switch (value) {
             case 0:
               return 'New';
@@ -218,6 +222,7 @@ export class SharedTable implements OnInit, OnChanges {
               return value;
           }
         case 'privateperson':
+        case 'privatecompany':
           switch (value) {
             case true:
               return 'Private';

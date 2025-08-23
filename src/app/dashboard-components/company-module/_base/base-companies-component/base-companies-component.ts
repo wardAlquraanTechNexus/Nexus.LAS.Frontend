@@ -3,7 +3,7 @@ import { Company } from '../../../../models/company/company';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import GetCompanyQuery from '../../../../models/company/get-company-query/get-company-dto-command';
 import { CompanyService } from '../../../../services/company-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MenuService } from '../../../../services/menu-service';
@@ -12,6 +12,10 @@ import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { MenuTree } from '../../../../models/menus/menu-tree';
 import { GetCompanyDto } from '../../../../models/company/get-company-query/get-company-dto';
 import { PaginateRsult } from '../../../../models/paginate-result';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../../environment/environment';
+import { CompanyStatus } from '../../../../enums/company-status';
 
 @Component({
   selector: 'app-base-companies-component',
@@ -20,15 +24,17 @@ import { PaginateRsult } from '../../../../models/paginate-result';
   styleUrl: './base-companies-component.scss'
 })
 export class BaseCompaniesComponent extends TableFormComponent<Company> implements OnInit {
-  
-   override data: PaginateRsult<GetCompanyDto> = {
-      collection: [],
-      totalPages: 0,
-      totalRecords: 0,
-      pageSize: 10,
-      page: 0
-    };
-  
+
+
+  selectedCompanies: GetCompanyDto[] = [];
+  override data: PaginateRsult<GetCompanyDto> = {
+    collection: [],
+    totalPages: 0,
+    totalRecords: 0,
+    pageSize: 10,
+    page: 0
+  };
+
   override params: GetCompanyQuery = {
     searchBy: null,
     private: null,
@@ -45,7 +51,19 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     private: true
   };
 
+  activeStatus = CompanyStatus.Active;
+  inActiveStatus = CompanyStatus.Inactive;
+
   currentMenu: MenuTree | null = null;
+  loadCompanyTypesFn!: (search: string) => Observable<DynamicList[]>;
+  loadCompanyClassesFn!: (search: string) => Observable<DynamicList[]>;
+  loadCompanyLegalsFn!: (search: string) => Observable<DynamicList[]>;
+  loadPlaceOfRegistrationFn!: (search: string) => Observable<DynamicList[]>;
+  loadPlaceOfRegistrationSubFn!: (search: string) => Observable<DynamicList[]>;
+
+
+  formGroup!: FormGroup;
+  companyTypeId!: number;
 
 
   constructor(
@@ -69,8 +87,19 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
 
     this.currentMenu = this.menuService.getMenuByPath(routerSplitted[roterLen - 1]);
     this.fetchData();
+    this.loadCompanyTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyType, search)
+    this.loadCompanyLegalsFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.legalType, search)
+    this.loadPlaceOfRegistrationFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.placeOfRegistration, search)
 
-    // this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+    this.formGroup = this.fb.group(
+      {
+        companyTypeIdn: [''],
+        companyClassIdn: [''],
+        legalTypeIdn: [''],
+        placeOfRegistrationMainIdn: [''],
+        placeOfRegistrationSubIdn: [''],
+      },
+    )
 
   }
 
@@ -96,7 +125,151 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       })
   }
 
-  
+  onSelectCompanyType(event: any) {
+    this.params.companyTypeIdn = event;
+    if (event) {
+      this.loadCompanyClassesFn = (search: string) => this.dlService.GetAllByParentId(event, search)
+    } else {
+      this.loadCompanyClassesFn = (search: string) => this.dlService.GetAllByParentId(0, search)
+    }
+    this.cdr.markForCheck();
+    this.fetchData();
+  }
+  onSelectCompanyClass(event: any) {
+    this.params.companyClassIdn = event;
+    this.fetchData();
+  }
+  onSelectCompanyLegalType(event: any) {
+    this.params.legalTypeIdn = event;
+    this.fetchData();
+  }
+
+  onSelectMainRegistrtaion(event: number) {
+    this.params.placeOfRegistrationMainIdn = event;
+    if (event) {
+      this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(event, search);
+    } else {
+      this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(0, search);
+    }
+    this.cdr.markForCheck();
+    this.fetchData();
+  }
+
+  onSelectSubRegistrtaion(event: any) {
+    this.params.placeOfRegistrationSubIdn = event;
+    this.fetchData();
+  }
 
 
+  activate(event: any) {
+    this.changeStatus(event, CompanyStatus.Active);
+  }
+  deactivate(event: any) {
+    this.changeStatus(event, CompanyStatus.Inactive);
+  }
+  markPublic(event: any) {
+    this.changePrivate(event, false);
+  }
+  markPrivate(event: any) {
+    this.changePrivate(event, true);
+
+  }
+  deleteCompany(event: any) {
+    return () => this.deleteCompanyAfterConfirm(event);
+  }
+
+  deleteCompanyAfterConfirm(event: any) {
+    this.showLoading = true;
+    this.service.delete(event.id).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Deleted Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+
+  changeStatus(event: any, status: CompanyStatus) {
+    this.showLoading = true;
+    this.service.updateStatus({
+      ids: [event.id],
+      status: status
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+  changePrivate(event: any, isPrivate: boolean) {
+    this.showLoading = true;
+    this.service.updatePrivate({
+      ids: [event.id],
+      isPrivate: isPrivate
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+
+
+  onSelectionChange(selectedRows: GetCompanyDto[]) {
+    this.selectedCompanies = selectedRows;
+    this.cdr.detectChanges();
+  }
+
+
+  bulkChangeStatus(status: CompanyStatus) {
+    this.showLoading = true;
+    this.service.updateStatus({
+      ids: this.selectedCompanies.map(x => x.id),
+      status: status
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+  bulkChangePrivate(isPrivate: boolean) {
+    this.showLoading = true;
+    this.service.updatePrivate({
+      ids: this.selectedCompanies.map(x => x.id),
+      isPrivate: isPrivate
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+
+  onRowClick(event:any){
+    if(event.key == "companyCode" || event.key == "companyEnglishName" ||event.key == "companyArabicName" ||  event.key == "companyShortName" ){
+      this.router.navigate([], {
+        relativeTo: this.route, 
+        queryParams: { id: event.element.id }, 
+      });
+    }
+  }
 }

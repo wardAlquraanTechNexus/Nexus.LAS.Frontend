@@ -5,14 +5,18 @@ import { AllCompaniesComponent } from './all-companies-component/all-companies-c
 import { ComponentsModule } from '../../components/components-module';
 import { CompanyForm } from './company-form/company-form';
 import { CompanyFormDialog } from './company-form-dialog/company-form-dialog';
+import { AllCompaniesTable } from './all-companies-component/all-companies-table/all-companies-table';
+import { CompanyTableView } from './_base/company-table-view/company-table-view';
 
 
 
 @NgModule({
   declarations: [
     AllCompaniesComponent,
+    AllCompaniesTable,
+    CompanyTableView,
     CompanyForm,
-    CompanyFormDialog
+    CompanyFormDialog,
   ],
   imports: [
     CommonModule,

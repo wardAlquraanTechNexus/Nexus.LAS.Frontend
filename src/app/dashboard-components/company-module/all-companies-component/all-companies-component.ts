@@ -10,107 +10,14 @@ import { DynamicListService } from '../../../services/dynamic-list-service';
 import { DisplayColumn } from '../../../models/columns/display-column';
 import { GetCompanyDto } from '../../../models/company/get-company-query/get-company-dto';
 import { CompanyFormDialog } from '../company-form-dialog/company-form-dialog';
+import { CompanyTableView } from '../_base/company-table-view/company-table-view';
 
 @Component({
   selector: 'app-all-companies-component',
   standalone: false,
   templateUrl: './all-companies-component.html',
-  styleUrls: ['../_base/base-companies-component/base-companies-component.scss', './all-companies-component.scss']
+  styleUrls: ['./all-companies-component.scss']
 })
-export class AllCompaniesComponent extends BaseCompaniesComponent {
+export class AllCompaniesComponent extends CompanyTableView {
 
-  override displayColumns: DisplayColumn[] = [
-    // {
-    //   key: "select",
-    //   label: "",
-    // },
-    {
-      key: "id",
-      label: "id",
-    },
-    {
-      key: "companyCode",
-      label: "Code",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "companyEnglishName",
-      label: "Name En",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "companyArabicName",
-      label: "Name Ar",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "action",
-      label: "Action",
-    },
-  ]
-
-
-
-  constructor(
-    override service: CompanyService,
-    override cdr: ChangeDetectorRef,
-    override fb: FormBuilder,
-    override router: Router,
-    override errorHandler: ErrorHandlerService,
-    override route: ActivatedRoute,
-    override menuService: MenuService,
-    override dialog: MatDialog,
-    override dlService: DynamicListService
-  ) {
-    super(service, cdr, fb, router, errorHandler, route, menuService, dialog, dlService);
-  }
-
-  override ngOnInit(): void {
-    super.ngOnInit();
-
-  }
-
-
-  onAddNew() {
-    let companyDto: GetCompanyDto = {
-      id: 0,
-      companyCode: null,
-      companyEnglishName: null,
-      companyArabicName: null,
-      companyShortName: null,
-      companyStatus: 0,
-      companyTypeIdn: null,
-      companyClassIdn: null,
-      groupCompanyIdn: null,
-      relevantCompanyIdn: null,
-      legalTypeIdn: null,
-      cciNumber: null,
-      cciIssueDate: null,
-      cciExpiryDate: null,
-      cciExpiryActiveReminder: null,
-      placeOfRegistrationMainIdn: null,
-      placeOfRegistrationSubIdn: null,
-      capitalAmount: null,
-      totalShares: null,
-      numberOfPartners: null,
-      updateDate: null,
-      updateDescription: null,
-      personsIdn: null,
-      fpcCode: null,
-      private: false
-    };
-    const dialogRef = this.dialog.open(CompanyFormDialog, {
-      disableClose: true,
-      data: companyDto
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchData();
-      }
-    });
-  }
 }

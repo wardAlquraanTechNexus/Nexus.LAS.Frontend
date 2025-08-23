@@ -28,21 +28,18 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   formGroup!: FormGroup;
   validationUtils = ValidationUtils;
   isSubmitting = false;
-  protected errorHandler!: ErrorHandlerService;
+  
   protected loadingService!: LoadingStateService;
 
   constructor(
     protected fb: FormBuilder,
     protected cdr: ChangeDetectorRef,
     protected sanitizer: DomSanitizer,
-    errorHandler?: ErrorHandlerService,
+    protected errorHandler: ErrorHandlerService,
     loadingService?: LoadingStateService,
     @Inject(PLATFORM_ID) @Optional() protected platformId?: Object
   ) {
     this.isBrowser = !platformId || isPlatformBrowser(platformId);
-    
-    // Fallback if services not provided
-    this.errorHandler = errorHandler!;
     this.loadingService = loadingService || new LoadingStateService();
   }
 
@@ -145,6 +142,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   save(isFormData: boolean = false): void {
     this.markAllFieldsAsTouched();
 
+    debugger
     if (!this.formGroup.valid) {
       this.errorHandler.showWarning('Please fix the form errors before submitting.');
       return;

@@ -5,6 +5,7 @@ import { PersonOtherDocumentService } from '../../../../services/person-services
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
 import { FileDto } from '../../../../models/base/file-dto';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-edit-person-other-document-form',
@@ -21,10 +22,11 @@ export class EditPersonOtherDocumentForm extends BaseFormComponent {
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
+    protected override errorHandler: ErrorHandlerService,
 
 
   ) {
-    super(fb, cdr, sanitizer);
+    super(fb, cdr, sanitizer,errorHandler);
   }
   
   override ngOnInit(): void {

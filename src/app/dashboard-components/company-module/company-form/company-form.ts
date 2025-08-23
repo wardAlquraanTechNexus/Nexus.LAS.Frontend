@@ -7,6 +7,7 @@ import { DynamicListService } from '../../../services/dynamic-list-service';
 import { DynamicList } from '../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/environment';
+import { ErrorHandlerService } from '../../../services/error-handler.service';
 
 @Component({
   selector: 'app-company-form',
@@ -25,18 +26,19 @@ export class CompanyForm extends BaseFormComponent {
   loadRelevantCompanyFn!: (search: string) => Observable<DynamicList[]>;
   loadPlaceOfRegistrationMainFn!: (search: string) => Observable<DynamicList[]>;
   loadPlaceOfRegistrationSubFn!: (search: string) => Observable<DynamicList[]>;
-  
 
-  mainRegistrationId!:number;
+
+  mainRegistrationId!: number;
 
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
-    private dlService: DynamicListService
+    protected override errorHandler: ErrorHandlerService,
+    private dlService: DynamicListService,
 
   ) {
-    super(fb, cdr, sanitizer);
+    super(fb, cdr, sanitizer, errorHandler);
   }
 
   override ngOnInit(): void {
@@ -44,7 +46,6 @@ export class CompanyForm extends BaseFormComponent {
     super.ngOnInit();
 
     this.loadCompanyTypeFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyType, search)
-    this.loadCompanyClassFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyClass, search)
     this.loadGroupCompanyFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.groupCompany, search)
     this.loadLegalTypeFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.legalType, search)
     this.loadRelevantCompanyFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.relevantCompany, search)
@@ -52,13 +53,26 @@ export class CompanyForm extends BaseFormComponent {
 
   }
 
-    onSelectMainRegistrtaion(event: number) {
-    this.mainRegistrationId = event;
-    // this.formGroup.get('placeOfRegistrationMainIdn')?.reset();
+  onSelectMainRegistrtaion(event: number) {
 
-    this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(this.mainRegistrationId, search);
+    if(event){
+      this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(event, search);
+    }else{
+      this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(0, search);
+    }
     this.cdr.markForCheck();
   }
-  
+
+  onCompanyType(event: number) {
+    if(event){
+      this.loadCompanyClassFn = (search: string) => this.dlService.GetAllByParentId(event, search);
+    }else{
+      this.loadCompanyClassFn = (search: string) => this.dlService.GetAllByParentId(0, search);
+    }
+    this.cdr.markForCheck();
+  }
+
+
+
 
 }

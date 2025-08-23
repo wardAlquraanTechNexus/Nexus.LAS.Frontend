@@ -1,108 +1,112 @@
-<div class="dl-container">
-    <div class="dialog-header-buttons">
-        <button class="btn btn-secondary mr-2" (click)="cancelEdit()">Cancel</button>
-        <button class="btn btn-primary mr-2" (click)="save(true)">Save</button>
-        <button class="btn" (click)="cancelEdit()">
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>Company</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Add New Company</h2>
+                <p class="dialog-subtitle">Create a new company</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
             <mat-icon>close</mat-icon>
         </button>
     </div>
-    <form [formGroup]="formGroup">
-        <mat-form-field appearance="outline" class="full-width col-12">
-            <input matInput formControlName="companyEnglishName" required placeholder="Name En" />
-            <mat-error *ngIf="formGroup.get('companyEnglishName')?.hasError('required') && formGroup.get('companyEnglishName')?.touched">
-                Name En is required
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="full-width col-12">
-            <input matInput formControlName="companyArabicName" required placeholder="Name Ar" />
-            <mat-error *ngIf="formGroup.get('companyArabicName')?.hasError('required') && formGroup.get('companyArabicName')?.touched">
-                Name Ar is required
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="full-width col-12">
-            <input matInput formControlName="companyShortName" required placeholder="Short Name" />
-            <mat-error *ngIf="formGroup.get('companyShortName')?.hasError('required') && formGroup.get('companyShortName')?.touched">
-                Short Name is required
-            </mat-error>
-        </mat-form-field>
 
-        <select-auto-complete *ngIf="loadCompanyTypeFn"
-        [controlName]="'companyTypeIdn'"
-        [fnGet]="loadCompanyTypeFn"
-        [formGroup]="formGroup"
-        [isRequired]="true"
-        [label]="'Company Type'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false"
-        ></select-auto-complete>
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Name En</mat-label>
+                        <input matInput formControlName="companyEnglishName" required placeholder="Name En" />
+                        <mat-error
+                            *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
+                            Name En is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Name Ar</mat-label>
+                        <input matInput formControlName="companyArabicName" required placeholder="Name Ar" />
+                        <mat-error
+                            *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
+                            Name Ar is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Short Name</mat-label>
+                        <input matInput formControlName="companyShortName" required placeholder="Short Name" />
+                        <mat-error
+                            *ngIf="formGroup.get('companyShortName')?.hasError('required') && formGroup.get('companyShortName')?.touched">
+                            Short Name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Incorporation Date -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Incorporation Date</mat-label>
+                        <input matInput [matDatepicker]="incorporationDatePicker" formControlName="incorporationDate"
+                            required placeholder="Select Incorporation Date">
+                        <mat-datepicker-toggle matSuffix [for]="incorporationDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #incorporationDatePicker></mat-datepicker>
+                        <mat-error
+                            *ngIf="formGroup.get('incorporationDate')?.hasError('required') && formGroup.get('incorporationDate')?.touched">
+                            Incorporation Date is required
+                        </mat-error>
+                    </mat-form-field>
 
-        <select-auto-complete *ngIf="loadCompanyClassFn"
-        [controlName]="'companyClassIdn'"
-        [fnGet]="loadCompanyClassFn"
-        [formGroup]="formGroup"
-        [isRequired]="true"
-        [label]="'Company Class'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false"
-        ></select-auto-complete>
+                    <!-- to Add Share Value  -->
 
-        <select-auto-complete *ngIf="loadGroupCompanyFn"
-        [controlName]="'groupCompanyIdn'"
-        [fnGet]="loadGroupCompanyFn"
-        [formGroup]="formGroup"
-        [isRequired]="true"
-        [label]="'Group Company'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false"
-        ></select-auto-complete>
+                </div>
 
-        <select-auto-complete *ngIf="loadRelevantCompanyFn"
-        [controlName]="'relevantCompanyIdn'"
-        [fnGet]="loadRelevantCompanyFn"
-        [formGroup]="formGroup"
-        [isRequired]="true"
-        [label]="'Relevant Company'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false"
-        ></select-auto-complete>
+             
 
-        <select-auto-complete *ngIf="loadLegalTypeFn"
-        [controlName]="'legalTypeIdn'"
-        [fnGet]="loadLegalTypeFn"
-        [formGroup]="formGroup"
-        [isRequired]="true"
-        [label]="'Legal Type'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false"
-        ></select-auto-complete>
+                <select-auto-complete *ngIf="loadCompanyTypeFn" [controlName]="'companyTypeIdn'"
+                    [fnGet]="loadCompanyTypeFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Company Type'"
+                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
+                     (selectEmitter)="onCompanyType($event)"></select-auto-complete>
 
-        <select-auto-complete *ngIf="loadPlaceOfRegistrationMainFn"
-        [controlName]="'placeOfRegistrationMainIdn'"
-        [fnGet]="loadPlaceOfRegistrationMainFn"
-        [formGroup]="formGroup"
-        [isRequired]="true"
-        [label]="'Place Of Registration'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false"
-        (selectEmitter)="onSelectMainRegistrtaion($event)"
-        ></select-auto-complete>
+                <select-auto-complete *ngIf="loadCompanyClassFn" [controlName]="'companyClassIdn'"
+                    [fnGet]="loadCompanyClassFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Company Class'"
+                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
 
-        <select-auto-complete 
-        *ngIf="loadPlaceOfRegistrationSubFn" 
-        [formGroup]="formGroup"
-        [controlName]="'placeOfRegistrationSubIdn'"
-        [fnGet]="loadPlaceOfRegistrationSubFn"
-        [label]="'Sub Place Of Registration'"
-        [keyToShow]="'name'"
-        [valueKey]="'id'"
-        [withNullOption]="false">
-        </select-auto-complete>
-        
-    </form>
+                    <!-- to Add Legal Type  -->
+
+                <select-auto-complete *ngIf="loadLegalTypeFn" [controlName]="'legalTypeIdn'" [fnGet]="loadLegalTypeFn"
+                    [formGroup]="formGroup" [isRequired]="true" [label]="'Legal Type'" [keyToShow]="'name'"
+                    [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
+
+                <select-auto-complete *ngIf="loadPlaceOfRegistrationMainFn" [controlName]="'placeOfRegistrationMainIdn'"
+                    [fnGet]="loadPlaceOfRegistrationMainFn" [formGroup]="formGroup" [isRequired]="true"
+                    [label]="'Place Of Registration'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
+                    (selectEmitter)="onSelectMainRegistrtaion($event)"></select-auto-complete>
+
+                <select-auto-complete *ngIf="loadPlaceOfRegistrationSubFn" [formGroup]="formGroup"
+                    [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
+                    [label]="'Sub Place Of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
+                    [withNullOption]="false">
+                </select-auto-complete>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Menu
+        </button>
+    </div>
 </div>

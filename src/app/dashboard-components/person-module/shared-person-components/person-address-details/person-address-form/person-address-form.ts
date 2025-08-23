@@ -10,6 +10,7 @@ import { DynamicListService } from '../../../../../services/dynamic-list-service
 import { Observable } from 'rxjs';
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { environment } from '../../../../../../environment/environment';
+import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 
 @Component({
   selector: 'app-person-address-form',
@@ -28,9 +29,11 @@ export class PersonAddressForm extends BaseFormComponent {
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
-    private dlService: DynamicListService
+    private dlService: DynamicListService,
+    protected override errorHandler: ErrorHandlerService,
+
   ) {
-    super(fb, cdr, sanitizer);
+    super(fb, cdr, sanitizer,errorHandler);
   }
 
   override ngOnInit(): void {

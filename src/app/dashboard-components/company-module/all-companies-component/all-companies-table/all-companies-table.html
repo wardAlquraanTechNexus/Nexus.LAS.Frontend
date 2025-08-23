@@ -1,0 +1,193 @@
+<div class="main-container">
+
+  <!-- SECTION 1: Title and Records -->
+  <div class="section section-title">
+    <div class="title-content">
+      <h2>All Companies</h2>
+    </div>
+    <button mat-raised-button color="primary" (click)="onAddNew()">
+      <mat-icon>add</mat-icon> Add Company
+    </button>
+  </div>
+
+  <!-- SECTION 2: Filters and Actions -->
+  <div class="section section-filters">
+    <div class="filters">
+      <mat-form-field appearance="outline" class="search">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple>
+        <mat-button-toggle [value]="false">Public</mat-button-toggle>
+        <mat-button-toggle [value]="true">Private</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple>
+        <mat-button-toggle [value]="0">New</mat-button-toggle>
+        <mat-button-toggle [value]="1">Active</mat-button-toggle>
+        <mat-button-toggle [value]="2">Inactive</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="filter-bar">
+      <span class="filter-label">Filters</span>
+      <button mat-icon-button (click)="toggleFilters()" aria-label="Show/Hide Filters">
+        <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
+      </button>
+    </div>
+    <div class="additional-filters" *ngIf="showFilters">
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Basic Information</h3>
+        </div>
+        <div class="section-body">
+          <div class="row">
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Capital Amount</mat-label>
+                <input matInput [(ngModel)]="params.capitalAmount" (keyup.enter)="search()">
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Total Shares</mat-label>
+                <input matInput [(ngModel)]="params.totalShares" (keyup.enter)="search()">
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Number Of Partners</mat-label>
+                <input matInput [(ngModel)]="params.numberOfPartners" (keyup.enter)="search()">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Classification</h3>
+        </div>
+        <div class="section-body">
+          <div class="row">
+            <div class="col-4">
+              <select-auto-complete *ngIf="loadCompanyTypesFn" [controlName]="'companyTypeIdn'"
+                [fnGet]="loadCompanyTypesFn" [formGroup]="formGroup" [label]="'Company Type'" [keyToShow]="'name'"
+                [valueKey]="'id'" [withNullOption]="true" (selectEmitter)="onSelectCompanyType($event)"
+                [withNullOption]="false">
+              </select-auto-complete>
+            </div>
+            <div class="col-4" *ngIf="loadCompanyClassesFn">
+              <select-auto-complete [controlName]="'companyClassIdn'" [fnGet]="loadCompanyClassesFn"
+                [formGroup]="formGroup" [label]="'Company Class'" [keyToShow]="'name'" [valueKey]="'id'"
+                [withNullOption]="true" (selectEmitter)="onSelectCompanyClass($event)" [withNullOption]="false">
+              </select-auto-complete>
+            </div>
+            <div class="col-4">
+              <select-auto-complete *ngIf="loadCompanyLegalsFn" [controlName]="'legalTypeIdn'"
+                [fnGet]="loadCompanyLegalsFn" [formGroup]="formGroup" [label]="'Legal Form'" [keyToShow]="'name'"
+                [valueKey]="'id'" [withNullOption]="true" (selectEmitter)="onSelectCompanyLegalType($event)"
+                [withNullOption]="false">
+              </select-auto-complete>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h3>Business Details</h3>
+        </div>
+        <div class="section-body">
+          <div class="row">
+            <div class="col-6">
+              <select-auto-complete *ngIf="loadPlaceOfRegistrationFn" [controlName]="'placeOfRegistrationMainIdn'"
+                [fnGet]="loadPlaceOfRegistrationFn" [formGroup]="formGroup" [label]="'Place Of Registration'"
+                [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+                (selectEmitter)="onSelectMainRegistrtaion($event)" [withNullOption]="false">
+              </select-auto-complete>
+            </div>
+            <div class="col-6" *ngIf="loadPlaceOfRegistrationSubFn">
+              <select-auto-complete [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
+                [formGroup]="formGroup" [label]="'Place Of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
+                [withNullOption]="true" (selectEmitter)="onSelectSubRegistrtaion($event)" [withNullOption]="false">
+              </select-auto-complete>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="bulk-actions" *ngIf="selectedCompanies.length">
+      <span>{{ selectedCompanies.length }} selected</span>
+      <div class="bulk-buttons" *ngIf="currentMenu?.canUpdate">
+        <button mat-button (click)="bulkChangeStatus(activeStatus)">
+          <mat-icon>check_circle</mat-icon> Activate
+        </button>
+        <button mat-button (click)="bulkChangeStatus(inActiveStatus)">
+          <mat-icon>cancel</mat-icon> Deactivate
+        </button>
+        <button mat-button (click)="bulkChangePrivate(false)">
+          <mat-icon>visibility</mat-icon> Public
+        </button>
+        <button mat-button (click)="bulkChangePrivate(true)">
+          <mat-icon>visibility_off</mat-icon> Private
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Data Grid -->
+  <div class="section section-data">
+    <!-- Loading -->
+    <div *ngIf="showLoading" class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <!-- Table -->
+    <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+      [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+      (selectionChange)="onSelectionChange($event)" (rowClick)="onRowClick($event)">
+    </app-shared-table>
+  </div>
+
+  <!-- Row Actions -->
+  <ng-template #actionButtonsTemplate let-row>
+    <button mat-icon-button [matMenuTriggerFor]="menuRow">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menuRow="matMenu">
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)">
+        <mat-icon class="icon-activate">check_circle</mat-icon> Activate
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)">
+        <mat-icon class="icon-deactivate">cancel</mat-icon> Deactivate
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)">
+        <mat-icon class="icon-public">visibility</mat-icon> Public
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
+        <mat-icon class="icon-private">visibility_off</mat-icon> Private
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteCompany(row)">
+        <mat-icon class="icon-delete">delete</mat-icon> Delete
+      </button>
+
+    </mat-menu>
+  </ng-template>
+
+</div>

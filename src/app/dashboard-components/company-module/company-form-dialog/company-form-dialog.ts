@@ -24,7 +24,7 @@ export class CompanyFormDialog extends BaseDialogComponent {
     onSave(element: any) {
       if(!element.element.id){
         this.showLoading = true;
-        this.service.create(element.element).subscribe({
+        this.service.createCompany(element.element).subscribe({
           next:(res=>{
             this.showLoading = false;
             element.element.id = res;
