@@ -7,6 +7,9 @@ import { CompanyForm } from './company-form/company-form';
 import { CompanyFormDialog } from './company-form-dialog/company-form-dialog';
 import { AllCompaniesTable } from './all-companies-component/all-companies-table/all-companies-table';
 import { CompanyTableView } from './_base/company-table-view/company-table-view';
+import { CompanyViewComponent } from './company-view-component/company-view-component';
+import { CompanyOverviewComponent } from './company-details-components/company-overview-component/company-overview-component';
+import { CompanyPersonInChargeComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-component';
 
 
 
@@ -17,6 +20,9 @@ import { CompanyTableView } from './_base/company-table-view/company-table-view'
     CompanyTableView,
     CompanyForm,
     CompanyFormDialog,
+    CompanyViewComponent,
+    CompanyOverviewComponent,
+    CompanyPersonInChargeComponent
   ],
   imports: [
     CommonModule,

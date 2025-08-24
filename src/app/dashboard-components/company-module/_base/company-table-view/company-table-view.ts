@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-company-table-view',
   standalone:false,
-  templateUrl: './company-table-view.html',
+  template: '',
   styleUrls: ['./company-table-view.scss' , '../../_base/base-companies-component/base-companies-component.scss'] 
 })
 export class CompanyTableView implements OnInit {

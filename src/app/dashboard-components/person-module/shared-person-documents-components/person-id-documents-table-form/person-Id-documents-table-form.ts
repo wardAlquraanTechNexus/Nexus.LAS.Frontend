@@ -1,20 +1,17 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
-import { GetPersonIdDetailsParams } from '../../../../models/person-id-details/get-person-id-details-params';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { Sort } from '@angular/material/sort';
 import { BaseParam } from '../../../../models/base/base-param';
-import { env } from 'process';
-import { environment } from '../../../../../environment/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonIdDetailView } from '../../person-id-detail-view/person-id-detail-view';
 import { EditPersonIdDetailView } from '../../person-id-detail-view/edit-person-id-detail-view/edit-person-id-detail-view';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { PersonsIDDetail } from '../../../../models/person-models/person-id-details/person-id-details';
+import { GetPersonIdDetailsParams } from '../../../../models/person-models/person-id-details/get-person-id-details-params';
 
 @Component({
   selector: 'app-person-id-documents-table-form',

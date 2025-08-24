@@ -142,7 +142,6 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   save(isFormData: boolean = false): void {
     this.markAllFieldsAsTouched();
 
-    debugger
     if (!this.formGroup.valid) {
       this.errorHandler.showWarning('Please fix the form errors before submitting.');
       return;

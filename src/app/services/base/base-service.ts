@@ -19,17 +19,7 @@ export class BaseService<T> {
   }
 
   getByParams(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<T>> {
-    let params = new HttpParams();
-    if (paramsObj) {
-      Object.keys(paramsObj).forEach(key => {
-        const value = paramsObj[key];
-        if (value !== null && value !== undefined) {
-          params = params.set(key, value);
-        }
-      });
-    }
-    return this.httpClient.get<PaginateRsult<T>>(this.url, { params });
-
+    return this.httpClient.get<PaginateRsult<T>>(this.url, { params: this.httpParams(paramsObj) });
   }
   getAllByParams(paramsObj?: { [param: string]: any }): Observable<T[]> {
     let params = new HttpParams();

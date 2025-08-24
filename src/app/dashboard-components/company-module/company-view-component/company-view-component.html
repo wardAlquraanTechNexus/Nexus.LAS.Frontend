@@ -1,0 +1,203 @@
+<div class="main-container">
+
+    <!-- SECTION 1: Loading State -->
+    <div *ngIf="showLoading" class="section loading-section">
+        <div class="loading">
+            <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Person Header -->
+    <div *ngIf="!showLoading && company" class="section section-header">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-nav">
+            <a (click)="navigateToCompanies()" class="breadcrumb-link">
+                <mat-icon>arrow_back</mat-icon>
+                {{labels['company']}}
+            </a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="current-page">{{ company.companyEnglishName | titlecase }}</span>
+        </div>
+
+        <!-- Person Header Card -->
+        <div class="person-header-card">
+            <div class="person-profile-section">
+                <!-- Profile Image -->
+
+
+                <!-- Person Details -->
+                <div class="person-details">
+                    <div class="person-name-section">
+                        <div class="name-and-badges">
+                            <h1 class="person-name">{{ company.companyEnglishName | titlecase }}</h1>
+                            <div class="person-status-badges">
+                                <span class="status-badge" [ngStyle]="getCompanyStatusStyle()">
+                                    <mat-icon>{{ company.companyStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    {{ company.companyStatus | tableDataPipe: 'personStatus' }}
+                                </span>
+                                <span class="privacy-badge" [ngStyle]="getCompanyPrivateStyle()">
+                                    <mat-icon>{{ company.private ? 'lock' : 'public' }}</mat-icon>
+                                    {{ company.private | tableDataPipe: 'privatePerson' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="person-name-arabic">{{ company.companyArabicName| titlecase }}</div>
+                    </div>
+
+                    <div class="person-meta-info">
+                        <div class="info-item">
+                            <span class="info-label">ID:</span>
+                            <span class="info-value">{{ company.companyCode }}</span>
+                        </div>
+                        <div class="info-item" *ngIf="company.companyShortName">
+                            <span class="info-label">Short Name:</span>
+                            <span class="info-value">{{ company.companyShortName| uppercase }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="person-actions">
+                <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
+                    <mat-icon>edit</mat-icon>
+                    {{labels['editCompany']}}
+                </button>
+
+                <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
+                    <mat-icon>more_vert</mat-icon>
+                    {{labels['moreActions']}}
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Content Tabs -->
+    <div *ngIf="!showLoading" class="section section-content">
+        <div class="tabs-container">
+            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
+                (selectedIndexChange)="selectedTab = $event">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>dashboard</mat-icon>
+                            <span>Overview</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="company-overview-component">
+                            <app-company-overview-component [company]="company"></app-company-overview-component>
+                        </div>
+                        <div class="company-overview-component">
+                            <app-company-person-in-charge-component [company]="company"></app-company-person-in-charge-component>
+
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>people</mat-icon>
+                            <span>Org Chart</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>how_to_reg</mat-icon>
+                            <span>Registrations</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="contacts-grid">
+                            <div class="contact-section">
+                            </div>
+                            <div class="contact-section">
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>contacts</mat-icon>
+                            <span>Contact</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>assignment</mat-icon>
+                            <span>Contract</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="assets-placeholder">
+                            <mat-icon class="placeholder-icon">business_center</mat-icon>
+                            <p>Assets information will be displayed here</p>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>works</mat-icon>
+                            <span>Assets</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>people</mat-icon>
+                            <span>Boards</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                    </div>
+                </mat-tab>
+
+                 <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>account_balance_wallet</mat-icon>
+                            <span>Bank Account</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                    </div>
+                </mat-tab>
+
+                 <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>notes</mat-icon>
+                            <span>Notes</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

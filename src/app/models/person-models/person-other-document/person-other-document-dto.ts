@@ -1,4 +1,4 @@
-import { FileDto } from "../base/file-dto";
+import { FileDto } from "../../base/file-dto";
 
 export interface PersonOtherDocumentDTO extends FileDto {
   id: number;

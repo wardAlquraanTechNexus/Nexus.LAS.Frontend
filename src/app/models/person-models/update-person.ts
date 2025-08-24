@@ -1,4 +1,4 @@
-import { CreatePersonCommand } from "./create-person";
+import { CreatePersonCommand } from "../person-models/create-person";
 
 export interface UpdatePersonCommand extends CreatePersonCommand{
     id:number,

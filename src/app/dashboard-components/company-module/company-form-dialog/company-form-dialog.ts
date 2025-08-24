@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
-import { GetCompanyDto } from '../../../models/company/get-company-query/get-company-dto';
+import { GetCompanyDto } from '../../../models/company-models/get-company-query/get-company-dto';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CompanyService } from '../../../services/company-service';
+import { CompanyService } from '../../../services/company-services/company-service';
 
 @Component({
   selector: 'app-company-form-dialog',
@@ -22,6 +22,7 @@ export class CompanyFormDialog extends BaseDialogComponent {
     }
   
     onSave(element: any) {
+      debugger
       if(!element.element.id){
         this.showLoading = true;
         this.service.createCompany(element.element).subscribe({
@@ -37,7 +38,7 @@ export class CompanyFormDialog extends BaseDialogComponent {
         })
       }else{
         this.showLoading = true;
-        this.service.update(element.element).subscribe({
+        this.service.updateCompany(element.element).subscribe({
           next:(res=>{
             this.showLoading = false;
             this.dialogRef.close(element.element);

@@ -1,0 +1,24 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* space between rows */
+}
+
+.section-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.section-subject {
+  font-weight: 600;
+  width: 200px; /* fixed label width */
+  color: #444;
+}
+
+.section-body {
+  flex: 1;
+  color: #222;
+}

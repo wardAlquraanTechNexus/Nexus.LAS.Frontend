@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { BaseDialogComponent } from '../../../base-components/base-dialog-component/base-dialog-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { PersonIdDetailDto } from '../../../../models/person-models/person-id-details/person-id-details-dto';
 
 @Component({
   selector: 'app-edit-person-id-detail-view',

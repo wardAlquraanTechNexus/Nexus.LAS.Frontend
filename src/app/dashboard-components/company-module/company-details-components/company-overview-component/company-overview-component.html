@@ -1,0 +1,48 @@
+<div class="section">
+
+  <div class="section-row">
+    <div class="section-subject">INC. Date</div>
+    <div class="section-body">{{ company.incorporationDate | date:"dd/MM/yyyy" }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Company Type</div>
+    <div class="section-body">{{ companyType$ | async }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Company Class</div>
+    <div class="section-body">{{ companyClass$ | async }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Legal Form</div>
+    <div class="section-body">{{ companyLegal$ | async }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Place Of Registration</div>
+    <div class="section-body">{{ placeOfRegistrationMain$ | async }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">City Of Registration</div>
+    <div class="section-body">{{ placeOfRegistrationSub$ | async }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Total Shares</div>
+    <div class="section-body">{{ company.totalShares }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Amount</div>
+    <div class="section-body">{{ company.capitalAmount }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">Number of Partners</div>
+    <div class="section-body">{{ company.numberOfPartners }}</div>
+  </div>
+
+</div>

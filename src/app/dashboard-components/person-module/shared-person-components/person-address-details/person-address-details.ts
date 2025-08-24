@@ -5,7 +5,7 @@ import { combineLatest, map, Observable, of, startWith } from 'rxjs';
 import { Country } from '../../../../models/country/country';
 import { PersonAddressService } from '../../../../services/person-services/person-address-service';
 import { ActivatedRoute } from '@angular/router';
-import { PersonAddress } from '../../../../models/person-address/person-address';
+import { PersonAddress } from '../../../../models/person-models/person-address/person-address';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonAddressDialog } from './person-address-dialog/person-address-dialog';
 import { DynamicListService } from '../../../../services/dynamic-list-service';

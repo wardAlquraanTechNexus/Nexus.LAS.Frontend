@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { PersonOtherDocumentDTO } from '../../../../models/person-other-document/person-other-document-dto';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
-import { FileDto } from '../../../../models/base/file-dto';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { PersonOtherDocumentDTO } from '../../../../models/person-models/person-other-document/person-other-document-dto';
 
 @Component({
   selector: 'app-edit-person-other-document-form',

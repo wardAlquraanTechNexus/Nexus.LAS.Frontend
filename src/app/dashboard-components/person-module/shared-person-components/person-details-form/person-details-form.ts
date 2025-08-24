@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Person } from '../../../../models/persons/person';
+import { Person } from '../../../../models/person-models/person';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonService } from '../../../../services/person-services/person-service';
 import { Router } from '@angular/router';

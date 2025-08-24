@@ -1,19 +1,16 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { PersonOtherDocument } from '../../../../models/person-other-document/person-other-document';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { GetPerdonOtherDocument } from '../../../../models/person-other-document/get-person-other-document';
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { BaseParam } from '../../../../models/base/base-param';
 import { Sort } from '@angular/material/sort';
-import { environment } from '../../../../../environment/environment';
 import { PersonOtherDocumentView } from '../../person-other-document-view/person-other-document-view';
 import { MatDialog } from '@angular/material/dialog';
-import { EditPersonOtherDocumentForm } from '../../person-other-document-view/edit-person-other-document-form/edit-person-other-document-form';
 import { EditPersonOtherDocumentView } from '../../person-other-document-view/edit-person-other-document-view/edit-person-other-document-view';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { PersonOtherDocument } from '../../../../models/person-models/person-other-document/person-other-document';
+import { GetPerdonOtherDocument } from '../../../../models/person-models/person-other-document/get-person-other-document';
 
 @Component({
   selector: 'app-person-other-documents-table-form',

@@ -5,7 +5,7 @@ import { PersonStatus } from '../../../enums/person-status';
 import { PersonDetailsForm } from '../shared-person-components/person-details-form/person-details-form';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
-import { PersonDto } from '../../../models/persons/person-dto';
+import { PersonDto } from '../../../models/person-models/person-dto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MenuService } from '../../../services/menu-service';
 import { environment } from '../../../../environment/environment';

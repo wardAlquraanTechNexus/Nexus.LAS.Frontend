@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
-import { PersonsIDDetail } from '../../../../models/person-id-details/person-id-details';
+import { PersonsIDDetail } from '../../../../models/person-models/person-id-details/person-id-details';
 
 @Component({
   selector: 'app-person-id-document-form',

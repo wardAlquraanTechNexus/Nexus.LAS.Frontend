@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonStatus } from '../../../../enums/person-status';
 import { DisplayColumn } from '../../../../models/columns/display-column';
-import { GetPersonsQuery } from '../../../../models/persons/get-persons/get-persons-query';
+import { GetPersonsQuery } from '../../../../models/person-models/get-persons/get-persons-query';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { MenuService } from '../../../../services/menu-service';
 import { PersonService } from '../../../../services/person-services/person-service';

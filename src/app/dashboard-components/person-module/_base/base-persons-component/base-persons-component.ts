@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Person } from '../../../../models/persons/person';
+import { Person } from '../../../../models/person-models/person';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonStatus } from '../../../../enums/person-status';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -7,11 +7,10 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../../services/person-services/person-service';
 import { environment } from '../../../../../environment/environment';
-import { BulkChangePrivateCommand } from '../../../../models/persons/bulk-change-private-command';
-import { BulkChangeStatusCommand } from '../../../../models/persons/bulk-change-status-command';
-import { UpdatePersonCommand } from '../../../../models/persons/update-person';
-import { GetPersonsQuery } from '../../../../models/persons/get-persons/get-persons-query';
-import { GetPersonsDTO } from '../../../../models/persons/get-persons/get-person-dto';
+import { BulkChangePrivateCommand } from '../../../../models/person-models/bulk-change-private-command';
+import { BulkChangeStatusCommand } from '../../../../models/person-models/bulk-change-status-command';
+import { GetPersonsQuery } from '../../../../models/person-models/get-persons/get-persons-query';
+import { GetPersonsDTO } from '../../../../models/person-models/get-persons/get-person-dto';
 import { Sort } from '@angular/material/sort';
 import { BaseParam } from '../../../../models/base/base-param';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +24,7 @@ import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
 import { LanguageCode } from '../../../../models/types/lang-type';
 import { ConfirmDeleteComponent } from '../../../../components/confirm-delete-component/confirm-delete-component';
-import { SuccessSnackbar } from '../../../../components/snackbars/success-snackbar/success-snackbar';
+import { UpdatePersonCommand } from '../../../../models/person-models/update-person';
 
 @Component({
   selector: 'app-base-persons-component',

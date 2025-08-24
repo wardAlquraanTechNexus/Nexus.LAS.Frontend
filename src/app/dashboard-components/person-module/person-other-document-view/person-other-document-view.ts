@@ -1,13 +1,11 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { PersonOtherDocumentDTO } from '../../../models/person-other-document/person-other-document-dto';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PersonOtherDocumentService } from '../../../services/person-services/person-other-document-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
-import { environment } from '../../../../environment/environment';
-import { EditPersonOtherDocumentForm } from './edit-person-other-document-form/edit-person-other-document-form';
 import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
+import { PersonOtherDocumentDTO } from '../../../models/person-models/person-other-document/person-other-document-dto';
 
 @Component({
   selector: 'app-person-other-document-view',

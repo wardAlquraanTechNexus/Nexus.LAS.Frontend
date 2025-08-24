@@ -3,8 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisplayColumn } from '../../../../models/columns/display-column';
-import { GetCompanyDto } from '../../../../models/company/get-company-query/get-company-dto';
-import { CompanyService } from '../../../../services/company-service';
+import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
+import { CompanyService } from '../../../../services/company-services/company-service';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MenuService } from '../../../../services/menu-service';
@@ -15,7 +15,7 @@ import { CompanyFormDialog } from '../../company-form-dialog/company-form-dialog
   selector: 'app-all-companies-table',
   standalone: false,
   templateUrl: './all-companies-table.html',
-  styleUrl: './all-companies-table.scss' 
+  styleUrls: ['./all-companies-table.scss', '../../_base/base-companies-component/base-companies-component.scss' ]
 })
 export class AllCompaniesTable extends BaseCompaniesComponent {
 
@@ -111,6 +111,7 @@ export class AllCompaniesTable extends BaseCompaniesComponent {
   onAddNew() {
     let companyDto: GetCompanyDto = {
       id: 0,
+      companyIdc: "",
       companyCode: null,
       companyEnglishName: null,
       companyArabicName: null,

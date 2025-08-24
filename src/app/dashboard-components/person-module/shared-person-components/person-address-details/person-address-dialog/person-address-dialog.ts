@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
-import { PersonAddress } from '../../../../../models/person-address/person-address';
+import { PersonAddress } from '../../../../../models/person-models/person-address/person-address';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonAddressService } from '../../../../../services/person-services/person-address-service';
 

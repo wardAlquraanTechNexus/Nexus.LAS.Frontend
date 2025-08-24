@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base-service';
-import { PersonOtherDocument } from '../../models/person-other-document/person-other-document';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PersonOtherDocumentDTO } from '../../models/person-other-document/person-other-document-dto';
+import { PersonOtherDocument } from '../../models/person-models/person-other-document/person-other-document';
+import { PersonOtherDocumentDTO } from '../../models/person-models/person-other-document/person-other-document-dto';
 
 @Injectable({
   providedIn: 'root'

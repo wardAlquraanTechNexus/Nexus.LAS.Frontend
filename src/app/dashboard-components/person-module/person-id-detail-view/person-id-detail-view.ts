@@ -1,15 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { PersonIdDetailService } from '../../../services/person-services/person-id-detail-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonsIDDetail } from '../../../models/person-id-details/person-id-details';
-import { PersonIdDetailDto } from '../../../models/person-id-details/person-id-details-dto';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { EditPersonIdDetailForm } from './edit-person-id-detail-form/edit-person-id-detail-form';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { environment } from '../../../../environment/environment';
 import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
+import { PersonIdDetailDto } from '../../../models/person-models/person-id-details/person-id-details-dto';
 
 @Component({
   selector: 'app-person-id-detail-view',

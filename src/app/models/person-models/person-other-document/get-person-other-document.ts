@@ -1,4 +1,4 @@
-import { BaseParam } from "../base/base-param";
+import { BaseParam } from "../../base/base-param";
 
 export interface GetPerdonOtherDocument extends BaseParam
 {

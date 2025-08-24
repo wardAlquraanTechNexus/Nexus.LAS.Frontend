@@ -1,4 +1,4 @@
-import { BaseEntity } from "../base/base-entity";
+import { BaseEntity } from "../../base/base-entity";
 
 export interface PersonsIDDetail extends BaseEntity {
   personsIDDetailIdc?: string;

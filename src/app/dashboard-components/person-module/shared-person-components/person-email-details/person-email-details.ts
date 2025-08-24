@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PersonEmailService } from '../../../../services/person-services/person-email-service';
-import { PersonEmail } from '../../../../models/person-email/person-email';
+import { PersonEmail } from '../../../../models/person-models/person-email/person-email';
 import { PersonEmailDialog } from './person-email-dialog/person-email-dialog';
 import { MatDialog } from '@angular/material/dialog';
 

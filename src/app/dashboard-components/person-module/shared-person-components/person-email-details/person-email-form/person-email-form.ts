@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { PersonEmail } from '../../../../../models/person-email/person-email';
+import { PersonEmail } from '../../../../../models/person-models/person-email/person-email';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 
 @Component({

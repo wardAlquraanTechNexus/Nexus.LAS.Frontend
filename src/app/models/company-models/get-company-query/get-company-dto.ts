@@ -1,5 +1,6 @@
 export interface GetCompanyDto {
   id: number;
+  companyIdc:string | null;
   companyCode?: string | null;
   companyEnglishName?: string | null;
   companyArabicName?: string | null;

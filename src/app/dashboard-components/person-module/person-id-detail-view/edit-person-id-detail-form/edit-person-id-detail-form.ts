@@ -1,11 +1,9 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PersonIdDetailDto } from '../../../../models/person-id-details/person-id-details-dto';
-import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { PersonIdDetailDto } from '../../../../models/person-models/person-id-details/person-id-details-dto';
 
 @Component({
   selector: 'app-edit-person-id-detail-form',

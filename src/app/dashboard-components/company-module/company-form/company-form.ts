@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../base-components/base-form-component/base-form-component';
-import { GetCompanyDto } from '../../../models/company/get-company-query/get-company-dto';
+import { GetCompanyDto } from '../../../models/company-models/get-company-query/get-company-dto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder } from '@angular/forms';
 import { DynamicListService } from '../../../services/dynamic-list-service';
@@ -50,26 +50,36 @@ export class CompanyForm extends BaseFormComponent {
     this.loadLegalTypeFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.legalType, search)
     this.loadRelevantCompanyFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.relevantCompany, search)
     this.loadPlaceOfRegistrationMainFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.placeOfRegistration, search)
+    if (this.company?.companyTypeIdn) {
+      this.onCompanyType(this.company.companyTypeIdn);
+    }
+    if(this.company?.placeOfRegistrationMainIdn){
+      this.onSelectMainRegistrtaion(this.company?.placeOfRegistrationMainIdn)
+    }
 
   }
 
   onSelectMainRegistrtaion(event: number) {
 
-    if(event){
+    if (event) {
       this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(event, search);
-    }else{
+    } else {
       this.loadPlaceOfRegistrationSubFn = (search: string) => this.dlService.GetAllByParentId(0, search);
     }
     this.cdr.markForCheck();
   }
 
   onCompanyType(event: number) {
-    if(event){
+    if (event) {
       this.loadCompanyClassFn = (search: string) => this.dlService.GetAllByParentId(event, search);
-    }else{
+    } else {
       this.loadCompanyClassFn = (search: string) => this.dlService.GetAllByParentId(0, search);
     }
     this.cdr.markForCheck();
+  }
+
+  onSelectClass(){
+    debugger;
   }
 
 

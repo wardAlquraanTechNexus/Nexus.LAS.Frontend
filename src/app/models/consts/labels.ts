@@ -25,7 +25,10 @@ export const Labels = {
         nationality: "Nationality",
         recordsReturned: "Records has been returned",
         noRecords: "No records available",
-        personCreatedSuccessfully: "Person Created Successfully"
+        personCreatedSuccessfully: "Person Created Successfully",
+        company:"Company",
+        editCompany:"Edit Company",
+        moreActions: "More Actions"
     },
     ar: {
         allPersons: "جميع الأشخاص",
@@ -53,7 +56,11 @@ export const Labels = {
         nationality: "الجنسية",
         recordsReturned: "تمت إعادة السجلات",
         noRecords: "لا توجد سجلات",
-        personCreatedSuccessfully: "تمت اضافة الشخص بنجاح"
+        personCreatedSuccessfully: "تمت اضافة الشخص بنجاح",
+        company:"الشركة",
+        editCompany:"تعديل الشركة",
+        moreActions: "مزيد من الإجراءات "
+
 
     }
 } as const;

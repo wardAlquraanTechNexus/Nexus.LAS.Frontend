@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Company } from '../../../../models/company/company';
+import { Company } from '../../../../models/company-models/company';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import GetCompanyQuery from '../../../../models/company/get-company-query/get-company-dto-command';
-import { CompanyService } from '../../../../services/company-service';
+import GetCompanyQuery from '../../../../models/company-models/get-company-query/get-company-dto-command';
+import { CompanyService } from '../../../../services/company-services/company-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
@@ -10,7 +10,7 @@ import { MenuService } from '../../../../services/menu-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { MenuTree } from '../../../../models/menus/menu-tree';
-import { GetCompanyDto } from '../../../../models/company/get-company-query/get-company-dto';
+import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
@@ -272,4 +272,5 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       });
     }
   }
+
 }

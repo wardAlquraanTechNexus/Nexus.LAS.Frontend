@@ -6,7 +6,7 @@ import { DisplayColumn } from '../../../models/columns/display-column';
 import { PaginateRsult } from '../../../models/paginate-result';
 import { BaseParam } from '../../../models/base/base-param';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Person } from '../../../models/persons/person';
+import { Person } from '../../../models/person-models/person';
 import { LanguageService } from '../../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
 import { MatCheckboxChange } from '@angular/material/checkbox';

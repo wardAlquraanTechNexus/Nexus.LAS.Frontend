@@ -1,1 +1,2 @@
 <app-all-companies-table *ngIf="!showLoading && !companyId"></app-all-companies-table>
+<app-company-view-component *ngIf="!showLoading && companyId" (backToTableEmit)="backToTable()"></app-company-view-component>
