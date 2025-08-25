@@ -1,0 +1,91 @@
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>group_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Company License</h2>
+                <p class="dialog-subtitle">Company License</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                <!-- CCI Number -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Number</mat-label>
+                        <input matInput formControlName="cciNumber" placeholder="Enter CCI number" />
+                    </mat-form-field>
+                </div>
+
+                <!-- CCI Issue Date -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Issue Date</mat-label>
+                        <input matInput [matDatepicker]="cciIssuePicker" formControlName="cciIssueDate" />
+                        <mat-datepicker-toggle matSuffix [for]="cciIssuePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #cciIssuePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <!-- CCI Expiry Date -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Expiry Date</mat-label>
+                        <input matInput [matDatepicker]="cciExpiryPicker" formControlName="cciExpiryDate" />
+                        <mat-datepicker-toggle matSuffix [for]="cciExpiryPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #cciExpiryPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <!-- Expiry Reminder -->
+                <div class="col-12">
+                    <mat-checkbox formControlName="cciExpiryActiveReminder">
+                        Enable Expiry Reminder
+                    </mat-checkbox>
+                </div>
+
+                <!-- Username -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Username</mat-label>
+                        <input matInput formControlName="cciUsername" placeholder="Enter username" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Password -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Password</mat-label>
+                        <input matInput type="password" formControlName="cciPassword" placeholder="Enter password" />
+                    </mat-form-field>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Group
+        </button>
+    </div>
+</div>

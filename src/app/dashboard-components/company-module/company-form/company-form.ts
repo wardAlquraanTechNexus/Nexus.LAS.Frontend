@@ -79,7 +79,6 @@ export class CompanyForm extends BaseFormComponent {
   }
 
   onSelectClass(){
-    debugger;
   }
 
 

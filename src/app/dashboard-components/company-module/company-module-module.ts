@@ -10,6 +10,14 @@ import { CompanyTableView } from './_base/company-table-view/company-table-view'
 import { CompanyViewComponent } from './company-view-component/company-view-component';
 import { CompanyOverviewComponent } from './company-details-components/company-overview-component/company-overview-component';
 import { CompanyPersonInChargeComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-component';
+import { CompanyPersonInChargeDialogFormComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-dialog-form-component/company-person-in-charge-dialog-form-component';
+import { CompanyPersonInChargeFormComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-form-component/company-person-in-charge-form-component';
+import { CompanyChamperOfCommerceComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-component';
+import { CompanyLicenseComponent } from './company-details-components/company-license-component/company-license-component';
+import { CompanyLicenseFormComponent } from './company-details-components/company-license-component/company-license-form-component/company-license-form-component';
+import { CompanyLicenseFormDialogComponent } from './company-details-components/company-license-component/company-license-form-dialog-component/company-license-form-dialog-component';
+import { CompanyChamperOfCommerceFormComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-form-component/company-champer-of-commerce-form-component';
+import { CompanyChamperOfCommerceFormDialogComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-form-dialog-component/company-champer-of-commerce-form-dialog-component';
 
 
 
@@ -22,7 +30,15 @@ import { CompanyPersonInChargeComponent } from './company-details-components/com
     CompanyFormDialog,
     CompanyViewComponent,
     CompanyOverviewComponent,
-    CompanyPersonInChargeComponent
+    CompanyPersonInChargeComponent,
+    CompanyPersonInChargeDialogFormComponent,
+    CompanyPersonInChargeFormComponent,
+    CompanyChamperOfCommerceComponent,
+    CompanyLicenseComponent,
+    CompanyLicenseFormComponent,
+    CompanyLicenseFormDialogComponent,
+    CompanyChamperOfCommerceFormComponent,
+    CompanyChamperOfCommerceFormDialogComponent
   ],
   imports: [
     CommonModule,

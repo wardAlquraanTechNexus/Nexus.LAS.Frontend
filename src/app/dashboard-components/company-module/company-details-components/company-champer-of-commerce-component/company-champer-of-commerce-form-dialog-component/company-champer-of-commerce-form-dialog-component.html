@@ -1,0 +1,10 @@
+
+  <div class="spinner-overlay" *ngIf="showLoading">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+  </div>
+
+<app-company-champer-of-commerce-form-component *ngIf="!showLoading"
+[element]="element"
+(saveEmitter)="onSave($event)"
+(cancelEditEmitter)="onCancel($event)"
+></app-company-champer-of-commerce-form-component>

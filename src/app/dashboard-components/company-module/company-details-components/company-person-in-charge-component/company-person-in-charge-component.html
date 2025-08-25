@@ -1,18 +1,14 @@
 <div class="table-header">
   <div class="header-title">Contact Person</div>
-  <button mat-raised-button color="primary">
+  <button mat-raised-button class="btn-add-contact" (click)="onAddNew()">
     <mat-icon>add</mat-icon>
     Add Contact Person
   </button>
 </div>
 
-<app-shared-table
-  *ngIf="!showLoading"
-  [displayedColumns]="displayColumns"
-  [paginateResult]="data"
-  (onChangePage)="changePage($event)"
-  (onSortChangeEvent)="changeSort($event)"
-  [action]="actionButtonsTemplate">
+<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+  (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate"
+  (rowClick)="onRowClick($event)">
 </app-shared-table>
 
 <ng-template #actionButtonsTemplate let-row>
@@ -20,10 +16,10 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menuRow="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
       <mat-icon>edit</mat-icon> Edit
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item class="btn-delete" [confirmDelete]="deleteFn(row.id)">
       <mat-icon>delete</mat-icon> Delete
     </button>
   </mat-menu>

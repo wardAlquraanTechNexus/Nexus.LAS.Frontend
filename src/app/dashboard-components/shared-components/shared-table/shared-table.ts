@@ -112,6 +112,7 @@ export class SharedTable implements OnInit, OnChanges {
 
         case 'personstatus':
         case 'companystatus':
+        case 'company-license-status':
 
           let statusBorder = '#9E77ED';
           let statusColor = '#9E77ED';
@@ -136,7 +137,13 @@ export class SharedTable implements OnInit, OnChanges {
           styles['border-radius'] = '20px';
           styles['padding'] = '10px';
           break;
-
+        case 'person-company-in-charge':
+          if (!value || value.toString().toLowerCase() == 'inactive') {
+            styles['color'] = 'red';
+          } else {
+            styles['color'] = '#025EBA';
+          }
+          break;
         case 'persondocumentprimary':
           if (value.toString() === 'true') {
             styles['border'] = `2px solid #025EBA`;
@@ -221,6 +228,16 @@ export class SharedTable implements OnInit, OnChanges {
             default:
               return value;
           }
+        case 'personstatus':
+        case 'company-license-status':
+          switch (value) {
+            case 0:
+              return 'Expired';
+            case 1:
+              return 'Active';
+            default:
+              return value;
+          }
         case 'privateperson':
         case 'privatecompany':
           switch (value) {
@@ -278,7 +295,7 @@ export class SharedTable implements OnInit, OnChanges {
   }
 
 
-  onToggleChange(element: any, key: string, newValue: boolean){
+  onToggleChange(element: any, key: string, newValue: boolean) {
     element[key] = newValue;
   }
 

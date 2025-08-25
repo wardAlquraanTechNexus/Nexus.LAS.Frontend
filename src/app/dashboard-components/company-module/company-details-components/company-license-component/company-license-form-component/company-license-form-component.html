@@ -1,0 +1,101 @@
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>group_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Company License</h2>
+                <p class="dialog-subtitle">Company License</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+
+
+                <!-- Status -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="licenseStatus">
+                            <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                                {{ status.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <!-- Classification -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Classification</mat-label>
+                        <input matInput formControlName="licenseClassification" placeholder="Enter classification" />
+                    </mat-form-field>
+                </div>
+
+                <!-- License Number -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>License Number</mat-label>
+                        <input matInput formControlName="licenseNumber" placeholder="Enter license number" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Issue Date -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Issue Date</mat-label>
+                        <input matInput [matDatepicker]="issuePicker" formControlName="licenseIssueDate" />
+                        <mat-datepicker-toggle matSuffix [for]="issuePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #issuePicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <!-- Expiry Date -->
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Expiry Date</mat-label>
+                        <input matInput [matDatepicker]="expiryPicker" formControlName="licenseExpiryDate" />
+                        <mat-datepicker-toggle matSuffix [for]="expiryPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #expiryPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <!-- Primary License -->
+                <div class="col-12">
+                    <mat-checkbox formControlName="licensePrimary">
+                       Is Primary License
+                    </mat-checkbox>
+                </div>
+                <!-- Expiry Reminder -->
+                <div class="col-12">
+                    <mat-checkbox formControlName="licenseExpiryActiveReminder">
+                        Enable Expiry Reminder
+                    </mat-checkbox>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Group
+        </button>
+    </div>
+</div>

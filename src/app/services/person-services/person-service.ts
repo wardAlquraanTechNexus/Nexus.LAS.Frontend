@@ -42,6 +42,10 @@ export class PersonService extends BaseService<Person> {
     var params = this.httpParams(getAllPersonQuery);
     return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetPersons", {params});
   }
+  getAllPersons(getAllPersonQuery:GetPersonsQuery):Observable<GetPersonsDTO[]>{
+    var params = this.httpParams(getAllPersonQuery);
+    return this.httpClient.get<GetPersonsDTO[]>(this.url + "/GetAllPersons", {params});
+  }
   getAllActivePerson(getAllPersonQuery:GetAllActivePersonQuery):Observable<PaginateRsult<GetPersonsDTO>>{
     var params = this.httpParams(getAllPersonQuery);
     return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetAllActivePerson", {params});

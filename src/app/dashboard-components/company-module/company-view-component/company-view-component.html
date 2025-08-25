@@ -93,7 +93,8 @@
                             <app-company-overview-component [company]="company"></app-company-overview-component>
                         </div>
                         <div class="company-overview-component">
-                            <app-company-person-in-charge-component [company]="company"></app-company-person-in-charge-component>
+                            <app-company-person-in-charge-component
+                                [company]="company"></app-company-person-in-charge-component>
 
                         </div>
                     </div>
@@ -118,11 +119,13 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="contacts-grid">
-                            <div class="contact-section">
-                            </div>
-                            <div class="contact-section">
-                            </div>
+                        <div class="company-overview-component">
+                            <app-company-champer-of-commerce-component
+                                [company]="company"></app-company-champer-of-commerce-component>
+                        </div>
+
+                        <div class="company-overview-component">
+                            <app-company-license-component [company]="company"></app-company-license-component>
                         </div>
                     </div>
                 </mat-tab>
@@ -175,7 +178,7 @@
                     </div>
                 </mat-tab>
 
-                 <mat-tab>
+                <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>account_balance_wallet</mat-icon>
@@ -186,7 +189,7 @@
                     </div>
                 </mat-tab>
 
-                 <mat-tab>
+                <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>notes</mat-icon>
