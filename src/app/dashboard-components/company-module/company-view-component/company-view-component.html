@@ -127,8 +127,31 @@
                         <div class="company-overview-component">
                             <app-company-license-component [company]="company"></app-company-license-component>
                         </div>
+
+                        <div class="company-overview-component">
+                            <app-company-activity-component [company]="company"></app-company-activity-component>
+                        </div>
+
                     </div>
                 </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>monetization_on</mat-icon>
+                            <span>Capitals</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="company-overview-component">
+                            <app-company-capital-component [company]="company"></app-company-capital-component>
+                        </div>
+                        <div class="company-overview-component">
+                            <app-company-shareholder-component [company]="company"></app-company-shareholder-component>
+                        </div>
+                    </div>
+                </mat-tab>
+
 
                 <mat-tab>
                     <ng-template mat-tab-label>

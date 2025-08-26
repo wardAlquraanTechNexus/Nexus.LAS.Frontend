@@ -18,7 +18,7 @@ import { EntityIDc } from '../../../enums/entity-idc';
   styleUrl: './person-view.scss'
 })
 export class PersonView implements OnInit {
-  personIdc = EntityIDc.person
+  personIdc = EntityIDc.Person
   personsUrl: any;
   imageUrl: any;
   fallbackImage: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mP8z8BQDwAFgwJ/lcu6zQAAAABJRU5ErkJggg==';

@@ -106,6 +106,8 @@ export const environment: Environment = {
     groupCompany: 1004,
     relevantCompany: 1032,
     legalType: 1005,
-    placeOfRegistration: 1025
+    placeOfRegistration: 1025,
+    companyActivity: 1001,
+    currencies: 1011
   }
 } as const;

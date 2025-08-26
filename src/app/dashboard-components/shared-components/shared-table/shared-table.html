@@ -49,7 +49,7 @@
               <div (click)="onRowClick(element, column.key)">
                 <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
                   <span [ngStyle]="getCellStyle(element[column.key], column.pipes)">
-                    <span *ngIf="!column.inputType">{{ transform(element[column.key], column.pipes) }}</span>
+                    <span *ngIf="!column.inputType">{{ transform(element[column.key],element ,column , column.pipes) | async}}</span>
 
                     <span *ngIf="column.inputType">
                       <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
@@ -66,7 +66,7 @@
                 <ng-template #multiKeyCell>
                   <span *ngFor="let keyPipe of column.keysPipes"
                     [ngStyle]="getCellStyle(element[keyPipe.key] , keyPipe.pipes)">
-                    <span>{{ transform(element[keyPipe.key], keyPipe.pipes) }}</span>
+                    <span>{{ transform(element[keyPipe.key],element ,column , keyPipe.pipes) | async}}</span>
                   </span>
                 </ng-template>
               </div>

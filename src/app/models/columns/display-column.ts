@@ -5,6 +5,7 @@ export interface DisplayColumn{
     pipes?:string[],
     sort?:boolean,
     inputType?:string,
+    compareKey?:string
 }
 
 export interface keysPipes{

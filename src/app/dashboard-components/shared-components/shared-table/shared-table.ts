@@ -10,6 +10,12 @@ import { Person } from '../../../models/person-models/person';
 import { LanguageService } from '../../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { DynamicListService } from '../../../services/dynamic-list-service';
+import { environment } from '../../../../environment/environment.prod';
+import { map, Observable, of } from 'rxjs';
+import { PersonService } from '../../../services/person-services/person-service';
+import { CompanyService } from '../../../services/company-services/company-service';
+import { EntityIDc } from '../../../enums/entity-idc';
 
 @Component({
   selector: 'app-shared-table',
@@ -42,7 +48,12 @@ export class SharedTable implements OnInit, OnChanges {
   dir: Direction = "ltr";
   labels: any;
 
-  constructor(private cdRef: ChangeDetectorRef, protected langService: LanguageService,) {
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    protected langService: LanguageService,
+    private dlService: DynamicListService,
+    private personService: PersonService,
+    private companyService: CompanyService) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -210,80 +221,94 @@ export class SharedTable implements OnInit, OnChanges {
     const numRows = this.dataSource.data.length;
     return numSelected > 0 && numSelected < numRows;
   }
+  transform(
+    value: any,
+    element: any,
+    column: DisplayColumn,
+    pipes?: string[]
+  ): Observable<string> {
+    if (!pipes || pipes.length === 0) {
+      return of(value?.toString() ?? '');
+    }
 
-  transform(value: any, pipes?: string[]) {
-
-    if (!pipes) return value;
     for (const pipe of pipes) {
       switch (pipe.toLowerCase()) {
         case 'personstatus':
         case 'companystatus':
           switch (value) {
-            case 0:
-              return 'New';
-            case 1:
-              return 'Active';
-            case 2:
-              return 'Inactive';
-            default:
-              return value;
+            case 0: return of('New');
+            case 1: return of('Active');
+            case 2: return of('Inactive');
+            default: return of(value?.toString() ?? '');
           }
-        case 'personstatus':
+
         case 'company-license-status':
           switch (value) {
-            case 0:
-              return 'Expired';
-            case 1:
-              return 'Active';
-            default:
-              return value;
+            case 0: return of('Expired');
+            case 1: return of('Active');
+            default: return of(value?.toString() ?? '');
           }
+
         case 'privateperson':
         case 'privatecompany':
-          switch (value) {
-            case true:
-              return 'Private';
-            default:
-              return 'Public';
-          }
+          return of(value === true ? 'Private' : 'Public');
+
         case 'persondocumentprimary':
-          switch (value) {
-            case true:
-              return 'Primary';
-            case false:
-              return '';
-            default:
-              return value;
-          }
+          return of(value === true ? 'Primary' : '');
+
         case 'date-time':
-          if (value instanceof Date) {
-            return value;
-          }
+          const dateTime = value instanceof Date ? value : new Date(value);
+          return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
 
-          if (typeof value === 'string' || typeof value === 'number') {
-            const date = new Date(value);
-            return isNaN(date.getTime()) ?
-              null : this.formatDateTime(date);
-          }
-          return value;
         case 'date':
-          if (value instanceof Date) {
-            return value;
+          const date = value instanceof Date ? value : new Date(value);
+          return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
+
+        case 'company-activity':
+          return this.dlService
+            .GetAllByParentId(environment.rootDynamicLists.companyActivity)
+            .pipe(
+              map(list => list.find(x => x.id === value)?.name || '')
+            );
+
+        case 'capital-currency':
+          if (column.compareKey) {
+            return this.dlService
+              .GetAllByParentId(environment.rootDynamicLists.currencies)
+              .pipe(
+                map(list => value + " " + (list.find(x => x.id === element[column.compareKey!])?.name || ''))
+              );
           }
 
-          if (typeof value === 'string' || typeof value === 'number') {
-            const date = new Date(value);
-            return isNaN(date.getTime()) ?
-              null : this.formatDate(date);
-          }
-          return value;
+          return of(value?.toString() ?? '');
 
+        case 'register-id':
+          // if (element[column.compareKey!] === EntityIDc.Person) {
+          //   return this.personService.getById(value).pipe(
+          //     map(x => x?.personEnglishName ?? '') // ensure always string
+          //   );
+          // } else if (element[column.compareKey!] === EntityIDc.Company) {
+          //   return this.companyService.getById(value).pipe(
+          //     map(x => x?.companyEnglishName ?? '') // ensure always string
+          //   );
+          // }
+          return of(value?.toString() ?? '');
+
+          case 'register-type':
+            if(value == EntityIDc.Person){
+              return of('Person');
+            }else if(value == EntityIDc.Company){
+              return of('Company');
+            }else{
+              return of(value);
+            }
         default:
-          return value;
+          return of(value?.toString() ?? '');
       }
     }
-  }
 
+    return of(value?.toString() ?? '');
+  }
   formatDateTime(date: Date): string {
     const pad = (n: number) => n.toString().padStart(2, '0');
     return `${pad(date.getMonth() + 1)}/${pad(date.getDate())}/${date.getFullYear()} ` +

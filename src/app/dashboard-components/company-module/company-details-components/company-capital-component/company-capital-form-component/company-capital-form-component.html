@@ -1,0 +1,147 @@
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>group_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Company Capital</h2>
+                <p class="dialog-subtitle">Company Capital</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                <!-- Capital Date -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Capital Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="capitalDate" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="formGroup.get('capitalDate')?.hasError('required')">
+                            Capital Date is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Capital Amount -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Capital Amount</mat-label>
+                        <input matInput type="number" formControlName="capitalAmount" required>
+                        <mat-error *ngIf="formGroup.get('capitalAmount')?.hasError('required')">
+                            Capital Amount is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Nominal Value of Share -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nominal Value of Share</mat-label>
+                        <input matInput type="number" formControlName="nominalValueOfShare" required>
+                        <mat-error *ngIf="formGroup.get('nominalValueOfShare')?.hasError('required')">
+                            Nominal Value of Share is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Class of Shares -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Class of Shares</mat-label>
+                        <input matInput formControlName="classOfShares" required>
+                        <mat-error *ngIf="formGroup.get('classOfShares')?.hasError('required')">
+                            Class of Shares is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Number of Shares -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Number of Shares</mat-label>
+                        <input matInput type="number" formControlName="numberOfShares" required>
+                        <mat-error *ngIf="formGroup.get('numberOfShares')?.hasError('required')">
+                            Number of Shares is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Capital Authorized -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Capital Authorized</mat-label>
+                        <input matInput type="number" formControlName="capitalAuthorized" required>
+                        <mat-error *ngIf="formGroup.get('capitalAuthorized')?.hasError('required')">
+                            Capital Authorized is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Capital Paid -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Capital Paid</mat-label>
+                        <input matInput type="number" formControlName="capitalPaid" required>
+                        <mat-error *ngIf="formGroup.get('capitalPaid')?.hasError('required')">
+                            Capital Paid is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Issued Shares -->
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Issued Shares</mat-label>
+                        <input matInput type="number" formControlName="issuedShares" required>
+                        <mat-error *ngIf="formGroup.get('issuedShares')?.hasError('required')">
+                            Issued Shares is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Capital Currency -->
+                <div class="col-6">
+                    <select-auto-complete *ngIf="loadCurrenciesTypeFn" [controlName]="'capitalCurrency'"
+                    [fnGet]="loadCurrenciesTypeFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Capital Currency'"
+                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
+                     ></select-auto-complete>
+                </div>
+
+                <!-- Capital Active -->
+                <div class="col-6">
+                    <mat-slide-toggle formControlName="capitalActive" required>Active</mat-slide-toggle>
+                    <div *ngIf="formGroup.get('capitalActive')?.hasError('required') && formGroup.get('capitalActive')?.touched"
+                        class="text-danger">
+                        Capital Active is required
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Group
+        </button>
+    </div>
+</div>

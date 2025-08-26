@@ -109,6 +109,7 @@ export class MenuTableComponent implements OnInit {
       this.cdr.markForCheck();           // force CD now
     }
     onView(node: any) {
+      this.params.name = null;
       this.params.parentId = node.id;
       this.loadData();
     }

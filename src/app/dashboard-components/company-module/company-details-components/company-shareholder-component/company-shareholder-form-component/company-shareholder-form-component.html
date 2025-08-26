@@ -1,0 +1,93 @@
+<div class="modern-dialog-container">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>group_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Company Shareholder</h2>
+                <p class="dialog-subtitle">Enter shareholder details</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                <!-- RegistersIdc -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Register Type</mat-label>
+                    <mat-select formControlName="registersIdc" required>
+                        <mat-option [value]="EntityIDc.Person">Person</mat-option>
+                        <mat-option [value]="EntityIDc.Company">Company</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('registersIdc')?.hasError('required')">
+                        Register type is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- RegistersIdn -->
+                <select-auto-complete *ngIf="formGroup.get('registersIdc')?.value === EntityIDc.Person && loadPersonssFn"
+                    [controlName]="'registersIdn'"
+                    [fnGet]="loadPersonssFn"
+                    [formGroup]="formGroup"
+                    [isRequired]="true"
+                    [label]="'Person'"
+                    [keyToShow]="'personEnglishName'"
+                    [valueKey]="'id'"
+                ></select-auto-complete>
+
+                <select-auto-complete  *ngIf="formGroup.get('registersIdc')?.value === EntityIDc.Company && loadCompaniesFn"
+                    [controlName]="'registersIdn'"
+                    [fnGet]="loadCompaniesFn"
+                    [formGroup]="formGroup"
+                    [isRequired]="true"
+                    [label]="'Companies'"
+                    [keyToShow]="'companyEnglishName'"
+                    [valueKey]="'id'"
+                ></select-auto-complete>
+
+
+                <!-- Optional Fields -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Number of Shares</mat-label>
+                    <input matInput type="number" formControlName="numbersOfShares" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Shareholder Date</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="shareHolderDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Cessation Date</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="cessationDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+
+                <mat-checkbox formControlName="shareHolderActive">Active</mat-checkbox>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Shareholder
+        </button>
+    </div>
+</div>

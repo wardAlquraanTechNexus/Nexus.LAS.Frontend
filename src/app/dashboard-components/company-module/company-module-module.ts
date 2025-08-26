@@ -18,6 +18,15 @@ import { CompanyLicenseFormComponent } from './company-details-components/compan
 import { CompanyLicenseFormDialogComponent } from './company-details-components/company-license-component/company-license-form-dialog-component/company-license-form-dialog-component';
 import { CompanyChamperOfCommerceFormComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-form-component/company-champer-of-commerce-form-component';
 import { CompanyChamperOfCommerceFormDialogComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-form-dialog-component/company-champer-of-commerce-form-dialog-component';
+import { CompanyActivityComponent } from './company-details-components/company-activity-component/company-activity-component';
+import { CompanyActivityFormComponent } from './company-details-components/company-activity-component/company-activity-form-component/company-activity-form-component';
+import { CompanyActivityFormDialogComponent } from './company-details-components/company-activity-component/company-activity-form-dialog-component/company-activity-form-dialog-component';
+import { CompanyCapitalComponent } from './company-details-components/company-capital-component/company-capital-component';
+import { CompanyCapitalFormComponent } from './company-details-components/company-capital-component/company-capital-form-component/company-capital-form-component';
+import { CompanyCapitalDialogFormComponent } from './company-details-components/company-capital-component/company-capital-dialog-form-component/company-capital-dialog-form-component';
+import { CompanyShareholderComponent } from './company-details-components/company-shareholder-component/company-shareholder-component';
+import { CompanyShareholderFormComponent } from './company-details-components/company-shareholder-component/company-shareholder-form-component/company-shareholder-form-component';
+import { CompanyShareholderDialogFormComponent } from './company-details-components/company-shareholder-component/company-shareholder-dialog-form-component/company-shareholder-dialog-form-component';
 
 
 
@@ -38,7 +47,16 @@ import { CompanyChamperOfCommerceFormDialogComponent } from './company-details-c
     CompanyLicenseFormComponent,
     CompanyLicenseFormDialogComponent,
     CompanyChamperOfCommerceFormComponent,
-    CompanyChamperOfCommerceFormDialogComponent
+    CompanyChamperOfCommerceFormDialogComponent,
+    CompanyActivityComponent,
+    CompanyActivityFormComponent,
+    CompanyActivityFormDialogComponent,
+    CompanyCapitalComponent,
+    CompanyCapitalFormComponent,
+    CompanyCapitalDialogFormComponent,
+    CompanyShareholderComponent,
+    CompanyShareholderFormComponent,
+    CompanyShareholderDialogFormComponent
   ],
   imports: [
     CommonModule,

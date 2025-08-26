@@ -110,6 +110,9 @@ export interface Environment {
     relevantCompany:number,
     legalType:number,
     placeOfRegistration:number,
+    companyActivity:number,
+    currencies:number
+
   }
 }
 
