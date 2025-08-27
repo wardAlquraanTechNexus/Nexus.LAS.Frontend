@@ -1,4 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DynamicListService } from '../services/dynamic-list-service';
+import { map, Observable, of } from 'rxjs';
+import { EntityIDc } from '../enums/entity-idc';
+import { environment } from '../../environment/environment';
+import { DisplayColumn } from '../models/columns/display-column';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -6,72 +11,85 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TableDataPipePipe implements PipeTransform {
 
-  transform(value: unknown, columnName?: string): unknown {
-    if (!columnName) return value;
-    switch (columnName.toLowerCase()) {
-      case 'personstatus':
-        switch (value) {
-          case 0:
-            return 'New';
-          case 1:
-            return 'Active';
-          case 2:
-            return 'Inactive';
-          default:
-            return value;
-        }
-      case 'privateperson':
-        switch (value) {
-          case true:
-            return 'Private';
-          default:
-            return 'Public';
-        }
-      case 'persondocumentprimary':
-        switch (value) {
-          case true:
-            return 'Primary';
-          case false:
-            return '';
-          default:
-            return value;
-        }
-      case 'date-time':
-        if (value instanceof Date) {
-          return value;
-        }
+  constructor(private dlService: DynamicListService) {}
 
-        if (typeof value === 'string' || typeof value === 'number') {
-          const date = new Date(value);
-          return isNaN(date.getTime()) ?
-            null : formatDateTime(date);
-        }
-        return value;
-      case 'date':
-        if (value instanceof Date) {
-          return value;
-        }
-
-        if (typeof value === 'string' || typeof value === 'number') {
-          const date = new Date(value);
-          return isNaN(date.getTime()) ?
-            null : formatDate(date);
-        }
-        return value;
-
-      default:
-        return value;
+  transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
+    if (!pipes || pipes.length === 0) {
+      return of(value?.toString() ?? '');
     }
+
+    for (const pipe of pipes) {
+      switch (pipe.toLowerCase()) {
+        case 'personstatus':
+        case 'companystatus':
+          switch (value) {
+            case 0: return of('New');
+            case 1: return of('Active');
+            case 2: return of('Inactive');
+            default: return of(value?.toString() ?? '');
+          }
+
+        case 'company-license-status':
+          switch (value) {
+            case 0: return of('Expired');
+            case 1: return of('Active');
+            default: return of(value?.toString() ?? '');
+          }
+
+        case 'privateperson':
+        case 'privatecompany':
+          return of(value === true ? 'Private' : 'Public');
+
+        case 'persondocumentprimary':
+          return of(value === true ? 'Primary' : '');
+
+        case 'date-time':
+          const dateTime = value instanceof Date ? value : new Date(value);
+          return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
+
+        case 'date':
+          const date = value instanceof Date ? value : new Date(value);
+          return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
+
+        case 'company-activity':
+          return this.dlService
+            .GetAllByParentId(environment.rootDynamicLists.companyActivity)
+            .pipe(map(list => list.find(x => x.id === value)?.name || 'N/A'));
+
+        case 'document-nationality':
+           return this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).pipe(
+            map(list => list.find(x => x.id === value)?.name || 'N/A'))
+
+        case 'capital-currency':
+          if (column.compareKey) {
+            return this.dlService
+              .GetAllByParentId(environment.rootDynamicLists.currencies)
+              .pipe(map(list => value + " " + (list.find(x => x.id === element[column.compareKey!])?.name || 'N/A')));
+          }
+          return of(value?.toString() ?? '');
+
+        case 'company-shareholder-status':
+          return of(value === true ? 'Active' : 'Inactive');
+
+        case 'register-type':
+          if (value === EntityIDc.Person) return of('Person');
+          if (value === EntityIDc.Company) return of('Company');
+          return of(value?.toString() ?? '');
+
+        default:
+          return of(value?.toString() ?? '');
+      }
+    }
+
+    return of(value?.toString() ?? '');
   }
 
+  private formatDateTime(date: Date): string {
+    return date.toLocaleString(); // adjust as needed
+  }
 
+  private formatDate(date: Date): string {
+    return date.toLocaleDateString(); // adjust as needed
+  }
 }
-function formatDateTime(date: Date): string {
-  const pad = (n: number) => n.toString().padStart(2, '0');
-  return `${pad(date.getMonth() + 1)}-${pad(date.getDate())}-${date.getFullYear()} ` +
-    `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-}
-function formatDate(date: Date): string {
-  const pad = (n: number) => n.toString().padStart(2, '0');
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} `
-}
+

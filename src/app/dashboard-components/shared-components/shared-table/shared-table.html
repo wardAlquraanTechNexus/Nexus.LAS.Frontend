@@ -49,11 +49,13 @@
               <div (click)="onRowClick(element, column.key)">
                 <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
                   <span [ngStyle]="getCellStyle(element[column.key], column.pipes)">
-                    <span *ngIf="!column.inputType">{{ transform(element[column.key],element ,column , column.pipes) | async}}</span>
-
+                    <span *ngIf="!column.inputType">
+                      {{ element[column.key] | tableDataPipe: element : column : column.pipes | async }}
+                    </span>
                     <span *ngIf="column.inputType">
                       <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
-                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'" (change)="onToggleChange(element, column.key, $event.checked)"></mat-slide-toggle>
+                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'"
+                          (change)="onToggleChange(element, column.key, $event.checked)"></mat-slide-toggle>
                       </ng-container>
                       <ng-template #defaultInput>
                         <input [value]="element[column.key]" [type]="column.inputType" readonly class="form-control" />
@@ -66,7 +68,9 @@
                 <ng-template #multiKeyCell>
                   <span *ngFor="let keyPipe of column.keysPipes"
                     [ngStyle]="getCellStyle(element[keyPipe.key] , keyPipe.pipes)">
-                    <span>{{ transform(element[keyPipe.key],element ,column , keyPipe.pipes) | async}}</span>
+                    <span>{{ element[keyPipe.key] | tableDataPipe: element : column : keyPipe.pipes | async }}</span>
+                      
+                    
                   </span>
                 </ng-template>
               </div>

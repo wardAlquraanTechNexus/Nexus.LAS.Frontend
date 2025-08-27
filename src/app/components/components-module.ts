@@ -42,6 +42,7 @@ import { SharedTreeComponent } from './shared-tree-component/shared-tree-compone
 import { SelectAutoComplete } from './select-auto-complete/select-auto-complete';
 import { NavbarEnComponent } from './navbar-components/navbar-en-component/navbar-en-component';
 import { NavbarArComponent } from './navbar-components/navbar-ar-component/navbar-ar-component';
+import { BaseDialogFormComponent } from '../dashboard-components/base-components/base-dialog-form-component/base-dialog-form-component';
 
 
 
@@ -60,6 +61,7 @@ import { NavbarArComponent } from './navbar-components/navbar-ar-component/navba
     PersonIdDocumentForm,
     PersonOtherDocumentForm,
     BaseDialogComponent,
+    BaseDialogFormComponent,
     BaseFormComponent,
     SharedTreeComponent,
     SelectAutoComplete
@@ -140,7 +142,8 @@ import { NavbarArComponent } from './navbar-components/navbar-ar-component/navba
     MatCardModule,
     MatTooltipModule,
     SharedTreeComponent,
-    SelectAutoComplete
+    SelectAutoComplete,
+    BaseDialogFormComponent
 
   ]
 })

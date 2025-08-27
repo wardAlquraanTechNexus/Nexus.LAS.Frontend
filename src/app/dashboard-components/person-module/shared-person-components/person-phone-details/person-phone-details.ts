@@ -80,8 +80,6 @@ export class PersonPhoneDetails implements OnInit {
     phoneNumber: "",
     personsIdn: this.personId,
     phonePrimary: false,
-    createdBy: "",
-    createdAt: "",
     phoneType: 0
   }) {
   const dialogRef = this.dialog.open(PersonPhoneDialog, {

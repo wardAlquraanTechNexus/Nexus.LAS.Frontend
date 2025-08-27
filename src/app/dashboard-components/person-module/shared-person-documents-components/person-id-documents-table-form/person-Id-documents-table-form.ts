@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { DisplayColumn } from '../../../../models/columns/display-column';
@@ -12,6 +12,10 @@ import { PersonIdDetailView } from '../../person-id-detail-view/person-id-detail
 import { EditPersonIdDetailView } from '../../person-id-detail-view/edit-person-id-detail-view/edit-person-id-detail-view';
 import { PersonsIDDetail } from '../../../../models/person-models/person-id-details/person-id-details';
 import { GetPersonIdDetailsParams } from '../../../../models/person-models/person-id-details/get-person-id-details-params';
+import { Observable } from 'rxjs';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-id-documents-table-form',
@@ -21,6 +25,11 @@ import { GetPersonIdDetailsParams } from '../../../../models/person-models/perso
 })
 export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDetail> {
 
+  loadDocumentTypesFn!: (search: string) => Observable<DynamicList[]>;
+  loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
+
+
+  formGroup!:FormGroup;
   override params: GetPersonIdDetailsParams = {
     type: null,
     nationality: null,
@@ -47,10 +56,12 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     {
       key: "nationality",
       label: "Nationality",
+      pipes:['document-nationality']
     },
     {
       key: "placeOfIssue",
       label: "Place of Issue",
+      pipes:['document-nationality']
     },
     {
       key: "idNumber",
@@ -84,7 +95,9 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     protected override router: Router,
     protected override errorHandler: ErrorHandlerService,
     protected override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dlService: DynamicListService
+
   ) {
     super(service, cdr, fb, router, errorHandler, route);
   }
@@ -94,6 +107,13 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     if (personId) {
       this.params.personsIdn = parseInt(personId);
     }
+    
+    this.formGroup = this.fb.group({
+      documentType: [],
+      nationality: [],
+    })
+    this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
 
     this.fetchData();
   }
@@ -161,7 +181,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     this.service.delete(id).subscribe({
       next: (res) => {
         this.showLoading = false;
-        
+
         this.fetchData();
 
         this.cdr.markForCheck();
@@ -178,26 +198,24 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
 
 
-   onRowClick(elementRow: any) {
-  if (elementRow.key === "activeReminder") {
-    const personIdDetail: PersonsIDDetail = elementRow.element;
+  onRowClick(elementRow: any) {
+    if (elementRow.key === "activeReminder") {
+      const personIdDetail: PersonsIDDetail = elementRow.element;
 
-    personIdDetail.activeReminder = !!personIdDetail.activeReminder ? false : true;
-    this.showLoading = true;
+      this.showLoading = true;
 
-    this.service.updateByBody(personIdDetail).subscribe({
-      next: () => {
-        this.errorHandler.showSuccess("Updated Successfully");
-        this.cdr.markForCheck();
-        this.showLoading = false;
-      },
-      error: () => {
-        personIdDetail.activeReminder = !personIdDetail.activeReminder;
-        this.showLoading = false;
-      }
-    });
+      this.service.updateByBody(personIdDetail).subscribe({
+        next: () => {
+          this.errorHandler.showSuccess("Updated Successfully");
+          this.cdr.markForCheck();
+          this.showLoading = false;
+        },
+        error: () => {
+          this.showLoading = false;
+        }
+      });
+    }
   }
-}
 
 
   addToCollection(element: PersonsIDDetail) {

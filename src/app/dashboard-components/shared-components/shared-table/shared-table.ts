@@ -140,6 +140,24 @@ export class SharedTable implements OnInit, OnChanges {
           styles['padding'] = '10px';
           break;
 
+
+        case 'company-shareholder-status':
+
+        // let shareholderStatusBorder = '#9E77ED';
+        // let shareholderStatusColor = '#9E77ED';
+        // if (value) {
+        //   statusBorder = '#22C993';
+        //   statusColor = '#22C993';
+        // } else {
+        //   statusBorder = '#423e3ede';
+        //   statusColor = '#423e3ede';
+        // }
+        // styles['border'] = `2px solid ${shareholderStatusBorder}`;
+        // styles['color'] = shareholderStatusColor;
+        // styles['border-radius'] = '20px';
+        // styles['padding'] = '10px';
+        // break;
+
         case 'privateperson':
         case 'privatecompany':
           let privateColor = value.toString() === 'true' ? '#025EBA' : '#423e3ede';
@@ -221,104 +239,6 @@ export class SharedTable implements OnInit, OnChanges {
     const numRows = this.dataSource.data.length;
     return numSelected > 0 && numSelected < numRows;
   }
-  transform(
-    value: any,
-    element: any,
-    column: DisplayColumn,
-    pipes?: string[]
-  ): Observable<string> {
-    if (!pipes || pipes.length === 0) {
-      return of(value?.toString() ?? '');
-    }
-
-    for (const pipe of pipes) {
-      switch (pipe.toLowerCase()) {
-        case 'personstatus':
-        case 'companystatus':
-          switch (value) {
-            case 0: return of('New');
-            case 1: return of('Active');
-            case 2: return of('Inactive');
-            default: return of(value?.toString() ?? '');
-          }
-
-        case 'company-license-status':
-          switch (value) {
-            case 0: return of('Expired');
-            case 1: return of('Active');
-            default: return of(value?.toString() ?? '');
-          }
-
-        case 'privateperson':
-        case 'privatecompany':
-          return of(value === true ? 'Private' : 'Public');
-
-        case 'persondocumentprimary':
-          return of(value === true ? 'Primary' : '');
-
-        case 'date-time':
-          const dateTime = value instanceof Date ? value : new Date(value);
-          return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
-
-        case 'date':
-          const date = value instanceof Date ? value : new Date(value);
-          return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
-
-        case 'company-activity':
-          return this.dlService
-            .GetAllByParentId(environment.rootDynamicLists.companyActivity)
-            .pipe(
-              map(list => list.find(x => x.id === value)?.name || '')
-            );
-
-        case 'capital-currency':
-          if (column.compareKey) {
-            return this.dlService
-              .GetAllByParentId(environment.rootDynamicLists.currencies)
-              .pipe(
-                map(list => value + " " + (list.find(x => x.id === element[column.compareKey!])?.name || ''))
-              );
-          }
-
-          return of(value?.toString() ?? '');
-
-        case 'register-id':
-          // if (element[column.compareKey!] === EntityIDc.Person) {
-          //   return this.personService.getById(value).pipe(
-          //     map(x => x?.personEnglishName ?? '') // ensure always string
-          //   );
-          // } else if (element[column.compareKey!] === EntityIDc.Company) {
-          //   return this.companyService.getById(value).pipe(
-          //     map(x => x?.companyEnglishName ?? '') // ensure always string
-          //   );
-          // }
-          return of(value?.toString() ?? '');
-
-          case 'register-type':
-            if(value == EntityIDc.Person){
-              return of('Person');
-            }else if(value == EntityIDc.Company){
-              return of('Company');
-            }else{
-              return of(value);
-            }
-        default:
-          return of(value?.toString() ?? '');
-      }
-    }
-
-    return of(value?.toString() ?? '');
-  }
-  formatDateTime(date: Date): string {
-    const pad = (n: number) => n.toString().padStart(2, '0');
-    return `${pad(date.getMonth() + 1)}/${pad(date.getDate())}/${date.getFullYear()} ` +
-      `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
-  }
-  formatDate(date: Date): string {
-    const pad = (n: number) => n.toString().padStart(2, '0');
-    return `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()} `
-  }
-
 
   onToggleChange(element: any, key: string, newValue: boolean) {
     element[key] = newValue;

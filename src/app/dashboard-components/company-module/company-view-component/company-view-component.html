@@ -161,6 +161,19 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        <div class="company-overview-component">
+                            <div class="row">
+                                <div class="col-6">
+                                    <app-company-email-component [company]="company"></app-company-email-component>
+                                </div>
+                                <div class="col-6">
+                                    <app-company-phone-component [company]="company"></app-company-phone-component>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="company-overview-component">
+                            <app-company-address-component [company]="company"></app-company-address-component>
+                        </div>
                     </div>
                 </mat-tab>
 

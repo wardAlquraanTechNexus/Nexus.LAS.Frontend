@@ -111,7 +111,9 @@ export interface Environment {
     legalType:number,
     placeOfRegistration:number,
     companyActivity:number,
-    currencies:number
+    currencies:number,
+    PersonsPhonesTypes: number,
+    originalDocumentTypes:number
 
   }
 }

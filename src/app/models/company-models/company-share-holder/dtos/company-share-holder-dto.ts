@@ -10,4 +10,5 @@ export interface CompaniesShareHolderDto {
   cessationDate?: string;   // ISO string
   shareHolderActive?: boolean;
   companyId: number;
+  registerName?:string;
 }

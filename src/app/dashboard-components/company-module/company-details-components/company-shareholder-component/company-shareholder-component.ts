@@ -34,10 +34,9 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
 
   override displayColumns: DisplayColumn[] = [
     {
-      key: "registersIdn",
+      key: "registerName",
       label: "Registers",
-      pipes:['register-id'],
-      compareKey: 'registersIdc'
+      pipes: ["link"]
     },
     {
       key: "registersIdc",
@@ -60,10 +59,12 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     {
       key: "cessationDate",
       label: "Date of Cessation",
+      pipes: ["date"]
     }, 
     {
       key: "shareHolderActive",
       label: "Shareholder Status",
+      pipes:['company-shareholder-status']
     }, 
     {
       key: 'action',

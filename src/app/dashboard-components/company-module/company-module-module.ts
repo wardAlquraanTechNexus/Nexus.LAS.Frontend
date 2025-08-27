@@ -27,6 +27,15 @@ import { CompanyCapitalDialogFormComponent } from './company-details-components/
 import { CompanyShareholderComponent } from './company-details-components/company-shareholder-component/company-shareholder-component';
 import { CompanyShareholderFormComponent } from './company-details-components/company-shareholder-component/company-shareholder-form-component/company-shareholder-form-component';
 import { CompanyShareholderDialogFormComponent } from './company-details-components/company-shareholder-component/company-shareholder-dialog-form-component/company-shareholder-dialog-form-component';
+import { CompanyAddressComponent } from './company-details-components/company-address-component/company-address-component';
+import { CompanyAddressFormComponent } from './company-details-components/company-address-component/company-address-form-component/company-address-form-component';
+import { CompanyAddressDialogFormComponent } from './company-details-components/company-address-component/company-address-dialog-form-component/company-address-dialog-form-component';
+import { CompanyEmailComponent } from './company-details-components/company-email-component/company-email-component';
+import { CompanyEmailFormComponent } from './company-details-components/company-email-component/company-email-form-component/company-email-form-component';
+import { CompanyEmailDialogFormComponent } from './company-details-components/company-email-component/company-email-dialog-form-component/company-email-dialog-form-component';
+import { CompanyPhoneComponent } from './company-details-components/company-phone-component/company-phone-component';
+import { CompanyPhoneFormComponent } from './company-details-components/company-phone-component/company-phone-form-component/company-phone-form-component';
+import { CompanyPhoneDialogFormComponent } from './company-details-components/company-phone-component/company-phone-dialog-form-component/company-phone-dialog-form-component';
 
 
 
@@ -56,7 +65,16 @@ import { CompanyShareholderDialogFormComponent } from './company-details-compone
     CompanyCapitalDialogFormComponent,
     CompanyShareholderComponent,
     CompanyShareholderFormComponent,
-    CompanyShareholderDialogFormComponent
+    CompanyShareholderDialogFormComponent,
+    CompanyAddressComponent,
+    CompanyAddressFormComponent,
+    CompanyAddressDialogFormComponent,
+    CompanyEmailComponent,
+    CompanyEmailFormComponent,
+    CompanyEmailDialogFormComponent,
+    CompanyPhoneComponent,
+    CompanyPhoneFormComponent,
+    CompanyPhoneDialogFormComponent
   ],
   imports: [
     CommonModule,

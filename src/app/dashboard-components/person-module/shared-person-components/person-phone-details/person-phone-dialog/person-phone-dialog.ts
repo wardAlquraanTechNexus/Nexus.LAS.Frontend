@@ -12,7 +12,7 @@ import { PersonPhone } from '../../../../../models/person-models/person-phone/pe
 })
 export class PersonPhoneDialog extends BaseDialogComponent {
   showLoading = false;
-  personPhone?: PersonPhone;
+  personPhone!: PersonPhone;
   isInsert = true;
   constructor(
     protected override dialogRef: MatDialogRef<PersonPhoneDialog>,

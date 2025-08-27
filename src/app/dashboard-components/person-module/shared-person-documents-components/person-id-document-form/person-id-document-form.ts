@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonIdDetailService } from '../../../../services/person-services/person-id-detail-service';
 import { PersonsIDDetail } from '../../../../models/person-models/person-id-details/person-id-details';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { Observable } from 'rxjs';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-id-document-form',
@@ -15,13 +19,18 @@ export class PersonIdDocumentForm implements OnInit {
   selectedFile: File | null = null;
   isLoading = false;
 
-  
+
   @Input() personsIdn!: number;
   @Output() saveEmitter = new EventEmitter<PersonsIDDetail>;
+  loadDocumentTypesFn!: (search: string) => Observable<DynamicList[]>;
+  loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
+
 
   constructor(
     private fb: FormBuilder,
-    private service: PersonIdDetailService) { }
+    private service: PersonIdDetailService,
+    private dlService: DynamicListService
+  ) { }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -35,6 +44,9 @@ export class PersonIdDocumentForm implements OnInit {
       activeReminder: [false],
       file: [null, Validators.required]
     });
+    this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+
   }
 
   onFileSelected(event: Event): void {
@@ -97,12 +109,12 @@ export class PersonIdDocumentForm implements OnInit {
       formData.append('file', this.selectedFile, this.selectedFile.name);
     }
 
-    
+
     this.isLoading = true;
     this.service.careateByForm(formData).subscribe({
       next: (res) => {
         this.isLoading = false;
-        let personIdDetail:PersonsIDDetail = this.formGroup.value;
+        let personIdDetail: PersonsIDDetail = this.formGroup.value;
         personIdDetail.personsIdn = this.personsIdn;
         personIdDetail.id = res;
         this.saveEmitter.emit(personIdDetail);

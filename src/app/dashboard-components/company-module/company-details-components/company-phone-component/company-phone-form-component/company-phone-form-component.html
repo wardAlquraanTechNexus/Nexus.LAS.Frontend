@@ -1,0 +1,80 @@
+<div class="modern-dialog-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>phone</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 class="dialog-title">Company Phone</h2>
+        <p class="dialog-subtitle">Enter company phone details</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="dialog-body">
+    <div class="form-container">
+      <form [formGroup]="formGroup" class="row w-100" (ngSubmit)="save(true)">
+
+        <!-- Phone Type -->
+        <div class="col-12">
+          <select-auto-complete 
+            *ngIf="loadPersonsPhonesFn" 
+            [controlName]="'phoneType'" 
+            [fnGet]="loadPersonsPhonesFn"
+            [formGroup]="formGroup" 
+            [label]="'Phone Type'" 
+            [keyToShow]="'name'" 
+            [valueKey]="'name'"
+            [withNullOption]="false">
+          </select-auto-complete>
+          <div class="text-danger" *ngIf="formGroup.get('phoneType')?.invalid && formGroup.get('phoneType')?.touched">
+            Phone type is required
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Phone Number</mat-label>
+            <input matInput type="tel" formControlName="phoneNumber" required />
+            <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('required') && formGroup.get('phoneNumber')?.touched">
+              Phone number is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Primary Phone -->
+        <div class="col-12">
+          <mat-checkbox formControlName="phonePrimary">
+            Primary Phone
+          </mat-checkbox>
+          <div class="text-danger" *ngIf="formGroup.get('phonePrimary')?.invalid && formGroup.get('phonePrimary')?.touched">
+            Primary phone status is required
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button 
+      mat-flat-button 
+      class="save-btn" 
+      type="submit"
+      [disabled]="formGroup.invalid" (click)="save()">
+      <mat-icon>save</mat-icon>
+      Save Phone
+    </button>
+  </div>
+</div>

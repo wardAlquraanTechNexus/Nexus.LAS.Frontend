@@ -1,0 +1,60 @@
+<div class="modern-dialog-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>group_work</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 class="dialog-title">Company Email</h2>
+        <p class="dialog-subtitle">Enter company email details</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="dialog-body">
+    <div class="form-container">
+      <form [formGroup]="formGroup" class="row w-100">
+
+        <!-- Email -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" type="email" required />
+            <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('email')?.hasError('email')">
+              Enter a valid email
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Email Primary -->
+        <div class="col-12">
+          <mat-checkbox formControlName="emailPrimary">
+            Primary Email
+          </mat-checkbox>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button class="save-btn" (click)="save(true)" [disabled]="formGroup.invalid">
+      <mat-icon>save</mat-icon>
+      Save Email
+    </button>
+  </div>
+</div>

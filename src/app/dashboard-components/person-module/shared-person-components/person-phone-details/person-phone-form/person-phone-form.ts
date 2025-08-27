@@ -4,6 +4,10 @@ import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PersonPhone } from '../../../../../models/person-models/person-phone/person-phone';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
+import { Observable } from 'rxjs';
+import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
+import { DynamicListService } from '../../../../../services/dynamic-list-service';
+import { environment } from '../../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-phone-form',
@@ -12,20 +16,25 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
   styleUrl: './person-phone-form.scss'
 })
 export class PersonPhoneForm extends BaseFormComponent {
-  @Input() personPhone?: PersonPhone;
+  @Input() showLoading = false;
+  @Input() personPhone!: PersonPhone;
+  loadPersonsPhonesFn!: (search: string) => Observable<DynamicList[]>;
+
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
+    private dlService: DynamicListService
+
   ) {
     super(fb, cdr, sanitizer, errorHandler);
   }
 
   override ngOnInit(): void {
-    if (this.personPhone) {
-      this.setup(this.personPhone);
-    }
+    this.setup(this.personPhone);
     super.ngOnInit();
+    this.loadPersonsPhonesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.PersonsPhonesTypes, search)
+
   }
 }

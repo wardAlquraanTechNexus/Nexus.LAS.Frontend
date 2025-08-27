@@ -10,15 +10,16 @@
 
 <!-- Filters Section -->
 <div class="section-filters" *ngIf="!showLoading">
-  <mat-form-field appearance="outline" class="filter-field" floatLabel="auto">
-    <mat-label>Document Type</mat-label>
-    <mat-select [(ngModel)]="params.type" name="type" (selectionChange)="search()" placeholder="Filter by type...">
-      <mat-option value="">All Types</mat-option>
-      <mat-option value="passport">Passport</mat-option>
-      <mat-option value="national_id">National ID</mat-option>
-      <mat-option value="driver_license">Driver License</mat-option>
-    </mat-select>
-  </mat-form-field>
+ <select-auto-complete 
+            *ngIf="loadDocumentTypesFn" 
+            [controlName]="'documentType'" 
+            [fnGet]="loadDocumentTypesFn"
+            [formGroup]="formGroup" 
+            [label]="'Document Type'" 
+            [keyToShow]="'name'" 
+            [valueKey]="'id'"
+            [withNullOption]="true">
+    </select-auto-complete>
   
   <mat-form-field appearance="outline" class="filter-field" floatLabel="auto">
     <mat-label>Nationality</mat-label>

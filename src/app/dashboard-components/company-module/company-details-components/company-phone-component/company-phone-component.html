@@ -1,0 +1,66 @@
+<div class="main-container">
+
+<!-- SECTION 1: Title and Add Button -->
+<div class="section section-title">
+  <div class="title-content">
+    <h2>Phone Numbers</h2>
+  </div>
+  <button mat-raised-button color="primary" (click)="onAdd()">
+    <mat-icon>add</mat-icon> Add Phone
+  </button>
+</div>
+
+<!-- SECTION 2: Phone List -->
+<div class="section section-content">
+  <!-- Loading State -->
+  <div *ngIf="showLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!-- Phone Items -->
+  <div *ngIf="!showLoading" class="content-list">
+    <div *ngFor="let companyPhone of companyPhones" class="content-item">
+      
+      <!-- Phone Icon -->
+      <div class="item-icon">
+        <div class="icon-container">
+          <mat-icon>phone</mat-icon>
+        </div>
+      </div>
+
+      <!-- Phone Info -->
+      <div class="item-content">
+        <div class="primary-text">
+          <span>{{ companyPhone.phoneNumber }}</span>
+          <span *ngIf="companyPhone.phonePrimary" class="primary-badge">Primary</span>
+        </div>
+      </div>
+
+      <div class="item-content">
+        <div class="primary-text">
+          <span>{{ companyPhone.phoneType }}</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="item-actions">
+        <button mat-icon-button [matMenuTriggerFor]="phoneMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #phoneMenu="matMenu">
+          <button mat-menu-item (click)="onedit(companyPhone)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit Phone</span>
+          </button>
+          <button mat-menu-item [confirmDelete]="getRemoveCallback(companyPhone.id!)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete Phone</span>
+          </button>
+        </mat-menu>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
