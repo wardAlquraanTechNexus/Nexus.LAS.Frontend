@@ -45,7 +45,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
       keysPipes: [
         {
           key: "type",
-          pipes: ['persondocumenttype']
+          pipes: ['original-document-type']
         },
         {
           key: "isPrimary",
@@ -196,7 +196,14 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     });
   }
 
-
+  onDocumentTypeSelect(value:any){
+    this.params.type = value;
+    this.search();
+  }
+  onNationalitySelect(value:any){
+    this.params.nationality = value;
+    this.search();
+  }
 
   onRowClick(elementRow: any) {
     if (elementRow.key === "activeReminder") {
@@ -219,8 +226,6 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
 
 
   addToCollection(element: PersonsIDDetail) {
-    this.data.collection = [];
-    this.cdr.detectChanges();
     this.fetchData();
 
   }

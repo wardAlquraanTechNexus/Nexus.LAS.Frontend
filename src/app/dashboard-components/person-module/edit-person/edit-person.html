@@ -9,10 +9,10 @@
         {{person?.personEnglishName | titlecase}}
       </span>
       <span class="mr-3" [ngStyle]="getPersonStatusStyle()">
-        {{person?.personStatus | tableDataPipe: 'personStatus'}}
+        {{person?.personStatus}}
       </span>
       <span class="mr-3" [ngStyle]="getPersonPrivateStyle()">
-        {{person?.private | tableDataPipe: 'privatePerson'}}
+        {{person?.private}}
       </span>
   
     </div>

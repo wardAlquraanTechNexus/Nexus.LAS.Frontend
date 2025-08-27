@@ -43,4 +43,8 @@ export class PersonDocumentFormDialog {
     this.cdr.detectChanges();
     this.dialogRef.close(personsDocument);
   }
+
+  setSelectedTab(tab:number){
+    this.selectedTab = tab;
+  }
 }

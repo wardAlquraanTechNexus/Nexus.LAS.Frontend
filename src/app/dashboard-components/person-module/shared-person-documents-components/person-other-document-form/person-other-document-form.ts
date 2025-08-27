@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { PersonOtherDocument } from '../../../../models/person-models/person-other-document/person-other-document';
+import { Observable } from 'rxjs';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-other-document-form',
@@ -14,13 +18,17 @@ export class PersonOtherDocumentForm implements OnInit {
   selectedFile: File | null = null;
   formGroup!: FormGroup;
   isLoading = false;
+  otherDocumentTypesFn!: (search: string) => Observable<DynamicList[]>;
+
 
   @Input() personsIdn!: number;
-  @Output() saveEmitter = new EventEmitter<PersonOtherDocument>();
+  @Output() saveEmitter = new EventEmitter<any>();
 
   constructor(
     private service: PersonOtherDocumentService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dlService: DynamicListService
+
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +37,9 @@ export class PersonOtherDocumentForm implements OnInit {
       documentDescription: [null, Validators.required],
       file: [null, Validators.required]
     });
+
+    this.otherDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType, search)
+
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -91,7 +102,8 @@ export class PersonOtherDocumentForm implements OnInit {
         let personOtherDocument: PersonOtherDocument = this.formGroup.value;
         personOtherDocument.personIdn = this.personsIdn;
         personOtherDocument.id = res;
-        this.saveEmitter.emit(personOtherDocument);
+        this.saveEmitter.emit({element : personOtherDocument , tab:1});
+
       }, error: (err) => {
         this.isLoading = false;
       }
@@ -100,5 +112,5 @@ export class PersonOtherDocumentForm implements OnInit {
 
   }
 
-  
+
 }

@@ -42,11 +42,12 @@ export class PersonDocumentsGroup implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (this.selectedTab == 0) {
-          this.personIdDocumentsTableForm.addToCollection(result);
+        debugger
+        if (result.tab == 0) {
+          this.personIdDocumentsTableForm.addToCollection(result.element);
         }
-        else if (this.selectedTab == 1) {
-          this.personOtherDocumentsTableForm.addToCollection(result);
+        else if (result.tab == 1) {
+          this.personOtherDocumentsTableForm.addToCollection(result.element);
         }
       }
     });

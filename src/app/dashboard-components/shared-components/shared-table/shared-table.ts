@@ -61,8 +61,10 @@ export class SharedTable implements OnInit, OnChanges {
       // Refresh the table data when collection changes
       if (this.dataSource) {
         this.dataSource.data = this.paginateResult.collection;
+        this.cdRef.markForCheck();
       } else {
         this.dataSource = new MatTableDataSource(this.paginateResult.collection);
+        this.cdRef.markForCheck();
       }
     }
   }

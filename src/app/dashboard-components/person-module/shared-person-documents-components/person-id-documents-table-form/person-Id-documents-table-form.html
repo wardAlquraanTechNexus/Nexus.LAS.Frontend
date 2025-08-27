@@ -18,17 +18,21 @@
             [label]="'Document Type'" 
             [keyToShow]="'name'" 
             [valueKey]="'id'"
-            [withNullOption]="true">
+            [withNullOption]="true"
+            (selectEmitter)="onDocumentTypeSelect($event)">
     </select-auto-complete>
   
-  <mat-form-field appearance="outline" class="filter-field" floatLabel="auto">
-    <mat-label>Nationality</mat-label>
-    <mat-select [(ngModel)]="params.nationality" name="nationality" (selectionChange)="search()" placeholder="Filter by nationality...">
-      <mat-option value="">All Nationalities</mat-option>
-      <mat-option [value]="1">Dubai</mat-option>
-      <mat-option [value]="2">Abu Dhabi</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <select-auto-complete 
+            *ngIf="loadNationalitiesFn" 
+            [controlName]="'nationality'" 
+            [fnGet]="loadNationalitiesFn"
+            [formGroup]="formGroup" 
+            [label]="'Nationality'" 
+            [keyToShow]="'name'" 
+            [valueKey]="'id'"
+            [withNullOption]="true"
+            (selectEmitter)="onNationalitySelect($event)">
+    </select-auto-complete>
 </div>
 
 <!-- Loading State -->

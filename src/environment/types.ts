@@ -114,7 +114,7 @@ export interface Environment {
     currencies:number,
     PersonsPhonesTypes: number,
     originalDocumentTypes:number
-
+    otherDocumentType:number;
   }
 }
 

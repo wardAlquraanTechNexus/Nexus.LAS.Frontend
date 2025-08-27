@@ -11,7 +11,7 @@ import { DisplayColumn } from '../models/columns/display-column';
 })
 export class TableDataPipePipe implements PipeTransform {
 
-  constructor(private dlService: DynamicListService) {}
+  constructor(private dlService: DynamicListService) { }
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
     if (!pipes || pipes.length === 0) {
@@ -52,21 +52,48 @@ export class TableDataPipePipe implements PipeTransform {
           return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
 
         case 'company-activity':
-          return this.dlService
-            .GetAllByParentId(environment.rootDynamicLists.companyActivity)
-            .pipe(map(list => list.find(x => x.id === value)?.name || 'N/A'));
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyActivity).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
 
         case 'document-nationality':
-           return this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).pipe(
-            map(list => list.find(x => x.id === value)?.name || 'N/A'))
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
 
+        case 'original-document-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+        case 'other-document-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'capital-currency':
           if (column.compareKey) {
-            return this.dlService
-              .GetAllByParentId(environment.rootDynamicLists.currencies)
-              .pipe(map(list => value + " " + (list.find(x => x.id === element[column.compareKey!])?.name || 'N/A')));
+            return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(
+              map(list => {
+                const found = list.find(x => x.id == element[column.compareKey!]);
+                return found ? `${value} ${found.name}` : `${value}`;
+              })
+            );
           }
-          return of(value?.toString() ?? '');
+          else {
+            return of(value)
+          }
+
 
         case 'company-shareholder-status':
           return of(value === true ? 'Active' : 'Inactive');

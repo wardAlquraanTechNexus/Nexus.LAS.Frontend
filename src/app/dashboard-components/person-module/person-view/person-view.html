@@ -45,11 +45,11 @@
             <div class="person-status-badges">
               <span class="status-badge" [ngStyle]="getPersonStatusStyle()">
                 <mat-icon>{{ person?.personStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
-                {{ person?.personStatus | tableDataPipe: 'personStatus' }}
+                {{ person?.personStatus }}
               </span>
               <span class="privacy-badge" [ngStyle]="getPersonPrivateStyle()">
                 <mat-icon>{{ person?.private ? 'lock' : 'public' }}</mat-icon>
-                {{ person?.private | tableDataPipe: 'privatePerson' }}
+                {{ person?.private  }}
               </span>
             </div>
           </div>

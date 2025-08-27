@@ -24,7 +24,7 @@ export class PersonPhoneDialog extends BaseDialogComponent {
 
   override ngOnInit(): void {
     this.personPhone = this.data;
-    this.isInsert = this.personPhone?.id ? false : true;
+    this.isInsert = this.personPhone.id ? false : true;
   }
 
   onSave(object: any) {

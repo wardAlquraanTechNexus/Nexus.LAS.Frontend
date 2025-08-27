@@ -18,11 +18,11 @@
     <!-- Enhanced Tab Navigation -->
     <div class="dialog-tabs">
         <div class="tab-container">
-            <button mat-button class="tab-button" [class.active]="selectedTab === 0" (click)="selectedTab = 0">
+            <button mat-button class="tab-button" [class.active]="selectedTab === 0" (click)="setSelectedTab(0)">
                 <mat-icon>badge</mat-icon>
                 <span>ID Documents</span>
             </button>
-            <button mat-button class="tab-button" [class.active]="selectedTab === 1" (click)="selectedTab = 1">
+            <button mat-button class="tab-button" [class.active]="selectedTab === 1" (click)="setSelectedTab(1)">
                 <mat-icon>description</mat-icon>
                 <span>Other Documents</span>
             </button>

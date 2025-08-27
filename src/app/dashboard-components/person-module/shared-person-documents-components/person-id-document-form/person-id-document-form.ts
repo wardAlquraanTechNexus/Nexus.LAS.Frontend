@@ -21,7 +21,7 @@ export class PersonIdDocumentForm implements OnInit {
 
 
   @Input() personsIdn!: number;
-  @Output() saveEmitter = new EventEmitter<PersonsIDDetail>;
+  @Output() saveEmitter = new EventEmitter<any>();
   loadDocumentTypesFn!: (search: string) => Observable<DynamicList[]>;
   loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
 
@@ -117,7 +117,7 @@ export class PersonIdDocumentForm implements OnInit {
         let personIdDetail: PersonsIDDetail = this.formGroup.value;
         personIdDetail.personsIdn = this.personsIdn;
         personIdDetail.id = res;
-        this.saveEmitter.emit(personIdDetail);
+        this.saveEmitter.emit({ element: personIdDetail, tab: 0 });
       }, error: (err) => {
         this.isLoading = false;
       }

@@ -3,14 +3,14 @@
   <div class="dialog-header">
     <div class="header-content">
       <div class="header-icon">
-        <mat-icon>{{ personPhone?.id ? 'edit' : 'phone' }}</mat-icon>
+        <mat-icon>{{ personPhone.id ? 'edit' : 'phone' }}</mat-icon>
       </div>
       <div class="header-text">
         <h2 class="dialog-title">
-          {{ personPhone?.id ? 'Update Phone Number' : 'Add New Phone Number' }}
+          {{ personPhone.id ? 'Update Phone Number' : 'Add New Phone Number' }}
         </h2>
         <p class="dialog-subtitle">
-          {{ personPhone?.id ? 'Modify existing phone details' : 'Add a new phone number to the record' }}
+          {{ personPhone.id ? 'Modify existing phone details' : 'Add a new phone number to the record' }}
         </p>
       </div>
     </div>
@@ -71,9 +71,9 @@
     </button>
     <button mat-flat-button class="save-btn" (click)="save()" 
             [disabled]="formGroup.invalid || showLoading">
-      <mat-icon *ngIf="!showLoading">{{ personPhone?.id ? 'save' : 'add' }}</mat-icon>
+      <mat-icon *ngIf="!showLoading">{{ personPhone.id ? 'save' : 'add' }}</mat-icon>
       <mat-spinner *ngIf="showLoading" diameter="20"></mat-spinner>
-      {{ personPhone?.id ? 'Update Phone' : 'Save Phone' }}
+      {{ personPhone.id ? 'Update Phone' : 'Save Phone' }}
     </button>
   </div>
 </div>
