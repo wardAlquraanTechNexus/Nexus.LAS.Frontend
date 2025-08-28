@@ -3,6 +3,8 @@ import { CompanyCapitalDto } from '../../../../../models/company-models/company-
 import { CompanyCapitalService } from '../../../../../services/company-services/company-capital-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
+import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
+import { CompanyCapital } from '../../../../../models/company-models/company-capital/company-capital';
 
 @Component({
   selector: 'app-company-capital-dialog-form-component',
@@ -11,46 +13,15 @@ import { BaseDialogComponent } from '../../../../base-components/base-dialog-com
   templateUrl: './company-capital-dialog-form-component.html',
   styleUrl: './company-capital-dialog-form-component.scss'
 })
-export class CompanyCapitalDialogFormComponent  extends BaseDialogComponent {
- showLoading = false;
+export class CompanyCapitalDialogFormComponent extends BaseDialogFormComponent<CompanyCapital> {
   constructor(
-    protected override dialogRef: MatDialogRef<CompanyCapitalDialogFormComponent>, 
+    override dialogRef: MatDialogRef<CompanyCapitalDialogFormComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: CompanyCapitalDto,
-    private service:CompanyCapitalService,
-    protected cdr: ChangeDetectorRef,
+    override service: CompanyCapitalService,
+    override cdr: ChangeDetectorRef,
   ) {
-    super(dialogRef, data)
+    super(dialogRef, data, service, cdr)
   }
 
-  onSave(element: any) {
-    if(!element.element.id){
-      this.showLoading = true;
-      this.service.create(element.element).subscribe({
-        next:(res=>{
-          this.showLoading = false;
-          element.element.id = res;
-          this.dialogRef.close(element.element);
-          this.cdr.markForCheck();
-        }),error:(err=>{
-          this.showLoading = false;
-          this.cdr.markForCheck();
-        })
-      })
-    }else{
-      this.showLoading = true;
-      this.service.update(element.element).subscribe({
-        next:(res=>{
-          this.showLoading = false;
-          this.dialogRef.close(element.element);
-          this.cdr.markForCheck();
-        }),error:(err=>{
-          this.showLoading = false;
-          this.cdr.markForCheck();
-        })
-      })
-    }
-  }
-  onCancel(event: any) {
-    this.dialogRef.close();
-  }
+
 }

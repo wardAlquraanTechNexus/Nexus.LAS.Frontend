@@ -59,7 +59,7 @@ export class AllCompaniesTable extends BaseCompaniesComponent {
     {
       key: "companyStatus",
       label: "Status",
-      pipes: ["companyStatus"],
+      pipes: ["company-Status"],
       sort: true
     },
     {
@@ -71,7 +71,7 @@ export class AllCompaniesTable extends BaseCompaniesComponent {
     {
       key: "private",
       label: "Private",
-      pipes: ["privateCompany"],
+      pipes: ["private-Company"],
       sort: true
     },
     {

@@ -65,6 +65,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
     }, {
       key: "capitalActive",
       label: "Status",
+      pipes:['capital-active']
     },
     {
       key: 'action',

@@ -49,7 +49,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
         },
         {
           key: "isPrimary",
-          pipes: ['persondocumentprimary']
+          pipes: ['person-document-primary']
         }
       ]
     },

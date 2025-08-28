@@ -24,13 +24,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TableDataPipePipe } from '../pipes/table-data-pipe-pipe';
 import { SharedTable } from '../dashboard-components/shared-components/shared-table/shared-table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from './confirm-delete-component/confirm-delete-component';
 import { ConfirmDeleteDirective } from '../directives/confirm-delete-directive';
 import { MatSortModule } from '@angular/material/sort';
-import { TableFormComponent } from '../dashboard-components/base-components/table-form-component/table-form-component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -43,6 +41,8 @@ import { SelectAutoComplete } from './select-auto-complete/select-auto-complete'
 import { NavbarEnComponent } from './navbar-components/navbar-en-component/navbar-en-component';
 import { NavbarArComponent } from './navbar-components/navbar-ar-component/navbar-ar-component';
 import { BaseDialogFormComponent } from '../dashboard-components/base-components/base-dialog-form-component/base-dialog-form-component';
+import { TableDataPipe } from '../pipes/table-data-pipe';
+import { TextPipe } from '../pipes/text-pipe';
 
 
 
@@ -54,7 +54,6 @@ import { BaseDialogFormComponent } from '../dashboard-components/base-components
     NavbarArComponent,
     Sidebar,
     Footer,
-    TableDataPipePipe,
     SharedTable,
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
@@ -64,7 +63,9 @@ import { BaseDialogFormComponent } from '../dashboard-components/base-components
     BaseDialogFormComponent,
     BaseFormComponent,
     SharedTreeComponent,
-    SelectAutoComplete
+    SelectAutoComplete,
+    TableDataPipe,
+    TextPipe
   ],
   imports: [
     CommonModule,
@@ -130,7 +131,8 @@ import { BaseDialogFormComponent } from '../dashboard-components/base-components
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
     MatSortModule,
-    TableDataPipePipe,
+    TableDataPipe,
+    TextPipe,
     MatDatepickerModule,
     MatNativeDateModule,
     PersonIdDocumentForm,

@@ -4,7 +4,7 @@
   </div>
 
 <app-company-shareholder-form-component *ngIf="!showLoading"
-[element]="element"
+[element]="data"
 (saveEmitter)="onSave($event)"
 (cancelEditEmitter)="onCancel($event)"
 ></app-company-shareholder-form-component>

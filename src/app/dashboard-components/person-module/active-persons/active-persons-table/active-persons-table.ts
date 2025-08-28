@@ -64,7 +64,7 @@ export class ActivePersonsTable extends BasePersonsComponent {
     {
       key: "private",
       label: "Private",
-      pipes: ['privatePerson'],
+      pipes: ['private-Person'],
       sort: true,
     },
     {

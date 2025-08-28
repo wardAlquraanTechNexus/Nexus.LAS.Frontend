@@ -123,8 +123,8 @@ export class SharedTable implements OnInit, OnChanges {
           styles['padding'] = '10px';
           break;
 
-        case 'personstatus':
-        case 'companystatus':
+        case 'person-status':
+        case 'company-status':
         case 'company-license-status':
 
           let statusBorder = '#9E77ED';
@@ -144,24 +144,9 @@ export class SharedTable implements OnInit, OnChanges {
 
 
         case 'company-shareholder-status':
-
-        // let shareholderStatusBorder = '#9E77ED';
-        // let shareholderStatusColor = '#9E77ED';
-        // if (value) {
-        //   statusBorder = '#22C993';
-        //   statusColor = '#22C993';
-        // } else {
-        //   statusBorder = '#423e3ede';
-        //   statusColor = '#423e3ede';
-        // }
-        // styles['border'] = `2px solid ${shareholderStatusBorder}`;
-        // styles['color'] = shareholderStatusColor;
-        // styles['border-radius'] = '20px';
-        // styles['padding'] = '10px';
-        // break;
-
-        case 'privateperson':
-        case 'privatecompany':
+        case 'private-person':
+        case 'private-company':
+        case 'capital-active':
           let privateColor = value.toString() === 'true' ? '#025EBA' : '#423e3ede';
           styles['border'] = `2px solid ${privateColor}`;
           styles['color'] = privateColor;
@@ -169,13 +154,14 @@ export class SharedTable implements OnInit, OnChanges {
           styles['padding'] = '10px';
           break;
         case 'person-company-in-charge':
+
           if (!value || value.toString().toLowerCase() == 'inactive') {
             styles['color'] = 'red';
           } else {
             styles['color'] = '#025EBA';
           }
           break;
-        case 'persondocumentprimary':
+        case 'person-document-primary':
           if (value.toString() === 'true') {
             styles['border'] = `2px solid #025EBA`;
             styles['color'] = '#025EBA';

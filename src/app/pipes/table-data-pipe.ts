@@ -4,12 +4,14 @@ import { map, Observable, of } from 'rxjs';
 import { EntityIDc } from '../enums/entity-idc';
 import { environment } from '../../environment/environment';
 import { DisplayColumn } from '../models/columns/display-column';
+import { PersonStatus } from '../enums/person-status';
+import { CompanyStatus } from '../enums/company-status';
 
 @Pipe({
   name: 'tableDataPipe',
   standalone: false
 })
-export class TableDataPipePipe implements PipeTransform {
+export class TableDataPipe implements PipeTransform {
 
   constructor(private dlService: DynamicListService) { }
 
@@ -20,15 +22,20 @@ export class TableDataPipePipe implements PipeTransform {
 
     for (const pipe of pipes) {
       switch (pipe.toLowerCase()) {
-        case 'personstatus':
-        case 'companystatus':
+        case 'person-status':
           switch (value) {
-            case 0: return of('New');
-            case 1: return of('Active');
-            case 2: return of('Inactive');
+            case PersonStatus.New: return of('New');
+            case PersonStatus.Active: return of('Active');
+            case PersonStatus.Inactive: return of('Inactive');
             default: return of(value?.toString() ?? '');
           }
-
+        case 'company-status':
+          switch (value) {
+            case CompanyStatus.New: return of('New');
+            case CompanyStatus.Active: return of('Active');
+            case CompanyStatus.Inactive: return of('Inactive');
+            default: return of(value?.toString() ?? '');
+          }
         case 'company-license-status':
           switch (value) {
             case 0: return of('Expired');
@@ -36,11 +43,15 @@ export class TableDataPipePipe implements PipeTransform {
             default: return of(value?.toString() ?? '');
           }
 
-        case 'privateperson':
-        case 'privatecompany':
+        case 'private-person':
+        case 'private-company':
           return of(value === true ? 'Private' : 'Public');
 
-        case 'persondocumentprimary':
+        case 'capital-active':
+          return of(value === true ? 'Active' : 'Inactive');
+
+
+        case 'person-document-primary':
           return of(value === true ? 'Primary' : '');
 
         case 'date-time':

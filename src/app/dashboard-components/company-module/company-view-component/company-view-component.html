@@ -33,11 +33,11 @@
                             <div class="person-status-badges">
                                 <span class="status-badge" [ngStyle]="getCompanyStatusStyle()">
                                     <mat-icon>{{ company.companyStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
-                                    {{ company.companyStatus}}
+                                    {{ company.companyStatus| textPipe: 'company-status' | async}}
                                 </span>
                                 <span class="privacy-badge" [ngStyle]="getCompanyPrivateStyle()">
                                     <mat-icon>{{ company.private ? 'lock' : 'public' }}</mat-icon>
-                                    {{ company.private  }}
+                                    {{ company.private | textPipe: 'private-company' | async }}
                                 </span>
                             </div>
                         </div>

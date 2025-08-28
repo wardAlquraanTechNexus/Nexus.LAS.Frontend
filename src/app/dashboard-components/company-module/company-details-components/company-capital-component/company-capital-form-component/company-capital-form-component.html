@@ -120,11 +120,8 @@
 
                 <!-- Capital Active -->
                 <div class="col-6">
-                    <mat-slide-toggle formControlName="capitalActive" required>Active</mat-slide-toggle>
-                    <div *ngIf="formGroup.get('capitalActive')?.hasError('required') && formGroup.get('capitalActive')?.touched"
-                        class="text-danger">
-                        Capital Active is required
-                    </div>
+                    <mat-slide-toggle formControlName="capitalActive" >Active</mat-slide-toggle>
+                    
                 </div>
 
 
