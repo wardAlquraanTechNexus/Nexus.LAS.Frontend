@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { CompanyShareholderDialogFormComponent } from './company-shareholder-dialog-form-component/company-shareholder-dialog-form-component';
 import { EntityIDc } from '../../../../enums/entity-idc';
+import { CompanyCapitalService } from '../../../../services/company-services/company-capital-service';
 
 @Component({
   selector: 'app-company-shareholder-component',
@@ -47,10 +48,10 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       key: "numbersOfShares",
       label: "No. of shares",
     },
-    //  {
-    //   key: "capitalAuthorized",
-    //   label: "Authorized Capital Amount",
-    // },
+     {
+      key: "sharePercent",
+      label: "% of Shares",
+    },
      {
       key: "shareHolderDate",
       label: "Date Of Appointment",
@@ -86,13 +87,20 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private companyCapitalService: CompanyCapitalService
   ) {
     super(service, cdr, fb, router, errorHandler, route)
   }
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     super.ngOnInit();
+
+    this.companyCapitalService.activeCapitalUpdated$.subscribe(capital => {
+    if (capital.companyId === this.company.id) {
+      this.fetchData(); 
+    }
+  });
   }
 
   override fetchData(): void {

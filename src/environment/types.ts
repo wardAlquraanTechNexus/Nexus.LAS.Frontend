@@ -115,6 +115,7 @@ export interface Environment {
     PersonsPhonesTypes: number,
     originalDocumentTypes:number
     otherDocumentType:number;
+    companyContractType: number;
   }
 }
 

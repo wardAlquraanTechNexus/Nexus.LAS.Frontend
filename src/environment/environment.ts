@@ -111,6 +111,7 @@ export const environment: Environment = {
     currencies: 1011,
     PersonsPhonesTypes: 1024,
     originalDocumentTypes: 1018,
-    otherDocumentType: 1023
+    otherDocumentType: 1023,
+    companyContractType: 1003
   }
 } as const;

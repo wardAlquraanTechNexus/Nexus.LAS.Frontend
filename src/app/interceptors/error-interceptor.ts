@@ -16,7 +16,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             let message = '';
 
             if (error.error?.Title) {
-                message = error.error.Title;
+                message = error.error.Title + " ";
             } else if (error.status === 0) {
                 message = 'Network error. Please check your connection.';
             } else if (error.status >= 400 && error.status < 500) {

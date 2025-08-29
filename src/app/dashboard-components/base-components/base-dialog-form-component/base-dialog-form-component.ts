@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BaseService } from '../../../services/base/base-service';
 
@@ -8,7 +8,7 @@ import { BaseService } from '../../../services/base/base-service';
   templateUrl: './base-dialog-form-component.html',
   styleUrl: './base-dialog-form-component.scss'
 })
-export class BaseDialogFormComponent<T> {
+export class BaseDialogFormComponent<T> implements OnInit {
 
   showLoading = false;
   constructor(
@@ -18,6 +18,8 @@ export class BaseDialogFormComponent<T> {
     protected cdr: ChangeDetectorRef,
   ) {
 
+  }
+  ngOnInit(): void {
   }
 
 

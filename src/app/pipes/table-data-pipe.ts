@@ -6,6 +6,7 @@ import { environment } from '../../environment/environment';
 import { DisplayColumn } from '../models/columns/display-column';
 import { PersonStatus } from '../enums/person-status';
 import { CompanyStatus } from '../enums/company-status';
+import { CompanyContractStatus } from '../enums/company-contract-status';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -34,6 +35,13 @@ export class TableDataPipe implements PipeTransform {
             case CompanyStatus.New: return of('New');
             case CompanyStatus.Active: return of('Active');
             case CompanyStatus.Inactive: return of('Inactive');
+            default: return of(value?.toString() ?? '');
+          }
+
+        case 'company-contract-status':
+          switch (value) {
+            case CompanyContractStatus.Expired: return of('Expired');
+            case CompanyContractStatus.Active: return of('Active');
             default: return of(value?.toString() ?? '');
           }
         case 'company-license-status':
@@ -92,6 +100,14 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+
+        case 'company-contract-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'capital-currency':
           if (column.compareKey) {
             return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(
@@ -127,7 +143,10 @@ export class TableDataPipe implements PipeTransform {
   }
 
   private formatDate(date: Date): string {
-    return date.toLocaleDateString(); // adjust as needed
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 }
 

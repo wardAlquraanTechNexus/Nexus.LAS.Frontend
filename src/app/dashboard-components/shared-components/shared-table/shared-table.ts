@@ -16,6 +16,7 @@ import { map, Observable, of } from 'rxjs';
 import { PersonService } from '../../../services/person-services/person-service';
 import { CompanyService } from '../../../services/company-services/company-service';
 import { EntityIDc } from '../../../enums/entity-idc';
+import { CompanyContractStatus } from '../../../enums/company-contract-status';
 
 @Component({
   selector: 'app-shared-table',
@@ -58,7 +59,6 @@ export class SharedTable implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['paginateResult'] && this.paginateResult?.collection) {
-      // Refresh the table data when collection changes
       if (this.dataSource) {
         this.dataSource.data = this.paginateResult.collection;
         this.cdRef.markForCheck();
@@ -122,6 +122,23 @@ export class SharedTable implements OnInit, OnChanges {
           styles['cursor'] = 'pointer';
           styles['padding'] = '10px';
           break;
+
+        case 'company-contract-status':
+          let companyContractstatusBorder = '#9E77ED';
+          let companyContractstatusColor = '#9E77ED';
+          if (value == CompanyContractStatus.Active) {
+            companyContractstatusBorder = '#22C993';
+            companyContractstatusColor = '#22C993';
+          } else if (value == CompanyContractStatus.Expired) {
+            companyContractstatusBorder = '#423e3ede';
+            companyContractstatusColor = '#423e3ede';
+          }
+          styles['border'] = `2px solid ${companyContractstatusBorder}`;
+          styles['color'] = companyContractstatusColor;
+          styles['border-radius'] = '20px';
+          styles['padding'] = '10px';
+          break;
+
 
         case 'person-status':
         case 'company-status':

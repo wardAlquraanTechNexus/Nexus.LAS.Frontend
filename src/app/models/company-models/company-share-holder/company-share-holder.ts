@@ -11,4 +11,5 @@ export interface CompaniesShareHolder extends BaseEntity{
     cessationDate?: string;   // ISO string
     shareHolderActive?: boolean;
     companyId: number;
+    sharePercent?:number;
 }

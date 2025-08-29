@@ -1,0 +1,52 @@
+::ng-deep .mat-mdc-dialog-container {
+  display: flex;
+  flex-direction: column;
+  width: 900px !important;   /* increased width */
+  max-width: 95vw !important;
+  margin: auto;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px !important;
+  width: 100% !important;
+  max-height: 90vh;
+}
+
+.dialog-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.dialog-footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #f8f9fa;
+  border-top: 1px solid rgba(1, 55, 114, 0.1);
+
+  button {
+    min-width: 100px;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+  }
+
+  .save-btn {
+    background-color: #1976d2;
+    color: #fff;
+  }
+
+  .cancel-btn {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+}

@@ -1,0 +1,120 @@
+<div class="dialog-body">
+  <div class="form-container d-flex">
+
+    <!-- Left: Form Fields -->
+    <form [formGroup]="formGroup" class="form-left">
+      <!-- Contract Type -->
+      <div class="col-12 mb-3">
+        <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
+          [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup" [label]="'Contract Type'"
+          [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false">
+        </select-auto-complete>
+        <div class="text-danger"
+          *ngIf="formGroup.get('contractType')?.invalid && formGroup.get('contractType')?.touched">
+          Contract type is required
+        </div>
+      </div>
+
+      <!-- Document Date -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Document Date</mat-label>
+        <input matInput [matDatepicker]="docPicker" formControlName="documentDate" required>
+        <mat-datepicker-toggle matSuffix [for]="docPicker"></mat-datepicker-toggle>
+        <mat-datepicker #docPicker></mat-datepicker>
+        <mat-error *ngIf="formGroup.get('documentDate')?.hasError('required')">
+          Document Date is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Commencement Date -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Commencement Date</mat-label>
+        <input matInput [matDatepicker]="commPicker" formControlName="commencementDate" required>
+        <mat-datepicker-toggle matSuffix [for]="commPicker"></mat-datepicker-toggle>
+        <mat-datepicker #commPicker></mat-datepicker>
+        <mat-error *ngIf="formGroup.get('commencementDate')?.hasError('required')">
+          Commencement Date is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Contract Expiry Date -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Contract Expiry Date</mat-label>
+        <input matInput [matDatepicker]="expiryPicker" formControlName="contractExpiryDate" required>
+        <mat-datepicker-toggle matSuffix [for]="expiryPicker"></mat-datepicker-toggle>
+        <mat-datepicker #expiryPicker></mat-datepicker>
+        <mat-error *ngIf="formGroup.get('contractExpiryDate')?.hasError('required')">
+          Contract Expiry Date is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Contract Expiry Active Reminder -->
+      <mat-checkbox formControlName="contractExpiryActiveReminder" class="mb-3">
+        Contract Expiry Active Reminder
+      </mat-checkbox>
+
+      <!-- Contract Description -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Contract Description</mat-label>
+        <textarea matInput formControlName="contractDescription" required></textarea>
+        <mat-error *ngIf="formGroup.get('contractDescription')?.hasError('required')">
+          Contract Description is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Contract Status -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Contract Status</mat-label>
+        <mat-select formControlName="contractStatus" required>
+          <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+            {{ status.label }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formGroup.get('contractStatus')?.hasError('required')">
+          Contract Status is required
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+
+    <!-- Right: Document Preview -->
+    <div class="form-right document-preview">
+      <div class="preview-container">
+        <div class="preview-header">
+          <h4>Document Preview</h4>
+          <div class="preview-actions">
+            <button mat-icon-button class="preview-btn" (click)="download()" matTooltip="Download Document">
+              <mat-icon>download</mat-icon>
+            </button>
+            <button mat-icon-button class="preview-btn" (click)="fileInput.click()" matTooltip="Replace Document">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="document-viewer">
+          <ng-container *ngIf="element.contentType === 'application/pdf'; else showImage">
+            <iframe [src]="element.imageUrl" class="pdf-viewer" type="application/pdf"></iframe>
+          </ng-container>
+
+          <ng-template #showImage>
+            <img *ngIf="element?.imageUrl" [src]="element.imageUrl" alt="Document" class="document-image" />
+          </ng-template>
+        </div>  
+
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*,.pdf" hidden />
+      </div>
+    </div>
+
+  </div>
+  <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Group
+        </button>
+    </div>
+</div>

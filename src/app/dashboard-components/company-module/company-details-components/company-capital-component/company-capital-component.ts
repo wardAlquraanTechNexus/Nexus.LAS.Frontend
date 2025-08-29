@@ -33,6 +33,10 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
 
   override displayColumns: DisplayColumn[] = [
     {
+      key:"id",
+      label:"Id"
+    },
+    {
       key: "capitalDate",
       label: "Date",
       pipes: ['date'],
@@ -40,6 +44,10 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
     {
       key: "capitalAmount",
       label: "Amount",
+    },
+    {
+      key:"numberOfShares",
+      label:"NO. of Shares"
     },
     {
       key: "nominalValueOfShare",
@@ -143,9 +151,10 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
   }
 
   onEdit(row: any) {
+    const element = {...row};
     const dialogRef = this.dialog.open(CompanyCapitalDialogFormComponent, {
       disableClose: true,
-      data: row
+      data: element
     });
 
     dialogRef.afterClosed().subscribe(result => {
