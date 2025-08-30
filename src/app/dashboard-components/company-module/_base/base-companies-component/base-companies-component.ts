@@ -60,6 +60,9 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
   loadCompanyLegalsFn!: (search: string) => Observable<DynamicList[]>;
   loadPlaceOfRegistrationFn!: (search: string) => Observable<DynamicList[]>;
   loadPlaceOfRegistrationSubFn!: (search: string) => Observable<DynamicList[]>;
+  loadActivitiesFn!: (search: string) => Observable<DynamicList[]>;
+  loadContractTypesFn!: (search: string) => Observable<DynamicList[]>;
+
 
 
   formGroup!: FormGroup;
@@ -90,6 +93,8 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     this.loadCompanyTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyType, search)
     this.loadCompanyLegalsFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.legalType, search)
     this.loadPlaceOfRegistrationFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.placeOfRegistration, search)
+    this.loadActivitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyActivity, search)
+    this.loadContractTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType, search)
 
     this.formGroup = this.fb.group(
       {
@@ -98,6 +103,8 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
         legalTypeIdn: [''],
         placeOfRegistrationMainIdn: [''],
         placeOfRegistrationSubIdn: [''],
+        companyActivityIdn:[''],
+        companyContractTypeIdn:['']
       },
     )
 
@@ -141,6 +148,16 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
   }
   onSelectCompanyLegalType(event: any) {
     this.params.legalTypeIdn = event;
+    this.fetchData();
+  }
+
+  onSelectCompanyActivity(event: any) {
+    this.params.companyActivityIdn = event;
+    this.fetchData();
+  }
+
+  onSelectContractType(event: any) {
+    this.params.companyContractTypeIdn = event;
     this.fetchData();
   }
 

@@ -11,4 +11,6 @@ export interface CompanyContractDto {
     contentType?: string;
     dataFile?: number[];
     imageUrl?: any;
+    file?:any;
+    fileName?:string;
 }

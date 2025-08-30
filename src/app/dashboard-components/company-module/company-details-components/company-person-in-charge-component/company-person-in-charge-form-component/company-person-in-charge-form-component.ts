@@ -7,6 +7,9 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
 import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/get-person-dto';
 import { map, Observable } from 'rxjs';
 import { PersonService } from '../../../../../services/person-services/person-service';
+import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
+import { DynamicListService } from '../../../../../services/dynamic-list-service';
+import { environment } from '../../../../../../environment/environment.prod';
 
 @Component({
   selector: 'app-company-person-in-charge-form-component',
@@ -17,13 +20,16 @@ import { PersonService } from '../../../../../services/person-services/person-se
 export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
   @Input() element!: CompanyPersonInChargeDto;
   loadPersonssFn!: (search: string) => Observable<GetPersonsDTO[]>;
+  loadAuthorityRulesFn!: (search: string) => Observable<DynamicList[]>;
+
 
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
-    private personService: PersonService
+    private personService: PersonService,
+    private dlService:DynamicListService
   ) {
     super(fb, cdr, sanitizer, errorHandler);
   }
@@ -33,6 +39,8 @@ export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
     super.ngOnInit();
 
     this.loadPersonssFn = (search: string) => this.loadPersons(search);
+    this.loadAuthorityRulesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.authorityRule, search)
+
 
   }
 

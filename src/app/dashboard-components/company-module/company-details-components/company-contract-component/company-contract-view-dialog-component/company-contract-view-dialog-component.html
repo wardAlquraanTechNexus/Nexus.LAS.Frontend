@@ -1,0 +1,59 @@
+<mat-dialog-content>
+
+    <div class="view-header d-flex align-items-center justify-content-between px-3 py-2">
+        <!-- Left: Content Type -->
+        <div class="detail-item d-flex align-items-center gap-2">
+            <span class="value">{{ data.fileName }}</span>
+        </div>
+
+        <!-- Right: Action Buttons -->
+        <div class="actions d-flex align-items-center gap-2">
+            <button mat-icon-button (click)="download()" aria-label="Download">
+                <mat-icon>download</mat-icon>
+            </button>
+            <button mat-icon-button (click)="close()" aria-label="Close">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="row view">
+        <div class="col-md-4 props">
+            <div class="detail-box p-3">
+                <div class="detail-item d-flex justify-content-between mb-3">
+                    <span class="label text-muted">Contract Type</span>
+                    <span class="value">{{ data.contractType | textPipe: 'company-contract-type' | async }}</span>
+                </div>
+                <div class="detail-item d-flex justify-content-between mb-3">
+                    <span class="label text-muted">Document Date</span>
+                    <span class="value">{{ data.documentDate | textPipe: 'date' | async}}</span>
+                </div>
+                <div class="detail-item d-flex justify-content-between mb-3">
+                    <span class="label text-muted">Commencement Date</span>
+                    <span class="value">{{ data.commencementDate| textPipe: 'date' | async }}</span>
+                </div>
+                <div class="detail-item d-flex justify-content-between mb-3">
+                    <span class="label text-muted">Expiry Date</span>
+                    <span class="value">{{ data.contractExpiryDate| textPipe: 'date' | async }}</span>
+                </div>
+                <div class="detail-item d-flex justify-content-between mb-3">
+                    <span class="label text-muted">Description</span>
+                    <span class="value">{{ data.contractDescription }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="image-wrapper">
+                <ng-container *ngIf="data.contentType === 'application/pdf'; else showImage">
+                    <iframe [src]="data.imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
+                </ng-container>
+
+                <ng-template #showImage>
+                    <img *ngIf="data.imageUrl" [src]="data.imageUrl" alt="Document" class="img-fluid" />
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+</mat-dialog-content>

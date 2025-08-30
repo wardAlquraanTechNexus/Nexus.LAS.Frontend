@@ -114,7 +114,9 @@ export const environment: Environment = {
     PersonsPhonesTypes: 1024,
     originalDocumentTypes: 1018,
     otherDocumentType: 1023,
-    companyContractType: 1003
+    companyContractType: 1003,
+    authorityRule : 1033
+
 
   }
 } as const;

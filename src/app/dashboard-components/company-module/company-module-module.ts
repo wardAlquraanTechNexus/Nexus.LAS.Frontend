@@ -39,6 +39,7 @@ import { CompanyPhoneDialogFormComponent } from './company-details-components/co
 import { CompanyContractComponent } from './company-details-components/company-contract-component/company-contract-component';
 import { CompanyContractFormComponent } from './company-details-components/company-contract-component/company-contract-form-component/company-contract-form-component';
 import { CompanyContractFormDialogComponent } from './company-details-components/company-contract-component/company-contract-form-dialog-component/company-contract-form-dialog-component';
+import { CompanyContractViewDialogComponent } from './company-details-components/company-contract-component/company-contract-view-dialog-component/company-contract-view-dialog-component';
 
 
 
@@ -80,7 +81,8 @@ import { CompanyContractFormDialogComponent } from './company-details-components
     CompanyPhoneDialogFormComponent,
     CompanyContractComponent,
     CompanyContractFormComponent,
-    CompanyContractFormDialogComponent
+    CompanyContractFormDialogComponent,
+    CompanyContractViewDialogComponent
   ],
   imports: [
     CommonModule,

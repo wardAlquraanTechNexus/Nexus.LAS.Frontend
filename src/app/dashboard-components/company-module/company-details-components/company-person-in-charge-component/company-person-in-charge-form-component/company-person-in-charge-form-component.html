@@ -1,92 +1,123 @@
 <div class="modern-dialog-container">
-    <!-- Enhanced Header with Icon and Professional Typography -->
-    <div class="dialog-header">
-        <div class="header-content">
-            <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
-            </div>
-            <div class="header-text">
-                <h2 class="dialog-title">Person In Charge</h2>
-                <p class="dialog-subtitle">Person In Charge</p>
-            </div>
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>group_work</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 class="dialog-title">Person In Charge</h2>
+        <p class="dialog-subtitle">Person In Charge</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="dialog-body">
+    <div class="form-container">
+      <form [formGroup]="formGroup" class="row w-100">
+
+        <!-- Person Select -->
+        <div class="col-12">
+          <select-auto-complete *ngIf="loadPersonssFn"
+            [controlName]="'personIdn'"
+            [fnGet]="loadPersonssFn"
+            [formGroup]="formGroup"
+            [isRequired]="true"
+            [label]="'Person'"
+            [keyToShow]="'personEnglishName'"
+            [valueKey]="'id'">
+          </select-auto-complete>
+          <mat-error *ngIf="formGroup.get('personIdn')?.invalid && (formGroup.get('personIdn')?.touched || formGroup.touched)">
+            Person is required
+          </mat-error>
         </div>
-        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
 
-    <!-- Enhanced Body with Smooth Scrolling -->
-    <div class="dialog-body">
-        <div class="form-container">
-            <form [formGroup]="formGroup" class="row w-100">
-                <div class="col-12">
-                    <select-auto-complete *ngIf="loadPersonssFn"
-                        [controlName]="'personIdn'"
-                        [fnGet]="loadPersonssFn"
-                        [formGroup]="formGroup"
-                        [isRequired]="true"
-                        [label]="'Person'"
-                        [keyToShow]="'personEnglishName'"
-                        [valueKey]="'id'"
-                    ></select-auto-complete>
-                </div>
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Designation</mat-label>
-                        <input matInput formControlName="designation" placeholder="Enter designation" />
-                    </mat-form-field>
-                </div>
-
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Authority Rule</mat-label>
-                        <input matInput formControlName="authorityRule" placeholder="Enter authority rule" />
-                    </mat-form-field>
-                </div>
-
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Notes</mat-label>
-                        <textarea matInput formControlName="notes" placeholder="Enter notes" rows="3"></textarea>
-                    </mat-form-field>
-                </div>
-
-                <div class="col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Date Of Appointment</mat-label>
-                        <input matInput [matDatepicker]="pickerInCharge" formControlName="personInChargeDate"
-                            placeholder="Choose a date">
-                        <mat-datepicker-toggle matSuffix [for]="pickerInCharge"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerInCharge></mat-datepicker>
-                    </mat-form-field>
-                </div>
-
-                <div class="col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Cessation Date</mat-label>
-                        <input matInput [matDatepicker]="pickerCessation" formControlName="cessationDate"
-                            placeholder="Choose a date">
-                        <mat-datepicker-toggle matSuffix [for]="pickerCessation"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerCessation></mat-datepicker>
-                    </mat-form-field>
-                </div>
-
-                <div class="col-12">
-                    <mat-checkbox formControlName="personInChargeActive">Active</mat-checkbox>
-                </div>
-            </form>
+        <!-- Designation -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Designation</mat-label>
+            <input matInput formControlName="designation" placeholder="Enter designation" required />
+            <mat-error *ngIf="formGroup.get('designation')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
+              Designation is required
+            </mat-error>
+          </mat-form-field>
         </div>
-    </div>
 
-    <!-- Modern Footer with Action Buttons -->
-    <div class="dialog-footer">
-        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
-            <mat-icon>close</mat-icon>
-            Cancel
-        </button>
-        <button mat-flat-button class="save-btn" (click)="save(true)">
-            <mat-icon>save</mat-icon>
-            Save Group
-        </button>
+        <!-- Authority Rule -->
+        <div class="col-12">
+          <select-auto-complete *ngIf="loadAuthorityRulesFn"
+            [controlName]="'authorityRule'"
+            [fnGet]="loadAuthorityRulesFn"
+            [formGroup]="formGroup"
+            [isRequired]="true"
+            [label]="'Authority Rule'"
+            [keyToShow]="'name'"
+            [valueKey]="'id'">
+          </select-auto-complete>
+          <mat-error *ngIf="formGroup.get('authorityRule')?.invalid && (formGroup.get('authorityRule')?.touched || formGroup.touched)">
+            Authority Rule is required
+          </mat-error>
+        </div>
+
+        <!-- Notes -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes" placeholder="Enter notes" rows="3" required></textarea>
+            <mat-error *ngIf="formGroup.get('notes')?.invalid && (formGroup.get('notes')?.touched || formGroup.touched)">
+              Notes are required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Dates -->
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Date Of Appointment</mat-label>
+            <input matInput [matDatepicker]="pickerInCharge" formControlName="personInChargeDate" placeholder="Choose a date" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerInCharge"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInCharge></mat-datepicker>
+            <mat-error *ngIf="formGroup.get('personInChargeDate')?.invalid && (formGroup.get('personInChargeDate')?.touched || formGroup.touched)">
+              Date of Appointment is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Cessation Date</mat-label>
+            <input matInput [matDatepicker]="pickerCessation" formControlName="cessationDate" placeholder="Choose a date" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerCessation"></mat-datepicker-toggle>
+            <mat-datepicker #pickerCessation></mat-datepicker>
+            <mat-error *ngIf="formGroup.get('cessationDate')?.invalid && (formGroup.get('cessationDate')?.touched || formGroup.touched)">
+              Cessation Date is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Active Checkbox -->
+        <div class="col-12">
+          <mat-checkbox formControlName="personInChargeActive" >Active</mat-checkbox>
+          
+        </div>
+
+      </form>
     </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button class="save-btn" [disabled]="formGroup.invalid" (click)="save(true)">
+      <mat-icon>save</mat-icon>
+      Save Group
+    </button>
+  </div>
 </div>

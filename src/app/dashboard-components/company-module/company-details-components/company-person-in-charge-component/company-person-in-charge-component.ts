@@ -13,6 +13,10 @@ import { PaginateRsult } from '../../../../models/paginate-result';
 import { BaseParam } from '../../../../models/base/base-param';
 import { CompanyPersonInChargeDialogFormComponent } from './company-person-in-charge-dialog-form-component/company-person-in-charge-dialog-form-component';
 import { MatDialog } from '@angular/material/dialog';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { Observable } from 'rxjs';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-company-person-in-charge-component',
@@ -47,7 +51,8 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     },
     {
       key: "authorityRule",
-      label: "Rule"
+      label: "Rule",
+      pipes:["authority-rule"]
     },
     {
       key: "notes",
@@ -93,6 +98,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     super.ngOnInit();
+    
   }
   override fetchData() {
     this.showLoading = true;
@@ -177,8 +183,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
       this.service.update(event.element).subscribe({
         next: (res => {
           this.errorHandler.showSuccess("Updated Successfully");
-          this.showLoading = false;
-          this.cdr.markForCheck();
+          this.fetchData();
         }), error: (err => {
           this.showLoading = false;
         })

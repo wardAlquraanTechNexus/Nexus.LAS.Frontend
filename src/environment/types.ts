@@ -116,6 +116,7 @@ export interface Environment {
     originalDocumentTypes:number
     otherDocumentType:number;
     companyContractType: number;
+    authorityRule : number;
   }
 }
 

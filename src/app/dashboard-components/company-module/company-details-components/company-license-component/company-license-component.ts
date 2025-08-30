@@ -56,7 +56,8 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     },
     {
       key:"licensePrimary",
-      label: "Primary"
+      label: "Primary",
+      pipes:['person-in-charge-primary']
     },
     {
       key: 'action',

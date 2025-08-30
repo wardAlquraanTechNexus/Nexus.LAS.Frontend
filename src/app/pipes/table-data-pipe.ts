@@ -60,6 +60,7 @@ export class TableDataPipe implements PipeTransform {
 
 
         case 'person-document-primary':
+        case 'person-in-charge-primary':
           return of(value === true ? 'Primary' : '');
 
         case 'date-time':
@@ -103,6 +104,13 @@ export class TableDataPipe implements PipeTransform {
 
         case 'company-contract-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+        case 'authority-rule':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.authorityRule).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';

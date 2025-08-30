@@ -12,6 +12,8 @@ export default interface GetCompanyQuery extends BaseParam {
   groupCompanyIdn?:number|null;
   relevantCompanyIdn?:number|null;
   legalTypeIdn?:number|null;
+  companyActivityIdn?:number | null;
+  companyContractTypeIdn?:number | null;
   placeOfRegistrationMainIdn?:number|null;
   placeOfRegistrationSubIdn?:number|null;
 

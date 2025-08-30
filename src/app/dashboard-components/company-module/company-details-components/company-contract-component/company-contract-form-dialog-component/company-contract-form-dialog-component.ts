@@ -13,7 +13,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class CompanyContractFormDialogComponent  extends BaseDialogFormComponent<CompanyContract> {
   
-  element?:CompanyContractDto;
   constructor(
     override dialogRef: MatDialogRef<CompanyContractFormDialogComponent>, 
     @Inject(MAT_DIALOG_DATA) public override data: CompanyContractDto,
@@ -24,21 +23,36 @@ export class CompanyContractFormDialogComponent  extends BaseDialogFormComponent
   }
 
   override ngOnInit(): void {
-    if(this.data.id){
+    this.data.file = null;
+  }
+
+
+  override onSave(element: any) {
+    if (!element.element.id) {
       this.showLoading = true;
-      this.service.getById(this.data.id).subscribe({
-        next:(res=>{
-          this.element = res;
+      this.service.careateByForm(element.formData).subscribe({
+        next: (res => {
           this.showLoading = false;
+          element.element.id = res;
+          this.dialogRef.close(element.element);
           this.cdr.markForCheck();
-        }),error:(err=>{
+        }), error: (err => {
           this.showLoading = false;
           this.cdr.markForCheck();
         })
       })
-
-    }else{
-      this.element = this.data;
+    } else {
+      this.showLoading = true;
+      this.service.updateByForm(element.formData).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          this.dialogRef.close(element.element);
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        })
+      })
     }
   }
 

@@ -171,14 +171,23 @@ export class SharedTable implements OnInit, OnChanges {
           styles['padding'] = '10px';
           break;
         case 'person-company-in-charge':
-
-          if (!value || value.toString().toLowerCase() == 'inactive') {
-            styles['color'] = 'red';
-          } else {
-            styles['color'] = '#025EBA';
+         let personCompanyInChargeStatusBorder = '#9E77ED';
+          let personCompanyInChargeStatusColor = '#9E77ED';
+          if (value == 'Active') {
+            personCompanyInChargeStatusBorder = '#22C993';
+            personCompanyInChargeStatusColor = '#22C993';
+          } else if (value == 'Inactive') {
+            personCompanyInChargeStatusBorder = '#423e3ede';
+            personCompanyInChargeStatusColor = '#423e3ede';
           }
+          styles['border'] = `2px solid ${personCompanyInChargeStatusBorder}`;
+          styles['color'] = personCompanyInChargeStatusColor;
+          styles['border-radius'] = '20px';
+          styles['padding'] = '10px';
+
           break;
         case 'person-document-primary':
+        case 'person-in-charge-primary':
           if (value.toString() === 'true') {
             styles['border'] = `2px solid #025EBA`;
             styles['color'] = '#025EBA';

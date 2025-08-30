@@ -10,15 +10,24 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyContractService extends BaseService<CompanyContract>
-{
-   constructor(httpClient: HttpClient) {
+export class CompanyContractService extends BaseService<CompanyContract> {
+  constructor(httpClient: HttpClient) {
     super(httpClient);
     this.setPath('CompanyContract');
   }
 
-    getPaging(params: GetPagingCompanyContractQuery): Observable<PaginateRsult<CompanyContractDto>> {
-      return this.httpClient.get<PaginateRsult<CompanyContractDto>>(this.url , { params: this.httpParams(params) });
-    }
+  getPaging(params: GetPagingCompanyContractQuery): Observable<PaginateRsult<CompanyContractDto>> {
+    return this.httpClient.get<PaginateRsult<CompanyContractDto>>(this.url, { params: this.httpParams(params) });
+  }
+
+  careateByForm(formData: FormData): Observable<number> {
+    return this.httpClient.post<number>(this.url, formData);
+
+  }
+
+  updateByForm(formData: FormData): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url+"/UpdateByForm", formData);
+
+  }
 
 }

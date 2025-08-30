@@ -1,4 +1,4 @@
-
+<!-- 
   <div class="spinner-overlay" *ngIf="showLoading">
     <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
   </div>
@@ -7,4 +7,23 @@
 [element]="element"
 (saveEmitter)="onSave($event)"
 (cancelEditEmitter)="onCancel($event)"
-></app-company-contract-form-component>
+></app-company-contract-form-component> -->
+
+
+<div class="modern-dialog-container">
+
+
+
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+
+        <ng-container>
+            <app-company-contract-form-component  [element]="data"
+                (saveEmitter)="onSave($event)"
+                (cancelEditEmitter)="onCancel($event)"></app-company-contract-form-component>
+        </ng-container>
+    </div>
+
+
+</div>

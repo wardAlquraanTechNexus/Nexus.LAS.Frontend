@@ -11,6 +11,8 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyContractDto } from '../../../../models/company-models/company-contract/dtos/company-contract-dto';
 import { CompanyContractFormDialogComponent } from './company-contract-form-dialog-component/company-contract-form-dialog-component';
+import { CompanyContractViewDialogComponent } from './company-contract-view-dialog-component/company-contract-view-dialog-component';
+import { downloadBlob } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-company-contract-component',
@@ -22,14 +24,19 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
 
   override displayColumns: DisplayColumn[] = [
     {
+      key: "fileName",
+      label: "Name",
+      pipes: ["link"]
+    },
+    {
       key: "contractType",
       label: "Contract Type",
-      pipes:["company-contract-type"]
+      pipes: ["company-contract-type"]
     },
     {
       key: "documentDate",
       label: "Document Date",
-      pipes:["date"]
+      pipes: ["date"]
     },
     {
       key: "commencementDate",
@@ -54,7 +61,7 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
     {
       key: "contractStatus",
       label: "Status",
-      pipes:['company-contract-status']
+      pipes: ['company-contract-status']
     },
     {
       key: 'action',
@@ -97,7 +104,8 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
       contractExpiryDate: "",
       contractExpiryActiveReminder: false,
       contractDescription: '',
-      contractStatus: 0
+      contractStatus: 0,
+      file: null
     };
     const dialogRef = this.dialog.open(CompanyContractFormDialogComponent, {
       disableClose: true,
@@ -125,6 +133,22 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
 
   }
 
+  onView(row: any) {
+    const dialogRef = this.dialog.open(CompanyContractViewDialogComponent, {
+      disableClose: true,
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
+
+  }
+
+
+
   deleteFn(id: number) {
     return () => this.delete(id);
   }
@@ -148,6 +172,8 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
   }
 
 
+
+
   onRowClick(event: any) {
     if (event.key == 'contractExpiryActiveReminder') {
       this.showLoading = true;
@@ -160,6 +186,9 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
           this.showLoading = false;
         })
       })
+    }
+    else if(event.key == 'fileName'){
+      downloadBlob(event.element.dataFile , event.element.contentType , event.element.fileName);
     }
   }
 }
