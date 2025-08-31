@@ -3,7 +3,7 @@ import { BaseService } from '../base/base-service';
 import { Person } from '../../models/person-models/person';
 import { HttpClient } from '@angular/common/http';
 import { CreatePersonCommand } from '../../models/person-models/create-person';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { PaginateRsult } from '../../models/paginate-result';
 import { GetAllActivePersonQuery } from '../../models/person-models/get-all-active-person-query';
 import { BulkChangeStatusCommand } from '../../models/person-models/bulk-change-status-command';
@@ -21,61 +21,68 @@ import { UpdatePersonCommand } from '../../models/person-models/update-person';
   providedIn: 'root'
 })
 export class PersonService extends BaseService<Person> {
-  constructor(httpClient: HttpClient){
+
+  private personsRequest$?: Observable<GetPersonsDTO[]>;
+
+  constructor(httpClient: HttpClient) {
     super(httpClient);
     this.setPath('Persons');
   }
 
-  getPersonDto(id:number):Observable<PersonDto>{
+  getPersonDto(id: number): Observable<PersonDto> {
     return this.httpClient.get<PersonDto>(this.url + "/" + id);
 
   }
 
-  createPerson(command:CreatePersonCommand):Observable<number>{
+  createPerson(command: CreatePersonCommand): Observable<number> {
     return this.httpClient.post<number>(this.url + "/CreatePerson", command);
   }
-  updatePerson(command:UpdatePersonCommand):Observable<GetPersonsDTO>{
+  updatePerson(command: UpdatePersonCommand): Observable<GetPersonsDTO> {
     return this.httpClient.put<GetPersonsDTO>(this.url + "/UpdatePerson", command);
   }
 
-  getPersons(getAllPersonQuery:GetPersonsQuery):Observable<PaginateRsult<GetPersonsDTO>>{
+  getPersons(getAllPersonQuery: GetPersonsQuery): Observable<PaginateRsult<GetPersonsDTO>> {
     var params = this.httpParams(getAllPersonQuery);
-    return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetPersons", {params});
+    return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetPersons", { params });
   }
-  getAllPersons(getAllPersonQuery:GetPersonsQuery):Observable<GetPersonsDTO[]>{
-    var params = this.httpParams(getAllPersonQuery);
-    return this.httpClient.get<GetPersonsDTO[]>(this.url + "/GetAllPersons", {params});
+  getAllPersons(getAllPersonQuery: GetPersonsQuery): Observable<GetPersonsDTO[]> {
+    if (!this.personsRequest$) {
+      const params = this.httpParams(getAllPersonQuery);
+      this.personsRequest$ = this.httpClient.get<GetPersonsDTO[]>(this.url + "/GetAllPersons", { params })
+        .pipe(
+          shareReplay(1) // cache the latest value
+        );
+    }
+    return this.personsRequest$;
   }
-  getAllActivePerson(getAllPersonQuery:GetAllActivePersonQuery):Observable<PaginateRsult<GetPersonsDTO>>{
+  getAllActivePerson(getAllPersonQuery: GetAllActivePersonQuery): Observable<PaginateRsult<GetPersonsDTO>> {
     var params = this.httpParams(getAllPersonQuery);
-    return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetAllActivePerson", {params});
+    return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetAllActivePerson", { params });
   }
 
-  bulkChangeStatus(command:BulkChangeStatusCommand):Observable<number>
-  {
+  bulkChangeStatus(command: BulkChangeStatusCommand): Observable<number> {
     return this.httpClient.put<number>(this.url + "/BulkChangeStatus", command);
   }
 
-  bulkChangePrivate(command:BulkChangePrivateCommand):Observable<number>
-  {
+  bulkChangePrivate(command: BulkChangePrivateCommand): Observable<number> {
     return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
   }
 
-  exportPersonToExcel(filter:any):Observable<ExportPersonToExcel>{
+  exportPersonToExcel(filter: any): Observable<ExportPersonToExcel> {
     var params = this.httpParams(filter);
-    return this.httpClient.get<ExportPersonToExcel>(this.url + "/ExportToExcel", {params});
+    return this.httpClient.get<ExportPersonToExcel>(this.url + "/ExportToExcel", { params });
   }
-  exportPersonToPdf(filter:any):Observable<ExportPersonToPdf>{
+  exportPersonToPdf(filter: any): Observable<ExportPersonToPdf> {
     var params = this.httpParams(filter);
-    return this.httpClient.get<ExportPersonToPdf>(this.url + "/ExportToPdf", {params});
+    return this.httpClient.get<ExportPersonToPdf>(this.url + "/ExportToPdf", { params });
   }
 
   uploadImage(command: UploadPersonImageCommand): Observable<UploadImageDto> {
-      let formData: FormData = new FormData();
-      formData.append("personId", command.personId.toString());
-      formData.append("file", command.file);
-  
-      return this.httpClient.post<UploadImageDto>(this.url + "/UploadImage", formData);
-  
-    }
+    let formData: FormData = new FormData();
+    formData.append("personId", command.personId.toString());
+    formData.append("file", command.file);
+
+    return this.httpClient.post<UploadImageDto>(this.url + "/UploadImage", formData);
+
+  }
 }

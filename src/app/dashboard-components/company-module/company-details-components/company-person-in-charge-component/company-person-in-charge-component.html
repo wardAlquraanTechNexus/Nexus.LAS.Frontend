@@ -1,16 +1,31 @@
 <div class="table-header">
   <div class="header-title">Contact Person</div>
-  <button mat-raised-button class="btn-add-contact" (click)="onAddNew()">
-    <mat-icon>add</mat-icon>
-    Add Contact Person
-  </button>
+  <div class="header-actions">
+
+    <!-- Add button only shows when table is visible -->
+    <button *ngIf="showTable" mat-raised-button color="primary" (click)="onAddNew()">
+      <mat-icon>add</mat-icon>
+      Add Contact Person
+    </button>
+
+    <!-- Toggle button -->
+    <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? 'Hide' : 'Show'">
+      <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
+    </button>
+  </div>
 </div>
 
-<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-  (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate"
+<!-- Shared table -->
+<app-shared-table *ngIf="showTable && !showLoading"
+  [displayedColumns]="displayColumns"
+  [paginateResult]="data"
+  (onChangePage)="changePage($event)"
+  (onSortChangeEvent)="changeSort($event)"
+  [action]="actionButtonsTemplate"
   (rowClick)="onRowClick($event)">
 </app-shared-table>
 
+<!-- Action buttons -->
 <ng-template #actionButtonsTemplate let-row>
   <button mat-icon-button [matMenuTriggerFor]="menuRow">
     <mat-icon>more_vert</mat-icon>

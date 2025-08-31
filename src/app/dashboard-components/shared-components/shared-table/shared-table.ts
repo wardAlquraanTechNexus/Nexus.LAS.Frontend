@@ -164,6 +164,7 @@ export class SharedTable implements OnInit, OnChanges {
         case 'private-person':
         case 'private-company':
         case 'capital-active':
+        case 'signatory-active':
           let privateColor = value.toString() === 'true' ? '#025EBA' : '#423e3ede';
           styles['border'] = `2px solid ${privateColor}`;
           styles['color'] = privateColor;

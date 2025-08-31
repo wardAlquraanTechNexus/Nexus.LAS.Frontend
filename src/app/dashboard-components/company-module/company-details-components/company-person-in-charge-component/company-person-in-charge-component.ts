@@ -52,7 +52,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     {
       key: "authorityRule",
       label: "Rule",
-      pipes:["authority-rule"]
+      pipes: ["rule"]
     },
     {
       key: "notes",
@@ -98,7 +98,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     super.ngOnInit();
-    
+
   }
   override fetchData() {
     this.showLoading = true;
@@ -119,6 +119,11 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
           this.cdr.markForCheck();
         })
       })
+  }
+
+  showTable = true;
+  toggleTable() {
+    this.showTable = !this.showTable;
   }
 
 

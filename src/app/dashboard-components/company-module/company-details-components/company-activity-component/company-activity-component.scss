@@ -1,182 +1,59 @@
 .table-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
-  margin-bottom: 8px;
-  border-radius: 16px 16px 0 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
-  box-shadow: 0 8px 32px rgba(1, 55, 114, 0.08);
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 12px 20px;
   border: 1px solid rgba(1, 55, 114, 0.1);
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 4px 16px rgba(1, 55, 114, 0.08);
 
   .header-title {
     font-size: 18px;
     font-weight: 600;
     color: #013772;
-    text-transform: uppercase;
   }
 
-  button {
+  .header-actions {
     display: flex;
     align-items: center;
-    font-weight: 600;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 12px;
 
-    mat-icon {
-      margin-right: 8px;
+    button[mat-raised-button] {
+      font-weight: 500;
+      border-radius: 8px;
+      text-transform: none;
     }
 
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+    .rotated {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease;
     }
   }
 }
 
 app-shared-table {
   display: block;
-  border-radius: 16px;
-  /* Match table border-radius */
-  overflow: hidden;
-  /* Ensure no angular corners show */
-  box-shadow:
-    0 8px 32px rgba(1, 55, 114, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(1, 55, 114, 0.1);
-
-  // Modern table styling consistent with app theme
-  ::ng-deep {
-    .mat-mdc-table {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
-      backdrop-filter: blur(15px);
-      border-radius: 16px;
-      overflow: hidden;
-      border: none;
-      /* Remove border since wrapper has it */
-      box-shadow: none;
-      /* Remove shadow since wrapper has it */
-      width: 100%;
-    }
-
-    .mat-mdc-header-row {
-      background: linear-gradient(135deg, rgba(1, 55, 114, 0.1), rgba(0, 86, 179, 0.05));
-      backdrop-filter: blur(10px);
-
-      .mat-mdc-header-cell {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: 600;
-        color: #013772;
-        font-size: 14px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        border-bottom: 1px solid rgba(1, 55, 114, 0.1);
-        padding: 12px 16px;
-        text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
-      }
-    }
-
-    .mat-mdc-row {
-      &:nth-child(even) {
-        background: rgba(255, 255, 255, 0.6);
-      }
-
-      &:nth-child(odd) {
-        background: rgba(248, 249, 250, 0.4);
-      }
-
-      &:hover {
-        background: linear-gradient(135deg, rgba(1, 55, 114, 0.08), rgba(0, 86, 179, 0.04)) !important;
-        backdrop-filter: blur(5px);
-        transform: translateY(-1px);
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .mat-mdc-cell {
-        border-bottom: 1px solid rgba(1, 55, 114, 0.08);
-        padding: 12px 16px;
-        font-size: 15px;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        color: #333;
-        backdrop-filter: blur(5px);
-
-        // RTL alignment for Arabic name column
-        &.mat-column-personArabicName {
-          direction: rtl;
-          text-align: right;
-          unicode-bidi: embed;
-        }
-      }
-    }
-
-    // Pagination styling
-    .mat-mdc-paginator {
-      border-top: 1px solid rgba(1, 55, 114, 0.1);
-      background: linear-gradient(135deg, rgba(1, 55, 114, 0.05), rgba(0, 86, 179, 0.03));
-      backdrop-filter: blur(10px);
-      border-radius: 0 0 16px 16px;
-      color: #013772;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    // Ensure empty table styling is preserved and enhanced
-    .empty-table {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 256px;
-      width: 100%;
-      font-size: 18px;
-      color: rgba(1, 55, 114, 0.8);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
-      border: 1px solid rgba(1, 55, 114, 0.1);
-      border-radius: 12px;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: 500;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(1, 55, 114, 0.05);
-    }
-  }
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 8px 32px rgba(1, 55, 114, 0.08);
+  overflow: hidden;
 }
 
-.btn-add-contact {
-  background-color: #4caf50;
-  /* green */
-  color: white;
+::ng-deep .mat-menu-content {
+  padding: 4px 0;
 }
 
-.btn-add-contact:hover {
-  background-color: #45a049;
-  /* darker green on hover */
+.btn-edit mat-icon {
+  color: #1976d2; 
+}
+
+.btn-delete mat-icon {
+  color: #d32f2f; 
 }
 
 .btn-edit,
-.btn-edit mat-icon {
-  color: #1976d2;
-  /* blue for edit */
-}
-
-.btn-delete,
-.btn-delete mat-icon {
-  color: #f44336;
-  /* red for delete */
-}
-
-.btn-edit:hover {
-  background-color: rgba(25, 118, 210, 0.1);
-}
-
-.btn-delete:hover {
-  background-color: rgba(244, 67, 54, 0.1);
-}
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mat-icon.rotated {
-  transform: rotate(-90deg);
-  transition: transform 0.3s ease;
+.btn-delete {
+  font-weight: 500;
 }

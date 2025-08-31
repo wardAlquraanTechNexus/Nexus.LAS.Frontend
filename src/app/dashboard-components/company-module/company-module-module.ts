@@ -40,6 +40,12 @@ import { CompanyContractComponent } from './company-details-components/company-c
 import { CompanyContractFormComponent } from './company-details-components/company-contract-component/company-contract-form-component/company-contract-form-component';
 import { CompanyContractFormDialogComponent } from './company-details-components/company-contract-component/company-contract-form-dialog-component/company-contract-form-dialog-component';
 import { CompanyContractViewDialogComponent } from './company-details-components/company-contract-component/company-contract-view-dialog-component/company-contract-view-dialog-component';
+import { CompanyBankAccountComponent } from './company-details-components/company-bank-account-component/company-bank-account-component';
+import { CompanyBankAccountFormComponent } from './company-details-components/company-bank-account-component/company-bank-account-form-component/company-bank-account-form-component';
+import { CompanyBankAccountDialogFormComponent } from './company-details-components/company-bank-account-component/company-bank-account-dialog-form-component/company-bank-account-dialog-form-component';
+import { CompanyAccountSignatoryComponent } from './company-details-components/company-account-signatory-component/company-account-signatory-component';
+import { CompanyAccountSignatoryFormComponent } from './company-details-components/company-account-signatory-component/company-account-signatory-form-component/company-account-signatory-form-component';
+import { CompanyAccountSignatoryDialogFormComponent } from './company-details-components/company-account-signatory-component/company-account-signatory-dialog-form-component/company-account-signatory-dialog-form-component';
 
 
 
@@ -82,7 +88,13 @@ import { CompanyContractViewDialogComponent } from './company-details-components
     CompanyContractComponent,
     CompanyContractFormComponent,
     CompanyContractFormDialogComponent,
-    CompanyContractViewDialogComponent
+    CompanyContractViewDialogComponent,
+    CompanyBankAccountComponent,
+    CompanyBankAccountFormComponent,
+    CompanyBankAccountDialogFormComponent,
+    CompanyAccountSignatoryComponent,
+    CompanyAccountSignatoryFormComponent,
+    CompanyAccountSignatoryDialogFormComponent
   ],
   imports: [
     CommonModule,

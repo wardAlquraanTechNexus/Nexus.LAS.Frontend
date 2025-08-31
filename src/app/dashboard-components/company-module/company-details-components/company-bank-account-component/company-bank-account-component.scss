@@ -1,0 +1,71 @@
+.container {
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #555;
+  font-size: 14px;
+}
+
+.bank-card {
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.card-header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bank-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.bank-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.bank-date {
+  font-size: 14px;
+  color: #666;
+}
+
+.status.active {
+  color: #2e7d32;
+  font-weight: 500;
+  padding : 10px;
+  border: 2px solid #2e7d32;
+  border-radius: 20px;
+}
+
+.status.inactive {
+  color: #423e3ede;
+  font-weight: 500;
+  border: 2px solid #423e3ede;
+  padding : 10px;
+  border-radius: 20px;
+
+}

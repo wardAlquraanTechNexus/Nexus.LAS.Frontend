@@ -3,7 +3,7 @@
   <div class="header-actions">
       
       <!-- Add button only shows when table is visible -->
-      <button *ngIf="showTable" mat-raised-button class="btn-add-contact" (click)="onAddNew()">
+      <button *ngIf="showTable" mat-raised-button color="primary" (click)="onAddNew()">
           <mat-icon>add</mat-icon>
           Add Record
         </button>
@@ -11,8 +11,8 @@
           <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
         </button>
   </div>
+  
 </div>
-
 <app-shared-table *ngIf="showTable && !showLoading"
   [displayedColumns]="displayColumns"
   [paginateResult]="data"

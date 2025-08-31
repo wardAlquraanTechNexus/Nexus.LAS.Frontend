@@ -7,6 +7,7 @@ import { DisplayColumn } from '../models/columns/display-column';
 import { PersonStatus } from '../enums/person-status';
 import { CompanyStatus } from '../enums/company-status';
 import { CompanyContractStatus } from '../enums/company-contract-status';
+import { PersonService } from '../services/person-services/person-service';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -14,7 +15,7 @@ import { CompanyContractStatus } from '../enums/company-contract-status';
 })
 export class TableDataPipe implements PipeTransform {
 
-  constructor(private dlService: DynamicListService) { }
+  constructor(private dlService: DynamicListService, private personService: PersonService) { }
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
     if (!pipes || pipes.length === 0) {
@@ -55,6 +56,7 @@ export class TableDataPipe implements PipeTransform {
         case 'private-company':
           return of(value === true ? 'Private' : 'Public');
 
+        case 'signatory-active':
         case 'capital-active':
           return of(value === true ? 'Active' : 'Inactive');
 
@@ -109,11 +111,18 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
-        case 'authority-rule':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.authorityRule).pipe(
+        case 'rule':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.rule).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';
+            })
+          );
+        case 'person':
+          return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found?.personEnglishName || "N/A"
             })
           );
         case 'capital-currency':
