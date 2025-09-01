@@ -1,0 +1,42 @@
+<div class="modern-dialog-container">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>group_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">Company Board</h2>
+                <p class="dialog-subtitle">Enter Company Board</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+              <div class="col-6">
+                    <mat-slide-toggle formControlName="boardActive" >Active</mat-slide-toggle>
+                    
+                </div>
+                
+            </form>
+
+        </div>
+    </div>
+
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button class="save-btn" (click)="save(true)">
+            <mat-icon>save</mat-icon>
+            Save Group
+        </button>
+    </div>
+</div>

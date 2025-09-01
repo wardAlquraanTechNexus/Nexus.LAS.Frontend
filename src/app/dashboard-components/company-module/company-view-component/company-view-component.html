@@ -210,6 +210,12 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        <div class="company-overview-component">
+                            <app-company-board-component [company]="company" (rowClick)="onSelectCompanyBoard($event)"></app-company-board-component>
+                        </div>
+                        <div class="company-overview-component">
+                            <app-company-board-member-component *ngIf="showBoardMember" [companyBoardDto]="selectedCompanyBoard!"></app-company-board-member-component>
+                        </div>
                     </div>
                 </mat-tab>
 
@@ -233,6 +239,9 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                         <div class="company-overview-component">
+                            <app-shared-register-note-table [registersIdc]="company.companyIdc!" [registersIdn]="company.id"></app-shared-register-note-table>
+                        </div>
                     </div>
                 </mat-tab>
             </mat-tab-group>

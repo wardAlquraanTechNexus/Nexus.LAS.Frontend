@@ -8,6 +8,7 @@ import { LanguageCode } from '../../../models/types/lang-type';
 import { Labels } from '../../../models/consts/labels';
 import { CompanyFormDialog } from '../company-form-dialog/company-form-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { CompanyBoardDto } from '../../../models/company-models/company-board/dtos/company-board-dto';
 
 @Component({
   selector: 'app-company-view-component',
@@ -16,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './company-view-component.scss'
 })
 export class CompanyViewComponent implements OnInit {
+  selectedCompanyBoard?: CompanyBoardDto | null;
   @Output() backToTableEmit = new EventEmitter();
   company!: GetCompanyDto
   showLoading = false;
@@ -128,6 +130,16 @@ export class CompanyViewComponent implements OnInit {
         this.getCompany();
       }
     });
+  }
+
+  showBoardMember = false;
+  onSelectCompanyBoard(event:CompanyBoardDto){
+    this.selectedCompanyBoard = event;
+    this.showBoardMember = false;
+    setTimeout(()=>{
+      this.showBoardMember = true;
+      this.cdr.markForCheck();
+    })
   }
 
 }

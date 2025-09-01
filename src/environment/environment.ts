@@ -113,6 +113,7 @@ export const environment: Environment = {
     originalDocumentTypes: 1018,
     otherDocumentType: 1023,
     companyContractType: 1003,
-    rule : 1033
+    rule : 1033,
+    boardPosition: 1000
   }
 } as const;

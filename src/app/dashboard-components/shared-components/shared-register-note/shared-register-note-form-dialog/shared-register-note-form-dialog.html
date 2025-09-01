@@ -5,5 +5,5 @@
 <app-shared-register-note-form *ngIf="!showLoading"
   [registerNote]="data" 
   (saveEmitter)="onSave($event)" 
-  (cancelEditEmitter)="onCancel()">
+  (cancelEditEmitter)="onCancel($event)">
 </app-shared-register-note-form>

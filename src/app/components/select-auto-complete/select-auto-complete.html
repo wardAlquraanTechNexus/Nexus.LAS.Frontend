@@ -30,7 +30,4 @@
     </mat-option>
   </mat-select>
 
-  <mat-error *ngIf="isRequired && formGroup.get(controlName)?.hasError('required') && formGroup.get(controlName)?.touched">
-    {{ label }} is required
-  </mat-error>
 </mat-form-field>

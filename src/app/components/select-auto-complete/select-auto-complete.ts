@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PaginateRsult } from '../../models/paginate-result';
 import { Observable, Subscription } from 'rxjs';
-import { ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
+import { ControlContainer, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { LanguageService } from '../../services/language-service';
 import { Labels } from '../../models/consts/labels';
 import { Direction } from '@angular/cdk/bidi';

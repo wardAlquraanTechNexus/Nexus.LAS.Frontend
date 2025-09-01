@@ -117,6 +117,7 @@ export interface Environment {
     otherDocumentType:number;
     companyContractType: number;
     rule : number;
+    boardPosition: number;
   }
 }
 

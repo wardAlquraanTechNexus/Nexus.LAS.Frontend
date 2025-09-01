@@ -34,11 +34,6 @@ export class SharedRegisterNoteForm extends BaseFormComponent {
   }
 
 
-  onSave(event: any) {
-
-  }
-  onCancel() {
-
-  }
+ 
 
 }

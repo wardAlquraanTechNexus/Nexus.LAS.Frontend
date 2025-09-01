@@ -43,6 +43,9 @@ import { NavbarArComponent } from './navbar-components/navbar-ar-component/navba
 import { BaseDialogFormComponent } from '../dashboard-components/base-components/base-dialog-form-component/base-dialog-form-component';
 import { TableDataPipe } from '../pipes/table-data-pipe';
 import { TextPipe } from '../pipes/text-pipe';
+import { SharedRegisterNoteFormDialog } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form-dialog/shared-register-note-form-dialog';
+import { SharedRegisterNoteForm } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form/shared-register-note-form';
+import { SharedRegisterNoteTable } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-table/shared-register-note-table';
 
 
 
@@ -65,7 +68,10 @@ import { TextPipe } from '../pipes/text-pipe';
     SharedTreeComponent,
     SelectAutoComplete,
     TableDataPipe,
-    TextPipe
+    TextPipe,
+    SharedRegisterNoteTable,
+    SharedRegisterNoteForm,
+    SharedRegisterNoteFormDialog,
   ],
   imports: [
     CommonModule,
@@ -145,7 +151,10 @@ import { TextPipe } from '../pipes/text-pipe';
     MatTooltipModule,
     SharedTreeComponent,
     SelectAutoComplete,
-    BaseDialogFormComponent
+    BaseDialogFormComponent,
+    SharedRegisterNoteTable,
+    SharedRegisterNoteForm,
+    SharedRegisterNoteFormDialog,
 
   ]
 })

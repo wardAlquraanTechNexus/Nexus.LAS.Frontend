@@ -46,6 +46,12 @@ import { CompanyBankAccountDialogFormComponent } from './company-details-compone
 import { CompanyAccountSignatoryComponent } from './company-details-components/company-account-signatory-component/company-account-signatory-component';
 import { CompanyAccountSignatoryFormComponent } from './company-details-components/company-account-signatory-component/company-account-signatory-form-component/company-account-signatory-form-component';
 import { CompanyAccountSignatoryDialogFormComponent } from './company-details-components/company-account-signatory-component/company-account-signatory-dialog-form-component/company-account-signatory-dialog-form-component';
+import { CompanyBoardComponent } from './company-details-components/company-board-component/company-board-component';
+import { CompanyBoardMemberComponent } from './company-details-components/company-board-member-component/company-board-member-component';
+import { CompanyBoardFormComponent } from './company-details-components/company-board-component/company-board-form-component/company-board-form-component';
+import { CompanyBoardMemberFormComponent } from './company-details-components/company-board-member-component/company-board-member-form-component/company-board-member-form-component';
+import { CompanyBoardDialogFormComponent } from './company-details-components/company-board-component/company-board-dialog-form-component/company-board-dialog-form-component';
+import { CompanyBoardMemberDialogFormComponent } from './company-details-components/company-board-member-component/company-board-member-dialog-form-component/company-board-member-dialog-form-component';
 
 
 
@@ -94,7 +100,13 @@ import { CompanyAccountSignatoryDialogFormComponent } from './company-details-co
     CompanyBankAccountDialogFormComponent,
     CompanyAccountSignatoryComponent,
     CompanyAccountSignatoryFormComponent,
-    CompanyAccountSignatoryDialogFormComponent
+    CompanyAccountSignatoryDialogFormComponent,
+    CompanyBoardComponent,
+    CompanyBoardMemberComponent,
+    CompanyBoardFormComponent,
+    CompanyBoardMemberFormComponent,
+    CompanyBoardDialogFormComponent,
+    CompanyBoardMemberDialogFormComponent
   ],
   imports: [
     CommonModule,
