@@ -1,17 +1,16 @@
 @use '../themes/variables' as vars;
 
-// Card component styles
+// Card component styles - Reduced glassmorphism for performance
 .nexus-card {
-  background: vars.$nexus-bg-card;
-  backdrop-filter: blur(15px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
   border-radius: vars.$nexus-border-radius-lg;
-  box-shadow: vars.$nexus-shadow-md;
+  box-shadow: vars.$nexus-shadow-medium;
   border: vars.$nexus-border-width solid vars.$nexus-border-color;
   transition: all vars.$nexus-transition-normal;
   overflow: hidden;
   
   &:hover {
-    box-shadow: vars.$nexus-shadow-lg;
+    box-shadow: vars.$nexus-shadow-heavy;
     transform: translateY(-2px);
   }
 }
@@ -19,7 +18,7 @@
 .nexus-card-header {
   padding: vars.$nexus-spacing-lg;
   border-bottom: vars.$nexus-border-width solid vars.$nexus-border-color-light;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+  background: rgba(255, 255, 255, 0.8);
   
   .nexus-card-title {
     margin: 0;
@@ -58,7 +57,7 @@
   gap: vars.$nexus-spacing-md;
 }
 
-// Card variants
+// Card variants - Simplified to 3 main styles
 .nexus-card-elevated {
   box-shadow: vars.$nexus-shadow-lg;
   
@@ -76,48 +75,22 @@
   }
 }
 
-.nexus-card-outlined {
-  background: transparent;
-  backdrop-filter: none;
-  border: 2px solid vars.$nexus-border-color;
-  box-shadow: none;
-  
-  &:hover {
-    border-color: vars.$nexus-primary;
-    box-shadow: vars.$nexus-shadow-sm;
+// Status indicator - Simplified with left border only
+.nexus-card-status {
+  &.status-success {
+    border-left: 4px solid vars.$nexus-success;
   }
-}
-
-// Status cards
-.nexus-card-success {
-  border-left: 4px solid vars.$nexus-success;
   
-  .nexus-card-header {
-    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(102, 187, 106, 0.05));
+  &.status-warning {
+    border-left: 4px solid #ff9800;
   }
-}
-
-.nexus-card-warning {
-  border-left: 4px solid #ff9800;
   
-  .nexus-card-header {
-    background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 183, 77, 0.05));
+  &.status-danger {
+    border-left: 4px solid vars.$nexus-warn;
   }
-}
-
-.nexus-card-danger {
-  border-left: 4px solid vars.$nexus-warn;
   
-  .nexus-card-header {
-    background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(239, 83, 80, 0.05));
-  }
-}
-
-.nexus-card-info {
-  border-left: 4px solid vars.$nexus-info;
-  
-  .nexus-card-header {
-    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(66, 165, 245, 0.05));
+  &.status-info {
+    border-left: 4px solid vars.$nexus-info;
   }
 }
 

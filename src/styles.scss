@@ -4,6 +4,9 @@
 @use 'styles/components/buttons';
 @use 'styles/components/cards';
 @use 'styles/components/forms';
+@use 'styles/components/skeleton';
+@use 'styles/components/typography';
+@use 'styles/components/responsive';
 
 // Use auth component styles globally
 @use 'app/auth-components/shared/auth-styles';

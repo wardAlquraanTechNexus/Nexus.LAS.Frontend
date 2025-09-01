@@ -21,6 +21,118 @@
   }
 }
 
+// Auth form variant for login/register pages
+.nexus-form-auth {
+  .mat-mdc-form-field {
+    margin-bottom: vars.$nexus-spacing-sm; // Tighter spacing
+    
+    .mat-mdc-text-field-wrapper {
+      .mat-mdc-form-field-flex {
+        min-height: 48px !important; // Reduced height
+      }
+    }
+    
+    .mdc-text-field__input {
+      padding: 10px 12px !important; // Reduced padding
+    }
+  }
+  
+  // Compact header section
+  .text-center {
+    &.mb-4 {
+      margin-bottom: vars.$nexus-spacing-md !important;
+    }
+    
+    .mb-3 {
+      margin-bottom: vars.$nexus-spacing-sm !important;
+    }
+    
+    .mb-2 {
+      margin-bottom: vars.$nexus-spacing-xs !important;
+    }
+    
+    hr {
+      margin: vars.$nexus-spacing-sm 0 !important;
+    }
+  }
+  
+  // Auth-specific button styling
+  .btn-primary {
+    padding: vars.$nexus-spacing-sm vars.$nexus-spacing-md !important;
+    min-height: 44px;
+  }
+  
+  // Bottom spacing
+  .mt-5 {
+    margin-top: vars.$nexus-spacing-lg !important;
+  }
+  
+  // Logo sizing
+  .logo-img {
+    max-height: 55px !important;
+  }
+  
+  // Title sizing
+  .system-name {
+    font-size: vars.$nexus-font-size-xl !important;
+  }
+  
+  .h4 {
+    font-size: vars.$nexus-font-size-lg !important;
+    margin-bottom: vars.$nexus-spacing-xs !important;
+  }
+}
+
+// Compact form variant for data-heavy interfaces
+.nexus-form-compact {
+  .nexus-form-group {
+    margin-bottom: vars.$nexus-spacing-md; // Reduced from lg
+  }
+  
+  .mat-mdc-form-field {
+    margin-bottom: vars.$nexus-spacing-sm; // Reduced spacing
+    
+    .mdc-text-field__input {
+      padding: 12px 10px !important; // Reduced padding
+    }
+  }
+  
+  .nexus-form-label {
+    margin-bottom: 2px; // Tighter label spacing
+    font-size: vars.$nexus-font-size-xs;
+  }
+  
+  .nexus-form-row {
+    gap: vars.$nexus-spacing-sm; // Tighter grid gaps
+  }
+  
+  .nexus-form-actions {
+    margin-top: vars.$nexus-spacing-md; // Reduced top margin
+    padding-top: vars.$nexus-spacing-md;
+  }
+  
+  // Compact buttons
+  .nexus-btn {
+    padding: vars.$nexus-spacing-xs vars.$nexus-spacing-md;
+    min-height: 36px;
+  }
+  
+  // Visual separator for grouped fields
+  .nexus-form-section {
+    padding: vars.$nexus-spacing-md;
+    margin-bottom: vars.$nexus-spacing-md;
+    border-left: 3px solid vars.$nexus-border-color;
+    background: linear-gradient(90deg, rgba(1, 55, 114, 0.02) 0%, transparent 100%);
+    
+    .nexus-form-section-title {
+      font-size: vars.$nexus-font-size-sm;
+      font-weight: vars.$nexus-font-weight-semibold;
+      color: vars.$nexus-primary;
+      margin-bottom: vars.$nexus-spacing-sm;
+    }
+  }
+}
+
 // Form field groups
 .nexus-form-group {
   margin-bottom: vars.$nexus-spacing-lg;
@@ -86,13 +198,19 @@
   &:focus {
     outline: none;
     border-color: vars.$nexus-primary;
-    box-shadow: 0 0 0 2px rgba(1, 55, 114, 0.2);
+    box-shadow: 0 0 0 3px rgba(1, 55, 114, 0.15);
+  }
+  
+  &:focus-visible {
+    outline: none; // Prevent double borders
   }
   
   &:disabled {
-    background: vars.$nexus-light-gray;
-    color: vars.$nexus-medium-gray;
+    background: rgba(248, 249, 250, 0.5);
+    color: rgba(52, 58, 64, 0.6);  // Better contrast for disabled state
     cursor: not-allowed;
+    opacity: 0.7;
+    border-color: rgba(1, 55, 114, 0.15);
   }
   
   &.nexus-input-error {
@@ -179,28 +297,6 @@
     color: vars.$nexus-medium-gray;
     font-size: vars.$nexus-font-size-sm;
     margin-top: vars.$nexus-spacing-xs;
-  }
-}
-
-// Form actions
-.nexus-form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: vars.$nexus-spacing-md;
-  margin-top: vars.$nexus-spacing-xl;
-  padding-top: vars.$nexus-spacing-lg;
-  border-top: vars.$nexus-border-width solid vars.$nexus-border-color-light;
-  
-  &.nexus-form-actions-between {
-    justify-content: space-between;
-  }
-  
-  &.nexus-form-actions-center {
-    justify-content: center;
-  }
-  
-  &.nexus-form-actions-start {
-    justify-content: flex-start;
   }
 }
 

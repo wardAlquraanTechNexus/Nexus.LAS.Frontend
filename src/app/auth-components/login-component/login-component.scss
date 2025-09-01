@@ -1,3 +1,122 @@
 /* ===== LOGIN COMPONENT STYLES ===== */
 
-/* Login-specific styles can be added here if needed */
+@use '../../../styles/themes/variables' as vars;
+
+// Legal hero section for professional branding
+.legal-hero-section {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(135deg, vars.$nexus-primary 0%, vars.$nexus-primary-light 50%, vars.$nexus-primary-dark 100%);
+  display: flex;
+  align-items: center;
+  padding: vars.$nexus-spacing-xl;
+}
+
+// Subtle legal pattern overlay
+.legal-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.1;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.03) 49%, rgba(255, 255, 255, 0.03) 51%, transparent 52%);
+  background-size: 400px 400px, 300px 300px, 20px 20px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: vars.$nexus-white;
+  max-width: 500px;
+}
+
+.hero-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: vars.$nexus-border-radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: vars.$nexus-spacing-xl;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: vars.$nexus-white;
+  }
+}
+
+.hero-title {
+  font-size: vars.$nexus-font-size-3xl;
+  font-weight: vars.$nexus-font-weight-bold;
+  margin-bottom: vars.$nexus-spacing-md;
+  line-height: vars.$nexus-line-height-tight;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-subtitle {
+  font-size: vars.$nexus-font-size-lg;
+  font-weight: vars.$nexus-font-weight-light;
+  margin-bottom: vars.$nexus-spacing-xl;
+  line-height: vars.$nexus-line-height-relaxed;
+  opacity: 0.9;
+}
+
+.hero-features {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$nexus-spacing-md;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: vars.$nexus-spacing-md;
+  padding: vars.$nexus-spacing-sm 0;
+  
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  span {
+    font-size: vars.$nexus-font-size-base;
+    font-weight: vars.$nexus-font-weight-medium;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// Mobile adjustments
+@media (max-width: vars.$nexus-breakpoint-lg) {
+  .legal-hero-section {
+    display: none; // Hide hero section on mobile
+  }
+  
+  .card.nexus-form-auth {
+    margin: vars.$nexus-spacing-lg auto;
+    max-width: 400px;
+  }
+}
+
+// Ensure form is properly centered on larger screens
+@media (min-width: vars.$nexus-breakpoint-lg) {
+  .card.nexus-form-auth {
+    margin: 0 auto;
+  }
+}

@@ -1,3 +1,5 @@
+@use 'variables' as vars;
+
 // Custom theme variables for use throughout the application
 :root {
   --nexus-primary: #013772;
@@ -39,7 +41,7 @@
     backdrop-filter: blur(10px);
     border-radius: var(--nexus-border-radius) !important;
     box-shadow: var(--nexus-shadow-light);
-    transition: all 0.25s ease-in-out;
+    transition: all vars.$nexus-transition-normal;
     
     // Style the Material outline system instead of hiding it
     .mdc-notched-outline {
@@ -48,7 +50,7 @@
       .mdc-notched-outline__trailing {
         border-color: rgba(1, 55, 114, 0.1) !important;
         border-width: 1px !important;
-        transition: border-color 0.25s ease-in-out;
+        transition: border-color vars.$nexus-transition-normal;
       }
       
       .mdc-notched-outline__leading {
@@ -195,7 +197,12 @@
     // Hide placeholder by default to prevent overlap with label
     &::placeholder {
       color: transparent !important;
-      transition: color 0.2s ease;
+      transition: color vars.$nexus-transition-fast;
+    }
+    
+    // Remove custom focus-visible to avoid double borders
+    &:focus-visible {
+      outline: none !important;
     }
   }
   
@@ -238,21 +245,72 @@
   }
 }
 
-// Button styling
+// Material Button styling to match nexus theme
 .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-outlined-button {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
   border-radius: var(--nexus-border-radius) !important;
-  transition: all 0.25s ease-in-out;
+  transition: all vars.$nexus-transition-normal;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0.02em !important;
   
   &.mat-primary {
     background: linear-gradient(135deg, var(--nexus-primary), var(--nexus-primary-light)) !important;
     color: white !important;
+    box-shadow: var(--nexus-shadow-light) !important;
     
-    &:hover {
+    &:hover:not(:disabled) {
       background: linear-gradient(135deg, var(--nexus-primary-light), var(--nexus-primary)) !important;
-      box-shadow: var(--nexus-shadow-medium);
-      transform: translateY(-1px);
+      box-shadow: var(--nexus-shadow-medium) !important;
+      transform: translateY(-1px) !important;
     }
+    
+    &:disabled {
+      opacity: 0.5 !important;
+      transform: none !important;
+      filter: grayscale(0.3) !important;
+    }
+  }
+  
+  &.mat-accent {
+    background: linear-gradient(135deg, var(--nexus-success), #66bb6a) !important;
+    color: white !important;
+    box-shadow: var(--nexus-shadow-light) !important;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #66bb6a, var(--nexus-success)) !important;
+      box-shadow: var(--nexus-shadow-medium) !important;
+      transform: translateY(-1px) !important;
+    }
+  }
+  
+  &.mat-warn {
+    background: linear-gradient(135deg, var(--nexus-warn), #ef5350) !important;
+    color: white !important;
+    box-shadow: var(--nexus-shadow-light) !important;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #ef5350, var(--nexus-warn)) !important;
+      box-shadow: var(--nexus-shadow-medium) !important;
+      transform: translateY(-1px) !important;
+    }
+  }
+}
+
+// Material outlined buttons
+.mat-mdc-outlined-button {
+  border: 1px solid var(--nexus-primary) !important;
+  color: var(--nexus-primary) !important;
+  background: transparent !important;
+  
+  &:hover:not(:disabled) {
+    background: rgba(1, 55, 114, 0.05) !important;
+    border-color: var(--nexus-primary-light) !important;
+  }
+  
+  &.mat-primary {
+    border-color: var(--nexus-primary) !important;
+    color: var(--nexus-primary) !important;
   }
 }
 

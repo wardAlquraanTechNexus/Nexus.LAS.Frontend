@@ -10,27 +10,28 @@ $nexus-warn: #f44336;
 $nexus-success: #4caf50;
 $nexus-info: #2196f3;
 
-// Neutral Colors
+// Neutral Colors - Added muted text variant
 $nexus-white: #ffffff;
 $nexus-light-gray: #f8f9fa;
 $nexus-medium-gray: #6c757d;
 $nexus-dark-gray: #343a40;
 $nexus-black: #000000;
+$nexus-text-muted: #8b95a1;  // Secondary information
 
 // Background Colors
 $nexus-bg-primary: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
 $nexus-bg-card: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
 $nexus-bg-input: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
 
-// Typography
+// Typography - Enhanced contrast
 $nexus-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 $nexus-font-size-xs: 0.75rem;    // 12px
 $nexus-font-size-sm: 0.875rem;   // 14px
 $nexus-font-size-base: 1rem;     // 16px
-$nexus-font-size-lg: 1.125rem;   // 18px
-$nexus-font-size-xl: 1.25rem;    // 20px
-$nexus-font-size-2xl: 1.5rem;    // 24px
-$nexus-font-size-3xl: 1.875rem;  // 30px
+$nexus-font-size-lg: 1.25rem;    // 20px (increased from 18px)
+$nexus-font-size-xl: 1.5rem;     // 24px (increased from 20px)
+$nexus-font-size-2xl: 1.875rem;  // 30px (increased from 24px)
+$nexus-font-size-3xl: 2.25rem;   // 36px (increased from 30px)
 
 $nexus-font-weight-light: 300;
 $nexus-font-weight-normal: 400;
@@ -58,12 +59,17 @@ $nexus-border-radius-lg: 16px;
 $nexus-border-radius-xl: 20px;
 $nexus-border-radius-full: 50%;
 
-// Shadows
-$nexus-shadow-xs: 0 1px 2px rgba(1, 55, 114, 0.05);
-$nexus-shadow-sm: 0 2px 4px rgba(1, 55, 114, 0.08);
-$nexus-shadow-md: 0 4px 16px rgba(1, 55, 114, 0.1);
-$nexus-shadow-lg: 0 8px 32px rgba(1, 55, 114, 0.12);
-$nexus-shadow-xl: 0 16px 48px rgba(1, 55, 114, 0.15);
+// Shadows - Simplified to 3 levels
+$nexus-shadow-light: 0 2px 8px rgba(1, 55, 114, 0.08);   // Interactive elements
+$nexus-shadow-medium: 0 4px 16px rgba(1, 55, 114, 0.12); // Cards and containers
+$nexus-shadow-heavy: 0 8px 32px rgba(1, 55, 114, 0.16);  // Modals and overlays
+
+// Legacy shadow variables for backward compatibility
+$nexus-shadow-xs: $nexus-shadow-light;
+$nexus-shadow-sm: $nexus-shadow-light;
+$nexus-shadow-md: $nexus-shadow-medium;
+$nexus-shadow-lg: $nexus-shadow-heavy;
+$nexus-shadow-xl: $nexus-shadow-heavy;
 
 // Borders
 $nexus-border-width: 1px;

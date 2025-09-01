@@ -1,17 +1,21 @@
 <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6 col-xl-5">
-            <div class="card shadow p-4">
-                <!-- Application Logo and Branding -->
-                <div class="text-center mb-4">
-                    <div class="mb-3">
-                        <img src="assets/images/logo.jpg" alt="Legal Assistance System" class="logo-img mb-2">
-                        <h3 class="system-name mb-2">Legal Assistance System</h3>
-                        <p class="system-subtitle text-muted mb-0">Nexus LAS</p>
-                    </div>
-                    <hr class="my-3">
-                    <p class="h4 text-gray-900 mb-2">Login to your account!</p>
-                    <span class="text-muted">Welcome Back! Please enter your details</span>
-                </div>
+        <div class="col-lg-10 col-xl-10">
+            <div class="row align-items-center min-vh-100">
+                
+                <!-- Login Form Section -->
+                <div class="col-12 d-flex justify-content-center">
+                    <div class="card shadow p-4 nexus-form-auth" style="max-width: 600px; width: 100%;">
+                        <!-- Application Logo and Branding -->
+                        <div class="text-center mb-4">
+                            <div class="mb-3">
+                                <img src="assets/images/logo.jpg" alt="Legal Assistance System" class="logo-img mb-2">
+                                <h3 class="system-name mb-2">Legal Assistance System</h3>
+                                <p class="system-subtitle text-muted mb-0">Nexus LAS</p>
+                            </div>
+                            <hr class="my-3">
+                            <p class="h4 text-gray-900 mb-2">Login to your account!</p>
+                            <span class="text-muted">Welcome Back! Please enter your details</span>
+                        </div>
 
                 <form *ngIf="loginForm" class="row g-3 justify-content-center" [formGroup]="loginForm">
                     <mat-form-field class="col-12" appearance="outline">
@@ -48,7 +52,9 @@
                     <div class="col-12 text-center mt-5">
                         Don't have an account? <a routerLink="./register">Register</a>
                     </div>
-                </form>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
