@@ -51,6 +51,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
      {
       key: "sharePercent",
       label: "% of Shares",
+      pipes: ["percentage"]
     },
      {
       key: "shareHolderDate",
@@ -130,7 +131,6 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       registersIdn: 0,
       numbersOfShares: 0,
       shareHolderDate: "",
-      cessationDate: "",
       shareHolderActive: false,
       companyId: this.company.id,
     };

@@ -160,6 +160,7 @@ export class SharedTable implements OnInit, OnChanges {
           break;
 
 
+        case 'active':
         case 'company-shareholder-status':
         case 'private-person':
         case 'private-company':

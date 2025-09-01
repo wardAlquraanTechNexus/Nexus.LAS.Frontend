@@ -58,6 +58,7 @@ export class TableDataPipe implements PipeTransform {
 
         case 'signatory-active':
         case 'capital-active':
+        case 'active':
           return of(value === true ? 'Active' : 'Inactive');
 
 
@@ -70,6 +71,9 @@ export class TableDataPipe implements PipeTransform {
           return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
 
         case 'date':
+          if(!value){
+            return of("N/A")
+          }
           const date = value instanceof Date ? value : new Date(value);
           return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
 
@@ -80,6 +84,9 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+        
+        case 'percentage':
+          return of(value + "%")
 
         case 'document-nationality':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).pipe(
@@ -106,6 +113,13 @@ export class TableDataPipe implements PipeTransform {
 
         case 'company-contract-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+        case 'board-position':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.boardPosition).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';
