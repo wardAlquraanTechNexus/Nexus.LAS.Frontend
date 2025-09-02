@@ -16,6 +16,7 @@ import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environment/environment';
 import { CompanyStatus } from '../../../../enums/company-status';
+import { CompanyFormDialog } from '../../company-form-dialog/company-form-dialog';
 
 @Component({
   selector: 'app-base-companies-component',
@@ -103,8 +104,8 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
         legalTypeIdn: [''],
         placeOfRegistrationMainIdn: [''],
         placeOfRegistrationSubIdn: [''],
-        companyActivityIdn:[''],
-        companyContractTypeIdn:['']
+        companyActivityIdn: [''],
+        companyContractTypeIdn: ['']
       },
     )
 
@@ -281,13 +282,61 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
   }
 
 
-  onRowClick(event:any){
-    if(event.key == "companyCode" || event.key == "companyEnglishName" ||event.key == "companyArabicName" ||  event.key == "companyShortName" ){
+
+  onAddNew() {
+    let companyDto: GetCompanyDto = {
+      id: 0,
+      companyIdc: "",
+      companyCode: null,
+      companyEnglishName: null,
+      companyArabicName: null,
+      companyShortName: null,
+      companyStatus: 0,
+      companyTypeIdn: null,
+      companyClassIdn: null,
+      groupCompanyIdn: null,
+      relevantCompanyIdn: null,
+      legalTypeIdn: null,
+      cciNumber: null,
+      cciIssueDate: null,
+      cciExpiryDate: null,
+      cciExpiryActiveReminder: null,
+      placeOfRegistrationMainIdn: null,
+      placeOfRegistrationSubIdn: null,
+      capitalAmount: null,
+      totalShares: null,
+      numberOfPartners: null,
+      updateDate: null,
+      updateDescription: null,
+      personsIdn: null,
+      fpcCode: null,
+      private: true,
+      incorporationDate: null,
+    };
+    const dialogRef = this.dialog.open(CompanyFormDialog, {
+      disableClose: true,
+      data: companyDto
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+
+  onRowClick(event: any) {
+    if (event.key == "companyCode" || event.key == "companyEnglishName" || event.key == "companyArabicName" || event.key == "companyShortName") {
       this.router.navigate([], {
-        relativeTo: this.route, 
-        queryParams: { id: event.element.id }, 
+        relativeTo: this.route,
+        queryParams: { id: event.element.id },
       });
     }
+  }
+  showFilters = false;
+
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
   }
 
 }

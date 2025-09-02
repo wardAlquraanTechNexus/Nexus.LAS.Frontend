@@ -36,12 +36,13 @@ export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
   override displayColumns: DisplayColumn[] = [
     {
       key:"id",
-      label:"Id"
+      label:"Id",
+      pipes:["link"]
     },
     {
       key:"boardActive",
       label:"Status",
-      pipes:["active"]
+      pipes:["active", "link"]
     },
     {
       key: 'action',

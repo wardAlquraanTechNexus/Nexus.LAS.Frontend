@@ -14,10 +14,12 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { CompanyShareholderDialogFormComponent } from './company-shareholder-dialog-form-component/company-shareholder-dialog-form-component';
 import { EntityIDc } from '../../../../enums/entity-idc';
 import { CompanyCapitalService } from '../../../../services/company-services/company-capital-service';
+import { MenuService } from '../../../../services/menu-service';
+import { environment } from '../../../../../environment/environment.prod';
 
 @Component({
   selector: 'app-company-shareholder-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-shareholder-component.html',
   styleUrl: './company-shareholder-component.scss'
 })
@@ -48,26 +50,26 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       key: "numbersOfShares",
       label: "No. of shares",
     },
-     {
+    {
       key: "sharePercent",
       label: "% of Shares",
       pipes: ["percentage"]
     },
-     {
+    {
       key: "shareHolderDate",
       label: "Date Of Appointment",
-      pipes:['date']
-    }, 
+      pipes: ['date']
+    },
     {
       key: "cessationDate",
       label: "Date of Cessation",
       pipes: ["date"]
-    }, 
+    },
     {
       key: "shareHolderActive",
       label: "Shareholder Status",
-      pipes:['company-shareholder-status']
-    }, 
+      pipes: ['company-shareholder-status']
+    },
     {
       key: 'action',
       label: 'Actions'
@@ -89,7 +91,9 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private dialog: MatDialog,
-    private companyCapitalService: CompanyCapitalService
+    private companyCapitalService: CompanyCapitalService,
+    private menuService: MenuService
+
   ) {
     super(service, cdr, fb, router, errorHandler, route)
   }
@@ -98,10 +102,10 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     super.ngOnInit();
 
     this.companyCapitalService.activeCapitalUpdated$.subscribe(capital => {
-    if (capital.companyId === this.company.id) {
-      this.fetchData(); 
-    }
-  });
+      if (capital.companyId === this.company.id) {
+        this.fetchData();
+      }
+    });
   }
 
   override fetchData(): void {
@@ -183,5 +187,41 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
   }
 
 
+  onRowClick(event: any) {
+
+    let basePath: any;
+    let path: any;
+    if (event.key == "registerName") {
+      let elementIdc = event.element.registersIdc;
+      if (elementIdc == EntityIDc.Person) {
+        basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+        path =
+          this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
+      } else if (elementIdc == EntityIDc.Company) {
+        basePath = this.menuService.getMenuByPath(environment.routes.Companies);
+        path =
+          this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
+          this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies);
+      }
+      if (!basePath || !path) {
+        this.errorHandler.showWarning("You have no access to view the person");
+      } else {
+        const url = this.router.serializeUrl(
+          this.router.createUrlTree(
+            [`${basePath.path}/${path.path}`],
+            { queryParams: { id: event.element.registersIdn } }
+          )
+        );
+
+        window.open(url, '_blank');
+      }
+
+    }
+  }
 
 }

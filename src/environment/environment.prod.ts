@@ -24,11 +24,11 @@ export const environment: Environment = {
 
     // Companies module
     Companies: 'Companies',
-    AllCompanies: 'All-Companies',
-    ActiveCompanies: 'Active-Companies',
-    ActivePrivateCompanies: 'Active-Private-Companies',
-    ActivePublicCompanies: 'Active-Public-Companies',
-    InactiveCompanies: 'Inactive-Companies',
+    AllCompanies: 'all-companies',
+    ActiveCompanies: 'active-companies',
+    ActivePrivateCompanies: 'active-private-companies',
+    ActivePublicCompanies: 'active-public-companies',
+    InactiveCompanies: 'inactive-companies',
     ViewCompanies: 'view-Companies',
     AddCompany: 'add-Company',
     EditCompany: 'edit-Company',
@@ -96,7 +96,7 @@ export const environment: Environment = {
     UserGroups: 'User-Groups',
     Groups: 'Groups',
     GroupsMenus: 'GroupsMenus',
-    UserSettings:"user-settings"
+    UserSettings: "user-settings"
 
 
   },
@@ -115,7 +115,7 @@ export const environment: Environment = {
     originalDocumentTypes: 1018,
     otherDocumentType: 1023,
     companyContractType: 1003,
-    rule : 1033,
+    rule: 1033,
     boardPosition: 1000
 
 

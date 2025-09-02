@@ -10,13 +10,10 @@ import { GetCompanyDto } from '../../../../models/company-models/get-company-que
 import { GetPagingCompanyPersonInChargeQuery } from '../../../../models/company-models/company-person-in-charge/get-company-person-in-charge/get-company-person-in-charge-query';
 import { CompanyPersonInChargeDto } from '../../../../models/company-models/company-person-in-charge/get-company-person-in-charge/get-company-person-in-charge-dto';
 import { PaginateRsult } from '../../../../models/paginate-result';
-import { BaseParam } from '../../../../models/base/base-param';
 import { CompanyPersonInChargeDialogFormComponent } from './company-person-in-charge-dialog-form-component/company-person-in-charge-dialog-form-component';
 import { MatDialog } from '@angular/material/dialog';
-import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
-import { Observable } from 'rxjs';
-import { DynamicListService } from '../../../../services/dynamic-list-service';
-import { environment } from '../../../../../environment/environment';
+import { MenuService } from '../../../../services/menu-service';
+import { environment } from '../../../../../environment/environment.prod';
 
 @Component({
   selector: 'app-company-person-in-charge-component',
@@ -90,7 +87,8 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private menuService: MenuService
   ) {
     super(service, cdr, fb, router, errorHandler, route);
   }
@@ -193,6 +191,22 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
           this.showLoading = false;
         })
       })
+    } else if (event.key == "personNameEn") {
+      let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
+      let personPath =
+        this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
+
+      if (!basePersonPath || !personPath) {
+        this.errorHandler.showWarning("You have no access to view the person");
+      } else {
+        this.router.navigate([`${basePersonPath.path}/${personPath.path}`], {
+          queryParams: { id: event.element.personIdn }
+        });
+      }
+
     }
   }
 

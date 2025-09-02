@@ -52,6 +52,12 @@ import { CompanyBoardFormComponent } from './company-details-components/company-
 import { CompanyBoardMemberFormComponent } from './company-details-components/company-board-member-component/company-board-member-form-component/company-board-member-form-component';
 import { CompanyBoardDialogFormComponent } from './company-details-components/company-board-component/company-board-dialog-form-component/company-board-dialog-form-component';
 import { CompanyBoardMemberDialogFormComponent } from './company-details-components/company-board-member-component/company-board-member-dialog-form-component/company-board-member-dialog-form-component';
+import { ActiveCompaniesComponent } from './active-companies-component/active-companies-component';
+import { ActivePrivateCompaniesComponent } from './active-private-companies-component/active-private-companies-component';
+import { ActivePrivateCompaniesTableComponent } from './active-private-companies-component/active-private-companies-table-component/active-private-companies-table-component';
+import { ActivePublicCompaniesComponent } from './active-public-companies-component/active-public-companies-component';
+import { ActivePublicCompaniesTableComponent } from './active-public-companies-component/active-public-caompanies-table-component/active-public-companies-table-component';
+import { ActiveCompaniesTableComponent } from './active-companies-component/active-companies-table-component/active-companies-table-component';
 
 
 
@@ -106,7 +112,13 @@ import { CompanyBoardMemberDialogFormComponent } from './company-details-compone
     CompanyBoardFormComponent,
     CompanyBoardMemberFormComponent,
     CompanyBoardDialogFormComponent,
-    CompanyBoardMemberDialogFormComponent
+    CompanyBoardMemberDialogFormComponent,
+    ActiveCompaniesComponent,
+    ActiveCompaniesTableComponent,
+    ActivePrivateCompaniesComponent,
+    ActivePrivateCompaniesTableComponent,
+    ActivePublicCompaniesComponent,
+    ActivePublicCompaniesTableComponent
   ],
   imports: [
     CommonModule,
