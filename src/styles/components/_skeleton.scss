@@ -1,0 +1,174 @@
+@use '../themes/variables' as vars;
+
+// Skeleton loading animations for better perceived performance
+// Replace heavy blur overlays with lightweight skeleton screens
+
+// Base skeleton element
+.nexus-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(1, 55, 114, 0.05) 25%,
+    rgba(1, 55, 114, 0.1) 50%,
+    rgba(1, 55, 114, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: nexus-skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: vars.$nexus-border-radius-sm;
+  
+  // Disable any text or content
+  &::before,
+  &::after,
+  * {
+    visibility: hidden;
+  }
+}
+
+// Skeleton animation
+@keyframes nexus-skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Skeleton variants for different content types
+.nexus-skeleton-text {
+  height: vars.$nexus-font-size-base;
+  margin-bottom: vars.$nexus-spacing-sm;
+  
+  &.skeleton-heading {
+    height: vars.$nexus-font-size-xl;
+    width: 60%;
+    margin-bottom: vars.$nexus-spacing-md;
+  }
+  
+  &.skeleton-subtitle {
+    height: vars.$nexus-font-size-sm;
+    width: 40%;
+    opacity: 0.7;
+  }
+  
+  // Multiple lines
+  &.skeleton-lines {
+    &:last-child {
+      width: 80%;
+    }
+  }
+}
+
+.nexus-skeleton-button {
+  height: 40px;
+  width: 120px;
+  border-radius: vars.$nexus-border-radius-md;
+}
+
+.nexus-skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: vars.$nexus-border-radius-full;
+  
+  &.skeleton-avatar-sm {
+    width: 32px;
+    height: 32px;
+  }
+  
+  &.skeleton-avatar-lg {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.nexus-skeleton-card {
+  height: 200px;
+  border-radius: vars.$nexus-border-radius-lg;
+  margin-bottom: vars.$nexus-spacing-lg;
+}
+
+.nexus-skeleton-table-row {
+  display: flex;
+  gap: vars.$nexus-spacing-md;
+  padding: vars.$nexus-spacing-md 0;
+  border-bottom: 1px solid vars.$nexus-border-color-light;
+  
+  .skeleton-cell {
+    flex: 1;
+    height: vars.$nexus-font-size-base;
+    
+    &:first-child {
+      flex: 0 0 60px;
+    }
+    
+    &:last-child {
+      flex: 0 0 100px;
+    }
+  }
+}
+
+.nexus-skeleton-form-field {
+  height: 56px;
+  border-radius: vars.$nexus-border-radius-md;
+  margin-bottom: vars.$nexus-spacing-lg;
+}
+
+// Container for skeleton layouts
+.nexus-skeleton-container {
+  padding: vars.$nexus-spacing-lg;
+  
+  .skeleton-header {
+    display: flex;
+    align-items: center;
+    gap: vars.$nexus-spacing-md;
+    margin-bottom: vars.$nexus-spacing-xl;
+    padding-bottom: vars.$nexus-spacing-lg;
+    border-bottom: 1px solid vars.$nexus-border-color-light;
+  }
+  
+  .skeleton-content {
+    .nexus-skeleton-text {
+      max-width: 100%;
+      
+      &:nth-child(3n) {
+        width: 95%;
+      }
+      
+      &:nth-child(3n+1) {
+        width: 85%;
+      }
+      
+      &:nth-child(3n+2) {
+        width: 75%;
+      }
+    }
+  }
+}
+
+// Pulse animation variant (alternative to wave)
+.nexus-skeleton-pulse {
+  animation: nexus-skeleton-pulse 1.5s ease-in-out infinite;
+  background: rgba(1, 55, 114, 0.08);
+}
+
+@keyframes nexus-skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Usage example:
+// <div class="nexus-skeleton nexus-skeleton-text"></div>
+// <div class="nexus-skeleton nexus-skeleton-card"></div>
+// <div class="nexus-skeleton-container">
+//   <div class="skeleton-header">
+//     <div class="nexus-skeleton nexus-skeleton-avatar"></div>
+//     <div class="nexus-skeleton nexus-skeleton-text skeleton-heading"></div>
+//   </div>
+//   <div class="skeleton-content">
+//     <div class="nexus-skeleton nexus-skeleton-text"></div>
+//     <div class="nexus-skeleton nexus-skeleton-text"></div>
+//   </div>
+// </div>

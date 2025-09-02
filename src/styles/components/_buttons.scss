@@ -25,14 +25,15 @@
   }
   
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;  // Improved contrast
     cursor: not-allowed;
     transform: none;
-    box-shadow: vars.$nexus-shadow-xs;
+    box-shadow: none;
+    filter: grayscale(0.3);
   }
 }
 
-// Primary button variant
+// Streamlined button variants - 3 primary types
 .nexus-btn-primary {
   background: linear-gradient(135deg, vars.$nexus-primary, vars.$nexus-primary-light);
   color: vars.$nexus-white;
@@ -40,41 +41,49 @@
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, vars.$nexus-primary-light, vars.$nexus-primary);
   }
+  
+  &:focus-visible {
+    outline: 2px solid vars.$nexus-primary;
+    outline-offset: 2px;
+  }
 }
 
 // Secondary button variant
 .nexus-btn-secondary {
-  background: vars.$nexus-bg-card;
+  background: vars.$nexus-white;
   color: vars.$nexus-primary;
-  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  border: vars.$nexus-border-width solid vars.$nexus-primary;
   
   &:hover:not(:disabled) {
     background: vars.$nexus-light-gray;
-    border-color: vars.$nexus-primary;
+    border-color: vars.$nexus-primary-light;
+  }
+  
+  &:focus-visible {
+    outline: 2px solid vars.$nexus-primary;
+    outline-offset: 2px;
   }
 }
 
-// Success button variant
-.nexus-btn-success {
-  background: linear-gradient(135deg, vars.$nexus-success, #66bb6a);
-  color: vars.$nexus-white;
+// Ghost/Text button variant
+.nexus-btn-ghost {
+  background: transparent;
+  color: vars.$nexus-primary;
+  border: none;
+  box-shadow: none;
   
   &:hover:not(:disabled) {
-    background: linear-gradient(135deg, #66bb6a, vars.$nexus-success);
+    background: rgba(1, 55, 114, 0.05);
+    box-shadow: none;
   }
-}
-
-// Warning button variant
-.nexus-btn-warning {
-  background: linear-gradient(135deg, #ff9800, #ffb74d);
-  color: vars.$nexus-white;
   
-  &:hover:not(:disabled) {
-    background: linear-gradient(135deg, #ffb74d, #ff9800);
+  &:focus-visible {
+    outline: 2px solid vars.$nexus-primary;
+    outline-offset: 2px;
   }
 }
 
-// Danger button variant
+// Danger variant (kept for destructive actions)
 .nexus-btn-danger {
   background: linear-gradient(135deg, vars.$nexus-warn, #ef5350);
   color: vars.$nexus-white;
@@ -82,6 +91,20 @@
   &:hover:not(:disabled) {
     background: linear-gradient(135deg, #ef5350, vars.$nexus-warn);
   }
+  
+  &:focus-visible {
+    outline: 2px solid vars.$nexus-warn;
+    outline-offset: 2px;
+  }
+}
+
+// Legacy support - map old variants to new ones
+.nexus-btn-success {
+  @extend .nexus-btn-primary;
+}
+
+.nexus-btn-warning {
+  @extend .nexus-btn-secondary;
 }
 
 // Button sizes

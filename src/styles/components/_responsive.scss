@@ -1,0 +1,180 @@
+@use '../themes/variables' as vars;
+
+// Fluid Typography and Responsive Scaling
+
+// Fluid font size mixin using clamp()
+@mixin fluid-text($min-size, $preferred-size, $max-size) {
+  font-size: clamp(#{$min-size}, #{$preferred-size}, #{$max-size});
+}
+
+// Responsive typography scaling
+html {
+  // Base font size scales with viewport
+  font-size: clamp(14px, 2vw, 16px);
+  
+  @media (min-width: vars.$nexus-breakpoint-lg) {
+    font-size: 16px; // Fixed at larger screens
+  }
+}
+
+// Fluid heading sizes
+h1, .nexus-h1 {
+  @include fluid-text(1.75rem, 4vw, vars.$nexus-font-size-3xl);
+}
+
+h2, .nexus-h2 {
+  @include fluid-text(1.5rem, 3.5vw, vars.$nexus-font-size-2xl);
+}
+
+h3, .nexus-h3 {
+  @include fluid-text(1.25rem, 3vw, vars.$nexus-font-size-xl);
+}
+
+h4, .nexus-h4 {
+  @include fluid-text(1.125rem, 2.5vw, vars.$nexus-font-size-lg);
+}
+
+// Responsive spacing utilities
+.nexus-container {
+  padding: clamp(vars.$nexus-spacing-md, 3vw, vars.$nexus-spacing-xl);
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+// Touch-friendly targets on mobile
+@media (max-width: vars.$nexus-breakpoint-md) {
+  // Ensure minimum 44x44px touch targets
+  button,
+  .nexus-btn,
+  .mat-mdc-button,
+  .mat-mdc-icon-button,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  // Increase tap target spacing
+  .nexus-form-group {
+    margin-bottom: vars.$nexus-spacing-xl;
+  }
+  
+  // Larger click areas for links
+  a {
+    padding: vars.$nexus-spacing-xs;
+    margin: calc(-1 * vars.$nexus-spacing-xs);
+  }
+  
+  // Reduced border radius on mobile for more screen space
+  .nexus-card {
+    border-radius: vars.$nexus-border-radius-sm;
+  }
+  
+  .nexus-btn {
+    border-radius: vars.$nexus-border-radius-sm;
+  }
+  
+  .mat-mdc-form-field {
+    .mdc-text-field--outlined {
+      border-radius: vars.$nexus-border-radius-sm !important;
+    }
+  }
+}
+
+// Tablet adjustments
+@media (min-width: vars.$nexus-breakpoint-md) and (max-width: vars.$nexus-breakpoint-lg) {
+  // Optimize for landscape tablet viewing
+  .nexus-form-row {
+    &.nexus-form-row-4 {
+      grid-template-columns: 1fr 1fr; // 2 columns instead of 4
+    }
+  }
+  
+  .nexus-card-grid {
+    &.nexus-card-grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// Desktop optimizations
+@media (min-width: vars.$nexus-breakpoint-lg) {
+  // Wider content area for data tables
+  .nexus-container-wide {
+    max-width: 1600px;
+  }
+  
+  // Sticky headers for long forms
+  .nexus-form-header {
+    position: sticky;
+    top: 0;
+    z-index: vars.$nexus-z-sticky;
+    background: vars.$nexus-white;
+    padding: vars.$nexus-spacing-md 0;
+    margin-bottom: vars.$nexus-spacing-lg;
+    border-bottom: 1px solid vars.$nexus-border-color;
+  }
+}
+
+// High DPI displays
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  // Thinner borders for retina displays
+  .nexus-card,
+  .nexus-btn-secondary,
+  .nexus-input {
+    border-width: 0.5px;
+  }
+}
+
+// Reduced motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  // Remove transform animations
+  .nexus-btn:hover,
+  .nexus-card:hover {
+    transform: none !important;
+  }
+}
+
+// Dark mode support preparation
+@media (prefers-color-scheme: dark) {
+  // Ready for future dark mode implementation
+  // CSS variables in _theme.scss can be overridden here
+}
+
+// Print styles
+@media print {
+  // Hide non-essential elements
+  .nexus-btn,
+  .nexus-form-actions,
+  .mat-mdc-button,
+  .nexus-skeleton {
+    display: none !important;
+  }
+  
+  // Optimize for printing
+  .nexus-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid;
+  }
+  
+  // Ensure text is readable
+  body {
+    color: #000 !important;
+    background: #fff !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+}

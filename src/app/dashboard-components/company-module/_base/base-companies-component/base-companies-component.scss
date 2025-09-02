@@ -1,5 +1,8 @@
 /* Modern All-Persons Component - Consistent with App Theme */
 
+@use '../../../../../styles/themes/variables' as vars;
+@use '../../../../../styles/components/cards';
+
 // Main container with modern background
 .main-container {
   padding: 0; /* Remove padding to eliminate white space */
@@ -19,19 +22,13 @@
   }
 }
 
-// SECTION 1: Title and Records
+// SECTION 1: Title and Records - Using unified nexus-card
 .section-title {
+  @extend .nexus-card;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
-  backdrop-filter: blur(15px);
-  border-radius: 16px;
-  box-shadow: 
-    0 8px 32px rgba(1, 55, 114, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(1, 55, 114, 0.1);
+  padding: vars.$nexus-spacing-lg vars.$nexus-spacing-xl;
   margin-bottom: 0; /* Remove margin since section handles it */
   
   .title-content {
