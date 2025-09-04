@@ -95,12 +95,6 @@ This is an Angular 20+ application using Server-Side Rendering (SSR) with the fo
 - **Build requirement**: Always run `ng build` after modifying SCSS files to validate compilation
 - **Documentation**: See `src/styles/README.md` for complete styling guide
 
-##### Design Principles
-- **Simple & Clean**: Maintain minimalist design patterns with clean lines and clear visual hierarchy
-- **Reusable Components**: Create modular, composable styling that can be applied across different contexts
-- **Professional Aesthetic**: Ensure all designs meet enterprise-grade standards with consistent branding
-- **Consistent Spacing**: Use standardized margins, padding, and typography scales throughout the application
-- **Accessible Design**: Implement WCAG-compliant color contrasts and focus states for all interactive elements
 
 #### Testing
 - Jasmine/Karma setup
