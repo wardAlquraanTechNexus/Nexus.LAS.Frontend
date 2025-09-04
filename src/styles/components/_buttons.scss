@@ -1,109 +1,94 @@
 @use '../themes/variables' as vars;
 
-// Custom button styles that complement Angular Material
+// Simplified button base styles
 .nexus-btn {
   font-family: vars.$nexus-font-family;
   font-weight: vars.$nexus-font-weight-medium;
   border-radius: vars.$nexus-border-radius-md;
   transition: all vars.$nexus-transition-normal;
-  border: none;
+  border: vars.$nexus-border-width solid transparent;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  box-shadow: vars.$nexus-shadow-sm;
+  box-shadow: none;
   
   &:hover {
-    box-shadow: vars.$nexus-shadow-md;
     transform: translateY(-1px);
   }
   
   &:active {
     transform: translateY(0);
-    box-shadow: vars.$nexus-shadow-xs;
   }
   
   &:disabled {
-    opacity: 0.5;  // Improved contrast
+    opacity: 0.6;
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
-    filter: grayscale(0.3);
   }
-}
 
-// Streamlined button variants - 3 primary types
-.nexus-btn-primary {
-  background: linear-gradient(135deg, vars.$nexus-primary, vars.$nexus-primary-light);
-  color: vars.$nexus-white;
-  
-  &:hover:not(:disabled) {
-    background: linear-gradient(135deg, vars.$nexus-primary-light, vars.$nexus-primary);
-  }
-  
   &:focus-visible {
     outline: 2px solid vars.$nexus-primary;
     outline-offset: 2px;
   }
 }
 
-// Secondary button variant
+// Core button variants - 4 essential types
+.nexus-btn-primary {
+  background: vars.$nexus-primary;
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: vars.$nexus-primary-light;
+  }
+}
+
 .nexus-btn-secondary {
   background: vars.$nexus-white;
   color: vars.$nexus-primary;
-  border: vars.$nexus-border-width solid vars.$nexus-primary;
+  border-color: vars.$nexus-primary;
   
   &:hover:not(:disabled) {
     background: vars.$nexus-light-gray;
     border-color: vars.$nexus-primary-light;
   }
-  
-  &:focus-visible {
-    outline: 2px solid vars.$nexus-primary;
-    outline-offset: 2px;
-  }
 }
 
-// Ghost/Text button variant
 .nexus-btn-ghost {
   background: transparent;
   color: vars.$nexus-primary;
-  border: none;
-  box-shadow: none;
+  border-color: transparent;
   
   &:hover:not(:disabled) {
     background: rgba(1, 55, 114, 0.05);
-    box-shadow: none;
-  }
-  
-  &:focus-visible {
-    outline: 2px solid vars.$nexus-primary;
-    outline-offset: 2px;
   }
 }
 
-// Danger variant (kept for destructive actions)
 .nexus-btn-danger {
-  background: linear-gradient(135deg, vars.$nexus-warn, #ef5350);
+  background: vars.$nexus-warn;
   color: vars.$nexus-white;
   
   &:hover:not(:disabled) {
-    background: linear-gradient(135deg, #ef5350, vars.$nexus-warn);
-  }
-  
-  &:focus-visible {
-    outline: 2px solid vars.$nexus-warn;
-    outline-offset: 2px;
+    background: #e53935;
   }
 }
 
-// Legacy support - map old variants to new ones
+// Legacy support - map old variants to core types
 .nexus-btn-success {
   @extend .nexus-btn-primary;
 }
 
 .nexus-btn-warning {
+  background: #ff9800;
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: #f57c00;
+  }
+}
+
+.nexus-btn-info {
   @extend .nexus-btn-secondary;
 }
 
@@ -146,7 +131,7 @@
   }
 }
 
-// Floating action button
+// Floating action button - simplified
 .nexus-fab {
   position: fixed;
   bottom: vars.$nexus-spacing-xl;
@@ -154,20 +139,21 @@
   width: 56px;
   height: 56px;
   border-radius: vars.$nexus-border-radius-full;
-  background: linear-gradient(135deg, vars.$nexus-accent, #ba68c8);
+  background: vars.$nexus-accent;
   color: vars.$nexus-white;
   border: none;
   cursor: pointer;
-  box-shadow: vars.$nexus-shadow-lg;
+  box-shadow: vars.$nexus-shadow-medium;
   transition: all vars.$nexus-transition-normal;
   z-index: vars.$nexus-z-fixed;
   
   &:hover {
-    box-shadow: vars.$nexus-shadow-xl;
-    transform: scale(1.1);
+    background: #ba68c8;
+    box-shadow: vars.$nexus-shadow-heavy;
+    transform: translateY(-2px);
   }
   
   &:active {
-    transform: scale(1.05);
+    transform: translateY(0);
   }
 }

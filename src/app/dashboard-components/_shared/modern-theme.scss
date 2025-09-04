@@ -129,3 +129,8 @@ $shadow-heavy: vars.$nexus-shadow-lg;
 .page-title-section {
   @include page-header;
 }
+
+// Legacy support
+.glass-section {
+  @extend .simple-section;
+}

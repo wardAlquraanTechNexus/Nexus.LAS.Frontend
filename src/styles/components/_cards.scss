@@ -1,8 +1,8 @@
 @use '../themes/variables' as vars;
 
-// Card component styles - Reduced glassmorphism for performance
+// Simplified card component styles
 .nexus-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+  background: vars.$nexus-white;
   border-radius: vars.$nexus-border-radius-lg;
   box-shadow: vars.$nexus-shadow-medium;
   border: vars.$nexus-border-width solid vars.$nexus-border-color;
@@ -11,14 +11,14 @@
   
   &:hover {
     box-shadow: vars.$nexus-shadow-heavy;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 }
 
 .nexus-card-header {
   padding: vars.$nexus-spacing-lg;
   border-bottom: vars.$nexus-border-width solid vars.$nexus-border-color-light;
-  background: rgba(255, 255, 255, 0.8);
+  background: vars.$nexus-light-gray;
   
   .nexus-card-title {
     margin: 0;
@@ -51,18 +51,18 @@
 .nexus-card-footer {
   padding: vars.$nexus-spacing-md vars.$nexus-spacing-lg;
   border-top: vars.$nexus-border-width solid vars.$nexus-border-color-light;
-  background: rgba(248, 249, 250, 0.5);
+  background: vars.$nexus-light-gray;
   display: flex;
   justify-content: flex-end;
   gap: vars.$nexus-spacing-md;
 }
 
-// Card variants - Simplified to 3 main styles
+// Card variants - 2 essential styles
 .nexus-card-elevated {
-  box-shadow: vars.$nexus-shadow-lg;
+  box-shadow: vars.$nexus-shadow-heavy;
   
   &:hover {
-    box-shadow: vars.$nexus-shadow-xl;
+    box-shadow: 0 8px 40px rgba(1, 55, 114, 0.2);
   }
 }
 
@@ -71,7 +71,7 @@
   border: vars.$nexus-border-width solid vars.$nexus-border-color;
   
   &:hover {
-    box-shadow: vars.$nexus-shadow-sm;
+    box-shadow: vars.$nexus-shadow-light;
   }
 }
 

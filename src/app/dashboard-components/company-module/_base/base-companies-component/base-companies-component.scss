@@ -1,11 +1,12 @@
-/* Modern All-Persons Component - Consistent with App Theme */
+/* Simplified Companies Component - Uses unified theme classes */
 
 @use '../../../../../styles/themes/variables' as vars;
+@use '../../../../../styles/components/mixins' as mixins;
 @use '../../../../../styles/components/cards';
 
-// Main container with modern background
+// Simplified main container
 .main-container {
-  padding: 0; /* Remove padding to eliminate white space */
+  padding: 0;
   background: transparent;
   height: 100%;
   display: flex;
@@ -13,59 +14,44 @@
   overflow-y: auto;
 }
 
-// Main sections
+// Clean sections
 .section {
-  margin: 24px; /* Add margin to all sections instead of container padding */
-  
-  &:last-child {
-    margin-bottom: 24px; /* Ensure last section has bottom margin */
-  }
+  @include mixins.nexus-section;
+  margin: vars.$nexus-spacing-lg;
 }
 
-// SECTION 1: Title and Records - Using unified nexus-card
+// Clean title section
 .section-title {
   @extend .nexus-card;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: vars.$nexus-spacing-lg vars.$nexus-spacing-xl;
-  margin-bottom: 0; /* Remove margin since section handles it */
+  @include mixins.nexus-flex-between;
+  margin-bottom: 0;
   
   .title-content {
     display: flex;
-    align-items: baseline;
-    gap: 16px;
+    align-items: center;
+    gap: vars.$nexus-spacing-md;
     
     h2 {
       margin: 0;
-      color: #013772;
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-shadow: 0 1px 2px rgba(1, 55, 114, 0.1);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: vars.$nexus-primary;
+      font-size: vars.$nexus-font-size-xl;
+      font-weight: vars.$nexus-font-weight-semibold;
+      font-family: vars.$nexus-font-family;
     }
-    
   }
 }
 
 // SECTION 2: Filters and Actions
 .section-filters {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: vars.$nexus-font-family;
   
-  // Filters
+  // Simplified filters section
   .filters {
+    @include mixins.nexus-container;
     display: flex;
-    gap: 16px;
-    align-items: stretch; /* Changed from center to stretch for consistent heights */
-    flex-wrap: wrap; /* Prevent wrapping to keep filters on one line */
-    padding: 24px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
-    backdrop-filter: blur(15px);
-    border-radius: 16px;
-    box-shadow: 
-      0 8px 32px rgba(1, 55, 114, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(1, 55, 114, 0.1);
+    gap: vars.$nexus-spacing-md;
+    align-items: stretch;
+    flex-wrap: wrap;
     
     .search {
       flex: 1;

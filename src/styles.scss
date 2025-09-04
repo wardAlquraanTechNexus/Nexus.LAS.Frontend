@@ -1,12 +1,14 @@
 // Import unified Nexus theme and components
 @use 'styles/themes/theme';
 @use 'styles/themes/variables' as vars;
+@use 'styles/components/mixins';
 @use 'styles/components/buttons';
 @use 'styles/components/cards';
 @use 'styles/components/forms';
 @use 'styles/components/skeleton';
 @use 'styles/components/typography';
 @use 'styles/components/responsive';
+@use 'styles/components/utilities';
 
 // Use auth component styles globally
 @use 'app/auth-components/shared/auth-styles';

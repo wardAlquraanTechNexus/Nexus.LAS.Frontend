@@ -1,0 +1,333 @@
+@use '../themes/variables' as vars;
+
+// Reusable mixins for common patterns - Simple, consistent, professional
+
+// Container patterns
+@mixin nexus-container {
+  background: vars.$nexus-white;
+  border-radius: vars.$nexus-border-radius-lg;
+  box-shadow: vars.$nexus-shadow-medium;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  padding: vars.$nexus-spacing-lg;
+}
+
+@mixin nexus-container-flat {
+  background: vars.$nexus-white;
+  border-radius: vars.$nexus-border-radius-lg;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  padding: vars.$nexus-spacing-lg;
+}
+
+// Form patterns
+@mixin nexus-input-base {
+  width: 100%;
+  padding: vars.$nexus-spacing-md;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+  border-radius: vars.$nexus-border-radius-md;
+  background: vars.$nexus-white;
+  font-family: vars.$nexus-font-family;
+  font-size: vars.$nexus-font-size-base;
+  transition: all vars.$nexus-transition-normal;
+  
+  &:focus {
+    outline: none;
+    border-color: vars.$nexus-primary;
+    box-shadow: 0 0 0 3px rgba(1, 55, 114, 0.15);
+  }
+  
+  &:disabled {
+    background: vars.$nexus-light-gray;
+    color: vars.$nexus-medium-gray;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+@mixin nexus-form-group {
+  margin-bottom: vars.$nexus-spacing-lg;
+  
+  label {
+    display: block;
+    font-size: vars.$nexus-font-size-sm;
+    font-weight: vars.$nexus-font-weight-medium;
+    color: vars.$nexus-dark-gray;
+    margin-bottom: vars.$nexus-spacing-xs;
+  }
+  
+  .help-text {
+    font-size: vars.$nexus-font-size-xs;
+    color: vars.$nexus-medium-gray;
+    margin-top: vars.$nexus-spacing-xs;
+  }
+  
+  .error-text {
+    font-size: vars.$nexus-font-size-xs;
+    color: vars.$nexus-warn;
+    margin-top: vars.$nexus-spacing-xs;
+  }
+}
+
+// Table patterns
+@mixin nexus-table-container {
+  background: vars.$nexus-white;
+  border-radius: vars.$nexus-border-radius-lg;
+  overflow: hidden;
+  box-shadow: vars.$nexus-shadow-medium;
+  border: vars.$nexus-border-width solid vars.$nexus-border-color;
+}
+
+@mixin nexus-table-header {
+  background: vars.$nexus-light-gray;
+  border-bottom: vars.$nexus-border-width solid vars.$nexus-border-color;
+  
+  th {
+    font-family: vars.$nexus-font-family;
+    font-weight: vars.$nexus-font-weight-semibold;
+    color: vars.$nexus-primary;
+    font-size: vars.$nexus-font-size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: vars.$nexus-spacing-md;
+  }
+}
+
+@mixin nexus-table-row {
+  &:nth-child(even) {
+    background: rgba(248, 249, 250, 0.5);
+  }
+  
+  &:hover {
+    background: rgba(1, 55, 114, 0.05);
+    transition: background vars.$nexus-transition-fast;
+  }
+  
+  td {
+    padding: vars.$nexus-spacing-md;
+    font-size: vars.$nexus-font-size-base;
+    font-family: vars.$nexus-font-family;
+    color: vars.$nexus-dark-gray;
+    border-bottom: 1px solid rgba(1, 55, 114, 0.08);
+  }
+}
+
+// Button patterns
+@mixin nexus-button-base {
+  font-family: vars.$nexus-font-family;
+  font-weight: vars.$nexus-font-weight-medium;
+  border-radius: vars.$nexus-border-radius-md;
+  transition: all vars.$nexus-transition-normal;
+  border: vars.$nexus-border-width solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: vars.$nexus-spacing-sm vars.$nexus-spacing-lg;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$nexus-primary;
+    outline-offset: 2px;
+  }
+}
+
+@mixin nexus-button-primary {
+  @include nexus-button-base;
+  background: vars.$nexus-primary;
+  color: vars.$nexus-white;
+  
+  &:hover:not(:disabled) {
+    background: vars.$nexus-primary-light;
+  }
+}
+
+@mixin nexus-button-secondary {
+  @include nexus-button-base;
+  background: vars.$nexus-white;
+  color: vars.$nexus-primary;
+  border-color: vars.$nexus-primary;
+  
+  &:hover:not(:disabled) {
+    background: vars.$nexus-light-gray;
+    border-color: vars.$nexus-primary-light;
+  }
+}
+
+// Layout patterns
+@mixin nexus-section {
+  margin-bottom: vars.$nexus-spacing-lg;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@mixin nexus-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin nexus-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin nexus-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: vars.$nexus-spacing-md;
+  
+  @media (max-width: vars.$nexus-breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@mixin nexus-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: vars.$nexus-spacing-md;
+  
+  @media (max-width: vars.$nexus-breakpoint-lg) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media (max-width: vars.$nexus-breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Status patterns
+@mixin nexus-status-indicator($color) {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: $color;
+    border-radius: 0 vars.$nexus-border-radius-sm vars.$nexus-border-radius-sm 0;
+  }
+  
+  padding-left: calc(vars.$nexus-spacing-md + 4px);
+}
+
+@mixin nexus-loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: vars.$nexus-spacing-xl;
+  color: vars.$nexus-medium-gray;
+  font-family: vars.$nexus-font-family;
+}
+
+@mixin nexus-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: vars.$nexus-spacing-2xl;
+  color: vars.$nexus-medium-gray;
+  font-family: vars.$nexus-font-family;
+  text-align: center;
+  
+  .icon {
+    font-size: 48px;
+    margin-bottom: vars.$nexus-spacing-lg;
+    color: vars.$nexus-text-muted;
+  }
+  
+  .title {
+    font-size: vars.$nexus-font-size-lg;
+    font-weight: vars.$nexus-font-weight-medium;
+    margin-bottom: vars.$nexus-spacing-sm;
+    color: vars.$nexus-dark-gray;
+  }
+  
+  .description {
+    font-size: vars.$nexus-font-size-base;
+    color: vars.$nexus-medium-gray;
+  }
+}
+
+// Responsive patterns
+@mixin nexus-mobile-first {
+  @media (max-width: vars.$nexus-breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin nexus-tablet-up {
+  @media (min-width: vars.$nexus-breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin nexus-desktop-up {
+  @media (min-width: vars.$nexus-breakpoint-lg) {
+    @content;
+  }
+}
+
+// Animation patterns
+@mixin nexus-fade-in {
+  opacity: 0;
+  animation: nexusFadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes nexusFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin nexus-slide-in-up {
+  transform: translateY(20px);
+  opacity: 0;
+  animation: nexusSlideInUp 0.3s ease-out forwards;
+}
+
+@keyframes nexusSlideInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Focus and accessibility patterns
+@mixin nexus-focus-ring {
+  &:focus-visible {
+    outline: 2px solid vars.$nexus-primary;
+    outline-offset: 2px;
+    border-radius: vars.$nexus-border-radius-sm;
+  }
+}
+
+@mixin nexus-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
