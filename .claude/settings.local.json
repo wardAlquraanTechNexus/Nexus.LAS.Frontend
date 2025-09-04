@@ -13,7 +13,13 @@
       "Bash(ng generate component:*)",
       "Bash(grep:*)",
       "Bash(find:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\all-companies-component\\all-companies-table/**)",
+      "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\all-companies-component\\all-companies-table/**)",
+      "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\all-companies-component\\all-companies-table/**)",
+      "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\_base\\base-companies-component/**)",
+      "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\styles\\components/**)",
+      "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\_base\\company-table-view/**)"
     ],
     "deny": [],
     "ask": [],
