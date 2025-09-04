@@ -11,7 +11,7 @@
         <ng-container *ngIf="column.key === 'select'; else regularHeader">
           <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="masterToggle($event)" [checked]="isAllSelected()"
-              [indeterminate]="isSomeSelected()">
+              [indeterminate]="isSomeSelected()" color="primary">
             </mat-checkbox>
           </th>
         </ng-container>
@@ -34,7 +34,7 @@
           <ng-container *ngIf="column.key === 'select'; else regularCell">
             <mat-checkbox (click)="$event.stopPropagation()"
               [checked]="selection.isSelected(element) || (keyToCheck && element[keyToCheck])"
-              (change)="toggleRow($event, element)">
+              (change)="toggleRow($event, element)" color="primary">
             </mat-checkbox>
           </ng-container>
 

@@ -7,6 +7,7 @@
 @use 'styles/components/skeleton';
 @use 'styles/components/typography';
 @use 'styles/components/responsive';
+@use 'styles/components/entity-management';
 
 // Use auth component styles globally
 @use 'app/auth-components/shared/auth-styles';
@@ -54,6 +55,55 @@ body {
   @extend .nexus-card;
   padding: vars.$nexus-spacing-lg;
   margin-bottom: vars.$nexus-spacing-lg;
+}
+
+/* Global Table Rows - Striped Styling with Hover Effects */
+.nexus-entity-container .nexus-table-container .mat-mdc-table .mat-mdc-row {
+  cursor: pointer !important;
+  transition: all 0.2s ease-in-out !important;
+  position: relative !important;
+  
+  &:nth-child(even) {
+    background: rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  &:nth-child(odd) {
+    background: rgba(1, 55, 114, 0.03) !important;
+  }
+  
+  &:hover {
+    background: rgba(1, 55, 114, 0.08) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(1, 55, 114, 0.12) !important;
+    z-index: 2 !important;
+  }
+}
+
+/* Global Table Header - Professional & Consistent */
+.nexus-entity-container .nexus-table-container .mat-mdc-table .mat-mdc-header-row {
+  background: linear-gradient(135deg, rgba(1, 55, 114, 0.15), rgba(0, 86, 179, 0.1)) !important;
+  backdrop-filter: blur(15px) !important;
+  border-bottom: none !important;
+  box-shadow: 
+    0 2px 12px rgba(1, 55, 114, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.nexus-entity-container .nexus-table-container .mat-mdc-table .mat-mdc-header-cell {
+  font-family: vars.$nexus-font-family !important;
+  font-weight: vars.$nexus-font-weight-bold !important;
+  color: vars.$nexus-primary !important;
+  font-size: 14px !important;
+  letter-spacing: 0.6px !important;
+  text-transform: uppercase !important;
+  border-bottom: none !important;
+  padding: 18px 20px !important;
+  background: transparent !important;
+}
+
+.nexus-entity-container .nexus-table-container .mat-mdc-table .mat-mdc-header-cell:hover {
+  background: rgba(1, 55, 114, 0.1) !important;
+  color: rgba(1, 55, 114, 0.9) !important;
 }
 
 

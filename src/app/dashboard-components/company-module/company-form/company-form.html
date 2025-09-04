@@ -86,12 +86,12 @@
 
                 <select-auto-complete *ngIf="loadPlaceOfRegistrationMainFn" [controlName]="'placeOfRegistrationMainIdn'"
                     [fnGet]="loadPlaceOfRegistrationMainFn" [formGroup]="formGroup" [isRequired]="true"
-                    [label]="'Place Of Registration'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
+                    [label]="'Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
                     (selectEmitter)="onSelectMainRegistrtaion($event)"></select-auto-complete>
 
                 <select-auto-complete *ngIf="loadPlaceOfRegistrationSubFn" [formGroup]="formGroup"
                     [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
-                    [label]="'Sub Place Of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
+                    [label]="'Sub Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
                     [withNullOption]="false">
                 </select-auto-complete>
             </form>

@@ -346,13 +346,13 @@
   
   .mdc-switch {
     .mdc-switch__track {
-      background-color: rgba(1, 55, 114, 0.2) !important;
-      border-color: rgba(1, 55, 114, 0.2) !important;
+      background-color: rgba(108, 117, 125, 0.4) !important;
+      border-color: rgba(108, 117, 125, 0.4) !important;
     }
     
     &.mdc-switch--selected {
       .mdc-switch__track {
-        background-color: rgba(1, 55, 114, 0.5) !important;
+        background-color: var(--nexus-primary) !important;
         border-color: var(--nexus-primary) !important;
       }
       
@@ -368,9 +368,28 @@
     .mdc-switch__handle {
       .mdc-switch__ripple {
         &::before, &::after {
-          background-color: rgba(1, 55, 114, 0.3) !important;
+          background-color: rgba(108, 117, 125, 0.3) !important;
         }
       }
     }
+  }
+}
+
+// Progress Spinner and Spinner Global Colors
+.mat-mdc-progress-spinner, mat-spinner {
+  &:not([color]) {
+    --mdc-circular-progress-active-indicator-color: var(--nexus-primary) !important;
+  }
+  
+  circle {
+    stroke: var(--nexus-primary) !important;
+  }
+}
+
+.mat-mdc-progress-spinner.mat-accent, mat-spinner.mat-accent {
+  --mdc-circular-progress-active-indicator-color: var(--nexus-primary) !important;
+  
+  circle {
+    stroke: var(--nexus-primary) !important;
   }
 }

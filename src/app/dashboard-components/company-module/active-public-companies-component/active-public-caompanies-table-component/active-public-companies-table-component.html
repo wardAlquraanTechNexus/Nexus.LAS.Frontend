@@ -1,105 +1,114 @@
-<div class="main-container">
+<div class="nexus-entity-container">
 
   <!-- SECTION 1: Title and Records -->
-  <div class="section section-title">
-    <div class="title-content">
-      <h2>Active Public Companies</h2>
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-header">
+      <div class="nexus-entity-title">
+        <h2>Active Public Companies</h2>
+      </div>
+      <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="onAddNew()">
+        <mat-icon>add</mat-icon> Add Company
+      </button>
     </div>
-    <button mat-raised-button color="primary" (click)="onAddNew()">
-      <mat-icon>add</mat-icon> Add Company
-    </button>
   </div>
 
   <!-- SECTION 2: Filters and Actions -->
-  <div class="section section-filters">
-    <div class="filters">
-      <mat-form-field appearance="outline" class="search">
-        <mat-label>Search</mat-label>
-        <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="Search">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-filters">
+      <div class="nexus-filters-container">
+        <div class="nexus-search-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="Search public companies">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
 
-      <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple>
-        <mat-button-toggle [value]="false">Public</mat-button-toggle>
-        <mat-button-toggle [value]="true">Private</mat-button-toggle>
-      </mat-button-toggle-group>
+        <div class="nexus-toggle-group">
+          <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple class="nexus-toggle-compact">
+            <mat-button-toggle [value]="false">Public</mat-button-toggle>
+            <mat-button-toggle [value]="true">Private</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
 
-    </div>
-    <div class="filter-bar">
-      <span class="filter-label">Filters</span>
-      <button mat-icon-button (click)="toggleFilters()" aria-label="Show/Hide Filters">
-        <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
-      </button>
-    </div>
-    <div class="additional-filters" *ngIf="showFilters">
+        <div class="nexus-filter-actions">
+          <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
+            <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
+            Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Advanced Filters Section -->
+      <div class="additional-filters" *ngIf="showFilters">
 
       <div class="section">
         <div class="section-header">
-          <h3>Company Filters</h3>
+          <h3>Companies Advanced Filter</h3>
         </div>
         <div class="section-body">
 
           <!-- Basic Information -->
           <div class="row mb-3">
-            <div class="col-4">
+            <div >
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Capital Amount</mat-label>
                 <input matInput [(ngModel)]="params.capitalAmount" (keyup.enter)="search()">
               </mat-form-field>
             </div>
-            <div class="col-4">
+            <div >
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Total Shares</mat-label>
                 <input matInput [(ngModel)]="params.totalShares" (keyup.enter)="search()">
               </mat-form-field>
             </div>
-            <div class="col-4">
+            <div >
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Number Of Partners</mat-label>
+                <mat-label>Number of Partners</mat-label>
                 <input matInput [(ngModel)]="params.numberOfPartners" (keyup.enter)="search()">
               </mat-form-field>
             </div>
 
-            <div class="col-4" *ngIf="loadCompanyTypesFn">
+            <div  *ngIf="loadCompanyTypesFn">
               <select-auto-complete [controlName]="'companyTypeIdn'" [fnGet]="loadCompanyTypesFn"
                 [formGroup]="formGroup" [label]="'Company Type'" [keyToShow]="'name'" [valueKey]="'id'"
                 (selectEmitter)="onSelectCompanyType($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
-            <div class="col-4" *ngIf="loadCompanyClassesFn">
+            <div  *ngIf="loadCompanyClassesFn">
               <select-auto-complete [controlName]="'companyClassIdn'" [fnGet]="loadCompanyClassesFn"
                 [formGroup]="formGroup" [label]="'Company Class'" [keyToShow]="'name'" [valueKey]="'id'"
                 (selectEmitter)="onSelectCompanyClass($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
-            <div class="col-4">
+            <div >
               <select-auto-complete *ngIf="loadCompanyLegalsFn" [controlName]="'legalTypeIdn'"
                 [fnGet]="loadCompanyLegalsFn" [formGroup]="formGroup" [label]="'Legal Form'" [keyToShow]="'name'"
                 [valueKey]="'id'" (selectEmitter)="onSelectCompanyLegalType($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
-            <div class="col-4">
+            <div >
               <select-auto-complete *ngIf="loadActivitiesFn" [controlName]="'companyActivityIdn'"
                 [fnGet]="loadActivitiesFn" [formGroup]="formGroup" [label]="'Company Activity'" [keyToShow]="'name'"
                 [valueKey]="'id'" (selectEmitter)="onSelectCompanyActivity($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
-            <div class="col-4">
+            <div >
               <select-auto-complete *ngIf="loadContractTypesFn" [controlName]="'companyContractTypeIdn'"
                 [fnGet]="loadContractTypesFn" [formGroup]="formGroup" [label]="'Contract Type'" [keyToShow]="'name'"
                 [valueKey]="'id'" (selectEmitter)="onSelectContractType($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
 
-            <div class="col-4" *ngIf="loadPlaceOfRegistrationFn">
+            <div  *ngIf="loadPlaceOfRegistrationFn">
               <select-auto-complete [controlName]="'placeOfRegistrationMainIdn'" [fnGet]="loadPlaceOfRegistrationFn"
-                [formGroup]="formGroup" [label]="'Place Of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
+                [formGroup]="formGroup" [label]="'Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
                 (selectEmitter)="onSelectMainRegistrtaion($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
-            <div class="col-4" *ngIf="loadPlaceOfRegistrationSubFn">
+            <div  *ngIf="loadPlaceOfRegistrationSubFn">
               <select-auto-complete [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
-                [formGroup]="formGroup" [label]="'Place Of Registration Sub'" [keyToShow]="'name'" [valueKey]="'id'"
+                [formGroup]="formGroup" [label]="'Place of Registration Sub'" [keyToShow]="'name'" [valueKey]="'id'"
                 (selectEmitter)="onSelectSubRegistrtaion($event)" [withNullOption]="true">
               </select-auto-complete>
             </div>
@@ -109,71 +118,73 @@
 
       </div>
 
-
-
-
-
-
-      <div class="bulk-actions" *ngIf="selectedCompanies.length">
-        <span>{{ selectedCompanies.length }} selected</span>
-        <div class="bulk-buttons" *ngIf="currentMenu?.canUpdate">
-          <button mat-button (click)="bulkChangeStatus(activeStatus)">
+      <!-- Bulk Actions -->
+      <div class="nexus-bulk-actions" *ngIf="selectedCompanies.length">
+        <span class="nexus-bulk-count">{{ selectedCompanies.length }} selected</span>
+        <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
+          <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
             <mat-icon>check_circle</mat-icon> Activate
           </button>
-          <button mat-button (click)="bulkChangeStatus(inActiveStatus)">
+          <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inActiveStatus)">
             <mat-icon>cancel</mat-icon> Deactivate
           </button>
-          <button mat-button (click)="bulkChangePrivate(false)">
+          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
             <mat-icon>visibility</mat-icon> Public
           </button>
-          <button mat-button (click)="bulkChangePrivate(true)">
+          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
             <mat-icon>visibility_off</mat-icon> Private
           </button>
         </div>
       </div>
     </div>
+    </div>
+  </div>
 
-    <!-- SECTION 3: Data Grid -->
-    <div class="section section-data">
+  <!-- SECTION 3: Data Grid -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-data">
       <!-- Loading -->
-      <div *ngIf="showLoading" class="loading">
+      <div *ngIf="showLoading" class="nexus-loading">
         <mat-spinner></mat-spinner>
       </div>
 
       <!-- Table -->
-      <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-        [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
-        (selectionChange)="onSelectionChange($event)" (rowClick)="onRowClick($event)">
-      </app-shared-table>
+      <div class="nexus-table-container" *ngIf="!showLoading">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
+          [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+          (selectionChange)="onSelectionChange($event)" (rowClick)="onRowClick($event)">
+        </app-shared-table>
+      </div>
     </div>
-
-    <!-- Row Actions -->
-    <ng-template #actionButtonsTemplate let-row>
-      <button mat-icon-button [matMenuTriggerFor]="menuRow">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menuRow="matMenu">
-        <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)">
-          <mat-icon class="icon-activate">check_circle</mat-icon> Activate
-        </button>
-
-        <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)">
-          <mat-icon class="icon-deactivate">cancel</mat-icon> Deactivate
-        </button>
-
-        <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)">
-          <mat-icon class="icon-public">visibility</mat-icon> Public
-        </button>
-
-        <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
-          <mat-icon class="icon-private">visibility_off</mat-icon> Private
-        </button>
-
-        <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteCompany(row)">
-          <mat-icon class="icon-delete">delete</mat-icon> Delete
-        </button>
-
-      </mat-menu>
-    </ng-template>
-
   </div>
+
+  <!-- Row Actions -->
+  <ng-template #actionButtonsTemplate let-row>
+    <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
+        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> Activate
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)" class="nexus-menu-item nexus-menu-warning">
+        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> Deactivate
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)" class="nexus-menu-item nexus-menu-info">
+        <mat-icon class="nexus-icon-public">visibility</mat-icon> Public
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)" class="nexus-menu-item nexus-menu-neutral">
+        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> Private
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteCompany(row)" class="nexus-menu-item nexus-menu-danger">
+        <mat-icon class="nexus-icon-delete">delete</mat-icon> Delete
+      </button>
+
+    </mat-menu>
+  </ng-template>
+
+</div>

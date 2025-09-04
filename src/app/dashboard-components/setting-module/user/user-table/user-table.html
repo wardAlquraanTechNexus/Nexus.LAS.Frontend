@@ -1,70 +1,85 @@
-<div class="main-container">
+<div class="nexus-entity-container">
 
   <!-- SECTION 1: Title and Records -->
-  <div class="section section-title">
-    <div class="title-content">
-      <h2>Users</h2>
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-header">
+      <div class="nexus-entity-title">
+        <h2>Users</h2>
+      </div>
     </div>
   </div>
 
   <!-- SECTION 2: Filters and Actions -->
-  <div class="section section-filters">
-    <div class="filters">
-      <mat-form-field appearance="outline" class="search">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" placeholder="Enter username">
-      </mat-form-field>
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-filters">
+      <div class="nexus-filters-container">
+        <div class="nexus-search-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" placeholder="Enter username">
+          </mat-form-field>
+        </div>
 
-      <mat-form-field appearance="outline" class="search">
-        <mat-label>First Name</mat-label>
-        <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" placeholder="Enter first name">
-      </mat-form-field>
+        <div class="nexus-filter-field">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" placeholder="Enter first name">
+          </mat-form-field>
+        </div>
 
-      <mat-form-field appearance="outline" class="search">
-        <mat-label>Last Name</mat-label>
-        <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" placeholder="Enter last name">
-      </mat-form-field>
+        <div class="nexus-filter-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" placeholder="Enter last name">
+          </mat-form-field>
+        </div>
 
-      <mat-form-field appearance="outline" class="search">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" placeholder="Enter email">
-      </mat-form-field>
+        <div class="nexus-filter-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" placeholder="Enter email">
+          </mat-form-field>
+        </div>
 
-      <div class="actions">
-        <button mat-button (click)="search()">
-          <mat-icon>search</mat-icon> Search
-        </button>
+        <div class="nexus-filter-actions">
+          <button mat-stroked-button class="nexus-btn nexus-btn-primary" (click)="search()">
+            <mat-icon>search</mat-icon> Search
+          </button>
+        </div>
 
       </div>
-
     </div>
   </div>
 
   <!-- SECTION 3: Data Grid -->
-  <div class="section section-data">
-    <!-- Loading -->
-    <div *ngIf="showLoading" class="loading">
-      <mat-spinner></mat-spinner>
-    </div>
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-data">
+      <!-- Loading -->
+      <div *ngIf="showLoading" class="nexus-loading">
+        <mat-spinner></mat-spinner>
+      </div>
 
-    <!-- Table -->
-    <app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-      [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
-    </app-shared-table>
+      <!-- Table -->
+      <div class="nexus-table-container" *ngIf="!showLoading">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
+          [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+        </app-shared-table>
+      </div>
+    </div>
   </div>
 
-  <!-- Row Menu Template -->
+  <!-- Row Actions -->
   <ng-template #actionButtonsTemplate let-row>
-    <button mat-icon-button [matMenuTriggerFor]="menuRow">
+    <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
       <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu #menuRow="matMenu">
-      <!-- <button mat-menu-item>
-        <mat-icon>edit</mat-icon>
+    <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+      <!-- <button mat-menu-item class="nexus-menu-item nexus-menu-info">
+        <mat-icon class="nexus-icon-edit">edit</mat-icon>
         <span>Edit</span>
       </button>
-      <button mat-menu-item>
-        <mat-icon>delete</mat-icon>
+      <button mat-menu-item class="nexus-menu-item nexus-menu-danger">
+        <mat-icon class="nexus-icon-delete">delete</mat-icon>
         <span>Delete</span>
       </button> -->
     </mat-menu>

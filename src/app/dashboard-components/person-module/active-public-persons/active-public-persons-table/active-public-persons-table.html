@@ -1,117 +1,113 @@
-<div class="main-container">
+<div class="nexus-entity-container">
 
-<!-- SECTION 1: Title and Records -->
-<div class="section section-title">
-  <div class="title-content">
-    <h2>Active Public Persons</h2>
-  </div>
-  <button *ngIf="currentMenu?.canInsert" mat-raised-button color="primary" (click)="openAddDialog()">
-    <mat-icon>add</mat-icon> Add Person
-  </button>
-</div>
-
-<!-- SECTION 2: Filters and Actions -->
-<div class="section section-filters">
-  <!-- Filters -->
-  <div class="filters" *ngIf="!selectedPersons.length">
-    <mat-form-field appearance="outline" class="search">
-      <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-
-    <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
-        [formGroup]="formGroup" [label]="'Nationality'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
-        (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
-      </select-auto-complete>
-
-        <mat-form-field appearance="outline" class="search">
-        <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()" placeholder="Is Ld Staff">
-          <mat-option [value]="null">All</mat-option>
-          <mat-option [value]="true">Yes</mat-option>
-          <mat-option [value]="false">No</mat-option>
-          
-        </mat-select>
-      </mat-form-field>
-    <div class="actions">
-      <button mat-button (click)="exportToExcel()">
-        <mat-icon>download</mat-icon> Export
-      </button>
-      <button mat-icon-button [matMenuTriggerFor]="columnMenu">
-        <mat-icon>settings</mat-icon>
+  <!-- SECTION 1: Title and Records -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-header">
+      <div class="nexus-entity-title">
+        <h2>Active Public Persons</h2>
+      </div>
+      <button *ngIf="currentMenu?.canInsert" mat-raised-button class="nexus-btn nexus-btn-primary" (click)="openAddDialog()">
+        <mat-icon>add</mat-icon> Add Person
       </button>
     </div>
+  </div>
 
-    <mat-menu #columnMenu="matMenu" [hasBackdrop]="false">
-      <!-- <div class="column-settings" (click)="$event.stopPropagation()">
-        <mat-slide-toggle [(ngModel)]="columns.code">Code</mat-slide-toggle>
-        <mat-slide-toggle [(ngModel)]="columns.nameEn">Name En</mat-slide-toggle>
-        <mat-slide-toggle [(ngModel)]="columns.nameAr">Name Ar</mat-slide-toggle>
-        <mat-slide-toggle [(ngModel)]="columns.status">Status</mat-slide-toggle>
-        <mat-slide-toggle [(ngModel)]="columns.private">Private</mat-slide-toggle>
-      </div> -->
+  <!-- SECTION 2: Filters and Actions -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-filters">
+      <!-- Filters -->
+      <div class="nexus-filters-container" *ngIf="!selectedPersons.length">
+        <div class="nexus-search-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="Search active public persons">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="nexus-filter-field">
+          <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
+            [formGroup]="formGroup" [label]="'Nationality'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+            (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
+          </select-auto-complete>
+        </div>
+
+        <div class="nexus-filter-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Is Ld Staff</mat-label>
+            <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()">
+              <mat-option [value]="null">All</mat-option>
+              <mat-option [value]="true">Yes</mat-option>
+              <mat-option [value]="false">No</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="nexus-filter-actions">
+          <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
+            <mat-icon>download</mat-icon> Export
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Bulk Actions -->
+      <div class="nexus-bulk-actions" *ngIf="selectedPersons.length">
+        <span class="nexus-bulk-count">{{ selectedPersons.length }} selected</span>
+        <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
+          <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
+            <mat-icon>check_circle</mat-icon> Activate
+          </button>
+          <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inactiveStatus)">
+            <mat-icon>cancel</mat-icon> Deactivate
+          </button>
+          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
+            <mat-icon>visibility_off</mat-icon> Mark Private
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Data Grid -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-data">
+      <!-- Loading -->
+      <div *ngIf="showLoading" class="nexus-loading">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- Table -->
+      <div class="nexus-table-container" *ngIf="!showLoading">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
+          [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (rowClick)="onRowClick($event)"
+          (onSortChangeEvent)="changeSort($event)" (selectionChange)="onSelectionChange($event)">
+        </app-shared-table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row Actions -->
+  <ng-template #actionButtonsTemplate let-row>
+    <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
+        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> Activate
+      </button>
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)" class="nexus-menu-item nexus-menu-warning">
+        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> Deactivate
+      </button>
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)" class="nexus-menu-item nexus-menu-info">
+        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> Mark Private
+      </button>
+      <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
+        <mat-icon class="nexus-icon-print">print</mat-icon> Print
+      </button>
+      <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)" class="nexus-menu-item nexus-menu-danger">
+        <mat-icon class="nexus-icon-delete">delete</mat-icon> Delete
+      </button>
     </mat-menu>
-  </div>
-
-  <!-- Bulk Actions -->
-  <div class="bulk-actions" *ngIf="selectedPersons.length">
-    <span>{{ selectedPersons.length }} selected</span>
-    <div class="bulk-buttons" *ngIf="currentMenu?.canUpdate">
-      <button mat-button (click)="bulkChangeStatus(activeStatus)">
-        <mat-icon>check_circle</mat-icon> Activate
-      </button>
-      <button mat-button (click)="bulkChangeStatus(inactiveStatus)">
-        <mat-icon>cancel</mat-icon> Deactivate
-      </button>
-      <button mat-button (click)="bulkChangePrivate(true)">
-        <mat-icon>visibility_off</mat-icon> Mark Private
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION 3: Data Grid -->
-<div class="section section-data">
-  <!-- Loading -->
-  <div *ngIf="showLoading" class="loading">
-    <mat-spinner></mat-spinner>
-  </div>
-
-  <!-- Table -->
-  <app-shared-table 
-    *ngIf="!showLoading" 
-    [displayedColumns]="displayColumns" 
-    [paginateResult]="data"
-    [action]="actionButtonsTemplate" 
-    (onChangePage)="changePage($event)" 
-    (rowClick)="onRowClick($event)"
-    (onSortChangeEvent)="changeSort($event)" 
-    (selectionChange)="onSelectionChange($event)">
-  </app-shared-table>
-</div>
-
-<!-- Row Actions -->
-<ng-template #actionButtonsTemplate let-row>
-  <button mat-icon-button [matMenuTriggerFor]="menuRow">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menuRow="matMenu">
-    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)">
-      <mat-icon>check_circle</mat-icon> Activate
-    </button>
-    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)">
-      <mat-icon>cancel</mat-icon> Deactivate
-    </button>
-    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)">
-      <mat-icon>visibility_off</mat-icon> Mark Private
-    </button>
-    <button mat-menu-item (click)="exportToPdf(row.id)">
-      <mat-icon>print</mat-icon> Print
-    </button>
-    <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)">
-      <mat-icon>delete</mat-icon> Delete
-    </button>
-  </mat-menu>
-</ng-template>
+  </ng-template>
 
 </div>

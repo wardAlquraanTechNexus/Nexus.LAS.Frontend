@@ -1,0 +1,16 @@
+/* All Companies Component - Using Nexus Entity Management Styles */
+
+// This component uses the shared Nexus entity management styles
+// Available through src/styles/components/_entity-management.scss
+
+// Use these standard classes in your template:
+// - .nexus-entity-container (main container)
+// - .nexus-entity-section (section wrapper) 
+// - .nexus-entity-header (page header)
+// - .nexus-entity-filters (filters section)
+// - .nexus-entity-data (table section)
+
+// Component-specific styles only if needed
+.all-companies-specific {
+  // Add only styles that are unique to this specific component
+}
