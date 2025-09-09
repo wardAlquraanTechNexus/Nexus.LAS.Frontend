@@ -71,7 +71,7 @@ export class TableDataPipe implements PipeTransform {
           return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
 
         case 'date':
-          if(!value){
+          if (!value) {
             return of("N/A")
           }
           const date = value instanceof Date ? value : new Date(value);
@@ -84,12 +84,12 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
-        
+
         case 'percentage':
           return of(value + "%")
 
         case 'document-nationality':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).pipe(
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.country).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';
@@ -108,6 +108,25 @@ export class TableDataPipe implements PipeTransform {
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';
+            })
+          );
+        case 'designation':
+          // value can be a comma-separated string like "1,2,3" or an array [1,2,3]
+          const ids = Array.isArray(value)
+            ? value
+            : typeof value === 'string'
+              ? value.split(',').map(v => v.trim()).filter(v => v !== '')
+              : [value];
+
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.designation).pipe(
+            map(list => {
+              const names = ids
+                .map(id => {
+                  const found = list.find(x => x.id == id);
+                  return found ? found.name : '';
+                })
+                .filter(name => name); // remove empty names
+              return names.join(', ');
             })
           );
 

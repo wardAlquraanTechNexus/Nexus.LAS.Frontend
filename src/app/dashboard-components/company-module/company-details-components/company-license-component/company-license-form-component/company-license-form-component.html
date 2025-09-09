@@ -71,15 +71,15 @@
                 </div>
                 <!-- Primary License -->
                 <div class="col-12">
-                    <mat-checkbox formControlName="licensePrimary">
+                    <mat-slide-toggle formControlName="licensePrimary">
                        Is Primary License
-                    </mat-checkbox>
+                    </mat-slide-toggle>
                 </div>
                 <!-- Expiry Reminder -->
                 <div class="col-12">
-                    <mat-checkbox formControlName="licenseExpiryActiveReminder">
+                    <mat-slide-toggle formControlName="licenseExpiryActiveReminder">
                         Enable Expiry Reminder
-                    </mat-checkbox>
+                    </mat-slide-toggle>
                 </div>
 
             </form>
@@ -95,7 +95,7 @@
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save Group
+            Save
         </button>
     </div>
 </div>

@@ -103,7 +103,6 @@ export interface Environment {
   routes: Routes;
 
   rootDynamicLists: {
-    nationality:number,
     companyType:number,
     companyClass:number,
     groupCompany:number,
@@ -118,6 +117,8 @@ export interface Environment {
     companyContractType: number;
     rule : number;
     boardPosition: number;
+    designation : number;
+    country: number;
   }
 }
 

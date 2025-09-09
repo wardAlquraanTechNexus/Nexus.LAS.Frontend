@@ -46,8 +46,19 @@ import { TextPipe } from '../pipes/text-pipe';
 import { SharedRegisterNoteFormDialog } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form-dialog/shared-register-note-form-dialog';
 import { SharedRegisterNoteForm } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form/shared-register-note-form';
 import { SharedRegisterNoteTable } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-table/shared-register-note-table';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'dd/MM/yyyy',
+    monthYearLabel: 'MMM yyyy',
+    dateA11yLabel: 'dd/MM/yyyy',
+    monthYearA11yLabel: 'MMMM yyyy',
+  },
+};
 
 
 @NgModule({
@@ -156,6 +167,10 @@ import { SharedRegisterNoteTable } from '../dashboard-components/shared-componen
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
 
+  ],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ]
 })
 export class ComponentsModule { }

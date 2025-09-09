@@ -44,7 +44,8 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     },
     {
       key: "designation",
-      label: "Designation"
+      label: "Designation",
+      pipes: ['designation']
     },
     {
       key: "authorityRule",
@@ -135,7 +136,8 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
       personInChargeDate: "",
       cessationDate: "",
       personInChargeActive: false,
-      personIdn: null
+      personIdn: null,
+      designations: [],
     };
     const dialogRef = this.dialog.open(CompanyPersonInChargeDialogFormComponent, {
       disableClose: true,

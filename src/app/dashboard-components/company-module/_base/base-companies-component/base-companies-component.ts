@@ -41,7 +41,9 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     private: null,
     status: null,
     page: 0,
-    pageSize: 10
+    pageSize: 10,
+    orderBy: 'id',
+    orderDir: 'desc'
   }
 
   columns = {
@@ -337,6 +339,37 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
 
   toggleFilters() {
     this.showFilters = !this.showFilters;
+  }
+
+    getAuditTooltip(person: any): string {
+    const createdBy = person?.createdBy || 'N/A';
+    const createdAt = person?.createdAt ? new Date(person.createdAt).toLocaleDateString('en-GB') : 'N/A';
+    const modifiedBy = person?.modifiedBy || 'N/A';
+    const modifiedAt = person?.modifiedAt ? new Date(person.modifiedAt).toLocaleDateString('en-GB') : 'N/A';
+
+    return `Created by: ${createdBy}\nCreated at: ${createdAt}\n\nModified by: ${modifiedBy}\nModified at: ${modifiedAt}`;
+  }
+
+   exportToExcel() {
+    this.service.exportToExcel(this.params).subscribe(res => {
+      // Assuming res.data is base64 string:
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      const blob = new Blob([bytes], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = res.fileName || 'export.xlsx';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
   }
 
 }

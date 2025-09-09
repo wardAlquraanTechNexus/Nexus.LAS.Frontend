@@ -18,6 +18,7 @@ import { environment } from '../../../../../../environment/environment';
 export class CompanyCapitalFormComponent  extends BaseFormComponent {
   @Input() element!: CompanyCapitalDto;
   loadCurrenciesTypeFn!: (search: string) => Observable<DynamicList[]>;
+  loadClassOfSharesFn!: (search: string) => Observable<DynamicList[]>;
 
   
   constructor(

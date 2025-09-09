@@ -25,6 +25,7 @@ export class SelectAutoComplete implements OnInit, OnChanges, OnDestroy {
   @Input() label!: string;
   @Input() valueKey!: string;
   @Input() searchText!: string;
+  @Input() isMultiple: boolean = false;
 
   @Output() selectEmitter = new EventEmitter<any>();
 
@@ -79,8 +80,10 @@ export class SelectAutoComplete implements OnInit, OnChanges, OnDestroy {
   }
 
   selectionChange(event: any) {
-    this.selectEmitter.emit(event.value);
-  }
+    let value = event.value;
+    
+    this.selectEmitter.emit(value);
+  } 
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

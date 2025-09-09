@@ -8,6 +8,7 @@ import { DynamicList } from '../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
+import { Company } from '../../../models/company-models/company';
 
 @Component({
   selector: 'app-company-form',
@@ -40,6 +41,16 @@ export class CompanyForm extends BaseFormComponent {
   ) {
     super(fb, cdr, sanitizer, errorHandler);
   }
+  onDateInput(event: any) {
+  const value = event.target.value; // dd/MM/yyyy
+  const parts = value.split('/');
+  if (parts.length === 3) {
+    const day = +parts[0];
+    const month = +parts[1] - 1;
+    const year = +parts[2];
+    this.formGroup.get('incorporationDate')?.setValue(new Date(year, month, day));
+  }
+}
 
   override ngOnInit(): void {
     this.setup(this.company);

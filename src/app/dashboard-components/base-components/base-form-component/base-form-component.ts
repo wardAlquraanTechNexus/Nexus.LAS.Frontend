@@ -15,12 +15,12 @@ import { LoadingStateService } from '../../../services/loading-state.service';
   templateUrl: './base-form-component.html',
   styleUrl: './base-form-component.scss'
 })
-export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnInit, OnDestroy {
+export class BaseFormComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
   uploadedFile: File | null = null;
-  @Input() object: T | null = null;
+  @Input() object:  | null = null;
   @Input() validationRules: { [key: string]: ValidatorFn[] } = {};
   @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelEditEmitter: EventEmitter<void> = new EventEmitter<void>();
@@ -43,7 +43,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
     this.loadingService = loadingService || new LoadingStateService();
   }
 
-  protected setup(object: T): void {
+  protected setup(object: any): void {
     this.object = object;
   }
 

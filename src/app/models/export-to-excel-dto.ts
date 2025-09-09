@@ -1,4 +1,4 @@
-export interface ExportPersonToExcel{
+export interface ExportToExcel{
     fileName:string;
     data:string;
 }

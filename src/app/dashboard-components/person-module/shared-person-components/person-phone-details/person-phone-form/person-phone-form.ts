@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PersonPhone } from '../../../../../models/person-models/person-phone/person-phone';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
@@ -34,6 +34,16 @@ export class PersonPhoneForm extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.personPhone);
     super.ngOnInit();
+    if (this.formGroup && this.formGroup.get('phoneNumber')) {
+      const ctrl = this.formGroup.get('phoneNumber');
+      const existingValidators = ctrl?.validator ? [ctrl.validator] : [];
+      ctrl?.setValidators([
+        ...existingValidators,    
+        Validators.minLength(6),
+        Validators.maxLength(14)
+      ]);
+      ctrl?.updateValueAndValidity();
+    }
     this.loadPersonsPhonesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.PersonsPhonesTypes, search)
 
   }

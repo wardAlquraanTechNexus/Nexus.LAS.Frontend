@@ -8,7 +8,7 @@ import { PaginateRsult } from '../../models/paginate-result';
 import { GetAllActivePersonQuery } from '../../models/person-models/get-all-active-person-query';
 import { BulkChangeStatusCommand } from '../../models/person-models/bulk-change-status-command';
 import { BulkChangePrivateCommand } from '../../models/person-models/bulk-change-private-command';
-import { ExportPersonToExcel } from '../../models/person-models/export-person-to-excel-dto';
+import {  ExportToExcel } from '../../models/export-to-excel-dto';
 import { ExportPersonToPdf } from '../../models/person-models/export-person-to-pdf-dto';
 import { UploadPersonImageCommand } from '../../models/person-models/upload-person-image/upload-person-image-command';
 import { UploadImageDto } from '../../models/base/upload-image-dto';
@@ -68,9 +68,9 @@ export class PersonService extends BaseService<Person> {
     return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
   }
 
-  exportPersonToExcel(filter: any): Observable<ExportPersonToExcel> {
+  exportPersonToExcel(filter: any): Observable<ExportToExcel> {
     var params = this.httpParams(filter);
-    return this.httpClient.get<ExportPersonToExcel>(this.url + "/ExportToExcel", { params });
+    return this.httpClient.get<ExportToExcel>(this.url + "/ExportToExcel", { params });
   }
   exportPersonToPdf(filter: any): Observable<ExportPersonToPdf> {
     var params = this.httpParams(filter);

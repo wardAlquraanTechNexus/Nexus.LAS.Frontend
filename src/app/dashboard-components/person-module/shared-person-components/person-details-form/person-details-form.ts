@@ -15,6 +15,8 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 })
 export class PersonDetailsForm implements OnInit {
   @Input() isSaving = false;
+  @Output() saveEmitter = new EventEmitter<any>();
+  @Output() cancelEmitter = new EventEmitter<void>();
   person: Person | null = null;
   personalDetailsForm!: FormGroup;
   constructor(
@@ -29,9 +31,6 @@ export class PersonDetailsForm implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
     this.personalDetailsForm = this.fb.group({
       id: [this.person?.id],
       personEnglishName: [this.person?.personEnglishName, [Validators.required]],
@@ -39,7 +38,6 @@ export class PersonDetailsForm implements OnInit {
       personShortName: [this.person?.personShortName, [Validators.required, this.noWhitespaceValidator]],
       personStatus: [this.person?.personStatus],
       private: [this.person?.private],
-
     });
   }
 
@@ -67,38 +65,14 @@ export class PersonDetailsForm implements OnInit {
 
   onSave(): void {
     if (this.personalDetailsForm.valid) {
-      this.isSaving = true;
       const person = { ...this.personalDetailsForm.getRawValue() };
-      if (this.person) {
-        this.personService.updatePerson(person).subscribe({
-          next: (res => {
-            this.isSaving = false;
-            this.errorHandler.showSuccess('Updated Successfully');
-            this.dialogRef.close({ ...this.person, ...person });
-          }), error: (err => {
-            this.isSaving = false;
-            this.cdRef.markForCheck();
-          })
-        })
-      } else {
-        this.personService.createPerson(person).subscribe({
-          next: (res => {
-            this.isSaving = false;
-            this.errorHandler.showSuccess('Created Successfully');
-            this.dialogRef.close({ ...this.person, ...person });
-            this.router.navigate([`/${environment.routes.Persons}/view`], { queryParams: { id: res } });
-          }), error: (err => {
-            this.isSaving = false;
-            this.cdRef.markForCheck();
-          })
-        })
-      }
+      this.saveEmitter.emit(person);
     } else {
       this.personalDetailsForm.markAllAsTouched();
     }
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.cancelEmitter.emit();
   }
 }

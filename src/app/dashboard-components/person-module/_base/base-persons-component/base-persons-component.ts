@@ -39,7 +39,9 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     private: null,
     status: null,
     page: 0,
-    pageSize: 10
+    pageSize: 10,
+    orderBy: 'id',
+    orderDir: 'desc'
   }
 
   activeStatus = PersonStatus.Active;
@@ -82,7 +84,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
         nationality: [''],
       },
     )
-    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
     this.langService.language$.subscribe(lang => {
       this.applyLanguage(lang);

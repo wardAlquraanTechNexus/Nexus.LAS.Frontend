@@ -45,7 +45,7 @@ export class PersonIdDocumentForm implements OnInit {
       file: [null, Validators.required]
     });
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
-    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
   }
 

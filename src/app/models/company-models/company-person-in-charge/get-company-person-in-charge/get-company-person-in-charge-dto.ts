@@ -3,6 +3,7 @@ export interface CompanyPersonInChargeDto {
   companyIdn: number;
   personIdn?: number | null;
   designation?: string;
+  designations?: string[];
   authorityRule: string;
   notes?: string;
   personInChargeDate?: string; // or Date if you parse it

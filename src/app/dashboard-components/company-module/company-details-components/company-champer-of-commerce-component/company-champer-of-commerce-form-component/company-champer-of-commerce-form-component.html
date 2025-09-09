@@ -50,9 +50,9 @@
 
                 <!-- Expiry Reminder -->
                 <div class="col-12">
-                    <mat-checkbox formControlName="cciExpiryActiveReminder">
+                    <mat-slide-toggle formControlName="cciExpiryActiveReminder">
                         Enable Expiry Reminder
-                    </mat-checkbox>
+                    </mat-slide-toggle>
                 </div>
 
                 <!-- Username -->
@@ -85,7 +85,7 @@
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save Group
+            Save
         </button>
     </div>
 </div>

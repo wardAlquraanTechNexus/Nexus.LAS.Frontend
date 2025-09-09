@@ -38,13 +38,19 @@
 
         <!-- Designation -->
         <div class="col-12">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Designation</mat-label>
-            <input matInput formControlName="designation" placeholder="Enter designation" required />
-            <mat-error *ngIf="formGroup.get('designation')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
-              Designation is required
-            </mat-error>
-          </mat-form-field>
+          <select-auto-complete *ngIf="loadDesignation"
+            [controlName]="'designations'"
+            [fnGet]="loadDesignation"
+            [formGroup]="formGroup"
+            [isRequired]="true"
+            [label]="'Designation'"
+            [keyToShow]="'name'"
+            [valueKey]="'id'"
+            [isMultiple]="true">
+          </select-auto-complete>
+          <mat-error *ngIf="formGroup.get('designations')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
+            Designation is required
+          </mat-error>
         </div>
 
         <!-- Authority Rule -->
@@ -101,11 +107,11 @@
 
         <!-- Active Checkbox -->
         <div class="col-12">
-          <mat-checkbox formControlName="personInChargeActive" >Active</mat-checkbox>
+          <mat-slide-toggle formControlName="personInChargeActive">Active</mat-slide-toggle>
           
         </div>
 
-      </form>
+      </form> 
     </div>
   </div>
 
@@ -117,7 +123,7 @@
     </button>
     <button mat-flat-button class="save-btn" [disabled]="formGroup.invalid" (click)="save(true)">
       <mat-icon>save</mat-icon>
-      Save Group
+      Save
     </button>
   </div>
 </div>
