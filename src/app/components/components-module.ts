@@ -46,19 +46,12 @@ import { TextPipe } from '../pipes/text-pipe';
 import { SharedRegisterNoteFormDialog } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form-dialog/shared-register-note-form-dialog';
 import { SharedRegisterNoteForm } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form/shared-register-note-form';
 import { SharedRegisterNoteTable } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-table/shared-register-note-table';
-import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CompanyFormDialog } from '../dashboard-components/company-module/company-form-dialog/company-form-dialog';
+import { CompanyForm } from '../dashboard-components/company-module/company-form/company-form';
+import { PersonDetailsForm } from '../dashboard-components/person-module/shared-person-components/person-details-form/person-details-form';
+import { AddPerson } from '../dashboard-components/person-module/add-person/add-person';
 
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'dd/MM/yyyy',
-    monthYearLabel: 'MMM yyyy',
-    dateA11yLabel: 'dd/MM/yyyy',
-    monthYearA11yLabel: 'MMMM yyyy',
-  },
-};
+
 
 
 @NgModule({
@@ -83,6 +76,11 @@ export const MY_DATE_FORMATS = {
     SharedRegisterNoteTable,
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
+    CompanyForm,
+    CompanyFormDialog,
+    PersonDetailsForm,
+    AddPerson,
+
   ],
   imports: [
     CommonModule,
@@ -113,7 +111,8 @@ export const MY_DATE_FORMATS = {
     MatCheckboxModule,
     MatToolbarModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+
 
   ],
   exports: [
@@ -166,11 +165,13 @@ export const MY_DATE_FORMATS = {
     SharedRegisterNoteTable,
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
-
+    CompanyForm,
+    CompanyFormDialog,
+    PersonDetailsForm,
+    AddPerson
   ],
   providers: [
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+
   ]
 })
 export class ComponentsModule { }

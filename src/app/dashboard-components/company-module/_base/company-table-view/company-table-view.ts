@@ -23,6 +23,8 @@ export class CompanyTableView implements OnInit {
     this.route.queryParams.subscribe(params => {
       if(params['id']){
         this.companyId = parseInt(params['id']);
+      }else{
+        this.companyId = 0;
       }
       this.showLoading = false;
       

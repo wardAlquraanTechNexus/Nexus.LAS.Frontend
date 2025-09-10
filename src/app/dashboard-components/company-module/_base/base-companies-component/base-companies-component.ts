@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../../environment/environment';
 import { CompanyStatus } from '../../../../enums/company-status';
 import { CompanyFormDialog } from '../../company-form-dialog/company-form-dialog';
+import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-base-companies-component',
@@ -364,12 +365,28 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       });
 
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = res.fileName || 'export.xlsx';
-      link.click();
-      URL.revokeObjectURL(link.href);
+
+      downloadBlobFile(blob, res.fileName || 'export.xlsx');
     });
   }
+
+  
+    exportToPdf(id: number) {
+      this.service.exportToPdf({ id: id }).subscribe(res => {
+        // Assuming res.data is a base64 string
+        const binaryString = atob(res.data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+  
+        const blob = new Blob([bytes], {
+          type: 'application/pdf'
+        });
+  
+        downloadBlobFile(blob, res.fileName || 'report.pdf');
+      });
+    }
 
 }

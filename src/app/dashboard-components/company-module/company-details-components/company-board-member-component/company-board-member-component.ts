@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GetCompanyBoardMemberParams } from '../../../../models/company-models/company-board-member/params/get-company-board-member';
+import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 
 @Component({
   selector: 'app-company-board-member-component',
@@ -21,7 +22,7 @@ import { GetCompanyBoardMemberParams } from '../../../../models/company-models/c
   styleUrl: './company-board-member-component.scss'
 })
 export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoardMember> {
-  @Input() companyBoardDto!: CompanyBoardDto;
+  @Input() company!: GetCompanyDto;
 
   override data: PaginateRsult<CompanyBoardMemberDto> = {
     collection: [],
@@ -64,7 +65,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
   ]
 
   override params: GetCompanyBoardMemberParams = {
-    companyBoardId: 0,
+    companyId: 0,
     page: 0,
     pageSize: 10
   };
@@ -81,7 +82,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     super(service, cdr, fb, router, errorHandler, route)
   }
   override ngOnInit(): void {
-    this.params.companyBoardId = this.companyBoardDto.id;
+    this.params.companyId = this.company.id;
     super.ngOnInit();
   }
 
@@ -111,7 +112,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
       appointmentDate: "",
       isActive: false,
       position: 0,
-      companyBoardId: this.companyBoardDto.id
+      companyId: this.company.id
     };
     const dialogRef = this.dialog.open(CompanyBoardMemberDialogFormComponent, {
       disableClose: true,

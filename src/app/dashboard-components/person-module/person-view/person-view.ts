@@ -150,7 +150,7 @@ export class PersonView implements OnInit {
   }
 
   exportToPdf() {
-    this.personService.exportPersonToPdf({ id: this.personId }).subscribe(res => {
+    this.personService.exportToPdf({ id: this.personId }).subscribe(res => {
       // Assuming res.data is a base64 string
       const binaryString = atob(res.data);
       const len = binaryString.length;

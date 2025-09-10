@@ -14,6 +14,7 @@ import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-model
 })
 export class CompanyChamperOfCommerceFormComponent  extends BaseFormComponent {
   @Input() element!: CompanyChamberOfCommerceDTO;
+
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
@@ -31,5 +32,11 @@ export class CompanyChamperOfCommerceFormComponent  extends BaseFormComponent {
   }
 
 
+
+
+
+
+
+ 
 
 }

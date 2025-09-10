@@ -1,4 +1,4 @@
-export interface ExportToExcel{
+export interface ExportModel{
     fileName:string;
     data:string;
 }

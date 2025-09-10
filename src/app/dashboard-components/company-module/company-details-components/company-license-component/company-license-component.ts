@@ -12,6 +12,9 @@ import { CompanyLicenseFormDialogComponent } from './company-license-form-dialog
 import { CompanyLicenseDto } from '../../../../models/company-models/company-license/dtos/company-license-dto';
 import { CompanyLicenseStatus } from '../../../../enums/company-license-status';
 import { MatDialog } from '@angular/material/dialog';
+import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CompanyLicenseViewDialogComponent } from './company-license-view-dialog-component/company-license-view-dialog-component';
 
 @Component({
   selector: 'app-company-license-component',
@@ -79,7 +82,9 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer,
+
   ) {
     super(service, cdr, fb, router, errorHandler, route)
   }
@@ -100,7 +105,8 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
       licenseNumber: "",
       licenseIssueDate: "",
       licenseExpiryDate: "",
-      licenseExpiryActiveReminder: false
+      licenseExpiryActiveReminder: false,
+      file: null,
     };
     const dialogRef = this.dialog.open(CompanyLicenseFormDialogComponent, {
       disableClose: true,
@@ -115,6 +121,13 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
   }
 
   onEdit(row: any) {
+    if (row.dataFile && row.contentType) {
+          const base64Data = row.dataFile;
+          const blob = base64ToBlob(base64Data, row.contentType);
+          const url = URL.createObjectURL(blob);
+          row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          this.cdr.markForCheck();
+        }
     const dialogRef = this.dialog.open(CompanyLicenseFormDialogComponent, {
       disableClose: true,
       data: row
@@ -126,6 +139,14 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
       }
     })
 
+  }
+
+  onView(row: any) {
+    this.dialog.open(CompanyLicenseViewDialogComponent, {
+      width: '900px',
+      maxWidth: '98vw',
+      data: row
+    });
   }
 
   deleteFn(id: number) {

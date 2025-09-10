@@ -142,24 +142,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   openAddDialog(item: any): void {
     switch (item.value) {
+
       case environment.routes.AddPerson:
-        const dialogRef = this.dialog.open(AddPerson, {
-          width: '600px',
-          maxHeight: '90vh',
-          disableClose: true,
-          autoFocus: false,
-          panelClass: 'custom-dialog-container'
-
-        });
-
-        dialogRef.afterClosed()
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(result => {
-            if (result) {
-              console.log('Person created with ID:', result);
-              // Handle after-close logic
-            }
-          });
+        this.onAddNewPerson();
         break;
       case environment.routes.AddCompany:
         this.onAddNewCompany();
@@ -168,6 +153,32 @@ export class NavbarComponent implements OnDestroy, OnInit {
         break;
     }
 
+  }
+
+  private onAddNewPerson() {
+    let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
+    let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
+
+    const dialogRef = this.dialog.open(AddPerson, {
+      width: '600px',
+      maxHeight: '90vh',
+      disableClose: true,
+      autoFocus: false,
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        if (result) {
+          this.router.navigate([`${basePersonPath?.path}/${path?.path}`], {
+            queryParams: { id: result }
+          });
+        }
+      });
   }
 
   selectDirection(language: Language) {
@@ -225,7 +236,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigate([`${baseCompanyPath?.path}/${path?.path}`], {
-          queryParams: { id: result.companyIdn }
+          queryParams: { id: result.id }
         });
       }
     })

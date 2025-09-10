@@ -2,6 +2,7 @@ import { Component, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MenuTree } from '../../models/menus/menu-tree';
 import { environment } from '../../../environment/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,7 +31,7 @@ export class Sidebar implements OnDestroy {
 
   iconClass = "sidebar-toggle-btn-opened";
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     
     // Listen for toggle events from navbar only in browser
@@ -122,11 +123,14 @@ export class Sidebar implements OnDestroy {
   // Handle menu item click
   onMenuItemClick(node: MenuTree, event: Event): void {
     event.stopPropagation();
-    
+
     if (this.hasChild(0, node)) {
-      // If it has children, toggle expansion
+      console.log('Toggling node:', node);
       this.toggleNode(node);
+    } else if (node.path) {
+      console.log('Navigating to:', node.path);
+      // Always remove query params by navigating without preserving them
+      this.router.navigate([node.path], { queryParams: {} });
     }
-    // If it has a path, navigation will be handled by routerLink
   }
 }

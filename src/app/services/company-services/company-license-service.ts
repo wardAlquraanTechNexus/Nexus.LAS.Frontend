@@ -16,8 +16,14 @@ export class CompanyLicenseService extends BaseService<CompanyLicense> {
     this.setPath('CompanyLicense');
   }
 
-    getPaging(params: GetcompanyLicenseParams): Observable<PaginateRsult<CompanyLicenseDto>> {
-      return this.httpClient.get<PaginateRsult<CompanyLicenseDto>>(this.url + "/GetPaging", { params: this.httpParams(params) });
-    }
+  createByForm(formData: FormData) {
+    return this.httpClient.post<number>(this.url + "/CreateByForm", formData);
+  }
+  updateByForm(formData: FormData) {
+    return this.httpClient.put<boolean>(this.url + "/UpdateByForm", formData);
+  }
+  getPaging(params: GetcompanyLicenseParams): Observable<PaginateRsult<CompanyLicenseDto>> {
+    return this.httpClient.get<PaginateRsult<CompanyLicenseDto>>(this.url + "/GetPaging", { params: this.httpParams(params) });
+  }
 
 }

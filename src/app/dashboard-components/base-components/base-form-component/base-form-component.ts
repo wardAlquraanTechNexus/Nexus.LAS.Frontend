@@ -17,6 +17,7 @@ import { LoadingStateService } from '../../../services/loading-state.service';
 })
 export class BaseFormComponent implements OnInit, OnDestroy {
 
+  isDragging = false;
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
   uploadedFile: File | null = null;
@@ -245,5 +246,58 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+    get fileUrl(): string | null {
+    const file = this.formGroup.get('file')?.value;
+    if (!file) return null;
+    return typeof file === 'string' ? file : (file.url || file.preview || URL.createObjectURL(file));
+  }
+
+  isImage(file: any): boolean {
+    if (!file) return false;
+    const name = file.name || '';
+    return /\.(png|jpe?g|svg)$/i.test(name);
+  }
+
+  isPdf(file: any): boolean {
+    if (!file) return false;
+    const name = file.name || '';
+    return /\.pdf$/i.test(name);
+  }
+
+  removeFile(event: any): void {
+    event.stopPropagation();
+    this.formGroup.get('file')?.setValue(null);
+  }
+
+    onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = false;
+  }
+
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = false;
+    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+      const file = event.dataTransfer.files[0];
+      if (this.validateFile(file)) {
+        this.uploadedFile = file;
+        this.formGroup.get('file')?.setValue(file);
+      }
+    }
+  }
+
+
+
+  validateFile(file: File): boolean {
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'application/pdf'];
+    const maxSize = 3 * 1024 * 1024; // 3MB
+    return allowedTypes.includes(file.type) && file.size <= maxSize;
   }
 }

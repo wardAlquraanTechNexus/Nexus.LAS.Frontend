@@ -9,5 +9,10 @@ export interface CompanyLicenseDto {
   licenseNumber: string;
   licenseIssueDate: string;
   licenseExpiryDate?: string;
-  licenseExpiryActiveReminder: boolean ;
+  licenseExpiryActiveReminder: boolean;
+  contentType?: string;
+  dataFile?: number[];
+  imageUrl?: any;
+  file?: any;
+  fileName?: string;
 }

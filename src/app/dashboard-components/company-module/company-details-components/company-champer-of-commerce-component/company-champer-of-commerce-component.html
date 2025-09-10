@@ -27,6 +27,9 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menuRow="matMenu">
+     <button mat-menu-item class="btn-view" (click)="onView(row)">
+      <mat-icon>visibility</mat-icon> View
+    </button>
     <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
       <mat-icon>edit</mat-icon> Edit
     </button>

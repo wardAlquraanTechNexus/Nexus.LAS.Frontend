@@ -12,6 +12,9 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { CompanyChamberOfCommerceDTO } from '../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
 import { CompanyChamperOfCommerceFormDialogComponent } from './company-champer-of-commerce-form-dialog-component/company-champer-of-commerce-form-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
+import { CompanyChamperOfCommerceViewDialog } from './company-champer-of-commerce-view-dialog/company-champer-of-commerce-view-dialog';
+import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-company-champer-of-commerce-component',
@@ -50,8 +53,8 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
       label: "Password"
     },
     {
-      key:"action",
-      label:"Actions"
+      key: "action",
+      label: "Actions"
     }
   ]
 
@@ -68,7 +71,8 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog:MatDialog
+    private dialog: MatDialog,
+    private sanitizer: DomSanitizer,
   ) {
     super(service, cdr, fb, router, errorHandler, route)
   }
@@ -77,78 +81,102 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
     super.ngOnInit();
   }
 
- onAddNew() {
-     let element: CompanyChamberOfCommerceDTO = {
-       id: 0,
-       companyIdn: this.company.id,
-       cciNumber: "",
-       cciIssueDate: "",
-       cciExpiryDate: "",
-       cciExpiryActiveReminder: false,
-       cciUsername: "",
-       cciPassword: ""
-     };
-     const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
-       disableClose: true,
-       data: element
-     });
- 
-     dialogRef.afterClosed().subscribe(result => {
-       if (result) {
-         this.fetchData();
-       }
-     })
-   }
- 
-   onEdit(row: any) {
-     const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
-       disableClose: true,
-       data: row
-     });
- 
-     dialogRef.afterClosed().subscribe(result => {
-       if (result) {
-         this.fetchData();
-       }
-     })
- 
-   }
- 
-   deleteFn(id: number) {
-     return () => this.delete(id);
-   }
- 
-   delete(id: number) {
-     this.showLoading = true;
-     this.service.delete(id).subscribe({
-       next: (res => {
-         this.errorHandler.showSuccess("Deleted Successfully");
-         this.showLoading = false;
-         this.fetchData();
-       }), error: (err => {
-         this.showLoading = false;
-       })
-     })
-   }
- 
-   showTable = true;
-   toggleTable() {
-     this.showTable = !this.showTable;
-   }
- 
- 
-    onRowClick(event: any) {
-     if (event.key == 'cciExpiryActiveReminder') {
-       this.showLoading = true;
-       this.service.update(event.element).subscribe({
-         next: (res => {
-           this.errorHandler.showSuccess("Updated Successfully");
-           this.showLoading = false;
-           this.cdr.markForCheck();
-         }), error: (err => {
-           this.showLoading = false;
-         })
-       })
-     }
-   }
+  onAddNew() {
+    let element: CompanyChamberOfCommerceDTO = {
+      id: 0,
+      companyIdn: this.company.id,
+      cciNumber: "",
+      cciIssueDate: "",
+      cciExpiryDate: "",
+      cciExpiryActiveReminder: false,
+      cciUsername: "",
+      cciPassword: "",
+      file: null
+    };
+    const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
+      disableClose: true,
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
+  }
+
+  onEdit(row: any) {
+    if (row.dataFile && row.contentType) {
+      const base64Data = row.dataFile;
+      const blob = base64ToBlob(base64Data, row.contentType);
+      const url = URL.createObjectURL(blob);
+      row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      this.cdr.markForCheck();
+    }
+    row.file = null;
+
+
+    const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
+      disableClose: true,
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    });
+  }
+
+  onView(row: any) {
+    const dialogRef = this.dialog.open(CompanyChamperOfCommerceViewDialog, {
+      disableClose: true,
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
+
+  }
+
+  deleteFn(id: number) {
+    return () => this.delete(id);
+  }
+
+  delete(id: number) {
+    this.showLoading = true;
+    this.service.delete(id).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Deleted Successfully");
+        this.showLoading = false;
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+      })
+    })
+  }
+
+  showTable = true;
+  toggleTable() {
+    this.showTable = !this.showTable;
+  }
+
+
+  onRowClick(event: any) {
+    if (event.key == 'cciExpiryActiveReminder') {
+      this.showLoading = true;
+      this.service.update(event.element).subscribe({
+        next: (res => {
+          this.errorHandler.showSuccess("Updated Successfully");
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+        })
+      })
+    }
+  }
 }

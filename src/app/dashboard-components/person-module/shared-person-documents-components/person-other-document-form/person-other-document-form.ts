@@ -34,7 +34,7 @@ export class PersonOtherDocumentForm implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       documentType: [null, Validators.required],
-      documentDescription: [null, Validators.required],
+      documentDescription: [null],
       file: [null, Validators.required]
     });
 

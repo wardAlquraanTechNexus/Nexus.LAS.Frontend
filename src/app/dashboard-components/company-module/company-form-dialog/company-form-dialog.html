@@ -1,6 +1,10 @@
-<div class="spinner-overlay" *ngIf="showLoading">
+@if (showLoading) {
+  <div class="spinner-overlay">
     <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
-</div>
+  </div>
+}
 
-<app-company-form *ngIf="!showLoading" [company]="element" (saveEmitter)="onSave($event)"
+@if (!showLoading) {
+  <app-company-form [company]="element" (saveEmitter)="onSave($event)"
     (cancelEditEmitter)="onCancel($event)"></app-company-form>
+}

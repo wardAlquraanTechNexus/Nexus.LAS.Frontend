@@ -8,7 +8,7 @@ import GetCompanyQuery from '../../models/company-models/get-company-query/get-c
 import { PaginateRsult } from '../../models/paginate-result';
 import { BulkChangeCompanyStatusCommand } from '../../models/company-models/update-status-command/update-status-command';
 import { BulkChangeCompanyPrivateCommand } from '../../models/company-models/update-private-command/update-private-command';
-import { ExportToExcel } from '../../models/export-to-excel-dto';
+import { ExportModel } from '../../models/export-to-excel-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +34,17 @@ export class CompanyService extends BaseService<Company> {
     return this.httpClient.get<PaginateRsult<GetCompanyDto>>(`${this.url}/GetCompanies`, { params });
 
   }
-  exportToExcel(filter: any): Observable<ExportToExcel> {
-      var params = this.httpParams(filter);
-      return this.httpClient.get<ExportToExcel>(this.url + "/ExportToExcel", { params });
-    }
+  exportToExcel(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
+  }
+  exportToPdf(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToPdf", { params });
+  }
 
-  getCompanyById(id: number):Observable<GetCompanyDto> {
+
+  getCompanyById(id: number): Observable<GetCompanyDto> {
     return this.httpClient.get<GetCompanyDto>(`${this.url}/${id}`);
 
   }

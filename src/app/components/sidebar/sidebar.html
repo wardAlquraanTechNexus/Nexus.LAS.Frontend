@@ -11,8 +11,7 @@
              [class.has-children]="hasChild(0, item)"
              [class.expanded]="isExpanded(item)">
           
-          <a *ngIf="item.path && !hasChild(0, item)" 
-             [routerLink]="item.path" 
+          <a *ngIf="item.path && !hasChild(0, item)"  
              class="tree-link"
              routerLinkActive="router-link-active">
             <mat-icon *ngIf="item.iconClass">{{ item.iconClass }}</mat-icon>
@@ -33,7 +32,7 @@
              class="child-menu-container slide-down">
           <div *ngFor="let child of item.children" class="child-menu-item">
             <a *ngIf="child.path" 
-               [routerLink]="child.path" 
+               (click)="onMenuItemClick(child, $event)"
                class="child-link"
                routerLinkActive="router-link-active">
               <mat-icon *ngIf="child.iconClass">{{ child.iconClass }}</mat-icon>

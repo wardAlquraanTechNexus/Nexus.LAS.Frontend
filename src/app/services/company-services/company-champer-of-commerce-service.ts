@@ -12,6 +12,13 @@ export class CompanyChamperOfCommerceService  extends BaseService<CompanyChamber
     this.setPath('CompanyChamberOfCommerce');
   }
 
+  createByForm(formData: FormData) {
+    return this.httpClient.post<number>(this.url + "/CreateByForm", formData);
+  }
+  updateByForm(formData: FormData) {
+    return this.httpClient.put<boolean>(this.url + "/UpdateByForm", formData);
+  }
+
 
 }
 
