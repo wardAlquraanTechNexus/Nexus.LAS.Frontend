@@ -42,7 +42,6 @@ export class PersonDocumentsGroup implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        debugger
         if (result.tab == 0) {
           this.personIdDocumentsTableForm.addToCollection(result.element);
         }

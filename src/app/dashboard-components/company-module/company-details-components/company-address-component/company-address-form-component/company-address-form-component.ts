@@ -37,7 +37,7 @@ export class CompanyAddressFormComponent extends BaseFormComponent {
     this.setup(this.element);
     super.ngOnInit();
     this.loadNationalitiesFn = (search: string) =>
-      this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search);
+      this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search);
 
     if(this.element.poBoxCountry){
       this.countryId = this.element.poBoxCountry;

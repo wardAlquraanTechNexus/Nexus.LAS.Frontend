@@ -45,14 +45,20 @@
             <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('required') && formGroup.get('phoneNumber')?.touched">
               Phone number is required
             </mat-error>
+            <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('minlength') && formGroup.get('phoneNumber')?.touched">
+              Phone number must be at least 6 digits
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('maxlength') && formGroup.get('phoneNumber')?.touched">
+              Phone number must be at most 14 digits
+            </mat-error>  
           </mat-form-field>
         </div>
 
         <!-- Primary Phone -->
         <div class="col-12">
-          <mat-checkbox formControlName="phonePrimary">
+          <mat-slide-toggle formControlName="phonePrimary">
             Primary Phone
-          </mat-checkbox>
+          </mat-slide-toggle>
           <div class="text-danger" *ngIf="formGroup.get('phonePrimary')?.invalid && formGroup.get('phonePrimary')?.touched">
             Primary phone status is required
           </div>

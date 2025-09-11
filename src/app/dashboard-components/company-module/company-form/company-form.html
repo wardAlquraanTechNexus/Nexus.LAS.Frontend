@@ -54,7 +54,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Incorporation Date</mat-label>
                         <input matInput [matDatepicker]="incorporationDatePicker" formControlName="incorporationDate"
-                            required placeholder="Select Incorporation Date">
+                            placeholder="Select Incorporation Date" required>
                         <mat-datepicker-toggle matSuffix [for]="incorporationDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #incorporationDatePicker></mat-datepicker>
                         <mat-error
@@ -62,23 +62,21 @@
                             Incorporation Date is required
                         </mat-error>
                     </mat-form-field>
-
                     <!-- to Add Share Value  -->
-
                 </div>
 
-             
+
 
                 <select-auto-complete *ngIf="loadCompanyTypeFn" [controlName]="'companyTypeIdn'"
                     [fnGet]="loadCompanyTypeFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Company Type'"
                     [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
-                     (selectEmitter)="onCompanyType($event)"></select-auto-complete>
+                    (selectEmitter)="onCompanyType($event)"></select-auto-complete>
 
                 <select-auto-complete *ngIf="loadCompanyClassFn" [controlName]="'companyClassIdn'"
                     [fnGet]="loadCompanyClassFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Company Class'"
                     [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
 
-                    <!-- to Add Legal Type  -->
+                <!-- to Add Legal Type  -->
 
                 <select-auto-complete *ngIf="loadLegalTypeFn" [controlName]="'legalTypeIdn'" [fnGet]="loadLegalTypeFn"
                     [formGroup]="formGroup" [isRequired]="true" [label]="'Legal Type'" [keyToShow]="'name'"
@@ -106,7 +104,7 @@
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save Menu
+            Save
         </button>
     </div>
 </div>

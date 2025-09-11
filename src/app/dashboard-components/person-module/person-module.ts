@@ -20,7 +20,6 @@ import { PersonView } from "./person-view/person-view";
 import { PersonAddressDetails } from "./shared-person-components/person-address-details/person-address-details";
 import { PersonAddressDialog } from "./shared-person-components/person-address-details/person-address-dialog/person-address-dialog";
 import { PersonAddressForm } from "./shared-person-components/person-address-details/person-address-form/person-address-form";
-import { PersonDetailsForm } from "./shared-person-components/person-details-form/person-details-form";
 import { PersonEmailDetails } from "./shared-person-components/person-email-details/person-email-details";
 import { PersonEmailDialog } from "./shared-person-components/person-email-details/person-email-dialog/person-email-dialog";
 import { PersonEmailForm } from "./shared-person-components/person-email-details/person-email-form/person-email-form";
@@ -45,11 +44,9 @@ import { ActivePublicPersonsTable } from "./active-public-persons/active-public-
         PersonAddressDetails,
         PersonEmailDetails,
         PersonPhoneDetails,
-        PersonDetailsForm,
         ActivePersons,
         ActivePrivatePersons,
         ActivePublicPersons,
-        AddPerson,
         EditPerson,
         PersonDocumentsGroup,
         PersonIdDocumentsTableForm,

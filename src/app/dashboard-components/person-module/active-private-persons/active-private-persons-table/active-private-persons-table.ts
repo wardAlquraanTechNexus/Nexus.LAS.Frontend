@@ -27,7 +27,9 @@ export class ActivePrivatePersonsTable extends BasePersonsComponent {
       private: true,
       status: PersonStatus.Active,
       page: 0,
-      pageSize: 10
+      pageSize: 10,
+      orderBy: 'id',
+      orderDir: 'desc'
     }
   override displayColumns: DisplayColumn[] = [
     {

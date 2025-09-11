@@ -27,9 +27,11 @@
                         <input matInput [matDatepicker]="picker" formControlName="capitalDate" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
-                        <mat-error *ngIf="formGroup.get('capitalDate')?.hasError('required')">
-                            Capital Date is required
-                        </mat-error>
+                        @if (formGroup.get('capitalDate')?.hasError('required')) {
+                            <mat-error>
+                                Capital Date is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -38,9 +40,11 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Capital Amount</mat-label>
                         <input matInput type="number" formControlName="capitalAmount" required>
-                        <mat-error *ngIf="formGroup.get('capitalAmount')?.hasError('required')">
-                            Capital Amount is required
-                        </mat-error>
+                        @if (formGroup.get('capitalAmount')?.hasError('required')) {
+                            <mat-error>
+                                Capital Amount is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -49,21 +53,26 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Nominal Value of Share</mat-label>
                         <input matInput type="number" formControlName="nominalValueOfShare" required>
-                        <mat-error *ngIf="formGroup.get('nominalValueOfShare')?.hasError('required')">
-                            Nominal Value of Share is required
-                        </mat-error>
+                        @if (formGroup.get('nominalValueOfShare')?.hasError('required')) {
+                            <mat-error>
+                                Nominal Value of Share is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
-                <!-- Class of Shares -->
+                <!-- Class of Shares Auto-Select -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Class of Shares</mat-label>
-                        <input matInput formControlName="classOfShares" required>
-                        <mat-error *ngIf="formGroup.get('classOfShares')?.hasError('required')">
-                            Class of Shares is required
-                        </mat-error>
-                    </mat-form-field>
+                        <select-auto-complete
+                            [controlName]="'classOfShares'"
+                            [fnGet]="loadClassOfSharesFn"
+                            [formGroup]="formGroup"
+                            [isRequired]="true"
+                            [label]="'Class of Shares'"
+                            [keyToShow]="'name'"
+                            [valueKey]="'name'"
+                            [withNullOption]="false">
+                        </select-auto-complete>
                 </div>
 
                 <!-- Number of Shares -->
@@ -71,9 +80,11 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Number of Shares</mat-label>
                         <input matInput type="number" formControlName="numberOfShares" required>
-                        <mat-error *ngIf="formGroup.get('numberOfShares')?.hasError('required')">
-                            Number of Shares is required
-                        </mat-error>
+                        @if (formGroup.get('numberOfShares')?.hasError('required')) {
+                            <mat-error>
+                                Number of Shares is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -82,9 +93,11 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Capital Authorized</mat-label>
                         <input matInput type="number" formControlName="capitalAuthorized" required>
-                        <mat-error *ngIf="formGroup.get('capitalAuthorized')?.hasError('required')">
-                            Capital Authorized is required
-                        </mat-error>
+                        @if (formGroup.get('capitalAuthorized')?.hasError('required')) {
+                            <mat-error>
+                                Capital Authorized is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -93,9 +106,11 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Capital Paid</mat-label>
                         <input matInput type="number" formControlName="capitalPaid" required>
-                        <mat-error *ngIf="formGroup.get('capitalPaid')?.hasError('required')">
-                            Capital Paid is required
-                        </mat-error>
+                        @if (formGroup.get('capitalPaid')?.hasError('required')) {
+                            <mat-error>
+                                Capital Paid is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
@@ -104,29 +119,34 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Issued Shares</mat-label>
                         <input matInput type="number" formControlName="issuedShares" required>
-                        <mat-error *ngIf="formGroup.get('issuedShares')?.hasError('required')">
-                            Issued Shares is required
-                        </mat-error>
+                        @if (formGroup.get('issuedShares')?.hasError('required')) {
+                            <mat-error>
+                                Issued Shares is required
+                            </mat-error>
+                        }
                     </mat-form-field>
                 </div>
 
-                <!-- Capital Currency -->
+                <!-- Capital Currency Auto-Select -->
                 <div class="col-6">
-                    <select-auto-complete *ngIf="loadCurrenciesTypeFn" [controlName]="'capitalCurrency'"
-                    [fnGet]="loadCurrenciesTypeFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Capital Currency'"
-                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
-                     ></select-auto-complete>
+                        <select-auto-complete
+                            [controlName]="'capitalCurrency'"
+                            [fnGet]="loadCurrenciesTypeFn"
+                            [formGroup]="formGroup"
+                            [isRequired]="true"
+                            [label]="'Capital Currency'"
+                            [keyToShow]="'name'"
+                            [valueKey]="'id'"
+                            [withNullOption]="false">
+                        </select-auto-complete>
                 </div>
 
                 <!-- Capital Active -->
                 <div class="col-6">
                     <mat-slide-toggle formControlName="capitalActive" >Active</mat-slide-toggle>
-                    
                 </div>
 
-
             </form>
-
         </div>
     </div>
 
@@ -138,7 +158,7 @@
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save Group
+            Save
         </button>
     </div>
 </div>

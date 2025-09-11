@@ -18,6 +18,7 @@ import { environment } from '../../../../../../environment/environment';
 export class CompanyCapitalFormComponent  extends BaseFormComponent {
   @Input() element!: CompanyCapitalDto;
   loadCurrenciesTypeFn!: (search: string) => Observable<DynamicList[]>;
+  loadClassOfSharesFn!: (search: string) => Observable<DynamicList[]>;
 
   
   constructor(
@@ -33,9 +34,11 @@ export class CompanyCapitalFormComponent  extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
-    this.loadCurrenciesTypeFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies, search)
+    this.loadCurrenciesTypeFn = (search: string) =>
+      this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies, search);
 
-
+    this.loadClassOfSharesFn = (search: string) =>
+      this.dlService.GetAllByParentId(environment.rootDynamicLists.classOfShares, search);
   }
 
 

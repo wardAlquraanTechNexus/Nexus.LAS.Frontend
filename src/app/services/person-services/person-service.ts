@@ -8,14 +8,13 @@ import { PaginateRsult } from '../../models/paginate-result';
 import { GetAllActivePersonQuery } from '../../models/person-models/get-all-active-person-query';
 import { BulkChangeStatusCommand } from '../../models/person-models/bulk-change-status-command';
 import { BulkChangePrivateCommand } from '../../models/person-models/bulk-change-private-command';
-import { ExportPersonToExcel } from '../../models/person-models/export-person-to-excel-dto';
-import { ExportPersonToPdf } from '../../models/person-models/export-person-to-pdf-dto';
 import { UploadPersonImageCommand } from '../../models/person-models/upload-person-image/upload-person-image-command';
 import { UploadImageDto } from '../../models/base/upload-image-dto';
 import { PersonDto } from '../../models/person-models/person-dto';
 import { GetPersonsDTO } from '../../models/person-models/get-persons/get-person-dto';
 import { GetPersonsQuery } from '../../models/person-models/get-persons/get-persons-query';
 import { UpdatePersonCommand } from '../../models/person-models/update-person';
+import { ExportModel } from '../../models/export-to-excel-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -68,13 +67,13 @@ export class PersonService extends BaseService<Person> {
     return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
   }
 
-  exportPersonToExcel(filter: any): Observable<ExportPersonToExcel> {
+  exportToExcel(filter: any): Observable<ExportModel> {
     var params = this.httpParams(filter);
-    return this.httpClient.get<ExportPersonToExcel>(this.url + "/ExportToExcel", { params });
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
   }
-  exportPersonToPdf(filter: any): Observable<ExportPersonToPdf> {
+  exportToPdf(filter: any): Observable<ExportModel> {
     var params = this.httpParams(filter);
-    return this.httpClient.get<ExportPersonToPdf>(this.url + "/ExportToPdf", { params });
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToPdf", { params });
   }
 
   uploadImage(command: UploadPersonImageCommand): Observable<UploadImageDto> {

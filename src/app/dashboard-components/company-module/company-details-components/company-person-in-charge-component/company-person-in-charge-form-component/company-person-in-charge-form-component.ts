@@ -21,6 +21,8 @@ export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
   @Input() element!: CompanyPersonInChargeDto;
   loadPersonssFn!: (search: string) => Observable<GetPersonsDTO[]>;
   loadAuthorityRulesFn!: (search: string) => Observable<DynamicList[]>;
+  loadDesignation!: (search: string) => Observable<DynamicList[]>;
+  
 
 
   constructor(
@@ -39,8 +41,8 @@ export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
     super.ngOnInit();
 
     this.loadPersonssFn = (search: string) => this.loadPersons(search);
-    this.loadAuthorityRulesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.rule, search)
-
+    this.loadAuthorityRulesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.rule, search);
+    this.loadDesignation = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.designation, search);
 
   }
 

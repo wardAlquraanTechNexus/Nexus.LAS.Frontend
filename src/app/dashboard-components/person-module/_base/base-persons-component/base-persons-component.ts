@@ -25,6 +25,7 @@ import { Labels } from '../../../../models/consts/labels';
 import { LanguageCode } from '../../../../models/types/lang-type';
 import { ConfirmDeleteComponent } from '../../../../components/confirm-delete-component/confirm-delete-component';
 import { UpdatePersonCommand } from '../../../../models/person-models/update-person';
+import { downloadBlob, downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -39,7 +40,9 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     private: null,
     status: null,
     page: 0,
-    pageSize: 10
+    pageSize: 10,
+    orderBy: 'id',
+    orderDir: 'desc'
   }
 
   activeStatus = PersonStatus.Active;
@@ -82,7 +85,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
         nationality: [''],
       },
     )
-    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
     this.langService.language$.subscribe(lang => {
       this.applyLanguage(lang);
@@ -142,7 +145,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
   exportToExcel() {
-    this.service.exportPersonToExcel(this.params).subscribe(res => {
+    this.service.exportToExcel(this.params).subscribe(res => {
       // Assuming res.data is base64 string:
       const binaryString = atob(res.data);
       const len = binaryString.length;
@@ -310,7 +313,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
   exportToPdf(id: number) {
-    this.service.exportPersonToPdf({ id: id }).subscribe(res => {
+    this.service.exportToPdf({ id: id }).subscribe(res => {
       // Assuming res.data is a base64 string
       const binaryString = atob(res.data);
       const len = binaryString.length;
@@ -323,11 +326,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
         type: 'application/pdf'
       });
 
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = res.fileName || 'report.pdf';
-      link.click();
-      URL.revokeObjectURL(link.href);
+      downloadBlobFile(blob, res.fileName || 'report.pdf');
     });
   }
 

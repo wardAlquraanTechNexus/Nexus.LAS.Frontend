@@ -14,6 +14,14 @@ export function downloadBlob(dataFile: any, contentType?: string, fileName?: str
     }
 }
 
+export function downloadBlobFile(dataFile: any, fileName: string) {
+   const link = document.createElement('a');
+      link.href = URL.createObjectURL(dataFile);
+      link.download = fileName;;
+      link.click();
+      URL.revokeObjectURL(link.href);
+}
+
 export function base64ToBlob(base64: any, contentType: string): Blob {
     const byteCharacters = atob(base64);
     const byteNumbers = new Array(byteCharacters.length);

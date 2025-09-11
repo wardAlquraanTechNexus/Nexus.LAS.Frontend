@@ -43,7 +43,7 @@ export class PersonAddressForm extends BaseFormComponent {
     super.ngOnInit();
 
     this.loadNationalitiesFn = (search: string) =>
-      this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search);
+      this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search);
 
     this.loadCitiesFn = (search: string) => this.loadCitis(search);
   }

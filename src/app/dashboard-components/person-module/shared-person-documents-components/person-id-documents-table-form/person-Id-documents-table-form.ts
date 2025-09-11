@@ -113,7 +113,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
       nationality: [],
     })
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
-    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality, search)
+    this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
     this.fetchData();
   }

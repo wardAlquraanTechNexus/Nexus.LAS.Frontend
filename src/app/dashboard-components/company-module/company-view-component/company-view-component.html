@@ -210,11 +210,11 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <!-- <div class="company-overview-component">
                             <app-company-board-component [company]="company" (rowClick)="onSelectCompanyBoard($event)"></app-company-board-component>
-                        </div>
+                        </div> -->
                         <div class="company-overview-component">
-                            <app-company-board-member-component *ngIf="showBoardMember" [companyBoardDto]="selectedCompanyBoard!"></app-company-board-member-component>
+                            <app-company-board-member-component [company]="company" ></app-company-board-member-component>
                         </div>
                     </div>
                 </mat-tab>

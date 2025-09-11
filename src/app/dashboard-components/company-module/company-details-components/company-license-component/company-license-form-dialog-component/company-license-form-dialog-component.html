@@ -1,10 +1,19 @@
+<div class="modern-dialog-container">
 
-  <div class="spinner-overlay" *ngIf="showLoading">
-    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
-  </div>
 
-<app-company-license-form-component *ngIf="!showLoading"
-[element]="data"
-(saveEmitter)="onSave($event)"
-(cancelEditEmitter)="onCancel($event)"
-></app-company-license-form-component>
+
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+
+        <ng-container>
+            <app-company-license-form-component
+        [element]="data"
+        (saveEmitter)="onSave($event)"
+        (cancelEditEmitter)="onCancel($event)">
+    </app-company-license-form-component>
+        </ng-container>
+    </div>
+
+
+</div>

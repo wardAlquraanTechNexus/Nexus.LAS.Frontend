@@ -1,13 +1,13 @@
 <div class="modern-dialog-container">
-    <!-- Enhanced Header with Icon and Professional Typography -->
+    <!-- Header -->
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
                 <mat-icon>group_work</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company License</h2>
-                <p class="dialog-subtitle">Company License</p>
+                <h2 class="dialog-title">Company Chamber of Commerce</h2>
+                <p class="dialog-subtitle">Company Chamber of Commerce</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -15,10 +15,31 @@
         </button>
     </div>
 
-    <!-- Enhanced Body with Smooth Scrolling -->
-    <div class="dialog-body">
-        <div class="form-container">
-            <form [formGroup]="formGroup" class="row w-100">
+    <!-- Body: 50/50 layout -->
+    <div class="dialog-body split-layout">
+        <!-- Left: Form -->
+        <div class="form-side">
+            <form [formGroup]="formGroup" class="dialog-content">
+
+                <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
+
+                    <label class="upload-button">
+                        <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)"
+                            hidden />
+                        <a mat-raised-button color="primary" type="button">
+                            Click to Upload
+                        </a>
+                    </label>
+
+                    <p>or drag and drop</p>
+                    <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
+                </div>
+                <mat-error
+                    *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
+                    class="mat-error">
+                    File is required.
+                </mat-error>
 
                 <!-- CCI Number -->
                 <div class="col-12">
@@ -50,9 +71,9 @@
 
                 <!-- Expiry Reminder -->
                 <div class="col-12">
-                    <mat-checkbox formControlName="cciExpiryActiveReminder">
+                    <mat-slide-toggle formControlName="cciExpiryActiveReminder">
                         Enable Expiry Reminder
-                    </mat-checkbox>
+                    </mat-slide-toggle>
                 </div>
 
                 <!-- Username -->
@@ -72,12 +93,27 @@
                 </div>
 
             </form>
-
-
         </div>
+
+        @if(formGroup.get('imageUrl')?.value)
+        {
+        <div class="preview-side" *ngIf="formGroup.get('imageUrl')?.value">
+            <div class="file-preview">
+                 <ng-container *ngIf="element.contentType === 'application/pdf'; else showImage">
+                    <iframe [src]="element.imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
+                </ng-container>
+
+                <ng-template #showImage>
+                    <img *ngIf="element.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
+                </ng-template>
+                
+            </div>
+        </div>
+        }
+
     </div>
 
-    <!-- Modern Footer with Action Buttons -->
+    <!-- Footer -->
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
@@ -85,7 +121,7 @@
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save Group
+            Save
         </button>
     </div>
 </div>

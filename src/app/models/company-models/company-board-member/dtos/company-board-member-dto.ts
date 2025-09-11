@@ -5,5 +5,5 @@ export interface CompanyBoardMemberDto {
   appointmentDate?: string | null; 
   cessationDate?: string | null;   
   isActive: boolean;
-  companyBoardId: number;
+  companyId: number;
 }

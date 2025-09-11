@@ -39,10 +39,7 @@
 
     <mat-form-field appearance="outline" class="full-width col-12">
       <mat-label>Description</mat-label>
-      <input matInput formControlName="documentDescription" placeholder="Enter document description..." required />
-      <mat-error *ngIf="formGroup.get('documentDescription')?.hasError('required') && formGroup.get('documentDescription')?.touched">
-        Description is required
-      </mat-error>
+      <input matInput formControlName="documentDescription" placeholder="Enter document description..."  />
     </mat-form-field>
   </div>
 </form>

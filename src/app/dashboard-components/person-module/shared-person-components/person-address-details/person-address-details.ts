@@ -49,7 +49,7 @@ export class PersonAddressDetails implements OnInit {
       this.fetchData();
     }
 
-    this.dlService.GetAllByParentId(environment.rootDynamicLists.nationality).subscribe(res=>{
+    this.dlService.GetAllByParentId(environment.rootDynamicLists.country).subscribe(res=>{
       res.forEach(country=>{
         this.countries.set(country.id,country.name);
         this.dlService.GetAllByParentId(country.id).subscribe(res=>{

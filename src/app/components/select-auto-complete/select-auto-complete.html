@@ -1,11 +1,12 @@
 <label>{{ label    }}</label>
 <mat-form-field [dir]="dir" appearance="outline" class="full-width col-12">
+  <mat-label>{{ label }}</mat-label>
   <mat-select
-    [placeholder]="label"
     [formControlName]="controlName"
     (selectionChange)="selectionChange($event)"
-    required
+    [required] ="isRequired"
     (openedChange)="onSelect($event)"
+    [multiple]="isMultiple"
   >
     <!-- Search input inside disabled option -->
     <mat-option class="search-option">

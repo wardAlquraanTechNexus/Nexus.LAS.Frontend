@@ -18,18 +18,21 @@
     <div class="form-container">
       <app-person-details-form
         [isSaving]="isSaving"
-        (saveEmitter)="onSave($event)">
+        (saveEmitter)="onSave($event)"
+        (cancelEmitter)="onClose()">
       </app-person-details-form>
     </div>
   </div>
 
-  @if(isSaving){
-    <div class="loading-overlay" >
-      <div class="loading-content">
-        <mat-spinner diameter="40"></mat-spinner>
-        <p class="loading-text">Creating person...</p>
-      </div>
-    </div>
+  <!-- Loading Overlay -->
+   @if(isSaving){
+     <div class="loading-overlay">
+       <div class="loading-content">
+         <mat-spinner diameter="40"></mat-spinner>
+         <p class="loading-text">Creating person...</p>
+       </div>
+     </div>
 
-  }
+   }
+  
 </div>

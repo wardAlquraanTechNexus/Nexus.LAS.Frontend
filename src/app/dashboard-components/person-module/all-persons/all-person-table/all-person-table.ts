@@ -38,7 +38,6 @@ export class AllPersonTable extends BasePersonsComponent {
 
     this.route.queryParams.subscribe(params => {
       let id = +params['id'];
-      console.log(id);
     })
     
     super.ngOnInit();

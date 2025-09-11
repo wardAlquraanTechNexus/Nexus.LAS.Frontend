@@ -1,11 +1,11 @@
 export interface GetCompanyDto {
   id: number;
-  companyIdc:string | null;
+  companyIdc: string | null;
   companyCode?: string | null;
   companyEnglishName?: string | null;
   companyArabicName?: string | null;
   companyShortName?: string | null;
-  incorporationDate?:Date | null;
+  incorporationDate?: Date | null;
   companyStatus: number;
   companyTypeIdn?: number | null;
   companyClassIdn?: number | null;
@@ -26,4 +26,8 @@ export interface GetCompanyDto {
   personsIdn?: number | null;
   fpcCode?: string | null;
   private: boolean;
+  createdBy?: string | null;
+  createdAt?: string | null;
+  modifiedBy?: string | null;
+  modifiedAt?: string | null;
 }

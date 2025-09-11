@@ -12,14 +12,18 @@ import { AddPerson } from '../../dashboard-components/person-module/add-person/a
 import { Direction } from '@angular/cdk/bidi';
 import { Language } from './models/language';
 import { LanguageService } from '../../services/language-service';
+import { GetCompanyDto } from '../../models/company-models/get-company-query/get-company-dto';
+import { CompanyFormDialog } from '../../dashboard-components/company-module/company-form-dialog/company-form-dialog';
+import { MenuService } from '../../services/menu-service';
+
 
 @Component({
   selector: 'app-navbar-component',
   templateUrl: './navbar-components.html',
-  styleUrl: './navbar-components.scss',
+  styleUrls: ['./navbar-components.scss'],
   standalone: false
 })
-export class NavbarComponent implements OnDestroy , OnInit {
+export class NavbarComponent implements OnDestroy, OnInit {
   searchText = '';
   searchResults: string[] = [];
   sidebarOpen = true;
@@ -82,14 +86,15 @@ export class NavbarComponent implements OnDestroy , OnInit {
     private dialog: MatDialog,
     private authService: AuthService,
     protected langService: LanguageService,
+    private menuService: MenuService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.user = this.authService.getUser();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.langService.language$.subscribe(lang => {
-      this.selectedLanguage = this.languages.find(x=>x.value == lang) || this.languages[0];
+      this.selectedLanguage = this.languages.find(x => x.value == lang) || this.languages[0];
     });
   }
 
@@ -137,29 +142,43 @@ export class NavbarComponent implements OnDestroy , OnInit {
 
   openAddDialog(item: any): void {
     switch (item.value) {
+
       case environment.routes.AddPerson:
-        const dialogRef = this.dialog.open(AddPerson, {
-          width: '600px',
-          maxHeight: '90vh',
-          disableClose: true,
-          autoFocus: false,
-          panelClass: 'custom-dialog-container'
-
-        });
-
-        dialogRef.afterClosed()
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(result => {
-            if (result) {
-              console.log('Person created with ID:', result);
-              // Handle after-close logic
-            }
-          });
+        this.onAddNewPerson();
+        break;
+      case environment.routes.AddCompany:
+        this.onAddNewCompany();
         break;
       default:
         break;
     }
 
+  }
+
+  private onAddNewPerson() {
+    let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
+    let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
+
+    const dialogRef = this.dialog.open(AddPerson, {
+      width: '600px',
+      maxHeight: '90vh',
+      disableClose: true,
+      autoFocus: false,
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        if (result) {
+          this.router.navigate([`${basePersonPath?.path}/${path?.path}`], {
+            queryParams: { id: result }
+          });
+        }
+      });
   }
 
   selectDirection(language: Language) {
@@ -170,6 +189,57 @@ export class NavbarComponent implements OnDestroy , OnInit {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  onAddNewCompany() {
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
+    let baseCompanyPath = this.menuService.getMenuByPath(environment.routes.Companies);
+
+    let companyDto: GetCompanyDto = {
+      id: 0,
+      companyIdc: "",
+      companyCode: null,
+      companyEnglishName: null,
+      companyArabicName: null,
+      companyShortName: null,
+      companyStatus: 0,
+      companyTypeIdn: null,
+      companyClassIdn: null,
+      groupCompanyIdn: null,
+      relevantCompanyIdn: null,
+      legalTypeIdn: null,
+      cciNumber: null,
+      cciIssueDate: null,
+      cciExpiryDate: null,
+      cciExpiryActiveReminder: null,
+      placeOfRegistrationMainIdn: null,
+      placeOfRegistrationSubIdn: null,
+      capitalAmount: null,
+      totalShares: null,
+      numberOfPartners: null,
+      updateDate: null,
+      updateDescription: null,
+      personsIdn: null,
+      fpcCode: null,
+      private: true,
+      incorporationDate: null,
+    };
+    const dialogRef = this.dialog.open(CompanyFormDialog, {
+      disableClose: true,
+      data: companyDto
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate([`${baseCompanyPath?.path}/${path?.path}`], {
+          queryParams: { id: result.id }
+        });
+      }
+    })
   }
 }
 

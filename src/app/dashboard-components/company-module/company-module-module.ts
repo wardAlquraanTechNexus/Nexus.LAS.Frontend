@@ -58,6 +58,8 @@ import { ActivePrivateCompaniesTableComponent } from './active-private-companies
 import { ActivePublicCompaniesComponent } from './active-public-companies-component/active-public-companies-component';
 import { ActivePublicCompaniesTableComponent } from './active-public-companies-component/active-public-caompanies-table-component/active-public-companies-table-component';
 import { ActiveCompaniesTableComponent } from './active-companies-component/active-companies-table-component/active-companies-table-component';
+import { CompanyChamperOfCommerceViewDialog } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-view-dialog/company-champer-of-commerce-view-dialog';
+import { CompanyLicenseViewDialogComponent } from './company-details-components/company-license-component/company-license-view-dialog-component/company-license-view-dialog-component';
 
 
 
@@ -66,17 +68,17 @@ import { ActiveCompaniesTableComponent } from './active-companies-component/acti
     AllCompaniesComponent,
     AllCompaniesTable,
     CompanyTableView,
-    CompanyForm,
-    CompanyFormDialog,
     CompanyViewComponent,
     CompanyOverviewComponent,
     CompanyPersonInChargeComponent,
     CompanyPersonInChargeDialogFormComponent,
     CompanyPersonInChargeFormComponent,
     CompanyChamperOfCommerceComponent,
+    CompanyChamperOfCommerceViewDialog,
     CompanyLicenseComponent,
     CompanyLicenseFormComponent,
     CompanyLicenseFormDialogComponent,
+    CompanyLicenseViewDialogComponent,
     CompanyChamperOfCommerceFormComponent,
     CompanyChamperOfCommerceFormDialogComponent,
     CompanyActivityComponent,

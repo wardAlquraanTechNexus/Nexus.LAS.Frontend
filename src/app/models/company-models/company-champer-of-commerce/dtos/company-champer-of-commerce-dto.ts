@@ -1,5 +1,4 @@
-export interface CompanyChamberOfCommerceDTO
-{
+export interface CompanyChamberOfCommerceDTO {
   id: number;
   companyIdn: number;
   cciNumber: string;
@@ -8,4 +7,9 @@ export interface CompanyChamberOfCommerceDTO
   cciExpiryActiveReminder: boolean;
   cciUsername?: string;
   cciPassword?: string;
+  contentType?: string;
+  dataFile?: number[];
+  imageUrl?: any;
+  file?: any;
+  fileName?: string;
 }

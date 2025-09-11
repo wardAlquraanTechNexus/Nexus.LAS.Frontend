@@ -24,7 +24,9 @@ export class ActivePublicCompaniesTableComponent  extends BaseCompaniesComponent
       private: false,
       status: CompanyStatus.Active,
       page: 0,
-      pageSize: 10
+      pageSize: 10,
+      orderBy: 'id',
+      orderDir: 'desc'
     }
   
     

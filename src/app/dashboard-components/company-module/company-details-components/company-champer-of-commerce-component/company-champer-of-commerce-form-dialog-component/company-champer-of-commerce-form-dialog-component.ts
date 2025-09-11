@@ -22,5 +22,33 @@ export class CompanyChamperOfCommerceFormDialogComponent extends BaseDialogFormC
     super(dialogRef, data, service, cdr)
   }
 
+  override onSave(element: any) {
+    if (!element.element.id) {
+      this.showLoading = true;
+      this.service.createByForm(element.formData).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          element.element.id = res;
+          this.dialogRef.close(element.element);
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        })
+      })
+    } else {
+      this.showLoading = true;
+      this.service.updateByForm(element.formData).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          this.dialogRef.close(element.element);
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        })
+      })
+    }
+  }
 
 }

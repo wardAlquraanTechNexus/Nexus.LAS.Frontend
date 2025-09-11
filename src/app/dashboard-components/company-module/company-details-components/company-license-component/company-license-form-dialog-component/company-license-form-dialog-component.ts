@@ -8,19 +8,46 @@ import { CompanyLicense } from '../../../../../models/company-models/company-lic
 
 @Component({
   selector: 'app-company-license-form-dialog-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-license-form-dialog-component.html',
   styleUrl: './company-license-form-dialog-component.scss'
 })
-export class CompanyLicenseFormDialogComponent  extends BaseDialogFormComponent<CompanyLicense> {
+export class CompanyLicenseFormDialogComponent extends BaseDialogFormComponent<CompanyLicense> {
   constructor(
-    override dialogRef: MatDialogRef<CompanyLicenseFormDialogComponent>, 
+    override dialogRef: MatDialogRef<CompanyLicenseFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: CompanyLicenseDto,
-    override service:CompanyLicenseService,
+    override service: CompanyLicenseService,
     override cdr: ChangeDetectorRef,
   ) {
-    super(dialogRef, data , service , cdr)
+    super(dialogRef, data, service, cdr)
   }
 
-
+  override onSave(element: any) {
+    if (!element.element.id) {
+      this.showLoading = true;
+      this.service.createByForm(element.formData).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          element.element.id = res;
+          this.dialogRef.close(element.element);
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        })
+      })
+    } else {
+      this.showLoading = true;
+      this.service.updateByForm(element.formData).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          this.dialogRef.close(element.element);
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        })
+      })
+    }
+  }
 }

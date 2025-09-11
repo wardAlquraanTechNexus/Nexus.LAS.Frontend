@@ -21,7 +21,6 @@ export class CompanyContractFormComponent extends BaseFormComponent {
   showLoading = false;
   @Input() element!: CompanyContractDto;
   loadCompanyContractTypesFn!: (search: string) => Observable<DynamicList[]>;
-  isDragging = false;
   statusOptions = [
     { label: 'Expired', value: CompanyContractStatus.Expired },
     { label: 'Active', value: CompanyContractStatus.Active }
@@ -48,36 +47,5 @@ export class CompanyContractFormComponent extends BaseFormComponent {
 
   }
 
-
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging = true;
-  }
-
-  onDragLeave(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging = false;
-  }
-
-  onFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging = false;
-    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
-      const file = event.dataTransfer.files[0];
-      if (this.validateFile(file)) {
-        this.uploadedFile = file;
-        this.formGroup.get('file')?.setValue(file);
-      }
-    }
-  }
-
-
-
-  validateFile(file: File): boolean {
-    const allowedTypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'application/pdf'];
-    const maxSize = 3 * 1024 * 1024; // 3MB
-    return allowedTypes.includes(file.type) && file.size <= maxSize;
-  }
 
 }

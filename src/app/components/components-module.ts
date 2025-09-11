@@ -46,6 +46,10 @@ import { TextPipe } from '../pipes/text-pipe';
 import { SharedRegisterNoteFormDialog } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form-dialog/shared-register-note-form-dialog';
 import { SharedRegisterNoteForm } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-form/shared-register-note-form';
 import { SharedRegisterNoteTable } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-table/shared-register-note-table';
+import { CompanyFormDialog } from '../dashboard-components/company-module/company-form-dialog/company-form-dialog';
+import { CompanyForm } from '../dashboard-components/company-module/company-form/company-form';
+import { PersonDetailsForm } from '../dashboard-components/person-module/shared-person-components/person-details-form/person-details-form';
+import { AddPerson } from '../dashboard-components/person-module/add-person/add-person';
 
 
 
@@ -72,6 +76,11 @@ import { SharedRegisterNoteTable } from '../dashboard-components/shared-componen
     SharedRegisterNoteTable,
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
+    CompanyForm,
+    CompanyFormDialog,
+    PersonDetailsForm,
+    AddPerson,
+
   ],
   imports: [
     CommonModule,
@@ -102,7 +111,8 @@ import { SharedRegisterNoteTable } from '../dashboard-components/shared-componen
     MatCheckboxModule,
     MatToolbarModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+
 
   ],
   exports: [
@@ -155,6 +165,12 @@ import { SharedRegisterNoteTable } from '../dashboard-components/shared-componen
     SharedRegisterNoteTable,
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
+    CompanyForm,
+    CompanyFormDialog,
+    PersonDetailsForm,
+    AddPerson
+  ],
+  providers: [
 
   ]
 })

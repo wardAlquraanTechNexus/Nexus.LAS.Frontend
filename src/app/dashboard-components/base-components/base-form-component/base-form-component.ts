@@ -15,12 +15,13 @@ import { LoadingStateService } from '../../../services/loading-state.service';
   templateUrl: './base-form-component.html',
   styleUrl: './base-form-component.scss'
 })
-export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnInit, OnDestroy {
+export class BaseFormComponent implements OnInit, OnDestroy {
 
+  isDragging = false;
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
   uploadedFile: File | null = null;
-  @Input() object: T | null = null;
+  @Input() object:  | null = null;
   @Input() validationRules: { [key: string]: ValidatorFn[] } = {};
   @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelEditEmitter: EventEmitter<void> = new EventEmitter<void>();
@@ -43,7 +44,7 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
     this.loadingService = loadingService || new LoadingStateService();
   }
 
-  protected setup(object: T): void {
+  protected setup(object: any): void {
     this.object = object;
   }
 
@@ -245,5 +246,58 @@ export class BaseFormComponent<T extends BaseEntity = BaseEntity> implements OnI
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+    get fileUrl(): string | null {
+    const file = this.formGroup.get('file')?.value;
+    if (!file) return null;
+    return typeof file === 'string' ? file : (file.url || file.preview || URL.createObjectURL(file));
+  }
+
+  isImage(file: any): boolean {
+    if (!file) return false;
+    const name = file.name || '';
+    return /\.(png|jpe?g|svg)$/i.test(name);
+  }
+
+  isPdf(file: any): boolean {
+    if (!file) return false;
+    const name = file.name || '';
+    return /\.pdf$/i.test(name);
+  }
+
+  removeFile(event: any): void {
+    event.stopPropagation();
+    this.formGroup.get('file')?.setValue(null);
+  }
+
+    onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = true;
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = false;
+  }
+
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isDragging = false;
+    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
+      const file = event.dataTransfer.files[0];
+      if (this.validateFile(file)) {
+        this.uploadedFile = file;
+        this.formGroup.get('file')?.setValue(file);
+      }
+    }
+  }
+
+
+
+  validateFile(file: File): boolean {
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'application/pdf'];
+    const maxSize = 3 * 1024 * 1024; // 3MB
+    return allowedTypes.includes(file.type) && file.size <= maxSize;
   }
 }
