@@ -20,29 +20,29 @@
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
 
-                <!-- Address Line 1 -->
+                <!-- Line 1 -->
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address Line 1</mat-label>
+                        <mat-label>Line 1</mat-label>
                         <input matInput type="text" formControlName="addressLine1" required />
                         <mat-error *ngIf="formGroup.get('addressLine1')?.hasError('required')">
-                            Address Line 1 is required
+                            Line 1 is required
                         </mat-error>
                     </mat-form-field>
                 </div>
 
-                <!-- Address Line 2 -->
+                <!-- Line 2 -->
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address Line 2</mat-label>
+                        <mat-label>Line 2</mat-label>
                         <input matInput type="text" formControlName="addressLine2" />
                     </mat-form-field>
                 </div>
 
-                <!-- Address Line 3 -->
+                <!-- Line 3 -->
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address Line 3</mat-label>
+                        <mat-label>Line 3</mat-label>
                         <input matInput type="text" formControlName="addressLine3" />
                     </mat-form-field>
                 </div>
@@ -58,7 +58,7 @@
 
                 <div class="col-6 ps-2">
                     <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'poBoxCountry'"
-                        [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="'Nationality'"
+                        [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="'Country'"
                         [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
                         (selectEmitter)="onSelectCountry($event)">
                     </select-auto-complete>
@@ -66,7 +66,7 @@
 
                 <div class="col-6 pe-2" *ngIf="countryId">
                     <select-auto-complete *ngIf="loadCitiesFn" [formGroup]="formGroup" [controlName]="'poBoxCity'"
-                        [fnGet]="loadCitiesFn" [label]="'Cities'" [keyToShow]="'name'" [valueKey]="'id'"
+                        [fnGet]="loadCitiesFn" [label]="'City'" [keyToShow]="'name'" [valueKey]="'id'"
                         [withNullOption]="false">
                     </select-auto-complete>
                 </div>
@@ -74,7 +74,7 @@
                 <!-- Primary Address Checkbox -->
                 <div class="col-12">
                     <mat-slide-toggle formControlName="addressPrimary">
-                        Primary Address
+                        Primary
                     </mat-slide-toggle>
 
                 </div>

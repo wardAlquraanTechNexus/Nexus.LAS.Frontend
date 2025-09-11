@@ -18,10 +18,12 @@ import { environment } from '../../../../../environment/environment';
 import { CompanyStatus } from '../../../../enums/company-status';
 import { CompanyFormDialog } from '../../company-form-dialog/company-form-dialog';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
+import { LanguageService } from '../../../../services/language-service'; // Adjust path as needed
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-base-companies-component',
-  imports: [],
+  standalone:false,
   templateUrl: './base-companies-component.html',
   styleUrl: './base-companies-component.scss'
 })
@@ -54,6 +56,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     status: true,
     private: true
   };
+  labels:any;
 
   activeStatus = CompanyStatus.Active;
   inActiveStatus = CompanyStatus.Inactive;
@@ -82,11 +85,14 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     override route: ActivatedRoute,
     protected menuService: MenuService,
     protected dialog: MatDialog,
-    protected dlService: DynamicListService
+    protected dlService: DynamicListService,
+    protected langService: LanguageService
 
   ) {
     super(service, cdr, fb, router, errorHandler, route);
   }
+
+ 
 
   override ngOnInit(): void {
     let routerSplitted = this.router.url.split('/');
@@ -112,6 +118,14 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       },
     )
 
+    this.setLabels();
+  }
+
+
+  setLabels() {
+    this.langService.language$.subscribe(lang => {
+         this.labels = Labels[lang];
+       });
   }
 
 

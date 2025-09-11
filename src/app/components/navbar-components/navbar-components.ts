@@ -49,30 +49,37 @@ export class NavbarComponent implements OnDestroy, OnInit {
   listToCreated = [
     {
       name: "Person",
+      icon: "person",
       value: environment.routes.AddPerson
     },
     {
       name: "Company",
+      icon: "business",
       value: environment.routes.AddCompany
     },
     {
       name: "Real Estate",
+      icon: "home_work",
       value: environment.routes.AddRealEstate
     },
     {
       name: "Law Firm",
+      icon: "gavel",
       value: environment.routes.AddLawFirm
     },
     {
       name: "Transaction",
+      icon: "swap_horiz",
       value: environment.routes.AddTransaction
     },
     {
       name: "Documents Tracking",
+      icon: "description",
       value: environment.routes.AddDocumentTracking
     },
     {
       name: "FPC",
+      icon: "account_balance",
       value: environment.routes.AddFpc
     }
   ]

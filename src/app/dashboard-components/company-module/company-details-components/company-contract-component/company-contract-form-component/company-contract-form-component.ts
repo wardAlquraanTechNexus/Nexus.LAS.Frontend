@@ -22,6 +22,7 @@ export class CompanyContractFormComponent extends BaseFormComponent {
   @Input() element!: CompanyContractDto;
   loadCompanyContractTypesFn!: (search: string) => Observable<DynamicList[]>;
   statusOptions = [
+    { label: 'None', value: null },
     { label: 'Expired', value: CompanyContractStatus.Expired },
     { label: 'Active', value: CompanyContractStatus.Active }
   ]
@@ -38,9 +39,6 @@ export class CompanyContractFormComponent extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
-    if(!this.element.id){
-      this.formGroup.get("file")?.addValidators(Validators.required);
-    }
     this.loadCompanyContractTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType, search);
 
 

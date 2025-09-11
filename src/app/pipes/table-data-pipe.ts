@@ -8,6 +8,8 @@ import { PersonStatus } from '../enums/person-status';
 import { CompanyStatus } from '../enums/company-status';
 import { CompanyContractStatus } from '../enums/company-contract-status';
 import { PersonService } from '../services/person-services/person-service';
+import { LanguageService } from '../services/language-service';
+import { CompanyLicenseStatus } from '../enums/company-license-status';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -15,56 +17,61 @@ import { PersonService } from '../services/person-services/person-service';
 })
 export class TableDataPipe implements PipeTransform {
 
-  constructor(private dlService: DynamicListService, private personService: PersonService) { }
+  constructor(
+    private dlService: DynamicListService,
+    private personService: PersonService,
+    private languageService: LanguageService // Inject LanguageService
+  ) { }
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
     if (!pipes || pipes.length === 0) {
       return of(value?.toString() ?? '');
     }
 
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+
     for (const pipe of pipes) {
       switch (pipe.toLowerCase()) {
         case 'person-status':
           switch (value) {
-            case PersonStatus.New: return of('New');
-            case PersonStatus.Active: return of('Active');
-            case PersonStatus.Inactive: return of('Inactive');
+            case PersonStatus.New: return of(getLabel('NEW'));
+            case PersonStatus.Active: return of(getLabel('ACTIVE'));
+            case PersonStatus.Inactive: return of(getLabel('INACTIVE'));
             default: return of(value?.toString() ?? '');
           }
         case 'company-status':
           switch (value) {
-            case CompanyStatus.New: return of('New');
-            case CompanyStatus.Active: return of('Active');
-            case CompanyStatus.Inactive: return of('Inactive');
+            case CompanyStatus.New: return of(getLabel('NEW'));
+            case CompanyStatus.Active: return of(getLabel('ACTIVE'));
+            case CompanyStatus.Inactive: return of(getLabel('INACTIVE'));
             default: return of(value?.toString() ?? '');
           }
 
         case 'company-contract-status':
           switch (value) {
-            case CompanyContractStatus.Expired: return of('Expired');
-            case CompanyContractStatus.Active: return of('Active');
+            case CompanyContractStatus.Expired: return of(getLabel('EXPIRED') ?? 'Expired');
+            case CompanyContractStatus.Active: return of(getLabel('ACTIVE'));
             default: return of(value?.toString() ?? '');
           }
         case 'company-license-status':
           switch (value) {
-            case 0: return of('Expired');
-            case 1: return of('Active');
+            case CompanyLicenseStatus.Expired: return of(getLabel('EXPIRED') ?? 'Expired');
+            case CompanyLicenseStatus.Active: return of(getLabel('ACTIVE'));
             default: return of(value?.toString() ?? '');
           }
 
         case 'private-person':
         case 'private-company':
-          return of(value === true ? 'Private' : 'Public');
+          return of(value === true ? getLabel('COMPANY.PRIVATE') : getLabel('COMPANY.PUBLIC'));
 
         case 'signatory-active':
         case 'capital-active':
         case 'active':
-          return of(value === true ? 'Active' : 'Inactive');
-
+          return of(value === true ? getLabel('ACTIVE') : getLabel('INACTIVE'));
 
         case 'person-document-primary':
         case 'person-in-charge-primary':
-          return of(value === true ? 'Primary' : '');
+          return of(value === true ? getLabel('PRIMARY') ?? 'Primary' : '');
 
         case 'date-time':
           const dateTime = value instanceof Date ? value : new Date(value);
@@ -173,11 +180,11 @@ export class TableDataPipe implements PipeTransform {
 
 
         case 'company-shareholder-status':
-          return of(value === true ? 'Active' : 'Inactive');
+          return of(value === true ? getLabel('ACTIVE') : getLabel('INACTIVE'));
 
         case 'register-type':
-          if (value === EntityIDc.Person) return of('Person');
-          if (value === EntityIDc.Company) return of('Company');
+          if (value === EntityIDc.Person) return of(getLabel('PERSON') ?? 'Person');
+          if (value === EntityIDc.Company) return of(getLabel('COMPANY') ?? 'Company');
           return of(value?.toString() ?? '');
 
         default:

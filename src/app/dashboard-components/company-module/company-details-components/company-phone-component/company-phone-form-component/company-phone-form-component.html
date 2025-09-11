@@ -6,7 +6,7 @@
         <mat-icon>phone</mat-icon>
       </div>
       <div class="header-text">
-        <h2 class="dialog-title">Company Phone</h2>
+        <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Phone</h2>
         <p class="dialog-subtitle">Enter company phone details</p>
       </div>
     </div>
@@ -30,7 +30,8 @@
             [label]="'Phone Type'" 
             [keyToShow]="'name'" 
             [valueKey]="'name'"
-            [withNullOption]="false">
+            [withNullOption]="false"
+            [isRequired]="true">
           </select-auto-complete>
           <div class="text-danger" *ngIf="formGroup.get('phoneType')?.invalid && formGroup.get('phoneType')?.touched">
             Phone type is required
@@ -57,11 +58,8 @@
         <!-- Primary Phone -->
         <div class="col-12">
           <mat-slide-toggle formControlName="phonePrimary">
-            Primary Phone
+            Primary
           </mat-slide-toggle>
-          <div class="text-danger" *ngIf="formGroup.get('phonePrimary')?.invalid && formGroup.get('phonePrimary')?.touched">
-            Primary phone status is required
-          </div>
         </div>
 
       </form>

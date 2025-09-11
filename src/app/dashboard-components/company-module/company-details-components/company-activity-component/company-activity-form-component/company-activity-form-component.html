@@ -3,11 +3,11 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon>business</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company Activity</h2>
-                <p class="dialog-subtitle">Company Activity</p>
+                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Activity</h2>
+                <p class="dialog-subtitle">Select Company Activity</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">

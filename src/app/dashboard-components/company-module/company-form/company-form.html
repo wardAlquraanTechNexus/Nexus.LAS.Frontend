@@ -3,11 +3,11 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>Company</mat-icon>
+                <mat-icon>business</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Add New Company</h2>
-                <p class="dialog-subtitle">Create a new company</p>
+                <h2 class="dialog-title">{{company.id != 0 ? 'Edit Company' : 'Add Company'}}</h2>
+                <p class="dialog-subtitle">Enter company details</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -19,6 +19,20 @@
     <div class="dialog-body">
         <div class="form-container">
             <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Incorporation Date</mat-label>
+                        <input matInput [matDatepicker]="incorporationDatePicker" formControlName="incorporationDate"
+                            placeholder="Select Incorporation Date" required>
+                        <mat-datepicker-toggle matSuffix [for]="incorporationDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #incorporationDatePicker></mat-datepicker>
+                        <mat-error
+                            *ngIf="formGroup.get('incorporationDate')?.hasError('required') && formGroup.get('incorporationDate')?.touched">
+                            Incorporation Date is required
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- to Add Share Value  -->
+                </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Name En</mat-label>
@@ -49,49 +63,50 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <!-- Incorporation Date -->
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Incorporation Date</mat-label>
-                        <input matInput [matDatepicker]="incorporationDatePicker" formControlName="incorporationDate"
-                            placeholder="Select Incorporation Date" required>
-                        <mat-datepicker-toggle matSuffix [for]="incorporationDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #incorporationDatePicker></mat-datepicker>
-                        <mat-error
-                            *ngIf="formGroup.get('incorporationDate')?.hasError('required') && formGroup.get('incorporationDate')?.touched">
-                            Incorporation Date is required
-                        </mat-error>
-                    </mat-form-field>
-                    <!-- to Add Share Value  -->
+
+                <div class="col-6">
+
+                    <select-auto-complete *ngIf="loadCompanyTypeFn" [controlName]="'companyTypeIdn'"
+                        [fnGet]="loadCompanyTypeFn" [formGroup]="formGroup"  [label]="'Company Type'"
+                        [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
+                        (selectEmitter)="onCompanyType($event)"></select-auto-complete>
                 </div>
 
 
+                <div class="col-6">
 
-                <select-auto-complete *ngIf="loadCompanyTypeFn" [controlName]="'companyTypeIdn'"
-                    [fnGet]="loadCompanyTypeFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Company Type'"
-                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
-                    (selectEmitter)="onCompanyType($event)"></select-auto-complete>
+                    <select-auto-complete *ngIf="loadCompanyClassFn" [controlName]="'companyClassIdn'"
+                        [fnGet]="loadCompanyClassFn" [formGroup]="formGroup" 
+                        [label]="'Company Class'" [keyToShow]="'name'" [valueKey]="'id'"
+                        [withNullOption]="false"></select-auto-complete>
 
-                <select-auto-complete *ngIf="loadCompanyClassFn" [controlName]="'companyClassIdn'"
-                    [fnGet]="loadCompanyClassFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Company Class'"
-                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
+                </div>
 
-                <!-- to Add Legal Type  -->
+                <div class="col-6">
 
-                <select-auto-complete *ngIf="loadLegalTypeFn" [controlName]="'legalTypeIdn'" [fnGet]="loadLegalTypeFn"
-                    [formGroup]="formGroup" [isRequired]="true" [label]="'Legal Type'" [keyToShow]="'name'"
-                    [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
+                    <select-auto-complete *ngIf="loadLegalTypeFn" [controlName]="'legalTypeIdn'"
+                        [fnGet]="loadLegalTypeFn" [formGroup]="formGroup"  [label]="'Legal Type'"
+                        [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
+                </div>
 
-                <select-auto-complete *ngIf="loadPlaceOfRegistrationMainFn" [controlName]="'placeOfRegistrationMainIdn'"
-                    [fnGet]="loadPlaceOfRegistrationMainFn" [formGroup]="formGroup" [isRequired]="true"
-                    [label]="'Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
-                    (selectEmitter)="onSelectMainRegistrtaion($event)"></select-auto-complete>
 
-                <select-auto-complete *ngIf="loadPlaceOfRegistrationSubFn" [formGroup]="formGroup"
-                    [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
-                    [label]="'Sub Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
-                    [withNullOption]="false">
-                </select-auto-complete>
+                <div class="col-6">
+
+                    <select-auto-complete *ngIf="loadPlaceOfRegistrationMainFn"
+                        [controlName]="'placeOfRegistrationMainIdn'" [fnGet]="loadPlaceOfRegistrationMainFn"
+                        [formGroup]="formGroup"  [label]="'Place of Registration'"
+                        [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
+                        (selectEmitter)="onSelectMainRegistrtaion($event)"></select-auto-complete>
+
+                </div>
+
+                <div class=col-6>
+                    <select-auto-complete *ngIf="loadPlaceOfRegistrationSubFn" [formGroup]="formGroup"
+                        [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
+                        [label]="'Sub Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
+                        [withNullOption]="false">
+                    </select-auto-complete>
+                </div>
             </form>
         </div>
     </div>

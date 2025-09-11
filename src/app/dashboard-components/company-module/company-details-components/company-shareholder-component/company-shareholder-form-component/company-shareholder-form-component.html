@@ -3,10 +3,10 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon>people</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company Shareholder</h2>
+                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Shareholder</h2>
                 <p class="dialog-subtitle">Enter shareholder details</p>
             </div>
         </div>
@@ -22,7 +22,7 @@
 
                 <!-- RegistersIdc -->
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Register Type</mat-label>
+                    <mat-label>Type</mat-label>
                     <mat-select formControlName="registersIdc" required>
                         <mat-option [value]="EntityIDc.Person">Person</mat-option>
                         <mat-option [value]="EntityIDc.Company">Company</mat-option>
@@ -68,22 +68,35 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- ShareHolderDate -->
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Shareholder Date</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="shareHolderDate" required />
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error *ngIf="formGroup.get('shareHolderDate')?.hasError('required')">
-                        Shareholder date is required
-                    </mat-error>
-                </mat-form-field>
+                <div class="row">
 
-           
-                <!-- Active -->
-                <mat-slide-toggle formControlName="shareHolderActive">
-                    Active
-                </mat-slide-toggle>
+                    <!-- ShareHolderDate -->
+                     <div class="col-6">
+                         <mat-form-field appearance="outline">
+                             <mat-label>Appointment Date</mat-label>
+                             <input matInput [matDatepicker]="picker1" formControlName="shareHolderDate" required />
+                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                             <mat-datepicker #picker1></mat-datepicker>
+                             <mat-error *ngIf="formGroup.get('shareHolderDate')?.hasError('required')">
+                                 Appointment date is required
+                             </mat-error>
+                         </mat-form-field>
+                    </div>
+    
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Cessation Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="cessationDate" />
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="formGroup.get('cessationDate')?.hasError('required')">
+                                Cessation date is required
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
                 
 
             </form>

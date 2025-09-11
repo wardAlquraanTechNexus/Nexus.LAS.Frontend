@@ -28,7 +28,7 @@
         <div class="nexus-filter-field">
           <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
             [formGroup]="formGroup" [label]="label.nationality" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
-            (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
+            (selectEmitter)="onSelectNationality($event)" [withNullOption]="true">
           </select-auto-complete>
         </div>
 
@@ -40,11 +40,11 @@
         </div>
 
         <div class="nexus-toggle-group">
-          <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple class="nexus-toggle-normal">
+          <!-- <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple class="nexus-toggle-normal">
             <mat-button-toggle [value]="0">{{label.new}}</mat-button-toggle>
             <mat-button-toggle [value]="1">{{label.active}}</mat-button-toggle>
             <mat-button-toggle [value]="2">{{label.inactive}}</mat-button-toggle>
-          </mat-button-toggle-group>
+          </mat-button-toggle-group> -->
         </div>
 
         <div class="nexus-filter-field">

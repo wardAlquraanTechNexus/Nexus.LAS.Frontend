@@ -8,4 +8,5 @@ export interface CompanyAccountSignatoryDto{
   description: string;  
   accountSignatoryDate: string;
   accountSignatoryActive: boolean;
+  cessationDate?: string | null;
 }

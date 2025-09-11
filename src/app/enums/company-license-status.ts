@@ -1,4 +1,4 @@
 export enum CompanyLicenseStatus{
-    Expired,
-    Active
+    Expired = 109,
+    Active = 108
 }

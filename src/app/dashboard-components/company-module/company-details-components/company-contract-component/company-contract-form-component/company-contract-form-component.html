@@ -1,12 +1,13 @@
 <div class="modern-dialog-container">
+    <!-- Header -->
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon>assignment</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company Contract</h2>
-                <p class="dialog-subtitle">Enter company contract details</p>
+                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Contract</h2>
+                <p class="dialog-subtitle">Enter Company Contract Details</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -14,58 +15,46 @@
         </button>
     </div>
 
-    <div *ngIf="showLoading" class="loading-overlay">
-        <mat-spinner diameter="40"></mat-spinner>
-    </div>
+    <!-- Body: 50/50 layout -->
+    <div class="dialog-body split-layout">
+        <!-- Left: Form -->
+        <div class="form-side">
+            <form [formGroup]="formGroup" class="dialog-content">
 
-    <form class="dialog-content" [formGroup]="formGroup">
+                <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
 
-        <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
-            (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
+                    <label class="upload-button">
+                        <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)"
+                            hidden />
+                        <a mat-raised-button color="primary" type="button">
+                            Click to Upload
+                        </a>
+                    </label>
 
-            <label class="upload-button">
-                <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)" hidden />
-                <a mat-raised-button color="primary" type="button">
-                    Click to Upload
-                </a>
-            </label>
+                    <p>or drag and drop</p>
+                    <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
+                </div>
+                <mat-error
+                    *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
+                    class="mat-error">
+                    File is required.
+                </mat-error>
 
-            <p>or drag and drop</p>
-            <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
-        </div>
-        <!-- File Upload -->
-        <mat-error *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
-            class="mat-error">
-            File is required.
-        </mat-error>
-        <div *ngIf="formGroup.get('file')?.value" class="file-info">
-            <mat-icon>description</mat-icon>
-            {{ formGroup.get('file')?.value.name }}
-            ({{ formGroup.get('file')?.value.size / 1024 | number:'1.0-0' }} KB)
-        </div>
-        <!-- Contract Type -->
-        <div class="col-12">
+            <div class="col-12">
             <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
-                [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup" [isRequired]="true"
-                [label]="'Company Contract'" [keyToShow]="'name'" [valueKey]="'id'">
+                [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup" 
+                [label]="'Contract Type'" [keyToShow]="'name'" [valueKey]="'id'">
             </select-auto-complete>
-
-            <mat-error
-                *ngIf="formGroup.get('contractType')?.hasError('required') && formGroup.get('contractType')?.touched">
-                Contract type is required
-            </mat-error>
         </div>
 
         <!-- Document Date -->
         <mat-form-field appearance="outline">
             <mat-label>Document Date</mat-label>
-            <input matInput formControlName="documentDate" [matDatepicker]="docDatePicker" required />
+            <input matInput formControlName="documentDate" [matDatepicker]="docDatePicker"  />
             <mat-datepicker-toggle matSuffix [for]="docDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #docDatePicker></mat-datepicker>
-            <mat-error
-                *ngIf="formGroup.get('documentDate')?.hasError('required') && formGroup.get('documentDate')?.touched">
-                Document date is required
-            </mat-error>
+            
         </mat-form-field>
 
         <!-- Commencement Date -->
@@ -83,49 +72,57 @@
         <!-- Contract Expiry Date -->
         <mat-form-field appearance="outline">
             <mat-label>Expiry Date</mat-label>
-            <input matInput formControlName="contractExpiryDate" [matDatepicker]="expiryDatePicker" required />
+            <input matInput formControlName="contractExpiryDate" [matDatepicker]="expiryDatePicker" />
             <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #expiryDatePicker></mat-datepicker>
-            <mat-error
-                *ngIf="formGroup.get('contractExpiryDate')?.hasError('required') && formGroup.get('contractExpiryDate')?.touched">
-                Expiry date is required
-            </mat-error>
         </mat-form-field>
 
         <!-- Contract Description -->
         <mat-form-field appearance="outline">
             <mat-label>Contract Description</mat-label>
-            <textarea required matInput formControlName="contractDescription" rows="3"></textarea>
-            <mat-error
-                *ngIf="formGroup.get('contractDescription')?.hasError('required') && formGroup.get('contractDescription')?.touched">
-                Contract description is required
-            </mat-error>
+            <textarea  matInput formControlName="contractDescription" rows="3"></textarea>
         </mat-form-field>
 
         <!-- Contract Status -->
         <mat-form-field appearance="outline">
             <mat-label>Contract Status</mat-label>
-            <mat-select formControlName="contractStatus" required>
+            <mat-select formControlName="contractStatus" >
                 <mat-option *ngFor="let option of statusOptions" [value]="option.value">
                     {{ option.label }}
                 </mat-option>
             </mat-select>
-            <mat-error
-                *ngIf="formGroup.get('contractStatus')?.hasError('required') && formGroup.get('contractStatus')?.touched">
-                Contract status is required
-            </mat-error>
         </mat-form-field>
 
          <div class="col-12">
             <mat-slide-toggle formControlName="contractExpiryActiveReminder">
-                Expiry Reminder Active
+                Active Reminder
             </mat-slide-toggle>
         
         </div>
+            </form>
+        </div>
 
-    </form>
+
+        <!-- Right: File Preview -->
+        <div class="preview-side">
+            <div class="file-preview" *ngIf="element?.imageUrl">
+                <ng-container *ngIf="element?.contentType === 'application/pdf'; else showImage">
+                    <iframe [src]="element.imageUrl" width="100%" height="500px" type="application/pdf"></iframe>
+                </ng-container>
+                <ng-template #showImage>
+                    <img *ngIf="element?.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
+                </ng-template>
+            </div>
+            <div class="file-preview empty" *ngIf="!element?.imageUrl">
+                <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
+                <div class="empty-text">No file selected</div>
+            </div>
+        </div>
 
 
+    </div>
+
+    <!-- Footer -->
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>

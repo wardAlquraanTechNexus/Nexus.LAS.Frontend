@@ -2,8 +2,8 @@
 ::ng-deep .mat-mdc-dialog-container {
   display: flex;
   flex-direction: column;
-  width: 600px !important;
-  max-width: 90vw !important;
+  // width: 1100px !important;      // Increased width
+  // max-width: 98vw !important;    // Allow almost full screen
   margin: auto;
   padding: 0 !important;
 }
@@ -12,8 +12,14 @@
   display: flex;
   flex-direction: column;
   border-radius: 12px !important;
-  width: 100% !important;
-  max-height: 90vh;
+  width: 95% !important;
+  max-height: 95vh;
+}
+::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
+  min-width: 90vw !important;    // Wider min width
+  max-width: 90vw !important;
+  margin: auto !important;
+  height: 97%;
 }
 
 /* Dialog body: takes remaining space above footer */
@@ -29,11 +35,12 @@
 .form-container {
   display: flex;
   flex-direction: row;
-  gap: 24px;
+  gap: 32px;                    // More gap for clarity
   flex: 1 1 auto;
 
   .form-left {
-    flex: 2;
+    flex: 1 1 0;
+    min-width: 300px;            // Ensure minimum width for form fields
     overflow-y: auto;
     padding-right: 8px;
   }

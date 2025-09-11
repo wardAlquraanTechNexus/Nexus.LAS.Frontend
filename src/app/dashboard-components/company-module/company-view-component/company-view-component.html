@@ -152,31 +152,6 @@
                     </div>
                 </mat-tab>
 
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>contacts</mat-icon>
-                            <span>Contact</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="company-overview-component">
-                            <div class="row">
-                                <div class="col-6">
-                                    <app-company-email-component [company]="company"></app-company-email-component>
-                                </div>
-                                <div class="col-6">
-                                    <app-company-phone-component [company]="company"></app-company-phone-component>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="company-overview-component">
-                            <app-company-address-component [company]="company"></app-company-address-component>
-                        </div>
-                    </div>
-                </mat-tab>
-
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -185,7 +160,7 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                         <div class="company-overview-component">
+                        <div class="company-overview-component">
                             <app-company-contract-component [company]="company"></app-company-contract-component>
                         </div>
                     </div>
@@ -214,7 +189,8 @@
                             <app-company-board-component [company]="company" (rowClick)="onSelectCompanyBoard($event)"></app-company-board-component>
                         </div> -->
                         <div class="company-overview-component">
-                            <app-company-board-member-component [company]="company" ></app-company-board-member-component>
+                            <app-company-board-member-component
+                                [company]="company"></app-company-board-member-component>
                         </div>
                     </div>
                 </mat-tab>
@@ -230,7 +206,29 @@
                         <app-company-bank-account-component [company]="company"></app-company-bank-account-component>
                     </div>
                 </mat-tab>
-
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>contacts</mat-icon>
+                            <span>Contacts</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="company-overview-component">
+                            <div class="row">
+                                <div class="col-6">
+                                    <app-company-email-component [company]="company"></app-company-email-component>
+                                </div>
+                                <div class="col-6">
+                                    <app-company-phone-component [company]="company"></app-company-phone-component>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="company-overview-component">
+                            <app-company-address-component [company]="company"></app-company-address-component>
+                        </div>
+                    </div>
+                </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -239,8 +237,9 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                         <div class="company-overview-component">
-                            <app-shared-register-note-table [registersIdc]="company.companyIdc!" [registersIdn]="company.id"></app-shared-register-note-table>
+                        <div class="company-overview-component">
+                            <app-shared-register-note-table [registersIdc]="company.companyIdc!"
+                                [registersIdn]="company.id"></app-shared-register-note-table>
                         </div>
                     </div>
                 </mat-tab>

@@ -82,7 +82,7 @@
   <!-- Create Menu -->
   <mat-menu #listToCreate_menu="matMenu" class="create-menu">
     <button mat-menu-item *ngFor="let item of listToCreated" (click)="openAddDialog(item)" class="create-menu-item">
-      <mat-icon>add_circle_outline</mat-icon>
+      <mat-icon>{{item.icon}}</mat-icon>
       <span>{{ item.name }}</span>
     </button>
   </mat-menu>

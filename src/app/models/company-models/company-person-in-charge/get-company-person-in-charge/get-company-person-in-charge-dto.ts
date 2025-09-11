@@ -4,10 +4,10 @@ export interface CompanyPersonInChargeDto {
   personIdn?: number | null;
   designation?: string;
   designations?: string[];
-  authorityRule: string;
-  notes?: string;
+  authorityRule?: number | null;
+  notes?: string | null;
   personInChargeDate?: string; // or Date if you parse it
-  cessationDate?: string;      // or Date
+  cessationDate?: string | null;      // or Date
   personInChargeActive?: boolean;
   personNameEn?: string;
   personNameAr?: string;

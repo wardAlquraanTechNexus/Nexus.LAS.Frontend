@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { CompanyLicense } from '../../../../models/company-models/company-license/company-license';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
@@ -15,6 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyLicenseViewDialogComponent } from './company-license-view-dialog-component/company-license-view-dialog-component';
+import { LanguageService } from '../../../../services/language-service';
+import { Subscription } from 'rxjs';
+import { getDisplayColumns } from '../../../_shared/shared-methods/getDisplayColumns';
 
 @Component({
   selector: 'app-company-license-component',
@@ -22,51 +25,9 @@ import { CompanyLicenseViewDialogComponent } from './company-license-view-dialog
   templateUrl: './company-license-component.html',
   styleUrl: './company-license-component.scss'
 })
-export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> {
-
-
-
-
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "licenseClassification",
-      label: "Classifications"
-    },
-    {
-      key: "licenseNumber",
-      label: "Number"
-    },
-    {
-      key: "licenseIssueDate",
-      label: "Issue Date",
-      pipes: ["date"]
-    },
-    {
-      key: "licenseExpiryDate",
-      label: "Expiry Date",
-      pipes: ["date"]
-    },
-    {
-      key: "licenseExpiryActiveReminder",
-      label: "Reminder",
-      inputType: "mat-slide-toggle"
-    }
-    ,
-    {
-      key: "licenseStatus",
-      label: "Status",
-      pipes: ['company-license-status']
-    },
-    {
-      key:"licensePrimary",
-      label: "Primary",
-      pipes:['person-in-charge-primary']
-    },
-    {
-      key: 'action',
-      label: 'Actions'
-    }
-  ]
+export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> implements OnInit, OnDestroy {
+  override displayColumns: DisplayColumn[] = [];
+  private langSub!: Subscription;
 
   override params: GetcompanyLicenseParams = {
     companyId: 0,
@@ -84,16 +45,37 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     override route: ActivatedRoute,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
-
+    private languageService: LanguageService
   ) {
     super(service, cdr, fb, router, errorHandler, route)
   }
+
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
+    this.setDisplayColumns();
+    this.langSub = this.languageService.language$.subscribe(() => {
+      this.setDisplayColumns();
+    });
     super.ngOnInit();
   }
 
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.langSub?.unsubscribe();
+  }
 
+  setDisplayColumns() {
+    this.displayColumns = getDisplayColumns(this.languageService, [
+      { key: "licenseClassification", labelKey: 'COMPANY.CLASS' },
+      { key: "licenseNumber", labelKey: 'COMPANY.CODE' },
+      { key: "licenseIssueDate", labelKey: 'COMPANY.ISSUE_DATE', pipes: ["date"] },
+      { key: "licenseExpiryDate", labelKey: 'COMPANY.EXPIRY_DATE', pipes: ["date"] },
+      { key: "licenseExpiryActiveReminder", labelKey: 'COMPANY.REMINDER', inputType: "mat-slide-toggle" },
+      { key: "licenseStatus", labelKey: 'COMPANY.STATUS', pipes: ['company-license-status'] },
+      { key: "licensePrimary", labelKey: 'COMMON.PRIMARY', pipes: ['person-in-charge-primary'] },
+      { key: "action", labelKey: 'COMMON.ACTIONS' }
+    ]);
+  }
 
   onAddNew() {
     let element: CompanyLicenseDto = {

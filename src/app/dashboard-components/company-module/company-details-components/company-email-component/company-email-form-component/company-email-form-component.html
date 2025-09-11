@@ -3,11 +3,11 @@
   <div class="dialog-header">
     <div class="header-content">
       <div class="header-icon">
-        <mat-icon>group_work</mat-icon>
+        <mat-icon>email</mat-icon>
       </div>
       <div class="header-text">
-        <h2 class="dialog-title">Company Email</h2>
-        <p class="dialog-subtitle">Enter company email details</p>
+        <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Email</h2>
+        <p class="dialog-subtitle">Enter company email</p>
       </div>
     </div>
     <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -37,7 +37,7 @@
         <!-- Email Primary -->
         <div class="col-12">
           <mat-slide-toggle formControlName="emailPrimary">
-            Primary Email
+            Primary
           </mat-slide-toggle>
         </div>
 

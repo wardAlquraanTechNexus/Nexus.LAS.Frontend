@@ -91,6 +91,7 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
       cciExpiryActiveReminder: false,
       cciUsername: "",
       cciPassword: "",
+      imageUrl: null,
       file: null
     };
     const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {

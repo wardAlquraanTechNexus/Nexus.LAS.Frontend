@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CompanyStatus } from '../../../../enums/company-status';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import GetCompanyQuery from '../../../../models/company-models/get-company-query/get-company-dto-command';
@@ -10,6 +11,7 @@ import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MenuService } from '../../../../services/menu-service';
 import { BaseCompaniesComponent } from '../../_base/base-companies-component/base-companies-component';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-active-private-companies-table-component',
@@ -29,69 +31,9 @@ export class ActivePrivateCompaniesTableComponent  extends BaseCompaniesComponen
       orderDir: 'desc'
     }
   
-    
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "select",
-      label: "Select",
-    },
-    {
-      key: "companyCode",
-      label: "Code",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "incorporationDate",
-      label: "Inc. Date",
-      pipes: [
-        "date"
-      ],
-      sort: true
-    },
-    {
-      key: "companyEnglishName",
-      label: "Name En",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "companyArabicName",
-      label: "Name Ar",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "companyShortName",
-      label: "Short Name",
-      pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "companyStatus",
-      label: "Status",
-      pipes: ["company-Status"],
-      sort: true
-    },
-    {
-      key: "fpcCode",
-      label: "FPC Code",
-      // pipes: ["link"],
-      sort: true
-    },
-    {
-      key: "private",
-      label: "Private",
-      pipes: ["private-Company"],
-      sort: true
-    },
-    {
-      key: "action",
-      label: "Action",
-    },
-  ]
+    override displayColumns: DisplayColumn[] = [];
 
-
+    private langSub!: Subscription;
 
   constructor(
     override service: CompanyService,
@@ -102,13 +44,40 @@ export class ActivePrivateCompaniesTableComponent  extends BaseCompaniesComponen
     override route: ActivatedRoute,
     override menuService: MenuService,
     override dialog: MatDialog,
-    override dlService: DynamicListService
+    override dlService: DynamicListService,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route, menuService, dialog, dlService);
+    super(service, cdr, fb, router, errorHandler, route, menuService, dialog, dlService , langService);
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.setDisplayColumns();
+    this.langSub = this.langService.language$.subscribe(() => {
+      this.setDisplayColumns();
+    });
+  }
 
+  setDisplayColumns() {
+    const l = this.langService.currentLanguage();
+    const labels = this.langService.getLabel.bind(this.langService);
+
+    this.displayColumns = [
+      { key: "select", label: l === 'ar' ? 'اختيار' : 'Select' },
+      { key: "companyCode", label: labels('COMPANY.CODE'), pipes: ["link"], sort: true },
+      { key: "incorporationDate", label: l === 'ar' ? 'تاريخ التأسيس' : 'Inc. Date', pipes: ["date"], sort: true },
+      { key: "companyEnglishName", label: labels('COMPANY.NAME_EN'), pipes: ["link"], sort: true },
+      { key: "companyArabicName", label: labels('COMPANY.NAME_AR'), pipes: ["link"], sort: true },
+      { key: "companyShortName", label: l === 'ar' ? 'الاسم المختصر' : 'Short Name', pipes: ["link"], sort: true },
+      { key: "companyStatus", label: labels('COMPANY.STATUS'), pipes: ["company-Status"], sort: true },
+      { key: "fpcCode", label: l === 'ar' ? 'رمز FPC' : 'FPC Code', sort: true },
+      { key: "private", label: labels('COMPANY.PRIVATE'), pipes: ["private-Company"], sort: true },
+      { key: "action", label: l === 'ar' ? 'إجراء' : 'Action' }
+    ];
+  }
+
+  override ngOnDestroy(): void {
+    this.langSub?.unsubscribe();
+    super.ngOnDestroy?.();
   }
 }

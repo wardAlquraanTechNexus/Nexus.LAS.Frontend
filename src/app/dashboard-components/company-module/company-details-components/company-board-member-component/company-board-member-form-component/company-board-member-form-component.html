@@ -3,11 +3,11 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon>people</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company Board Member</h2>
-                <p class="dialog-subtitle">Enter Company Board Member</p>
+                <h2 class="dialog-title">{{element.id != 0 ? 'Edit' : 'Add'}} Board Member</h2>
+                <p class="dialog-subtitle">Enter Board Member</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -21,14 +21,16 @@
             <form [formGroup]="formGroup" class="row w-100">
 
                 <div class="form-group col-12">
-                    <select-auto-complete *ngIf="loadPersonsFn" [controlName]="'personId'" [fnGet]="loadPersonsFn"
-                        [formGroup]="formGroup" [isRequired]="true" [label]="'Person'" [keyToShow]="'personEnglishName'"
-                        [valueKey]="'id'">
-                    </select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('personId')?.invalid && (formGroup.get('personId')?.touched || formGroup.touched)">
-                        Person is required
-                    </mat-error>
+                    <div class="select-error-wrapper">
+                        <select-auto-complete *ngIf="loadPersonsFn" [controlName]="'personId'" [fnGet]="loadPersonsFn"
+                            [formGroup]="formGroup" [isRequired]="true" [label]="'Person'"
+                            [keyToShow]="'personEnglishName'" [valueKey]="'id'">
+                        </select-auto-complete>
+                        <mat-error
+                            *ngIf="formGroup.get('personId')?.invalid && (formGroup.get('personId')?.touched || formGroup.touched)">
+                            Person is required
+                        </mat-error>
+                    </div>
                 </div>
 
 
@@ -50,8 +52,13 @@
                     <mat-datepicker #appointmentPicker></mat-datepicker>
                 </mat-form-field>
 
+                <mat-form-field class="col-12" appearance="outline">
+                    <mat-label>Cessation Date</mat-label>
+                    <input matInput [matDatepicker]="cessationPicker" formControlName="cessationDate" />
+                    <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #cessationPicker></mat-datepicker>
+                </mat-form-field>
 
-                <mat-slide-toggle formControlName="isActive">Is Active</mat-slide-toggle>
 
             </form>
         </div>

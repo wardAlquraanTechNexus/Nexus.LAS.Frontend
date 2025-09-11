@@ -3,11 +3,11 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon>article</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company Chamber of Commerce</h2>
-                <p class="dialog-subtitle">Company Chamber of Commerce</p>
+                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Chamber of Commerce</h2>
+                <p class="dialog-subtitle">Enter Company Chamber of Commerce Details</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -45,7 +45,7 @@
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>CCI Number</mat-label>
-                        <input matInput formControlName="cciNumber" placeholder="Enter CCI number" />
+                        <input matInput formControlName="cciNumber" placeholder="Enter CCI number" required />
                     </mat-form-field>
                 </div>
 
@@ -53,7 +53,7 @@
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>CCI Issue Date</mat-label>
-                        <input matInput [matDatepicker]="cciIssuePicker" formControlName="cciIssueDate" />
+                        <input matInput [matDatepicker]="cciIssuePicker" formControlName="cciIssueDate" required />
                         <mat-datepicker-toggle matSuffix [for]="cciIssuePicker"></mat-datepicker-toggle>
                         <mat-datepicker #cciIssuePicker></mat-datepicker>
                     </mat-form-field>
@@ -72,7 +72,7 @@
                 <!-- Expiry Reminder -->
                 <div class="col-12">
                     <mat-slide-toggle formControlName="cciExpiryActiveReminder">
-                        Enable Expiry Reminder
+                        Active Reminder
                     </mat-slide-toggle>
                 </div>
 
@@ -95,21 +95,23 @@
             </form>
         </div>
 
-        @if(formGroup.get('imageUrl')?.value)
-        {
-        <div class="preview-side" *ngIf="formGroup.get('imageUrl')?.value">
-            <div class="file-preview">
-                 <ng-container *ngIf="element.contentType === 'application/pdf'; else showImage">
-                    <iframe [src]="element.imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
-                </ng-container>
 
+        <!-- Right: File Preview -->
+        <div class="preview-side">
+            <div class="file-preview" *ngIf="element?.imageUrl">
+                <ng-container *ngIf="element?.contentType === 'application/pdf'; else showImage">
+                    <iframe [src]="element.imageUrl" width="100%" height="500px" type="application/pdf"></iframe>
+                </ng-container>
                 <ng-template #showImage>
-                    <img *ngIf="element.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
+                    <img *ngIf="element?.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
                 </ng-template>
-                
+            </div>
+            <div class="file-preview empty" *ngIf="!element?.imageUrl">
+                <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
+                <div class="empty-text">No file selected</div>
             </div>
         </div>
-        }
+
 
     </div>
 

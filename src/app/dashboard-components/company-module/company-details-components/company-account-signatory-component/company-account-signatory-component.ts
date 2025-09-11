@@ -56,7 +56,7 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
     },
     {
       key:"accountSignatoryDate",
-      label:"Date Of Appintment",
+      label:"Date of Appointment",
       pipes:["date"]
     },
     {
@@ -122,7 +122,8 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
       toAmount: 0,
       description: "",
       accountSignatoryDate: "",
-      accountSignatoryActive : false
+      cessationDate: null,
+      accountSignatoryActive: false
     };
     const dialogRef = this.dialog.open(CompanyAccountSignatoryDialogFormComponent, {
       disableClose: true,

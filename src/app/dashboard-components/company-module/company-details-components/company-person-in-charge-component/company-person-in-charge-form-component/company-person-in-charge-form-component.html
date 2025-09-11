@@ -3,11 +3,11 @@
   <div class="dialog-header">
     <div class="header-content">
       <div class="header-icon">
-        <mat-icon>group_work</mat-icon>
+        <mat-icon>badge</mat-icon>
       </div>
       <div class="header-text">
         <h2 class="dialog-title">Person In Charge</h2>
-        <p class="dialog-subtitle">Person In Charge</p>
+        <p class="dialog-subtitle">Enter Person In Charge Details</p>
       </div>
     </div>
     <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -22,72 +22,48 @@
 
         <!-- Person Select -->
         <div class="col-12">
-          <select-auto-complete *ngIf="loadPersonssFn"
-            [controlName]="'personIdn'"
-            [fnGet]="loadPersonssFn"
-            [formGroup]="formGroup"
-            [isRequired]="true"
-            [label]="'Person'"
-            [keyToShow]="'personEnglishName'"
+          <select-auto-complete *ngIf="loadPersonssFn" [controlName]="'personIdn'" [fnGet]="loadPersonssFn"
+            [formGroup]="formGroup" [isRequired]="true" [label]="'Person'" [keyToShow]="'personEnglishName'"
             [valueKey]="'id'">
           </select-auto-complete>
-          <mat-error *ngIf="formGroup.get('personIdn')?.invalid && (formGroup.get('personIdn')?.touched || formGroup.touched)">
+          <mat-error
+            *ngIf="formGroup.get('personIdn')?.invalid && (formGroup.get('personIdn')?.touched || formGroup.touched)">
             Person is required
           </mat-error>
         </div>
 
         <!-- Designation -->
         <div class="col-12">
-          <select-auto-complete *ngIf="loadDesignation"
-            [controlName]="'designations'"
-            [fnGet]="loadDesignation"
-            [formGroup]="formGroup"
-            [isRequired]="true"
-            [label]="'Designation'"
-            [keyToShow]="'name'"
-            [valueKey]="'id'"
+          <select-auto-complete *ngIf="loadDesignation" [controlName]="'designations'" [fnGet]="loadDesignation"
+            [formGroup]="formGroup" [isRequired]="true" [label]="'Designation'" [keyToShow]="'name'" [valueKey]="'id'"
             [isMultiple]="true">
           </select-auto-complete>
-          <mat-error *ngIf="formGroup.get('designations')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
+          <mat-error
+            *ngIf="formGroup.get('designations')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
             Designation is required
           </mat-error>
         </div>
 
         <!-- Authority Rule -->
         <div class="col-12">
-          <select-auto-complete *ngIf="loadAuthorityRulesFn"
-            [controlName]="'authorityRule'"
-            [fnGet]="loadAuthorityRulesFn"
-            [formGroup]="formGroup"
-            [isRequired]="true"
-            [label]="'Authority Rule'"
-            [keyToShow]="'name'"
+          <select-auto-complete *ngIf="loadAuthorityRulesFn" [controlName]="'authorityRule'"
+            [fnGet]="loadAuthorityRulesFn" [formGroup]="formGroup" [label]="'Authority Rule'" [keyToShow]="'name'"
             [valueKey]="'id'">
           </select-auto-complete>
-          <mat-error *ngIf="formGroup.get('authorityRule')?.invalid && (formGroup.get('authorityRule')?.touched || formGroup.touched)">
-            Authority Rule is required
-          </mat-error>
         </div>
 
-        <!-- Notes -->
-        <div class="col-12">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Notes</mat-label>
-            <textarea matInput formControlName="notes" placeholder="Enter notes" rows="3" required></textarea>
-            <mat-error *ngIf="formGroup.get('notes')?.invalid && (formGroup.get('notes')?.touched || formGroup.touched)">
-              Notes are required
-            </mat-error>
-          </mat-form-field>
-        </div>
+
 
         <!-- Dates -->
         <div class="col-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Date Of Appointment</mat-label>
-            <input matInput [matDatepicker]="pickerInCharge" formControlName="personInChargeDate" placeholder="Choose a date" required>
+            <input matInput [matDatepicker]="pickerInCharge" formControlName="personInChargeDate"
+              placeholder="Choose a date" required>
             <mat-datepicker-toggle matSuffix [for]="pickerInCharge"></mat-datepicker-toggle>
             <mat-datepicker #pickerInCharge></mat-datepicker>
-            <mat-error *ngIf="formGroup.get('personInChargeDate')?.invalid && (formGroup.get('personInChargeDate')?.touched || formGroup.touched)">
+            <mat-error
+              *ngIf="formGroup.get('personInChargeDate')?.invalid && (formGroup.get('personInChargeDate')?.touched || formGroup.touched)">
               Date of Appointment is required
             </mat-error>
           </mat-form-field>
@@ -96,22 +72,27 @@
         <div class="col-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cessation Date</mat-label>
-            <input matInput [matDatepicker]="pickerCessation" formControlName="cessationDate" placeholder="Choose a date" required>
+            <input matInput [matDatepicker]="pickerCessation" formControlName="cessationDate"
+              placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="pickerCessation"></mat-datepicker-toggle>
             <mat-datepicker #pickerCessation></mat-datepicker>
-            <mat-error *ngIf="formGroup.get('cessationDate')?.invalid && (formGroup.get('cessationDate')?.touched || formGroup.touched)">
-              Cessation Date is required
-            </mat-error>
           </mat-form-field>
         </div>
 
+        <!-- Notes -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes" placeholder="Enter notes" rows="3"></textarea>
+          </mat-form-field>
+        </div>
         <!-- Active Checkbox -->
         <div class="col-12">
           <mat-slide-toggle formControlName="personInChargeActive">Active</mat-slide-toggle>
-          
+
         </div>
 
-      </form> 
+      </form>
     </div>
   </div>
 

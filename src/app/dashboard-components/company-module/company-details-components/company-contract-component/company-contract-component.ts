@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CompanyContract } from '../../../../models/company-models/company-contract/company-contract';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { DisplayColumn } from '../../../../models/columns/display-column';
@@ -12,7 +12,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { CompanyContractDto } from '../../../../models/company-models/company-contract/dtos/company-contract-dto';
 import { CompanyContractFormDialogComponent } from './company-contract-form-dialog-component/company-contract-form-dialog-component';
 import { CompanyContractViewDialogComponent } from './company-contract-view-dialog-component/company-contract-view-dialog-component';
-import { downloadBlob } from '../../../_shared/shared-methods/downloadBlob';
+import { base64ToBlob, downloadBlob } from '../../../_shared/shared-methods/downloadBlob';
+import { LanguageService } from '../../../../services/language-service';
+import { Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-company-contract-component',
@@ -20,54 +23,11 @@ import { downloadBlob } from '../../../_shared/shared-methods/downloadBlob';
   templateUrl: './company-contract-component.html',
   styleUrl: './company-contract-component.scss'
 })
-export class CompanyContractComponent extends TableFormComponent<CompanyContract> {
+export class CompanyContractComponent extends TableFormComponent<CompanyContract> implements OnInit, OnDestroy {
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "fileName",
-      label: "Name",
-      pipes: ["link"]
-    },
-    {
-      key: "contractType",
-      label: "Contract Type",
-      pipes: ["company-contract-type"]
-    },
-    {
-      key: "documentDate",
-      label: "Document Date",
-      pipes: ["date"]
-    },
-    {
-      key: "commencementDate",
-      label: "Document Date",
-      pipes: ["date"]
-    },
-    {
-      key: "contractExpiryDate",
-      label: "Expiry Date",
-      pipes: ["date"]
-    },
-    {
-      key: "contractExpiryActiveReminder",
-      label: "Reminder",
-      inputType: "mat-slide-toggle"
-    }
-    ,
-    {
-      key: "contractDescription",
-      label: "Description",
-    },
-    {
-      key: "contractStatus",
-      label: "Status",
-      pipes: ['company-contract-status']
-    },
-    {
-      key: 'action',
-      label: 'Actions'
-    }
-  ]
+  override displayColumns: DisplayColumn[] = [];
+
+  private langSub!: Subscription;
 
   override params: GetPagingCompanyContractQuery = {
     companyId: 0,
@@ -83,16 +43,76 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private languageService: LanguageService,
+    private sanitizer: DomSanitizer,
+
   ) {
     super(service, cdr, fb, router, errorHandler, route)
   }
+
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
+    this.setDisplayColumns();
+    this.langSub = this.languageService.language$.subscribe(() => {
+      this.setDisplayColumns();
+    });
     super.ngOnInit();
   }
+ 
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.langSub?.unsubscribe();
+  }
 
-
+  setDisplayColumns() {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    this.displayColumns = [
+      {
+        key: "fileName",
+        label: getLabel('COMMON.FILE_NAME') ?? "File Name",
+        pipes: ["link"]
+      },
+      {
+        key: "contractType",
+        label: getLabel('COMPANY.CONTRACT_TYPE') ?? "Contract Type",
+        pipes: ["company-contract-type"]
+      },
+      {
+        key: "documentDate",
+        label: getLabel('COMPANY.DOCUMENT_DATE') ?? "Document Date",
+        pipes: ["date"]
+      },
+      {
+        key: "commencementDate",
+        label: getLabel('COMPANY.COMMENCEMENT_DATE') ?? "Commencement Date",
+        pipes: ["date"]
+      },
+      {
+        key: "contractExpiryDate",
+        label: getLabel('COMPANY.EXPIRY_DATE') ?? "Expiry Date",
+        pipes: ["date"]
+      },
+      {
+        key: "contractExpiryActiveReminder",
+        label: getLabel('COMPANY.REMINDER') ?? "Reminder",
+        inputType: "mat-slide-toggle"
+      },
+      {
+        key: "contractDescription",
+        label: getLabel('COMPANY.DESCRIPTION') ?? "Description",
+      },
+      {
+        key: "contractStatus",
+        label: getLabel('COMPANY.STATUS') ?? "Status",
+        pipes: ['company-contract-status']
+      },
+      {
+        key: 'action',
+        label: getLabel('COMMON.ACTIONS') ?? 'Actions'
+      }
+    ];
+  }
 
   onAddNew() {
     let element: CompanyContractDto = {
@@ -104,7 +124,7 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
       contractExpiryDate: "",
       contractExpiryActiveReminder: false,
       contractDescription: '',
-      contractStatus: 0,
+      contractStatus: null,
       file: null
     };
     const dialogRef = this.dialog.open(CompanyContractFormDialogComponent, {
@@ -120,6 +140,15 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
   }
 
   onEdit(row: any) {
+    if (row.dataFile && row.contentType) {
+          const base64Data = row.dataFile;
+          const blob = base64ToBlob(base64Data, row.contentType);
+          const url = URL.createObjectURL(blob);
+          row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          this.cdr.markForCheck();
+        }
+        row.file = null;
+    
     const dialogRef = this.dialog.open(CompanyContractFormDialogComponent, {
       disableClose: true,
       data: row
@@ -147,8 +176,6 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
 
   }
 
-
-
   deleteFn(id: number) {
     return () => this.delete(id);
   }
@@ -170,9 +197,6 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
   toggleTable() {
     this.showTable = !this.showTable;
   }
-
-
-
 
   onRowClick(event: any) {
     if (event.key == 'contractExpiryActiveReminder') {

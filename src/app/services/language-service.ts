@@ -28,4 +28,12 @@ export class LanguageService {
   currentLanguage(): LanguageCode {
     return (localStorage.getItem('language') || 'en') as LanguageCode;
   }
+
+  getLabel(key: string): string {
+    const lang = this.currentLanguage();
+    const labels = this.getLabels(lang);
+    // Support nested keys like 'COMPANY.CODE'
+    const result = key.split('.').reduce((obj, k) => (obj && typeof obj === 'object' && k in obj ? (obj as any)[k] : undefined), labels);
+    return typeof result === 'string' ? result : key;
+  }
 }

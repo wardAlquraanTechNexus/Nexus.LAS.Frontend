@@ -35,7 +35,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
   override displayColumns: DisplayColumn[] = [
     {
       key: "personId",
-      label: "person",
+      label: "Person",
       pipes: ["person"]
     },
     {
@@ -110,9 +110,10 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
       id: 0,
       personId: 0,
       appointmentDate: "",
-      isActive: false,
+      cessationDate: null,
       position: 0,
-      companyId: this.company.id
+      companyId: this.company.id,
+      isActive: false,
     };
     const dialogRef = this.dialog.open(CompanyBoardMemberDialogFormComponent, {
       disableClose: true,

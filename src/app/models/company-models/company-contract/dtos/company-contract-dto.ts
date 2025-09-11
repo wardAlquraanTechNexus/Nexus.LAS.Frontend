@@ -7,7 +7,7 @@ export interface CompanyContractDto {
     contractExpiryDate?: string;
     contractExpiryActiveReminder?: boolean;
     contractDescription?: string;
-    contractStatus: number;
+    contractStatus?: number | null;
     contentType?: string;
     dataFile?: number[];
     imageUrl?: any;

@@ -57,7 +57,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     },
     {
       key: "shareHolderDate",
-      label: "Date Of Appointment",
+      label: "Date of Appointment",
       pipes: ['date']
     },
     {
@@ -67,7 +67,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     },
     {
       key: "shareHolderActive",
-      label: "Shareholder Status",
+      label: "Status",
       pipes: ['company-shareholder-status']
     },
     {
@@ -137,6 +137,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       shareHolderDate: "",
       shareHolderActive: false,
       companyId: this.company.id,
+      cessationDate: null,
     };
     const dialogRef = this.dialog.open(CompanyShareholderDialogFormComponent, {
       disableClose: true,

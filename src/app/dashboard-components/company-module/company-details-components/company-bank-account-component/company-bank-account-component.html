@@ -19,7 +19,8 @@
                 <mat-card-header>
                     <div class="card-header-content">
                         <div class="bank-info">
-                            <span class="bank-name">{{ item.bankName }}</span>
+                            <span class="bank-name">{{ item.bankName }}:</span>
+                            <span class="bank-name">({{ item.accountNumber }})</span>
                             <span class="bank-date">{{ item.bankAccountDate | textPipe:'date' | async}}</span>
                             <span class="status" [ngClass]="item.bankAccountActive ? 'active' : 'inactive'">
                                 {{ item.bankAccountActive ? 'Active' : 'Inactive' }}
@@ -40,7 +41,7 @@
                 <mat-card-content *ngIf="expandedMap[i]">
                     <div>
                         <p><strong>Note:</strong></p>
-                        <p>"{{ item.note || '—' }}"</p>
+                        <p>"{{ item.note  }}"</p>
                     </div>
                     <div>
                         <app-company-account-signatory-component [companyBankAccount]="item"></app-company-account-signatory-component>

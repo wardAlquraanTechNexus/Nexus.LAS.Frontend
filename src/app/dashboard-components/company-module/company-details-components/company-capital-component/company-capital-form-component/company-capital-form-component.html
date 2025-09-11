@@ -3,10 +3,10 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon>monetization_on</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company Capital</h2>
+                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Capital</h2>
                 <p class="dialog-subtitle">Company Capital</p>
             </div>
         </div>
@@ -22,7 +22,7 @@
 
                 <!-- Capital Date -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Capital Date</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="capitalDate" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -37,7 +37,7 @@
 
                 <!-- Capital Amount -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Capital Amount</mat-label>
                         <input matInput type="number" formControlName="capitalAmount" required>
                         @if (formGroup.get('capitalAmount')?.hasError('required')) {
@@ -50,7 +50,7 @@
 
                 <!-- Nominal Value of Share -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Nominal Value of Share</mat-label>
                         <input matInput type="number" formControlName="nominalValueOfShare" required>
                         @if (formGroup.get('nominalValueOfShare')?.hasError('required')) {
@@ -62,22 +62,25 @@
                 </div>
 
                 <!-- Class of Shares Auto-Select -->
-                <div class="col-6">
-                        <select-auto-complete
-                            [controlName]="'classOfShares'"
-                            [fnGet]="loadClassOfSharesFn"
-                            [formGroup]="formGroup"
-                            [isRequired]="true"
-                            [label]="'Class of Shares'"
-                            [keyToShow]="'name'"
-                            [valueKey]="'name'"
-                            [withNullOption]="false">
-                        </select-auto-complete>
-                </div>
+                @if(loadClassOfSharesFn != undefined){
+                    <div class="col-6">
+                            <select-auto-complete
+                                [controlName]="'classOfShares'"
+                                [fnGet]="loadClassOfSharesFn"
+                                [formGroup]="formGroup"
+                                [isRequired]="true"
+                                [label]="'Class of Shares'"
+                                [keyToShow]="'name'"
+                                [valueKey]="'name'"
+                                [withNullOption]="false">
+                            </select-auto-complete>
+                    </div>
+
+                }
 
                 <!-- Number of Shares -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Number of Shares</mat-label>
                         <input matInput type="number" formControlName="numberOfShares" required>
                         @if (formGroup.get('numberOfShares')?.hasError('required')) {
@@ -90,7 +93,7 @@
 
                 <!-- Capital Authorized -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Capital Authorized</mat-label>
                         <input matInput type="number" formControlName="capitalAuthorized" required>
                         @if (formGroup.get('capitalAuthorized')?.hasError('required')) {
@@ -103,7 +106,7 @@
 
                 <!-- Capital Paid -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Capital Paid</mat-label>
                         <input matInput type="number" formControlName="capitalPaid" required>
                         @if (formGroup.get('capitalPaid')?.hasError('required')) {
@@ -116,7 +119,7 @@
 
                 <!-- Issued Shares -->
                 <div class="col-6">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field appearance="outline">
                         <mat-label>Issued Shares</mat-label>
                         <input matInput type="number" formControlName="issuedShares" required>
                         @if (formGroup.get('issuedShares')?.hasError('required')) {
@@ -128,18 +131,20 @@
                 </div>
 
                 <!-- Capital Currency Auto-Select -->
-                <div class="col-6">
-                        <select-auto-complete
-                            [controlName]="'capitalCurrency'"
-                            [fnGet]="loadCurrenciesTypeFn"
-                            [formGroup]="formGroup"
-                            [isRequired]="true"
-                            [label]="'Capital Currency'"
-                            [keyToShow]="'name'"
-                            [valueKey]="'id'"
-                            [withNullOption]="false">
-                        </select-auto-complete>
-                </div>
+                 @if(loadCurrenciesTypeFn != undefined){
+                     <div class="col-6">
+                             <select-auto-complete
+                                 [controlName]="'capitalCurrency'"
+                                 [fnGet]="loadCurrenciesTypeFn"
+                                 [formGroup]="formGroup"
+                                 [isRequired]="true"
+                                 [label]="'Capital Currency'"
+                                 [keyToShow]="'name'"
+                                 [valueKey]="'id'"
+                                 [withNullOption]="false">
+                             </select-auto-complete>
+                     </div>
+                    }
 
                 <!-- Capital Active -->
                 <div class="col-6">

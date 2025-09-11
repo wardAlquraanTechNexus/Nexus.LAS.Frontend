@@ -1,4 +1,3 @@
-
 /* Enhanced Add Group Dialog Styles - Consistent with Add Person */
 .modern-dialog-container {
   position: relative;
@@ -242,6 +241,18 @@
         cursor: not-allowed;
       }
     }
+  }
+
+  // Select Error Wrapper
+  .select-error-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Remove gap between select and error */
+  }
+
+  .select-error-wrapper mat-error {
+    margin-top: 0;
+    padding-top: 0;
   }
 }
 

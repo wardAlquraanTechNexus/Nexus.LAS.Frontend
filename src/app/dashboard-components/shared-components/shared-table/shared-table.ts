@@ -17,6 +17,7 @@ import { PersonService } from '../../../services/person-services/person-service'
 import { CompanyService } from '../../../services/company-services/company-service';
 import { EntityIDc } from '../../../enums/entity-idc';
 import { CompanyContractStatus } from '../../../enums/company-contract-status';
+import { CompanyLicenseStatus } from '../../../enums/company-license-status';
 
 @Component({
   selector: 'app-shared-table',
@@ -124,8 +125,8 @@ export class SharedTable implements OnInit, OnChanges {
           break;
 
         case 'company-contract-status':
-          let companyContractstatusBorder = '#9E77ED';
-          let companyContractstatusColor = '#9E77ED';
+          let companyContractstatusBorder = '';
+          let companyContractstatusColor = '';
           if (value == CompanyContractStatus.Active) {
             companyContractstatusBorder = '#22C993';
             companyContractstatusColor = '#22C993';
@@ -133,10 +134,13 @@ export class SharedTable implements OnInit, OnChanges {
             companyContractstatusBorder = '#423e3ede';
             companyContractstatusColor = '#423e3ede';
           }
-          styles['border'] = `2px solid ${companyContractstatusBorder}`;
-          styles['color'] = companyContractstatusColor;
-          styles['border-radius'] = '20px';
-          styles['padding'] = '10px';
+          if(value){
+            styles['border'] = `2px solid ${companyContractstatusBorder}`;
+            styles['color'] = companyContractstatusColor;
+            styles['border-radius'] = '20px';
+            styles['padding'] = '10px';
+
+          }
           break;
 
 
@@ -146,10 +150,10 @@ export class SharedTable implements OnInit, OnChanges {
 
           let statusBorder = '#9E77ED';
           let statusColor = '#9E77ED';
-          if (value === 1) {
+          if (value === CompanyLicenseStatus.Active) {
             statusBorder = '#22C993';
             statusColor = '#22C993';
-          } else if (value === 2) {
+          } else if (value === CompanyLicenseStatus.Expired) {
             statusBorder = '#423e3ede';
             statusColor = '#423e3ede';
           }

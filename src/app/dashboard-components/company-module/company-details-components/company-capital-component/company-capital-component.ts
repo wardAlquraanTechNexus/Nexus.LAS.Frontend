@@ -136,7 +136,8 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       capitalPaid: 0,
       issuedShares: 0,
       capitalCurrency: '',
-      capitalActive: false
+      capitalActive: false,
+      
     };
     const dialogRef = this.dialog.open(CompanyCapitalDialogFormComponent, {
       disableClose: true,

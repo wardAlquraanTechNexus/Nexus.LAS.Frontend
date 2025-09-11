@@ -3,11 +3,11 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>badge</mat-icon>
+                <mat-icon>article</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Company License</h2>
-                <p class="dialog-subtitle">Company License Details</p>
+                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Licenses & Register</h2>
+                <p class="dialog-subtitle">Enter Company License & Register Details</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -41,7 +41,7 @@
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Status</mat-label>
-                    <mat-select formControlName="licenseStatus">
+                    <mat-select formControlName="licenseStatus" required>
                         <mat-option *ngFor="let status of statusOptions" [value]="status.value">
                             {{ status.label }}
                         </mat-option>
@@ -50,17 +50,17 @@
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Classification</mat-label>
-                    <input matInput formControlName="licenseClassification" placeholder="Enter classification" />
+                    <input matInput formControlName="licenseClassification" placeholder="Enter classification" required />
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>License Number</mat-label>
-                    <input matInput formControlName="licenseNumber" placeholder="Enter license number" />
+                    <input matInput formControlName="licenseNumber" placeholder="Enter license number" required />
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Issue Date</mat-label>
-                    <input matInput [matDatepicker]="issuePicker" formControlName="licenseIssueDate" />
+                    <input matInput [matDatepicker]="issuePicker" formControlName="licenseIssueDate" required />
                     <mat-datepicker-toggle matSuffix [for]="issuePicker"></mat-datepicker-toggle>
                     <mat-datepicker #issuePicker></mat-datepicker>
                 </mat-form-field>
@@ -73,11 +73,11 @@
                 </mat-form-field>
 
                 <mat-slide-toggle formControlName="licensePrimary">
-                    Is Primary License
+                    Primary
                 </mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="licenseExpiryActiveReminder">
-                    Enable Expiry Reminder
+                    Active Reminder
                 </mat-slide-toggle>
 
             </form>
