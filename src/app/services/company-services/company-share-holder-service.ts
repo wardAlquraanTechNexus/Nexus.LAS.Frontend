@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { GetPagingCompanyActivityQuery } from '../../models/company-models/company-activity/params/get-paging-company-activity-params';
 import { CompaniesShareHolderDto } from '../../models/company-models/company-share-holder/dtos/company-share-holder-dto';
 import { PaginateRsult } from '../../models/paginate-result';
+import { ShareholderAssetsDto } from '../../models/company-models/company-share-holder/dtos/shareholder-assets-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,12 @@ export class CompanyShareHolderService extends BaseService<CompaniesShareHolder>
     this.setPath('CompanyShareHolder');
   }
 
-    getPaging(params: GetPagingCompanyActivityQuery): Observable<PaginateRsult<CompaniesShareHolderDto>> {
+    getPaging(params: GetPagingCompanyShareHolderParams): Observable<PaginateRsult<CompaniesShareHolderDto>> {
        return this.httpClient.get<PaginateRsult<CompaniesShareHolderDto>>(this.url, { params: this.httpParams(params) });
+     }
+
+     getShareholderAssets(params: GetPagingCompanyShareHolderParams): Observable<PaginateRsult<ShareholderAssetsDto>> {
+       return this.httpClient.get<PaginateRsult<ShareholderAssetsDto>>(this.url +"/GetShareholderAssets", { params: this.httpParams(params) });
      }
    
    

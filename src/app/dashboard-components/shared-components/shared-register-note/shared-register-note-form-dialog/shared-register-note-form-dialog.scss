@@ -3,8 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 600px !important;  /* fixed width */
-  max-width: 90vw !important;
+  
   margin: auto;
   padding: 0 !important;
 }
@@ -15,7 +14,8 @@
   flex: 1;
   border-radius: 4px !important; /* better to have some rounding */
   overflow: hidden;
-  width: 100% !important;
+  width: 800px !important;   // Increased width
+  max-width: 90vw !important;
   height: 100% !important;
 }
 

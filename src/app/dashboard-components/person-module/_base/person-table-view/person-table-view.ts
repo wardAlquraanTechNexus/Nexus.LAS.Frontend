@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PersonTableView implements OnInit {
 
-  personId:number = 0;
+  personId?:number | null= null;
   showLoading = false;
   constructor(
     private router: Router,
@@ -23,6 +23,8 @@ export class PersonTableView implements OnInit {
     this.route.queryParams.subscribe(params => {
       if(params['id']){
         this.personId = parseInt(params['id']);
+      }else{
+        this.personId = null;
       }
       this.showLoading = false;
       

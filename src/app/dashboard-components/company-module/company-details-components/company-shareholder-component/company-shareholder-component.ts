@@ -69,10 +69,6 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       key: "shareHolderActive",
       label: "Status",
       pipes: ['company-shareholder-status']
-    },
-    {
-      key: 'action',
-      label: 'Actions'
     }
   ]
 

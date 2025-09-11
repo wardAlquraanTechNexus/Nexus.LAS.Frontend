@@ -50,6 +50,7 @@ import { CompanyFormDialog } from '../dashboard-components/company-module/compan
 import { CompanyForm } from '../dashboard-components/company-module/company-form/company-form';
 import { PersonDetailsForm } from '../dashboard-components/person-module/shared-person-components/person-details-form/person-details-form';
 import { AddPerson } from '../dashboard-components/person-module/add-person/add-person';
+import { SharedCompanyShareholderComponent } from '../dashboard-components/shared-components/shared-company-shareholder-component/shared-company-shareholder-component';
 
 
 
@@ -80,6 +81,7 @@ import { AddPerson } from '../dashboard-components/person-module/add-person/add-
     CompanyFormDialog,
     PersonDetailsForm,
     AddPerson,
+    SharedCompanyShareholderComponent
 
   ],
   imports: [
@@ -168,7 +170,8 @@ import { AddPerson } from '../dashboard-components/person-module/add-person/add-
     CompanyForm,
     CompanyFormDialog,
     PersonDetailsForm,
-    AddPerson
+    AddPerson,
+    SharedCompanyShareholderComponent
   ],
   providers: [
 
