@@ -119,6 +119,7 @@ export interface Environment {
     boardPosition: number;
     designation : number;
     country: number;
+    classOfShares: number;
   }
 }
 

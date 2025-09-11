@@ -115,8 +115,8 @@ export const environment: Environment = {
     rule: 1033,
     boardPosition: 1000,
     designation: 1012,
-    country: 1010
-
+    country: 1010,
+    classOfShares: 1053,
 
   }
 } as const;
