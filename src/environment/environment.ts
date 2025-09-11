@@ -100,7 +100,7 @@ export const environment: Environment = {
   },
 
   rootDynamicLists: {
-    nationality: 1036,
+    nationality: 1010,
     companyType: 1008,
     companyClass: 1006,
     groupCompany: 1004,
