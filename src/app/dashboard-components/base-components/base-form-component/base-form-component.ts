@@ -61,7 +61,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
         group[key] = new FormControl((this.object as any)[key]);
       }
       this.formGroup = this.fb.group(group);
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     }
   }
 

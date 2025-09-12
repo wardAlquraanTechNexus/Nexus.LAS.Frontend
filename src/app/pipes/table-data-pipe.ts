@@ -117,7 +117,7 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
-        case 'designation':
+        case 'designations':
           // value can be a comma-separated string like "1,2,3" or an array [1,2,3]
           const ids = Array.isArray(value)
             ? value
@@ -137,6 +137,13 @@ export class TableDataPipe implements PipeTransform {
             })
           );
 
+          case 'designation':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.designation).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'company-contract-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
             map(list => {

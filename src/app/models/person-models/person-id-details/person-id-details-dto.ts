@@ -1,9 +1,9 @@
 export interface PersonIdDetailDto {
   id: number;
   personsIdn:number;
-  type: string;
-  nationality: string;
-  placeOfIssue: string;
+  type?: number | null;
+  nationality?: number | null;
+  placeOfIssue?: number | null;
   idNumber: string;
   idIssueDate: string;
   expiryDate: string;
@@ -13,4 +13,5 @@ export interface PersonIdDetailDto {
   contentType: string;
   dataFile: number[];
   imageUrl:any;
+  file:any;
 }

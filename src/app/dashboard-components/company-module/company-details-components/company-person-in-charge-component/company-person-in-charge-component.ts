@@ -137,7 +137,6 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
       cessationDate: null,
       personInChargeActive: false,
       personIdn: null,
-      designations: [],
     };
     const dialogRef = this.dialog.open(CompanyPersonInChargeDialogFormComponent, {
       disableClose: true,
@@ -185,6 +184,11 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
   onRowClick(event: any) {
     if (event.key == 'personInChargeActive') {
       this.showLoading = true;
+      if (!event.element.personInChargeActive) {
+        event.element.cessationDate = new Date().toISOString();
+      }else{
+        event.element.cessationDate = null;
+      }
       this.service.update(event.element).subscribe({
         next: (res => {
           this.errorHandler.showSuccess("Updated Successfully");

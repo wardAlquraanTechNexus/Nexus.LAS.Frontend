@@ -1,0 +1,75 @@
+<div class="table-header-container">
+  <div class="table-header">
+    <div class="header-title">
+      {{ languageService.getLabel('personIdDocuments') || 'Person Id Documents' }}
+    </div>
+    <div class="header-actions">
+      <button mat-raised-button color="primary" (click)="onAddNew()">
+        <mat-icon>add</mat-icon>
+        {{ languageService.getLabel('uploadDocument') || 'Upload Document' }}
+      </button>
+    </div>
+  </div>
+  <div class="table-filters">
+    <div class="row">
+      <div class="col-md-4 col-12 mb-2">
+        <select-auto-complete *ngIf="loadDocumentTypesFn"
+          [controlName]="'documentType'"
+          [fnGet]="loadDocumentTypesFn"
+          [formGroup]="formGroup"
+          [label]="languageService.getLabel('documentType') || 'Document Type'"
+          [keyToShow]="'name'"
+          [valueKey]="'id'"
+          [withNullOption]="true"
+          (selectEmitter)="onDocumentTypeSelect($event)">
+        </select-auto-complete>
+      </div>
+      <div class="col-md-4 col-12 mb-2">
+        <select-auto-complete *ngIf="loadNationalitiesFn"
+          [controlName]="'nationality'"
+          [fnGet]="loadNationalitiesFn"
+          [formGroup]="formGroup"
+          [label]="languageService.getLabel('nationality') || 'Nationality'"
+          [keyToShow]="'name'"
+          [valueKey]="'id'"
+          [withNullOption]="true"
+          (selectEmitter)="onNationalitySelect($event)">
+        </select-auto-complete>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showLoading" class="loading-container d-flex justify-content-center align-items-center"
+  style="min-height: 200px;">
+  <mat-spinner></mat-spinner>
+</div>
+
+<app-shared-table *ngIf="!showLoading"
+  [displayedColumns]="displayColumns"
+  [paginateResult]="data"
+  (onChangePage)="changePage($event)"
+  (onSortChangeEvent)="changeSort($event)"
+  [action]="actionButtonsTemplate"
+  (rowClick)="onRowClick($event)">
+</app-shared-table>
+
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="menuRow">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menuRow="matMenu">
+    <button mat-menu-item class="btn-view" (click)="onView(row)">
+      <mat-icon>visibility</mat-icon>
+      {{ languageService.getLabel('viewDocument') || 'View' }}
+    </button>
+    <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
+      <mat-icon>edit</mat-icon>
+      {{ languageService.getLabel('editDocument') || 'Edit' }}
+    </button>
+    <button mat-menu-item class="btn-delete" [confirmDelete]="getRemoveCallback(row.id)">
+      <mat-icon>delete</mat-icon>
+      {{ languageService.getLabel('deleteDocument') || 'Delete' }}
+    </button>
+  </mat-menu>
+</ng-template>

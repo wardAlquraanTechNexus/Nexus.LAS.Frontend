@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { PersonAddress } from '../../../../../models/person-models/person-address/person-address';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -18,6 +18,7 @@ export class PersonAddressDialog extends BaseDialogComponent {
     protected override dialogRef: MatDialogRef<PersonAddressDialog>,
     @Inject(MAT_DIALOG_DATA) public override data: any,
     private service: PersonAddressService,
+    private cdr: ChangeDetectorRef
   ) {
     super(dialogRef, data)
   }
@@ -38,6 +39,7 @@ export class PersonAddressDialog extends BaseDialogComponent {
           }),
           error:(err=>{
             this.showLoading = false;
+            this.cdr.markForCheck();
           })
       })
     }

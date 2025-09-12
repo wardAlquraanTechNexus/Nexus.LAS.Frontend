@@ -8,13 +8,13 @@ import { AuthService } from '../../services/auth-service';
 import { AuthResponse } from '../../models/auth-response';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AddPerson } from '../../dashboard-components/person-module/add-person/add-person';
-import { Direction } from '@angular/cdk/bidi';
 import { Language } from './models/language';
 import { LanguageService } from '../../services/language-service';
 import { GetCompanyDto } from '../../models/company-models/get-company-query/get-company-dto';
 import { CompanyFormDialog } from '../../dashboard-components/company-module/company-form-dialog/company-form-dialog';
 import { MenuService } from '../../services/menu-service';
+import { PersonDialogFormComponent } from '../../dashboard-components/person-module/person-dialog-form-component/person-dialog-form-component';
+import { PersonDto } from '../../models/person-models/person-dto';
 
 
 @Component({
@@ -169,20 +169,34 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
     let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
 
-    const dialogRef = this.dialog.open(AddPerson, {
+    let person: PersonDto = {
+      id: 0,
+      personIdc: "",
+      personCode: "",
+      personEnglishName: "",
+      personArabicName: "",
+      personShortName: "",
+      personStatus: 0,
+      fpcCode: "",
+      private: true,
+      fileName: ""
+    };
+    const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',
       maxHeight: '90vh',
       disableClose: true,
       autoFocus: false,
-      panelClass: 'custom-dialog-container'
+      panelClass: 'custom-dialog-container',
+      data: person
     });
 
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         if (result) {
+          debugger
           this.router.navigate([`${basePersonPath?.path}/${path?.path}`], {
-            queryParams: { id: result }
+            queryParams: { id: result.id }
           });
         }
       });

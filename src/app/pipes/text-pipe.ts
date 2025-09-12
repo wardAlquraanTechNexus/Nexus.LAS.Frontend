@@ -10,7 +10,7 @@ import { environment } from '../../environment/environment';
   standalone: false
 })
 export class TextPipe implements PipeTransform {
-  constructor(private dlService:DynamicListService){}
+  constructor(private dlService: DynamicListService) { }
 
   transform(value: any, pipe: string): Observable<string> {
     switch (pipe.toLowerCase()) {
@@ -35,6 +35,14 @@ export class TextPipe implements PipeTransform {
 
       case 'company-contract-type':
         return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
+
+      case 'other-document-type':
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType).pipe(
           map(list => {
             const found = list.find(x => x.id == value);
             return found ? found.name : '';

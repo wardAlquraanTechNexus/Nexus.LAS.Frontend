@@ -9,12 +9,12 @@ import { AddTransaction } from '../transaction-components/add-transaction/add-tr
 import { ActivePersons } from './active-persons/active-persons';
 import { ActivePrivatePersons } from './active-private-persons/active-private-persons';
 import { ActivePublicPersons } from './active-public-persons/active-public-persons';
-import { AddPerson } from './add-person/add-person';
 import { AllPersons } from './all-persons/all-persons';
 import { EditPerson } from './edit-person/edit-person';
 import { PersonIdDetailView } from './person-id-detail-view/person-id-detail-view';
 import { PersonOtherDocumentView } from './person-other-document-view/person-other-document-view';
 import { PersonView } from './person-view/person-view';
+import { PersonDialogFormComponent } from './person-dialog-form-component/person-dialog-form-component';
 
 const routes: Routes = [
     {
@@ -35,7 +35,7 @@ const routes: Routes = [
     },
     {
       path: environment.routes.AddPerson,
-      component: AddPerson,
+      component: PersonDialogFormComponent,
     },
     {
       path: environment.routes.EditPerson,

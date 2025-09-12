@@ -1,0 +1,100 @@
+<div class="modern-dialog-container wide-dialog">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>article</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Person Other Document</h2>
+        <p class="dialog-subtitle">Enter Person Other Document Details</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Body: 50/50 layout -->
+  <div class="dialog-body split-layout">
+    <!-- Left: Form -->
+    <div class="form-side">
+      <form [formGroup]="formGroup" class="dialog-content">
+
+        <!-- License File Upload -->
+        <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
+          <label class="upload-button">
+            <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)" hidden />
+            <a mat-raised-button color="primary" type="button">
+              Click to Upload
+            </a>
+          </label>
+          <p>or drag and drop</p>
+          <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
+        </div>
+        <mat-error *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
+          class="mat-error">
+          File is required.
+        </mat-error>
+
+
+
+
+        <div class="row mt-2">
+          <div class="col-6">
+            <select-auto-complete *ngIf="loadDocumentTypesFn" [controlName]="'documentType'"
+              [fnGet]="loadDocumentTypesFn" [formGroup]="formGroup" [label]="'Document Type'" [keyToShow]="'name'"
+              [valueKey]="'id'" [withNullOption]="false">
+            </select-auto-complete>
+            <div class="text-danger"
+              *ngIf="formGroup.get('documentType')?.invalid && formGroup.get('documentType')?.touched">
+              Document Type is required
+            </div>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width col-12">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="documentDescription" placeholder="Enter document description..." />
+          </mat-form-field>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Right: File Preview -->
+    <div class="preview-side">
+      <div class="file-preview" *ngIf="element?.imageUrl">
+        <ng-container *ngIf="element?.contentType === 'application/pdf'; else showImage">
+          <iframe [src]="element.imageUrl" width="100%" height="500px" type="application/pdf"></iframe>
+        </ng-container>
+        <ng-template #showImage>
+          <img *ngIf="element?.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
+        </ng-template>
+        <!-- Remove Attachment Button under the file preview -->
+        <div class="mt-2 mb-2 text-center">
+          <button mat-stroked-button color="warn" type="button" (click)="onRemoveAttachment()">
+            <mat-icon>delete</mat-icon>
+            Remove Attachment
+          </button>
+        </div>
+      </div>
+      <div class="file-preview empty" *ngIf="!element?.imageUrl">
+        <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
+        <div class="empty-text">No file selected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button class="save-btn" (click)="save(true)">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+  </div>
+</div>

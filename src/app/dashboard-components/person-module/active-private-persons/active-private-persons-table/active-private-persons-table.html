@@ -32,17 +32,6 @@
           </select-auto-complete>
         </div>
 
-        <div class="nexus-filter-field">
-          <mat-form-field appearance="outline">
-            <mat-label>Is Ld Staff</mat-label>
-            <mat-select [(value)]="params.isLdStaff" (selectionChange)="search()">
-              <mat-option [value]="null">All</mat-option>
-              <mat-option [value]="true">Yes</mat-option>
-              <mat-option [value]="false">No</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
         <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
             <mat-icon>download</mat-icon> Export

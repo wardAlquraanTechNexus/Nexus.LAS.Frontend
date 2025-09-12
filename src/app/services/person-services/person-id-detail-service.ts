@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PersonsIDDetail } from '../../models/person-models/person-id-details/person-id-details';
 import { PersonIdDetailDto } from '../../models/person-models/person-id-details/person-id-details-dto';
+import { PaginateRsult } from '../../models/paginate-result';
+import { GetPersonIdDetailsParams } from '../../models/person-models/person-id-details/get-person-id-details-params';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,8 @@ export class PersonIdDetailService extends BaseService<PersonsIDDetail> {
 
   getDTOById(id: number): Observable<PersonIdDetailDto> {
     return this.httpClient.get<PersonIdDetailDto>(`${this.url}/GetDTOById/${id}`);
+  }
+  getPaging(query: GetPersonIdDetailsParams): Observable<PaginateRsult<PersonIdDetailDto>> {
+    return this.httpClient.get<PaginateRsult<PersonIdDetailDto>>(`${this.url}/GetPaging`, { params: this.httpParams(query) });
   }
 }

@@ -1,0 +1,35 @@
+<div class="modern-dialog-container">
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>person</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 class="dialog-title">{{data.id ? 'Edit' : 'Add'}} Person</h2>
+        <p class="dialog-subtitle">Enter Person Details</p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="onCancel(false)" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-body">
+    <div class="form-container">
+      <app-person-form-component [element]="data" (saveEmitter)="onSave($event)" (cancelEditEmitter)="onCancel(true)">
+      </app-person-form-component>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  @if(showLoading){
+  <div class="loading-overlay">
+    <div class="loading-content">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p class="loading-text">Creating person...</p>
+    </div>
+  </div>
+
+  }
+
+</div>

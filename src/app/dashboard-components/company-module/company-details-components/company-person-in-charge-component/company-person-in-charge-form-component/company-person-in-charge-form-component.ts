@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyPersonInChargeDto } from '../../../../../models/company-models/company-person-in-charge/get-company-person-in-charge/get-company-person-in-charge-dto';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/get-person-dto';
-import { map, Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { PersonService } from '../../../../../services/person-services/person-service';
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
@@ -52,7 +52,15 @@ export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
       searchBy: search,
       page: 0,
       pageSize: 100
-    })
+    }).pipe(
+      filter(res => !!res),
+      map(res =>
+        res.filter(person =>
+          !search ||
+          (person.personEnglishName && person.personEnglishName.toLowerCase().includes(search.toLowerCase()))
+        )
+      )
+    );
   }
 
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PersonOtherDocumentService } from '../../../../services/person-services/person-other-document-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -10,37 +10,31 @@ import { PersonOtherDocumentView } from '../../person-other-document-view/person
 import { MatDialog } from '@angular/material/dialog';
 import { EditPersonOtherDocumentView } from '../../person-other-document-view/edit-person-other-document-view/edit-person-other-document-view';
 import { PersonOtherDocument } from '../../../../models/person-models/person-other-document/person-other-document';
-import { GetPerdonOtherDocument } from '../../../../models/person-models/person-other-document/get-person-other-document';
 import { DisplayColumn } from '../../../../models/columns/display-column';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from '../../../../../environment/environment.prod';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { LanguageService } from '../../../../services/language-service';
+import { PersonOtherDocumentDialogFormComponent } from './person-other-document-dialog-form-component/person-other-document-dialog-form-component';
+import { PersonOtherDocumentDTO } from '../../../../models/person-models/person-other-document/person-other-document-dto';
+import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
+import { DomSanitizer } from '@angular/platform-browser';
+import { GetPersonOtherDocument } from '../../../../models/person-models/person-other-document/get-person-other-document';
+import { PersonOtherDocumentDialogViewComponent } from './person-other-document-dialog-view-component/person-other-document-dialog-view-component';
 
 @Component({
-  selector: 'app-person-other-documents-table-form',
+  selector: 'app-person-other-documents-table-component',
   standalone: false,
-  templateUrl: './person-other-documents-table-form.html',
-  styleUrl: './person-other-documents-table-form.scss'
+  templateUrl: './person-other-documents-table-component.html',
+  styleUrls: ['./person-other-documents-table-component.scss']
 })
-export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOtherDocument> {
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "documentType",
-      label: "Type",
-      pipes: ['other-document-type']
-    },
-    {
-      key: "documentDescription",
-      label: "Description"
-    },
-    {
-      key: "action",
-      label: "Action"
-    }
-  ];
+export class PersonOtherDocumentsTableComponent extends TableFormComponent<PersonOtherDocument> implements OnInit {
+  override displayColumns: DisplayColumn[] = [];
 
-  override params: GetPerdonOtherDocument = {
+  private langSub!: Subscription;
+
+  override params: GetPersonOtherDocument = {
     personsIdn: null,
     documentType: null,
     page: 0,
@@ -58,7 +52,9 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     protected override errorHandler: ErrorHandlerService,
     protected override route: ActivatedRoute,
     private dialog: MatDialog,
-    private dlService:DynamicListService
+    private dlService: DynamicListService,
+    public languageService: LanguageService,
+    private sanitizer: DomSanitizer,
 
   ) {
     super(service, cdr, fb, router, errorHandler, route);
@@ -69,11 +65,38 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     if (personId) {
       this.params.personsIdn = parseInt(personId);
     }
-    this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType, search)
-    this.fetchData();
+    this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType, search);
     this.formGroup = this.fb.group({
       'documentType': []
-    })
+    });
+
+    this.setDisplayColumns();
+    this.langSub = this.languageService.language$.subscribe(() => {
+      this.setDisplayColumns();
+    });
+
+    this.fetchData();
+  }
+
+
+
+  setDisplayColumns() {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    this.displayColumns = [
+      {
+        key: "documentType",
+        label: getLabel('documentType') || "Type",
+        pipes: ['other-document-type']
+      },
+      {
+        key: "documentDescription",
+        label: getLabel('description') || "Description"
+      },
+      {
+        key: "action",
+        label: getLabel('COMMON.ACTION') || "Action"
+      }
+    ];
   }
 
   override search() {
@@ -97,12 +120,33 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
     this.fetchData();
   }
 
-  addToCollection(element: PersonOtherDocument) {
-    this.fetchData();
+
+  onAddNew() {
+    let element: PersonOtherDocumentDTO = {
+      id: 0,
+      personsIdn: this.params.personsIdn!,
+      documentType: 0,
+      documentDescription: "",
+      fileName: "",
+      contentType: "",
+      dataFile: null,
+      imageUrl: null,
+      file: null
+    };
+    const dialogRef = this.dialog.open(PersonOtherDocumentDialogFormComponent, {
+      disableClose: true,
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
   }
 
   viewDocument(item: PersonOtherDocument) {
-    const dialogRef = this.dialog.open(PersonOtherDocumentView, {
+    const dialogRef = this.dialog.open(PersonOtherDocumentDialogViewComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
       data: item
@@ -115,11 +159,18 @@ export class PersonOtherDocumentsTableForm extends TableFormComponent<PersonOthe
       }
     });
   }
-  editDocument(item: PersonOtherDocument) {
-    const dialogRef = this.dialog.open(EditPersonOtherDocumentView, {
+  editDocument(row: any) {
+    if (row.dataFile && row.contentType) {
+      const base64Data = row.dataFile;
+      const blob = base64ToBlob(base64Data, row.contentType);
+      const url = URL.createObjectURL(blob);
+      row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      this.cdr.markForCheck();
+    }
+    const dialogRef = this.dialog.open(PersonOtherDocumentDialogFormComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
-      data: item
+      data: row
 
     });
     dialogRef.afterClosed().subscribe(result => {

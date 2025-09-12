@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../services/person-services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
-import { PersonDetailsForm } from '../shared-person-components/person-details-form/person-details-form';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { PersonDto } from '../../../models/person-models/person-dto';
@@ -10,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MenuService } from '../../../services/menu-service';
 import { environment } from '../../../../environment/environment';
 import { EntityIDc } from '../../../enums/entity-idc';
+import { PersonFormComponent } from '../shared-person-components/person-form-component/person-form-component';
+import { PersonDialogFormComponent } from '../person-dialog-form-component/person-dialog-form-component';
 
 @Component({
   selector: 'app-person-view',
@@ -133,7 +134,7 @@ export class PersonView implements OnInit {
   }
 
   openPersonDialog(): void {
-    const dialogRef = this.dialog.open(PersonDetailsForm, {
+    const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',
       data: this.person,
       disableClose: true

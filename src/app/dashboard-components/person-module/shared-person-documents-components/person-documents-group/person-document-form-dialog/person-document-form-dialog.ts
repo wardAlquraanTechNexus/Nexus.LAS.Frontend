@@ -1,7 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PersonIdDocumentForm } from '../../person-id-document-form/person-id-document-form';
-import { PersonOtherDocumentForm } from '../../person-other-document-form/person-other-document-form';
 import { PersonOtherDocument } from '../../../../../models/person-models/person-other-document/person-other-document';
 import { PersonsIDDetail } from '../../../../../models/person-models/person-id-details/person-id-details';
 
@@ -13,8 +11,8 @@ import { PersonsIDDetail } from '../../../../../models/person-models/person-id-d
 })
 export class PersonDocumentFormDialog {
 
-  @ViewChild(PersonIdDocumentForm) idDocumentForm?: PersonIdDocumentForm;
-  @ViewChild(PersonOtherDocumentForm) otherDocumentForm?: PersonOtherDocumentForm;
+  // @ViewChild(PersonIdDocumentForm) idDocumentForm?: PersonIdDocumentForm;
+  // @ViewChild(PersonOtherDocumentForm) otherDocumentForm?: PersonOtherDocumentForm;
 
   selectedTab = 0;
   personId: number;
@@ -32,11 +30,11 @@ export class PersonDocumentFormDialog {
   }
 
   update(): void {
-    if (this.selectedTab === 0 && this.idDocumentForm) {
-      this.idDocumentForm.update();
-    } else if (this.selectedTab === 1 && this.otherDocumentForm) {
-      this.otherDocumentForm.update();
-    }
+    // if (this.selectedTab === 0 && this.idDocumentForm) {
+    //   this.idDocumentForm.update();
+    // } else if (this.selectedTab === 1 && this.otherDocumentForm) {
+    //   this.otherDocumentForm.update();
+    // }
   }
 
   saved(personsDocument: PersonsIDDetail | PersonOtherDocument) {

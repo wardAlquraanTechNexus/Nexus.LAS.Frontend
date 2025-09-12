@@ -34,8 +34,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BaseDialogComponent } from '../dashboard-components/base-components/base-dialog-component/base-dialog-component';
 import { BaseFormComponent } from '../dashboard-components/base-components/base-form-component/base-form-component';
-import { PersonIdDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-id-document-form/person-id-document-form';
-import { PersonOtherDocumentForm } from '../dashboard-components/person-module/shared-person-documents-components/person-other-document-form/person-other-document-form';
 import { SharedTreeComponent } from './shared-tree-component/shared-tree-component';
 import { SelectAutoComplete } from './select-auto-complete/select-auto-complete';
 import { NavbarEnComponent } from './navbar-components/navbar-en-component/navbar-en-component';
@@ -48,9 +46,9 @@ import { SharedRegisterNoteForm } from '../dashboard-components/shared-component
 import { SharedRegisterNoteTable } from '../dashboard-components/shared-components/shared-register-note/shared-register-note-table/shared-register-note-table';
 import { CompanyFormDialog } from '../dashboard-components/company-module/company-form-dialog/company-form-dialog';
 import { CompanyForm } from '../dashboard-components/company-module/company-form/company-form';
-import { PersonDetailsForm } from '../dashboard-components/person-module/shared-person-components/person-details-form/person-details-form';
-import { AddPerson } from '../dashboard-components/person-module/add-person/add-person';
+import { PersonDialogFormComponent } from '../dashboard-components/person-module/person-dialog-form-component/person-dialog-form-component';
 import { SharedCompanyShareholderComponent } from '../dashboard-components/shared-components/shared-company-shareholder-component/shared-company-shareholder-component';
+import { PersonFormComponent } from '../dashboard-components/person-module/shared-person-components/person-form-component/person-form-component';
 
 
 
@@ -65,8 +63,6 @@ import { SharedCompanyShareholderComponent } from '../dashboard-components/share
     SharedTable,
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
-    PersonIdDocumentForm,
-    PersonOtherDocumentForm,
     BaseDialogComponent,
     BaseDialogFormComponent,
     BaseFormComponent,
@@ -79,8 +75,8 @@ import { SharedCompanyShareholderComponent } from '../dashboard-components/share
     SharedRegisterNoteFormDialog,
     CompanyForm,
     CompanyFormDialog,
-    PersonDetailsForm,
-    AddPerson,
+    PersonFormComponent,
+    PersonDialogFormComponent,
     SharedCompanyShareholderComponent
 
   ],
@@ -153,8 +149,6 @@ import { SharedCompanyShareholderComponent } from '../dashboard-components/share
     TextPipe,
     MatDatepickerModule,
     MatNativeDateModule,
-    PersonIdDocumentForm,
-    PersonOtherDocumentForm,
     MatCheckboxModule,
     BaseDialogComponent,
     BaseFormComponent,
@@ -169,8 +163,8 @@ import { SharedCompanyShareholderComponent } from '../dashboard-components/share
     SharedRegisterNoteFormDialog,
     CompanyForm,
     CompanyFormDialog,
-    PersonDetailsForm,
-    AddPerson,
+    PersonFormComponent,
+    PersonDialogFormComponent,
     SharedCompanyShareholderComponent
   ],
   providers: [

@@ -1,7 +1,7 @@
 import { BaseParam } from "../../base/base-param";
 
-export interface GetPerdonOtherDocument extends BaseParam
+export interface GetPersonOtherDocument extends BaseParam
 {
     personsIdn?: number | null;
-    documentType?: string | null;
+    documentType?: number | null;
 }

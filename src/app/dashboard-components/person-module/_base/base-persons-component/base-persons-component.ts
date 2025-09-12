@@ -15,7 +15,6 @@ import { Sort } from '@angular/material/sort';
 import { BaseParam } from '../../../../models/base/base-param';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../../../services/menu-service';
-import { AddPerson } from '../../add-person/add-person';
 import { MenuTree } from '../../../../models/menus/menu-tree';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
@@ -26,6 +25,8 @@ import { LanguageCode } from '../../../../models/types/lang-type';
 import { ConfirmDeleteComponent } from '../../../../components/confirm-delete-component/confirm-delete-component';
 import { UpdatePersonCommand } from '../../../../models/person-models/update-person';
 import { downloadBlob, downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
+import { PersonDialogFormComponent } from '../../person-dialog-form-component/person-dialog-form-component';
+import { PersonDto } from '../../../../models/person-models/person-dto';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -68,7 +69,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     protected dialog: MatDialog,
     protected dlService: DynamicListService,
     protected langService: LanguageService,
-    
+
 
   ) {
     super(service, cdr, fb, router, errorHandler, route);
@@ -138,8 +139,8 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       elementRow.key === "personCode"
     ) {
       this.router.navigate([], {
-        relativeTo: this.route, 
-        queryParams: { id: elementRow.element.id }, 
+        relativeTo: this.route,
+        queryParams: { id: elementRow.element.id },
       });
     }
   }
@@ -295,19 +296,26 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
   openAddDialog(): void {
 
-    const dialogRef = this.dialog.open(AddPerson, {
+    let person: PersonDto = {
+      id: 0,
+      personIdc: "",
+      personCode: "",
+      personEnglishName: "",
+      personArabicName: "",
+      personShortName: "",
+      personStatus: 0,
+      fpcCode: "",
+      private: true,
+      fileName: ""
+    };
+    const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',
       maxHeight: '90vh',
       disableClose: true,
       autoFocus: false,
-      panelClass: 'custom-dialog-container'
+      panelClass: 'custom-dialog-container',
+      data: person
 
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchData();
-      }
     });
 
   }

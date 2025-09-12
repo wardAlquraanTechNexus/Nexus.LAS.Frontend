@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonDocumentFormDialog } from './person-document-form-dialog/person-document-form-dialog';
 import { ActivatedRoute } from '@angular/router';
-import { PersonIdDocumentsTableForm } from '../person-id-documents-table-form/person-Id-documents-table-form';
-import { PersonOtherDocumentsTableForm } from '../person-other-documents-table-form/person-other-documents-table-form';
+import { PersonIdDocumentsTableComponent } from '../person-id-documents-table-component/person-id-documents-table-component';
 
 @Component({
   selector: 'app-person-documents-group',
@@ -14,9 +13,6 @@ import { PersonOtherDocumentsTableForm } from '../person-other-documents-table-f
 export class PersonDocumentsGroup implements OnInit {
   selectedTab = 0;
   personId: number = 0;
-
-  @ViewChild('PersonIdDocumentsTableForm') personIdDocumentsTableForm!: PersonIdDocumentsTableForm;
-  @ViewChild('PersonOtherDocumentsTableForm') personOtherDocumentsTableForm!: PersonOtherDocumentsTableForm;
 
   constructor(
     private dialog: MatDialog,
@@ -43,11 +39,9 @@ export class PersonDocumentsGroup implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.tab == 0) {
-          this.personIdDocumentsTableForm.addToCollection(result.element);
+          // this.personIdDocumentsTableComponent.addToCollection(result.element);
         }
-        else if (result.tab == 1) {
-          this.personOtherDocumentsTableForm.addToCollection(result.element);
-        }
+        
       }
     });
   }

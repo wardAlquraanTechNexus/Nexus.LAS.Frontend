@@ -16,20 +16,26 @@ import { Observable } from 'rxjs';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { environment } from '../../../../../environment/environment';
+import { LanguageService } from '../../../../services/language-service';
+import { PersonIdDetailDto } from '../../../../models/person-models/person-id-details/person-id-details-dto';
+import { PersonIdDocumentFormDialogComponent } from './person-id-document-form-dialog-component/person-id-document-form-dialog-component';
+import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
+import { DomSanitizer } from '@angular/platform-browser';
+import { PersonIdDocumentViewComponent } from './person-id-document-view-component/person-id-document-view-component';
 
 @Component({
-  selector: 'app-person-id-documents-table-form',
+  selector: 'app-person-id-documents-table-component',
   standalone: false,
-  templateUrl: './person-Id-documents-table-form.html',
-  styleUrl: './person-Id-documents-table-form.scss'
+  templateUrl: './person-id-documents-table-component.html',
+  styleUrl: './person-id-documents-table-component.scss'
 })
-export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDetail> {
+export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsIDDetail> {
 
   loadDocumentTypesFn!: (search: string) => Observable<DynamicList[]>;
   loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
 
 
-  formGroup!:FormGroup;
+  formGroup!: FormGroup;
   override params: GetPersonIdDetailsParams = {
     type: null,
     nationality: null,
@@ -56,12 +62,12 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     {
       key: "nationality",
       label: "Nationality",
-      pipes:['document-nationality']
+      pipes: ['document-nationality']
     },
     {
       key: "placeOfIssue",
       label: "Place of Issue",
-      pipes:['document-nationality']
+      pipes: ['document-nationality']
     },
     {
       key: "idNumber",
@@ -96,7 +102,9 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     protected override errorHandler: ErrorHandlerService,
     protected override route: ActivatedRoute,
     private dialog: MatDialog,
-    private dlService: DynamicListService
+    private dlService: DynamicListService,
+    public languageService: LanguageService,
+    private sanitizer: DomSanitizer,
 
   ) {
     super(service, cdr, fb, router, errorHandler, route);
@@ -107,7 +115,7 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     if (personId) {
       this.params.personsIdn = parseInt(personId);
     }
-    
+
     this.formGroup = this.fb.group({
       documentType: [],
       nationality: [],
@@ -115,7 +123,71 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    this.displayColumns = [
+      {
+        key: "type",
+        label: getLabel('documentType') || "Type",
+        keysPipes: [
+          { key: "type", pipes: ['original-document-type'] },
+          { key: "isPrimary", pipes: ['person-document-primary'] }
+        ]
+      },
+      {
+        key: "nationality",
+        label: getLabel('nationality') || "Nationality",
+        pipes: ['document-nationality']
+      },
+      {
+        key: "placeOfIssue",
+        label: getLabel('placeOfIssue') || "Place of Issue",
+        pipes: ['document-nationality']
+      },
+      {
+        key: "idNumber",
+        label: getLabel('idNumber') || "Number",
+      },
+      {
+        key: "idIssueDate",
+        label: getLabel('COMPANY.ISSUE_DATE') || "Issue Date",
+        pipes: ['date'],
+      },
+      {
+        key: "expiryDate",
+        label: getLabel('COMPANY.EXPIRY_DATE') || "Expiry Date",
+        pipes: ['date'],
+        sort: true
+      },
+      {
+        key: "activeReminder",
+        label: getLabel('COMPANY.REMINDER') || "Reminder",
+        inputType: 'mat-slide-toggle'
+      },
+      {
+        key: "action",
+        label: getLabel('COMMON.ACTION') || "Action",
+      }
+    ];
+
     this.fetchData();
+  }
+  override fetchData() {
+
+    this.showLoading = true;
+    this.loadingService.startLoading('Loading data');
+    this.service.getPaging(this.params)
+      .subscribe({
+        next: (res => {
+          this.data = res;
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }),
+        error: (err => {
+          this.showLoading = false;
+          this.errorHandler.handleApiError(err, 'Failed to load data');
+          this.cdr.markForCheck();
+        })
+      })
   }
   override search() {
     this.fetchData();
@@ -196,11 +268,11 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
     });
   }
 
-  onDocumentTypeSelect(value:any){
+  onDocumentTypeSelect(value: any) {
     this.params.type = value;
     this.search();
   }
-  onNationalitySelect(value:any){
+  onNationalitySelect(value: any) {
     this.params.nationality = value;
     this.search();
   }
@@ -225,8 +297,62 @@ export class PersonIdDocumentsTableForm extends TableFormComponent<PersonsIDDeta
   }
 
 
-  addToCollection(element: PersonsIDDetail) {
-    this.fetchData();
+  onAddNew() {
+    let element: PersonIdDetailDto = {
+      id: 0,
+      personsIdn: this.params.personsIdn,
+      type: null,
+      nationality: null,
+      placeOfIssue: null,
+      idNumber: "",
+      idIssueDate: "",
+      expiryDate: "",
+      isPrimary: false,
+      fileName: "",
+      contentType: "",
+      dataFile: [],
+      imageUrl: null,
+      activeReminder: false,
+      file: null
+    };
+    const dialogRef = this.dialog.open(PersonIdDocumentFormDialogComponent, {
+      disableClose: true,
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
+  }
+
+  onEdit(row: any) {
+    if (row.dataFile && row.contentType) {
+      const base64Data = row.dataFile;
+      const blob = base64ToBlob(base64Data, row.contentType);
+      const url = URL.createObjectURL(blob);
+      row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      this.cdr.markForCheck();
+    }
+    const dialogRef = this.dialog.open(PersonIdDocumentFormDialogComponent, {
+      disableClose: true,
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchData();
+      }
+    })
 
   }
+
+    onView(row: any) {
+      this.dialog.open(PersonIdDocumentViewComponent, {
+        width: '900px',
+        maxWidth: '98vw',
+        data: row
+      });
+    }
 }

@@ -1,0 +1,10 @@
+<div class="modern-dialog-container">
+    <div class="dialog-body">
+
+        <ng-container>
+            <app-person-id-document-form-component [element]="data" (saveEmitter)="onSave($event)"
+                (cancelEditEmitter)="onCancel($event)">
+            </app-person-id-document-form-component>
+        </ng-container>
+    </div>
+</div>

@@ -32,14 +32,14 @@
           </mat-error>
         </div>
 
-        <!-- Designation -->
+        <!-- designation -->
         <div class="col-12">
-          <select-auto-complete *ngIf="loadDesignation" [controlName]="'designations'" [fnGet]="loadDesignation"
+          <select-auto-complete *ngIf="loadDesignation" [controlName]="'designation'" [fnGet]="loadDesignation"
             [formGroup]="formGroup" [isRequired]="true" [label]="'Designation'" [keyToShow]="'name'" [valueKey]="'id'"
-            [isMultiple]="true">
+            >
           </select-auto-complete>
           <mat-error
-            *ngIf="formGroup.get('designations')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
+            *ngIf="formGroup.get('designation')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
             Designation is required
           </mat-error>
         </div>
@@ -86,11 +86,7 @@
             <textarea matInput formControlName="notes" placeholder="Enter notes" rows="3"></textarea>
           </mat-form-field>
         </div>
-        <!-- Active Checkbox -->
-        <div class="col-12">
-          <mat-slide-toggle formControlName="personInChargeActive">Active</mat-slide-toggle>
-
-        </div>
+        
 
       </form>
     </div>

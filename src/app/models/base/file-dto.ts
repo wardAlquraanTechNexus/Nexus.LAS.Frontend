@@ -3,4 +3,5 @@ export interface FileDto {
     contentType?: string | null;
     dataFile?: Uint8Array | null;
     imageUrl: any;
+    file:any;
 }
