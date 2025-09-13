@@ -1,36 +1,50 @@
-<div class="table-header">
-  <div class="header-title">Notes</div>
-  <div class="header-actions">
+<div class="nexus-entity-container">
 
-    <!-- Add button only shows when table is visible -->
-    <button *ngIf="canCrud" mat-raised-button color="primary" (click)="addNote()">
-      <mat-icon>add</mat-icon>
-      Add Note
-    </button>
+  <!-- SECTION 1: Title and Records -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-header">
+      <div class="nexus-entity-title">
+        <h2>Notes</h2>
+      </div>
+      <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="addNote()">
+        <mat-icon>add</mat-icon> Add Note
+      </button>
+    </div>
   </div>
+
+  <!-- SECTION 2: Data Grid -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-data">
+      <!-- Loading -->
+      <div *ngIf="showLoading" class="nexus-loading">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- Table -->
+      <div class="nexus-table-container" *ngIf="!showLoading">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
+          [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (rowClick)="onRowClick($event)"
+          (onSortChangeEvent)="changeSort($event)" (selectionChange)="onSelectionChange($event)">
+        </app-shared-table>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-@if(canCrud){
-<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-  [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
-</app-shared-table>
-
-}@else {
-<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-  (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
-</app-shared-table>
-}
-
+<!-- Row Actions -->
 <ng-template #actionButtonsTemplate let-row>
   <button mat-icon-button [matMenuTriggerFor]="menuRow">
     <mat-icon>more_vert</mat-icon>
   </button>
-  <mat-menu #menuRow="matMenu">
-    <button mat-menu-item class="btn-edit" (click)="edit(row)">
-      <mat-icon>edit</mat-icon> Edit
+  <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+    <button mat-menu-item (click)="edit(row)" class="nexus-menu-item neutral">
+      <mat-icon>edit</mat-icon>
+      <span>Edit Note</span>
     </button>
-    <button mat-menu-item class="btn-delete" [confirmDelete]="getRemoveCallback(row.id)">
-      <mat-icon>delete</mat-icon> Delete
+    <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)" class="nexus-menu-item danger">
+      <mat-icon>delete</mat-icon>
+      <span>Delete Note</span>
     </button>
   </mat-menu>
 </ng-template>

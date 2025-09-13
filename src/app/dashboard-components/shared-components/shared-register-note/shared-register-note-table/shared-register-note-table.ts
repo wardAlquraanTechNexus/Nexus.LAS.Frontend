@@ -119,6 +119,12 @@ const dialogRef = this.dialog.open(SharedRegisterNoteFormDialog, {
     this.upsertDialog(row);
   }
 
+  onRowClick(row: any) {
+    // Handle row click if needed
+  }
 
+  onSelectionChange(selectedRows: any[]) {
+    // Handle selection change if needed
+  }
 
 }
