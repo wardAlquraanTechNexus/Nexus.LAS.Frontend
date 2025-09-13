@@ -48,24 +48,12 @@
 
                 <!-- Note Date Field -->
                 <div class="form-field-wrapper">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Note Date</mat-label>
-                        <input 
-                            matInput 
-                            [matDatepicker]="picker" 
-                            formControlName="noteDate"
-                            placeholder="Select date..."
-                            required />
-                        <mat-icon matPrefix>calendar_today</mat-icon>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-
-                        @if(formGroup.get('noteDate')?.hasError('required') && formGroup.get('noteDate')?.touched){
-                            <mat-error>
-                                Date is required
-                            </mat-error>
-                        }
-                    </mat-form-field>
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'noteDate'"
+                        [label]="'Note Date'"
+                        [isRequired]="true">
+                    </app-date-input>
                 </div>
             </form>
         </div>

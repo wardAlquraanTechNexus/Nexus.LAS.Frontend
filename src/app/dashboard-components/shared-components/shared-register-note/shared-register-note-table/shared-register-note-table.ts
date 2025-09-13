@@ -16,11 +16,12 @@ import { SharedRegisterNoteFormDialog } from '../shared-register-note-form-dialo
   selector: 'app-shared-register-note-table',
   standalone: false,
   templateUrl: './shared-register-note-table.html',
-  styleUrl: './shared-register-note-table.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> implements OnInit {
   @Input() registersIdc!: string;
   @Input() registersIdn!: number;
+  @Input() canCrud: boolean = true;
   override params: GetRegisterNoteParam = {
     page: 0,
     pageSize: 10,
@@ -42,9 +43,6 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
         pipes: [
           "date"
         ]
-      },{
-        key:"action",
-        label:"Action"
       }
     ];
 
@@ -65,6 +63,12 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
     this.params.registersIdc = this.registersIdc;
     this.params.registersIdn = this.registersIdn;
     super.ngOnInit();
+    if(this.canCrud){
+      this.displayColumns.push({
+        key: 'action',
+        label: 'Actions'
+      });
+    }
   }
 
   addNote() {

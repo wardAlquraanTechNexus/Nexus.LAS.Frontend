@@ -8,6 +8,7 @@ import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { environment } from '../../../../../../environment/environment';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-person-id-document-form-component',
@@ -27,7 +28,8 @@ export class PersonIdDocumentFormComponent extends BaseFormComponent {
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
-    private dlService: DynamicListService
+    private dlService: DynamicListService,
+    private adapter: DateAdapter<any>
 
   ) {
     super(fb, cdr, sanitizer, errorHandler);
@@ -36,6 +38,8 @@ export class PersonIdDocumentFormComponent extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
+
+    console.log('Adapter:', this.adapter.constructor.name); // Should log 'MomentDateAdapter'
 
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
@@ -66,5 +70,29 @@ export class PersonIdDocumentFormComponent extends BaseFormComponent {
       this.uploadedFile = null;
     }
   }
+
+  expiryDate: Date | null = null;
+  onExpiryDateChange(value: string) {
+    if (!value) {
+      this.expiryDate = null;
+      return;
+    }
+
+    // parse dd/MM/yyyy
+    const parts = value.split('/');
+    if (parts.length === 3) {
+      const day = Number(parts[0]);
+      const month = Number(parts[1]) - 1;
+      const year = Number(parts[2]);
+      const date = new Date(year, month, day);
+
+      if (!isNaN(date.getTime())) {
+        this.expiryDate = date;
+      } else {
+        this.expiryDate = null; // invalid date
+      }
+    }
+  }
+
 
 }

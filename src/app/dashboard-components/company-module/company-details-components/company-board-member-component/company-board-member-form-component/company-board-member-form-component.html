@@ -45,19 +45,11 @@
                     </mat-error>
                 </div>
 
-                <mat-form-field class="col-12" appearance="outline">
-                    <mat-label>Appointment Date</mat-label>
-                    <input matInput [matDatepicker]="appointmentPicker" formControlName="appointmentDate" required />
-                    <mat-datepicker-toggle matSuffix [for]="appointmentPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #appointmentPicker></mat-datepicker>
-                </mat-form-field>
+                <app-date-input [formGroup]="formGroup" [controlName]="'appointmentDate'" [label]="'Appointment Date'"
+                    [isRequired]="true"></app-date-input>
 
-                <mat-form-field class="col-12" appearance="outline">
-                    <mat-label>Cessation Date</mat-label>
-                    <input matInput [matDatepicker]="cessationPicker" formControlName="cessationDate" />
-                    <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #cessationPicker></mat-datepicker>
-                </mat-form-field>
+                <app-date-input [formGroup]="formGroup" [controlName]="'cessationDate'" [label]="'Cessation Date'"
+                    [isRequired]="true"></app-date-input>
 
 
             </form>

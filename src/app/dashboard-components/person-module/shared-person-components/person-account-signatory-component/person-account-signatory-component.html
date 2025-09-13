@@ -1,0 +1,13 @@
+<div class="table-header">
+    <div class="header-title">Account Signatories</div>
+    <div class="header-actions">
+
+        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? 'Hide' : 'Show'">
+            <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
+        </button>
+    </div>
+</div>
+
+<app-shared-table *ngIf="showTable && !showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+    (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+</app-shared-table>

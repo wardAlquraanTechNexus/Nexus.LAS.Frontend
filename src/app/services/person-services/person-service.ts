@@ -34,10 +34,10 @@ export class PersonService extends BaseService<Person> {
   }
 
   createPerson(command: CreatePersonCommand): Observable<number> {
-    return this.httpClient.post<number>(this.url + "/CreatePerson", command);
+    return this.httpClient.post<number>(this.url , command);
   }
   updatePerson(command: UpdatePersonCommand): Observable<GetPersonsDTO> {
-    return this.httpClient.put<GetPersonsDTO>(this.url + "/UpdatePerson", command);
+    return this.httpClient.put<GetPersonsDTO>(this.url , command);
   }
 
   getPersons(getAllPersonQuery: GetPersonsQuery): Observable<PaginateRsult<GetPersonsDTO>> {

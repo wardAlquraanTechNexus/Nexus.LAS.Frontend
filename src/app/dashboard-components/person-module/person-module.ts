@@ -7,29 +7,15 @@ import { ActivePersons } from "./active-persons/active-persons";
 import { ActivePrivatePersons } from "./active-private-persons/active-private-persons";
 import { ActivePublicPersons } from "./active-public-persons/active-public-persons";
 import { AllPersons } from "./all-persons/all-persons";
-import { EditPerson } from "./edit-person/edit-person";
 import { EditPersonIdDetailForm } from "./person-id-detail-view/edit-person-id-detail-form/edit-person-id-detail-form";
-import { EditPersonIdDetailView } from "./person-id-detail-view/edit-person-id-detail-view/edit-person-id-detail-view";
-import { PersonIdDetailView } from "./person-id-detail-view/person-id-detail-view";
 import { EditPersonOtherDocumentForm } from "./person-other-document-view/edit-person-other-document-form/edit-person-other-document-form";
 import { EditPersonOtherDocumentView } from "./person-other-document-view/edit-person-other-document-view/edit-person-other-document-view";
 import { PersonOtherDocumentView } from "./person-other-document-view/person-other-document-view";
-import { PersonView } from "./person-view/person-view";
-import { PersonAddressDetails } from "./shared-person-components/person-address-details/person-address-details";
-import { PersonAddressDialog } from "./shared-person-components/person-address-details/person-address-dialog/person-address-dialog";
-import { PersonAddressForm } from "./shared-person-components/person-address-details/person-address-form/person-address-form";
-import { PersonEmailDetails } from "./shared-person-components/person-email-details/person-email-details";
-import { PersonEmailDialog } from "./shared-person-components/person-email-details/person-email-dialog/person-email-dialog";
-import { PersonEmailForm } from "./shared-person-components/person-email-details/person-email-form/person-email-form";
-import { PersonPhoneDetails } from "./shared-person-components/person-phone-details/person-phone-details";
-import { PersonPhoneDialog } from "./shared-person-components/person-phone-details/person-phone-dialog/person-phone-dialog";
-import { PersonPhoneForm } from "./shared-person-components/person-phone-details/person-phone-form/person-phone-form";
-import { PersonDocumentFormDialog } from "./shared-person-documents-components/person-documents-group/person-document-form-dialog/person-document-form-dialog";
-import { PersonDocumentsGroup } from "./shared-person-documents-components/person-documents-group/person-documents-group";
+import { PersonViewComponent } from "./person-view-component/person-view-component";
+import { PersonEmailDialogComponent } from "./shared-person-components/person-email-details/person-email-dialog-component/person-email-dialog-component";
+import { PersonEmailFormComponent } from "./shared-person-components/person-email-details/person-email-form-component/person-email-form-component";
+import { PersonPhoneDialogComponent } from "./shared-person-components/person-phone-details/person-phone-dialog-component/person-phone-dialog-component";
 import { PersonOtherDocumentsTableComponent } from "./shared-person-documents-components/person-other-documents-table-component/person-other-documents-table-component";
-import { SharedRegisterNoteTable } from "../shared-components/shared-register-note/shared-register-note-table/shared-register-note-table";
-import { SharedRegisterNoteForm } from "../shared-components/shared-register-note/shared-register-note-form/shared-register-note-form";
-import { SharedRegisterNoteFormDialog } from "../shared-components/shared-register-note/shared-register-note-form-dialog/shared-register-note-form-dialog";
 import { AllPersonTable } from "./all-persons/all-person-table/all-person-table";
 import { ActivePersonsTable } from "./active-persons/active-persons-table/active-persons-table";
 import { ActivePrivatePersonsTable } from "./active-private-persons/active-private-persons-table/active-private-persons-table";
@@ -41,51 +27,61 @@ import { PersonIdDocumentViewComponent } from "./shared-person-documents-compone
 import { PersonOtherDocumentFormComponent } from "./shared-person-documents-components/person-other-documents-table-component/person-other-document-form-component/person-other-document-form-component";
 import { PersonOtherDocumentDialogFormComponent } from "./shared-person-documents-components/person-other-documents-table-component/person-other-document-dialog-form-component/person-other-document-dialog-form-component";
 import { PersonOtherDocumentDialogViewComponent } from "./shared-person-documents-components/person-other-documents-table-component/person-other-document-dialog-view-component/person-other-document-dialog-view-component";
+import { PersonOverviewComponent } from "./shared-person-components/person-overview-component/person-overview-component";
+import { PersonInChargeComponent } from "./shared-person-components/person-in-charge-component/person-in-charge-component";
+import { PersonBoardMembershipComponent } from "./shared-person-components/person-board-membership-component/person-board-membership-component";
+import { PersonAccountSignatoryComponent } from "./shared-person-components/person-account-signatory-component/person-account-signatory-component";
+import { PersonEmailComponent } from "./shared-person-components/person-email-details/person-email-component";
+import { PersonPhoneFormComponent } from "./shared-person-components/person-phone-details/person-phone-form-component/person-phone-form-component";
+import { PersonPhoneComponent } from "./shared-person-components/person-phone-details/person-phone-component";
+import { PersonAddressDialogComponent } from "./shared-person-components/person-address-details/person-address-dialog-component/person-address-dialog-component";
+import { PersonAddressFormComponent } from "./shared-person-components/person-address-details/person-address-form-component/person-address-form-component";
+import { PersonAddressComponent } from "./shared-person-components/person-address-details/person-address-component";
+import { PersonIdDetailViewComponent } from "./person-id-detail-view/person-id-detail-view-component";
 
 @NgModule({
     declarations: [
         BasePersonsComponent,
         AllPersons,
-        PersonAddressDetails,
-        PersonEmailDetails,
-        PersonPhoneDetails,
+        PersonAddressComponent,
+        PersonEmailComponent,
+        PersonPhoneComponent,
         ActivePersons,
         ActivePrivatePersons,
         ActivePublicPersons,
-        EditPerson,
-        PersonDocumentsGroup,
         PersonIdDocumentsTableComponent,
         PersonIdDocumentFormDialogComponent,
         PersonIdDocumentViewComponent,
         PersonIdDocumentFormComponent,
         PersonOtherDocumentsTableComponent,
-        PersonDocumentFormDialog,
-        PersonIdDetailView,
+        PersonIdDetailViewComponent,
         EditPersonIdDetailForm,
         PersonOtherDocumentView,
         EditPersonOtherDocumentForm,
-        PersonView,
-        EditPersonIdDetailView,
+        PersonViewComponent,
         EditPersonOtherDocumentView,
         PersonOtherDocumentFormComponent,
-        PersonEmailDialog,
-        PersonEmailForm,
-        PersonPhoneForm,
-        PersonPhoneDialog,
-        PersonAddressForm,
-        PersonAddressDialog,
+        PersonEmailDialogComponent,
+        PersonEmailFormComponent,
+        PersonPhoneFormComponent,
+        PersonPhoneDialogComponent,
+        PersonAddressFormComponent,
+        PersonAddressDialogComponent,
         AllPersonTable,
         ActivePersonsTable,
         ActivePrivatePersonsTable,
         ActivePublicPersonsTable,
         PersonOtherDocumentDialogFormComponent,
-        PersonOtherDocumentDialogViewComponent
+        PersonOtherDocumentDialogViewComponent,
+        PersonOverviewComponent,
+        PersonInChargeComponent,
+        PersonBoardMembershipComponent,
+        PersonAccountSignatoryComponent
     ],
     imports: [
-        CommonModule,
-        PersonRoutingModule,
-        ComponentsModule,
-
-    ]
+    CommonModule,
+    PersonRoutingModule,
+    ComponentsModule,
+]
 })
 export class PersonModule { }

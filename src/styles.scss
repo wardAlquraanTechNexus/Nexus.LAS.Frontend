@@ -107,3 +107,8 @@ body {
 }
 
 
+app-date-input + mat-error,
+app-date-input + mat-error + mat-error {
+  margin-top: -16px;
+  display: block;
+}

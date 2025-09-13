@@ -1,5 +1,7 @@
 import { BaseParam } from "../../../base/base-param";
 
 export interface GetCompanyAccountSignatoryParams extends BaseParam {
-    companyBankAccountId:number;
+    companyBankAccountId?:number;
+    personId?:number;
+    companyId?:number;
 }

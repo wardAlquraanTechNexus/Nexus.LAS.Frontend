@@ -8,8 +8,6 @@ import { DisplayColumn } from '../../../../models/columns/display-column';
 import { Sort } from '@angular/material/sort';
 import { BaseParam } from '../../../../models/base/base-param';
 import { MatDialog } from '@angular/material/dialog';
-import { PersonIdDetailView } from '../../person-id-detail-view/person-id-detail-view';
-import { EditPersonIdDetailView } from '../../person-id-detail-view/edit-person-id-detail-view/edit-person-id-detail-view';
 import { PersonsIDDetail } from '../../../../models/person-models/person-id-details/person-id-details';
 import { GetPersonIdDetailsParams } from '../../../../models/person-models/person-id-details/get-person-id-details-params';
 import { Observable } from 'rxjs';
@@ -22,6 +20,7 @@ import { PersonIdDocumentFormDialogComponent } from './person-id-document-form-d
 import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PersonIdDocumentViewComponent } from './person-id-document-view-component/person-id-document-view-component';
+import { PersonIdDetailViewComponent } from '../../person-id-detail-view/person-id-detail-view-component';
 
 @Component({
   selector: 'app-person-id-documents-table-component',
@@ -212,7 +211,7 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
   }
 
   viewDocument(item: PersonsIDDetail) {
-    const dialogRef = this.dialog.open(PersonIdDetailView, {
+    const dialogRef = this.dialog.open(PersonIdDetailViewComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
       data: item
@@ -228,7 +227,7 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
   }
 
   editDocument(item: PersonsIDDetail) {
-    const dialogRef = this.dialog.open(EditPersonIdDetailView, {
+    const dialogRef = this.dialog.open(PersonIdDocumentFormDialogComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
       data: item

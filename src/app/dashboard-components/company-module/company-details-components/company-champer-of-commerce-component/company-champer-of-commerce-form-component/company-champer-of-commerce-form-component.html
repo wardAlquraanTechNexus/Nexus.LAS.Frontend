@@ -51,22 +51,20 @@
 
                 <!-- CCI Issue Date -->
                 <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>CCI Issue Date</mat-label>
-                        <input matInput [matDatepicker]="cciIssuePicker" formControlName="cciIssueDate" required />
-                        <mat-datepicker-toggle matSuffix [for]="cciIssuePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #cciIssuePicker></mat-datepicker>
-                    </mat-form-field>
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'cciIssueDate'"
+                        [label]="'CCI Issue Date'"
+                        [isRequired]="true"></app-date-input>
                 </div>
 
                 <!-- CCI Expiry Date -->
                 <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>CCI Expiry Date</mat-label>
-                        <input matInput [matDatepicker]="cciExpiryPicker" formControlName="cciExpiryDate" />
-                        <mat-datepicker-toggle matSuffix [for]="cciExpiryPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #cciExpiryPicker></mat-datepicker>
-                    </mat-form-field>
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'cciExpiryDate'"
+                        [label]="'CCI Expiry Date'"
+                        [isRequired]="false"></app-date-input>
                 </div>
 
                 <!-- Expiry Reminder -->

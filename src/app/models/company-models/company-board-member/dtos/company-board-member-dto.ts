@@ -6,4 +6,6 @@ export interface CompanyBoardMemberDto {
   cessationDate?: string | null;   
   isActive: boolean;
   companyId: number;
+  companyNameEn?: string;
+  companyNameAr?: string;
 }

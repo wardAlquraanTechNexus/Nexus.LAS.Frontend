@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   selector: 'app-company-overview-component',
   standalone: false,
   templateUrl: './company-overview-component.html',
-  styleUrl: './company-overview-component.scss'
+  styleUrls: ['./../../../_shared/styles/model-view-style.scss']
 })
 export class CompanyOverviewComponent implements OnInit, OnChanges {
   companyType$!: Observable<string>;

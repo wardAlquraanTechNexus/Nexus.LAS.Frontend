@@ -72,27 +72,21 @@
 
                     <!-- ShareHolderDate -->
                      <div class="col-6">
-                         <mat-form-field appearance="outline">
-                             <mat-label>Appointment Date</mat-label>
-                             <input matInput [matDatepicker]="picker1" formControlName="shareHolderDate" required />
-                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                             <mat-datepicker #picker1></mat-datepicker>
-                             <mat-error *ngIf="formGroup.get('shareHolderDate')?.hasError('required')">
-                                 Appointment date is required
-                             </mat-error>
-                         </mat-form-field>
+
+                         <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'shareHolderDate'"
+                            [label]="'Appointment Date'"
+                            [isRequired]="true"></app-date-input>
                     </div>
     
                     <div class="col-6">
-                        <mat-form-field appearance="outline" >
-                            <mat-label>Cessation Date</mat-label>
-                            <input matInput [matDatepicker]="picker2" formControlName="cessationDate" />
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                            <mat-error *ngIf="formGroup.get('cessationDate')?.hasError('required')">
-                                Cessation date is required
-                            </mat-error>
-                        </mat-form-field>
+                        
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'cessationDate'"
+                            [label]="'Cessation Date'"
+                            [isRequired]="false"></app-date-input>
 
                     </div>
                 </div>

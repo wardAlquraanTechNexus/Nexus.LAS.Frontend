@@ -59,22 +59,17 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
-                            <mat-label>Issue Date</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="idIssueDate" placeholder="Select issue date..." required />
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                            <mat-error *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
-                                Issue Date is required
-                            </mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
-                            <mat-label>Expiry Date</mat-label>
-                            <input matInput [matDatepicker]="picker2" formControlName="expiryDate" placeholder="Select expiry date..." />
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field>
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'idIssueDate'"
+                            [label]="'Issue Date'"
+                            [isRequired]="true"></app-date-input>
+                        
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'expiryDate'"
+                            [label]="'Expiry Date'"
+                            [isRequired]="false"></app-date-input>
 
                         <!-- Toggles Section -->
                         <div class="toggles-section">

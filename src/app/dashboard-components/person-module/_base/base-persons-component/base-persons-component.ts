@@ -138,7 +138,8 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       elementRow.key === "personEnglishName" ||
       elementRow.key === "personCode"
     ) {
-      this.router.navigate([], {
+
+    this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { id: elementRow.element.id },
       });

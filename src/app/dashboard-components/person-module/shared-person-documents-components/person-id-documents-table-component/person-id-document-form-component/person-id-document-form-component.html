@@ -58,8 +58,7 @@
                     <div class="col-6">
                         <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'"
                             [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="'Nationality'"
-                            [keyToShow]="'name'" [valueKey]="'id'"
-                            (selectEmitter)="onSelectCountry($event)">
+                            [keyToShow]="'name'" [valueKey]="'id'" (selectEmitter)="onSelectCountry($event)">
                         </select-auto-complete>
                         <div class="text-danger"
                             *ngIf="formGroup.get('nationality')?.invalid && formGroup.get('nationality')?.touched">
@@ -85,33 +84,24 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-
-                    <!-- Issue Date -->
-                    <div class="full-width col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Issue Date</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="idIssueDate"
-                                placeholder="Select issue date..." required />
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
+                    <div class="col-6">
+                        <app-date-input [formGroup]="formGroup" [controlName]="'idIssueDate'" [label]="'Issue Date'"
+                            [isRequired]="true"></app-date-input>
                             <mat-error
-                                *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
-                                Issue Date is required
+                                *ngIf="formGroup.get('idIssueDate')?.touched && formGroup.get('idIssueDate')?.hasError('invalidDate')">
+                                Please enter a valid date in dd/MM/yyyy format.
                             </mat-error>
-                        </mat-form-field>
+                            <mat-error
+                                *ngIf="formGroup.get('idIssueDate')?.touched && formGroup.get('idIssueDate')?.hasError('required')">
+                                Date is required.
+                            </mat-error>
                     </div>
+                    <div class="col-6">
 
-                    <!-- Expiry Date -->
-                    <div class="full-width col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Expiry Date</mat-label>
-                            <input matInput [matDatepicker]="picker2" formControlName="expiryDate"
-                                placeholder="Select expiry date..." />
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field>
+                        <app-date-input [formGroup]="formGroup" [controlName]="'expiryDate'"
+                            [label]="'Expiry Date'"></app-date-input>
+
                     </div>
-
                     <!-- Primary -->
                     <div class="full-width col-6">
                         <mat-slide-toggle formControlName="isPrimary"><span

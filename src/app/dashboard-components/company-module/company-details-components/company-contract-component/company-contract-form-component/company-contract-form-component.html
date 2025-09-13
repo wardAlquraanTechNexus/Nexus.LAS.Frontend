@@ -49,33 +49,34 @@
         </div>
 
         <!-- Document Date -->
-        <mat-form-field appearance="outline">
-            <mat-label>Document Date</mat-label>
-            <input matInput formControlName="documentDate" [matDatepicker]="docDatePicker"  />
-            <mat-datepicker-toggle matSuffix [for]="docDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #docDatePicker></mat-datepicker>
-            
-        </mat-form-field>
+        
+            <app-date-input
+                [formGroup]="formGroup"
+                [controlName]="'documentDate'"
+                [label]="'Document Date'"
+                [isRequired]="false"></app-date-input>
 
         <!-- Commencement Date -->
-        <mat-form-field appearance="outline">
-            <mat-label>Commencement Date</mat-label>
-            <input matInput formControlName="commencementDate" [matDatepicker]="commenceDatePicker" required />
-            <mat-datepicker-toggle matSuffix [for]="commenceDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #commenceDatePicker></mat-datepicker>
-            <mat-error
-                *ngIf="formGroup.get('commencementDate')?.hasError('required') && formGroup.get('commencementDate')?.touched">
-                Commencement date is required
-            </mat-error>
-        </mat-form-field>
+        <div>
+            <app-date-input
+                [formGroup]="formGroup"
+                [controlName]="'commencementDate'"
+                [label]="'Commencement Date'"
+                [isRequired]="true"></app-date-input>
+                <mat-error
+                    *ngIf="formGroup.get('commencementDate')?.hasError('required') && formGroup.get('commencementDate')?.touched">
+                    Commencement date is required
+                </mat-error>
+            
+        </div>
 
         <!-- Contract Expiry Date -->
-        <mat-form-field appearance="outline">
-            <mat-label>Expiry Date</mat-label>
-            <input matInput formControlName="contractExpiryDate" [matDatepicker]="expiryDatePicker" />
-            <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #expiryDatePicker></mat-datepicker>
-        </mat-form-field>
+        <app-date-input
+          [formGroup]="formGroup"
+          [controlName]="'contractExpiryDate'"
+          [label]="'Expiry Date'"
+          [isRequired]="false">
+        </app-date-input>
 
         <!-- Contract Description -->
         <mat-form-field appearance="outline">

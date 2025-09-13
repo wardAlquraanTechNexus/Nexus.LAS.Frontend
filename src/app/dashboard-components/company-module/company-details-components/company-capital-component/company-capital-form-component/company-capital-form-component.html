@@ -22,17 +22,15 @@
 
                 <!-- Capital Date -->
                 <div class="col-6">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Capital Date</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="capitalDate" required>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                        @if (formGroup.get('capitalDate')?.hasError('required')) {
-                            <mat-error>
-                                Capital Date is required
-                            </mat-error>
-                        }
-                    </mat-form-field>
+
+                    <app-date-input [formGroup]="formGroup" [controlName]="'capitalDate'" [label]="'Capital Date'"
+                        [isRequired]="true"></app-date-input>
+                    @if (formGroup.get('capitalDate')?.hasError('required')) {
+                    <mat-error>
+                        Capital Date is required
+                    </mat-error>
+                    }
+
                 </div>
 
                 <!-- Capital Amount -->
@@ -41,9 +39,9 @@
                         <mat-label>Capital Amount</mat-label>
                         <input matInput type="number" formControlName="capitalAmount" required>
                         @if (formGroup.get('capitalAmount')?.hasError('required')) {
-                            <mat-error>
-                                Capital Amount is required
-                            </mat-error>
+                        <mat-error>
+                            Capital Amount is required
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
@@ -54,27 +52,21 @@
                         <mat-label>Nominal Value of Share</mat-label>
                         <input matInput type="number" formControlName="nominalValueOfShare" required>
                         @if (formGroup.get('nominalValueOfShare')?.hasError('required')) {
-                            <mat-error>
-                                Nominal Value of Share is required
-                            </mat-error>
+                        <mat-error>
+                            Nominal Value of Share is required
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
 
                 <!-- Class of Shares Auto-Select -->
                 @if(loadClassOfSharesFn != undefined){
-                    <div class="col-6">
-                            <select-auto-complete
-                                [controlName]="'classOfShares'"
-                                [fnGet]="loadClassOfSharesFn"
-                                [formGroup]="formGroup"
-                                [isRequired]="true"
-                                [label]="'Class of Shares'"
-                                [keyToShow]="'name'"
-                                [valueKey]="'name'"
-                                [withNullOption]="false">
-                            </select-auto-complete>
-                    </div>
+                <div class="col-6">
+                    <select-auto-complete [controlName]="'classOfShares'" [fnGet]="loadClassOfSharesFn"
+                        [formGroup]="formGroup" [isRequired]="true" [label]="'Class of Shares'" [keyToShow]="'name'"
+                        [valueKey]="'name'" [withNullOption]="false">
+                    </select-auto-complete>
+                </div>
 
                 }
 
@@ -84,9 +76,9 @@
                         <mat-label>Number of Shares</mat-label>
                         <input matInput type="number" formControlName="numberOfShares" required>
                         @if (formGroup.get('numberOfShares')?.hasError('required')) {
-                            <mat-error>
-                                Number of Shares is required
-                            </mat-error>
+                        <mat-error>
+                            Number of Shares is required
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
@@ -97,9 +89,9 @@
                         <mat-label>Capital Authorized</mat-label>
                         <input matInput type="number" formControlName="capitalAuthorized" required>
                         @if (formGroup.get('capitalAuthorized')?.hasError('required')) {
-                            <mat-error>
-                                Capital Authorized is required
-                            </mat-error>
+                        <mat-error>
+                            Capital Authorized is required
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
@@ -110,9 +102,9 @@
                         <mat-label>Capital Paid</mat-label>
                         <input matInput type="number" formControlName="capitalPaid" required>
                         @if (formGroup.get('capitalPaid')?.hasError('required')) {
-                            <mat-error>
-                                Capital Paid is required
-                            </mat-error>
+                        <mat-error>
+                            Capital Paid is required
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
@@ -123,32 +115,26 @@
                         <mat-label>Issued Shares</mat-label>
                         <input matInput type="number" formControlName="issuedShares" required>
                         @if (formGroup.get('issuedShares')?.hasError('required')) {
-                            <mat-error>
-                                Issued Shares is required
-                            </mat-error>
+                        <mat-error>
+                            Issued Shares is required
+                        </mat-error>
                         }
                     </mat-form-field>
                 </div>
 
                 <!-- Capital Currency Auto-Select -->
-                 @if(loadCurrenciesTypeFn != undefined){
-                     <div class="col-6">
-                             <select-auto-complete
-                                 [controlName]="'capitalCurrency'"
-                                 [fnGet]="loadCurrenciesTypeFn"
-                                 [formGroup]="formGroup"
-                                 [isRequired]="true"
-                                 [label]="'Capital Currency'"
-                                 [keyToShow]="'name'"
-                                 [valueKey]="'id'"
-                                 [withNullOption]="false">
-                             </select-auto-complete>
-                     </div>
-                    }
+                @if(loadCurrenciesTypeFn != undefined){
+                <div class="col-6">
+                    <select-auto-complete [controlName]="'capitalCurrency'" [fnGet]="loadCurrenciesTypeFn"
+                        [formGroup]="formGroup" [isRequired]="true" [label]="'Capital Currency'" [keyToShow]="'name'"
+                        [valueKey]="'id'" [withNullOption]="false">
+                    </select-auto-complete>
+                </div>
+                }
 
                 <!-- Capital Active -->
                 <div class="col-6">
-                    <mat-slide-toggle formControlName="capitalActive" >Active</mat-slide-toggle>
+                    <mat-slide-toggle formControlName="capitalActive">Active</mat-slide-toggle>
                 </div>
 
             </form>

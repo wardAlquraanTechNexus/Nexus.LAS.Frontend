@@ -5,7 +5,7 @@ import { CompanyPhoneService } from '../../../../services/company-services/compa
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { PersonPhone } from '../../../../models/person-models/person-phone/person-phone';
-import { PersonPhoneDialog } from '../../../person-module/shared-person-components/person-phone-details/person-phone-dialog/person-phone-dialog';
+import { PersonPhoneDialogComponent } from '../../../person-module/shared-person-components/person-phone-details/person-phone-dialog-component/person-phone-dialog-component';
 import { CompanyPhoneDialogFormComponent } from './company-phone-dialog-form-component/company-phone-dialog-form-component';
 import { CompanyPhoneDto } from '../../../../models/company-models/company-phone/dtos/company-phone-dto';
 

@@ -1,54 +1,36 @@
-<div class="main-container">
+<div class="table-header">
+  <div class="header-title">Notes</div>
+  <div class="header-actions">
 
-<!-- SECTION 1: Title and Add Button -->
-<div class="section section-title">
-  <div class="title-content">
-    <h2>Notes</h2>
+    <!-- Add button only shows when table is visible -->
+    <button *ngIf="canCrud" mat-raised-button color="primary" (click)="addNote()">
+      <mat-icon>add</mat-icon>
+      Add Note
+    </button>
   </div>
-  <button mat-raised-button color="primary" (click)="addNote()">
-    <mat-icon>add</mat-icon> Add Note
-  </button>
 </div>
 
-<!-- SECTION 2: Table -->
-<div class="section section-table">
-  <!-- Table -->
-  <app-shared-table 
-    *ngIf="!showLoading" 
-    [displayedColumns]="displayColumns" 
-    [paginateResult]="data"
-    [action]="actionButtonsTemplate" 
-    (onChangePage)="changePage($event)" 
-    (onSortChangeEvent)="changeSort($event)">
-  </app-shared-table>
-</div>
+@if(canCrud){
+<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+  [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+</app-shared-table>
 
-</div>
+}@else {
+<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+  (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+</app-shared-table>
+}
 
-<!-- Row Actions -->
 <ng-template #actionButtonsTemplate let-row>
   <button mat-icon-button [matMenuTriggerFor]="menuRow">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menuRow="matMenu">
-    <button mat-menu-item (click)="edit(row)">
-      <mat-icon>edit</mat-icon>
-      <span>Edit Note</span>
+    <button mat-menu-item class="btn-edit" (click)="edit(row)">
+      <mat-icon>edit</mat-icon> Edit
     </button>
-    <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)">
-      <mat-icon>delete</mat-icon>
-      <span>Delete Note</span>
+    <button mat-menu-item class="btn-delete" [confirmDelete]="getRemoveCallback(row.id)">
+      <mat-icon>delete</mat-icon> Delete
     </button>
   </mat-menu>
 </ng-template>
-
-<!-- <app-shared-table 
-    *ngIf="!showLoading" 
-    [displayedColumns]="displayColumns" 
-    [paginateResult]="data"
-    [action]="actionButtonsTemplate" 
-    (onChangePage)="changePage($event)" 
-    (rowClick)="onRowClick($event)"
-    (onSortChangeEvent)="changeSort($event)" 
-    (selectionChange)="onSelectionChange($event)">
-  </app-shared-table> -->

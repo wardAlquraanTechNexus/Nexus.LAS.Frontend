@@ -49,6 +49,7 @@ import { CompanyForm } from '../dashboard-components/company-module/company-form
 import { PersonDialogFormComponent } from '../dashboard-components/person-module/person-dialog-form-component/person-dialog-form-component';
 import { SharedCompanyShareholderComponent } from '../dashboard-components/shared-components/shared-company-shareholder-component/shared-company-shareholder-component';
 import { PersonFormComponent } from '../dashboard-components/person-module/shared-person-components/person-form-component/person-form-component';
+import { DateInputComponent } from './date-input-component/date-input-component';
 
 
 
@@ -77,7 +78,8 @@ import { PersonFormComponent } from '../dashboard-components/person-module/share
     CompanyFormDialog,
     PersonFormComponent,
     PersonDialogFormComponent,
-    SharedCompanyShareholderComponent
+    SharedCompanyShareholderComponent,
+    DateInputComponent
 
   ],
   imports: [
@@ -165,7 +167,8 @@ import { PersonFormComponent } from '../dashboard-components/person-module/share
     CompanyFormDialog,
     PersonFormComponent,
     PersonDialogFormComponent,
-    SharedCompanyShareholderComponent
+    SharedCompanyShareholderComponent,
+    DateInputComponent
   ],
   providers: [
 

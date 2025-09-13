@@ -11,4 +11,6 @@ export interface CompanyPersonInChargeDto {
   personNameEn?: string;
   personNameAr?: string;
   statusName?:string;
+  companyNameEn?:string;
+  companyNameAr?:string;
 }

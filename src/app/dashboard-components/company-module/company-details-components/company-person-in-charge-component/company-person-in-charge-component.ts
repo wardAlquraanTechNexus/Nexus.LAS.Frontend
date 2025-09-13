@@ -19,7 +19,7 @@ import { environment } from '../../../../../environment/environment.prod';
   selector: 'app-company-person-in-charge-component',
   standalone: false,
   templateUrl: './company-person-in-charge-component.html',
-  styleUrl: './company-person-in-charge-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPersonInCharge> {
 

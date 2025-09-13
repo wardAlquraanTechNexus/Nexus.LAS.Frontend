@@ -56,27 +56,20 @@
 
         <!-- Dates -->
         <div class="col-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Date Of Appointment</mat-label>
-            <input matInput [matDatepicker]="pickerInCharge" formControlName="personInChargeDate"
-              placeholder="Choose a date" required>
-            <mat-datepicker-toggle matSuffix [for]="pickerInCharge"></mat-datepicker-toggle>
-            <mat-datepicker #pickerInCharge></mat-datepicker>
-            <mat-error
-              *ngIf="formGroup.get('personInChargeDate')?.invalid && (formGroup.get('personInChargeDate')?.touched || formGroup.touched)">
-              Date of Appointment is required
-            </mat-error>
-          </mat-form-field>
+          <app-date-input
+            [formGroup]="formGroup"
+            [controlName]="'personInChargeDate'"
+            [label]="'Date Of Appointment'"
+            [isRequired]="true">
+          </app-date-input>
         </div>
 
         <div class="col-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Cessation Date</mat-label>
-            <input matInput [matDatepicker]="pickerCessation" formControlName="cessationDate"
-              placeholder="Choose a date">
-            <mat-datepicker-toggle matSuffix [for]="pickerCessation"></mat-datepicker-toggle>
-            <mat-datepicker #pickerCessation></mat-datepicker>
-          </mat-form-field>
+          <app-date-input
+            [formGroup]="formGroup"
+            [controlName]="'cessationDate'"
+            [label]="'Cessation Date'">
+          </app-date-input>
         </div>
 
         <!-- Notes -->

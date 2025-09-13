@@ -17,13 +17,11 @@ import { CompanyAccountSignatoryDialogFormComponent } from './company-account-si
   selector: 'app-company-account-signatory-component',
   standalone:false,
   templateUrl: './company-account-signatory-component.html',
-  styleUrl: './company-account-signatory-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class CompanyAccountSignatoryComponent  extends TableFormComponent<CompanyAccountSignatory> {
 
-
-
-  override data: PaginateRsult<CompanyAccountSignatory> = {
+  override data: PaginateRsult<CompanyAccountSignatoryDto> = {
     collection: [],
     page: 0,
     pageSize: 10,

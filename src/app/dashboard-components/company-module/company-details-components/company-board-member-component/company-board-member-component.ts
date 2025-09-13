@@ -19,7 +19,7 @@ import { GetCompanyDto } from '../../../../models/company-models/get-company-que
   selector: 'app-company-board-member-component',
   standalone: false,
   templateUrl: './company-board-member-component.html',
-  styleUrl: './company-board-member-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoardMember> {
   @Input() company!: GetCompanyDto;

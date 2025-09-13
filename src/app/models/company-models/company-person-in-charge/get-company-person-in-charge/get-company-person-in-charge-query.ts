@@ -2,5 +2,6 @@ import { BaseParam } from "../../../base/base-param";
 
 export interface GetPagingCompanyPersonInChargeQuery extends BaseParam
 {
-    companyId:number;
+    companyId?:number | null;
+    personId?:number | null;
 }
