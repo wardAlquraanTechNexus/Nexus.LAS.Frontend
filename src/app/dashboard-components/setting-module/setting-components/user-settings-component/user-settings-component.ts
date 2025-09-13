@@ -142,6 +142,9 @@ export class UserSettingsComponent extends TableFormComponent<User> {
     this.cdr.detectChanges();
   }
 
+  onRowClick(row: any) {
+    // Handle row click if needed
+  }
 
   onAddUsers() {
 

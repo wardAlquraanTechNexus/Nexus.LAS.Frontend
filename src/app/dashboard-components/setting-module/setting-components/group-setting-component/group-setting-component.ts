@@ -143,4 +143,8 @@ export class GroupSettingComponent extends TableFormComponent<Group> {
       { queryParams: { id: cell.element.id } }
     );
   }
+
+  onSelectionChange(selectedRows: any[]) {
+    // Handle selection change if needed
+  }
 }
