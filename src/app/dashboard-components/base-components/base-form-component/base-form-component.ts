@@ -53,17 +53,31 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   }
 
   initFormGroup(): void {
-    if (this.object) {
-      const group: { [key: string]: FormControl } = {};
+  if (this.object) {
+    const group: { [key: string]: FormControl } = {};
 
-      for (const key of Object.keys(this.object)) {
-        const validators = this.validationRules[key] || [];
-        group[key] = new FormControl((this.object as any)[key]);
+    for (const key of Object.keys(this.object)) {
+      const validators = this.validationRules[key] || [];
+      let value = (this.object as any)[key];
+
+      // Convert ISO date strings to Date objects
+      if (typeof value === 'string' && !isNaN(Date.parse(value))) {
+        // Optional: check if string contains a date-time format
+        const maybeDate = new Date(value);
+        if (!isNaN(maybeDate.getTime())) {
+          value = maybeDate;
+        }
       }
-      this.formGroup = this.fb.group(group);
-      this.cdr.markForCheck();
+
+      group[key] = new FormControl(value, validators);
     }
+
+    this.formGroup = this.fb.group(group);
+    console.log(this.formGroup.getRawValue());
+    this.cdr.markForCheck();
   }
+}
+
 
   /**
    * Get validation error message for a specific field

@@ -127,7 +127,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
     const element: CompanyCapitalDto = {
       id: 0,
       companyId: this.company.id,
-      capitalDate: "",
+      capitalDate: null,
       capitalAmount: 0,
       nominalValueOfShare: 0,
       classOfShares: '',

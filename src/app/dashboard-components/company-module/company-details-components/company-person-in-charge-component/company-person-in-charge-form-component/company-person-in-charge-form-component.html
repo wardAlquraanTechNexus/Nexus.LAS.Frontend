@@ -35,8 +35,7 @@
         <!-- designation -->
         <div class="col-12">
           <select-auto-complete *ngIf="loadDesignation" [controlName]="'designation'" [fnGet]="loadDesignation"
-            [formGroup]="formGroup" [isRequired]="true" [label]="'Designation'" [keyToShow]="'name'" [valueKey]="'id'"
-            >
+            [formGroup]="formGroup" [isRequired]="true" [label]="'Designation'" [keyToShow]="'name'" [valueKey]="'id'">
           </select-auto-complete>
           <mat-error
             *ngIf="formGroup.get('designation')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
@@ -56,20 +55,15 @@
 
         <!-- Dates -->
         <div class="col-6">
-          <app-date-input
-            [formGroup]="formGroup"
-            [controlName]="'personInChargeDate'"
-            [label]="'Date Of Appointment'"
-            [isRequired]="true">
-          </app-date-input>
+
+          <p-datepicker formControlName="personInChargeDate" [showIcon]="true" dateFormat="dd.mm.yy"></p-datepicker>
+
         </div>
 
         <div class="col-6">
-          <app-date-input
-            [formGroup]="formGroup"
-            [controlName]="'cessationDate'"
-            [label]="'Cessation Date'">
-          </app-date-input>
+
+          <p-datepicker formControlName="cessationDate" [showIcon]="true" dateFormat="dd.mm.yy"></p-datepicker>
+
         </div>
 
         <!-- Notes -->
@@ -79,7 +73,7 @@
             <textarea matInput formControlName="notes" placeholder="Enter notes" rows="3"></textarea>
           </mat-form-field>
         </div>
-        
+
 
       </form>
     </div>

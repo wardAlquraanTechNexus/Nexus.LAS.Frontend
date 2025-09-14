@@ -81,18 +81,16 @@
 
                     <!-- Account Signatory Date -->
                     <div class="form-group col-12">
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'accountSignatoryDate'"
-                            [label]="'Appointment Date'"
-                            [isRequired]="true"></app-date-input>
+
+                        <p-datepicker formControlName="accountSignatoryDate" [showIcon]="true"
+                            dateFormat="dd.mm.yy"></p-datepicker>
+
                     </div>
                     <div class="form-group col-12">
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'cessationDate'"
-                            [label]="'Cessation Date'"
-                            [isRequired]="false"></app-date-input>
+
+                        <p-datepicker formControlName="cessationDate" [showIcon]="true"
+                            dateFormat="dd.mm.yy"></p-datepicker>
+
                     </div>
 
 

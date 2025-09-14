@@ -9,6 +9,7 @@ import { errorInterceptor } from './interceptors/error-interceptor';
 import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { AppDateAdapter } from './adapters/add-date-adaper';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 export const APP_DATE_FORMATS = {
@@ -34,9 +35,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor, errorInterceptor])
     ),
     importProvidersFrom(MatNativeDateModule),
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    { provide: DateAdapter, useClass: AppDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
+    provideAnimations()
 
   ]
 

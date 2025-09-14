@@ -50,7 +50,9 @@ import { PersonDialogFormComponent } from '../dashboard-components/person-module
 import { SharedCompanyShareholderComponent } from '../dashboard-components/shared-components/shared-company-shareholder-component/shared-company-shareholder-component';
 import { PersonFormComponent } from '../dashboard-components/person-module/shared-person-components/person-form-component/person-form-component';
 import { DateInputComponent } from './date-input-component/date-input-component';
+import { NumberSeperatorPipe } from '../pipes/number-seperator-pipe';
 
+import { DatePickerModule } from 'primeng/datepicker';
 
 
 
@@ -71,6 +73,7 @@ import { DateInputComponent } from './date-input-component/date-input-component'
     SelectAutoComplete,
     TableDataPipe,
     TextPipe,
+    NumberSeperatorPipe,
     SharedRegisterNoteTable,
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
@@ -79,7 +82,8 @@ import { DateInputComponent } from './date-input-component/date-input-component'
     PersonFormComponent,
     PersonDialogFormComponent,
     SharedCompanyShareholderComponent,
-    DateInputComponent
+    DateInputComponent,
+
 
   ],
   imports: [
@@ -112,7 +116,7 @@ import { DateInputComponent } from './date-input-component/date-input-component'
     MatToolbarModule,
     MatCardModule,
     MatTooltipModule,
-
+    DatePickerModule
 
   ],
   exports: [
@@ -149,6 +153,7 @@ import { DateInputComponent } from './date-input-component/date-input-component'
     MatSortModule,
     TableDataPipe,
     TextPipe,
+    NumberSeperatorPipe,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
@@ -168,7 +173,8 @@ import { DateInputComponent } from './date-input-component/date-input-component'
     PersonFormComponent,
     PersonDialogFormComponent,
     SharedCompanyShareholderComponent,
-    DateInputComponent
+    DateInputComponent,
+    DatePickerModule
   ],
   providers: [
 

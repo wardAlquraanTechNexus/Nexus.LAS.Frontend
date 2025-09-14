@@ -1,7 +1,7 @@
 export interface CompanyCapitalDto {
     id: number;
     companyId: number;
-    capitalDate?: string;
+    capitalDate?: string | null;
     capitalAmount?: number;
     nominalValueOfShare?: number;
     classOfShares?: string;
