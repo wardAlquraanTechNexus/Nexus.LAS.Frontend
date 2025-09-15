@@ -7,12 +7,18 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    <span *ngIf="personEmail && personEmail.id">Update Email Address</span>
-                    <span *ngIf="!personEmail || !personEmail.id">Add New Email Address</span>
+                    <span>
+                        {{ personEmail && personEmail.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add' }}
+                        {{ label.COMMON.EMAIL_ADDRESS || 'Email Address' }}
+                    </span>
                 </h2>
                 <p class="dialog-subtitle">
-                    <span *ngIf="personEmail && personEmail.id">Modify existing email details</span>
-                    <span *ngIf="!personEmail || !personEmail.id">Add a new email address to the record</span>
+                    <span *ngIf="personEmail && personEmail.id">
+                        {{ label.COMMON.EDIT_EMAIL || 'Modify existing email details' }}
+                    </span>
+                    <span *ngIf="!personEmail || !personEmail.id">
+                        {{ label.COMMON.ADD_EMAIL || 'Add a new email address to the record' }}
+                    </span>
                 </p>
             </div>
         </div>
@@ -28,19 +34,19 @@
             <div class="col-12">
 
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Email Address</mat-label>
-                    <input matInput formControlName="email" placeholder="Enter email address..." required />
+                    <mat-label>{{ label.COMMON.EMAIL_ADDRESS }}</mat-label>
+                    <input matInput formControlName="email" [placeholder]="label.COMMON.ADD_EMAIL || 'Enter email address...'" required />
                     <mat-error *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
-                        Email is required
+                        {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
                     </mat-error>
                 </mat-form-field>
 
             </div>
 
             <div class="col-12">
-                <mat-slide-toggle formControlName="emailPrimary"><span
-                        class="label-toggel">Primary</span></mat-slide-toggle>
-
+                <mat-slide-toggle formControlName="emailPrimary">
+                    <span class="label-toggel">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
+                </mat-slide-toggle>
             </div>
             </form>
         </div>
@@ -50,11 +56,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save()">
             <mat-icon>{{ personEmail && personEmail.id ? 'save' : 'add' }}</mat-icon>
-            {{ personEmail && personEmail.id ? 'Update Email' : 'Save Email' }}
+            {{ personEmail && personEmail.id ? (label.COMMON.EDIT_EMAIL || 'Update Email') : (label.COMMON.ADD_EMAIL || 'Save Email') }}
         </button>
     </div>
 </div>

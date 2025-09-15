@@ -10,6 +10,7 @@ import { PersonOtherDocumentDTO } from '../../../../../models/person-models/pers
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-person-other-document-form-component',
@@ -27,10 +28,11 @@ export class PersonOtherDocumentFormComponent extends BaseFormComponent {
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
-    private dlService: DynamicListService
+    private dlService: DynamicListService,
+    protected override langService: LanguageService
 
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {

@@ -27,7 +27,6 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
 
   override displayColumns: DisplayColumn[] = [];
 
-  private langSub!: Subscription;
 
   override params: GetPagingCompanyContractQuery = {
     companyId: 0,
@@ -44,72 +43,68 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private dialog: MatDialog,
-    private languageService: LanguageService,
+    override langService: LanguageService,
     private sanitizer: DomSanitizer,
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
 
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     this.setDisplayColumns();
-    this.langSub = this.languageService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
+    
     super.ngOnInit();
   }
  
   override ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.langSub?.unsubscribe();
   }
 
   setDisplayColumns() {
-    const getLabel = this.languageService.getLabel.bind(this.languageService);
     this.displayColumns = [
       {
         key: "fileName",
-        label: getLabel('COMMON.FILE_NAME') ?? "File Name",
+        label: this.langService.getLabel('COMMON.FILE_NAME') ?? "File Name",
         pipes: ["link"]
       },
       {
         key: "contractType",
-        label: getLabel('COMPANY.CONTRACT_TYPE') ?? "Contract Type",
+        label: this.langService.getLabel('COMPANY.CONTRACT_TYPE') ?? "Contract Type",
         pipes: ["company-contract-type"]
       },
       {
         key: "documentDate",
-        label: getLabel('COMPANY.DOCUMENT_DATE') ?? "Document Date",
+        label: this.langService.getLabel('COMPANY.DOCUMENT_DATE') ?? "Document Date",
         pipes: ["date"]
       },
       {
         key: "commencementDate",
-        label: getLabel('COMPANY.COMMENCEMENT_DATE') ?? "Commencement Date",
+        label: this.langService.getLabel('COMPANY.COMMENCEMENT_DATE') ?? "Commencement Date",
         pipes: ["date"]
       },
       {
         key: "contractExpiryDate",
-        label: getLabel('COMPANY.EXPIRY_DATE') ?? "Expiry Date",
+        label: this.langService.getLabel('COMPANY.EXPIRY_DATE') ?? "Expiry Date",
         pipes: ["date"]
       },
       {
         key: "contractExpiryActiveReminder",
-        label: getLabel('COMPANY.REMINDER') ?? "Reminder",
+        label: this.langService.getLabel('COMPANY.REMINDER') ?? "Reminder",
         inputType: "mat-slide-toggle"
       },
       {
         key: "contractDescription",
-        label: getLabel('COMPANY.DESCRIPTION') ?? "Description",
+        label: this.langService.getLabel('COMPANY.DESCRIPTION') ?? "Description",
       },
       {
         key: "contractStatus",
-        label: getLabel('COMPANY.STATUS') ?? "Status",
+        label: this.langService.getLabel('COMPANY.STATUS') ?? "Status",
         pipes: ['company-contract-status']
       },
       {
         key: 'action',
-        label: getLabel('COMMON.ACTIONS') ?? 'Actions'
+        label: this.langService.getLabel('COMMON.ACTIONS') ?? 'Actions'
       }
     ];
   }

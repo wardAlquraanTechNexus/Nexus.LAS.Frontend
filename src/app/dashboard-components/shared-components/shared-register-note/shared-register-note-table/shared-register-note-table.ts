@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GetRegisterNoteParam } from '../../../../models/register-note/params/get-register-note-param';
 import { SharedRegisterNoteForm } from '../shared-register-note-form/shared-register-note-form';
 import { SharedRegisterNoteFormDialog } from '../shared-register-note-form-dialog/shared-register-note-form-dialog';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-shared-register-note-table',
@@ -29,22 +30,7 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
     registersIdn: 0
   };
 
-  override displayColumns: DisplayColumn[] =
-    [
-      {
-        sort: true,
-        key: "registersNotesText",
-        label: "Note"
-      },
-      {
-        sort: true,
-        key: "noteDate",
-        label: "Date",
-        pipes: [
-          "date"
-        ]
-      }
-    ];
+
 
   constructor(
     override service: RegisterNoteService,
@@ -54,21 +40,35 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private menuService: MenuService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override ngOnInit(): void {
+    this.displayColumns = [
+      {
+        sort: true,
+        key: "registersNotesText",
+        label: this.langService.getLabel('COMMON.NOTES') || "Note"
+      },
+      {
+        sort: true,
+        key: "noteDate",
+        label: this.langService.getLabel('COMMON.DATE') || "Date",
+        pipes: ["date"]
+      }
+    ];
+    if (this.canCrud) {
+      this.displayColumns.push({
+        key: 'action',
+        label: this.langService.getLabel('COMMON.ACTIONS') || 'Actions'
+      });
+    }
     this.params.registersIdc = this.registersIdc;
     this.params.registersIdn = this.registersIdn;
     super.ngOnInit();
-    if(this.canCrud){
-      this.displayColumns.push({
-        key: 'action',
-        label: 'Actions'
-      });
-    }
   }
 
   addNote() {

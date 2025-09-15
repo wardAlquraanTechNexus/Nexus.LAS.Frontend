@@ -8,6 +8,7 @@ import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { environment } from '../../../../../../environment/environment';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-phone-form-component',
@@ -26,9 +27,10 @@ export class CompanyPhoneFormComponent extends BaseFormComponent {
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
-    private dlService:DynamicListService
+    private dlService:DynamicListService,
+    override langService: LanguageService,
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {

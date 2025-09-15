@@ -7,16 +7,16 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    <span *ngIf="registerNote && registerNote.id">Update Note</span>
-                    <span *ngIf="!registerNote || !registerNote.id">Create New Note</span>
+                    <span *ngIf="registerNote && registerNote.id">{{ label.COMMON.EDIT_NOTE || 'Update Note' }}</span>
+                    <span *ngIf="!registerNote || !registerNote.id">{{ label.COMMON.ADD_NOTE || 'Create New Note' }}</span>
                 </h2>
                 <p class="dialog-subtitle">
-                    <span *ngIf="registerNote && registerNote.id">Modify existing note details</span>
-                    <span *ngIf="!registerNote || !registerNote.id">Add a new note to the record</span>
+                    <span *ngIf="registerNote && registerNote.id">{{ label.COMMON.EDIT_NOTE || 'Modify existing note details' }}</span>
+                    <span *ngIf="!registerNote || !registerNote.id">{{ label.COMMON.ADD_NOTE || 'Add a new note to the record' }}</span>
                 </p>
             </div>
         </div>
-        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label.="Close dialog">
             <mat-icon>close</mat-icon>
         </button>
     </div>
@@ -28,11 +28,11 @@
                 <!-- Note Text Field -->
                 <div class="form-field-wrapper">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Note</mat-label>
+                        <mat-label>{{ label.COMMON.NOTES || 'Note' }}</mat-label>
                         <textarea 
                             matInput 
                             formControlName="registersNotesText" 
-                            placeholder="Enter your note here..."
+                            [placeholder]="label.COMMON.NOTES || 'Enter your note here...'"
                             rows="4"
                             required>
                         </textarea>
@@ -40,7 +40,7 @@
                         @if(formGroup.get('registersNotesText')?.hasError('required') &&
                         formGroup.get('registersNotesText')?.touched){
                         <mat-error>
-                            Note is required
+                            {{ label.COMMON.NOTES || 'Note is required' }}
                         </mat-error>
                         }
                     </mat-form-field>
@@ -49,17 +49,17 @@
                 <!-- Note Date Field -->
                 <div class="form-field-wrapper">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Note Date</mat-label>
+                        <mat-label>{{ label.COMMON.DATE || 'Note Date' }}</mat-label>
                         <input matInput
                                formControlName="noteDate"
-                               placeholder="DD/MM/YYYY"
+                               [placeholder]="label.COMMON.DATE || 'DD/MM/YYYY'"
                                [matDatepicker]="noteDatePicker"
                                required>
                         <mat-datepicker-toggle matSuffix [for]="noteDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #noteDatePicker></mat-datepicker>
                         @if (formGroup.get('noteDate')?.hasError('required') && formGroup.get('noteDate')?.touched) {
                         <mat-error>
-                            Note Date is required
+                            {{ label.COMMON.DATE || 'Note Date is required' }}
                         </mat-error>
                         }
                     </mat-form-field>
@@ -72,11 +72,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save()">
             <mat-icon>{{ registerNote && registerNote.id ? 'save' : 'add' }}</mat-icon>
-            {{ registerNote && registerNote.id ? 'Update Note' : 'Save Note' }}
+            {{ registerNote && registerNote.id ? (label.COMMON.EDIT_NOTE || 'Update Note') : (label.COMMON.ADD_NOTE || 'Save Note') }}
         </button>
     </div>
 </div>

@@ -30,6 +30,9 @@ export class LanguageService {
   }
 
   getLabel(key: string): string {
+    if(key == 'EMAIL_ADDRESSES'){
+      debugger;
+    }
     const lang = this.currentLanguage();
     const labels = this.getLabels(lang);
     // Support nested keys like 'COMPANY.CODE'

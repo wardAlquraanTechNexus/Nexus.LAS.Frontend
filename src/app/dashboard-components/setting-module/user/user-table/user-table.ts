@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDto } from '../../../../models/user/get-user-dto/user-dto';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-user-table',
@@ -79,8 +80,9 @@ export class UserTable extends TableFormComponent<User>
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
     override fetchData() {

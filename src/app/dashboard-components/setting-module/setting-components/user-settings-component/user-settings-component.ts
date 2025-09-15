@@ -90,10 +90,10 @@ export class UserSettingsComponent extends TableFormComponent<User> {
     override route: ActivatedRoute,
     private userGroupService: UserGroupService,
     protected dialog: MatDialog,
-    private langService: LanguageService
+    override langService: LanguageService
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route,  langService);
   }
 
   override ngOnInit() {

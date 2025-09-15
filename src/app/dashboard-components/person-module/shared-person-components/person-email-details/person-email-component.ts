@@ -6,6 +6,9 @@ import { PersonEmail } from '../../../../models/person-models/person-email/perso
 import { PersonEmailDialogComponent } from './person-email-dialog-component/person-email-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonDto } from '../../../../models/person-models/person-dto';
+import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
 
 @Component({
   selector: 'app-person-email-component',
@@ -15,22 +18,32 @@ import { PersonDto } from '../../../../models/person-models/person-dto';
 })
 export class PersonEmailComponent implements OnInit {
 
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
+
   showLoading = false;
   personEmails: PersonEmail[] = [];
-  @Input() person!:PersonDto;
+  @Input() person!: PersonDto;
   @Input() readOnly = false;
   constructor(
     private route: ActivatedRoute,
     private service: PersonEmailService,
     private cdr: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public langService: LanguageService,
   ) { }
 
 
   ngOnInit(): void {
 
-    this.showLoading = true;    
-      this.fetchData();
+    this.showLoading = true;
+    this.fetchData();
+
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
 
@@ -73,7 +86,7 @@ export class PersonEmailComponent implements OnInit {
     createdBy: "",
     createdAt: ""
   }) {
-  const dialogRef = this.dialog.open(PersonEmailDialogComponent, {
+    const dialogRef = this.dialog.open(PersonEmailDialogComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
       data: personEmail

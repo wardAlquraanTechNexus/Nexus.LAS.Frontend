@@ -3,10 +3,10 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>Email Addresses</h2>
+    <h2>{{ label.COMMON.EMAIL_ADDRESSES }}</h2>
   </div>
   <button *ngIf="!readOnly" mat-raised-button color="primary" (click)="openFormDetails()">
-    <mat-icon>add</mat-icon> Add Email
+    <mat-icon>add</mat-icon> {{ label.COMMON.ADD_EMAIL  }}
   </button>
 </div>
 
@@ -32,7 +32,9 @@
           <div class="item-content">
             <div class="primary-text">
               <span>{{ personEmail.email }}</span>
-              <span *ngIf="personEmail.emailPrimary" class="primary-badge">Primary</span>
+              <span *ngIf="personEmail.emailPrimary" class="primary-badge">
+                {{ label.COMMON.PRIMARY  }}
+              </span>
             </div>
           </div>
           <!-- Actions -->
@@ -43,11 +45,11 @@
             <mat-menu #emailMenu="matMenu">
               <button mat-menu-item (click)="openFormDetails(personEmail)">
                 <mat-icon>edit</mat-icon>
-                <span>Edit Email</span>
+                <span>{{ label.COMMON.EDIT_EMAIL }}</span>
               </button>
               <button mat-menu-item [confirmDelete]="getRemoveCallback(personEmail.id!)">
                 <mat-icon>delete</mat-icon>
-                <span>Delete Email</span>
+                <span>{{ label.COMMON.DELETE_EMAIL }}</span>
               </button>
             </mat-menu>
           </div>
@@ -56,7 +58,7 @@
     } @else {
       <div class="no-records-hint">
         <mat-icon color="disabled">info</mat-icon>
-        <span>No records available</span>
+        <span>{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
       </div>
     }
   </div>

@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserGroupFormDialog } from '../user-group-form-dialog/user-group-form-dialog';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-user-group-table',
@@ -60,8 +61,9 @@ export class UserGroupTable extends TableFormComponent<UserGroup> {
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override fetchData() {

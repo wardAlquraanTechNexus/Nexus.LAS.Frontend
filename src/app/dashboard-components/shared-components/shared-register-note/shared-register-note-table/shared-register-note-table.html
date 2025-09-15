@@ -4,10 +4,10 @@
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>Notes</h2>
+        <h2>{{ label.COMMON.NOTES }}</h2>
       </div>
       <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="addNote()">
-        <mat-icon>add</mat-icon> Add Note
+        <mat-icon>add</mat-icon> {{ label.COMMON.ADD_NOTE || 'Add Note' }}
       </button>
     </div>
   </div>
@@ -40,11 +40,11 @@
   <mat-menu #menuRow="matMenu" class="nexus-action-menu">
     <button mat-menu-item (click)="edit(row)" class="nexus-menu-item neutral">
       <mat-icon>edit</mat-icon>
-      <span>Edit Note</span>
+      <span>{{ label.COMMON.EDIT_NOTE || 'Edit Note' }}</span>
     </button>
     <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)" class="nexus-menu-item danger">
       <mat-icon>delete</mat-icon>
-      <span>Delete Note</span>
+      <span>{{ label.COMMON.DELETE_NOTE || 'Delete Note' }}</span>
     </button>
   </mat-menu>
 </ng-template>

@@ -10,6 +10,9 @@ import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { environment } from '../../../../../environment/environment';
 import { PersonDto } from '../../../../models/person-models/person-dto';
 import { PersonAddressDialogComponent } from './person-address-dialog-component/person-address-dialog-component';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-person-address-component',
@@ -29,6 +32,10 @@ export class PersonAddressComponent implements OnInit {
   searchControl = new FormControl('');
   filteredCountries$!: Observable<Country[]>;
   personAddresses: PersonAddress[] = [];
+   get label() {
+      return Labels[this.currentLang as keyof typeof Labels];
+    }
+    currentLang: LanguageCode = 'en';
   
   constructor(
     private fb: FormBuilder,
@@ -36,7 +43,8 @@ export class PersonAddressComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private personAddressService: PersonAddressService,
     private dialog: MatDialog,
-    private dlService: DynamicListService
+    private dlService: DynamicListService,
+    public langService: LanguageService,
 
   ) { }
 
@@ -58,7 +66,11 @@ export class PersonAddressComponent implements OnInit {
           })
         })
       })
-    })
+    });
+
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
 

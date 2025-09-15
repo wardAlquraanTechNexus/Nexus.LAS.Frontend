@@ -9,6 +9,7 @@ import { GroupService } from '../../../../services/group-service';
 import { Group } from '../../../../models/group/group';
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-user-group-form',
@@ -40,10 +41,11 @@ export class UserGroupForm extends BaseFormComponent {
     private userService: UserService,
     private groupService: GroupService,
     protected override errorHandler: ErrorHandlerService,
+    protected override langService: LanguageService,
 
 
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {

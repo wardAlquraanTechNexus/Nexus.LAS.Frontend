@@ -1,12 +1,12 @@
 <div class="table-header-container">
   <div class="table-header">
     <div class="header-title">
-      {{ languageService.getLabel('otherDocuments') || 'Other Documents' }}
+      {{ langService.getLabel('PERSON.OTHER_DOCUMENTS') || 'Other Documents' }}
     </div>
     <div class="header-actions">
       <button mat-raised-button color="primary" (click)="onAddNew()">
         <mat-icon>add</mat-icon>
-        {{ languageService.getLabel('uploadDocument') || 'Upload Document' }}
+        {{ langService.getLabel('PERSON.UPLOAD_DOCUMENT') || 'Upload Document' }}
       </button>
     </div>
   </div>
@@ -17,7 +17,7 @@
           [controlName]="'documentType'"
           [fnGet]="loadDocumentTypesFn"
           [formGroup]="formGroup"
-          [label]="languageService.getLabel('documentType') || 'Document Type'"
+          [label]="langService.getLabel('PERSON.DOCUMENT_TYPE') || 'Document Type'"
           [keyToShow]="'name'"
           [valueKey]="'id'"
           [withNullOption]="true"
@@ -49,15 +49,15 @@
   <mat-menu #menuRow="matMenu">
     <button mat-menu-item (click)="editDocument(row)">
       <mat-icon>edit</mat-icon>
-      {{ languageService.getLabel('editDocument') || 'Edit Document' }}
+      {{ langService.getLabel('PERSON.EDIT_DOCUMENT') || 'Edit Document' }}
     </button>
     <button mat-menu-item (click)="viewDocument(row)">
       <mat-icon>visibility</mat-icon>
-      {{ languageService.getLabel('viewDocument') || 'View Document' }}
+      {{ langService.getLabel('PERSON.VIEW_DOCUMENT') || 'View Document' }}
     </button>
     <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)">
       <mat-icon>delete</mat-icon>
-      {{ languageService.getLabel('deleteDocument') || 'Delete Document' }}
+      {{ langService.getLabel('PERSON.DELETE_DOCUMENT') || 'Delete Document' }}
     </button>
   </mat-menu>
 </ng-template>

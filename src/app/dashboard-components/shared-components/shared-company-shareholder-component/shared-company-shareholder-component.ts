@@ -17,6 +17,7 @@ import { MenuService } from '../../../services/menu-service';
 import { TableFormComponent } from '../../base-components/table-form-component/table-form-component';
 import { CompanyShareholderDialogFormComponent } from '../../company-module/company-details-components/company-shareholder-component/company-shareholder-dialog-form-component/company-shareholder-dialog-form-component';
 import { ShareholderAssetsDto } from '../../../models/company-models/company-share-holder/dtos/shareholder-assets-dto';
+import { LanguageService } from '../../../services/language-service';
 
 @Component({
   selector: 'app-shared-company-shareholder-component',
@@ -29,7 +30,6 @@ export class SharedCompanyShareholderComponent extends TableFormComponent<Compan
   @Input() registersIdc!: string;
   @Input() registersIdn!: number
 
-
   override data: PaginateRsult<ShareholderAssetsDto> = {
     collection: [],
     page: 0,
@@ -38,38 +38,12 @@ export class SharedCompanyShareholderComponent extends TableFormComponent<Compan
     totalRecords: 0
   };
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "companyName",
-      label: "Company Name",
-      pipes: ["link"]
-    },
-    {
-      key: "ownedSahresCount",
-      label: "No. of shares",
-    },
-    {
-      key: "sharePercentage",
-      label: "% of Shares",
-      pipes: ["percentage"]
-    },
-    {
-      key: "date",
-      label: "Date",
-      pipes: ['date']
-    },
-    {
-      key: "isActive",
-      label: "Status",
-      pipes: ['company-shareholder-status']
-    }
-  ]
+  override displayColumns: DisplayColumn[] = [];
 
   override params: GetPagingCompanyShareHolderParams = {
     page: 0,
     pageSize: 10
   };
-  
 
   constructor(
     override service: CompanyShareHolderService,
@@ -80,16 +54,43 @@ export class SharedCompanyShareholderComponent extends TableFormComponent<Compan
     override route: ActivatedRoute,
     private dialog: MatDialog,
     private companyCapitalService: CompanyCapitalService,
-    private menuService: MenuService
-
+    private menuService: MenuService,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
+
   override ngOnInit(): void {
+    this.displayColumns = [
+      {
+        key: "companyName",
+        label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Company Name",
+        pipes: ["link"]
+      },
+      {
+        key: "ownedSahresCount",
+        label: this.langService.getLabel('COMPANY.TOTAL_SHARES') || "No. of shares",
+      },
+      {
+        key: "sharePercentage",
+        label: this.langService.getLabel('COMPANY.SHARE_PERCENT') || "% of Shares",
+        pipes: ["percentage"]
+      },
+      {
+        key: "date",
+        label: this.langService.getLabel('COMMON.DATE') || "Date",
+        pipes: ['date']
+      },
+      {
+        key: "isActive",
+        label: this.langService.getLabel('COMMON.STATUS') || "Status",
+        pipes: ['company-shareholder-status']
+      }
+    ];
+
     this.params.registersIdc = this.registersIdc;
     this.params.registersIdn = this.registersIdn;
     super.ngOnInit();
-
   }
 
   override fetchData(): void {
@@ -108,7 +109,6 @@ export class SharedCompanyShareholderComponent extends TableFormComponent<Compan
         })
       })
   }
-
 
   showTable = true;
   toggleTable() {

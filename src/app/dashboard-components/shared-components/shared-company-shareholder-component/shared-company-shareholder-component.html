@@ -1,5 +1,7 @@
 <div class="table-header">
-  <div class="header-title">Shareholders</div>
+  <div class="header-title">
+    {{ langService.getLabel('COMPANY.SHAREHOLDERS') || 'Shareholders' }}
+  </div>
 </div>
 
 <app-shared-table *ngIf="showTable && !showLoading"
@@ -9,4 +11,3 @@
   (onSortChangeEvent)="changeSort($event)"
   (rowClick)="onRowClick($event)">
 </app-shared-table>
->

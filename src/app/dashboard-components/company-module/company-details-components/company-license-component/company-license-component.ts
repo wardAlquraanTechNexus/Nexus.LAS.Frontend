@@ -27,7 +27,6 @@ import { getDisplayColumns } from '../../../_shared/shared-methods/getDisplayCol
 })
 export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> implements OnInit, OnDestroy {
   override displayColumns: DisplayColumn[] = [];
-  private langSub!: Subscription;
 
   override params: GetcompanyLicenseParams = {
     companyId: 0,
@@ -45,27 +44,24 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     override route: ActivatedRoute,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
-    private languageService: LanguageService
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route , langService)
   }
 
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     this.setDisplayColumns();
-    this.langSub = this.languageService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
+  
     super.ngOnInit();
   }
 
   override ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.langSub?.unsubscribe();
   }
 
   setDisplayColumns() {
-    this.displayColumns = getDisplayColumns(this.languageService, [
+    this.displayColumns = getDisplayColumns(this.langService, [
       { key: "licenseClassification", labelKey: 'COMPANY.CLASS' },
       { key: "licenseNumber", labelKey: 'COMPANY.CODE' },
       { key: "licenseIssueDate", labelKey: 'COMPANY.ISSUE_DATE', pipes: ["date"] },

@@ -12,6 +12,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { CompanyActivityDto } from '../../../../models/company-models/company-activity/dtos/company-activity-dto';
 import { CompanyActivityFormDialogComponent } from './company-activity-form-dialog-component/company-activity-form-dialog-component';
 import { PaginateRsult } from '../../../../models/paginate-result';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-activity-component',
@@ -62,9 +63,10 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
   override ngOnInit(): void {
     this.params.companyId = this.company.id;

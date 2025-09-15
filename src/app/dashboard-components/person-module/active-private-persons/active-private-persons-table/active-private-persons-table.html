@@ -4,10 +4,10 @@
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>Active Private Persons</h2>
+        <h2>{{ label.PERSON.ACTIVE_PRIVATE_PERSONS }}</h2>
       </div>
       <button *ngIf="currentMenu?.canInsert" mat-raised-button class="nexus-btn nexus-btn-primary" (click)="openAddDialog()">
-        <mat-icon>add</mat-icon> Add Person
+        <mat-icon>add</mat-icon> {{ label.PERSON.ADD_PERSON }}
       </button>
     </div>
   </div>
@@ -19,22 +19,22 @@
       <div class="nexus-filters-container" *ngIf="!selectedPersons.length">
         <div class="nexus-search-field">
           <mat-form-field appearance="outline">
-            <mat-label>Search</mat-label>
-            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="Search active private persons">
+            <mat-label>{{ label.COMMON.SEARCH }}</mat-label>
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="{{ label.PERSON.ACTIVE_PRIVATE_PERSONS }}">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
 
         <div class="nexus-filter-field">
           <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
-            [formGroup]="formGroup" [label]="'Nationality'" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+            [formGroup]="formGroup" [label]="label.COMMON.NATIONALITY" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
             (selectEmitter)="onSelectNationality($event)" [withNullOption]="false">
           </select-auto-complete>
         </div>
 
         <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
-            <mat-icon>download</mat-icon> Export
+            <mat-icon>download</mat-icon> {{ label.COMMON.EXPORT }}
           </button>
         </div>
 
@@ -42,19 +42,19 @@
 
       <!-- Bulk Actions -->
       <div class="nexus-bulk-actions" *ngIf="selectedPersons.length">
-        <span class="nexus-bulk-count">{{ selectedPersons.length }} selected</span>
+        <span class="nexus-bulk-count">{{ selectedPersons.length }} {{ label.COMMON.SELECTED }}</span>
         <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
           <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
-            <mat-icon>check_circle</mat-icon> Activate
+            <mat-icon>check_circle</mat-icon> {{ label.COMMON.ACTIVATE }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inactiveStatus)">
-            <mat-icon>cancel</mat-icon> Deactivate
+            <mat-icon>cancel</mat-icon> {{ label.COMMON.DEACTIVATE }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-            <mat-icon>visibility</mat-icon> Mark Public
+            <mat-icon>visibility</mat-icon> {{ label.COMMON.PUBLIC }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-neutral" (click)="exportToExcel()">
-            <mat-icon>print</mat-icon> Print
+            <mat-icon>print</mat-icon> {{ label.COMMON.PRINT }}
           </button>
         </div>
       </div>
@@ -81,26 +81,26 @@
 
 </div>
 
-  <!-- Row Actions -->
-  <ng-template #actionButtonsTemplate let-row>
-    <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
-      <mat-icon>more_vert</mat-icon>
+<!-- Row Actions -->
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+    <button mat-menu-item *ngIf="currentMenu?.canUpdate && row.personStatus !== activeStatus" (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
+      <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMMON.ACTIVATE }}
     </button>
-    <mat-menu #menuRow="matMenu" class="nexus-action-menu">
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate && row.personStatus !== activeStatus" (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
-        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> Activate
-      </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate && row.personStatus !== inactiveStatus" (click)="deactivate(row)" class="nexus-menu-item nexus-menu-warning">
-        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> Deactivate
-      </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)" class="nexus-menu-item nexus-menu-info">
-        <mat-icon class="nexus-icon-public">visibility</mat-icon> Mark Public
-      </button>
-      <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
-        <mat-icon class="nexus-icon-print">print</mat-icon> Print
-      </button>
-      <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)" class="nexus-menu-item nexus-menu-danger">
-        <mat-icon class="nexus-icon-delete">delete</mat-icon> Delete
-      </button>
-    </mat-menu>
-  </ng-template>
+    <button mat-menu-item *ngIf="currentMenu?.canUpdate && row.personStatus !== inactiveStatus" (click)="deactivate(row)" class="nexus-menu-item nexus-menu-warning">
+      <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMMON.DEACTIVATE }}
+    </button>
+    <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)" class="nexus-menu-item nexus-menu-info">
+      <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMMON.PUBLIC }}
+    </button>
+    <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
+      <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
+    </button>
+    <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)" class="nexus-menu-item nexus-menu-danger">
+      <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
+    </button>
+  </mat-menu>
+</ng-template>

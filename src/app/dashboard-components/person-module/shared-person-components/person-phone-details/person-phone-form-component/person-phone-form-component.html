@@ -7,10 +7,11 @@
       </div>
       <div class="header-text">
         <h2 class="dialog-title">
-          {{ personPhone.id ? 'Update Phone Number' : 'Add New Phone Number' }}
+          {{personPhone.id ? (label.COMMON.EDIT || 'Edit') : (label.COMMON.ADD || 'Add')}} 
+          {{ label.COMMON.PHONE_NUMBER || 'Person Phone' }}
         </h2>
         <p class="dialog-subtitle">
-          {{ personPhone.id ? 'Modify existing phone details' : 'Add a new phone number to the record' }}
+          {{ label.COMMON.EDIT_PHONE || 'Enter Phone Number Details' }}
         </p>
       </div>
     </div>
@@ -27,10 +28,10 @@
         <!-- Phone Number -->
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Phone Number</mat-label>
-            <input matInput formControlName="phoneNumber" placeholder="Enter phone number with country code..." required />
+            <mat-label>{{ label.COMMON.PHONE_NUMBERS || 'Phone Number' }}</mat-label>
+            <input matInput formControlName="phoneNumber" [placeholder]="label.COMMON.ADD_PHONE || 'Enter phone number with country code...'" required />
             <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('required') && formGroup.get('phoneNumber')?.touched">
-              Phone Number is required
+              {{ label.COMMON.PHONE_REQUIRED || 'Phone Number is required' }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -42,20 +43,20 @@
             [controlName]="'phoneType'" 
             [fnGet]="loadPersonsPhonesFn"
             [formGroup]="formGroup" 
-            [label]="'Phone Type'" 
+            [label]="label.COMMON.PHONE_TYPE || 'Phone Type'" 
             [keyToShow]="'name'" 
             [valueKey]="'id'"
             [withNullOption]="false">
           </select-auto-complete>
           <div class="text-danger" *ngIf="formGroup.get('phoneType')?.invalid && formGroup.get('phoneType')?.touched">
-            Phone type is required
+            {{ label.COMMON.PHONE_TYPE_REQUIRED || 'Phone type is required' }}
           </div>
         </div>
 
         <!-- Primary Phone -->
         <div class="col-12">
           <mat-slide-toggle formControlName="phonePrimary">
-            <span class="label-toggle">Primary</span>
+            <span class="label-toggle">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
           </mat-slide-toggle>
         </div>
 
@@ -67,13 +68,13 @@
   <div class="dialog-footer">
     <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
       <mat-icon>close</mat-icon>
-      Cancel
+      {{ label.COMMON.CANCEL || 'Cancel' }}
     </button>
     <button mat-flat-button class="save-btn" (click)="save()" 
             [disabled]="formGroup.invalid || showLoading">
       <mat-icon *ngIf="!showLoading">{{ personPhone.id ? 'save' : 'add' }}</mat-icon>
       <mat-spinner *ngIf="showLoading" diameter="20"></mat-spinner>
-      {{ personPhone.id ? 'Update Phone' : 'Save Phone' }}
+      {{ personPhone.id ? (label.COMMON.EDIT_PHONE || 'Update Phone') : (label.COMMON.ADD_PHONE || 'Save Phone') }}
     </button>
   </div>
 </div>

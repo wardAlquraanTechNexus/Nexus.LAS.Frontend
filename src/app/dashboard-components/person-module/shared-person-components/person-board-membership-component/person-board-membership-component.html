@@ -1,10 +1,9 @@
 <div class="table-header">
-  <div class="header-title">Board Membership</div>
+  <div class="header-title">{{ label.PERSON.BOARD_MEMBERSHIP }}</div>
   <div class="header-actions">
-      
-        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? 'Hide' : 'Show'">
-          <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
-        </button>
+    <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? label.COMMON.HIDE : label.COMMON.SHOW">
+      <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
+    </button>
   </div>
 </div>
 
@@ -13,6 +12,6 @@
   [paginateResult]="data"
   (onChangePage)="changePage($event)"
   (onSortChangeEvent)="changeSort($event)"
-  >
+>
 </app-shared-table>
 

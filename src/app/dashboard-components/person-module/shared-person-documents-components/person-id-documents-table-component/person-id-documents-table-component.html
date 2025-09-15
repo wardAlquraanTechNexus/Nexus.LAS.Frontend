@@ -1,12 +1,12 @@
 <div class="table-header-container">
   <div class="table-header">
     <div class="header-title">
-      {{ languageService.getLabel('personIdDocuments') || 'Person Id Documents' }}
+      {{ languageService.getLabel('PERSON.PERSON_ID_DOCUMENTS') || 'Person ID Documents' }}
     </div>
     <div class="header-actions">
       <button mat-raised-button color="primary" (click)="onAddNew()">
         <mat-icon>add</mat-icon>
-        {{ languageService.getLabel('uploadDocument') || 'Upload Document' }}
+        {{ languageService.getLabel('PERSON.UPLOAD_DOCUMENT') || 'Upload Document' }}
       </button>
     </div>
   </div>
@@ -17,7 +17,7 @@
           [controlName]="'documentType'"
           [fnGet]="loadDocumentTypesFn"
           [formGroup]="formGroup"
-          [label]="languageService.getLabel('documentType') || 'Document Type'"
+          [label]="languageService.getLabel('PERSON.DOCUMENT_TYPE') || 'Document Type'"
           [keyToShow]="'name'"
           [valueKey]="'id'"
           [withNullOption]="true"
@@ -29,7 +29,7 @@
           [controlName]="'nationality'"
           [fnGet]="loadNationalitiesFn"
           [formGroup]="formGroup"
-          [label]="languageService.getLabel('nationality') || 'Nationality'"
+          [label]="languageService.getLabel('COMMON.NATIONALITY') || 'Nationality'"
           [keyToShow]="'name'"
           [valueKey]="'id'"
           [withNullOption]="true"
@@ -61,15 +61,15 @@
   <mat-menu #menuRow="matMenu">
     <button mat-menu-item class="btn-view" (click)="onView(row)">
       <mat-icon>visibility</mat-icon>
-      {{ languageService.getLabel('viewDocument') || 'View' }}
+      {{ languageService.getLabel('PERSON.VIEW_DOCUMENT') || 'View' }}
     </button>
     <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
       <mat-icon>edit</mat-icon>
-      {{ languageService.getLabel('editDocument') || 'Edit' }}
+      {{ languageService.getLabel('PERSON.EDIT_DOCUMENT') || 'Edit' }}
     </button>
     <button mat-menu-item class="btn-delete" [confirmDelete]="getRemoveCallback(row.id)">
       <mat-icon>delete</mat-icon>
-      {{ languageService.getLabel('deleteDocument') || 'Delete' }}
+      {{ languageService.getLabel('PERSON.DELETE_DOCUMENT') || 'Delete' }}
     </button>
   </mat-menu>
 </ng-template>

@@ -86,10 +86,10 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     protected menuService: MenuService,
     protected dialog: MatDialog,
     protected dlService: DynamicListService,
-    protected langService: LanguageService
+    override langService: LanguageService
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route,langService);
   }
 
  

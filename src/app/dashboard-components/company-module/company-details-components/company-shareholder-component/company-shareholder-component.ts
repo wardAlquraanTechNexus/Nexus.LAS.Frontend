@@ -16,6 +16,7 @@ import { EntityIDc } from '../../../../enums/entity-idc';
 import { CompanyCapitalService } from '../../../../services/company-services/company-capital-service';
 import { MenuService } from '../../../../services/menu-service';
 import { environment } from '../../../../../environment/environment.prod';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-shareholder-component',
@@ -25,8 +26,6 @@ import { environment } from '../../../../../environment/environment.prod';
 })
 export class CompanyShareholderComponent extends TableFormComponent<CompaniesShareHolder> {
 
-
-
   override data: PaginateRsult<CompaniesShareHolderDto> = {
     collection: [],
     page: 0,
@@ -34,43 +33,6 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     totalPages: 0,
     totalRecords: 0
   };
-
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "registerName",
-      label: "Registers",
-      pipes: ["link"]
-    },
-    {
-      key: "registersIdc",
-      label: "Type",
-      pipes: ['register-type'],
-    },
-    {
-      key: "numbersOfShares",
-      label: "No. of shares",
-    },
-    {
-      key: "sharePercent",
-      label: "% of Shares",
-      pipes: ["percentage"]
-    },
-    {
-      key: "shareHolderDate",
-      label: "Date of Appointment",
-      pipes: ['date']
-    },
-    {
-      key: "cessationDate",
-      label: "Date of Cessation",
-      pipes: ["date"]
-    },
-    {
-      key: "shareHolderActive",
-      label: "Status",
-      pipes: ['company-shareholder-status']
-    }
-  ]
 
   override params: GetPagingCompanyShareHolderParams = {
     companyId: 0,
@@ -88,12 +50,50 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     override route: ActivatedRoute,
     private dialog: MatDialog,
     private companyCapitalService: CompanyCapitalService,
-    private menuService: MenuService
-
+    private menuService: MenuService,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
+
   override ngOnInit(): void {
+    this.displayColumns = [
+      {
+        key: "registerName",
+        label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Registers",
+        pipes: ["link"]
+      },
+      {
+        key: "registersIdc",
+        label: this.langService.getLabel('COMPANY.TYPE') || "Type",
+        pipes: ['register-type'],
+      },
+      {
+        key: "numbersOfShares",
+        label: this.langService.getLabel('COMPANY.TOTAL_SHARES') || "No. of shares",
+      },
+      {
+        key: "sharePercent",
+        label: this.langService.getLabel('COMPANY.SHARE_PERCENT') || "% of Shares",
+        pipes: ["percentage"]
+      },
+      {
+        key: "shareHolderDate",
+        label: this.langService.getLabel('COMPANY.APPOINTMENT_DATE') || "Date of Appointment",
+        pipes: ['date']
+      },
+      {
+        key: "cessationDate",
+        label: this.langService.getLabel('COMPANY.CESSATION_DATE') || "Date of Cessation",
+        pipes: ["date"]
+      },
+      {
+        key: "shareHolderActive",
+        label: this.langService.getLabel('COMMON.STATUS') || "Status",
+        pipes: ['company-shareholder-status']
+      }
+    ];
+
     this.params.companyId = this.company.id;
     super.ngOnInit();
 

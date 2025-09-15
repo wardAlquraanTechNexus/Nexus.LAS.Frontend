@@ -1,8 +1,7 @@
 <div class="table-header">
-    <div class="header-title">Account Signatories</div>
+    <div class="header-title">{{ label.PERSON.ACCOUNT_SIGNATORIES }}</div>
     <div class="header-actions">
-
-        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? 'Hide' : 'Show'">
+        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? label.COMMON.HIDE : label.COMMON.SHOW">
             <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
         </button>
     </div>

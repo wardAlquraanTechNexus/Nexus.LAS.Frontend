@@ -14,6 +14,7 @@ import { GetCompanyDto } from '../../../../../models/company-models/get-company-
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
+import { LanguageService } from '../../../../../services/language-service';
 
 
 @Component({
@@ -40,9 +41,10 @@ export class CompanyShareholderFormComponent extends BaseFormComponent {
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
     private personService: PersonService,
-    private companyService:CompanyService
+    private companyService:CompanyService,
+    override langService: LanguageService,
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {

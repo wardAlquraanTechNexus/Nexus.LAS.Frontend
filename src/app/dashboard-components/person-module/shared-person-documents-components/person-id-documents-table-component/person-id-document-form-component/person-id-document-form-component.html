@@ -6,8 +6,10 @@
                 <mat-icon>article</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Person Id Details</h2>
-                <p class="dialog-subtitle">Enter Person Id Details</p>
+                <h2 class="dialog-title">
+                  {{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{ label.PERSON.PERSON_ID_DOCUMENTS || 'Person Id Details' }}
+                </h2>
+                <p class="dialog-subtitle">{{ label.PERSON.ENTER_PERSON_DETAILS || 'Enter Person Id Details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -28,16 +30,16 @@
                         <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)"
                             hidden />
                         <a mat-raised-button color="primary" type="button">
-                            Click to Upload
+                            {{ label.PERSON.UPLOAD_DOCUMENT || 'Click to Upload' }}
                         </a>
                     </label>
-                    <p>or drag and drop</p>
+                    <p>{{ label.PERSON.OR_DRAG_AND_DROP || 'or drag and drop' }}</p>
                     <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
                 </div>
                 <mat-error
                     *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
                     class="mat-error">
-                    File is required.
+                    {{ label.PERSON.FILE_REQUIRED || 'File is required.' }}
                 </mat-error>
 
 
@@ -45,68 +47,66 @@
 
                     <div class="col-6">
                         <select-auto-complete *ngIf="loadDocumentTypesFn" [controlName]="'type'"
-                            [fnGet]="loadDocumentTypesFn" [formGroup]="formGroup" [label]="'Document Type'"
+                            [fnGet]="loadDocumentTypesFn" [formGroup]="formGroup" [label]="label.PERSON.DOCUMENT_TYPE || 'Document Type'"
                             [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false">
                         </select-auto-complete>
                         <div class="text-danger"
                             *ngIf="formGroup.get('type')?.invalid && formGroup.get('type')?.touched">
-                            Document Type is required
+                            {{ label.PERSON.DOCUMENT_TYPE_REQUIRED || 'Document Type is required' }}
                         </div>
                     </div>
 
                     <!-- Nationality -->
                     <div class="col-6">
                         <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'"
-                            [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="'Nationality'"
+                            [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="label.COMMON.NATIONALITY || 'Nationality'"
                             [keyToShow]="'name'" [valueKey]="'id'" (selectEmitter)="onSelectCountry($event)">
                         </select-auto-complete>
                         <div class="text-danger"
                             *ngIf="formGroup.get('nationality')?.invalid && formGroup.get('nationality')?.touched">
-                            Nationality is required
+                            {{ label.PERSON.NATIONALITY_REQUIRED || 'Nationality is required' }}
                         </div>
                     </div>
 
                     <div class="col-6">
                         <select-auto-complete *ngIf="loadCitiesFn" [formGroup]="formGroup"
-                            [controlName]="'placeOfIssue'" [fnGet]="loadCitiesFn" [label]="'placeOfIssue'"
+                            [controlName]="'placeOfIssue'" [fnGet]="loadCitiesFn" [label]="label.PERSON.PLACE_OF_ISSUE || 'Place of Issue'"
                             [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false">
                         </select-auto-complete>
                     </div>
 
                     <div class="full-width col-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Number</mat-label>
-                            <input matInput formControlName="idNumber" placeholder="Enter document number..."
+                            <mat-label>{{ label.PERSON.ID_NUMBER || 'Number' }}</mat-label>
+                            <input matInput formControlName="idNumber" [placeholder]="label.PERSON.ENTER_ID_NUMBER || 'Enter document number...'"
                                 required />
                             <mat-error
                                 *ngIf="formGroup.get('idNumber')?.hasError('required') && formGroup.get('idNumber')?.touched">
-                                Number is required
+                                {{ label.PERSON.ID_NUMBER_REQUIRED || 'Number is required' }}
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Issue Date</mat-label>
+                            <mat-label>{{ label.COMPANY.ISSUE_DATE || 'Issue Date' }}</mat-label>
                             <input matInput
                                    formControlName="idIssueDate"
-                                   placeholder="DD/MM/YYYY"
+                                   [placeholder]="label.PERSON.SELECT_ISSUE_DATE || 'DD/MM/YYYY'"
                                    [matDatepicker]="issueDatePicker"
                                    required>
                             <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
                             <mat-datepicker #issueDatePicker></mat-datepicker>
-                            @if (formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched) {
-                            <mat-error>
-                                Issue Date is required
+                            <mat-error *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
+                                {{ label.PERSON.ISSUE_DATE_REQUIRED || 'Issue Date is required' }}
                             </mat-error>
-                            }
                         </mat-form-field>
                     </div>
                     <div class="col-6">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Expiry Date</mat-label>
+                            <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
                             <input matInput
                                    formControlName="expiryDate"
-                                   placeholder="DD/MM/YYYY"
+                                   [placeholder]="label.PERSON.SELECT_EXPIRY_DATE || 'DD/MM/YYYY'"
                                    [matDatepicker]="expiryDatePicker">
                             <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
                             <mat-datepicker #expiryDatePicker></mat-datepicker>
@@ -115,13 +115,12 @@
                     <!-- Primary -->
                     <div class="full-width col-6">
                         <mat-slide-toggle formControlName="isPrimary"><span
-                                class="label-toggle">Primary</span></mat-slide-toggle>
+                                class="label-toggle">{{ label.COMMON.PRIMARY || 'Primary' }}</span></mat-slide-toggle>
                     </div>
 
                     <!-- Active Reminder -->
                     <div class="full-width col-6">
-                        <mat-slide-toggle formControlName="activeReminder"><span class="label-toggle">Active
-                                Reminder</span></mat-slide-toggle>
+                        <mat-slide-toggle formControlName="activeReminder"><span class="label-toggle">{{ label.COMPANY.REMINDER || 'Active Reminder' }}</span></mat-slide-toggle>
                     </div>
 
                 </div>
@@ -142,13 +141,13 @@
                 <div class="mt-2 mb-2 text-center">
                     <button mat-stroked-button color="warn" type="button" (click)="onRemoveAttachment()">
                         <mat-icon>delete</mat-icon>
-                        Remove Attachment
+                        {{ label.PERSON.REMOVE_ATTACHMENT || 'Remove Attachment' }}
                     </button>
                 </div>
             </div>
             <div class="file-preview empty" *ngIf="!element?.imageUrl">
                 <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
-                <div class="empty-text">No file selected</div>
+                <div class="empty-text">{{ label.COMMON.NO_FILE_SELECTED || 'No file selected' }}</div>
             </div>
         </div>
     </div>
@@ -157,11 +156,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

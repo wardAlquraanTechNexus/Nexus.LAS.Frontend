@@ -12,6 +12,7 @@ import { PersonService } from "../../../../services/person-services/person-servi
 import { BasePersonsComponent } from "../../_base/base-persons-component/base-persons-component";
 import { LanguageService } from "../../../../services/language-service";
 import { ErrorHandlerService } from "../../../../services/error-handler.service";
+import { LanguageCode } from "../../../../models/types/lang-type";
 
 @Component({
   selector: 'app-active-persons-table',
@@ -93,5 +94,32 @@ export class ActivePersonsTable extends BasePersonsComponent {
   override ngOnInit(): void {
     super.ngOnInit();
     
+  }
+
+  override applyLanguage(lang: LanguageCode) {
+    if (lang === 'ar') {
+      this.displayColumns = [
+        { key: "select", label: "" },
+        { key: "personCode", label: "الكود", sort: true, pipes: ["link"] },
+        { key: "personEnglishName", label: "الاسم بالانجليزية", pipes: ["link"], sort: true },
+        { key: "personArabicName", label: "الاسم بالعربية", pipes: ["link"], sort: true },
+        { key: "personShortName", label: "الاسم المختصر", sort: true },
+        { key: "fpcCode", label: "رمز FPC" },
+        { key: "private", label: "خاص", pipes: ['private-Person'], sort: true },
+        { key: "action", label: "إجراءات" },
+      ];
+    } else {
+      this.displayColumns = [
+        { key: "select", label: "" },
+        { key: "personCode", label: "Code", sort: true, pipes: ["link"] },
+        { key: "personEnglishName", label: "Name En", pipes: ["link"], sort: true },
+        { key: "personArabicName", label: "Name Ar", pipes: ["link"], sort: true },
+        { key: "personShortName", label: "Short Name", sort: true },
+        { key: "fpcCode", label: "FPC Code" },
+        { key: "private", label: "Private", pipes: ['private-Person'], sort: true },
+        { key: "action", label: "Action" },
+      ];
+    }
+    super.applyLanguage(lang);
   }
 }

@@ -11,12 +11,19 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LoadingStateService } from '../../../services/loading-state.service';
+import { LanguageCode } from '../../../models/types/lang-type';
+import { Labels } from '../../../models/consts/labels';
+import { LanguageService } from '../../../services/language-service';
 
 @Injectable({ providedIn: 'root' })
 export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestroy {
   protected destroy$ = new Subject<void>();
   protected loadingService!: LoadingStateService;
-  
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
+
   sortState: Sort = { active: '', direction: 'asc' };
   displayColumns: DisplayColumn[] = [];
   showLoading = false;
@@ -40,15 +47,28 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
     protected router: Router,
     protected errorHandler: ErrorHandlerService,
     protected route: ActivatedRoute,
+    protected langService: LanguageService,
     loadingService?: LoadingStateService
+
   ) {
     this.loadingService = loadingService || new LoadingStateService();
   }
 
   ngOnInit(): void {
     this.fetchData();
+    this.subscribeLanguage();
+  }
+  
+  subscribeLanguage(){
+    this.langService.language$.subscribe(lang => {
+      this.applyLanguage(lang);
+    });
+    
   }
 
+  protected applyLanguage(lang: LanguageCode) {
+    this.currentLang = lang;
+  }
 
 
   fillParamsFromQP(): void {
@@ -94,7 +114,7 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
   fetchData(): void {
     this.showLoading = true;
     this.loadingService.startLoading('Loading data');
-    
+
     this.service.getByParams(this.params)
       .pipe(takeUntil(this.destroy$))
       .subscribe({

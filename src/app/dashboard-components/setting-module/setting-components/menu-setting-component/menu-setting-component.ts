@@ -98,10 +98,10 @@ export class MenuSettingComponent extends TableFormComponent<Menu> {
     override route: ActivatedRoute,
     private groupMenuService: GroupMenuService,
     protected dialog: MatDialog,
-    private langService: LanguageService
+    override langService: LanguageService
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route,langService);
   }
 
   override ngOnInit() {

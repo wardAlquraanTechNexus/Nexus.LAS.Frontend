@@ -11,6 +11,7 @@ import { GroupService } from '../../../../../services/group-service';
 import { Menu } from '../../../../../models/menus/menu';
 import { SearchGroupMenuDTO } from '../../../../../models/group-menu/search-group-menu/search-group-menu-dto';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-user-group-form',
@@ -30,24 +31,24 @@ export class GroupMenuForm extends BaseFormComponent {
     protected override sanitizer: DomSanitizer,
     protected menuService: MenuService,
     protected groupService: GroupService,
-        protected override errorHandler: ErrorHandlerService,
-    
+    protected override errorHandler: ErrorHandlerService,
+    protected override langService: LanguageService
+
   ) {
-    super(fb, cdr, sanitizer,errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {
     this.setup(this.groupMenu);
     super.ngOnInit();
-    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search).pipe(map(res=>res.collection));
+    this.loadGroupFn = (search: string) => this.groupService.searchGroupByName(search).pipe(map(res => res.collection));
     this.loadMenusFn = (search: string) => this.getMenusByName(search);
 
   }
 
 
-  getMenusByName(menuName:string):Observable<Menu[]>
-  {
-    return this.menuService.searchMenu({name:menuName , pageSize:100}).pipe(
+  getMenusByName(menuName: string): Observable<Menu[]> {
+    return this.menuService.searchMenu({ name: menuName, pageSize: 100 }).pipe(
       map(res => res.collection)
     );
   }

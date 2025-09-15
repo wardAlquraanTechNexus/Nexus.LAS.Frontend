@@ -7,6 +7,9 @@ import { PersonPhoneDialogComponent } from './person-phone-dialog-component/pers
 import { MatDialog } from '@angular/material/dialog';
 import { PersonPhone } from '../../../../models/person-models/person-phone/person-phone';
 import { PersonDto } from '../../../../models/person-models/person-dto';
+import { LanguageService } from '../../../../services/language-service';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-person-phone-component',
@@ -21,6 +24,10 @@ export class PersonPhoneComponent implements OnInit {
   showLoading = false;
   @Input() readOnly = false;
 
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
 
   contactForm!: FormGroup;
   constructor(
@@ -28,7 +35,8 @@ export class PersonPhoneComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private service: PersonPhoneService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public langService: LanguageService,
 
   ) { }
 
@@ -40,7 +48,9 @@ export class PersonPhoneComponent implements OnInit {
     });
 
     this.fetchData();
-
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
   private fetchData() {

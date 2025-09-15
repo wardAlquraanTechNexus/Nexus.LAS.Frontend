@@ -43,56 +43,8 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
     personsIdn: 0
   }
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "type",
-      label: "Type",
-      keysPipes: [
-        {
-          key: "type",
-          pipes: ['original-document-type']
-        },
-        {
-          key: "isPrimary",
-          pipes: ['person-document-primary']
-        }
-      ]
-    },
-    {
-      key: "nationality",
-      label: "Nationality",
-      pipes: ['document-nationality']
-    },
-    {
-      key: "placeOfIssue",
-      label: "Place of Issue",
-      pipes: ['document-nationality']
-    },
-    {
-      key: "idNumber",
-      label: "Number",
-    },
-    {
-      key: "idIssueDate",
-      label: "Issue Date",
-      pipes: ['date'],
-    },
-    {
-      key: "expiryDate",
-      label: "Expiry Date",
-      pipes: ['date'],
-      sort: true
-    },
-    {
-      key: "activeReminder",
-      label: "Reminder",
-      inputType: 'mat-slide-toggle'
-    },
-    {
-      key: "action",
-      label: "Action",
-    }
-  ]
+ 
+
   constructor(
     protected override service: PersonIdDetailService,
     protected override cdr: ChangeDetectorRef,
@@ -104,9 +56,9 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
     private dlService: DynamicListService,
     public languageService: LanguageService,
     private sanitizer: DomSanitizer,
-
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route , langService);
   }
 
   override ngOnInit(): void {
@@ -126,7 +78,7 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
     this.displayColumns = [
       {
         key: "type",
-        label: getLabel('documentType') || "Type",
+        label: getLabel('PERSON.DOCUMENT_TYPE') || "Type",
         keysPipes: [
           { key: "type", pipes: ['original-document-type'] },
           { key: "isPrimary", pipes: ['person-document-primary'] }
@@ -134,17 +86,17 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
       },
       {
         key: "nationality",
-        label: getLabel('nationality') || "Nationality",
+        label: getLabel('COMMON.NATIONALITY') || "Nationality",
         pipes: ['document-nationality']
       },
       {
         key: "placeOfIssue",
-        label: getLabel('placeOfIssue') || "Place of Issue",
+        label: getLabel('PERSON.PLACE_OF_ISSUE') || "Place of Issue",
         pipes: ['document-nationality']
       },
       {
         key: "idNumber",
-        label: getLabel('idNumber') || "Number",
+        label: getLabel('PERSON.ID_NUMBER') || "Number",
       },
       {
         key: "idIssueDate",

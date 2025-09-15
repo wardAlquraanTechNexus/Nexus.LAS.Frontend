@@ -16,6 +16,7 @@ import { Group } from '../../../../models/group/group';
 import { Menu } from '../../../../models/menus/menu';
 import { GroupService } from '../../../../services/group-service';
 import { MenuService } from '../../../../services/menu-service';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-group-menu-table',
@@ -96,8 +97,9 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
     protected dialog: MatDialog,
     protected menuService: MenuService,
     protected groupService: GroupService,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override ngOnInit() {

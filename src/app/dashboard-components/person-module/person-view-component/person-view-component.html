@@ -16,7 +16,7 @@
     <div class="breadcrumb-nav">
       <a (click)="navigateToPersons()" class="breadcrumb-link">
         <mat-icon>arrow_back</mat-icon>
-        Persons
+        {{ label.PERSON.PERSONS }}
       </a>
       <span class="breadcrumb-separator">/</span>
       <span class="current-page">{{ person?.personEnglishName | titlecase }}</span>
@@ -27,13 +27,13 @@
       <div class="person-profile-section">
         <!-- Profile Image -->
         <div class="person-image-container">
-          <img *ngIf="imageUrl" [src]="imageUrl" alt="Person image" class="person-image" />
-          <img *ngIf="!imageUrl" [src]="fallbackImage" alt="Person image" class="person-image" />
+          <img *ngIf="imageUrl" [src]="imageUrl" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]" class="person-image" />
+          <img *ngIf="!imageUrl" [src]="fallbackImage" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]" class="person-image" />
 
           <!-- Hidden file input -->
           <input type="file" accept="image/*" #fileInput style="display: none" (change)="onFileSelected($event)" />
 
-          <button mat-icon-button class="upload-btn" (click)="openFilePicker(fileInput)" title="Update Photo">
+          <button mat-icon-button class="upload-btn" (click)="openFilePicker(fileInput)" [title]="label.PERSON.UPLOAD_DOCUMENT">
             <mat-icon>photo_camera</mat-icon>
           </button>
         </div>
@@ -59,11 +59,11 @@
 
           <div class="person-meta-info">
             <div class="info-item">
-              <span class="info-label">ID:</span>
+              <span class="info-label">{{ label.PERSON.ID_NUMBER }}:</span>
               <span class="info-value">{{ person?.personCode }}</span>
             </div>
             <div class="info-item" *ngIf="person?.personShortName">
-              <span class="info-label">Short Name:</span>
+              <span class="info-label">{{ label.COMMON.SHORT_NAME }}:</span>
               <span class="info-value">{{ person?.personShortName | uppercase }}</span>
             </div>
           </div>
@@ -74,18 +74,18 @@
       <div class="person-actions">
         <button mat-raised-button color="primary" (click)="openPersonDialog()" class="action-btn">
           <mat-icon>edit</mat-icon>
-          Edit Person
+          {{ label.PERSON.EDIT_PERSON }}
         </button>
 
         <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
           <mat-icon>more_vert</mat-icon>
-          More Actions
+          {{ label.COMMON.MORE_ACTIONS }}
         </button>
 
         <mat-menu #moreMenu="matMenu">
           <button mat-menu-item (click)="exportToPdf()">
             <mat-icon>picture_as_pdf</mat-icon>
-            Generate Report
+            {{ label.COMMON.PRINT }}
           </button>
         </mat-menu>
       </div>
@@ -102,7 +102,7 @@
           <ng-template mat-tab-label>
             <div class="tab-label">
               <mat-icon>dashboard</mat-icon>
-              <span>Overview</span>
+              <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
             </div>
           </ng-template>
           <div class="tab-content">
@@ -153,7 +153,7 @@
           <ng-template mat-tab-label>
             <div class="tab-label">
               <mat-icon>folder</mat-icon>
-              <span>Documents</span>
+              <span>{{ label.PERSON.PERSON_ID_DOCUMENTS }}</span>
             </div>
           </ng-template>
           <div class="tab-content">
@@ -170,7 +170,7 @@
           <ng-template mat-tab-label>
             <div class="tab-label">
               <mat-icon>contacts</mat-icon>
-              <span>Contacts</span>
+              <span>{{ label.COMMON.CONTACTS || 'Contacts' }}</span>
             </div>
           </ng-template>
           <div class="tab-content">
@@ -198,7 +198,7 @@
           <ng-template mat-tab-label>
             <div class="tab-label">
               <mat-icon>business_center</mat-icon>
-              <span>Assets</span>
+              <span>{{ label.COMMON.ASSETS || 'Assets' }}</span>
             </div>
           </ng-template>
           <div class="tab-content">
@@ -215,7 +215,7 @@
           <ng-template mat-tab-label>
             <div class="tab-label">
               <mat-icon>notes</mat-icon>
-              <span>Notes</span>
+              <span>{{ label.COMMON.NOTES || 'Notes' }}</span>
             </div>
           </ng-template>
           <div class="tab-content">

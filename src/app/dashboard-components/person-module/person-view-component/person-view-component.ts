@@ -11,6 +11,9 @@ import { environment } from '../../../../environment/environment';
 import { EntityIDc } from '../../../enums/entity-idc';
 import { PersonFormComponent } from '../shared-person-components/person-form-component/person-form-component';
 import { PersonDialogFormComponent } from '../person-dialog-form-component/person-dialog-form-component';
+import { LanguageService } from '../../../services/language-service';
+import { LanguageCode } from '../../../models/types/lang-type';
+import { Labels } from '../../../models/consts/labels';
 
 @Component({
   selector: 'app-person-view-component',
@@ -28,6 +31,11 @@ export class PersonViewComponent implements OnInit {
   person: PersonDto | null = null;
   personId = 0;
 
+  currentLang: LanguageCode = 'en';
+  get label() {
+      return Labels[this.currentLang as keyof typeof Labels];
+    }
+
   @Output() backToTableEmit = new EventEmitter();
   constructor(
     private route: ActivatedRoute,
@@ -37,17 +45,23 @@ export class PersonViewComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
-    private errorHandler: ErrorHandlerService) { }
+    private errorHandler: ErrorHandlerService,
+    private langService: LanguageService,
+  ) { }
   ngOnInit(): void {
     let personId = this.route.snapshot.queryParamMap.get('id');
     if (personId) {
       this.personId = parseInt(personId);
       this.getPerson();
-      this.personsUrl = 
+      this.personsUrl =
         this.menuService.getMenuByPath(environment.routes.AllPersons) ||
         this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
         this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
     }
+
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
 

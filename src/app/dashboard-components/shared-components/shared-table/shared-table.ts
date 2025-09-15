@@ -18,6 +18,8 @@ import { CompanyService } from '../../../services/company-services/company-servi
 import { EntityIDc } from '../../../enums/entity-idc';
 import { CompanyContractStatus } from '../../../enums/company-contract-status';
 import { CompanyLicenseStatus } from '../../../enums/company-license-status';
+import { PersonStatus } from '../../../enums/person-status';
+import { CompanyStatus } from '../../../enums/company-status';
 
 @Component({
   selector: 'app-shared-table',
@@ -111,58 +113,76 @@ export class SharedTable implements OnInit, OnChanges {
   getCellStyle(value: any, pipes: string[] | undefined): { [key: string]: string } {
     if (!pipes) return {};
 
-    let styles: { [key: string]: string } = {};
+    const styles: { [key: string]: string } = {};
 
-    for (let pipe of pipes) {
+    for (const pipe of pipes) {
       if (!pipe) continue;
 
       switch (pipe.toLowerCase()) {
         case 'link':
-          styles['text-decoration'] = 'underline';
-          styles['color'] = '#025EBA';
-          styles['cursor'] = 'pointer';
-          styles['padding'] = '10px';
+          Object.assign(styles, {
+            'text-decoration': 'underline',
+            'color': '#025EBA',
+            'cursor': 'pointer',
+            'padding': '10px'
+          });
           break;
 
         case 'company-contract-status':
-          let companyContractstatusBorder = '';
-          let companyContractstatusColor = '';
-          if (value == CompanyContractStatus.Active) {
-            companyContractstatusBorder = '#22C993';
-            companyContractstatusColor = '#22C993';
-          } else if (value == CompanyContractStatus.Expired) {
-            companyContractstatusBorder = '#423e3ede';
-            companyContractstatusColor = '#423e3ede';
-          }
-          if(value){
-            styles['border'] = `2px solid ${companyContractstatusBorder}`;
-            styles['color'] = companyContractstatusColor;
-            styles['border-radius'] = '20px';
-            styles['padding'] = '10px';
-
+          if (value) {
+            const isActive = value == CompanyContractStatus.Active;
+            const isExpired = value == CompanyContractStatus.Expired;
+            const color = isActive ? '#22C993' : isExpired ? '#423e3ede' : '';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
           }
           break;
-
 
         case 'person-status':
-        case 'company-status':
-        case 'company-license-status':
-
-          let statusBorder = '#9E77ED';
-          let statusColor = '#9E77ED';
-          if (value === CompanyLicenseStatus.Active) {
-            statusBorder = '#22C993';
-            statusColor = '#22C993';
-          } else if (value === CompanyLicenseStatus.Expired) {
-            statusBorder = '#423e3ede';
-            statusColor = '#423e3ede';
+          {
+            let color = '#9E77ED';
+            if (value === PersonStatus.Active) color = '#22C993';
+            else if (value === PersonStatus.Inactive) color = '#423e3ede';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
           }
-          styles['border'] = `2px solid ${statusBorder}`;
-          styles['color'] = statusColor;
-          styles['border-radius'] = '20px';
-          styles['padding'] = '10px';
           break;
 
+        case 'company-status':
+          {
+            let color = '#9E77ED';
+            if (value === CompanyStatus.Active) color = '#22C993';
+            else if (value === CompanyStatus.Inactive) color = '#423e3ede';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
+          }
+          break;
+
+        case 'company-license-status':
+          {
+            let color = '#9E77ED';
+            if (value === CompanyLicenseStatus.Active) color = '#22C993';
+            else if (value === CompanyLicenseStatus.Expired) color = '#423e3ede';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
+          }
+          break;
 
         case 'active':
         case 'company-shareholder-status':
@@ -170,38 +190,38 @@ export class SharedTable implements OnInit, OnChanges {
         case 'private-company':
         case 'capital-active':
         case 'signatory-active':
-          if(value){
-            let privateColor = value.toString() === 'true' ? '#025EBA' : '#423e3ede';
-            styles['border'] = `2px solid ${privateColor}`;
-            styles['color'] = privateColor;
-            styles['border-radius'] = '20px';
-            styles['padding'] = '10px';
-
-          }
+          const color = value ? '#025EBA' : '#423e3ede';
+          Object.assign(styles, {
+            'border': `2px solid ${color}`,
+            'color': color,
+            'border-radius': '20px',
+            'padding': '10px'
+          });
           break;
+
         case 'person-company-in-charge':
-         let personCompanyInChargeStatusBorder = '#9E77ED';
-          let personCompanyInChargeStatusColor = '#9E77ED';
-          if (value == 'Active') {
-            personCompanyInChargeStatusBorder = '#22C993';
-            personCompanyInChargeStatusColor = '#22C993';
-          } else if (value == 'Inactive') {
-            personCompanyInChargeStatusBorder = '#423e3ede';
-            personCompanyInChargeStatusColor = '#423e3ede';
+          {
+            let color = '#9E77ED';
+            if (value == 'Active') color = '#22C993';
+            else if (value == 'Inactive') color = '#423e3ede';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
           }
-          styles['border'] = `2px solid ${personCompanyInChargeStatusBorder}`;
-          styles['color'] = personCompanyInChargeStatusColor;
-          styles['border-radius'] = '20px';
-          styles['padding'] = '10px';
-
           break;
+
         case 'person-document-primary':
         case 'person-in-charge-primary':
           if (value.toString() === 'true') {
-            styles['border'] = `2px solid #025EBA`;
-            styles['color'] = '#025EBA';
-            styles['border-radius'] = '20px';
-            styles['padding'] = '10px';
+            Object.assign(styles, {
+              'border': `2px solid #025EBA`,
+              'color': '#025EBA',
+              'border-radius': '20px',
+              'padding': '10px'
+            });
           }
           break;
 

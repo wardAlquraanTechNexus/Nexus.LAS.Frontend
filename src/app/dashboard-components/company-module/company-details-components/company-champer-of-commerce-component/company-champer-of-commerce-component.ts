@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CompanyChamperOfCommerceViewDialog } from './company-champer-of-commerce-view-dialog/company-champer-of-commerce-view-dialog';
 import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-champer-of-commerce-component',
@@ -73,8 +74,9 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
     override route: ActivatedRoute,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
   override ngOnInit(): void {
     this.params.companyIdn = this.company.id;

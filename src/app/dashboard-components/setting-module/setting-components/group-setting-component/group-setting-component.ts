@@ -12,6 +12,7 @@ import { GroupService } from '../../../../services/group-service';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { GroupFormDialog } from '../../group/group-table/group-form-dialog/group-form-dialog';
 import { environment } from '../../../../../environment/environment.prod';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-group-setting-component',
@@ -64,8 +65,9 @@ export class GroupSettingComponent extends TableFormComponent<Group> {
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override fetchData() {

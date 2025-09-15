@@ -12,6 +12,7 @@ import { GetCompanyAccountSignatoryParams } from '../../../../models/company-mod
 import { CompanyAccountSignatoryService } from '../../../../services/company-services/company-account-signatory-service';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { PersonDto } from '../../../../models/person-models/person-dto';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-person-account-signatory-component',
@@ -29,35 +30,6 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
     totalRecords: 0
   };
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key:"companyNameEn",
-      label:"Company Name",
-    },
-    {
-      key:"rule",
-      label:"Rule",
-      pipes:["rule"]
-    },
-    {
-      key:"fromAmount",
-      label:"From Amount"
-    },
-    {
-      key:"toAmount",
-      label:"To Amount"
-    },
-    {
-      key:"accountSignatoryDate",
-      label:"Date",
-      pipes:["date"]
-    },
-    {
-      key:"accountSignatoryActive",
-      label:"Active",
-      pipes:['signatory-active']
-    }
-  ]
 
   override params: GetCompanyAccountSignatoryParams = {
     page: 0,
@@ -72,11 +44,44 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
+
   override ngOnInit(): void {
+    // Set display column labels using LanguageService
+    this.displayColumns = [
+      {
+        key:"companyNameEn",
+        label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Company Name",
+      },
+      {
+        key:"rule",
+        label: this.langService.getLabel('PERSON.DESIGNATION') || "Rule",
+        pipes:["rule"]
+      },
+      {
+        key:"fromAmount",
+        label: this.langService.getLabel('COMPANY.FROM_AMOUNT') || "From Amount",
+      },
+      {
+        key:"toAmount",
+        label: this.langService.getLabel('COMPANY.TO_AMOUNT') || "To Amount",
+      },
+      {
+        key:"accountSignatoryDate",
+        label: this.langService.getLabel('COMMON.DATE') || "Date",
+        pipes:["date"]
+      },
+      {
+        key:"accountSignatoryActive",
+        label: this.langService.getLabel('COMMON.ACTIVE') || "Active",
+        pipes:['signatory-active']
+      }
+    ];
+
     this.params.personId = this.person.id;
     super.ngOnInit();
   }

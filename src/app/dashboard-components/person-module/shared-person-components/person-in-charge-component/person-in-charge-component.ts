@@ -12,6 +12,7 @@ import { CompanyPersonInChargeService } from '../../../../services/company-servi
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MenuService } from '../../../../services/menu-service';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-person-in-charge-component',
@@ -33,18 +34,7 @@ export class PersonInChargeComponent  extends TableFormComponent<CompanyPersonIn
     pageSize: 10,
     page: 0
   };
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "companyNameEn",
-      label: "Company Name",
-      
-    },
-    {
-      key: "designation",
-      label: "Designation",
-      pipes: ['designation']
-    },
-  ];
+
   constructor(
     override service: CompanyPersonInChargeService,
     override cdr: ChangeDetectorRef,
@@ -53,14 +43,35 @@ export class PersonInChargeComponent  extends TableFormComponent<CompanyPersonIn
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private dialog: MatDialog,
-    private menuService: MenuService
+    private menuService: MenuService,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
+
+    // Re-assign displayColumns with correct labels after langService is available
+   
   }
 
   override ngOnInit(): void {
     this.params.personId = this.person.id;
     super.ngOnInit();
+
+     this.displayColumns = [
+      {
+        key: "companyNameEn",
+        label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Company Name",
+      },
+      {
+        key: "designation",
+        label: this.langService.getLabel('PERSON.DESIGNATION') || "Designation",
+        pipes: ['designation']
+      },
+      {
+        key: "statusName",
+        label: this.langService.getLabel('COMPANY.STATUS') || "Status",
+        pipes: ['person-company-in-charge']
+      },
+    ];
 
   }
   override fetchData() {

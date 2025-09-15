@@ -14,6 +14,7 @@ import { CompanyPersonInChargeDialogFormComponent } from './company-person-in-ch
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../../../services/menu-service';
 import { environment } from '../../../../../environment/environment.prod';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-person-in-charge-component',
@@ -89,9 +90,10 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private dialog: MatDialog,
-    private menuService: MenuService
+    private menuService: MenuService,
+    override langService: LanguageService,
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override ngOnInit(): void {

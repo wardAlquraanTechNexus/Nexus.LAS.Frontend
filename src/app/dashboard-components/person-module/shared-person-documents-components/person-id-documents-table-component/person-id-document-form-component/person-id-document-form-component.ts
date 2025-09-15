@@ -11,6 +11,7 @@ import { environment } from '../../../../../../environment/environment';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-person-id-document-form-component',
@@ -36,17 +37,16 @@ export class PersonIdDocumentFormComponent extends BaseFormComponent {
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
     private dlService: DynamicListService,
-    private adapter: DateAdapter<any>
+    private adapter: DateAdapter<any>,
+    protected override langService: LanguageService
 
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
-
-    console.log('Adapter:', this.adapter.constructor.name); // Should log 'MomentDateAdapter'
 
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)

@@ -12,6 +12,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { FormBuilder } from '@angular/forms';
 import { CompanyAccountSignatoryDto } from '../../../../models/company-models/company-account-signatory/dtos/company-account-signatory-dto';
 import { CompanyAccountSignatoryDialogFormComponent } from './company-account-signatory-dialog-form-component/company-account-signatory-dialog-form-component';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-account-signatory-component',
@@ -82,9 +83,10 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    override langService: LanguageService 
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
   override ngOnInit(): void {
     this.params.companyBankAccountId = this.companyBankAccount.id;

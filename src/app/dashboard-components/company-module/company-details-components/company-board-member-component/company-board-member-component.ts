@@ -14,6 +14,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { MatDialog } from '@angular/material/dialog';
 import { GetCompanyBoardMemberParams } from '../../../../models/company-models/company-board-member/params/get-company-board-member';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-board-member-component',
@@ -77,9 +78,10 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+  override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
   override ngOnInit(): void {
     this.params.companyId = this.company.id;

@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Group } from '../../../../models/group/group';
 import { GroupFormDialog } from './group-form-dialog/group-form-dialog';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-group-table',
@@ -65,8 +66,9 @@ export class GroupTable extends TableFormComponent<Group> {
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     protected dialog: MatDialog,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override fetchData() {

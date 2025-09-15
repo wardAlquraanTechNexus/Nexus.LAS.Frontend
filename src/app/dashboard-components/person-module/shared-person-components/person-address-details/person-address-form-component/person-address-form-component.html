@@ -7,12 +7,12 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    <span *ngIf="personAddress && personAddress.id">Update Address</span>
-                    <span *ngIf="!personAddress || !personAddress.id">Add New Address</span>
+                    <span *ngIf="personAddress && personAddress.id">{{ label.COMMON.EDIT_ADDRESS || 'Update Address' }}</span>
+                    <span *ngIf="!personAddress || !personAddress.id">{{ label.COMMON.ADD_ADDRESS || 'Add New Address' }}</span>
                 </h2>
                 <p class="dialog-subtitle">
-                    <span *ngIf="personAddress && personAddress.id">Modify existing address details</span>
-                    <span *ngIf="!personAddress || !personAddress.id">Add a new address to the record</span>
+                    <span *ngIf="personAddress && personAddress.id">{{ label.COMMON.EDIT_ADDRESS || 'Modify existing address details' }}</span>
+                    <span *ngIf="!personAddress || !personAddress.id">{{ label.COMMON.ADD_ADDRESS || 'Add a new address to the record' }}</span>
                 </p>
             </div>
         </div>
@@ -27,54 +27,53 @@
             <form *ngIf="formGroup" [formGroup]="formGroup" class="row w-100">
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address Line 1</mat-label>
+                        <mat-label>{{ label.COMMON.ADDRESS_LINE1 || 'Address Line 1' }}</mat-label>
                         <input matInput formControlName="addressLine1"
-                            placeholder="Enter street address, building number..." required />
+                            [placeholder]="label.COMMON.ADDRESS_LINE1_PLACEHOLDER || 'Enter street address, building number...'" required />
                         <mat-error
                             *ngIf="formGroup.get('addressLine1')?.hasError('required') && formGroup.get('addressLine1')?.touched">
-                            Address Line 1 is required
+                            {{ label.COMMON.ADDRESS_LINE1_REQUIRED || 'Address Line 1 is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address Line 2</mat-label>
-                        <input matInput formControlName="addressLine2" placeholder="Enter apartment, suite, unit..."
+                        <mat-label>{{ label.COMMON.ADDRESS_LINE2 || 'Address Line 2' }}</mat-label>
+                        <input matInput formControlName="addressLine2" [placeholder]="label.COMMON.ADDRESS_LINE2_PLACEHOLDER || 'Enter apartment, suite, unit...'"
                             required />
                         <mat-error
                             *ngIf="formGroup.get('addressLine2')?.hasError('required') && formGroup.get('addressLine2')?.touched">
-                            Address Line 2 is required
+                            {{ label.COMMON.ADDRESS_LINE2_REQUIRED || 'Address Line 2 is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Address Line 3</mat-label>
-                        <input matInput formControlName="addressLine3" placeholder="Enter additional address details..."
+                        <mat-label>{{ label.COMMON.ADDRESS_LINE3 || 'Address Line 3' }}</mat-label>
+                        <input matInput formControlName="addressLine3" [placeholder]="label.COMMON.ADDRESS_LINE3_PLACEHOLDER || 'Enter additional address details...'"
                             required />
                         <mat-error
                             *ngIf="formGroup.get('addressLine3')?.hasError('required') && formGroup.get('addressLine3')?.touched">
-                            Address Line 3 is required
+                            {{ label.COMMON.ADDRESS_LINE3_REQUIRED || 'Address Line 3 is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-4">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>PO Box Number</mat-label>
-                        <input matInput formControlName="poBoxNumber" placeholder="Enter P.O. Box number..." required />
+                        <mat-label>{{ label.COMMON.PO_BOX_NUMBER || 'PO Box Number' }}</mat-label>
+                        <input matInput formControlName="poBoxNumber" [placeholder]="label.COMMON.PO_BOX_NUMBER_PLACEHOLDER || 'Enter P.O. Box number...'" required />
                         <mat-error
                             *ngIf="formGroup.get('poBoxNumber')?.hasError('required') && formGroup.get('poBoxNumber')?.touched">
-                            PO Box Number is required
+                            {{ label.COMMON.PO_BOX_NUMBER_REQUIRED || 'PO Box Number is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
 
                  <div class="col-4 ps-2">
                     <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'poBoxCountry'"
-                        [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="'Nationality'"
+                        [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="label.COMMON.NATIONALITY || 'Nationality'"
                         [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
-                        (selectEmitter)="onSelectCountry($event)"
-                        >
+                        (selectEmitter)="onSelectCountry($event)">
                     </select-auto-complete>
                 </div>
 
@@ -84,17 +83,17 @@
                         [formGroup]="formGroup"
                         [controlName]="'poBoxCity'"
                         [fnGet]="loadCitiesFn"
-                        [label]="'Cities'"
+                        [label]="label.COMMON.CITIES"
                         [keyToShow]="'name'"
                         [valueKey]="'id'"
                         [withNullOption]="false">
-                        </select-auto-complete>
+                    </select-auto-complete>
                 </div>
 
                 <div class="col-12">
-                    <mat-slide-toggle formControlName="addressPrimary"><span
-                            class="label-toggel">Primary</span></mat-slide-toggle>
-
+                    <mat-slide-toggle formControlName="addressPrimary">
+                        <span class="label-toggel">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
+                    </mat-slide-toggle>
                 </div>
             </form>
         </div>
@@ -104,11 +103,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save()">
             <mat-icon>{{ personAddress && personAddress.id ? 'save' : 'add' }}</mat-icon>
-            {{ personAddress && personAddress.id ? 'Update Address' : 'Save Address' }}
+            {{ personAddress && personAddress.id ? (label.COMMON.EDIT_ADDRESS || 'Update Address') : (label.COMMON.ADD_ADDRESS || 'Save Address') }}
         </button>
     </div>
 </div>

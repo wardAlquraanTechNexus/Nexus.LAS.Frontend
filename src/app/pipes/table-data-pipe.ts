@@ -34,29 +34,30 @@ export class TableDataPipe implements PipeTransform {
       switch (pipe.toLowerCase()) {
         case 'person-status':
           switch (value) {
-            case PersonStatus.New: return of(getLabel('NEW'));
-            case PersonStatus.Active: return of(getLabel('ACTIVE'));
-            case PersonStatus.Inactive: return of(getLabel('INACTIVE'));
+            case PersonStatus.New: 
+            return of(getLabel('COMMON.NEW') ?? 'New');
+            case PersonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
+            case PersonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
             default: return of(value?.toString() ?? '');
           }
         case 'company-status':
           switch (value) {
-            case CompanyStatus.New: return of(getLabel('NEW'));
-            case CompanyStatus.Active: return of(getLabel('ACTIVE'));
-            case CompanyStatus.Inactive: return of(getLabel('INACTIVE'));
+            case CompanyStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
+            case CompanyStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
+            case CompanyStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
             default: return of(value?.toString() ?? '');
           }
 
         case 'company-contract-status':
           switch (value) {
-            case CompanyContractStatus.Expired: return of(getLabel('EXPIRED') ?? 'Expired');
-            case CompanyContractStatus.Active: return of(getLabel('ACTIVE'));
+            case CompanyContractStatus.Expired: return of(getLabel('COMMON.EXPIRED') ?? 'Expired');
+            case CompanyContractStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
             default: return of(value?.toString() ?? '');
           }
         case 'company-license-status':
           switch (value) {
-            case CompanyLicenseStatus.Expired: return of(getLabel('EXPIRED') ?? 'Expired');
-            case CompanyLicenseStatus.Active: return of(getLabel('ACTIVE'));
+            case CompanyLicenseStatus.Expired: return of(getLabel('COMMON.EXPIRED') ?? 'Expired');
+            case CompanyLicenseStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
             default: return of(value?.toString() ?? '');
           }
 
@@ -67,11 +68,11 @@ export class TableDataPipe implements PipeTransform {
         case 'signatory-active':
         case 'capital-active':
         case 'active':
-          return of(value === true ? getLabel('ACTIVE') : getLabel('INACTIVE'));
+          return of(value === true ? getLabel('COMMON.ACTIVE') ?? 'Active' : getLabel('COMMON.INACTIVE') ?? 'Inactive');
 
         case 'person-document-primary':
         case 'person-in-charge-primary':
-          return of(value === true ? getLabel('PRIMARY') ?? 'Primary' : '');
+          return of(value === true ? getLabel('COMMON.PRIMARY') ?? 'Primary' : '');
 
         case 'date-time':
           const dateTime = value instanceof Date ? value : new Date(value);
@@ -187,11 +188,11 @@ export class TableDataPipe implements PipeTransform {
 
 
         case 'company-shareholder-status':
-          return of(value === true ? getLabel('ACTIVE') : getLabel('INACTIVE'));
+          return of(value === true ? getLabel('COMMON.ACTIVE') ?? 'Active' : getLabel('COMMON.INACTIVE') ?? 'Inactive');
 
         case 'register-type':
-          if (value === EntityIDc.Person) return of(getLabel('PERSON') ?? 'Person');
-          if (value === EntityIDc.Company) return of(getLabel('COMPANY') ?? 'Company');
+          if (value === EntityIDc.Person) return of(getLabel('COMMON.PERSON') ?? 'Person');
+          if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
           return of(value?.toString() ?? '');
 
         default:

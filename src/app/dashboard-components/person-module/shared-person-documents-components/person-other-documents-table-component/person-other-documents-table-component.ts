@@ -53,11 +53,11 @@ export class PersonOtherDocumentsTableComponent extends TableFormComponent<Perso
     protected override route: ActivatedRoute,
     private dialog: MatDialog,
     private dlService: DynamicListService,
-    public languageService: LanguageService,
+    override langService: LanguageService,
     private sanitizer: DomSanitizer,
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route , langService);
   }
 
   override ngOnInit() {
@@ -71,30 +71,25 @@ export class PersonOtherDocumentsTableComponent extends TableFormComponent<Perso
     });
 
     this.setDisplayColumns();
-    this.langSub = this.languageService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
-
+    
     this.fetchData();
   }
 
-
-
   setDisplayColumns() {
-    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    const getLabel = this.langService.getLabel.bind(this.langService);
     this.displayColumns = [
       {
         key: "documentType",
-        label: getLabel('documentType') || "Type",
+        label: getLabel('PERSON.DOCUMENT_TYPE') || "Type", // <-- Use label logic
         pipes: ['other-document-type']
       },
       {
         key: "documentDescription",
-        label: getLabel('description') || "Description"
+        label: getLabel('PERSON.DESCRIPTION') || "Description" // <-- Use label logic
       },
       {
         key: "action",
-        label: getLabel('COMMON.ACTION') || "Action"
+        label: getLabel('COMMON.ACTION') || "Action" // <-- Use label logic
       }
     ];
   }

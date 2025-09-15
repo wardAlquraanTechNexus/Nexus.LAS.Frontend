@@ -4,34 +4,40 @@ import { PersonStatus } from '../enums/person-status';
 import { CompanyStatus } from '../enums/company-status';
 import { DynamicListService } from '../services/dynamic-list-service';
 import { environment } from '../../environment/environment';
+import { LanguageService } from '../services/language-service'; // <-- Import LanguageService
 
 @Pipe({
   name: 'textPipe',
   standalone: false
 })
 export class TextPipe implements PipeTransform {
-  constructor(private dlService: DynamicListService) { }
+  constructor(
+    private dlService: DynamicListService,
+    private languageService: LanguageService // <-- Inject LanguageService
+  ) { }
 
   transform(value: any, pipe: string): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+
     switch (pipe.toLowerCase()) {
       case 'person-status':
         switch (value) {
-          case PersonStatus.New: return of('New');
-          case PersonStatus.Active: return of('Active');
-          case PersonStatus.Inactive: return of('Inactive');
+          case PersonStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
+          case PersonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
+          case PersonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
           default: return of(value?.toString() ?? '');
         }
       case 'company-status':
         switch (value) {
-          case CompanyStatus.New: return of('New');
-          case CompanyStatus.Active: return of('Active');
-          case CompanyStatus.Inactive: return of('Inactive');
+          case CompanyStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
+          case CompanyStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
+          case CompanyStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
           default: return of(value?.toString() ?? '');
         }
 
       case 'private-person':
       case 'private-company':
-        return of(value === true ? 'Private' : 'Public');
+        return of(value === true ? getLabel('COMPANY.PRIVATE') ?? 'Private' : getLabel('COMPANY.PUBLIC') ?? 'Public');
 
       case 'company-contract-type':
         return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
@@ -56,9 +62,8 @@ export class TextPipe implements PipeTransform {
       case 'date':
         const date = value instanceof Date ? value : new Date(value);
         return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
-
     }
-    return value;
+    return of(value?.toString() ?? '');
   }
 
   private formatDateTime(date: Date): string {
@@ -71,5 +76,4 @@ export class TextPipe implements PipeTransform {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
-
 }

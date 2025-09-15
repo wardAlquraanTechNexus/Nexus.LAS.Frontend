@@ -4,10 +4,10 @@
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>{{label.allPersons}}</h2>
+        <h2>{{label.PERSON.ALL_PERSONS}}</h2>
       </div>
       <button *ngIf="currentMenu?.canInsert" mat-raised-button class="nexus-btn nexus-btn-primary" (click)="openAddDialog()">
-        <mat-icon>add</mat-icon> {{label.addPerson}}
+        <mat-icon>add</mat-icon> {{label.PERSON.ADD_PERSON}}
       </button>
     </div>
   </div>
@@ -19,7 +19,7 @@
       <div class="nexus-filters-container" *ngIf="!selectedPersons.length">
         <div class="nexus-search-field">
           <mat-form-field appearance="outline">
-            <mat-label>{{label.search}}</mat-label>
+            <mat-label>{{label.COMMON.SEARCH}}</mat-label>
             <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [ngModelOptions]="{standalone: true}">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
@@ -27,15 +27,15 @@
 
         <div class="nexus-filter-field">
           <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
-            [formGroup]="formGroup" [label]="label.nationality" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+            [formGroup]="formGroup" [label]="label.COMMON.NATIONALITY" [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
             (selectEmitter)="onSelectNationality($event)" [withNullOption]="true">
           </select-auto-complete>
         </div>
 
         <div class="nexus-toggle-group">
           <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple class="nexus-toggle-compact">
-            <mat-button-toggle [value]="false">{{label.public}}</mat-button-toggle>
-            <mat-button-toggle [value]="true">{{label.private}}</mat-button-toggle>
+            <mat-button-toggle [value]="false">{{label.COMMON.PUBLIC}}</mat-button-toggle>
+            <mat-button-toggle [value]="true">{{label.COMMON.PRIVATE}}</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
 
@@ -49,7 +49,7 @@
 
         <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
-            <mat-icon>download</mat-icon> {{label.export}}
+            <mat-icon>download</mat-icon> {{label.COMMON.EXPORT}}
           </button>
         </div>
 
@@ -58,19 +58,19 @@
 
       <!-- Bulk Actions -->
       <div class="nexus-bulk-actions" *ngIf="selectedPersons.length">
-        <span class="nexus-bulk-count">{{ selectedPersons.length }} {{label.selected}}</span>
+        <span class="nexus-bulk-count">{{ selectedPersons.length }} {{label.COMMON.SELECTED}}</span>
         <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
           <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
-            <mat-icon>check_circle_outline</mat-icon> {{label.activate}}
+            <mat-icon>check_circle_outline</mat-icon> {{label.COMMON.ACTIVATE}}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inactiveStatus)">
-            <mat-icon>highlight_off</mat-icon> {{label.deactivate}}
+            <mat-icon>highlight_off</mat-icon> {{label.COMMON.DEACTIVATE}}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-            <mat-icon>public</mat-icon> {{label.public}}
+            <mat-icon>public</mat-icon> {{label.COMMON.PUBLIC}}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
-            <mat-icon>lock</mat-icon> {{label.private}}
+            <mat-icon>lock</mat-icon> {{label.COMMON.PRIVATE}}
           </button>
         </div>
       </div>
@@ -113,22 +113,22 @@
     </button>
     <mat-menu #menuRow="matMenu" class="nexus-action-menu">
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)" class="nexus-menu-item success">
-        <mat-icon>check_circle_outline</mat-icon> {{label.activate}}
+        <mat-icon>check_circle_outline</mat-icon> {{label.COMMON.ACTIVATE}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)" class="nexus-menu-item warning">
-        <mat-icon>highlight_off</mat-icon> {{label.deactivate}}
+        <mat-icon>highlight_off</mat-icon> {{label.COMMON.DEACTIVATE}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)" class="nexus-menu-item info">
-        <mat-icon>public</mat-icon> {{label.public}}
+        <mat-icon>public</mat-icon> {{label.COMMON.PUBLIC}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)" class="nexus-menu-item info">
-        <mat-icon>lock</mat-icon> {{label.private}}
+        <mat-icon>lock</mat-icon> {{label.COMMON.PRIVATE}}
       </button>
       <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item neutral">
-        <mat-icon>description</mat-icon> {{label.print}}
+        <mat-icon>description</mat-icon> {{label.COMMON.PRINT}}
       </button>
       <button mat-menu-item *ngIf="currentMenu?.canDelete" (click)="deletePerson(row)" class="nexus-menu-item danger">
-        <mat-icon>delete_outline</mat-icon> {{label.delete}}
+        <mat-icon>delete_outline</mat-icon> {{label.COMMON.DELETE}}
       </button>
     </mat-menu>
   </ng-template>

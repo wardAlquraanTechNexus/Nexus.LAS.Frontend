@@ -50,11 +50,8 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   inactiveStatus = PersonStatus.Inactive;
   selectedPersons: Person[] = [];
 
-  currentLang: LanguageCode = 'en';
 
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
+  
   currentMenu: MenuTree | null = null;
   formGroup!: FormGroup;
   loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
@@ -68,11 +65,11 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     protected menuService: MenuService,
     protected dialog: MatDialog,
     protected dlService: DynamicListService,
-    protected langService: LanguageService,
+    override langService: LanguageService,
 
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override ngOnInit(): void {
@@ -88,9 +85,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     )
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
-    this.langService.language$.subscribe(lang => {
-      this.applyLanguage(lang);
-    });
+    this.subscribeLanguage();
   }
   override search() {
     this.fetchData();
@@ -345,9 +340,6 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
-
+  
 
 }

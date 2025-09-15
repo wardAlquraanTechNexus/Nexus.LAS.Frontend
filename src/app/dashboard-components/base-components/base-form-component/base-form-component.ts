@@ -8,6 +8,9 @@ import { Subject } from 'rxjs';
 import { ValidationUtils } from '../../../utils/validation-utils';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LoadingStateService } from '../../../services/loading-state.service';
+import { LanguageService } from '../../../services/language-service';
+import { LanguageCode } from '../../../models/types/lang-type';
+import { Labels } from '../../../models/consts/labels';
 
 @Component({
   selector: 'app-base-form-component',
@@ -21,7 +24,11 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
   uploadedFile: File | null = null;
-  @Input() object:  | null = null;
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  @Input() object: | null = null;
   @Input() validationRules: { [key: string]: ValidatorFn[] } = {};
   @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() cancelEditEmitter: EventEmitter<void> = new EventEmitter<void>();
@@ -29,7 +36,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   formGroup!: FormGroup;
   validationUtils = ValidationUtils;
   isSubmitting = false;
-  
+
   protected loadingService!: LoadingStateService;
 
   constructor(
@@ -37,6 +44,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     protected cdr: ChangeDetectorRef,
     protected sanitizer: DomSanitizer,
     protected errorHandler: ErrorHandlerService,
+    protected langService: LanguageService,
     loadingService?: LoadingStateService,
     @Inject(PLATFORM_ID) @Optional() protected platformId?: Object
   ) {
@@ -50,33 +58,38 @@ export class BaseFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initFormGroup();
+
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
+
 
   initFormGroup(): void {
-  if (this.object) {
-    const group: { [key: string]: FormControl } = {};
+    if (this.object) {
+      const group: { [key: string]: FormControl } = {};
 
-    for (const key of Object.keys(this.object)) {
-      const validators = this.validationRules[key] || [];
-      let value = (this.object as any)[key];
+      for (const key of Object.keys(this.object)) {
+        const validators = this.validationRules[key] || [];
+        let value = (this.object as any)[key];
 
-      // Convert ISO date strings to Date objects
-      if (typeof value === 'string' && !isNaN(Date.parse(value))) {
-        // Optional: check if string contains a date-time format
-        const maybeDate = new Date(value);
-        if (!isNaN(maybeDate.getTime())) {
-          value = maybeDate;
+        // Convert ISO date strings to Date objects
+        if (typeof value === 'string' && !isNaN(Date.parse(value))) {
+          // Optional: check if string contains a date-time format
+          const maybeDate = new Date(value);
+          if (!isNaN(maybeDate.getTime())) {
+            value = maybeDate;
+          }
         }
+
+        group[key] = new FormControl(value, validators);
       }
 
-      group[key] = new FormControl(value, validators);
+      this.formGroup = this.fb.group(group);
+      console.log(this.formGroup.getRawValue());
+      this.cdr.markForCheck();
     }
-
-    this.formGroup = this.fb.group(group);
-    console.log(this.formGroup.getRawValue());
-    this.cdr.markForCheck();
   }
-}
 
 
   /**
@@ -85,7 +98,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   getFieldError(fieldName: string): string {
     const control = this.formGroup?.get(fieldName);
     if (!control || !control.touched || !control.errors) return '';
-    
+
     return ValidationUtils.getErrorMessage(control, this.getFieldDisplayName(fieldName));
   }
 
@@ -124,7 +137,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       this.errorHandler.showInfo('Download not available in server mode.');
       return;
     }
-    
+
     if (this.object && (this.object as any).dataFile && (this.object as any).contentType && (this.object as any).fileName) {
       const blob = this.base64ToBlob((this.object as any).dataFile, (this.object as any).contentType);
       const url = window.URL.createObjectURL(blob);
@@ -181,13 +194,13 @@ export class BaseFormComponent implements OnInit, OnDestroy {
           }
 
           if (value instanceof Date) {
-            if(value != null){
+            if (value != null) {
               const date = new Date(value);
               const formattedDate = date.toDateString();
               formData.append(key, formattedDate);
             }
           } else {
-            if(value != null){
+            if (value != null) {
               formData.append(key, value);
             }
           }
@@ -202,7 +215,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       } else {
         this.saveEmitter.emit({ element: this.object });
       }
-      
+
     } catch (error) {
       this.errorHandler.handleError('Failed to save form', 'An error occurred while processing the form data.');
     } finally {
@@ -262,7 +275,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-    get fileUrl(): string | null {
+  get fileUrl(): string | null {
     const file = this.formGroup.get('file')?.value;
     if (!file) return null;
     return typeof file === 'string' ? file : (file.url || file.preview || URL.createObjectURL(file));
@@ -285,7 +298,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     this.formGroup.get('file')?.setValue(null);
   }
 
-    onDragOver(event: DragEvent): void {
+  onDragOver(event: DragEvent): void {
     event.preventDefault();
     this.isDragging = true;
   }

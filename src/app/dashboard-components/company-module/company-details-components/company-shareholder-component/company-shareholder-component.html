@@ -1,18 +1,18 @@
 <div class="table-header">
-  <div class="header-title">Shareholders</div>
+  <div class="header-title">
+    {{ langService.getLabel('COMPANY.SHAREHOLDERS') || 'Shareholders' }}
+  </div>
   <div class="header-actions">
-      
       <!-- Add button only shows when table is visible -->
       <button *ngIf="showTable" mat-raised-button color="primary" (click)="onAddNew()">
           <mat-icon>add</mat-icon>
-          Add Shareholder
-        </button>
-        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? 'Hide' : 'Show'">
-          <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
-        </button>
+          {{ langService.getLabel('COMPANY.ADD_SHAREHOLDER') || 'Add Shareholder' }}
+      </button>
+      <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? (langService.getLabel('COMMON.HIDE') || 'Hide') : (langService.getLabel('COMMON.SHOW') || 'Show')">
+        <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
+      </button>
   </div>
 </div>
-
 
 <app-shared-table *ngIf="showTable && !showLoading"
   [displayedColumns]="displayColumns"
@@ -21,4 +21,3 @@
   (onSortChangeEvent)="changeSort($event)"
   (rowClick)="onRowClick($event)">
 </app-shared-table>
->

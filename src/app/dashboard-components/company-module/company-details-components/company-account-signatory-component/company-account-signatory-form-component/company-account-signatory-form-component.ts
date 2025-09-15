@@ -14,6 +14,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 import moment from 'moment';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-account-signatory-form-component',
@@ -39,9 +40,10 @@ export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
     protected override errorHandler: ErrorHandlerService,
     private dlService: DynamicListService,
     private personService: PersonService,
+    override langService: LanguageService,
 
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {

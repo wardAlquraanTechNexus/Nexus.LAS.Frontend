@@ -8,6 +8,7 @@ import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-model
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-champer-of-commerce-form-component',
@@ -28,8 +29,9 @@ export class CompanyChamperOfCommerceFormComponent  extends BaseFormComponent {
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
+    override langService: LanguageService,
   ) {
-    super(fb, cdr, sanitizer, errorHandler);
+    super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
   override ngOnInit(): void {

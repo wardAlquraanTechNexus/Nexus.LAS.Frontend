@@ -14,6 +14,7 @@ import { CompanyCapitalDto } from '../../../../models/company-models/company-cap
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { CompanyCapitalDialogFormComponent } from '../company-capital-component/company-capital-dialog-form-component/company-capital-dialog-form-component';
 import { CompanyBoardDialogFormComponent } from './company-board-dialog-form-component/company-board-dialog-form-component';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-board-component',
@@ -64,9 +65,10 @@ export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
   override ngOnInit(): void {
     this.params.companyId = this.company.id;

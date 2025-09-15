@@ -3,11 +3,11 @@
   <!-- SECTION 1: Title and Add Button -->
   <div class="section section-title">
     <div class="title-content">
-      <h2>Addresses</h2>
+      <h2>{{ label.COMMON.ADDRESSES || 'Addresses' }}</h2>
     </div>
     @if (!readOnly) {
     <button mat-raised-button color="primary" (click)="openFormDetails()">
-      <mat-icon>add</mat-icon> Add Address
+      <mat-icon>add</mat-icon> {{ label.COMMON.ADD_ADDRESS || 'Add Address' }}
     </button>
     }
   </div>
@@ -37,7 +37,7 @@
             <span *ngIf="personAddress.addressLine1">{{personAddress.addressLine1}}</span>
             <span *ngIf="personAddress.addressLine2">, {{personAddress.addressLine2}}</span>
             <span *ngIf="personAddress.addressLine3">, {{personAddress.addressLine3}}</span>
-            <span *ngIf="personAddress.addressPrimary" class="primary-badge">Primary</span>
+            <span *ngIf="personAddress.addressPrimary" class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
           </div>
           <div class="secondary-text">
             <div *ngIf="personAddress.poBoxNumber">{{ personAddress.poBoxNumber }}</div>
@@ -55,11 +55,11 @@
           <mat-menu #addressMenu="matMenu">
             <button mat-menu-item (click)="openFormDetails(personAddress)">
               <mat-icon>edit</mat-icon>
-              <span>Edit Address</span>
+              <span>{{ label.COMMON.EDIT_ADDRESS || 'Edit Address' }}</span>
             </button>
             <button mat-menu-item [confirmDelete]="getRemoveCallback(personAddress.id!)">
               <mat-icon>delete</mat-icon>
-              <span>Delete Address</span>
+              <span>{{ label.COMMON.DELETE_ADDRESS || 'Delete Address' }}</span>
             </button>
           </mat-menu>
         </div>
@@ -69,7 +69,7 @@
       } @else {
       <div class="no-records-hint">
         <mat-icon color="disabled">info</mat-icon>
-        <span>No records available</span>
+        <span>{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
       </div>
       }
     </div>
