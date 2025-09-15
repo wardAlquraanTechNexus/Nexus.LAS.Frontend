@@ -58,21 +58,33 @@
                     <input matInput formControlName="licenseNumber" placeholder="Enter license number" required />
                 </mat-form-field>
 
-                <!-- Replace the Issue Date field -->
-                <app-date-input
-                  [formGroup]="formGroup"
-                  [controlName]="'licenseIssueDate'"
-                  [label]="'Issue Date'"
-                  [isRequired]="true">
-                </app-date-input>
+                <!-- Issue Date field -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Issue Date</mat-label>
+                    <input matInput
+                           formControlName="licenseIssueDate"
+                           placeholder="DD/MM/YYYY"
+                           [matDatepicker]="issueDatePicker"
+                           required>
+                    <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #issueDatePicker></mat-datepicker>
+                    @if (formGroup.get('licenseIssueDate')?.hasError('required') && formGroup.get('licenseIssueDate')?.touched) {
+                    <mat-error>
+                        Issue Date is required
+                    </mat-error>
+                    }
+                </mat-form-field>
 
-                <!-- Replace the Expiry Date field -->
-                <app-date-input
-                  [formGroup]="formGroup"
-                  [controlName]="'licenseExpiryDate'"
-                  [label]="'Expiry Date'"
-                  [isRequired]="false">
-                </app-date-input>
+                <!-- Expiry Date field -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Expiry Date</mat-label>
+                    <input matInput
+                           formControlName="licenseExpiryDate"
+                           placeholder="DD/MM/YYYY"
+                           [matDatepicker]="expiryDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #expiryDatePicker></mat-datepicker>
+                </mat-form-field>
 
                 <mat-slide-toggle formControlName="licensePrimary">
                     Primary

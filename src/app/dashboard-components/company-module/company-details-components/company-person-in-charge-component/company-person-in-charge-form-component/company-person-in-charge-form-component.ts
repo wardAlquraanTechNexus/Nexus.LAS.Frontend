@@ -10,12 +10,20 @@ import { PersonService } from '../../../../../services/person-services/person-se
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { environment } from '../../../../../../environment/environment.prod';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 
 @Component({
   selector: 'app-company-person-in-charge-form-component',
   standalone: false,
   templateUrl: './company-person-in-charge-form-component.html',
-  styleUrl: './company-person-in-charge-form-component.scss'
+  styleUrl: './company-person-in-charge-form-component.scss',
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    ...DATE_FORMAT_PROVIDERS,
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+  ]
 })
 export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
   @Input() element!: CompanyPersonInChargeDto;

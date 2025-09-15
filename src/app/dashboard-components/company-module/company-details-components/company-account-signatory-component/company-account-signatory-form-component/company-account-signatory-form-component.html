@@ -80,17 +80,28 @@
                     </div>
 
                     <!-- Account Signatory Date -->
-                    <div class="form-group col-12">
-
-                        <p-datepicker formControlName="accountSignatoryDate" [showIcon]="true"
-                            dateFormat="dd.mm.yy"></p-datepicker>
-
+                    <div class="form-group col-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Account Signatory Date</mat-label>
+                            <input matInput
+                                   formControlName="accountSignatoryDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="accountSignatoryPicker">
+                            <mat-datepicker-toggle matSuffix [for]="accountSignatoryPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #accountSignatoryPicker></mat-datepicker>
+                        </mat-form-field>
                     </div>
-                    <div class="form-group col-12">
-
-                        <p-datepicker formControlName="cessationDate" [showIcon]="true"
-                            dateFormat="dd.mm.yy"></p-datepicker>
-
+                    <!-- Cessation Date -->
+                    <div class="form-group col-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Cessation Date</mat-label>
+                            <input matInput
+                                   formControlName="cessationDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="cessationPicker">
+                            <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #cessationPicker></mat-datepicker>
+                        </mat-form-field>
                     </div>
 
 

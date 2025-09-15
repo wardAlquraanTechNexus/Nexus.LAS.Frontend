@@ -55,15 +55,30 @@
 
         <!-- Dates -->
         <div class="col-6">
-
-          <p-datepicker formControlName="personInChargeDate" [showIcon]="true" dateFormat="dd.mm.yy"></p-datepicker>
-
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Appointment Date</mat-label>
+            <input matInput
+                   formControlName="personInChargeDate"
+                   placeholder="DD/MM/YYYY"
+                   [matDatepicker]="personInChargePicker">
+            <mat-datepicker-toggle matSuffix [for]="personInChargePicker"></mat-datepicker-toggle>
+            <mat-datepicker #personInChargePicker></mat-datepicker>
+            <mat-error *ngIf="formGroup.get('personInChargeDate')?.hasError('required')">
+              Person In Charge Date is required
+            </mat-error>
+          </mat-form-field>
         </div>
 
         <div class="col-6">
-
-          <p-datepicker formControlName="cessationDate" [showIcon]="true" dateFormat="dd.mm.yy"></p-datepicker>
-
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Cessation Date</mat-label>
+            <input matInput
+                   formControlName="cessationDate"
+                   placeholder="DD/MM/YYYY"
+                   [matDatepicker]="cessationPicker">
+            <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
+            <mat-datepicker #cessationPicker></mat-datepicker>
+          </mat-form-field>
         </div>
 
         <!-- Notes -->

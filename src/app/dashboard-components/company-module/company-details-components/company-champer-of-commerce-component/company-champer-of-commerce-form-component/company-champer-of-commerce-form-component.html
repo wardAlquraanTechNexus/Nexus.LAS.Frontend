@@ -51,20 +51,34 @@
 
                 <!-- CCI Issue Date -->
                 <div class="col-12">
-                    <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'cciIssueDate'"
-                        [label]="'CCI Issue Date'"
-                        [isRequired]="true"></app-date-input>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Issue Date</mat-label>
+                        <input matInput
+                               formControlName="cciIssueDate"
+                               placeholder="DD/MM/YYYY"
+                               [matDatepicker]="cciIssueDatePicker"
+                               required>
+                        <mat-datepicker-toggle matSuffix [for]="cciIssueDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #cciIssueDatePicker></mat-datepicker>
+                        @if (formGroup.get('cciIssueDate')?.hasError('required') && formGroup.get('cciIssueDate')?.touched) {
+                        <mat-error>
+                            CCI Issue Date is required
+                        </mat-error>
+                        }
+                    </mat-form-field>
                 </div>
 
                 <!-- CCI Expiry Date -->
                 <div class="col-12">
-                    <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'cciExpiryDate'"
-                        [label]="'CCI Expiry Date'"
-                        [isRequired]="false"></app-date-input>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>CCI Expiry Date</mat-label>
+                        <input matInput
+                               formControlName="cciExpiryDate"
+                               placeholder="DD/MM/YYYY"
+                               [matDatepicker]="cciExpiryDatePicker">
+                        <mat-datepicker-toggle matSuffix [for]="cciExpiryDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #cciExpiryDatePicker></mat-datepicker>
+                    </mat-form-field>
                 </div>
 
                 <!-- Expiry Reminder -->

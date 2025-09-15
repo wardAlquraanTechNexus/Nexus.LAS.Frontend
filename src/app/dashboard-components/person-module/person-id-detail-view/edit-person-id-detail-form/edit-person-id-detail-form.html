@@ -59,17 +59,29 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'idIssueDate'"
-                            [label]="'Issue Date'"
-                            [isRequired]="true"></app-date-input>
-                        
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'expiryDate'"
-                            [label]="'Expiry Date'"
-                            [isRequired]="false"></app-date-input>
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Issue Date</mat-label>
+                            <input matInput
+                                   formControlName="idIssueDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="issueDatePicker"
+                                   required>
+                            <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #issueDatePicker></mat-datepicker>
+                            <mat-error *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
+                                Issue Date is required
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field" floatLabel="auto">
+                            <mat-label>Expiry Date</mat-label>
+                            <input matInput
+                                   formControlName="expiryDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="expiryDatePicker">
+                            <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #expiryDatePicker></mat-datepicker>
+                        </mat-form-field>
 
                         <!-- Toggles Section -->
                         <div class="toggles-section">

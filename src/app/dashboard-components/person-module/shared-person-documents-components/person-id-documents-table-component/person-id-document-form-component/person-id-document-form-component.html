@@ -85,22 +85,32 @@
                         </mat-form-field>
                     </div>
                     <div class="col-6">
-                        <app-date-input [formGroup]="formGroup" [controlName]="'idIssueDate'" [label]="'Issue Date'"
-                            [isRequired]="true"></app-date-input>
-                            <mat-error
-                                *ngIf="formGroup.get('idIssueDate')?.touched && formGroup.get('idIssueDate')?.hasError('invalidDate')">
-                                Please enter a valid date in dd/MM/yyyy format.
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Issue Date</mat-label>
+                            <input matInput
+                                   formControlName="idIssueDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="issueDatePicker"
+                                   required>
+                            <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #issueDatePicker></mat-datepicker>
+                            @if (formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched) {
+                            <mat-error>
+                                Issue Date is required
                             </mat-error>
-                            <mat-error
-                                *ngIf="formGroup.get('idIssueDate')?.touched && formGroup.get('idIssueDate')?.hasError('required')">
-                                Date is required.
-                            </mat-error>
+                            }
+                        </mat-form-field>
                     </div>
                     <div class="col-6">
-
-                        <app-date-input [formGroup]="formGroup" [controlName]="'expiryDate'"
-                            [label]="'Expiry Date'"></app-date-input>
-
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Expiry Date</mat-label>
+                            <input matInput
+                                   formControlName="expiryDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="expiryDatePicker">
+                            <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #expiryDatePicker></mat-datepicker>
+                        </mat-form-field>
                     </div>
                     <!-- Primary -->
                     <div class="full-width col-6">

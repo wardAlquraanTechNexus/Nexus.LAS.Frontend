@@ -71,23 +71,34 @@
                 <div class="row">
 
                     <!-- ShareHolderDate -->
-                     <div class="col-6">
-
-                         <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'shareHolderDate'"
-                            [label]="'Appointment Date'"
-                            [isRequired]="true"></app-date-input>
-                    </div>
-    
                     <div class="col-6">
-                        
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'cessationDate'"
-                            [label]="'Cessation Date'"
-                            [isRequired]="false"></app-date-input>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Appointment Date</mat-label>
+                            <input matInput
+                                   formControlName="shareHolderDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="appointmentDatePicker"
+                                   required>
+                            <mat-datepicker-toggle matSuffix [for]="appointmentDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #appointmentDatePicker></mat-datepicker>
+                            @if (formGroup.get('shareHolderDate')?.hasError('required') && formGroup.get('shareHolderDate')?.touched) {
+                            <mat-error>
+                                Appointment Date is required
+                            </mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
 
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Cessation Date</mat-label>
+                            <input matInput
+                                   formControlName="cessationDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="cessationDatePicker">
+                            <mat-datepicker-toggle matSuffix [for]="cessationDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #cessationDatePicker></mat-datepicker>
+                        </mat-form-field>
                     </div>
                 </div>
 

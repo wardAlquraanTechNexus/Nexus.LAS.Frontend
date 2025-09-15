@@ -8,12 +8,20 @@ import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { environment } from '../../../../../../environment/environment';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 
 @Component({
   selector: 'app-company-capital-form-component',
   standalone: false,
   templateUrl: './company-capital-form-component.html',
-  styleUrl: './company-capital-form-component.scss'
+  styleUrl: './company-capital-form-component.scss',
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    ...DATE_FORMAT_PROVIDERS,
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+  ]
 })
 export class CompanyCapitalFormComponent  extends BaseFormComponent {
   @Input() element!: CompanyCapitalDto;

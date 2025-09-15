@@ -20,12 +20,21 @@
         <div class="form-container">
             <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
                 <div class="col-12">
-                    <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'incorporationDate'"
-                        [label]="'Incorporation Date'"
-                        [isRequired]="true">
-                    </app-date-input>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Incorporation Date</mat-label>
+                        <input matInput
+                               formControlName="incorporationDate"
+                               placeholder="DD/MM/YYYY"
+                               [matDatepicker]="incorporationDatePicker"
+                               required>
+                        <mat-datepicker-toggle matSuffix [for]="incorporationDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #incorporationDatePicker></mat-datepicker>
+                        @if (formGroup.get('incorporationDate')?.hasError('required') && formGroup.get('incorporationDate')?.touched) {
+                        <mat-error>
+                            Incorporation Date is required
+                        </mat-error>
+                        }
+                    </mat-form-field>
                     <!-- to Add Share Value  -->
                 </div>
                 <div class="col-12">

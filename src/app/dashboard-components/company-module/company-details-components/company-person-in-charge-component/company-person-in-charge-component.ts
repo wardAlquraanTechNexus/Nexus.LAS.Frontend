@@ -58,7 +58,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     },
     {
       key: "personInChargeDate",
-      label: "Date Of Appointment",
+      label: "Date of Appointment",
       pipes: ["date"]
     },
     {

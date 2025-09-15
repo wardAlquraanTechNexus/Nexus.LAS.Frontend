@@ -43,11 +43,19 @@
                     </div>
 
                     <div class="form-group col-12">
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'bankAccountDate'"
-                            [label]="'Bank Account Date'"
-                            [isRequired]="true"></app-date-input>
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Bank Account Date</mat-label>
+                            <input matInput
+                                   formControlName="bankAccountDate"
+                                   placeholder="DD/MM/YYYY"
+                                   [matDatepicker]="bankAccountDatePicker"
+                                   required>
+                            <mat-datepicker-toggle matSuffix [for]="bankAccountDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #bankAccountDatePicker></mat-datepicker>
+                            <mat-error *ngIf="formGroup.get('bankAccountDate')?.hasError('required') && formGroup.get('bankAccountDate')?.touched">
+                                Bank Account Date is required
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                     <div class="form-group col-12">
                         <mat-form-field appearance="outline" class="w-100">

@@ -11,13 +11,21 @@ import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/g
 import { map, Observable } from 'rxjs';
 import { CompanyService } from '../../../../../services/company-services/company-service';
 import { GetCompanyDto } from '../../../../../models/company-models/get-company-query/get-company-dto';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 
 
 @Component({
   selector: 'app-company-shareholder-form-component',
   standalone: false,
   templateUrl: './company-shareholder-form-component.html',
-  styleUrl: './company-shareholder-form-component.scss'
+  styleUrl: './company-shareholder-form-component.scss',
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    ...DATE_FORMAT_PROVIDERS,
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+  ]
 })
 export class CompanyShareholderFormComponent extends BaseFormComponent {
   @Input() element!: CompaniesShareHolderDto;
