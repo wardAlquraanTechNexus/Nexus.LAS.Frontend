@@ -33,7 +33,6 @@ export class ActivePrivateCompaniesTableComponent  extends BaseCompaniesComponen
   
     override displayColumns: DisplayColumn[] = [];
 
-    private langSub!: Subscription;
 
   constructor(
     override service: CompanyService,
@@ -53,31 +52,24 @@ export class ActivePrivateCompaniesTableComponent  extends BaseCompaniesComponen
   override ngOnInit(): void {
     super.ngOnInit();
     this.setDisplayColumns();
-    this.langSub = this.langService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
+    
   }
 
   setDisplayColumns() {
-    const l = this.langService.currentLanguage();
-    const labels = this.langService.getLabel.bind(this.langService);
 
     this.displayColumns = [
-      { key: "select", label: l === 'ar' ? 'اختيار' : 'Select' },
-      { key: "companyCode", label: labels('COMPANY.CODE'), pipes: ["link"], sort: true },
-      { key: "incorporationDate", label: l === 'ar' ? 'تاريخ التأسيس' : 'Inc. Date', pipes: ["date"], sort: true },
-      { key: "companyEnglishName", label: labels('COMPANY.NAME_EN'), pipes: ["link"], sort: true },
-      { key: "companyArabicName", label: labels('COMPANY.NAME_AR'), pipes: ["link"], sort: true },
-      { key: "companyShortName", label: l === 'ar' ? 'الاسم المختصر' : 'Short Name', pipes: ["link"], sort: true },
-      { key: "companyStatus", label: labels('COMPANY.STATUS'), pipes: ["company-Status"], sort: true },
-      { key: "fpcCode", label: l === 'ar' ? 'رمز FPC' : 'FPC Code', sort: true },
-      { key: "private", label: labels('COMPANY.PRIVATE'), pipes: ["private-Company"], sort: true },
-      { key: "action", label: l === 'ar' ? 'إجراء' : 'Action' }
+      { key: "select", label: this.currentLang === 'ar' ? 'اختيار' : 'Select' },
+      { key: "companyCode", label: this.currentLang === 'ar' ? 'رمز الشركة' : 'Company Code', pipes: ["link"], sort: true },
+      { key: "incorporationDate", label: this.currentLang === 'ar' ? 'تاريخ التأسيس' : 'Inc. Date', pipes: ["date"], sort: true },
+      { key: "companyEnglishName", label: this.currentLang === 'ar' ? 'اسم الشركة بالإنجليزية' : 'Company Name (EN)', pipes: ["link"], sort: true },
+      { key: "companyArabicName", label: this.currentLang === 'ar' ? 'اسم الشركة بالعربية' : 'Company Name (AR)', pipes: ["link"], sort: true },
+      { key: "companyShortName", label: this.currentLang === 'ar' ? 'الاسم المختصر' : 'Short Name', pipes: ["link"], sort: true },
+      { key: "companyStatus", label: this.currentLang === 'ar' ? 'حالة الشركة' : 'Company Status', pipes: ["company-Status"], sort: true },
+      { key: "fpcCode", label: this.currentLang === 'ar' ? 'رمز FPC' : 'FPC Code', sort: true },
+      { key: "private", label: this.currentLang === 'ar' ? 'خاص' : 'Private', pipes: ["private-Company"], sort: true },
+      { key: "action", label: this.currentLang === 'ar' ? 'إجراء' : 'Action' }
     ];
   }
 
-  override ngOnDestroy(): void {
-    this.langSub?.unsubscribe();
-    super.ngOnDestroy?.();
-  }
+
 }

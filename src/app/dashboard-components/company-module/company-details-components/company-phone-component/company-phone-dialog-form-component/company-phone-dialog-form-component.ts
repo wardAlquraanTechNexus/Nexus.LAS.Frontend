@@ -4,6 +4,7 @@ import { BaseDialogFormComponent } from '../../../../base-components/base-dialog
 import { CompanyPhoneService } from '../../../../../services/company-services/company-phone-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CompanyPhoneDto } from '../../../../../models/company-models/company-phone/dtos/company-phone-dto';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-phone-dialog-form-component',
@@ -20,7 +21,8 @@ export class CompanyPhoneDialogFormComponent
     @Inject(MAT_DIALOG_DATA) public override data: CompanyPhoneDto,
     override service: CompanyPhoneService,
     protected override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 }

@@ -6,8 +6,10 @@
                 <mat-icon>article</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Licenses & Register</h2>
-                <p class="dialog-subtitle">Enter Company License & Register Details</p>
+                <h2 class="dialog-title">
+                    {{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{ label.COMPANY.LICENSES_AND_REGISTERS || 'Company Licenses & Register' }}
+                </h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.ADD_LICENSE_OR_REGISTER || 'Enter Company License & Register Details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -27,20 +29,20 @@
                     <label class="upload-button">
                         <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)" hidden />
                         <a mat-raised-button color="primary" type="button">
-                            Click to Upload
+                            {{ label.COMMON.UPLOAD_DOCUMENT || 'Click to Upload' }}
                         </a>
                     </label>
-                    <p>or drag and drop</p>
+                    <p>{{ label.PERSON.OR_DRAG_AND_DROP || 'or drag and drop' }}</p>
                     <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
                 </div>
                 <mat-error
                     *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
                     class="mat-error">
-                    File is required.
+                    {{ label.PERSON.FILE_REQUIRED || 'File is required.' }}
                 </mat-error>
 
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Status</mat-label>
+                    <mat-label>{{ label.COMMON.STATUS || 'Status' }}</mat-label>
                     <mat-select formControlName="licenseStatus" required>
                         <mat-option *ngFor="let status of statusOptions" [value]="status.value">
                             {{ status.label }}
@@ -49,49 +51,49 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Classification</mat-label>
-                    <input matInput formControlName="licenseClassification" placeholder="Enter classification" required />
+                    <mat-label>{{ label.COMPANY.LICENSE_CLASSIFICATION || 'Classification' }}</mat-label>
+                    <input matInput formControlName="licenseClassification" [placeholder]="label.COMPANY.LICENSE_CLASSIFICATION || 'Enter classification'" required />
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>License Number</mat-label>
-                    <input matInput formControlName="licenseNumber" placeholder="Enter license number" required />
+                    <mat-label>{{ label.COMPANY.LICENSE_NUMBER || 'License Number' }}</mat-label>
+                    <input matInput formControlName="licenseNumber" [placeholder]="label.COMPANY.LICENSE_NUMBER || 'Enter license number'" required />
                 </mat-form-field>
 
                 <!-- Issue Date field -->
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Issue Date</mat-label>
+                    <mat-label>{{ label.COMPANY.ISSUE_DATE || 'Issue Date' }}</mat-label>
                     <input matInput
                            formControlName="licenseIssueDate"
-                           placeholder="DD/MM/YYYY"
+                           [placeholder]="label.COMPANY.ISSUE_DATE || 'DD/MM/YYYY'"
                            [matDatepicker]="issueDatePicker"
                            required>
                     <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #issueDatePicker></mat-datepicker>
                     @if (formGroup.get('licenseIssueDate')?.hasError('required') && formGroup.get('licenseIssueDate')?.touched) {
                     <mat-error>
-                        Issue Date is required
+                        {{ label.COMPANY.ISSUE_DATE_REQUIRED || 'Issue Date is required' }}
                     </mat-error>
                     }
                 </mat-form-field>
 
                 <!-- Expiry Date field -->
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Expiry Date</mat-label>
+                    <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
                     <input matInput
                            formControlName="licenseExpiryDate"
-                           placeholder="DD/MM/YYYY"
+                           [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'"
                            [matDatepicker]="expiryDatePicker">
                     <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #expiryDatePicker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-slide-toggle formControlName="licensePrimary">
-                    Primary
+                    {{ label.COMMON.PRIMARY || 'Primary' }}
                 </mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="licenseExpiryActiveReminder">
-                    Active Reminder
+                    {{ label.COMPANY.REMINDER || 'Active Reminder' }}
                 </mat-slide-toggle>
 
             </form>
@@ -109,7 +111,7 @@
             </div>
             <div class="file-preview empty" *ngIf="!element?.imageUrl">
                 <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
-                <div class="empty-text">No file selected</div>
+                <div class="empty-text">{{ label.COMMON.NO_FILE_SELECTED || 'No file selected' }}</div>
             </div>
         </div>
     </div>
@@ -118,11 +120,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

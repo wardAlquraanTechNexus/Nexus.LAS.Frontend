@@ -5,6 +5,7 @@ import { CompanyEmail } from '../../../../../models/company-models/company-email
 import { CompanyEmailDto } from '../../../../../models/company-models/company-email/dtos/company-email-dto';
 import { CompanyEmailService } from '../../../../../services/company-services/company-email-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-email-dialog-form-component',
@@ -21,7 +22,8 @@ export class CompanyEmailDialogFormComponent
     @Inject(MAT_DIALOG_DATA) public override data: CompanyEmailDto,
     override service: CompanyEmailService,
     protected override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 }

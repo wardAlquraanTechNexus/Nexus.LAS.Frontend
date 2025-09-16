@@ -13,6 +13,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { CompanyCapitalDialogFormComponent } from './company-capital-dialog-form-component/company-capital-dialog-form-component';
 import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels'; // Add this import
 
 @Component({
   selector: 'app-company-capital-component',
@@ -23,7 +24,6 @@ import { LanguageService } from '../../../../services/language-service';
 export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> {
 
 
-
   override data: PaginateRsult<CompanyCapitalDto> = {
     collection: [],
     page: 0,
@@ -32,55 +32,6 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
     totalRecords: 0
   };
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key:"id",
-      label:"Id"
-    },
-    {
-      key: "capitalDate",
-      label: "Date",
-      pipes: ['date'],
-    },
-    {
-      key: "capitalAmount",
-      label: "Amount",
-    },
-    {
-      key:"numberOfShares",
-      label:"NO. of Shares"
-    },
-    {
-      key: "nominalValueOfShare",
-      label: "Nominal Value of share",
-      pipes: ['capital-currency'],
-      compareKey: 'capitalCurrency'
-    }, {
-      key: "capitalAuthorized",
-      label: "Authorized Capital Amount",
-      pipes: ['capital-currency'],
-      compareKey: 'capitalCurrency'
-    }, {
-      key: "capitalPaid",
-      label: "Paid",
-      pipes: ['capital-currency'],
-      compareKey: 'capitalCurrency'
-    }, {
-      key: "issuedShares",
-      label: "Issued Shares",
-    }, {
-      key: "classOfShares",
-      label: "Class Of Shares",
-    }, {
-      key: "capitalActive",
-      label: "Status",
-      pipes:['capital-active']
-    },
-    {
-      key: 'action',
-      label: 'Actions'
-    }
-  ]
 
   override params: GetPagingCompanyCapital = {
     companyId: 0,
@@ -101,9 +52,60 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService)
   }
+
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
+
     super.ngOnInit();
+
+    // Set labels for display columns using Label logic
+    this.displayColumns = [
+   
+      {
+        key: "capitalDate",
+        label: this.langService.getLabel(this.label.COMMON.DATE) || "Date",
+        pipes: ['date'],
+      },
+      {
+        key: "capitalAmount",
+        label: this.langService.getLabel(this.label.COMPANY.CAPITAL_AMOUNT) || "Amount",
+      },
+      {
+        key:"numberOfShares",
+        label: this.langService.getLabel(this.label.COMPANY.TOTAL_SHARES) || "NO. of Shares"
+      },
+      {
+        key: "nominalValueOfShare",
+        label: this.langService.getLabel(this.label.COMPANY.NOMINAL_VALUE_OF_SHARE) || "Nominal Value of share",
+        pipes: ['capital-currency'],
+        compareKey: 'capitalCurrency'
+      }, {
+        key: "capitalAuthorized",
+        label: this.langService.getLabel(this.label.COMPANY.AUTHORIZED_CAPITAL_AMOUNT) || "Authorized Capital Amount",
+        pipes: ['capital-currency'],
+        compareKey: 'capitalCurrency'
+      }, {
+        key: "capitalPaid",
+        label: this.langService.getLabel(this.label.COMPANY.PAID_CAPITAL_AMOUNT) || "Paid",
+        pipes: ['capital-currency'],
+        compareKey: 'capitalCurrency'
+      }, {
+        key: "issuedShares",
+        label: this.langService.getLabel(this.label.COMPANY.ISSUED_SHARES) || "Issued Shares",
+      }, {
+        key: "classOfShares",
+        label: this.langService.getLabel(this.label.COMPANY.CLASS_OF_SHARES) || "Class Of Shares",
+      }, {
+        key: "capitalActive",
+        label: this.langService.getLabel(this.label.COMMON.STATUS) || "Status",
+        pipes:['capital-active']
+      },
+      {
+        key: 'action',
+        label: this.langService.getLabel(this.label.COMMON.ACTIONS) || "Actions"
+      }
+    ];
+
   }
 
   override fetchData(): void {
@@ -130,13 +132,13 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       id: 0,
       companyId: this.company.id,
       capitalDate: null,
-      capitalAmount: 0,
-      nominalValueOfShare: 0,
+      capitalAmount: null,
+      nominalValueOfShare: null,
       classOfShares: '',
-      numberOfShares: 0,
-      capitalAuthorized: 0,
-      capitalPaid: 0,
-      issuedShares: 0,
+      numberOfShares: null,
+      capitalAuthorized: null,
+      capitalPaid: null,
+      issuedShares: null,
       capitalCurrency: '',
       capitalActive: false,
       

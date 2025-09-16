@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseDialogComponent } from '../../../../base-components/base-dialog-component/base-dialog-component';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
 import { CompanyCapital } from '../../../../../models/company-models/company-capital/company-capital';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-capital-dialog-form-component',
@@ -19,8 +20,9 @@ export class CompanyCapitalDialogFormComponent extends BaseDialogFormComponent<C
     @Inject(MAT_DIALOG_DATA) public override data: CompanyCapitalDto,
     override service: CompanyCapitalService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 
 

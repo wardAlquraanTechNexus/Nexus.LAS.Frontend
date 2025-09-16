@@ -17,12 +17,16 @@ import { CompanyBoardDto } from '../../../models/company-models/company-board/dt
   styleUrl: './company-view-component.scss'
 })
 export class CompanyViewComponent implements OnInit {
+    get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
+
   selectedCompanyBoard?: CompanyBoardDto | null;
   @Output() backToTableEmit = new EventEmitter();
   company!: GetCompanyDto
   showLoading = false;
   companyId = 0;
-  currentLang: LanguageCode = 'en';
   labels: any;
 
 
@@ -44,8 +48,6 @@ export class CompanyViewComponent implements OnInit {
       if (params['id']) {
         this.companyId = parseInt(params['id']);
         this.getCompany();
-
-
         this.langService.language$.subscribe(lang => {
           this.applyLanguage(lang);
         });

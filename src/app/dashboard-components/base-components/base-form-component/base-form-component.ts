@@ -11,6 +11,7 @@ import { LoadingStateService } from '../../../services/loading-state.service';
 import { LanguageService } from '../../../services/language-service';
 import { LanguageCode } from '../../../models/types/lang-type';
 import { Labels } from '../../../models/consts/labels';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-base-form-component',
@@ -72,15 +73,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       for (const key of Object.keys(this.object)) {
         const validators = this.validationRules[key] || [];
         let value = (this.object as any)[key];
-
-        // Convert ISO date strings to Date objects
-        if (typeof value === 'string' && !isNaN(Date.parse(value))) {
-          // Optional: check if string contains a date-time format
-          const maybeDate = new Date(value);
-          if (!isNaN(maybeDate.getTime())) {
-            value = maybeDate;
-          }
-        }
 
         group[key] = new FormControl(value, validators);
       }
@@ -188,15 +180,20 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       Object.keys(this.formGroup.controls).forEach(key => {
         const control = this.formGroup.get(key);
         if (control !== null) {
-          const value = control.value;
+          let value = control.value;
           if (this.object) {
             (this.object as any)[key] = value;
           }
 
+          // Convert moment objects to native Date before appending
+          if (moment.isMoment(value)) {
+            value = value.toDate();
+          }
+
           if (value instanceof Date) {
             if (value != null) {
-              const date = new Date(value);
-              const formattedDate = date.toDateString();
+              // Format as yyyy-MM-dd for backend compatibility
+              const formattedDate = value.toISOString().split('T')[0];
               formData.append(key, formattedDate);
             }
           } else {

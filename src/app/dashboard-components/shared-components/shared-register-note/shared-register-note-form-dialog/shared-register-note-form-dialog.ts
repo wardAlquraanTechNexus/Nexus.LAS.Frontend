@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RegisterNoteService } from '../../../../services/register-note-service';
 import { BaseDialogFormComponent } from '../../../base-components/base-dialog-form-component/base-dialog-form-component';
 import { RegisterNote } from '../../../../models/register-note/register-note';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-shared-register-note-form-dialog',
@@ -17,8 +18,10 @@ export class SharedRegisterNoteFormDialog extends BaseDialogFormComponent<Regist
   constructor(protected override dialogRef: MatDialogRef<SharedRegisterNoteFormDialog>,
     @Inject(MAT_DIALOG_DATA) public override data: any,
     override cdr: ChangeDetectorRef,
-    override service: RegisterNoteService) {
-    super(dialogRef, data, service, cdr)
+    override service: RegisterNoteService,
+    protected override langService: LanguageService
+  ) {
+    super(dialogRef, data, service, cdr, langService)
   }
 
 

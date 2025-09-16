@@ -5,8 +5,12 @@
         <mat-icon>person</mat-icon>
       </div>
       <div class="header-text">
-        <h2 class="dialog-title">{{data.id ? 'Edit' : 'Add'}} Person</h2>
-        <p class="dialog-subtitle">Enter Person Details</p>
+        <h2 class="dialog-title">
+          {{ data.id ? (label.COMMON.EDIT || 'Edit') : (label.COMMON.ADD || 'Add') }} {{ label.PERSON.PERSONS || 'Person' }}
+        </h2>
+        <p class="dialog-subtitle">
+          {{ label.PERSON.ENTER_PERSON_DETAILS || 'Enter Person Details' }}
+        </p>
       </div>
     </div>
     <button mat-icon-button class="close-button" (click)="onCancel(false)" aria-label="Close dialog">
@@ -26,10 +30,8 @@
   <div class="loading-overlay">
     <div class="loading-content">
       <mat-spinner diameter="40"></mat-spinner>
-      <p class="loading-text">Creating person...</p>
+      <p class="loading-text">{{ label.PERSON.PERSON_CREATED_SUCCESSFULLY || 'Creating person...' }}</p>
     </div>
   </div>
-
   }
-
 </div>

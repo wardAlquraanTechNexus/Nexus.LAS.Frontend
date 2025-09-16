@@ -1,47 +1,47 @@
 <div class="section">
 
   <div class="section-row">
-    <div class="section-subject">INC. Date</div>
+    <div class="section-subject">{{ label.COMPANY.INC_DATE || 'INC. Date' }}</div>
     <div class="section-body">{{ company.incorporationDate | date:"dd/MM/yyyy" }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Company Type</div>
+    <div class="section-subject">{{ label.COMPANY.TYPE || 'Company Type' }}</div>
     <div class="section-body">{{ companyType$ | async }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Company Class</div>
+    <div class="section-subject">{{ label.COMPANY.CLASS || 'Company Class' }}</div>
     <div class="section-body">{{ companyClass$ | async }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Legal Form</div>
+    <div class="section-subject">{{ label.COMPANY.LEGAL_FORM || 'Legal Form' }}</div>
     <div class="section-body">{{ companyLegal$ | async }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Place of Registration</div>
+    <div class="section-subject">{{ label.COMPANY.PLACE_OF_REGISTRATION || 'Place of Registration' }}</div>
     <div class="section-body">{{ placeOfRegistrationMain$ | async }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">City Of Registration</div>
+    <div class="section-subject">{{ label.COMPANY.PLACE_OF_REGISTRATION_SUB || 'City Of Registration' }}</div>
     <div class="section-body">{{ placeOfRegistrationSub$ | async }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Total Shares</div>
+    <div class="section-subject">{{ label.COMPANY.TOTAL_SHARES || 'Total Shares' }}</div>
     <div class="section-body">{{ company.totalShares }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Amount</div>
+    <div class="section-subject">{{ label.COMPANY.CAPITAL_AMOUNT || 'Amount' }}</div>
     <div class="section-body">{{ company.capitalAmount }}</div>
   </div>
 
   <div class="section-row">
-    <div class="section-subject">Number of Partners</div>
+    <div class="section-subject">{{ label.COMPANY.NUMBER_OF_PARTNERS || 'Number of Partners' }}</div>
     <div class="section-body">{{ company.numberOfPartners }}</div>
   </div>
 

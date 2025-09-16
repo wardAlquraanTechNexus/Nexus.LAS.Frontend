@@ -3,6 +3,9 @@ import { GetCompanyDto } from '../../../../models/company-models/get-company-que
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { environment } from '../../../../../environment/environment';
 import { map, Observable } from 'rxjs';
+import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
 
 @Component({
   selector: 'app-company-overview-component',
@@ -17,13 +20,23 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
   placeOfRegistrationMain$!: Observable<string>;
   placeOfRegistrationSub$!: Observable<string>;
 
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
+
   @Input() company!: GetCompanyDto;
 
-  constructor(private dynamicListService: DynamicListService) {}
+  constructor(
+    private dynamicListService: DynamicListService,
+    private langService: LanguageService) { }
 
   ngOnInit(): void {
     if (this.company) {
       this.loadCompanyData();
+      this.langService.language$.subscribe(lang => {
+        this.currentLang = lang;
+      });
     }
   }
 

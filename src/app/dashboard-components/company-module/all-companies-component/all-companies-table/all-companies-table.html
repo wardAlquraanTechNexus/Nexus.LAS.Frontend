@@ -1,13 +1,13 @@
-<div *ngIf="labels" class="nexus-entity-container">
+<div  class="nexus-entity-container">
 
   <!-- SECTION 1: Title and Records -->
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>{{ labels.COMPANY.COMPANIES }}</h2>
+        <h2>{{ label.COMPANY.COMPANIES }}</h2>
       </div>
       <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="onAddNew()">
-        <mat-icon>add</mat-icon> {{ labels.COMPANY.ADD_NEW }}
+        <mat-icon>add</mat-icon> {{ label.COMPANY.ADD_NEW }}
       </button>
     </div>
   </div>
@@ -18,8 +18,8 @@
       <div class="nexus-filters-container" [class.has-expanded-filters]="showFilters">
         <div class="nexus-search-field">
           <mat-form-field appearance="outline">
-            <mat-label>{{ labels.COMMON.SEARCH }}</mat-label>
-            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [placeholder]="labels.COMPANY.SEARCH_ACTIVE_COMPANIES">
+            <mat-label>{{ label.COMMON.SEARCH }}</mat-label>
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [placeholder]="label.COMPANY.SEARCH_ACTIVE_COMPANIES">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
@@ -27,26 +27,26 @@
         <div class="nexus-toggle-group">
           <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple
             class="nexus-toggle-compact">
-            <mat-button-toggle [value]="false">{{ labels.COMPANY.PUBLIC }}</mat-button-toggle>
-            <mat-button-toggle [value]="true">{{ labels.COMPANY.PRIVATE }}</mat-button-toggle>
+            <mat-button-toggle [value]="false">{{ label.COMPANY.PUBLIC }}</mat-button-toggle>
+            <mat-button-toggle [value]="true">{{ label.COMPANY.PRIVATE }}</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
 
         <div class="nexus-toggle-group">
           <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple class="nexus-toggle-normal">
-            <mat-button-toggle [value]="0">{{ labels.NEW }}</mat-button-toggle>
-            <mat-button-toggle [value]="1">{{ labels.ACTIVE }}</mat-button-toggle>
-            <mat-button-toggle [value]="2">{{ labels.INACTIVE }}</mat-button-toggle>
+            <mat-button-toggle [value]="0">{{ label.COMMON.NEW }}</mat-button-toggle>
+            <mat-button-toggle [value]="1">{{ label.COMMON.ACTIVE }}</mat-button-toggle>
+            <mat-button-toggle [value]="2">{{ label.COMMON.INACTIVE }}</mat-button-toggle>
           </mat-button-toggle-group>
         </div>
 
         <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
             <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
-            {{ labels.COMMON.FILTERS }}
+            {{ label.COMMON.FILTERS }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
-            <mat-icon>download</mat-icon> {{ labels.COMPANY.EXPORT }}
+            <mat-icon>download</mat-icon> {{ label.COMPANY.EXPORT }}
           </button>
         </div>
       </div>
@@ -56,7 +56,7 @@
 
         <div class="section">
           <div class="section-header">
-            <h3>{{ labels.COMPANY.ADVANCED_FILTER }}</h3>
+            <h3>{{ label.COMPANY.ADVANCED_FILTER }}</h3>
           </div>
           <div class="section-body">
 
@@ -64,63 +64,63 @@
             <div class="row mb-3">
               <div>
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>{{ labels.COMPANY.CAPITAL_AMOUNT }}</mat-label>
+                  <mat-label>{{ label.COMPANY.CAPITAL_AMOUNT }}</mat-label>
                   <input matInput [(ngModel)]="params.capitalAmount" (keyup.enter)="search()">
                 </mat-form-field>
               </div>
               <div>
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>{{ labels.COMPANY.TOTAL_SHARES }}</mat-label>
+                  <mat-label>{{ label.COMPANY.TOTAL_SHARES }}</mat-label>
                   <input matInput [(ngModel)]="params.totalShares" (keyup.enter)="search()">
                 </mat-form-field>
               </div>
               <div>
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>{{ labels.COMPANY.NUMBER_OF_PARTNERS }}</mat-label>
+                  <mat-label>{{ label.COMPANY.NUMBER_OF_PARTNERS }}</mat-label>
                   <input matInput [(ngModel)]="params.numberOfPartners" (keyup.enter)="search()">
                 </mat-form-field>
               </div>
 
               <div *ngIf="loadCompanyTypesFn">
                 <select-auto-complete [controlName]="'companyTypeIdn'" [fnGet]="loadCompanyTypesFn"
-                  [formGroup]="formGroup" [label]="labels.COMPANY.TYPE" [keyToShow]="'name'" [valueKey]="'id'"
+                  [formGroup]="formGroup" [label]="label.COMPANY.TYPE" [keyToShow]="'name'" [valueKey]="'id'"
                   (selectEmitter)="onSelectCompanyType($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div *ngIf="loadCompanyClassesFn">
                 <select-auto-complete [controlName]="'companyClassIdn'" [fnGet]="loadCompanyClassesFn"
-                  [formGroup]="formGroup" [label]="labels.COMPANY.CLASS" [keyToShow]="'name'" [valueKey]="'id'"
+                  [formGroup]="formGroup" [label]="label.COMPANY.CLASS" [keyToShow]="'name'" [valueKey]="'id'"
                   (selectEmitter)="onSelectCompanyClass($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div>
                 <select-auto-complete *ngIf="loadCompanyLegalsFn" [controlName]="'legalTypeIdn'"
-                  [fnGet]="loadCompanyLegalsFn" [formGroup]="formGroup" [label]="labels.COMPANY.LEGAL_FORM" [keyToShow]="'name'"
+                  [fnGet]="loadCompanyLegalsFn" [formGroup]="formGroup" [label]="label.COMPANY.LEGAL_FORM" [keyToShow]="'name'"
                   [valueKey]="'id'" (selectEmitter)="onSelectCompanyLegalType($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div>
                 <select-auto-complete *ngIf="loadActivitiesFn" [controlName]="'companyActivityIdn'"
-                  [fnGet]="loadActivitiesFn" [formGroup]="formGroup" [label]="labels.COMPANY.ACTIVITY" [keyToShow]="'name'"
+                  [fnGet]="loadActivitiesFn" [formGroup]="formGroup" [label]="label.COMPANY.ACTIVITY" [keyToShow]="'name'"
                   [valueKey]="'id'" (selectEmitter)="onSelectCompanyActivity($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div>
                 <select-auto-complete *ngIf="loadContractTypesFn" [controlName]="'companyContractTypeIdn'"
-                  [fnGet]="loadContractTypesFn" [formGroup]="formGroup" [label]="labels.COMPANY.CONTRACT_TYPE" [keyToShow]="'name'"
+                  [fnGet]="loadContractTypesFn" [formGroup]="formGroup" [label]="label.COMPANY.CONTRACT_TYPE" [keyToShow]="'name'"
                   [valueKey]="'id'" (selectEmitter)="onSelectContractType($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
 
               <div *ngIf="loadPlaceOfRegistrationFn">
                 <select-auto-complete [controlName]="'placeOfRegistrationMainIdn'" [fnGet]="loadPlaceOfRegistrationFn"
-                  [formGroup]="formGroup" [label]="labels.COMPANY.PLACE_OF_REGISTRATION" [keyToShow]="'name'" [valueKey]="'id'"
+                  [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION" [keyToShow]="'name'" [valueKey]="'id'"
                   (selectEmitter)="onSelectMainRegistrtaion($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div *ngIf="loadPlaceOfRegistrationSubFn">
                 <select-auto-complete [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
-                  [formGroup]="formGroup" [label]="labels.COMPANY.PLACE_OF_REGISTRATION_SUB" [keyToShow]="'name'" [valueKey]="'id'"
+                  [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION_SUB" [keyToShow]="'name'" [valueKey]="'id'"
                   (selectEmitter)="onSelectSubRegistrtaion($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
@@ -132,19 +132,19 @@
 
       <!-- Bulk Actions -->
       <div class="nexus-bulk-actions" *ngIf="selectedCompanies.length">
-        <span class="nexus-bulk-count">{{ selectedCompanies.length }} {{ labels.COMMON.SELECTED }}</span>
+        <span class="nexus-bulk-count">{{ selectedCompanies.length }} {{ label.COMMON.SELECTED }}</span>
         <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
           <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
-            <mat-icon>check_circle</mat-icon> {{ labels.COMPANY.ACTIVATE }}
+            <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inActiveStatus)">
-            <mat-icon>cancel</mat-icon> {{ labels.COMPANY.DEACTIVATE }}
+            <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-            <mat-icon>visibility</mat-icon> {{ labels.COMPANY.PUBLIC }}
+            <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
           </button>
           <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
-            <mat-icon>visibility_off</mat-icon> {{ labels.COMPANY.PRIVATE }}
+            <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
           </button>
         </div>
       </div>
@@ -181,32 +181,32 @@
     </button>
     <mat-menu #menuRow="matMenu" class="nexus-action-menu">
       <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
-        <mat-icon class="nexus-icon-print">print</mat-icon> {{ labels.COMMON.PRINT }}
+        <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
       </button>
       
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)"
         class="nexus-menu-item nexus-menu-success">
-        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ labels.COMPANY.ACTIVATE }}
+        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
       </button>
 
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)"
         class="nexus-menu-item nexus-menu-warning">
-        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ labels.COMPANY.DEACTIVATE }}
+        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
       </button>
 
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)"
         class="nexus-menu-item nexus-menu-info">
-        <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ labels.COMPANY.PUBLIC }}
+        <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
       </button>
 
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)"
         class="nexus-menu-item nexus-menu-neutral">
-        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ labels.COMPANY.PRIVATE }}
+        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
       </button>
 
       <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteCompany(row)"
         class="nexus-menu-item nexus-menu-danger">
-        <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ labels.COMMON.DELETE }}
+        <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
       </button>
 
     </mat-menu>

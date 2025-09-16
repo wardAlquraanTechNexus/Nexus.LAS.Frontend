@@ -33,37 +33,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     totalRecords: 0
   };
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "personId",
-      label: "Person",
-      pipes: ["person"]
-    },
-    {
-      key: "position",
-      label: "Position",
-      pipes: ["board-position"]
-    },
-    {
-      key: "appointmentDate",
-      label: "Date of Appintment",
-      pipes: ["date"]
-    },
-    {
-      key: "cessationDate",
-      label: "Date of cessation",
-      pipes: ["date"]
-    },
-    {
-      key: "isActive",
-      label: "Status",
-      pipes: ["active"]
-    },
-    {
-      key: 'action',
-      label: 'Actions'
-    }
-  ]
+ 
 
   override params: GetCompanyBoardMemberParams = {
     companyId: 0,
@@ -79,12 +49,47 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private dialog: MatDialog,
-  override langService: LanguageService
+    override langService: LanguageService
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService)
   }
+
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
+
+    // Apply label logic based on langService.getLabel
+    this.displayColumns = [
+      {
+        key: "personId",
+        label: this.langService.getLabel('COMMON.PERSON') || "Person",
+        pipes: ["person"]
+      },
+      {
+        key: "position",
+        label: this.langService.getLabel('COMPANY.DESIGNATION') || "Position",
+        pipes: ["board-position"]
+      },
+      {
+        key: "appointmentDate",
+        label: this.langService.getLabel('COMPANY.APPOINTMENT_DATE') || "Date of Appointment",
+        pipes: ["date"]
+      },
+      {
+        key: "cessationDate",
+        label: this.langService.getLabel('COMPANY.CESSATION_DATE') || "Date of Cessation",
+        pipes: ["date"]
+      },
+      {
+        key: "isActive",
+        label: this.langService.getLabel('COMMON.STATUS') || "Status",
+        pipes: ["active"]
+      },
+      {
+        key: 'action',
+        label: this.langService.getLabel('COMMON.ACTIONS') || "Actions"
+      }
+    ];
+
     super.ngOnInit();
   }
 

@@ -4,6 +4,8 @@ import { CompanyChamperOfCommerceService } from '../../../../../services/company
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
 import { CompanyChamberOfCommerce } from '../../../../../models/company-models/company-champer-of-commerce/company-champer-of-commerce';
+import { LanguageService } from '../../../../../services/language-service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-company-champer-of-commerce-form-dialog-component',
@@ -18,13 +20,15 @@ export class CompanyChamperOfCommerceFormDialogComponent extends BaseDialogFormC
     @Inject(MAT_DIALOG_DATA) public override data: CompanyChamberOfCommerceDTO,
     override service: CompanyChamperOfCommerceService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 
   override onSave(element: any) {
     if (!element.element.id) {
       this.showLoading = true;
+
       this.service.createByForm(element.formData).subscribe({
         next: (res => {
           this.showLoading = false;

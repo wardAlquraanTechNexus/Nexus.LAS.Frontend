@@ -40,7 +40,11 @@ export const Labels = {
 
         COMPANY: {
             CODE: "Code",
+            SELECT_COMPANY_ACTIVITY: "Select Company Activity",
             COMPANY_NAME: "Company Name",
+            ENTER_COMPANY_DETAILS: "Enter company details",
+            PERSONS_IN_CHARGE: "Persons In Charge",
+            ADD_PERSON_IN_CHARGE: "Add Person In Charge",
             STATUS: "Status",
             PRIVATE: "Private",
             ADD_NEW: "Add New Company",
@@ -51,7 +55,9 @@ export const Labels = {
             EXPORT_EXCEL: "Export to Excel",
             EXPORT_PDF: "Export to PDF",
             COMPANIES: "Companies",
-            MANAGE_COMPANIES: "Manage Companies",
+            REGISTRATIONS: "Registrations",
+            BOARD_MEMBERSHIP: "Board Membership",
+            ACCOUNT_SIGNATORIES: "Account Signatories",
             ACTIVE_COMPANIES: "Active Companies",
             SEARCH_ACTIVE_COMPANIES: "Search Active Companies",
             ACTIVE_PUBLIC_COMPANIES: "Active Public Companies",
@@ -90,8 +96,43 @@ export const Labels = {
             SHARE_PERCENT: "% of Shares",
             APPOINTMENT_DATE: "Date of Appointment",
             CESSATION_DATE: "Date of Cessation",
+            ORG_CHART: "Org Chart",
+            CHAMBER_OF_COMMERCE: "Chamber Of Commerce",
+            ADD_CHAMBER: "Add Chamber",
+            LICENSES_AND_REGISTERS: "Licenses & Registers",
+            ADD_LICENSE_OR_REGISTER: "Add License or Register",
+            LICENSE_STATUS: "License Status",
+            LICENSE_CLASSIFICATION: "Classification",
+            ISSUE_DATE_REQUIRED: "Issue Date is required",
+            EXPIRY_DATE_REQUIRED: "Expiry Date is required",
+            ACTIVITIES: "Company Activities",
+            ADD_ACTIVITY: "Add Activity",
+            CAPITALS: "Company Capitals",
+            ADD_CAPITAL: "Add Company Capital",
+            NOMINAL_VALUE_OF_SHARE: "Nominal Value of Share",
+            AUTHORIZED_CAPITAL_AMOUNT: "Authorized Capital Amount",
+            PAID_CAPITAL_AMOUNT: "Paid Capital Amount",
+            ISSUED_SHARES: "Issued Shares",
+            CLASS_OF_SHARES: "Class Of Shares",
+            CCI_NUMBER: "CCI Number",
+            CCI_ISSUE_DATE: "CCI Issue Date",
+            CCI_ISSUE_DATE_REQUIRED: "CCI Issue Date is required",
+            CCI_EXPIRY_DATE: "CCI Expiry Date",
+            CCI_USERNAME: "CCI Username",
+            CCI_PASSWORD: "CCI Password",
+            CONTRACTS: "Company Contracts",         // <-- Added
+            ADD_CONTRACT: "Add Contract",           // <-- Added
+            ADD_BOARD_MEMBER: "Add Board Member", // <-- Added
+            BANK_ACCOUNTS: "Bank Accounts",           // <-- Added
+            ADD_BANK_ACCOUNT: "Add Bank Account",     // <-- Added
+            ADD_ACCOUNT_SIGNATORY: "Add Account Signatory", // <-- Added
+            CAPITAL_CURRENCY: "Capital Currency", // <-- Added
+
         },
         COMMON: {
+            PERSON: "Person",
+            COMPANY: "Company",
+            ADD_COMPANY: "Add Company",
             EMAIL_REQUIRED: "Email is required",
             PHONE_REQUIRED: "Phone number is required",
             ADDRESS_REQUIRED: "Address is required",
@@ -131,7 +172,6 @@ export const Labels = {
             NATIONALITY: "Nationality",
             RECORDS_RETURNED: "Records has been returned",
             NO_RECORDS: "No records available",
-            COMPANY: "Company",
             EDIT_COMPANY: "Edit Company",
             MORE_ACTIONS: "More Actions",
             REMINDER: "Reminder",
@@ -144,6 +184,7 @@ export const Labels = {
             MARK_PUBLIC: "Mark as Public",
             MARK_PRIVATE: "Mark as Private",
             OVERVIEW: "Overview",
+            VIEW: "View",
             CONTACTS: "Contacts",
             ASSETS: "Assets",
             NOTES: "Notes",
@@ -163,6 +204,7 @@ export const Labels = {
             DELETE_EMAIL: "Delete Email",
             PHONE_NUMBERS: "Phone Numbers",
             PHONE_NUMBER: "Phone Number",
+            ACCOUNT_SIGNATORIES: "Account Signatories",
             ADD_PHONE: "Add Phone",
             EDIT_PHONE: "Edit Phone",
             DELETE_PHONE: "Delete Phone",
@@ -189,10 +231,13 @@ export const Labels = {
             ADDRESS_LINE2_REQUIRED: "Address Line 2 is required",
             ADDRESS_LINE3_REQUIRED: "Address Line 3 is required",
             PO_BOX_NUMBER: "PO Box Number",
+            EXPIRED: "Expired",
             PO_BOX_NUMBER_PLACEHOLDER: "Enter P.O. Box number...",
             PO_BOX_NUMBER_REQUIRED: "PO Box Number is required",
             CITIES: "Cities",
-
+            DATE_OF_APPOINTMENT: "Date of Appointment",
+            RULE: "Rule",
+            LOADING: "Loading...",                    // <-- Added
         },
     },
     ar: {
@@ -236,7 +281,10 @@ export const Labels = {
         COMPANY: {
             CODE: "الرمز",
             NAME_EN: "الاسم بالإنجليزية",
+            ENTER_COMPANY_DETAILS: "أدخل تفاصيل الشركة",
             NAME_AR: "الاسم بالعربية",
+            PERSONS_IN_CHARGE: "الأشخاص المسؤولون",
+            ADD_PERSON_IN_CHARGE: "إضافة شخص مسؤول",
             COMPANY_NAME: "اسم الشركة",
             STATUS: "الحالة",
             PRIVATE: "خاص",
@@ -245,10 +293,16 @@ export const Labels = {
             DEACTIVATE: "إلغاء التفعيل",
             MARK_PUBLIC: "تعيين كعام",
             MARK_PRIVATE: "تعيين كخاص",
+            DESIGNATION: "الصفة",
             EXPORT_EXCEL: "تصدير إلى Excel",
+            BOARD_MEMBERSHIP: "عضوية مجلس الإدارة",
+            REGISTRATIONS: "التسجيلات",
+            ACCOUNT_SIGNATORIES: "المفوضون بالتوقيع",
             EXPORT_PDF: "تصدير إلى PDF",
             COMPANIES: "الشركات",
             MANAGE_COMPANIES: "إدارة الشركات",
+            ADD_ACCOUNT_SIGNATORY: "إضافة مفوض بالتوقيع", // <-- Added
+            SELECT_COMPANY_ACTIVITY: "اختر نشاط الشركة",
             ACTIVE_COMPANIES: "الشركات النشطة",
             SEARCH_ACTIVE_COMPANIES: "بحث عن الشركات النشطة",
             ACTIVE_PUBLIC_COMPANIES: "الشركات العامة النشطة",
@@ -286,8 +340,41 @@ export const Labels = {
             SHARE_PERCENT: "نسبة الأسهم",
             APPOINTMENT_DATE: "تاريخ التعيين",
             CESSATION_DATE: "تاريخ الانتهاء",
+            ORG_CHART: "المخطط التنظيمي",
+            CHAMBER_OF_COMMERCE: "غرفة التجارة",
+            ADD_CHAMBER: "إضافة غرفة تجارة",
+            LICENSES_AND_REGISTERS: "التراخيص والسجلات",
+            ADD_LICENSE_OR_REGISTER: "إضافة ترخيص أو سجل",
+            LICENSE_STATUS: "حالة الترخيص",
+            LICENSE_CLASSIFICATION: "التصنيف",
+            ISSUE_DATE_REQUIRED: "تاريخ الإصدار مطلوب",
+            EXPIRY_DATE_REQUIRED: "تاريخ الانتهاء مطلوب",
+            ACTIVITIES: "أنشطة الشركة",
+            ADD_ACTIVITY: "إضافة نشاط",
+            CAPITALS: "رؤوس أموال الشركة",
+            ADD_CAPITAL: "إضافة رأس مال الشركة",
+            NOMINAL_VALUE_OF_SHARE: "القيمة الاسمية للسهم",
+            AUTHORIZED_CAPITAL_AMOUNT: "رأس المال المصرح به",
+            PAID_CAPITAL_AMOUNT: "رأس المال المدفوع",
+            ISSUED_SHARES: "الأسهم المصدرة",
+            CLASS_OF_SHARES: "فئة الأسهم",
+            CCI_NUMBER: "رقم غرفة التجارة",
+            CCI_ISSUE_DATE: "تاريخ إصدار غرفة التجارة",
+            CCI_ISSUE_DATE_REQUIRED: "تاريخ إصدار غرفة التجارة مطلوب",
+            CCI_EXPIRY_DATE: "تاريخ انتهاء غرفة التجارة",
+            CCI_USERNAME: "اسم مستخدم غرفة التجارة",
+            CCI_PASSWORD: "كلمة مرور غرفة التجارة",
+            CONTRACTS: "عقود الشركة",               // <-- Added
+            ADD_CONTRACT: "إضافة عقد",              // <-- Added
+            ADD_BOARD_MEMBER: "إضافة عضو مجلس إدارة", // <-- Added
+            BANK_ACCOUNTS: "الحسابات البنكية",        // <-- Added
+            ADD_BANK_ACCOUNT: "إضافة حساب بنكي",      // <-- Added
+            CAPITAL_CURRENCY: "عملة رأس المال", // <-- Added
         },
         COMMON: {
+            PERSON: "شخص",
+            COMPANY: "شركة",
+            ADD_COMPANY: "إضافة شركة",
             EMAIL_REQUIRED: "البريد الإلكتروني مطلوب",
             PHONE_REQUIRED: "رقم الهاتف مطلوب",
             ADDRESS_REQUIRED: "العنوان مطلوب",
@@ -313,6 +400,7 @@ export const Labels = {
             ADD_MENUS: "اضافة قائمة",
             SET_MENUS: "تعديل المجموعات",
             PUBLIC: "عام",
+            EXPIRED: "منتهية",
             PRIVATE: "خاص",
             NEW: "جديد",
             ACTIVE: "نشط",
@@ -327,7 +415,6 @@ export const Labels = {
             NATIONALITY: "الجنسية",
             RECORDS_RETURNED: "تمت إعادة السجلات",
             NO_RECORDS: "لا توجد سجلات",
-            COMPANY: "الشركة",
             EDIT_COMPANY: "تعديل الشركة",
             MORE_ACTIONS: "مزيد من الإجراءات ",
             REMINDER: "تذكير",
@@ -388,7 +475,10 @@ export const Labels = {
             PO_BOX_NUMBER: "رقم صندوق البريد",
             PO_BOX_NUMBER_PLACEHOLDER: "أدخل رقم صندوق البريد...",
             PO_BOX_NUMBER_REQUIRED: "رقم صندوق البريد مطلوب",
-
+            DATE_OF_APPOINTMENT: "تاريخ التعيين",
+            RULE: "الدور",
+            VIEW: "عرض",
+            LOADING: "جاري التحميل...",               // <-- Added
         },
     }
 } as const;

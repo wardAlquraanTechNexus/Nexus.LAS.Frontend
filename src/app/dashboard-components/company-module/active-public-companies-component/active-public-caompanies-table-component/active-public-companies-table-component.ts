@@ -31,8 +31,6 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
   }
 
   override displayColumns: DisplayColumn[] = [];
-  private langSub!: Subscription;
-
   constructor(
     override service: CompanyService,
     override cdr: ChangeDetectorRef,
@@ -51,13 +49,11 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
   override ngOnInit(): void {
     super.ngOnInit();
     this.setDisplayColumns();
-    this.langSub = this.langService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
+    
   }
 
   setDisplayColumns() {
-    const labels = this.langService.currentLanguage() === 'ar'
+    const labels = this.currentLang === 'ar'
       ? {
           select: 'اختيار',
           code: 'الرمز',
@@ -97,8 +93,5 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
     ];
   }
 
-  override ngOnDestroy(): void {
-    this.langSub?.unsubscribe();
-    super.ngOnDestroy?.();
-  }
+
 }

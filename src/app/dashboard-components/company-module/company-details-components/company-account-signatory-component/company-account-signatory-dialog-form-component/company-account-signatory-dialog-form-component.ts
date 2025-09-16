@@ -4,6 +4,7 @@ import { BaseDialogFormComponent } from '../../../../base-components/base-dialog
 import { CompanyAccountSignatoryService } from '../../../../../services/company-services/company-account-signatory-service';
 import { CompanyAccountSignatoryDto } from '../../../../../models/company-models/company-account-signatory/dtos/company-account-signatory-dto';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-account-signatory-dialog-form-component',
@@ -18,7 +19,8 @@ export class CompanyAccountSignatoryDialogFormComponent extends BaseDialogFormCo
     @Inject(MAT_DIALOG_DATA) public override data: CompanyAccountSignatoryDto,
     override service: CompanyAccountSignatoryService,
     protected override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 }

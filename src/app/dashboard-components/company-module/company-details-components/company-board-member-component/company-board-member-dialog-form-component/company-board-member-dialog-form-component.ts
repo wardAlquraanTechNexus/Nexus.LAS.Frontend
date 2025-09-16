@@ -4,6 +4,7 @@ import { CompanyBoardMemberDto } from '../../../../../models/company-models/comp
 import { CompanyBoardMemberService } from '../../../../../services/company-services/company-board-member-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-board-member-dialog-form-component',
@@ -17,8 +18,9 @@ export class CompanyBoardMemberDialogFormComponent extends BaseDialogFormCompone
     @Inject(MAT_DIALOG_DATA) public override data: CompanyBoardMemberDto,
     override service: CompanyBoardMemberService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 
 

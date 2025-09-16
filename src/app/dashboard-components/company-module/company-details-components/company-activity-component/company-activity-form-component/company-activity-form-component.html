@@ -6,8 +6,8 @@
                 <mat-icon>business</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Activity</h2>
-                <p class="dialog-subtitle">Select Company Activity</p>
+                <h2 class="dialog-title">{{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{ label.COMPANY.ACTIVITY || 'Company Activity' }}</h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.SELECT_COMPANY_ACTIVITY || 'Select Company Activity' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -22,14 +22,13 @@
 
                 <div class="col-12">
                     <select-auto-complete *ngIf="loadCompanyActivitiesTypeFn" [controlName]="'activity'"
-                    [fnGet]="loadCompanyActivitiesTypeFn" [formGroup]="formGroup" [isRequired]="true" [label]="'Activity'"
-                    [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
-                     ></select-auto-complete>
+                        [fnGet]="loadCompanyActivitiesTypeFn" [formGroup]="formGroup" [isRequired]="true"
+                        [label]="label.COMPANY.ACTIVITY || 'Activity'"
+                        [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false">
+                    </select-auto-complete>
                 </div>
 
-
             </form>
-
         </div>
     </div>
 
@@ -37,11 +36,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

@@ -25,39 +25,6 @@ import { LanguageService } from '../../../../services/language-service';
 })
 export class CompanyChamperOfCommerceComponent extends TableFormComponent<CompanyChamberOfCommerce> {
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "cciNumber",
-      label: "CCI Number"
-    },
-    {
-      key: "cciIssueDate",
-      label: "CCI Issue Date",
-      pipes: ["date"]
-    },
-    {
-      key: "cciExpiryDate",
-      label: "CCI Expiry Date",
-      pipes: ["date"]
-    },
-    {
-      key: "cciExpiryActiveReminder",
-      label: "Reminder",
-      inputType: "mat-slide-toggle"
-    },
-    {
-      key: "cciUsername",
-      label: "Username"
-    },
-    {
-      key: "cciPassword",
-      label: "Password"
-    },
-    {
-      key: "action",
-      label: "Actions"
-    }
-  ]
 
   override params: GetCompanyChamperOfCommerceParams = {
     page: 0,
@@ -80,6 +47,39 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
   }
   override ngOnInit(): void {
     this.params.companyIdn = this.company.id;
+     this.displayColumns = [
+      {
+        key: "cciNumber",
+        label: this.langService.getLabel('COMPANY.CCI_NUMBER') || "CCI Number"
+      },
+      {
+        key: "cciIssueDate",
+        label: this.langService.getLabel('COMPANY.CCI_ISSUE_DATE') || "CCI Issue Date",
+        pipes: ["date"]
+      },
+      {
+        key: "cciExpiryDate",
+        label: this.langService.getLabel('COMPANY.CCI_EXPIRY_DATE') || "CCI Expiry Date",
+        pipes: ["date"]
+      },
+      {
+        key: "cciExpiryActiveReminder",
+        label: this.langService.getLabel('COMPANY.REMINDER') || "Reminder",
+        inputType: "mat-slide-toggle"
+      },
+      {
+        key: "cciUsername",
+        label: this.langService.getLabel('COMPANY.CCI_USERNAME') || "Username"
+      },
+      {
+        key: "cciPassword",
+        label: this.langService.getLabel('COMPANY.CCI_PASSWORD') || "Password"
+      },
+      {
+        key: "action",
+        label: this.langService.getLabel('COMMON.ACTIONS') || "Actions"
+      }
+    ];
     super.ngOnInit();
   }
 
@@ -88,8 +88,8 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
       id: 0,
       companyIdn: this.company.id,
       cciNumber: "",
-      cciIssueDate: "",
-      cciExpiryDate: "",
+      cciIssueDate: null,
+      cciExpiryDate: null,
       cciExpiryActiveReminder: false,
       cciUsername: "",
       cciPassword: "",

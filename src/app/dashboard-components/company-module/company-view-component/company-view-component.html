@@ -13,7 +13,7 @@
         <div class="breadcrumb-nav">
             <a (click)="navigateToCompanies()" class="breadcrumb-link">
                 <mat-icon>arrow_back</mat-icon>
-                {{labels['company']}}
+                {{ label.COMPANY.COMPANIES || 'Companies' }}
             </a>
             <span class="breadcrumb-separator">/</span>
             <span class="current-page">{{ company.companyEnglishName | titlecase }}</span>
@@ -46,11 +46,11 @@
 
                     <div class="person-meta-info">
                         <div class="info-item">
-                            <span class="info-label">ID:</span>
+                            <span class="info-label">{{ label.COMPANY.CODE || 'ID:' }}</span>
                             <span class="info-value">{{ company.companyCode }}</span>
                         </div>
                         <div class="info-item" *ngIf="company.companyShortName">
-                            <span class="info-label">Short Name:</span>
+                            <span class="info-label">{{ label.COMPANY.SHORT_NAME || 'Short Name:' }}</span>
                             <span class="info-value">{{ company.companyShortName| uppercase }}</span>
                         </div>
                     </div>
@@ -61,16 +61,16 @@
             <div class="person-actions">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
-                    {{labels['editCompany']}}
+                    {{ label.COMMON.EDIT_COMPANY || 'Edit Company' }}
                 </button>
 
                 <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
                     <mat-icon>more_vert</mat-icon>
-                    {{labels['moreActions']}}
+                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-
+                    <!-- Add menu items here if needed -->
                 </mat-menu>
             </div>
         </div>
@@ -85,7 +85,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>dashboard</mat-icon>
-                            <span>Overview</span>
+                            <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -104,7 +104,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>people</mat-icon>
-                            <span>Org Chart</span>
+                            <span>{{ label.COMPANY.ORG_CHART || 'Org Chart' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -115,7 +115,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>how_to_reg</mat-icon>
-                            <span>Registrations</span>
+                            <span>{{ label.COMPANY.REGISTRATIONS || 'Registrations' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -139,7 +139,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>monetization_on</mat-icon>
-                            <span>Capitals</span>
+                            <span>{{ label.COMPANY.CAPITAL_AMOUNT || 'Capitals' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -156,7 +156,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>assignment</mat-icon>
-                            <span>Contract</span>
+                            <span>{{ label.COMPANY.CONTRACT_TYPE || 'Contract' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -170,7 +170,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>works</mat-icon>
-                            <span>Assets</span>
+                            <span>{{ label.COMMON.ASSETS || 'Assets' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -185,13 +185,10 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>people</mat-icon>
-                            <span>Boards</span>
+                            <span>{{ label.PERSON.BOARD_MEMBERSHIP || 'Boards' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <!-- <div class="company-overview-component">
-                            <app-company-board-component [company]="company" (rowClick)="onSelectCompanyBoard($event)"></app-company-board-component>
-                        </div> -->
                         <div class="company-overview-component">
                             <app-company-board-member-component
                                 [company]="company"></app-company-board-member-component>
@@ -203,7 +200,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>account_balance_wallet</mat-icon>
-                            <span>Bank Account</span>
+                            <span>{{ label.PERSON.ACCOUNT_SIGNATORIES || 'Bank Account' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -214,7 +211,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>contacts</mat-icon>
-                            <span>Contacts</span>
+                            <span>{{ label.COMMON.CONTACTS || 'Contacts' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
@@ -237,7 +234,7 @@
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>notes</mat-icon>
-                            <span>Notes</span>
+                            <span>{{ label.COMMON.NOTES || 'Notes' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">

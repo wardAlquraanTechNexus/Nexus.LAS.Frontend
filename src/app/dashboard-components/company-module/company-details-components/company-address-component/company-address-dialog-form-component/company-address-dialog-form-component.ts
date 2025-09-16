@@ -4,6 +4,7 @@ import { BaseDialogFormComponent } from '../../../../base-components/base-dialog
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CompanyAddressDto } from '../../../../../models/company-models/company-address/dtos/company-address-dto';
 import { CompanyAddressService } from '../../../../../services/company-services/company-address-service';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-address-dialog-form-component',
@@ -20,7 +21,8 @@ export class CompanyAddressDialogFormComponent
     @Inject(MAT_DIALOG_DATA) public override data: CompanyAddressDto,
     override service: CompanyAddressService,
     protected override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 }

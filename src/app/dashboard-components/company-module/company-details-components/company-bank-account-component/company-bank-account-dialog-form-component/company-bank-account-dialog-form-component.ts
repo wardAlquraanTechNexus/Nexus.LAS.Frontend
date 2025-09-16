@@ -4,6 +4,7 @@ import { CompanyBankAccount } from '../../../../../models/company-models/company
 import { CompanyBankAccountDto } from '../../../../../models/company-models/company-bank-account/dtos/company-bank-account-dto';
 import { CompanyBankAccountService } from '../../../../../services/company-services/company-bank-account-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-bank-account-dialog-form-component',
@@ -18,7 +19,8 @@ export class CompanyBankAccountDialogFormComponent extends BaseDialogFormCompone
     @Inject(MAT_DIALOG_DATA) public override data: CompanyBankAccountDto,
     override service: CompanyBankAccountService,
     protected override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 }

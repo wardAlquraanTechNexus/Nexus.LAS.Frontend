@@ -30,44 +30,7 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
     totalRecords: 0
   };
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key:"personId",
-      label:"Account Signatory",
-      pipes:["person" , "link"]
-    },
-    {
-      key:"rule",
-      label:"Rule",
-      pipes:["rule"]
-    },
-    {
-      key:"fromAmount",
-      label:"From Amount"
-    },
-    {
-      key:"toAmount",
-      label:"To Amount"
-    },
-    {
-      key:"description",
-      label:"Description"
-    },
-    {
-      key:"accountSignatoryDate",
-      label:"Date of Appointment",
-      pipes:["date"]
-    },
-    {
-      key:"accountSignatoryActive",
-      label:"Active",
-      pipes:['signatory-active']
-    },
-    {
-      key: 'action',
-      label: 'Actions'
-    }
-  ]
+ 
 
   override params: GetCompanyAccountSignatoryParams = {
     companyBankAccountId: 0,
@@ -88,8 +51,50 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService)
   }
+
   override ngOnInit(): void {
     this.params.companyBankAccountId = this.companyBankAccount.id;
+
+    // Apply label logic based on langService.getLabel
+    this.displayColumns = [
+      {
+        key:"personId",
+        label: this.langService.getLabel('COMPANY.ACCOUNT_SIGNATORIES') || "Account Signatory",
+        pipes:["person" , "link"]
+      },
+      {
+        key:"rule",
+        label: this.langService.getLabel('COMMON.RULE') || "Rule",
+        pipes:["rule"]
+      },
+      {
+        key:"fromAmount",
+        label: this.langService.getLabel('COMPANY.FROM_AMOUNT') || "From Amount"
+      },
+      {
+        key:"toAmount",
+        label: this.langService.getLabel('COMPANY.TO_AMOUNT') || "To Amount"
+      },
+      {
+        key:"description",
+        label: this.langService.getLabel('COMPANY.DESCRIPTION') || "Description"
+      },
+      {
+        key:"accountSignatoryDate",
+        label: this.langService.getLabel('COMMON.DATE_OF_APPOINTMENT') || "Date of Appointment",
+        pipes:["date"]
+      },
+      {
+        key:"accountSignatoryActive",
+        label: this.langService.getLabel('COMMON.ACTIVE') || "Active",
+        pipes:['signatory-active']
+      },
+      {
+        key: 'action',
+        label: this.langService.getLabel('COMMON.ACTIONS') || "Actions"
+      }
+    ];
+
     super.ngOnInit();
   }
 

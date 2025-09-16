@@ -1,13 +1,13 @@
 <div class="table-header">
-  <div class="header-title">Company Capitals</div>
+  <div class="header-title">{{ label.COMPANY.CAPITALS || 'Company Capitals' }}</div>
   <div class="header-actions">
       
       <!-- Add button only shows when table is visible -->
       <button *ngIf="showTable" mat-raised-button color="primary" (click)="onAddNew()">
           <mat-icon>add</mat-icon>
-          Add Company Capital
+          {{ label.COMPANY.ADD_CAPITAL || 'Add Company Capital' }}
         </button>
-        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? 'Hide' : 'Show'">
+        <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? (label.COMMON.HIDE || 'Hide') : (label.COMMON.SHOW || 'Show')">
           <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
         </button>
   </div>
@@ -27,10 +27,10 @@
   </button>
   <mat-menu #menuRow="matMenu">
     <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
-      <mat-icon>edit</mat-icon> Edit
+      <mat-icon>edit</mat-icon> {{ label.COMMON.EDIT || 'Edit' }}
     </button>
     <button mat-menu-item class="btn-delete" [confirmDelete]="deleteFn(row.id)">
-      <mat-icon>delete</mat-icon> Delete
+      <mat-icon>delete</mat-icon> {{ label.COMMON.DELETE || 'Delete' }}
     </button>
   </mat-menu>
 </ng-template>

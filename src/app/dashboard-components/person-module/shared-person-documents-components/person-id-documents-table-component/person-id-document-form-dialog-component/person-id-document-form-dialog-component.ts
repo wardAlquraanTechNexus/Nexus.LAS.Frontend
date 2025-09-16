@@ -4,6 +4,7 @@ import { PersonIdDetailDto } from '../../../../../models/person-models/person-id
 import { PersonIdDetailService } from '../../../../../services/person-services/person-id-detail-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PersonsIDDetail } from '../../../../../models/person-models/person-id-details/person-id-details';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-person-id-document-form-dialog-component',
@@ -17,8 +18,9 @@ export class PersonIdDocumentFormDialogComponent extends BaseDialogFormComponent
     @Inject(MAT_DIALOG_DATA) public override data: PersonIdDetailDto,
     override service: PersonIdDetailService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 
   override onSave(element: any) {

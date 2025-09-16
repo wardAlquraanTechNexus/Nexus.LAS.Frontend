@@ -118,14 +118,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       },
     )
 
-    this.setLabels();
-  }
-
-
-  setLabels() {
-    this.langService.language$.subscribe(lang => {
-         this.labels = Labels[lang];
-       });
+    this.subscribeLanguage();
   }
 
 

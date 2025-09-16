@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../../../services/menu-service';
 import { environment } from '../../../../../environment/environment.prod';
 import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-company-person-in-charge-component',
@@ -37,51 +38,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     pageSize: 10,
     page: 0
   };
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "personNameEn",
-      label: "Name En",
-      pipes: ["link"]
-    },
-    {
-      key: "designation",
-      label: "Designation",
-      pipes: ['designation']
-    },
-    {
-      key: "authorityRule",
-      label: "Rule",
-      pipes: ["rule"]
-    },
-    {
-      key: "notes",
-      label: "Note"
-    },
-    {
-      key: "personInChargeDate",
-      label: "Date of Appointment",
-      pipes: ["date"]
-    },
-    {
-      key: "cessationDate",
-      label: "Cessation Date",
-      pipes: ["date"]
-    },
-    {
-      key: "statusName",
-      label: "Status",
-      pipes: ['person-company-in-charge']
-    },
-    {
-      key: "personInChargeActive",
-      label: "Active",
-      inputType: 'mat-slide-toggle'
-    },
-    {
-      key: "action",
-      label: "Actions"
-    }
-  ];
+  
   constructor(
     override service: CompanyPersonInChargeService,
     override cdr: ChangeDetectorRef,
@@ -99,6 +56,52 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     super.ngOnInit();
+
+    this.displayColumns = [
+    {
+      key: "personNameEn",
+      label: this.label.COMMON.NAME_EN,
+      pipes: ["link"]
+    },
+    {
+      key: "designation",
+      label: this.label.COMPANY.DESIGNATION,
+      pipes: ['designation']
+    },
+    {
+      key: "authorityRule",
+      label: this.label.COMMON.RULE,
+      pipes: ["rule"]
+    },
+    {
+      key: "notes",
+      label: this.label.COMMON.NOTES
+    },
+    {
+      key: "personInChargeDate",
+      label: this.label.COMMON.DATE_OF_APPOINTMENT,
+      pipes: ["date"]
+    },
+    {
+      key: "cessationDate",
+      label: this.label.COMPANY.CESSATION_DATE,
+      pipes: ["date"]
+    },
+    {
+      key: "statusName",
+      label: this.label.COMMON.STATUS,
+      pipes: ['person-company-in-charge']
+    },
+    {
+      key: "personInChargeActive",
+      label: this.label.COMMON.ACTIVE,
+      inputType: 'mat-slide-toggle'
+    },
+    {
+      key: "action",
+      label: this.label.COMMON.ACTIONS
+    }
+  ];
 
   }
   override fetchData() {

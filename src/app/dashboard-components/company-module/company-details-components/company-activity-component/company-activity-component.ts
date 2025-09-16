@@ -32,22 +32,7 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
     totalRecords: 0
   };
 
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "activity",
-      label: "Activity",
-      pipes: ['company-activity'],
-    },
-    {
-      key: "date",
-      label: "Date",
-      pipes:["date"]
-    },
-    {
-      key: 'action',
-      label: 'Actions'
-    }
-  ]
+  
 
   override params: GetPagingCompanyActivityQuery = {
     companyId: 0,
@@ -70,7 +55,24 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
   }
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
+    
     super.ngOnInit();
+    this.displayColumns = [
+     {
+       key: "activity",
+       label: this.label.COMPANY.ACTIVITY,
+       pipes: ['company-activity'],
+     },
+     {
+       key: "date",
+       label: this.label.COMMON.DATE,
+       pipes:["date"]
+     },
+     {
+       key: 'action',
+       label: this.label.COMMON.ACTIONS,
+     }
+   ];
   }
 
   override fetchData(): void {

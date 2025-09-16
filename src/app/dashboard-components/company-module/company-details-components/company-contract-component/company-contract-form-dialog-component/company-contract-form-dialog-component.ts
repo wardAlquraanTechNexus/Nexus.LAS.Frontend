@@ -4,6 +4,7 @@ import { BaseDialogFormComponent } from '../../../../base-components/base-dialog
 import { CompanyContractDto } from '../../../../../models/company-models/company-contract/dtos/company-contract-dto';
 import { CompanyContractService } from '../../../../../services/company-services/company-contract-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-contract-form-dialog-component',
@@ -18,8 +19,9 @@ export class CompanyContractFormDialogComponent  extends BaseDialogFormComponent
     @Inject(MAT_DIALOG_DATA) public override data: CompanyContractDto,
     override service:CompanyContractService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data , service , cdr)
+    super(dialogRef, data , service , cdr, langService)
   }
 
   override ngOnInit(): void {

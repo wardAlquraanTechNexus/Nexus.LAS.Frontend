@@ -6,8 +6,10 @@
                 <mat-icon>business</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{company.id != 0 ? 'Edit Company' : 'Add Company'}}</h2>
-                <p class="dialog-subtitle">Enter company details</p>
+                <h2 class="dialog-title">
+                    {{company.id != 0 ? label.COMMON.EDIT_COMPANY || 'Edit Company' : label.COMMON.ADD_COMPANY || 'Add Company'}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.ENTER_COMPANY_DETAILS || 'Enter company details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -21,93 +23,84 @@
             <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Incorporation Date</mat-label>
+                        <mat-label>{{ label.COMPANY.INC_DATE || 'Incorporation Date' }}</mat-label>
                         <input matInput
                                formControlName="incorporationDate"
-                               placeholder="DD/MM/YYYY"
+                               [placeholder]="label.COMPANY.INC_DATE || 'DD/MM/YYYY'"
                                [matDatepicker]="incorporationDatePicker"
                                required>
                         <mat-datepicker-toggle matSuffix [for]="incorporationDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #incorporationDatePicker></mat-datepicker>
                         @if (formGroup.get('incorporationDate')?.hasError('required') && formGroup.get('incorporationDate')?.touched) {
                         <mat-error>
-                            Incorporation Date is required
+                            {{ label.COMPANY.INC_DATE || 'Incorporation Date is required' }}
                         </mat-error>
                         }
                     </mat-form-field>
-                    <!-- to Add Share Value  -->
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Name En</mat-label>
-                        <input matInput formControlName="companyEnglishName" required placeholder="Name En" />
+                        <mat-label>{{ label.COMMON.NAME_EN || 'Name En' }}</mat-label>
+                        <input matInput formControlName="companyEnglishName" required [placeholder]="label.COMMON.NAME_EN || 'Name En'" />
                         <mat-error
-                            *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
-                            Name En is required
+                            *ngIf="formGroup.get('companyEnglishName')?.hasError('required') && formGroup.get('companyEnglishName')?.touched">
+                            {{ label.COMMON.NAME_EN || 'Name En is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Name Ar</mat-label>
-                        <input matInput formControlName="companyArabicName" required placeholder="Name Ar" />
+                        <mat-label>{{ label.COMMON.NAME_AR || 'Name Ar' }}</mat-label>
+                        <input matInput formControlName="companyArabicName" required [placeholder]="label.COMMON.NAME_AR || 'Name Ar'" />
                         <mat-error
-                            *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
-                            Name Ar is required
+                            *ngIf="formGroup.get('companyArabicName')?.hasError('required') && formGroup.get('companyArabicName')?.touched">
+                            {{ label.COMMON.NAME_AR || 'Name Ar is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Short Name</mat-label>
-                        <input matInput formControlName="companyShortName" required placeholder="Short Name" />
+                        <mat-label>{{ label.COMPANY.SHORT_NAME || 'Short Name' }}</mat-label>
+                        <input matInput formControlName="companyShortName" required [placeholder]="label.COMPANY.SHORT_NAME || 'Short Name'" />
                         <mat-error
                             *ngIf="formGroup.get('companyShortName')?.hasError('required') && formGroup.get('companyShortName')?.touched">
-                            Short Name is required
+                            {{ label.COMMON.SHORT_NAME_REQUIRED || 'Short Name is required' }}
                         </mat-error>
                     </mat-form-field>
                 </div>
 
                 <div class="col-6">
-
                     <select-auto-complete *ngIf="loadCompanyTypeFn" [controlName]="'companyTypeIdn'"
-                        [fnGet]="loadCompanyTypeFn" [formGroup]="formGroup"  [label]="'Company Type'"
+                        [fnGet]="loadCompanyTypeFn" [formGroup]="formGroup" [label]="label.COMPANY.CONTRACT_TYPE || 'Company Type'"
                         [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
                         (selectEmitter)="onCompanyType($event)"></select-auto-complete>
                 </div>
 
-
                 <div class="col-6">
-
                     <select-auto-complete *ngIf="loadCompanyClassFn" [controlName]="'companyClassIdn'"
-                        [fnGet]="loadCompanyClassFn" [formGroup]="formGroup" 
-                        [label]="'Company Class'" [keyToShow]="'name'" [valueKey]="'id'"
+                        [fnGet]="loadCompanyClassFn" [formGroup]="formGroup"
+                        [label]="label.COMPANY.CLASS || 'Company Class'" [keyToShow]="'name'" [valueKey]="'id'"
                         [withNullOption]="false"></select-auto-complete>
-
                 </div>
 
                 <div class="col-6">
-
                     <select-auto-complete *ngIf="loadLegalTypeFn" [controlName]="'legalTypeIdn'"
-                        [fnGet]="loadLegalTypeFn" [formGroup]="formGroup"  [label]="'Legal Type'"
+                        [fnGet]="loadLegalTypeFn" [formGroup]="formGroup" [label]="label.COMPANY.LEGAL_FORM || 'Legal Type'"
                         [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"></select-auto-complete>
                 </div>
 
-
                 <div class="col-6">
-
                     <select-auto-complete *ngIf="loadPlaceOfRegistrationMainFn"
                         [controlName]="'placeOfRegistrationMainIdn'" [fnGet]="loadPlaceOfRegistrationMainFn"
-                        [formGroup]="formGroup"  [label]="'Place of Registration'"
+                        [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION || 'Place of Registration'"
                         [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
                         (selectEmitter)="onSelectMainRegistrtaion($event)"></select-auto-complete>
-
                 </div>
 
-                <div class=col-6>
+                <div class="col-6">
                     <select-auto-complete *ngIf="loadPlaceOfRegistrationSubFn" [formGroup]="formGroup"
                         [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
-                        [label]="'Sub Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
+                        [label]="label.COMPANY.PLACE_OF_REGISTRATION_SUB || 'Sub Place of Registration'" [keyToShow]="'name'" [valueKey]="'id'"
                         [withNullOption]="false">
                     </select-auto-complete>
                 </div>
@@ -119,11 +112,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

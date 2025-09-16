@@ -5,6 +5,7 @@ import { CompanyShareHolderService } from '../../../../../services/company-servi
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
 import { CompaniesShareHolder } from '../../../../../models/company-models/company-share-holder/company-share-holder';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-shareholder-dialog-form-component',
@@ -18,8 +19,9 @@ export class CompanyShareholderDialogFormComponent  extends BaseDialogFormCompon
     @Inject(MAT_DIALOG_DATA) public override data: CompaniesShareHolderDto,
     override service:CompanyShareHolderService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data,service , cdr)
+    super(dialogRef, data,service , cdr, langService)
   }
 
 }

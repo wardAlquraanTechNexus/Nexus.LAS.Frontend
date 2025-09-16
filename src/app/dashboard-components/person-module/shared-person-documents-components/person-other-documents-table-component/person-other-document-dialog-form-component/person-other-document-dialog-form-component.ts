@@ -4,6 +4,7 @@ import { PersonOtherDocumentService } from '../../../../../services/person-servi
 import { PersonOtherDocumentDTO } from '../../../../../models/person-models/person-other-document/person-other-document-dto';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-person-other-document-dialog-form-component',
@@ -17,8 +18,9 @@ export class PersonOtherDocumentDialogFormComponent extends BaseDialogFormCompon
     @Inject(MAT_DIALOG_DATA) public override data: PersonOtherDocumentDTO,
     override service: PersonOtherDocumentService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 
   override onSave(element: any) {

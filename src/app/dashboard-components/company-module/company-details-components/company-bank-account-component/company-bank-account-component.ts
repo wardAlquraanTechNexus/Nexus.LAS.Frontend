@@ -4,6 +4,9 @@ import { CompanyBankAccountDto } from '../../../../models/company-models/company
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { CompanyBankAccountDialogFormComponent } from './company-bank-account-dialog-form-component/company-bank-account-dialog-form-component';
 import { MatDialog } from '@angular/material/dialog';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-bank-account-component',
@@ -16,13 +19,21 @@ export class CompanyBankAccountComponent implements OnInit {
   @Input() company!: GetCompanyDto
   list: CompanyBankAccountDto[] = [];
 
+    get label() {
+      return Labels[this.currentLang as keyof typeof Labels];
+    }
+    currentLang: LanguageCode = 'en';
+  
   constructor(
     private service: CompanyBankAccountService,
     private dialog:MatDialog,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef,
+    private langService: LanguageService
+  ) { }
 
   ngOnInit(): void {
     this.fetchData();
+    this.subscribeLanguage();
   }
 
   expandedMap: { [key: number]: boolean } = {};
@@ -41,6 +52,17 @@ export class CompanyBankAccountComponent implements OnInit {
 
       })
     });
+  }
+
+  subscribeLanguage(){
+    this.langService.language$.subscribe(lang => {
+      this.applyLanguage(lang);
+    });
+    
+  }
+
+  protected applyLanguage(lang: LanguageCode) {
+    this.currentLang = lang;
   }
 
   toggleCard(index: number) {

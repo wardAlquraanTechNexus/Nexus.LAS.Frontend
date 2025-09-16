@@ -5,6 +5,7 @@ import { CompanyLicenseDto } from '../../../../../models/company-models/company-
 import { CompanyLicenseService } from '../../../../../services/company-services/company-license-service';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
 import { CompanyLicense } from '../../../../../models/company-models/company-license/company-license';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-license-form-dialog-component',
@@ -18,8 +19,9 @@ export class CompanyLicenseFormDialogComponent extends BaseDialogFormComponent<C
     @Inject(MAT_DIALOG_DATA) public override data: CompanyLicenseDto,
     override service: CompanyLicenseService,
     override cdr: ChangeDetectorRef,
+    protected override langService: LanguageService
   ) {
-    super(dialogRef, data, service, cdr)
+    super(dialogRef, data, service, cdr, langService)
   }
 
   override onSave(element: any) {
