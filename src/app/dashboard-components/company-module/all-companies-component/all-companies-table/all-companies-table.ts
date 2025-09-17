@@ -9,7 +9,6 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { MenuService } from '../../../../services/menu-service';
 import { BaseCompaniesComponent } from '../../_base/base-companies-component/base-companies-component';
 import { LanguageService } from '../../../../services/language-service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-all-companies-table',
@@ -19,8 +18,6 @@ import { Subscription } from 'rxjs';
 })
 export class AllCompaniesTable extends BaseCompaniesComponent {
   override displayColumns: DisplayColumn[] = [];
-
-  private langSub!: Subscription;
 
   constructor(
     override service: CompanyService,
@@ -40,54 +37,24 @@ export class AllCompaniesTable extends BaseCompaniesComponent {
   override ngOnInit(): void {
     super.ngOnInit();
     this.setDisplayColumns();
-    this.langSub = this.langService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
   }
 
   setDisplayColumns() {
-    const labels = this.langService.currentLanguage() === 'ar'
-      ? {
-          select: 'اختيار',
-          code: 'الرمز',
-          incDate: 'تاريخ التأسيس',
-          nameEn: 'الاسم بالإنجليزية',
-          nameAr: 'الاسم بالعربية',
-          shortName: 'الاسم المختصر',
-          status: 'الحالة',
-          fpcCode: 'رمز FPC',
-          private: 'خاص',
-          action: 'إجراء'
-        }
-      : {
-          select: 'Select',
-          code: 'Code',
-          incDate: 'Inc. Date',
-          nameEn: 'Name En',
-          nameAr: 'Name Ar',
-          shortName: 'Short Name',
-          status: 'Status',
-          fpcCode: 'FPC Code',
-          private: 'Private',
-          action: 'Action'
-        };
-
     this.displayColumns = [
-      { key: "select", label: labels.select },
-      { key: "companyCode", label: labels.code, pipes: ["link"], sort: true },
-      { key: "incorporationDate", label: labels.incDate, pipes: ["date"], sort: true },
-      { key: "companyEnglishName", label: labels.nameEn, pipes: ["link"], sort: true },
-      { key: "companyArabicName", label: labels.nameAr, pipes: ["link"], sort: true },
-      { key: "companyShortName", label: labels.shortName, pipes: ["link"], sort: true },
-      { key: "companyStatus", label: labels.status, pipes: ["company-Status"], sort: true },
-      { key: "fpcCode", label: labels.fpcCode, sort: true },
-      { key: "private", label: labels.private, pipes: ["private-Company"], sort: true },
-      { key: "action", label: labels.action }
+      { key: "select", label: this.label.COMMON.SELECT },
+      { key: "companyCode", label: this.label.COMPANY.CODE, pipes: ["link"], sort: true },
+      { key: "incorporationDate", label: this.label.COMPANY.INC_DATE, pipes: ["date"], sort: true },
+      { key: "companyEnglishName", label: this.label.COMMON.NAME_EN, pipes: ["link"], sort: true },
+      { key: "companyArabicName", label: this.label.COMMON.NAME_AR, pipes: ["link"], sort: true },
+      { key: "companyShortName", label: this.label.COMPANY.SHORT_NAME, pipes: ["link"], sort: true },
+      { key: "companyStatus", label: this.label.COMPANY.STATUS, pipes: ["company-Status"], sort: true },
+      { key: "fpcCode", label: this.label.COMPANY.FPC_CODE, sort: true },
+      { key: "private", label: this.label.COMPANY.PRIVATE, pipes: ["private-Company"], sort: true },
+      { key: "action", label: this.label.COMMON.ACTIONS }
     ];
   }
 
-  override ngOnDestroy(): void {
-    this.langSub?.unsubscribe();
-    super.ngOnDestroy?.();
+  updateColumnLabels() {
+    this.setDisplayColumns();
   }
 }

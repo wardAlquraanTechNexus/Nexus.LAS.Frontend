@@ -64,11 +64,17 @@ export class SharedTable implements OnInit, OnChanges {
     if (changes['paginateResult'] && this.paginateResult?.collection) {
       if (this.dataSource) {
         this.dataSource.data = this.paginateResult.collection;
-        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
       } else {
         this.dataSource = new MatTableDataSource(this.paginateResult.collection);
-        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
       }
+    }
+
+    // Update displayedColumnKeys when displayedColumns changes
+    if (changes['displayedColumns']) {
+      this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
+      this.cdRef.detectChanges();
     }
   }
   ngOnInit(): void {
@@ -84,10 +90,15 @@ export class SharedTable implements OnInit, OnChanges {
         this.dir = 'rtl';
 
       this.labels = this.langService.getLabels(lang);
+      this.cdRef.detectChanges();
     });
 
 
 
+  }
+
+  trackColumn(index: number, column: DisplayColumn): string {
+    return `${column.key}_${index}`;
   }
 
   onPageChange(event: PageEvent): void {

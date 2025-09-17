@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { CompanyEmailDto } from '../../../../models/company-models/company-email/dtos/company-email-dto';
 import { CompanyEmailService } from '../../../../services/company-services/company-email-service';
@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyEmailDialogFormComponent } from './company-email-dialog-form-component/company-email-dialog-form-component';
 import { LanguageService } from '../../../../services/language-service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-company-email-component',
@@ -14,11 +16,12 @@ import { LanguageService } from '../../../../services/language-service';
   templateUrl: './company-email-component.html',
   styleUrl: './company-email-component.scss'
 })
-export class CompanyEmailComponent implements OnInit {
+export class CompanyEmailComponent implements OnInit, OnDestroy {
 
   @Input() company!: GetCompanyDto;
   showLoading = false;
   companyEmails: CompanyEmailDto[] = [];
+  private destroy$ = new Subject<void>();
 
   get label() {
     return this.langService.currentLabels;
@@ -35,6 +38,18 @@ export class CompanyEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+
+    // Subscribe to language changes
+    this.langService.language$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.cdr.markForCheck();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 

@@ -62,6 +62,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
 
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
+      this.cdr.markForCheck();
     });
   }
 

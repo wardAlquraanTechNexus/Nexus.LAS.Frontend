@@ -51,6 +51,7 @@ import { SharedCompanyShareholderComponent } from '../dashboard-components/share
 import { PersonFormComponent } from '../dashboard-components/person-module/shared-person-components/person-form-component/person-form-component';
 import { DateInputComponent } from './date-input-component/date-input-component';
 import { NumberSeperatorPipe } from '../pipes/number-seperator-pipe';
+import { TranslateColumnPipe } from '../pipes/translate-column.pipe';
 
 import { DatePickerModule } from 'primeng/datepicker';
 
@@ -74,6 +75,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     TableDataPipe,
     TextPipe,
     NumberSeperatorPipe,
+    TranslateColumnPipe,
     SharedRegisterNoteTable,
     SharedRegisterNoteForm,
     SharedRegisterNoteFormDialog,
@@ -154,6 +156,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     TableDataPipe,
     TextPipe,
     NumberSeperatorPipe,
+    TranslateColumnPipe,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
