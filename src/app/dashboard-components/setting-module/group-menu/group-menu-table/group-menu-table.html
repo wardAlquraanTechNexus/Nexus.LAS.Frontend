@@ -72,11 +72,11 @@
     <mat-menu #menuRow="matMenu" class="nexus-action-menu">
       <button mat-menu-item (click)="edit(row)" class="nexus-menu-item nexus-menu-info">
         <mat-icon class="nexus-icon-edit">edit</mat-icon>
-        <span>Edit</span>
+        <span>{{label.COMMON.EDIT}}</span>
       </button>
       <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)" class="nexus-menu-item nexus-menu-danger">
         <mat-icon class="nexus-icon-delete">delete</mat-icon>
-        <span>Delete</span>
+        <span>{{label.COMMON.DELETE}}</span>
       </button>
     </mat-menu>
   </ng-template>

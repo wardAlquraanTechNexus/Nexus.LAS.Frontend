@@ -1,4 +1,4 @@
-<div class="sidebar-container" [class.closed]="!sidebarOpen">
+<div class="sidebar-container" [class.closed]="!sidebarOpen" [class.rtl]="dir === 'rtl'" [dir]="dir">
   <!-- Sidebar -->
   <div class="tree-container">
     <!-- Dynamic Menu Items -->
@@ -22,7 +22,7 @@
             <mat-icon *ngIf="item.iconClass">{{ item.iconClass }}</mat-icon>
             <span>{{ item.name }}</span>
             <mat-icon class="expand-icon">
-              {{ isExpanded(item) ? 'expand_more' : 'chevron_right' }}
+              {{ isExpanded(item) ? 'expand_more' : (dir === 'rtl' ? 'chevron_left' : 'chevron_right') }}
             </mat-icon>
           </div>
         </div>

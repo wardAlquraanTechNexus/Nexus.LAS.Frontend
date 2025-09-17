@@ -69,32 +69,41 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       {
         key: "capitalAmount",
         label: this.langService.getLabel(this.label.COMPANY.CAPITAL_AMOUNT) || "Amount",
+        pipes: ['number'],
+        decimals: 2
       },
       {
         key:"numberOfShares",
-        label: this.langService.getLabel(this.label.COMPANY.TOTAL_SHARES) || "NO. of Shares"
+        label: this.langService.getLabel(this.label.COMPANY.TOTAL_SHARES) || "NO. of Shares",
+        pipes: ['number'],
+        decimals: 0  // No decimals for share counts
       },
       {
         key: "nominalValueOfShare",
         label: this.langService.getLabel(this.label.COMPANY.NOMINAL_VALUE_OF_SHARE) || "Nominal Value of share",
         pipes: ['capital-currency'],
-        compareKey: 'capitalCurrency'
+        compareKey: 'capitalCurrency',
+        decimals: 2
       }, {
         key: "capitalAuthorized",
         label: this.langService.getLabel(this.label.COMPANY.AUTHORIZED_CAPITAL_AMOUNT) || "Authorized Capital Amount",
         pipes: ['capital-currency'],
-        compareKey: 'capitalCurrency'
+        compareKey: 'capitalCurrency',
+        decimals: 2
       }, {
         key: "capitalPaid",
         label: this.langService.getLabel(this.label.COMPANY.PAID_CAPITAL_AMOUNT) || "Paid",
         pipes: ['capital-currency'],
-        compareKey: 'capitalCurrency'
+        compareKey: 'capitalCurrency',
+        decimals: 2
       }, {
         key: "issuedShares",
         label: this.langService.getLabel(this.label.COMPANY.ISSUED_SHARES) || "Issued Shares",
+        pipes: ['number'],
+        decimals: 0  // No decimals for share counts
       }, {
         key: "classOfShares",
-        label: this.langService.getLabel(this.label.COMPANY.CLASS_OF_SHARES) || "Class Of Shares",
+        label: this.langService.getLabel(this.label.COMPANY.CLASS_OF_SHARES) || "Class of Shares",
       }, {
         key: "capitalActive",
         label: this.langService.getLabel(this.label.COMMON.STATUS) || "Status",

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { CompanyEmailDto } from '../../../../models/company-models/company-email/dtos/company-email-dto';
 import { CompanyEmailService } from '../../../../services/company-services/company-email-service';

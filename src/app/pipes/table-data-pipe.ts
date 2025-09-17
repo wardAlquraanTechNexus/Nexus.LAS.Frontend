@@ -10,6 +10,7 @@ import { CompanyContractStatus } from '../enums/company-contract-status';
 import { PersonService } from '../services/person-services/person-service';
 import { LanguageService } from '../services/language-service';
 import { CompanyLicenseStatus } from '../enums/company-license-status';
+import { NumberFormatConfigService } from '../services/number-format-config.service';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -20,11 +21,17 @@ export class TableDataPipe implements PipeTransform {
   constructor(
     private dlService: DynamicListService,
     private personService: PersonService,
-    private languageService: LanguageService // Inject LanguageService
+    private languageService: LanguageService, // Inject LanguageService
+    private numberFormatConfig: NumberFormatConfigService // Inject NumberFormatConfigService
   ) { }
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
     if (!pipes || pipes.length === 0) {
+      // Check if value is a number and format it with thousand separators
+      if (typeof value === 'number' && !isNaN(value)) {
+        const decimals = column.decimals ?? this.numberFormatConfig.getConfig().defaultDecimals;
+        return of(this.formatNumberWithSeparator(value, decimals));
+      }
       return of(value?.toString() ?? '');
     }
 
@@ -93,8 +100,21 @@ export class TableDataPipe implements PipeTransform {
             })
           );
 
+        case 'number':
+          if (value === null || value === undefined) {
+            return of('N/A');
+          }
+          const numValue = typeof value === 'string' ? parseFloat(value) : value;
+          if (isNaN(numValue)) {
+            return of(value?.toString() ?? '');
+          }
+          const numberDecimals = column.decimals ?? this.numberFormatConfig.getConfig().defaultDecimals;
+          return of(this.formatNumberWithSeparator(numValue, numberDecimals));
+
         case 'percentage':
-          return of(value + "%")
+          const percentDecimals = column.decimals ?? this.numberFormatConfig.getConfig().percentageDecimals;
+          const percentValue = this.formatNumberWithSeparator(value, percentDecimals);
+          return of(percentValue + "%")
 
         case 'document-nationality':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.country).pipe(
@@ -174,16 +194,18 @@ export class TableDataPipe implements PipeTransform {
             })
           );
         case 'capital-currency':
+          const currencyDecimals = column.decimals ?? this.numberFormatConfig.getConfig().currencyDecimals;
           if (column.compareKey) {
             return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(
               map(list => {
                 const found = list.find(x => x.id == element[column.compareKey!]);
-                return found ? `${value} ${found.name}` : `${value}`;
+                const formattedValue = this.formatNumberWithSeparator(value, currencyDecimals);
+                return found ? `${formattedValue} ${found.name}` : `${formattedValue}`;
               })
             );
           }
           else {
-            return of(value)
+            return of(this.formatNumberWithSeparator(value, currencyDecimals))
           }
 
 
@@ -212,6 +234,46 @@ export class TableDataPipe implements PipeTransform {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  }
+
+  private formatNumberWithSeparator(value: number | string, decimals: number = 2): string {
+    if (value === null || value === undefined || value === '') {
+      return '';
+    }
+
+    // Convert to number if it's a string
+    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+
+    if (isNaN(numericValue)) {
+      return value?.toString() ?? '';
+    }
+
+    const config = this.numberFormatConfig.getConfig();
+
+    // Check if the original value has decimals
+    const stringValue = value.toString();
+    const hasDecimals = stringValue.includes('.');
+    const actualDecimals = hasDecimals ? (stringValue.split('.')[1] || '').length : 0;
+
+    // Use Intl.NumberFormat for consistent formatting
+    // Only show decimals if the original value has them or if decimals is explicitly set > 0 for currencies/percentages
+    const formatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: hasDecimals ? Math.min(decimals, actualDecimals) : 0,
+      maximumFractionDigits: decimals,
+      useGrouping: true
+    });
+
+    let formatted = formatter.format(numericValue);
+
+    // Replace separators based on config if different from default
+    if (config.thousandSeparator !== ',') {
+      formatted = formatted.replace(/,/g, config.thousandSeparator);
+    }
+    if (config.decimalSeparator !== '.') {
+      formatted = formatted.replace(/\./g, config.decimalSeparator);
+    }
+
+    return formatted;
   }
 }
 

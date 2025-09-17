@@ -8,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Menu } from '../../../../models/menus/menu';
 import { MenuDialog } from './menu-dialog/menu-dialog';
 import { PaginateRsult } from '../../../../models/paginate-result';
+import { LanguageService } from '../../../../services/language-service';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-menu-table-component',
@@ -16,6 +19,10 @@ import { PaginateRsult } from '../../../../models/paginate-result';
   styleUrl: './menu-table-component.scss'
 })
 export class MenuTableComponent implements OnInit {
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
 
   parents: Menu[] = [];
   params: GetMenuParam = {
@@ -41,8 +48,12 @@ export class MenuTableComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private langService: LanguageService
   ) {
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
   ngOnInit(): void {
       this.loadData();

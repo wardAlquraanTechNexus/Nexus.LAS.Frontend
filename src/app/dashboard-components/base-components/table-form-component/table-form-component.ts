@@ -68,6 +68,15 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
 
   protected applyLanguage(lang: LanguageCode) {
     this.currentLang = lang;
+    // Update column labels if updateColumnLabels method exists in child class
+    if (typeof (this as any).updateColumnLabels === 'function') {
+      (this as any).updateColumnLabels();
+    }
+    // Force new array reference to trigger change detection
+    if (this.displayColumns && Array.isArray(this.displayColumns)) {
+      this.displayColumns = [...this.displayColumns];
+    }
+    this.cdr.detectChanges();
   }
 
 

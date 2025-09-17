@@ -37,26 +37,7 @@ export class GroupTable extends TableFormComponent<Group> {
     pageSize: 10
   };
 
-
-  override displayColumns: DisplayColumn[] = [
-    {
-      key: "id",
-      label: "Group Id",
-    },
-    {
-      key: "groupName",
-      label: "Group Name",
-    },
-    {
-      key: "description",
-      label: "Description",
-    },
-    {
-      key: "action",
-      label: "Action",
-    },
-
-  ]
+  override displayColumns: DisplayColumn[] = []
 
   constructor(
     override service: GroupService,
@@ -69,6 +50,36 @@ export class GroupTable extends TableFormComponent<Group> {
     override langService: LanguageService
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService);
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.setDisplayColumns();
+  }
+
+  setDisplayColumns() {
+    this.displayColumns = [
+      {
+        key: "id",
+        label: this.label.COMMON.ID,
+      },
+      {
+        key: "groupName",
+        label: this.label.COMMON.NAME,
+      },
+      {
+        key: "description",
+        label: this.label.COMMON.DESCRIPTION,
+      },
+      {
+        key: "action",
+        label: this.label.COMMON.ACTIONS,
+      },
+    ];
+  }
+
+  updateColumnLabels() {
+    this.setDisplayColumns();
   }
 
   override fetchData() {

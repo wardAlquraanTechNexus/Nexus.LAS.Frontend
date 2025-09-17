@@ -1,0 +1,254 @@
+@use '../themes/variables' as vars;
+
+// ==================================================================
+// NEXUS SWITCH/TOGGLE STYLES
+// Global styles for mat-slide-toggle components
+// Ensures consistent appearance across all modules
+// ==================================================================
+
+// Switch Field Wrapper - Global Class
+// ------------------------------------------------------------------
+.nexus-switch-wrapper {
+  width: 100%;
+  margin-bottom: 16px;
+
+  // Optional label above the switch
+  .nexus-switch-label {
+    display: block;
+    color: rgba(1, 55, 114, 0.8);
+    font-weight: 500;
+    font-family: vars.$nexus-font-family;
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  // Container for the switch
+  .nexus-switch-container {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 12px;
+    background: transparent;
+    border-radius: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: rgba(1, 55, 114, 0.03);
+    }
+
+    // When used in a form context with background
+    &.nexus-switch-form-style {
+      padding: 0 16px;
+      background: rgba(255, 255, 255, 0.5);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    // When used in a table or inline context
+    &.nexus-switch-inline {
+      min-height: auto;
+      padding: 4px 0;
+      background: transparent;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
+}
+
+// Global mat-slide-toggle styling
+// ------------------------------------------------------------------
+mat-slide-toggle {
+  font-family: vars.$nexus-font-family;
+
+  &.nexus-switch {
+    // Default Nexus theme colors
+    ::ng-deep {
+      .mdc-switch {
+        margin-right: 12px;
+
+        .mdc-switch__track {
+          background-color: rgba(1, 55, 114, 0.2);
+          border-color: rgba(1, 55, 114, 0.3);
+          height: 20px;
+          width: 36px;
+        }
+
+        .mdc-switch__handle-track {
+          width: 36px;
+          height: 20px;
+        }
+
+        .mdc-switch__handle {
+          width: 20px;
+          height: 20px;
+        }
+
+        &.mdc-switch--checked {
+          .mdc-switch__track {
+            background-color: rgba(1, 55, 114, 0.3);
+            border-color: vars.$nexus-primary;
+          }
+
+          .mdc-switch__handle-track {
+            .mdc-switch__handle {
+              &::after {
+                background: vars.$nexus-primary;
+              }
+            }
+          }
+
+          .mdc-switch__icon--on {
+            color: white;
+          }
+        }
+
+        &.mdc-switch--disabled {
+          opacity: 0.5;
+
+          .mdc-switch__track {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+
+      .mdc-label {
+        color: vars.$nexus-dark-gray;
+        font-size: 0.95rem;
+        font-weight: vars.$nexus-font-weight-normal;
+      }
+    }
+  }
+}
+
+// Specific context variations
+// ------------------------------------------------------------------
+
+// In dialog forms
+.modern-dialog-container,
+.nexus-dialog {
+  .nexus-switch-wrapper {
+    .nexus-switch-container {
+      background: transparent;
+
+      mat-slide-toggle {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// In data tables
+.mat-mdc-table,
+app-shared-table {
+  mat-slide-toggle {
+    &.nexus-switch-table {
+      ::ng-deep {
+        .mdc-switch {
+          margin-right: 8px;
+        }
+
+        .mdc-label {
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
+
+// In filter sections
+.nexus-entity-filters,
+.nexus-filters-container {
+  mat-slide-toggle {
+    &.nexus-switch-filter {
+      ::ng-deep {
+        .mdc-label {
+          font-weight: vars.$nexus-font-weight-medium;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+// ------------------------------------------------------------------
+@media (max-width: vars.$nexus-breakpoint-sm) {
+  .nexus-switch-wrapper {
+    .nexus-switch-container {
+      min-height: 48px;
+      padding: 0 8px;
+    }
+  }
+}
+
+// Animation for state changes
+// ------------------------------------------------------------------
+@keyframes switchToggle {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+mat-slide-toggle.nexus-switch {
+  ::ng-deep {
+    .mdc-switch__handle {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mdc-switch--checked .mdc-switch__handle {
+      animation: switchToggle 0.3s ease-out;
+    }
+  }
+}
+
+// Utility classes for quick styling
+// ------------------------------------------------------------------
+.nexus-switch-success {
+  ::ng-deep .mdc-switch--checked {
+    .mdc-switch__track {
+      background-color: rgba(76, 175, 80, 0.3) !important;
+      border-color: vars.$nexus-success !important;
+    }
+
+    .mdc-switch__handle::after {
+      background: vars.$nexus-success !important;
+    }
+  }
+}
+
+.nexus-switch-warning {
+  ::ng-deep .mdc-switch--checked {
+    .mdc-switch__track {
+      background-color: rgba(255, 152, 0, 0.3) !important;
+      border-color: #ff9800 !important;
+    }
+
+    .mdc-switch__handle::after {
+      background: #ff9800 !important;
+    }
+  }
+}
+
+.nexus-switch-danger {
+  ::ng-deep .mdc-switch--checked {
+    .mdc-switch__track {
+      background-color: rgba(244, 67, 54, 0.3) !important;
+      border-color: vars.$nexus-warn !important;
+    }
+
+    .mdc-switch__handle::after {
+      background: vars.$nexus-warn !important;
+    }
+  }
+}

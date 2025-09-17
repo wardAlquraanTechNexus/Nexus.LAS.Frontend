@@ -1,8 +1,8 @@
 <div class="confirm-dialog">
-  <h2 mat-dialog-title>Confirm Delete</h2>
+  <h2 mat-dialog-title>{{label.COMMON.CONFIRM_DELETE}}</h2>
   <mat-dialog-content>Are you sure you want to delete this item?</mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-raised-button color="warn" (click)="onConfirm()">Delete</button>
+    <button mat-button (click)="onCancel()">{{label.COMMON.CANCEL}}</button>
+    <button mat-raised-button color="warn" (click)="onConfirm()">{{label.COMMON.DELETE}}</button>
   </mat-dialog-actions>
 </div>

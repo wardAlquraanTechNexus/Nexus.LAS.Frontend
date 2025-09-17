@@ -1,11 +1,10 @@
-import moment from "moment";
 
 export interface CompanyChamberOfCommerceDTO {
   id: number;
   companyIdn: number;
   cciNumber: string;
-  cciIssueDate: moment.Moment | null;
-  cciExpiryDate?: moment.Moment | null;
+  cciIssueDate: Date | null;
+  cciExpiryDate?: Date | null;
   cciExpiryActiveReminder: boolean;
   cciUsername?: string;
   cciPassword?: string;

@@ -6,7 +6,7 @@
                 <mat-icon>security</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">Add Group Menu</h2>
+                <h2 class="dialog-title">{{label.COMMON.ADD_GROUP_MENU}}</h2>
                 <p class="dialog-subtitle">Configure menu permissions for groups</p>
             </div>
         </div>
@@ -66,12 +66,12 @@
                         <div class="row mt-3">
                             <div class="col-6">
                                 <mat-slide-toggle formControlName="canUpdate" color="primary">
-                                    <span class="toggle-label">Update</span>
+                                    <span class="toggle-label">{{ label.COMMON.UPDATE }}</span>
                                 </mat-slide-toggle>
                             </div>
                             <div class="col-6">
                                 <mat-slide-toggle formControlName="canDelete" color="primary">
-                                    <span class="toggle-label">Delete</span>
+                                    <span class="toggle-label">{{ label.COMMON.DELETE }}</span>
                                 </mat-slide-toggle>
                             </div>
                         </div>

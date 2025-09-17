@@ -15,6 +15,8 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { CompanyCapitalDialogFormComponent } from '../company-capital-component/company-capital-dialog-form-component/company-capital-dialog-form-component';
 import { CompanyBoardDialogFormComponent } from './company-board-dialog-form-component/company-board-dialog-form-component';
 import { LanguageService } from '../../../../services/language-service';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-company-board-component',
@@ -25,6 +27,11 @@ import { LanguageService } from '../../../../services/language-service';
 export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
 
   @Output() rowClick = new EventEmitter<CompanyBoardDto>();
+  private langSub!: Subscription;
+
+  override get label() {
+    return this.langService.currentLabels;
+  }
 
   override data: PaginateRsult<CompanyBoardDto> = {
     collection: [],
@@ -73,6 +80,29 @@ export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     super.ngOnInit();
+    this.setDisplayColumns();
+    this.langSub = this.langService.language$.subscribe(() => {
+      this.setDisplayColumns();
+    });
+  }
+
+  private setDisplayColumns(): void {
+    this.displayColumns = [
+      {
+        key:"id",
+        label: this.label.COMMON.ID || "Id",
+        pipes:["link"]
+      },
+      {
+        key:"boardActive",
+        label: this.label.COMMON.STATUS || "Status",
+        pipes:["active", "link"]
+      },
+      {
+        key: 'action',
+        label: this.label.COMMON.ACTIONS || 'Actions'
+      }
+    ];
   }
 
   override fetchData(): void {
@@ -151,9 +181,10 @@ export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
 
   onRowClick(event:any){
     this.rowClick.emit(event.element);
-    
   }
 
-
-
+  override ngOnDestroy(): void {
+    this.langSub?.unsubscribe();
+    super.ngOnDestroy?.();
+  }
 }

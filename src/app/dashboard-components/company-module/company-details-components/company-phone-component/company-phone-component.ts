@@ -19,6 +19,11 @@ import { LanguageCode } from '../../../../models/types/lang-type';
   styleUrl: './company-phone-component.scss'
 })
 export class CompanyPhoneComponent implements OnInit {
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+
   @Input() company!: GetCompanyDto;
 
 
@@ -26,10 +31,7 @@ export class CompanyPhoneComponent implements OnInit {
   companyPhones: CompanyPhone[] = [];
   showLoading = false;
 
-  currentLang: LanguageCode = 'en';
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
+  
 
   constructor(
     private route: ActivatedRoute,

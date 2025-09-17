@@ -31,7 +31,7 @@
 
       <!-- Search Input -->
       <mat-form-field appearance="outline" class="search">
-        <mat-label>Search by name</mat-label>
+        <mat-label>{{label.COMMON.SEARCH_BY_NAME}}</mat-label>
         <input matInput [(ngModel)]="params.name" (keyup.enter)="onSearchByName()" placeholder="Enter name">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>

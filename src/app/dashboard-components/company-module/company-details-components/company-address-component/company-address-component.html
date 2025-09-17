@@ -3,7 +3,7 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>{{ label.COMMON.ADDRESSES || 'Addresses' }}</h2>
+    <h2>{{ label.COMMON.ADDRESSES || '{{label.COMMON.ADDRESSES}}' }}</h2>
   </div>
   <button mat-raised-button color="primary" (click)="onAdd()">
     <mat-icon>add</mat-icon> {{ label.COMMON.ADD_ADDRESS || 'Add Address' }}

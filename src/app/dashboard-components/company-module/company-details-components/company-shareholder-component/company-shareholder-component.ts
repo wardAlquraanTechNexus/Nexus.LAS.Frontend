@@ -71,11 +71,14 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       {
         key: "numbersOfShares",
         label: this.langService.getLabel('COMPANY.TOTAL_SHARES') || "No. of shares",
+        pipes: ['number'],
+        decimals: 0  // No decimals for share counts
       },
       {
         key: "sharePercent",
         label: this.langService.getLabel('COMPANY.SHARE_PERCENT') || "% of Shares",
-        pipes: ["percentage"]
+        pipes: ["percentage"],
+        decimals: 2  // 2 decimal places for percentages
       },
       {
         key: "shareHolderDate",

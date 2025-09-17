@@ -9,8 +9,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environment/environment';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { Company } from '../../../models/company-models/company';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
 import { LanguageService } from '../../../services/language-service';
 
@@ -20,9 +18,7 @@ import { LanguageService } from '../../../services/language-service';
   templateUrl: './company-form.html',
   styleUrl: './company-form.scss',
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    ...DATE_FORMAT_PROVIDERS,
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+    ...DATE_FORMAT_PROVIDERS
   ]
 })
 export class CompanyForm extends BaseFormComponent {

@@ -8,6 +8,7 @@
 @use 'styles/components/typography';
 @use 'styles/components/responsive';
 @use 'styles/components/entity-management';
+@use 'styles/components/switches';
 
 // Use auth component styles globally
 @use 'app/auth-components/shared/auth-styles';

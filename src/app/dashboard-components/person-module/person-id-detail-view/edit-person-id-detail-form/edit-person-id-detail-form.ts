@@ -4,8 +4,6 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../../base-components/base-form-component/base-form-component';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { PersonIdDetailDto } from '../../../../models/person-models/person-id-details/person-id-details-dto';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../shared/date-format.config';
 import { LanguageService } from '../../../../services/language-service';
 
@@ -15,9 +13,7 @@ import { LanguageService } from '../../../../services/language-service';
   templateUrl: './edit-person-id-detail-form.html',
   styleUrl: './edit-person-id-detail-form.scss',
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    ...DATE_FORMAT_PROVIDERS,
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+    ...DATE_FORMAT_PROVIDERS
   ]
 })
 export class EditPersonIdDetailForm extends BaseFormComponent {

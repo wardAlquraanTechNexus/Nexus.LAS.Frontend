@@ -20,7 +20,7 @@ import { LanguageService } from '../../../../services/language-service';
   templateUrl: './user-table.html',
   styleUrl: './user-table.scss'
 })
-export class UserTable extends TableFormComponent<User> 
+export class UserTable extends TableFormComponent<User>
 {
   override data: PaginateRsult<UserDto> = {
     collection: [],
@@ -37,40 +37,49 @@ export class UserTable extends TableFormComponent<User>
     pageSize: 10
   };
 
+  override displayColumns: DisplayColumn[] = []
 
-   override displayColumns: DisplayColumn[] = [
-    
-    {
-      key: "username",
-      label: "Username",
-    },
-    {
-      key: "personsIdN",
-      label: "Person Id",
-    },
-    {
-      key: "email",
-      label: "Email",
-    },
-    {
-      key: "firstName",
-      label: "First Name",
-    },
-    {
-      key: "lastName",
-      label: "Last Name",
-    },
-    {
-      key: "loginName",
-      label: "Login Name",
-    }
-    ,
-    {
-      key: "nTLogin",
-      label: "NT Login",
-    },
-    
-  ]
+   override ngOnInit(): void {
+    super.ngOnInit();
+    this.setDisplayColumns();
+  }
+
+  setDisplayColumns(): void {
+    this.displayColumns = [
+      {
+        key: "username",
+        label: this.label.COMMON.USERNAME,
+      },
+      {
+        key: "personsIdN",
+        label: this.label.COMMON.ID,
+      },
+      {
+        key: "email",
+        label: this.label.COMMON.EMAIL,
+      },
+      {
+        key: "firstName",
+        label: this.label.COMMON.FIRST_NAME,
+      },
+      {
+        key: "lastName",
+        label: this.label.COMMON.LAST_NAME,
+      },
+      {
+        key: "loginName",
+        label: this.label.COMMON.LOGIN_NAME,
+      },
+      {
+        key: "nTLogin",
+        label: this.label.COMMON.NT_LOGGIN,
+      },
+    ];
+  }
+
+  updateColumnLabels() {
+    this.setDisplayColumns();
+  }
 
    constructor(
     override service: UserService,
@@ -100,5 +109,4 @@ export class UserTable extends TableFormComponent<User>
       })
     })
   }
-
 }

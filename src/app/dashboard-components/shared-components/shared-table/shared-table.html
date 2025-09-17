@@ -1,11 +1,11 @@
 <div *ngIf="labels">
   <div class="empty-table" *ngIf="paginateResult.totalRecords == 0">
-    {{labels.noRecords}}
+    {{labels.COMMON.NO_RECORDS}}
   </div>
   <div *ngIf="paginateResult.totalRecords > 0" class="mat-elevation-z8">
     <table [dir]="dir" mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
 
-      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.key">
+      <ng-container *ngFor="let column of displayedColumns; trackBy: trackColumn" [matColumnDef]="column.key">
 
         <!-- Header Cell -->
         <ng-container *ngIf="column.key === 'select'; else regularHeader">
@@ -54,7 +54,7 @@
                     </span>
                     <span *ngIf="column.inputType">
                       <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
-                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'"
+                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'" class="nexus-switch nexus-switch-table"
                           (change)="onToggleChange(element, column.key, $event.checked)"></mat-slide-toggle>
                       </ng-container>
                       <ng-template #defaultInput>
@@ -86,7 +86,7 @@
 
     <div class="paginator-container" [ngClass]="{'rtl': dir === 'rtl'}">
       <div class="records-count">
-        <span>{{ paginateResult.totalRecords || 0 }} {{labels.recordsReturned}}</span>
+        <span>{{ paginateResult.totalRecords || 0 }} {{labels.COMMON.RECORDS_RETURNED}}</span>
       </div>
       <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page"
         [pageSize]="paginateResult.pageSize" [length]="paginateResult.totalRecords" [pageSizeOptions]="[5,10,20,50,100]"
