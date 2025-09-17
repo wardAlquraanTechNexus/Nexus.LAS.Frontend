@@ -249,6 +249,7 @@
       position: relative;
       backdrop-filter: blur(10px);
       width: 100%;
+      cursor: pointer;
 
       &:hover {
         background: rgba(255, 255, 255, 0.15);
@@ -326,6 +327,7 @@
           font-weight: 400;
           font-size: 13px;
           position: relative;
+          cursor: pointer;
           
           &:hover {
             background: rgba(255, 255, 255, 0.1);

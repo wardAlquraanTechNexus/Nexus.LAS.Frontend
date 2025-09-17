@@ -52,6 +52,8 @@ import { PersonFormComponent } from '../dashboard-components/person-module/share
 import { DateInputComponent } from './date-input-component/date-input-component';
 import { NumberSeperatorPipe } from '../pipes/number-seperator-pipe';
 import { TranslateColumnPipe } from '../pipes/translate-column.pipe';
+import { ThousandSeparatorDirective } from '../directives/thousand-separator.directive';
+import { NumberFormatDirective } from '../directives/number-format.directive';
 
 import { DatePickerModule } from 'primeng/datepicker';
 
@@ -67,6 +69,8 @@ import { DatePickerModule } from 'primeng/datepicker';
     SharedTable,
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
+    ThousandSeparatorDirective,
+    NumberFormatDirective,
     BaseDialogComponent,
     BaseDialogFormComponent,
     BaseFormComponent,
@@ -152,6 +156,8 @@ import { DatePickerModule } from 'primeng/datepicker';
     MatDialogModule,
     ConfirmDeleteComponent,
     ConfirmDeleteDirective,
+    ThousandSeparatorDirective,
+    NumberFormatDirective,
     MatSortModule,
     TableDataPipe,
     TextPipe,

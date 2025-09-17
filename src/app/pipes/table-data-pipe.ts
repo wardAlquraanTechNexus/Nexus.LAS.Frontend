@@ -25,6 +25,10 @@ export class TableDataPipe implements PipeTransform {
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
     if (!pipes || pipes.length === 0) {
+      // Check if value is a number and format it with thousand separators
+      if (typeof value === 'number' && !isNaN(value)) {
+        return of(this.formatNumberWithSeparator(value));
+      }
       return of(value?.toString() ?? '');
     }
 
@@ -93,8 +97,19 @@ export class TableDataPipe implements PipeTransform {
             })
           );
 
+        case 'number':
+          if (value === null || value === undefined) {
+            return of('N/A');
+          }
+          const numValue = typeof value === 'string' ? parseFloat(value) : value;
+          if (isNaN(numValue)) {
+            return of(value?.toString() ?? '');
+          }
+          return of(this.formatNumberWithSeparator(numValue));
+
         case 'percentage':
-          return of(value + "%")
+          const percentValue = this.formatNumberWithSeparator(value);
+          return of(percentValue + "%")
 
         case 'document-nationality':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.country).pipe(
@@ -178,12 +193,13 @@ export class TableDataPipe implements PipeTransform {
             return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(
               map(list => {
                 const found = list.find(x => x.id == element[column.compareKey!]);
-                return found ? `${value} ${found.name}` : `${value}`;
+                const formattedValue = this.formatNumberWithSeparator(value);
+                return found ? `${formattedValue} ${found.name}` : `${formattedValue}`;
               })
             );
           }
           else {
-            return of(value)
+            return of(this.formatNumberWithSeparator(value))
           }
 
 
@@ -212,6 +228,28 @@ export class TableDataPipe implements PipeTransform {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  }
+
+  private formatNumberWithSeparator(value: number | string): string {
+    if (value === null || value === undefined || value === '') {
+      return '';
+    }
+
+    // Convert to number if it's a string
+    const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+
+    if (isNaN(numericValue)) {
+      return value?.toString() ?? '';
+    }
+
+    // Use Intl.NumberFormat for consistent formatting
+    const formatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+      useGrouping: true
+    });
+
+    return formatter.format(numericValue);
   }
 }
 

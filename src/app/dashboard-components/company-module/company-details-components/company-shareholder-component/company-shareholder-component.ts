@@ -71,6 +71,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       {
         key: "numbersOfShares",
         label: this.langService.getLabel('COMPANY.TOTAL_SHARES') || "No. of shares",
+        pipes: ['number']
       },
       {
         key: "sharePercent",
