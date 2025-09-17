@@ -52,14 +52,21 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
 
   override ngOnInit(): void {
     // Set display column labels using LanguageService
-    this.displayColumns = [
+   
+
+    this.params.personId = this.person.id;
+    super.ngOnInit();
+  }
+
+  override setDisplayColumns(): void {
+     this.displayColumns = [
       {
         key:"companyNameEn",
         label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Company Name",
       },
       {
         key:"rule",
-        label: this.langService.getLabel('PERSON.DESIGNATION') || "Rule",
+        label: this.langService.getLabel('COMPANY.DESIGNATION') || "Rule",
         pipes:["rule"]
       },
       {
@@ -81,11 +88,7 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
         pipes:['signatory-active']
       }
     ];
-
-    this.params.personId = this.person.id;
-    super.ngOnInit();
   }
-
   override fetchData(): void {
     this.showLoading = true;
     this.service.getPaging(this.params)

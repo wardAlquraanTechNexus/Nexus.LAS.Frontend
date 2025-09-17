@@ -56,7 +56,13 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
     this.params.companyBankAccountId = this.companyBankAccount.id;
 
     // Apply label logic based on langService.getLabel
-    this.displayColumns = [
+   
+
+    super.ngOnInit();
+  }
+
+  override setDisplayColumns(): void {
+     this.displayColumns = [
       {
         key:"personId",
         label: this.langService.getLabel('COMPANY.ACCOUNT_SIGNATORIES') || "Account Signatory",
@@ -94,10 +100,7 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
         label: this.langService.getLabel('COMMON.ACTIONS') || "Actions"
       }
     ];
-
-    super.ngOnInit();
   }
-
   override fetchData(): void {
     this.showLoading = true;
     this.service.getPaging(this.params)

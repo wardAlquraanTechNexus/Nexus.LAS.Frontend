@@ -48,11 +48,10 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.setDisplayColumns();
     
   }
 
-  setDisplayColumns() {
+  override setDisplayColumns() {
     const labels = this.currentLang === 'ar'
       ? {
           select: 'اختيار',

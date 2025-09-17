@@ -58,7 +58,13 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     this.params.companyId = this.company.id;
 
     // Apply label logic based on langService.getLabel
-    this.displayColumns = [
+   
+
+    super.ngOnInit();
+  }
+
+  override setDisplayColumns(): void {
+     this.displayColumns = [
       {
         key: "personId",
         label: this.langService.getLabel('COMMON.PERSON') || "Person",
@@ -89,8 +95,6 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
         label: this.langService.getLabel('COMMON.ACTIONS') || "Actions"
       }
     ];
-
-    super.ngOnInit();
   }
 
   override fetchData(): void {
@@ -116,7 +120,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     const element: CompanyBoardMemberDto = {
       id: 0,
       personId: 0,
-      appointmentDate: "",
+      appointmentDate: null,
       cessationDate: null,
       position: 0,
       companyId: this.company.id,

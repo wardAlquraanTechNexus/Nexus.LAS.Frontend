@@ -58,8 +58,10 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
 
     super.ngOnInit();
 
-    // Set labels for display columns using Label logic
-    this.displayColumns = [
+  }
+
+  override setDisplayColumns() {
+     this.displayColumns = [
    
       {
         key: "capitalDate",

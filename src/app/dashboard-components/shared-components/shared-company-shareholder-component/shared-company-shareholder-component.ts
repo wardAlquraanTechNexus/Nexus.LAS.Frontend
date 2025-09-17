@@ -61,6 +61,14 @@ export class SharedCompanyShareholderComponent extends TableFormComponent<Compan
   }
 
   override ngOnInit(): void {
+    
+
+    this.params.registersIdc = this.registersIdc;
+    this.params.registersIdn = this.registersIdn;
+    super.ngOnInit();
+  }
+
+  override setDisplayColumns(): void {
     this.displayColumns = [
       {
         key: "companyName",
@@ -87,12 +95,7 @@ export class SharedCompanyShareholderComponent extends TableFormComponent<Compan
         pipes: ['company-shareholder-status']
       }
     ];
-
-    this.params.registersIdc = this.registersIdc;
-    this.params.registersIdn = this.registersIdn;
-    super.ngOnInit();
   }
-
   override fetchData(): void {
     this.showLoading = true;
     this.service.getShareholderAssets(this.params)

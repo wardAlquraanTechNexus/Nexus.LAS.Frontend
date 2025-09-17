@@ -52,10 +52,10 @@ export class ActiveCompaniesTableComponent extends BaseCompaniesComponent {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.setDisplayColumns();
   }
+  
 
-  setDisplayColumns() {
+  override setDisplayColumns() {
 
     this.displayColumns = [
       { key: "select", label: this.currentLang === 'ar' ? 'اختيار' : 'Select' },

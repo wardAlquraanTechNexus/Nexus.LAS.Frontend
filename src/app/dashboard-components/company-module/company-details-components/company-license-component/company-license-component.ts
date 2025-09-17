@@ -51,7 +51,6 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
 
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
-    this.setDisplayColumns();
   
     super.ngOnInit();
   }
@@ -60,7 +59,7 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     super.ngOnDestroy();
   }
 
-  setDisplayColumns() {
+   override setDisplayColumns() {
     this.displayColumns = getDisplayColumns(this.langService, [
       { key: "licenseClassification", labelKey: 'COMPANY.CLASS' },
       { key: "licenseNumber", labelKey: 'COMPANY.CODE' },

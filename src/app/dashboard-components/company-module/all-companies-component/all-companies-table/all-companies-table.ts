@@ -36,10 +36,9 @@ export class AllCompaniesTable extends BaseCompaniesComponent {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.setDisplayColumns();
   }
 
-  setDisplayColumns() {
+  override setDisplayColumns() {
     this.displayColumns = [
       { key: "select", label: this.label.COMMON.SELECT },
       { key: "companyCode", label: this.label.COMPANY.CODE, pipes: ["link"], sort: true },

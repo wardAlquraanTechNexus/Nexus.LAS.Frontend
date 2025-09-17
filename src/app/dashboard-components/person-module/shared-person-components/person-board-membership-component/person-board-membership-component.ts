@@ -53,6 +53,13 @@ export class PersonBoardMembershipComponent  extends TableFormComponent<CompanyB
 
   override ngOnInit(): void {
     // Set display column labels using LanguageService
+    
+
+    this.params.personId = this.person.id;
+    super.ngOnInit();
+  }
+
+  override setDisplayColumns(): void {
     this.displayColumns = [
       {
         key: "companyNameEn",
@@ -60,7 +67,7 @@ export class PersonBoardMembershipComponent  extends TableFormComponent<CompanyB
       },
       {
         key: "position",
-        label: this.langService.getLabel('PERSON.DESIGNATION') || "Position",
+        label: this.langService.getLabel('COMPANY.DESIGNATION') || "Position",
         pipes: ["board-position"]
       },
       {
@@ -74,9 +81,6 @@ export class PersonBoardMembershipComponent  extends TableFormComponent<CompanyB
         pipes: ["active"]
       }
     ];
-
-    this.params.personId = this.person.id;
-    super.ngOnInit();
   }
 
   override fetchData(): void {

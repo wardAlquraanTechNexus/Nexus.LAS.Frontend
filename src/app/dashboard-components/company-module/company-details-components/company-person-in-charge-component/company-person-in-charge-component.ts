@@ -57,7 +57,12 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     this.params.companyId = this.company.id;
     super.ngOnInit();
 
-    this.displayColumns = [
+  
+
+  }
+
+  override setDisplayColumns() {
+      this.displayColumns = [
     {
       key: "personNameEn",
       label: this.label.COMMON.NAME_EN,
@@ -102,7 +107,6 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
       label: this.label.COMMON.ACTIONS
     }
   ];
-
   }
   override fetchData() {
     this.showLoading = true;

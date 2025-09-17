@@ -74,6 +74,11 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
 
+    
+    super.ngOnInit();
+  }
+  
+  override setDisplayColumns(): void {
     const getLabel = this.languageService.getLabel.bind(this.languageService);
     this.displayColumns = [
       {
@@ -119,8 +124,6 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
         label: getLabel('COMMON.ACTION') || "Action",
       }
     ];
-
-    this.fetchData();
   }
   override fetchData() {
 

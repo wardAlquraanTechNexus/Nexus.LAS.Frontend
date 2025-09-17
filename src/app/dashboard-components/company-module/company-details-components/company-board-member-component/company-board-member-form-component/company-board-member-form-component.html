@@ -20,7 +20,7 @@
     <!-- Body -->
     <div class="dialog-body">
         <div class="form-container">
-            <form [formGroup]="formGroup" class="row w-100">
+            <form *ngIf="formGroup" [formGroup]="formGroup" class="row w-100">
 
                 <div class="form-group col-12">
                     <div class="select-error-wrapper">

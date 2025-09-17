@@ -41,10 +41,9 @@ export class UserTable extends TableFormComponent<User>
 
    override ngOnInit(): void {
     super.ngOnInit();
-    this.setDisplayColumns();
   }
 
-  setDisplayColumns(): void {
+  override setDisplayColumns(): void {
     this.displayColumns = [
       {
         key: "username",
@@ -75,10 +74,6 @@ export class UserTable extends TableFormComponent<User>
         label: this.label.COMMON.NT_LOGGIN,
       },
     ];
-  }
-
-  updateColumnLabels() {
-    this.setDisplayColumns();
   }
 
    constructor(

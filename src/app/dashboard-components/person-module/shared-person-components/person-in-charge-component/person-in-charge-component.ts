@@ -56,14 +56,19 @@ export class PersonInChargeComponent  extends TableFormComponent<CompanyPersonIn
     this.params.personId = this.person.id;
     super.ngOnInit();
 
-     this.displayColumns = [
+     
+
+  }
+
+  override setDisplayColumns(): void {
+    this.displayColumns = [
       {
         key: "companyNameEn",
         label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Company Name",
       },
       {
         key: "designation",
-        label: this.langService.getLabel('PERSON.DESIGNATION') || "Designation",
+        label: this.langService.getLabel('COMPANY.DESIGNATION') || "Designation",
         pipes: ['designation']
       },
       {
@@ -72,7 +77,6 @@ export class PersonInChargeComponent  extends TableFormComponent<CompanyPersonIn
         pipes: ['person-company-in-charge']
       },
     ];
-
   }
   override fetchData() {
     this.showLoading = true;

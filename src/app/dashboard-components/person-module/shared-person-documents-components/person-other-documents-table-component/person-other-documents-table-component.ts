@@ -70,12 +70,12 @@ export class PersonOtherDocumentsTableComponent extends TableFormComponent<Perso
       'documentType': []
     });
 
-    this.setDisplayColumns();
     
     this.fetchData();
+    this.subscribeLanguage();
   }
 
-  setDisplayColumns() {
+  override setDisplayColumns() {
     const getLabel = this.langService.getLabel.bind(this.langService);
     this.displayColumns = [
       {

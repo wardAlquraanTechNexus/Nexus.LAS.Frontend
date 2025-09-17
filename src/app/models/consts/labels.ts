@@ -152,6 +152,7 @@ export const Labels = {
         },
         COMMON: {
             DESCRIPTION: "Description",
+            NT_LOGIN: "NT Login",
             ADD_NEW_MENU_ITEM: "Add New Menu Item",
             NAME: "Name",
             ADD_GROUP_MENU: "Add Group Menu",
@@ -467,6 +468,7 @@ export const Labels = {
             ENTER_BOARD_MEMBER_DETAILS: "أدخل تفاصيل عضو مجلس الإدارة", // <-- Added
         },
         COMMON: {
+            NT_LOGIN: "تسجيل الدخول NT",
             DESCRIPTION: "الوصف",
             ADD_NEW_MENU_ITEM: "إضافة عنصر قائمة جديد",
             NAME: "الاسم",

@@ -160,3 +160,12 @@ app-date-input + mat-error + mat-error {
   background-color: rgba(63,81,181,0.1);
 }
 
+/* Remove border from mat-mdc-notch-piece globally */
+.mat-mdc-notch-piece {
+  border: none !important;
+}
+
+[dir=rtl] .mdc-text-field--outlined .mdc-floating-label {
+  right: unset !important;  // removes the right positioning
+  left: auto;               // keeps left auto
+}

@@ -52,7 +52,6 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
 
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
-    this.setDisplayColumns();
     
     super.ngOnInit();
   }
@@ -61,7 +60,7 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
     super.ngOnDestroy();
   }
 
-  setDisplayColumns() {
+  override setDisplayColumns() {
     this.displayColumns = [
       {
         key: "fileName",

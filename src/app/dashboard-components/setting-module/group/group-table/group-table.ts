@@ -54,10 +54,9 @@ export class GroupTable extends TableFormComponent<Group> {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.setDisplayColumns();
   }
 
-  setDisplayColumns() {
+  override setDisplayColumns() {
     this.displayColumns = [
       {
         key: "id",
@@ -78,9 +77,7 @@ export class GroupTable extends TableFormComponent<Group> {
     ];
   }
 
-  updateColumnLabels() {
-    this.setDisplayColumns();
-  }
+  
 
   override fetchData() {
     this.showLoading = true;

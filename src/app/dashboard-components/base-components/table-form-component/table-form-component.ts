@@ -62,6 +62,7 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
   subscribeLanguage(){
     this.langService.language$.subscribe(lang => {
       this.applyLanguage(lang);
+      this.setDisplayColumns();
     });
     
   }
@@ -79,6 +80,7 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
     this.cdr.detectChanges();
   }
 
+  setDisplayColumns() {}
 
   fillParamsFromQP(): void {
     const params = this.route.snapshot.queryParams;

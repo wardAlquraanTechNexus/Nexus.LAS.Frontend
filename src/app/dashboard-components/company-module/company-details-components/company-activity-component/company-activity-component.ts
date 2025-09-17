@@ -57,6 +57,10 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
     this.params.companyId = this.company.id;
     
     super.ngOnInit();
+    
+  }
+
+  override setDisplayColumns(){
     this.displayColumns = [
      {
        key: "activity",
@@ -74,7 +78,6 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
      }
    ];
   }
-
   override fetchData(): void {
     this.showLoading = true;
     this.loadingService.startLoading('Loading data');

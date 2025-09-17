@@ -57,7 +57,20 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
   }
 
   override ngOnInit(): void {
-    this.displayColumns = [
+   
+
+    this.params.companyId = this.company.id;
+    super.ngOnInit();
+
+    this.companyCapitalService.activeCapitalUpdated$.subscribe(capital => {
+      if (capital.companyId === this.company.id) {
+        this.fetchData();
+      }
+    });
+  }
+
+  override setDisplayColumns(): void {
+     this.displayColumns = [
       {
         key: "registerName",
         label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Registers",
@@ -101,15 +114,6 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
         
       }
     ];
-
-    this.params.companyId = this.company.id;
-    super.ngOnInit();
-
-    this.companyCapitalService.activeCapitalUpdated$.subscribe(capital => {
-      if (capital.companyId === this.company.id) {
-        this.fetchData();
-      }
-    });
   }
 
   override fetchData(): void {

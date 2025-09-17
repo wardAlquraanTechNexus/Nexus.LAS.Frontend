@@ -80,13 +80,10 @@ export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
     super.ngOnInit();
-    this.setDisplayColumns();
-    this.langSub = this.langService.language$.subscribe(() => {
-      this.setDisplayColumns();
-    });
+
   }
 
-  private setDisplayColumns(): void {
+  override setDisplayColumns(): void {
     this.displayColumns = [
       {
         key:"id",

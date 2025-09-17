@@ -10,7 +10,6 @@ export abstract class BaseCompanyTableComponent implements OnInit, OnDestroy {
   constructor(protected langService: LanguageService) {}
 
   ngOnInit(): void {
-    this.setDisplayColumns();
     this.langSub = this.langService.language$.subscribe(() => {
       this.setDisplayColumns();
     });

@@ -41,7 +41,14 @@ export class CompanyBoardMemberFormComponent extends BaseFormComponent {
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
-  
+  override ngOnInit(): void {
+
+    this.setup(this.element);
+    super.ngOnInit();
+    this.loadPersonsFn = (search: string) => this.loadPersons(search);
+    this.loadPositionsFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.boardPosition, search);
+
+  }
   loadPersons(search: string) {
     return this.personService.getAllPersons({
       searchBy: search,

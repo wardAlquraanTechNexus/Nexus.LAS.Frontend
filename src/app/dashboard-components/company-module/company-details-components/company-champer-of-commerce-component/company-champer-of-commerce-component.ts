@@ -47,6 +47,11 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
   }
   override ngOnInit(): void {
     this.params.companyIdn = this.company.id;
+    
+    super.ngOnInit();
+  }
+
+  override setDisplayColumns() {
      this.displayColumns = [
       {
         key: "cciNumber",
@@ -80,7 +85,6 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
         label: this.langService.getLabel('COMMON.ACTIONS') || "Actions"
       }
     ];
-    super.ngOnInit();
   }
 
   onAddNew() {
