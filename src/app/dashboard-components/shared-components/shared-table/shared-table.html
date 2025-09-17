@@ -54,7 +54,7 @@
                     </span>
                     <span *ngIf="column.inputType">
                       <ng-container *ngIf="column.inputType === 'mat-slide-toggle'; else defaultInput">
-                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'"
+                        <mat-slide-toggle [checked]="element[column.key] === true" [color]="'primary'" class="nexus-switch nexus-switch-table"
                           (change)="onToggleChange(element, column.key, $event.checked)"></mat-slide-toggle>
                       </ng-container>
                       <ng-template #defaultInput>

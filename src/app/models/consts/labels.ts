@@ -114,7 +114,7 @@ export const Labels = {
             AUTHORIZED_CAPITAL_AMOUNT: "Authorized Capital Amount",
             PAID_CAPITAL_AMOUNT: "Paid Capital Amount",
             ISSUED_SHARES: "Issued Shares",
-            CLASS_OF_SHARES: "Class Of Shares",
+            CLASS_OF_SHARES: "Class of Shares",
             CCI_NUMBER: "CCI Number",
             CCI_ISSUE_DATE: "CCI Issue Date",
             CCI_ISSUE_DATE_REQUIRED: "CCI Issue Date is required",

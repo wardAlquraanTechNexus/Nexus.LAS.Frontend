@@ -142,7 +142,13 @@
 
                 <!-- Capital Active -->
                 <div class="col-6">
-                    <mat-slide-toggle formControlName="capitalActive">{{ label.COMMON.ACTIVE || 'Active' }}</mat-slide-toggle>
+                    <div class="nexus-switch-wrapper">
+                        <div class="nexus-switch-container">
+                            <mat-slide-toggle formControlName="capitalActive" color="primary" class="nexus-switch">
+                                {{ label.COMMON.ACTIVE || 'Active' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
                 </div>
 
             </form>

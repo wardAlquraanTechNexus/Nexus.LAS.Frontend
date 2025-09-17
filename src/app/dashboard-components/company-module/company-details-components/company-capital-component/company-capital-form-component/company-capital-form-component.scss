@@ -110,30 +110,30 @@
   // Form Container
   .form-container {
     padding: 0;
-    
+
     // Material Form Field Enhancements
     mat-form-field {
       width: 100%;
       margin-bottom: 16px;
-      
+
       // Label styling
       ::ng-deep .mat-mdc-form-field-label {
         color: rgba(1, 55, 114, 0.8) !important;
         font-weight: 500;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
-      
+
       // Input styling
       ::ng-deep .mat-mdc-input-element {
         color: #333;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        
+
         &::placeholder {
           color: rgba(1, 55, 114, 0.5);
           font-style: italic;
         }
       }
-      
+
       // Outlined appearance enhancement
       &.mat-mdc-form-field-appearance-outline {
         ::ng-deep .mdc-text-field--outlined {
@@ -141,18 +141,18 @@
             border-color: rgba(1, 55, 114, 0.2);
             border-radius: 12px;
           }
-          
+
           &:hover .mdc-notched-outline {
             border-color: rgba(1, 55, 114, 0.3);
           }
-          
+
           &.mdc-text-field--focused .mdc-notched-outline {
             border-color: #013772;
             border-width: 2px;
           }
         }
       }
-      
+
       // Error state styling
       &.mat-form-field-invalid {
         ::ng-deep .mdc-text-field--outlined {
@@ -162,6 +162,8 @@
         }
       }
     }
+
+    // Global nexus-switch styles are used - no local overrides needed
   }
 
   // Enhanced Footer

@@ -103,7 +103,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
         decimals: 0  // No decimals for share counts
       }, {
         key: "classOfShares",
-        label: this.langService.getLabel(this.label.COMPANY.CLASS_OF_SHARES) || "Class Of Shares",
+        label: this.langService.getLabel(this.label.COMPANY.CLASS_OF_SHARES) || "Class of Shares",
       }, {
         key: "capitalActive",
         label: this.langService.getLabel(this.label.COMMON.STATUS) || "Status",
