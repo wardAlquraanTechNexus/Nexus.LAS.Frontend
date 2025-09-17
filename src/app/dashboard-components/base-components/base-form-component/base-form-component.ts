@@ -11,7 +11,7 @@ import { LoadingStateService } from '../../../services/loading-state.service';
 import { LanguageService } from '../../../services/language-service';
 import { LanguageCode } from '../../../models/types/lang-type';
 import { Labels } from '../../../models/consts/labels';
-import * as moment from 'moment';
+import { isDate, format } from 'date-fns';
 
 @Component({
   selector: 'app-base-form-component',
@@ -185,10 +185,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
             (this.object as any)[key] = value;
           }
 
-          // Convert moment objects to native Date before appending
-          if (moment.isMoment(value)) {
-            value = value.toDate();
-          }
+          // Date values are already Date objects, no conversion needed
 
           if (value instanceof Date) {
             if (value != null) {

@@ -1,4 +1,5 @@
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateFnsAdapter } from './date-fns-adapter';
 
 export const NEXUS_DATE_FORMATS = {
   parse: {
@@ -13,5 +14,6 @@ export const NEXUS_DATE_FORMATS = {
 };
 
 export const DATE_FORMAT_PROVIDERS = [
+  { provide: DateAdapter, useClass: DateFnsAdapter },
   { provide: MAT_DATE_FORMATS, useValue: NEXUS_DATE_FORMATS }
 ];

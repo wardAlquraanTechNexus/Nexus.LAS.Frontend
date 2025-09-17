@@ -1,6 +1,6 @@
 <div *ngIf="labels">
   <div class="empty-table" *ngIf="paginateResult.totalRecords == 0">
-    {{labels.noRecords}}
+    {{labels.COMMON.NO_RECORDS}}
   </div>
   <div *ngIf="paginateResult.totalRecords > 0" class="mat-elevation-z8">
     <table [dir]="dir" mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange($event)">
@@ -86,7 +86,7 @@
 
     <div class="paginator-container" [ngClass]="{'rtl': dir === 'rtl'}">
       <div class="records-count">
-        <span>{{ paginateResult.totalRecords || 0 }} {{labels.recordsReturned}}</span>
+        <span>{{ paginateResult.totalRecords || 0 }} {{labels.COMMON.RECORDS_RETURNED}}</span>
       </div>
       <mat-paginator (page)="onPageChange($event)" [pageIndex]="paginateResult.page"
         [pageSize]="paginateResult.pageSize" [length]="paginateResult.totalRecords" [pageSizeOptions]="[5,10,20,50,100]"

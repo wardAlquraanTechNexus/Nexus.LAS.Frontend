@@ -10,10 +10,8 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/get-person-dto';
 import { PersonService } from '../../../../../services/person-services/person-service';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
-import moment from 'moment';
+import { parse, isValid, format, parseISO } from 'date-fns';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
@@ -22,9 +20,7 @@ import { LanguageService } from '../../../../../services/language-service';
   templateUrl: './company-board-member-form-component.html',
   styleUrl: './company-board-member-form-component.scss',
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    ...DATE_FORMAT_PROVIDERS,
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+    ...DATE_FORMAT_PROVIDERS
   ]
 })
 export class CompanyBoardMemberFormComponent extends BaseFormComponent {
@@ -60,23 +56,28 @@ export class CompanyBoardMemberFormComponent extends BaseFormComponent {
 
         // Parse the date string and force it to be treated as local time
         // This prevents timezone offset issues
-        let momentDate = moment(dateValue);
+        let parsedDate: Date | null = null;
 
-        // If the date is in ISO format with timezone, parse as UTC and convert to local
-        if (typeof dateValue === 'string' && dateValue.includes('T')) {
-          momentDate = moment.utc(dateValue).local();
-        } else {
-          // For date-only strings, parse as local date
-          momentDate = moment(dateValue, ['YYYY-MM-DD', 'DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY-MM-DDTHH:mm:ss']);
+        // If the date is in ISO format with timezone
+        if (typeof dateValue === 'string') {
+          if (dateValue.includes('T')) {
+            parsedDate = parseISO(dateValue);
+          } else {
+            // Try different date formats
+            const formats = ['yyyy-MM-dd', 'dd/MM/yyyy', 'MM/dd/yyyy'];
+            for (const fmt of formats) {
+              const attemptedDate = parse(dateValue, fmt, new Date());
+              if (isValid(attemptedDate)) {
+                parsedDate = attemptedDate;
+                break;
+              }
+            }
+          }
         }
 
-        if (momentDate.isValid()) {
-          // Create a new date at midnight local time to avoid timezone shifts
-          const year = momentDate.year();
-          const month = momentDate.month();
-          const day = momentDate.date();
-          const localDate = new Date(year, month, day, 12, 0, 0); // Set to noon to avoid DST issues
-
+        if (parsedDate && isValid(parsedDate)) {
+          // Create a new date at noon local time to avoid timezone shifts
+          const localDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 12, 0, 0);
           console.log(`Converted ${fieldName}:`, dateValue, '->', localDate);
           return localDate;
         }
@@ -125,22 +126,16 @@ export class CompanyBoardMemberFormComponent extends BaseFormComponent {
     const formValue = this.formGroup.getRawValue();
 
     // Convert dates to ensure they're saved correctly
-    if (formValue.appointmentDate) {
-      const appointmentMoment = moment(formValue.appointmentDate);
-      if (appointmentMoment.isValid()) {
-        // Format as local date string to avoid timezone issues
-        formValue.appointmentDate = appointmentMoment.format('YYYY-MM-DD');
-        console.log('Saving appointmentDate as:', formValue.appointmentDate);
-      }
+    if (formValue.appointmentDate && isValid(formValue.appointmentDate)) {
+      // Format as local date string to avoid timezone issues
+      formValue.appointmentDate = format(formValue.appointmentDate, 'yyyy-MM-dd');
+      console.log('Saving appointmentDate as:', formValue.appointmentDate);
     }
 
-    if (formValue.cessationDate) {
-      const cessationMoment = moment(formValue.cessationDate);
-      if (cessationMoment.isValid()) {
-        // Format as local date string to avoid timezone issues
-        formValue.cessationDate = cessationMoment.format('YYYY-MM-DD');
-        console.log('Saving cessationDate as:', formValue.cessationDate);
-      }
+    if (formValue.cessationDate && isValid(formValue.cessationDate)) {
+      // Format as local date string to avoid timezone issues
+      formValue.cessationDate = format(formValue.cessationDate, 'yyyy-MM-dd');
+      console.log('Saving cessationDate as:', formValue.cessationDate);
     }
 
     // Update form with converted values

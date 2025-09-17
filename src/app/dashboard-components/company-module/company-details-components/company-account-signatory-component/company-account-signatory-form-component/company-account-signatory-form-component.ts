@@ -10,10 +10,8 @@ import { map, Observable, tap } from 'rxjs';
 import { PersonService } from '../../../../../services/person-services/person-service';
 import { environment } from '../../../../../../environment/environment';
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
-import moment from 'moment';
+import { parse, isValid, format, parseISO } from 'date-fns';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
@@ -22,9 +20,7 @@ import { LanguageService } from '../../../../../services/language-service';
   templateUrl: './company-account-signatory-form-component.html',
   styleUrl: './company-account-signatory-form-component.scss',
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    ...DATE_FORMAT_PROVIDERS,
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+    ...DATE_FORMAT_PROVIDERS
   ]
 })
 export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
@@ -62,21 +58,29 @@ export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
 
         // Parse the date string and force it to be treated as local time
         // This prevents timezone offset issues
-        let momentDate = moment(dateValue);
+        let parsedDate: Date | null = null;
 
-        // If the date is in ISO format with timezone, parse as UTC and convert to local
+        // If the date is in ISO format with timezone, parse as ISO
         if (typeof dateValue === 'string' && dateValue.includes('T')) {
-          momentDate = moment.utc(dateValue).local();
+          parsedDate = parseISO(dateValue);
         } else {
-          // For date-only strings, parse as local date
-          momentDate = moment(dateValue, ['YYYY-MM-DD', 'DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY-MM-DDTHH:mm:ss']);
+          // For date-only strings, try multiple formats
+          const formats = ['yyyy-MM-dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'yyyy-MM-dd\'T\'HH:mm:ss'];
+          for (const fmt of formats) {
+            try {
+              parsedDate = parse(dateValue, fmt, new Date());
+              if (isValid(parsedDate)) break;
+            } catch {
+              // Continue to next format
+            }
+          }
         }
 
-        if (momentDate.isValid()) {
+        if (parsedDate && isValid(parsedDate)) {
           // Create a new date at noon local time to avoid DST issues
-          const year = momentDate.year();
-          const month = momentDate.month();
-          const day = momentDate.date();
+          const year = parsedDate.getFullYear();
+          const month = parsedDate.getMonth();
+          const day = parsedDate.getDate();
           const localDate = new Date(year, month, day, 12, 0, 0); // Set to noon to avoid DST issues
 
           console.log(`Converted ${fieldName}:`, dateValue, '->', localDate);
@@ -127,19 +131,29 @@ export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
 
     // Convert dates to ensure they're saved correctly
     if (formValue.accountSignatoryDate) {
-      const accountSignatoryMoment = moment(formValue.accountSignatoryDate);
-      if (accountSignatoryMoment.isValid()) {
+      let parsedDate: Date | null = null;
+      if (formValue.accountSignatoryDate instanceof Date) {
+        parsedDate = formValue.accountSignatoryDate;
+      } else {
+        parsedDate = parseISO(formValue.accountSignatoryDate);
+      }
+      if (parsedDate && isValid(parsedDate)) {
         // Format as local date string to avoid timezone issues
-        formValue.accountSignatoryDate = accountSignatoryMoment.format('YYYY-MM-DD');
+        formValue.accountSignatoryDate = format(parsedDate, 'yyyy-MM-dd');
         console.log('Saving accountSignatoryDate as:', formValue.accountSignatoryDate);
       }
     }
 
     if (formValue.cessationDate) {
-      const cessationMoment = moment(formValue.cessationDate);
-      if (cessationMoment.isValid()) {
+      let parsedDate: Date | null = null;
+      if (formValue.cessationDate instanceof Date) {
+        parsedDate = formValue.cessationDate;
+      } else {
+        parsedDate = parseISO(formValue.cessationDate);
+      }
+      if (parsedDate && isValid(parsedDate)) {
         // Format as local date string to avoid timezone issues
-        formValue.cessationDate = cessationMoment.format('YYYY-MM-DD');
+        formValue.cessationDate = format(parsedDate, 'yyyy-MM-dd');
         console.log('Saving cessationDate as:', formValue.cessationDate);
       }
     }

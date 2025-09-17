@@ -21,7 +21,8 @@
       "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\styles\\components/**)",
       "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\_base\\company-table-view/**)",
       "Bash(timeout:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": [],

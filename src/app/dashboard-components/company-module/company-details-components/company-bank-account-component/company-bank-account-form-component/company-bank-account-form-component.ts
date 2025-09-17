@@ -6,10 +6,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../../../../environment/environment.prod';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
-import moment from 'moment';
+import { parse, isValid, format, parseISO } from 'date-fns';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
@@ -18,9 +16,7 @@ import { LanguageService } from '../../../../../services/language-service';
   templateUrl: './company-bank-account-form-component.html',
   styleUrl: './company-bank-account-form-component.scss',
   providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    ...DATE_FORMAT_PROVIDERS,
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } }
+    ...DATE_FORMAT_PROVIDERS
   ]
 })
 export class CompanyBankAccountFormComponent extends BaseFormComponent
@@ -52,21 +48,29 @@ export class CompanyBankAccountFormComponent extends BaseFormComponent
 
         // Parse the date string and force it to be treated as local time
         // This prevents timezone offset issues
-        let momentDate = moment(dateValue);
+        let parsedDate: Date | null = null;
 
-        // If the date is in ISO format with timezone, parse as UTC and convert to local
+        // If the date is in ISO format with timezone, parse as ISO
         if (typeof dateValue === 'string' && dateValue.includes('T')) {
-          momentDate = moment.utc(dateValue).local();
+          parsedDate = parseISO(dateValue);
         } else {
-          // For date-only strings, parse as local date
-          momentDate = moment(dateValue, ['YYYY-MM-DD', 'DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY-MM-DDTHH:mm:ss']);
+          // For date-only strings, try multiple formats
+          const formats = ['yyyy-MM-dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'yyyy-MM-dd\'T\'HH:mm:ss'];
+          for (const fmt of formats) {
+            try {
+              parsedDate = parse(dateValue, fmt, new Date());
+              if (isValid(parsedDate)) break;
+            } catch {
+              // Continue to next format
+            }
+          }
         }
 
-        if (momentDate.isValid()) {
+        if (parsedDate && isValid(parsedDate)) {
           // Create a new date at noon local time to avoid DST issues
-          const year = momentDate.year();
-          const month = momentDate.month();
-          const day = momentDate.date();
+          const year = parsedDate.getFullYear();
+          const month = parsedDate.getMonth();
+          const day = parsedDate.getDate();
           const localDate = new Date(year, month, day, 12, 0, 0); // Set to noon to avoid DST issues
 
           console.log(`Converted ${fieldName}:`, dateValue, '->', localDate);
@@ -97,10 +101,15 @@ export class CompanyBankAccountFormComponent extends BaseFormComponent
 
     // Convert bankAccountDate to ensure it's saved correctly
     if (formValue.bankAccountDate) {
-      const bankAccountMoment = moment(formValue.bankAccountDate);
-      if (bankAccountMoment.isValid()) {
+      let parsedDate: Date | null = null;
+      if (formValue.bankAccountDate instanceof Date) {
+        parsedDate = formValue.bankAccountDate;
+      } else {
+        parsedDate = parseISO(formValue.bankAccountDate);
+      }
+      if (parsedDate && isValid(parsedDate)) {
         // Format as local date string to avoid timezone issues
-        formValue.bankAccountDate = bankAccountMoment.format('YYYY-MM-DD');
+        formValue.bankAccountDate = format(parsedDate, 'yyyy-MM-dd');
         console.log('Saving bankAccountDate as:', formValue.bankAccountDate);
       }
     }
