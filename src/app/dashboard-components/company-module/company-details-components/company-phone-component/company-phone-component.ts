@@ -8,6 +8,9 @@ import { PersonPhone } from '../../../../models/person-models/person-phone/perso
 import { PersonPhoneDialogComponent } from '../../../person-module/shared-person-components/person-phone-details/person-phone-dialog-component/person-phone-dialog-component';
 import { CompanyPhoneDialogFormComponent } from './company-phone-dialog-form-component/company-phone-dialog-form-component';
 import { CompanyPhoneDto } from '../../../../models/company-models/company-phone/dtos/company-phone-dto';
+import { LanguageService } from '../../../../services/language-service';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-company-phone-component',
@@ -16,6 +19,11 @@ import { CompanyPhoneDto } from '../../../../models/company-models/company-phone
   styleUrl: './company-phone-component.scss'
 })
 export class CompanyPhoneComponent implements OnInit {
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+
   @Input() company!: GetCompanyDto;
 
   personId = 0;
@@ -27,9 +35,13 @@ export class CompanyPhoneComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private service: CompanyPhoneService,
-    private dialog: MatDialog
-
-  ) { }
+    private dialog: MatDialog,
+    private langService: LanguageService
+  ) {
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+  }
 
 
 

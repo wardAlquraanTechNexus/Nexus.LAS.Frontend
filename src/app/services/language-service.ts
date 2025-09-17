@@ -29,6 +29,10 @@ export class LanguageService {
     return (localStorage.getItem('language') || 'en') as LanguageCode;
   }
 
+  get currentLabels() {
+    return this.getLabels(this.currentLanguage());
+  }
+
   getLabel(key: string): string {
     if(key == 'EMAIL_ADDRESSES'){
       debugger;

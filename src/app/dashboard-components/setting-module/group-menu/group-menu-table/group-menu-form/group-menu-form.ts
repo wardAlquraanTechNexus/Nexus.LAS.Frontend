@@ -25,6 +25,10 @@ export class GroupMenuForm extends BaseFormComponent {
   loadGroupFn!: (search: string) => Observable<Group[]>;
   loadMenusFn!: (search: string) => Observable<Menu[]>;
 
+  override get label() {
+    return this.langService.currentLabels;
+  }
+
   constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,

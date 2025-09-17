@@ -26,6 +26,10 @@ export class CompanyBoardComponent  extends TableFormComponent<CompanyBoard> {
 
   @Output() rowClick = new EventEmitter<CompanyBoardDto>();
 
+  override get label() {
+    return this.langService.currentLabels;
+  }
+
   override data: PaginateRsult<CompanyBoardDto> = {
     collection: [],
     page: 0,

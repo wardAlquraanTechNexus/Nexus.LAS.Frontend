@@ -3,7 +3,7 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>Addresses</h2>
+    <h2>{{label.COMMON.ADDRESSES}}</h2>
   </div>
   <button mat-raised-button color="primary" (click)="onAdd()">
     <mat-icon>add</mat-icon> Add Address
@@ -51,11 +51,11 @@
         <mat-menu #addressMenu="matMenu">
           <button mat-menu-item (click)="onEdit(companyAddress)">
             <mat-icon>edit</mat-icon>
-            <span>Edit Address</span>
+            <span>{{label.COMMON.EDIT_ADDRESS}}</span>
           </button>
           <button mat-menu-item [confirmDelete]="getRemoveCallback(companyAddress.id!)">
             <mat-icon>delete</mat-icon>
-            <span>Delete Address</span>
+            <span>{{label.COMMON.DELETE_ADDRESS}}</span>
           </button>
         </mat-menu>
       </div>

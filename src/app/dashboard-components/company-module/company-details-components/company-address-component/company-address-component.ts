@@ -7,6 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyAddressDto } from '../../../../models/company-models/company-address/dtos/company-address-dto';
 import { CompanyAddressDialogFormComponent } from './company-address-dialog-form-component/company-address-dialog-form-component';
+import { LanguageService } from '../../../../services/language-service';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { Labels } from '../../../../models/consts/labels';
 
 @Component({
   selector: 'app-company-address-component',
@@ -16,6 +19,10 @@ import { CompanyAddressDialogFormComponent } from './company-address-dialog-form
   styleUrl: './company-address-component.scss'
 })
 export class CompanyAddressComponent implements OnInit {
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
 
   @Input() company!: GetCompanyDto;
   showLoading = false;
@@ -29,9 +36,13 @@ export class CompanyAddressComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private service: CompanyAddressService,
     private dialog: MatDialog,
-    private dlService: DynamicListService
-
-  ) { }
+    private dlService: DynamicListService,
+    private langService: LanguageService
+  ) {
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+  }
 
 
 

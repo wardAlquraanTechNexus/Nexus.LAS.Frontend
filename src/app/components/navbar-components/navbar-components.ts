@@ -15,6 +15,8 @@ import { CompanyFormDialog } from '../../dashboard-components/company-module/com
 import { MenuService } from '../../services/menu-service';
 import { PersonDialogFormComponent } from '../../dashboard-components/person-module/person-dialog-form-component/person-dialog-form-component';
 import { PersonDto } from '../../models/person-models/person-dto';
+import { Labels } from '../../models/consts/labels';
+import { LanguageCode } from '../../models/types/lang-type';
 
 
 @Component({
@@ -27,6 +29,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
   searchText = '';
   searchResults: string[] = [];
   sidebarOpen = true;
+  currentLang: LanguageCode = 'en';
+
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
 
   @Output() changeLanguageEmitter = new EventEmitter<Language>();
 
@@ -101,6 +108,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
       this.selectedLanguage = this.languages.find(x => x.value == lang) || this.languages[0];
     });
   }

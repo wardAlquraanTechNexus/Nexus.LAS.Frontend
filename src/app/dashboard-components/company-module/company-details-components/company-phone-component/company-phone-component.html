@@ -50,11 +50,11 @@
         <mat-menu #phoneMenu="matMenu">
           <button mat-menu-item (click)="onedit(companyPhone)">
             <mat-icon>edit</mat-icon>
-            <span>Edit Phone</span>
+            <span>{{label.COMMON.EDIT_PHONE}}</span>
           </button>
           <button mat-menu-item [confirmDelete]="getRemoveCallback(companyPhone.id!)">
             <mat-icon>delete</mat-icon>
-            <span>Delete Phone</span>
+            <span>{{label.COMMON.DELETE_PHONE}}</span>
           </button>
         </mat-menu>
       </div>

@@ -45,11 +45,11 @@
           <mat-menu #emailMenu="matMenu">
             <button mat-menu-item (click)="onEdit(companyEmail)">
               <mat-icon>edit</mat-icon>
-              <span>Edit Email</span>
+              <span>{{ label.COMMON.EDIT }}</span>
             </button>
             <button mat-menu-item [confirmDelete]="getRemoveCallback(companyEmail.id!)">
               <mat-icon>delete</mat-icon>
-              <span>Delete Email</span>
+              <span>{{ label.COMMON.DELETE }}</span>
             </button>
           </mat-menu>
         </div>
