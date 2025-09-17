@@ -19,5 +19,22 @@
   [paginateResult]="data"
   (onChangePage)="changePage($event)"
   (onSortChangeEvent)="changeSort($event)"
-  (rowClick)="onRowClick($event)">
+  (rowClick)="onRowClick($event)"
+  [action]="actionButtonsTemplate">
+  >
 </app-shared-table>
+
+
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="menuRow">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menuRow="matMenu">
+    <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
+      <mat-icon>edit</mat-icon> {{ label.COMMON.EDIT || 'Edit' }}
+    </button>
+    <button mat-menu-item class="btn-delete" [confirmDelete]="deleteFn(row.id)">
+      <mat-icon>delete</mat-icon> {{ label.COMMON.DELETE || 'Delete' }}
+    </button>
+  </mat-menu>
+</ng-template>

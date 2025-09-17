@@ -3,10 +3,10 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>Addresses</h2>
+    <h2>{{ label.COMMON.ADDRESSES || 'Addresses' }}</h2>
   </div>
   <button mat-raised-button color="primary" (click)="onAdd()">
-    <mat-icon>add</mat-icon> Add Address
+    <mat-icon>add</mat-icon> {{ label.COMMON.ADD_ADDRESS || 'Add Address' }}
   </button>
 </div>
 
@@ -34,7 +34,7 @@
           <span *ngIf="companyAddress.addressLine1">{{companyAddress.addressLine1}}</span>
           <span *ngIf="companyAddress.addressLine2">, {{companyAddress.addressLine2}}</span>
           <span *ngIf="companyAddress.addressLine3">, {{companyAddress.addressLine3}}</span>
-          <span *ngIf="companyAddress.addressPrimary" class="primary-badge">Primary</span>
+          <span *ngIf="companyAddress.addressPrimary" class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
         </div>
         <div class="secondary-text">
           <div *ngIf="companyAddress.poBoxNumber">{{ companyAddress.poBoxNumber }}</div>
@@ -51,11 +51,11 @@
         <mat-menu #addressMenu="matMenu">
           <button mat-menu-item (click)="onEdit(companyAddress)">
             <mat-icon>edit</mat-icon>
-            <span>Edit Address</span>
+            <span>{{ label.COMMON.EDIT_ADDRESS || 'Edit Address' }}</span>
           </button>
           <button mat-menu-item [confirmDelete]="getRemoveCallback(companyAddress.id!)">
             <mat-icon>delete</mat-icon>
-            <span>Delete Address</span>
+            <span>{{ label.COMMON.DELETE_ADDRESS || 'Delete Address' }}</span>
           </button>
         </mat-menu>
       </div>

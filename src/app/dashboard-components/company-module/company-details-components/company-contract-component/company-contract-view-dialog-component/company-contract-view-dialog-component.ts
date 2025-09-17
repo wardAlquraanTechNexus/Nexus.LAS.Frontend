@@ -6,6 +6,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { CompanyContractDto } from '../../../../../models/company-models/company-contract/dtos/company-contract-dto';
 import { base64ToBlob, downloadBlob } from '../../../../_shared/shared-methods/downloadBlob';
+import { LanguageService } from '../../../../../services/language-service';
+import { Labels } from '../../../../../models/consts/labels';
+import { LanguageCode } from '../../../../../models/types/lang-type';
 
 
 @Component({
@@ -16,6 +19,11 @@ import { base64ToBlob, downloadBlob } from '../../../../_shared/shared-methods/d
 })
 export class CompanyContractViewDialogComponent implements OnInit {
 
+
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
   constructor(
     private service: CompanyContractService,
     protected router: Router,
@@ -24,7 +32,8 @@ export class CompanyContractViewDialogComponent implements OnInit {
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     protected dialogRef: MatDialogRef<CompanyContractViewDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CompanyContractDto
+    @Inject(MAT_DIALOG_DATA) public data: CompanyContractDto,
+    private langService: LanguageService,
   ) {
 
   }
@@ -37,10 +46,13 @@ export class CompanyContractViewDialogComponent implements OnInit {
       this.data.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.cdr.markForCheck();
     }
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
   download() {
-    downloadBlob(this.data.dataFile , this.data.contentType , this.data?.fileName);
+    downloadBlob(this.data.dataFile, this.data.contentType, this.data?.fileName);
   }
 
 

@@ -91,6 +91,11 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
         key: "shareHolderActive",
         label: this.langService.getLabel('COMMON.STATUS') || "Status",
         pipes: ['company-shareholder-status']
+      },
+      {
+        key: "action",
+        label: this.langService.getLabel('COMMON.ACTIONS') || "Actions",
+        
       }
     ];
 

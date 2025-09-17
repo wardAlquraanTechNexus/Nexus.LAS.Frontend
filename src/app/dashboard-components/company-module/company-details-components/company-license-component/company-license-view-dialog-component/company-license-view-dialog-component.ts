@@ -6,14 +6,23 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { base64ToBlob, downloadBlob } from '../../../../_shared/shared-methods/downloadBlob';
+import { Labels } from '../../../../../models/consts/labels';
+import { LanguageCode } from '../../../../../models/types/lang-type';
+import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-license-view-dialog-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-license-view-dialog-component.html',
   styleUrl: './company-license-view-dialog-component.scss'
 })
-export class CompanyLicenseViewDialogComponent  implements OnInit {
+export class CompanyLicenseViewDialogComponent implements OnInit {
+
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+
 
   constructor(
     private service: CompanyLicenseService,
@@ -23,7 +32,8 @@ export class CompanyLicenseViewDialogComponent  implements OnInit {
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     protected dialogRef: MatDialogRef<CompanyLicenseViewDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CompanyLicenseDto
+    @Inject(MAT_DIALOG_DATA) public data: CompanyLicenseDto,
+    private langService: LanguageService,
   ) {
 
   }
@@ -36,10 +46,13 @@ export class CompanyLicenseViewDialogComponent  implements OnInit {
       this.data.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.cdr.markForCheck();
     }
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
   download() {
-    downloadBlob(this.data.dataFile , this.data.contentType , this.data?.fileName);
+    downloadBlob(this.data.dataFile, this.data.contentType, this.data?.fileName);
   }
 
 

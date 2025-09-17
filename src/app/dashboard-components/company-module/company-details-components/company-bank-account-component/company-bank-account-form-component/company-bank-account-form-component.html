@@ -6,8 +6,8 @@
                 <mat-icon>account_balance_wallet</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Bank Account</h2>
-                <p class="dialog-subtitle">Enter company bank account</p>
+                <h2 class="dialog-title">{{element.id ? label.COMMON.EDIT_BANK_ACCOUNT || 'Edit' : label.COMMON.ADD_BANK_ACCOUNT || 'Add'}} {{ label.COMPANY.BANK_ACCOUNT || 'Company Bank Account' }}</h2>
+                <p class="dialog-subtitle">{{ label.COMMON.ENTER_BANK_ACCOUNT_DETAILS || 'Enter company bank account' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -20,58 +20,52 @@
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
 
-                <form [formGroup]="formGroup" class="row w-100">
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.BANK_NAME || 'Bank Name' }}</mat-label>
+                        <input matInput formControlName="bankName" [placeholder]="label.COMMON.BANK_NAME || 'Enter bank name'" required>
+                        <mat-error *ngIf="formGroup.get('bankName')?.hasError('required')">
+                            {{ label.COMMON.BANK_NAME_REQUIRED || 'Bank Name is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Bank Name</mat-label>
-                            <input matInput formControlName="bankName" placeholder="Enter bank name" required>
-                            <mat-error *ngIf="formGroup.get('bankName')?.hasError('required')">
-                                Bank Name is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.ACCOUNT_NUMBER || 'Account Number' }}</mat-label>
+                        <input matInput formControlName="accountNumber" [placeholder]="label.COMMON.ACCOUNT_NUMBER || 'Enter account number'" required>
+                        <mat-error *ngIf="formGroup.get('accountNumber')?.hasError('required')">
+                            {{ label.COMMON.ACCOUNT_NUMBER_REQUIRED || 'Account Number is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Account Number</mat-label>
-                            <input matInput formControlName="accountNumber" placeholder="Enter account number" required>
-                            <mat-error *ngIf="formGroup.get('accountNumber')?.hasError('required')">
-                                Account Number is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Bank Account Date</mat-label>
-                            <input matInput
-                                   formControlName="bankAccountDate"
-                                   placeholder="DD/MM/YYYY"
-                                   [matDatepicker]="bankAccountDatePicker"
-                                   required>
-                            <mat-datepicker-toggle matSuffix [for]="bankAccountDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #bankAccountDatePicker></mat-datepicker>
-                            <mat-error *ngIf="formGroup.get('bankAccountDate')?.hasError('required') && formGroup.get('bankAccountDate')?.touched">
-                                Bank Account Date is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Note</mat-label>
-                            <textarea matInput formControlName="note" placeholder="Enter note" ></textarea>
-                        </mat-form-field>
-                    </div>
-                    <div class="form-group col-12">
-                        <mat-slide-toggle formControlName="bankAccountActive">
-                            Active
-                        </mat-slide-toggle>
-                    </div>
-
-
-
-                </form>
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.BANK_ACCOUNT_DATE || 'Bank Account Date' }}</mat-label>
+                        <input matInput
+                               formControlName="bankAccountDate"
+                               [placeholder]="label.COMMON.BANK_ACCOUNT_DATE || 'DD/MM/YYYY'"
+                               [matDatepicker]="bankAccountDatePicker"
+                               required>
+                        <mat-datepicker-toggle matSuffix [for]="bankAccountDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #bankAccountDatePicker></mat-datepicker>
+                        <mat-error *ngIf="formGroup.get('bankAccountDate')?.hasError('required') && formGroup.get('bankAccountDate')?.touched">
+                            {{ label.COMMON.BANK_ACCOUNT_DATE_REQUIRED || 'Bank Account Date is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.NOTES || 'Note' }}</mat-label>
+                        <textarea matInput formControlName="note" [placeholder]="label.COMMON.NOTES || 'Enter note'"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-12">
+                    <mat-slide-toggle formControlName="bankAccountActive">
+                        {{ label.COMMON.ACTIVE || 'Active' }}
+                    </mat-slide-toggle>
+                </div>
 
             </form>
         </div>
@@ -81,11 +75,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save()" >
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

@@ -3,10 +3,10 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>Phone Numbers</h2>
+    <h2>{{ label.COMMON.PHONE_NUMBERS || 'Phone Numbers' }}</h2>
   </div>
   <button mat-raised-button color="primary" (click)="onAdd()">
-    <mat-icon>add</mat-icon> Add Phone
+    <mat-icon>add</mat-icon> {{ label.COMMON.ADD_PHONE || 'Add Phone' }}
   </button>
 </div>
 
@@ -32,7 +32,7 @@
       <div class="item-content">
         <div class="primary-text">
           <span>{{ companyPhone.phoneNumber }}</span>
-          <span *ngIf="companyPhone.phonePrimary" class="primary-badge">Primary</span>
+          <span *ngIf="companyPhone.phonePrimary" class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
         </div>
       </div>
 
@@ -50,11 +50,11 @@
         <mat-menu #phoneMenu="matMenu">
           <button mat-menu-item (click)="onedit(companyPhone)">
             <mat-icon>edit</mat-icon>
-            <span>Edit Phone</span>
+            <span>{{ label.COMMON.EDIT_PHONE || 'Edit Phone' }}</span>
           </button>
           <button mat-menu-item [confirmDelete]="getRemoveCallback(companyPhone.id!)">
             <mat-icon>delete</mat-icon>
-            <span>Delete Phone</span>
+            <span>{{ label.COMMON.DELETE_PHONE || 'Delete Phone' }}</span>
           </button>
         </mat-menu>
       </div>

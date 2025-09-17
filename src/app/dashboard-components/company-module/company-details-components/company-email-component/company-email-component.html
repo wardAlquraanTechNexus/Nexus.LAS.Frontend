@@ -3,10 +3,10 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>Email Addresses</h2>
+    <h2>{{ label.COMMON.EMAIL_ADDRESSES || 'Email Addresses' }}</h2>
   </div>
   <button mat-raised-button color="primary" (click)="onAdd()">
-    <mat-icon>add</mat-icon> Add Email
+    <mat-icon>add</mat-icon> {{ label.COMMON.ADD_EMAIL || 'Add Email' }}
   </button>
 </div>
 
@@ -19,43 +19,41 @@
 
   <!-- Email Items -->
   <div *ngIf="!showLoading" class="content-list">
-    
-      <div *ngFor="let companyEmail of companyEmails"  class="content-item">
-        
-        <!-- Email Icon -->
-        <div class="item-icon">
-          <div class="icon-container">
-            <mat-icon>email</mat-icon>
-          </div>
+    <div *ngFor="let companyEmail of companyEmails" class="content-item">
+      
+      <!-- Email Icon -->
+      <div class="item-icon">
+        <div class="icon-container">
+          <mat-icon>email</mat-icon>
         </div>
-
-        <!-- Email Info -->
-        <div class="item-content">
-          <div class="primary-text">
-            <span>{{ companyEmail.email }}</span>
-            <span *ngIf="companyEmail.emailPrimary" class="primary-badge">Primary</span>
-          </div>
-        </div>
-
-        <!-- Actions -->
-        <div class="item-actions">
-          <button mat-icon-button [matMenuTriggerFor]="emailMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #emailMenu="matMenu">
-            <button mat-menu-item (click)="onEdit(companyEmail)">
-              <mat-icon>edit</mat-icon>
-              <span>Edit Email</span>
-            </button>
-            <button mat-menu-item [confirmDelete]="getRemoveCallback(companyEmail.id!)">
-              <mat-icon>delete</mat-icon>
-              <span>Delete Email</span>
-            </button>
-          </mat-menu>
-        </div>
-
       </div>
-    
+
+      <!-- Email Info -->
+      <div class="item-content">
+        <div class="primary-text">
+          <span>{{ companyEmail.email }}</span>
+          <span *ngIf="companyEmail.emailPrimary" class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="item-actions">
+        <button mat-icon-button [matMenuTriggerFor]="emailMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #emailMenu="matMenu">
+          <button mat-menu-item (click)="onEdit(companyEmail)">
+            <mat-icon>edit</mat-icon>
+            <span>{{ label.COMMON.EDIT_EMAIL || 'Edit Email' }}</span>
+          </button>
+          <button mat-menu-item [confirmDelete]="getRemoveCallback(companyEmail.id!)">
+            <mat-icon>delete</mat-icon>
+            <span>{{ label.COMMON.DELETE_EMAIL || 'Delete Email' }}</span>
+          </button>
+        </mat-menu>
+      </div>
+
+    </div>
   </div>
 </div>
 

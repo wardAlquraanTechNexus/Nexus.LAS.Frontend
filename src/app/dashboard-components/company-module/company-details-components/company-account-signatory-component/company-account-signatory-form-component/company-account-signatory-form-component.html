@@ -6,8 +6,10 @@
                 <mat-icon>draw</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id != 0 ? 'Edit' : 'Add'}} Account Signatory</h2>
-                <p class="dialog-subtitle">Enter account signatory details</p>
+                <h2 class="dialog-title">
+                    {{element.id != 0 ? label.COMPANY.EDIT_ACCOUNT_SIGNATORY || 'Edit' : label.COMPANY.ADD_ACCOUNT_SIGNATORY || 'Add'}} {{ label.COMPANY.ACCOUNT_SIGNATORY || 'Account Signatory' }}
+                </h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.ENTER_ACCOUNT_SIGNATORY_DETAILS || 'Enter account signatory details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -20,94 +22,84 @@
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
 
-                <form [formGroup]="formGroup" class="row w-100">
+                <!-- Person ID -->
+                <div class="form-group col-12">
+                    <select-auto-complete *ngIf="loadPersonssFn" [controlName]="'personId'" [fnGet]="loadPersonssFn"
+                        [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'"
+                        [keyToShow]="'personEnglishName'" [valueKey]="'id'">
+                    </select-auto-complete>
+                    <mat-error
+                        *ngIf="formGroup.get('personId')?.invalid && (formGroup.get('personId')?.touched || formGroup.touched)">
+                        {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
+                    </mat-error>
+                </div>
 
-                    <!-- Person ID -->
-                    <div class="form-group col-12">
-                        <select-auto-complete *ngIf="loadPersonssFn" [controlName]="'personId'" [fnGet]="loadPersonssFn"
-                            [formGroup]="formGroup" [isRequired]="true" [label]="'Person'"
-                            [keyToShow]="'personEnglishName'" [valueKey]="'id'">
-                        </select-auto-complete>
-                        <mat-error
-                            *ngIf="formGroup.get('personId')?.invalid && (formGroup.get('personId')?.touched || formGroup.touched)">
-                            Person is required
+                <!-- Rule -->
+                <div class="form-group col-12">
+                    <select-auto-complete *ngIf="loadRulesFn" [controlName]="'rule'" [fnGet]="loadRulesFn"
+                        [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.RULE || 'Rule'" [keyToShow]="'name'"
+                        [valueKey]="'id'">
+                    </select-auto-complete>
+                    <mat-error
+                        *ngIf="formGroup.get('rule')?.invalid && (formGroup.get('rule')?.touched || formGroup.touched)">
+                        {{ label.COMMON.RULE_REQUIRED || 'Rule is required' }}
+                    </mat-error>
+                </div>
+
+                <!-- From Amount -->
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMPANY.FROM_AMOUNT || 'From Amount' }}</mat-label>
+                        <input matInput type="number" formControlName="fromAmount" [placeholder]="label.COMPANY.FROM_AMOUNT || 'Enter from amount'" required>
+                        <mat-error *ngIf="formGroup.get('fromAmount')?.hasError('required')">
+                            {{ label.COMMON.FROM_AMOUNT_REQUIRED || 'From Amount is required' }}
                         </mat-error>
-                    </div>
+                    </mat-form-field>
+                </div>
 
-                    <!-- Rule -->
-                    <div class="form-group col-12">
-
-                        <select-auto-complete *ngIf="loadRulesFn" [controlName]="'rule'" [fnGet]="loadRulesFn"
-                            [formGroup]="formGroup" [isRequired]="true" [label]="'Rule'" [keyToShow]="'name'"
-                            [valueKey]="'id'">
-                        </select-auto-complete>
-                        <mat-error
-                            *ngIf="formGroup.get('rule')?.invalid && (formGroup.get('rule')?.touched || formGroup.touched)">
-                            Person is required
+                <!-- To Amount -->
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMPANY.TO_AMOUNT || 'To Amount' }}</mat-label>
+                        <input matInput type="number" formControlName="toAmount" [placeholder]="label.COMPANY.TO_AMOUNT || 'Enter to amount'" required>
+                        <mat-error *ngIf="formGroup.get('toAmount')?.hasError('required')">
+                            {{ label.COMMON.TO_AMOUNT_REQUIRED || 'To Amount is required' }}
                         </mat-error>
-                    </div>
+                    </mat-form-field>
+                </div>
 
-                    <!-- From Amount -->
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>From Amount </mat-label>
-                            <input matInput type="number" formControlName="fromAmount" placeholder="Enter from amount"
-                                required>
-                            <mat-error *ngIf="formGroup.get('fromAmount')?.hasError('required')">
-                                From Amount is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+                <!-- Description -->
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMPANY.DESCRIPTION || 'Description' }}</mat-label>
+                        <textarea matInput formControlName="description" [placeholder]="label.COMPANY.DESCRIPTION || 'Enter description'"></textarea>
+                    </mat-form-field>
+                </div>
 
-                    <!-- To Amount -->
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>To Amount </mat-label>
-                            <input matInput type="number" formControlName="toAmount" placeholder="Enter to amount"
-                                required>
-                            <mat-error *ngIf="formGroup.get('toAmount')?.hasError('required')">
-                                To Amount is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="form-group col-12">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Description </mat-label>
-                            <textarea matInput formControlName="description" placeholder="Enter description"></textarea>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Account Signatory Date -->
-                    <div class="form-group col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Account Signatory Date</mat-label>
-                            <input matInput
-                                   formControlName="accountSignatoryDate"
-                                   placeholder="DD/MM/YYYY"
-                                   [matDatepicker]="accountSignatoryPicker">
-                            <mat-datepicker-toggle matSuffix [for]="accountSignatoryPicker"></mat-datepicker-toggle>
-                            <mat-datepicker #accountSignatoryPicker></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                    <!-- Cessation Date -->
-                    <div class="form-group col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Cessation Date</mat-label>
-                            <input matInput
-                                   formControlName="cessationDate"
-                                   placeholder="DD/MM/YYYY"
-                                   [matDatepicker]="cessationPicker">
-                            <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
-                            <mat-datepicker #cessationPicker></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-
-
-
-                </form>
-
+                <!-- Account Signatory Date -->
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMPANY.ACCOUNT_SIGNATORY_DATE || 'Account Signatory Date' }}</mat-label>
+                        <input matInput
+                               formControlName="accountSignatoryDate"
+                               [placeholder]="label.COMPANY.ACCOUNT_SIGNATORY_DATE || 'DD/MM/YYYY'"
+                               [matDatepicker]="accountSignatoryPicker">
+                        <mat-datepicker-toggle matSuffix [for]="accountSignatoryPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #accountSignatoryPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <!-- Cessation Date -->
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMPANY.CESSATION_DATE || 'Cessation Date' }}</mat-label>
+                        <input matInput
+                               formControlName="cessationDate"
+                               [placeholder]="label.COMPANY.CESSATION_DATE || 'DD/MM/YYYY'"
+                               [matDatepicker]="cessationPicker">
+                        <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #cessationPicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
 
             </form>
         </div>
@@ -117,11 +109,11 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save()">
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

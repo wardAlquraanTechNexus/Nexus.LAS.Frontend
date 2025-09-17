@@ -8,6 +8,9 @@ import { PersonPhone } from '../../../../models/person-models/person-phone/perso
 import { PersonPhoneDialogComponent } from '../../../person-module/shared-person-components/person-phone-details/person-phone-dialog-component/person-phone-dialog-component';
 import { CompanyPhoneDialogFormComponent } from './company-phone-dialog-form-component/company-phone-dialog-form-component';
 import { CompanyPhoneDto } from '../../../../models/company-models/company-phone/dtos/company-phone-dto';
+import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
 
 @Component({
   selector: 'app-company-phone-component',
@@ -18,16 +21,22 @@ import { CompanyPhoneDto } from '../../../../models/company-models/company-phone
 export class CompanyPhoneComponent implements OnInit {
   @Input() company!: GetCompanyDto;
 
+
   personId = 0;
   companyPhones: CompanyPhone[] = [];
   showLoading = false;
 
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
 
   constructor(
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private service: CompanyPhoneService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private langService: LanguageService,
 
   ) { }
 
@@ -35,6 +44,9 @@ export class CompanyPhoneComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+     this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
 
   }
 
@@ -93,8 +105,8 @@ export class CompanyPhoneComponent implements OnInit {
     });
   }
 
-    onedit(element:any) {
-  
+  onedit(element: any) {
+
 
     const dialogRef = this.dialog.open(CompanyPhoneDialogFormComponent, {
       panelClass: 'dialog-container',

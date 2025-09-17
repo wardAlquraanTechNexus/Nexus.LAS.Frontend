@@ -36,6 +36,7 @@ export const Labels = {
             ACCOUNT_SIGNATORIES: "Account Signatories",
             ADD_ADDRESS: "Add Address",
             EDIT_ADDRESS: "Edit Address",
+            PERSON_REQUIRED: "Person is required",
         },
 
         COMPANY: {
@@ -57,6 +58,11 @@ export const Labels = {
             COMPANIES: "Companies",
             REGISTRATIONS: "Registrations",
             BOARD_MEMBERSHIP: "Board Membership",
+            EDIT_ACCOUNT_SIGNATORY: "Edit Account Signatory", // <-- Added
+            ENTER_ACCOUNT_SIGNATORY_DETAILS: "Enter account signatory details", // <-- Added
+            ACCOUNT_SIGNATORY: "Account Signatory",
+            ACCOUNT_SIGNATORY_DATE: "Account Signatory Date",
+            BOARD_MEMBER: "Board Member",
             ACCOUNT_SIGNATORIES: "Account Signatories",
             ACTIVE_COMPANIES: "Active Companies",
             SEARCH_ACTIVE_COMPANIES: "Search Active Companies",
@@ -92,6 +98,7 @@ export const Labels = {
             FROM_AMOUNT: "From Amount",
             TO_AMOUNT: "To Amount",
             SHAREHOLDERS: "Shareholders",
+            SHAREHOLDER: "Shareholder",
             ADD_SHAREHOLDER: "Add Shareholder",
             SHARE_PERCENT: "% of Shares",
             APPOINTMENT_DATE: "Date of Appointment",
@@ -124,10 +131,23 @@ export const Labels = {
             ADD_CONTRACT: "Add Contract",           // <-- Added
             ADD_BOARD_MEMBER: "Add Board Member", // <-- Added
             BANK_ACCOUNTS: "Bank Accounts",           // <-- Added
+            BANK_ACCOUNT: "Bank Account",           // <-- Added
             ADD_BANK_ACCOUNT: "Add Bank Account",     // <-- Added
             ADD_ACCOUNT_SIGNATORY: "Add Account Signatory", // <-- Added
             CAPITAL_CURRENCY: "Capital Currency", // <-- Added
-
+            ENTER_COMPANY_EMAIL: "Enter company email",
+            EDIT_PERSON_IN_CHARGE: "Edit Person In Charge",
+            ENTER_PERSON_IN_CHARGE_DETAILS: "Enter Person In Charge Details",
+            DESIGNATION_REQUIRED: "Designation is required",
+            AUTHORITY_RULE: "Authority Rule",
+            ENTER_COMPANY_PHONE_DETAILS: "Enter company phone details",
+            EDIT_SHAREHOLDER: "Edit Shareholder",
+            ENTER_SHAREHOLDER_DETAILS: "Enter shareholder details",
+            COMPANY_REQUIRED: "Company is required",
+            NUMBER_OF_SHARES: "Number of Shares",
+            NUMBER_OF_SHARES_REQUIRED: "Number of Shares is required",
+            EDIT_BOARD_MEMBER: "Edit Board Member", // <-- Added
+            ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details", // <-- Added
         },
         COMMON: {
             PERSON: "Person",
@@ -238,6 +258,38 @@ export const Labels = {
             DATE_OF_APPOINTMENT: "Date of Appointment",
             RULE: "Rule",
             LOADING: "Loading...",                    // <-- Added
+            OR_DRAG_AND_DROP: "or drag and drop",      // <-- Added
+            FILE_REQUIRED: "File is required",
+            ENTER_VALID_EMAIL: "Enter a valid email",
+            APPOINTMENT_DATE_REQUIRED: "Appointment Date is required",
+            PHONE_NUMBER_MIN_LENGTH: "Phone number must be at least 6 characters long",
+            PHONE_NUMBER_MAX_LENGTH: "Phone number cannot be more than 14 characters long",
+            DOWNLOAD: "Download",
+            CLOSE: "Close",
+            REGISTER_TYPE: "Register Type",
+            REGISTER_TYPE_REQUIRED: "Register Type is required",
+            BANK_NAME: "Bank Name",               // <-- Added
+            BANK_NAME_REQUIRED: "Bank Name is required", // <-- Added
+            ACCOUNT_NUMBER: "Account Number",         // <-- Added
+            ACCOUNT_NUMBER_REQUIRED: "Account Number is required", // <-- Added
+            BANK_ACCOUNT_DATE: "Bank Account Date", // <-- Added
+            BANK_ACCOUNT_DATE_REQUIRED: "Bank Account Date is required", // <-- Added
+            EDIT_BANK_ACCOUNT: "Edit Bank Account", // <-- Added
+            ENTER_BANK_ACCOUNT_DETAILS: "Enter bank account details", // <-- Added
+            ADD_BANK_ACCOUNT: "Add Bank Account", // <-- Added
+            CESSATION_DATE_REQUIRED: "Cessation Date is required",
+            TO_AMOUNT_REQUIRED: "To Amount is required",
+            FROM_AMOUNT_REQUIRED: "From Amount is required",
+            RULE_REQUIRED: "Rule is required",
+            ENTER_ADDRESS_DETAILS: "Enter address details",
+            ADDRESS_LINE_1: "Address Line 1",
+            ADDRESS_LINE_2: "Address Line 2",
+            ADDRESS_LINE_3: "Address Line 3",
+            ADDRESS_LINE_1_REQUIRED: "Address Line 1 is required",
+            COUNTRY: "Country",
+            CITY: "City",
+            POSTAL_CODE: "Postal Code",
+            ADDRESS: "Address",
         },
     },
     ar: {
@@ -276,6 +328,7 @@ export const Labels = {
             DESIGNATION: "الصفة",
             BOARD_MEMBERSHIP: "عضوية مجلس الإدارة",
             ACCOUNT_SIGNATORIES: "المفوضون بالتوقيع",
+            PERSON_REQUIRED: "الشخص مطلوب",
         },
 
         COMPANY: {
@@ -285,6 +338,7 @@ export const Labels = {
             NAME_AR: "الاسم بالعربية",
             PERSONS_IN_CHARGE: "الأشخاص المسؤولون",
             ADD_PERSON_IN_CHARGE: "إضافة شخص مسؤول",
+            EDIT_PERSON_IN_CHARGE: "تعديل شخص مسؤول",
             COMPANY_NAME: "اسم الشركة",
             STATUS: "الحالة",
             PRIVATE: "خاص",
@@ -296,12 +350,18 @@ export const Labels = {
             DESIGNATION: "الصفة",
             EXPORT_EXCEL: "تصدير إلى Excel",
             BOARD_MEMBERSHIP: "عضوية مجلس الإدارة",
+            BOARD_MEMBER: "عضو مجلس إدارة",
             REGISTRATIONS: "التسجيلات",
             ACCOUNT_SIGNATORIES: "المفوضون بالتوقيع",
             EXPORT_PDF: "تصدير إلى PDF",
             COMPANIES: "الشركات",
             MANAGE_COMPANIES: "إدارة الشركات",
             ADD_ACCOUNT_SIGNATORY: "إضافة مفوض بالتوقيع", // <-- Added
+            EDIT_ACCOUNT_SIGNATORY: "تعديل مفوض بالتوقيع", // <-- Added
+            ENTER_ACCOUNT_SIGNATORY_DETAILS: "أدخل تفاصيل المفوض بالتوقيع", // <-- Added
+            ACCOUNT_SIGNATORY: "المفوض بالتوقيع",
+            ACCOUNT_SIGNATORY_DATE: "تاريخ المفوض بالتوقيع",
+
             SELECT_COMPANY_ACTIVITY: "اختر نشاط الشركة",
             ACTIVE_COMPANIES: "الشركات النشطة",
             SEARCH_ACTIVE_COMPANIES: "بحث عن الشركات النشطة",
@@ -309,6 +369,7 @@ export const Labels = {
             SEARCH_PUBLIC_COMPANIES: "بحث عن الشركات العامة النشطة",
             ACTIVE_PRIVATE_COMPANIES: "الشركات الخاصة النشطة",
             SEARCH_PRIVATE_COMPANIES: "بحث عن الشركات الخاصة النشطة",
+            SHAREHOLDER: "المساهم",
             PUBLIC: "عام",
             EXPORT: "تصدير",
             ADVANCED_FILTER: "تصفية متقدمة",
@@ -370,6 +431,19 @@ export const Labels = {
             BANK_ACCOUNTS: "الحسابات البنكية",        // <-- Added
             ADD_BANK_ACCOUNT: "إضافة حساب بنكي",      // <-- Added
             CAPITAL_CURRENCY: "عملة رأس المال", // <-- Added
+            ENTER_COMPANY_EMAIL: "أدخل بريد الشركة الإلكتروني",
+            ENTER_PERSON_IN_CHARGE_DETAILS: "أدخل تفاصيل الشخص المسؤول",
+            DESIGNATION_REQUIRED: "الصفة مطلوبة",
+            AUTHORITY_RULE: "الصفة المخولة",
+            ENTER_COMPANY_PHONE_DETAILS: "أدخل تفاصيل هاتف الشركة",
+            EDIT_SHAREHOLDER: "تعديل المساهم",
+            ENTER_SHAREHOLDER_DETAILS: "أدخل تفاصيل المساهم",
+            COMPANY_REQUIRED: "الشركة مطلوبة",
+            NUMBER_OF_SHARES: "عدد الأسهم",
+            NUMBER_OF_SHARES_REQUIRED: "عدد الأسهم مطلوب",
+            BANK_ACCOUNT: "الحساب البنكي",           // <-- Added
+            EDIT_BOARD_MEMBER: "تعديل عضو مجلس الإدارة", // <-- Added
+            ENTER_BOARD_MEMBER_DETAILS: "أدخل تفاصيل عضو مجلس الإدارة", // <-- Added
         },
         COMMON: {
             PERSON: "شخص",
@@ -440,6 +514,8 @@ export const Labels = {
             DATE: "التاريخ",
             STATUS: "الحالة",
             EMAIL_ADDRESSES: "عناوين البريد الإلكتروني",
+            TO_AMOUNT_REQUIRED: "إلى مبلغ مطلوب",
+            FROM_AMOUNT_REQUIRED: "من مبلغ مطلوب",
             EMAIL_ADDRESS: "عنوان البريد الإلكتروني",
             ADD_EMAIL: "إضافة بريد إلكتروني",
             EDIT_EMAIL: "تعديل البريد الإلكتروني",
@@ -479,6 +555,37 @@ export const Labels = {
             RULE: "الدور",
             VIEW: "عرض",
             LOADING: "جاري التحميل...",               // <-- Added
+            OR_DRAG_AND_DROP: "أو اسحب وأسقط",      // <-- Added
+            FILE_REQUIRED: "الملف مطلوب",
+            ENTER_VALID_EMAIL: "أدخل بريد إلكتروني صالح",
+            APPOINTMENT_DATE_REQUIRED: "تاريخ التعيين مطلوب",
+            PHONE_NUMBER_MIN_LENGTH: "رقم الهاتف يجب أن يكون 6 أحرف على الأقل",
+            PHONE_NUMBER_MAX_LENGTH: "رقم الهاتف لا يمكن أن يتجاوز 14 حرفًا",
+            DOWNLOAD: "تنزيل",
+            CLOSE: "إغلاق",
+            ADDRESS: "عنوان",
+            REGISTER_TYPE: "نوع السجل",
+            REGISTER_TYPE_REQUIRED: "نوع السجل مطلوب",
+            BANK_NAME: "اسم البنك",               // <-- Added
+            BANK_NAME_REQUIRED: "اسم البنك مطلوب", // <-- Added
+            ACCOUNT_NUMBER: "رقم الحساب",         // <-- Added
+            ACCOUNT_NUMBER_REQUIRED: "رقم الحساب مطلوب", // <-- Added
+            BANK_ACCOUNT_DATE: "تاريخ الحساب البنكي", // <-- Added
+            BANK_ACCOUNT_DATE_REQUIRED: "تاريخ الحساب البنكي مطلوب", // <-- Added
+            EDIT_BANK_ACCOUNT: "تعديل حساب البنك", // <-- Added
+            ENTER_BANK_ACCOUNT_DETAILS: "أدخل تفاصيل حساب البنك", // <-- Added
+            ADD_BANK_ACCOUNT: "إضافة حساب بنكي", // <-- Added
+            CESSATION_DATE_REQUIRED: "تاريخ الانتهاء مطلوب",
+            RULE_REQUIRED: "الدور مطلوب",
+            ENTER_ADDRESS_DETAILS: "أدخل تفاصيل العنوان",
+            ADDRESS_LINE_1: "العنوان 1",
+            ADDRESS_LINE_2: "العنوان 2",
+            ADDRESS_LINE_3: "العنوان 3",
+            ADDRESS_LINE_1_REQUIRED: "العنوان 1 مطلوب",
+            COUNTRY: "الدولة",
+            CITY: "المدينة",
+            POSTAL_CODE: "الرمز البريدي",
+
         },
     }
 } as const;

@@ -5,6 +5,9 @@ import { CompanyEmailService } from '../../../../services/company-services/compa
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyEmailDialogFormComponent } from './company-email-dialog-form-component/company-email-dialog-form-component';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-email-component',
@@ -19,16 +22,26 @@ export class CompanyEmailComponent implements OnInit {
   showLoading = false;
   companyEmails: CompanyEmailDto[] = [];
 
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+
   constructor(
     private route: ActivatedRoute,
     private service: CompanyEmailService,
     private cdr: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private langService: LanguageService,
+
   ) { }
 
 
   ngOnInit(): void {
     this.fetchData();
+     this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
 

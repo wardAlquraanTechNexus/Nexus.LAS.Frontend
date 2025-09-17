@@ -6,8 +6,10 @@
         <mat-icon>email</mat-icon>
       </div>
       <div class="header-text">
-        <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Email</h2>
-        <p class="dialog-subtitle">Enter company email</p>
+        <h2 class="dialog-title">
+          {{element.id ? label.COMMON.EDIT_EMAIL || 'Edit' : label.COMMON.ADD_EMAIL || 'Add'}} {{ label.COMMON.EMAIL_ADDRESS || 'Company Email' }}
+        </h2>
+        <p class="dialog-subtitle">{{ label.COMPANY.ENTER_COMPANY_EMAIL || 'Enter company email' }}</p>
       </div>
     </div>
     <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -23,13 +25,13 @@
         <!-- Email -->
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" type="email" required />
+            <mat-label>{{ label.COMMON.EMAIL_ADDRESS || 'Email' }}</mat-label>
+            <input matInput type="email" formControlName="email" required />
             <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
-              Email is required
+              {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
             </mat-error>
             <mat-error *ngIf="formGroup.get('email')?.hasError('email')">
-              Enter a valid email
+              {{ label.COMMON.ENTER_VALID_EMAIL || 'Enter a valid email' }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -37,10 +39,9 @@
         <!-- Email Primary -->
         <div class="col-12">
           <mat-slide-toggle formControlName="emailPrimary">
-            Primary
+            {{ label.COMMON.PRIMARY || 'Primary' }}
           </mat-slide-toggle>
         </div>
-
 
       </form>
     </div>
@@ -50,11 +51,11 @@
   <div class="dialog-footer">
     <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
       <mat-icon>close</mat-icon>
-      Cancel
+      {{ label.COMMON.CANCEL || 'Cancel' }}
     </button>
     <button mat-flat-button class="save-btn" (click)="save(true)" [disabled]="formGroup.invalid">
       <mat-icon>save</mat-icon>
-      Save Email
+      {{ label.COMMON.SAVE || 'Save Email' }}
     </button>
   </div>
 </div>

@@ -6,6 +6,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { base64ToBlob, downloadBlob } from '../../../../_shared/shared-methods/downloadBlob';
 import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
+import { LanguageService } from '../../../../../services/language-service';
+import { Labels } from '../../../../../models/consts/labels';
+import { LanguageCode } from '../../../../../models/types/lang-type';
 
 @Component({
   selector: 'app-company-champer-of-commerce-view-dialog',
@@ -15,6 +18,11 @@ import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-model
 })
 export class CompanyChamperOfCommerceViewDialog  implements OnInit {
 
+   currentLang: LanguageCode = 'en';
+    get label() {
+      return Labels[this.currentLang as keyof typeof Labels];
+    }
+    
   constructor(
     private service: CompanyChamperOfCommerceService,
     protected router: Router,
@@ -23,7 +31,8 @@ export class CompanyChamperOfCommerceViewDialog  implements OnInit {
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     protected dialogRef: MatDialogRef<CompanyChamperOfCommerceViewDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: CompanyChamberOfCommerceDTO
+    @Inject(MAT_DIALOG_DATA) public data: CompanyChamberOfCommerceDTO,
+    private langService: LanguageService,
   ) {
 
   }
@@ -36,6 +45,11 @@ export class CompanyChamperOfCommerceViewDialog  implements OnInit {
       this.data.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.cdr.markForCheck();
     }
+
+    
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
   download() {

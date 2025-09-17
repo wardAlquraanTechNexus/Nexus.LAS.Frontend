@@ -6,8 +6,8 @@
                 <mat-icon>assignment</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? 'Edit' : 'Add'}} Company Contract</h2>
-                <p class="dialog-subtitle">Enter Company Contract Details</p>
+                <h2 class="dialog-title">{{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{ label.COMPANY.CONTRACTS || 'Company Contract' }}</h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.ADD_CONTRACT || 'Enter Company Contract Details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -28,92 +28,90 @@
                         <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)"
                             hidden />
                         <a mat-raised-button color="primary" type="button">
-                            Click to Upload
+                            {{ label.COMMON.UPLOAD_DOCUMENT || 'Click to Upload' }}
                         </a>
                     </label>
 
-                    <p>or drag and drop</p>
+                    <p>{{ label.COMMON.OR_DRAG_AND_DROP || 'or drag and drop' }}</p>
                     <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
                 </div>
                 <mat-error
                     *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
                     class="mat-error">
-                    File is required.
+                    {{ label.COMMON.FILE_REQUIRED || 'File is required.' }}
                 </mat-error>
 
-            <div class="col-12">
-            <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
-                [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup" 
-                [label]="'Contract Type'" [keyToShow]="'name'" [valueKey]="'id'">
-            </select-auto-complete>
-        </div>
+                <div class="col-12">
+                    <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
+                        [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup" 
+                        [label]="label.COMPANY.CONTRACT_TYPE || 'Contract Type'" [keyToShow]="'name'" [valueKey]="'id'">
+                    </select-auto-complete>
+                </div>
 
-        <!-- Document Date -->
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Document Date</mat-label>
-            <input matInput
-                   formControlName="documentDate"
-                   placeholder="DD/MM/YYYY"
-                   [matDatepicker]="documentDatePicker">
-            <mat-datepicker-toggle matSuffix [for]="documentDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #documentDatePicker></mat-datepicker>
-        </mat-form-field>
+                <!-- Document Date -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.COMPANY.DOCUMENT_DATE || 'Document Date' }}</mat-label>
+                    <input matInput
+                           formControlName="documentDate"
+                           [placeholder]="label.COMPANY.DOCUMENT_DATE || 'DD/MM/YYYY'"
+                           [matDatepicker]="documentDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="documentDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #documentDatePicker></mat-datepicker>
+                </mat-form-field>
 
-        <!-- Commencement Date -->
-        <div>
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Commencement Date</mat-label>
-                <input matInput
-                       formControlName="commencementDate"
-                       placeholder="DD/MM/YYYY"
-                       [matDatepicker]="commencementDatePicker"
-                       required>
-                <mat-datepicker-toggle matSuffix [for]="commencementDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker #commencementDatePicker></mat-datepicker>
-                @if (formGroup.get('commencementDate')?.hasError('required') && formGroup.get('commencementDate')?.touched) {
-                <mat-error>
-                    Commencement date is required
-                </mat-error>
-                }
-            </mat-form-field>
-        </div>
+                <!-- Commencement Date -->
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement Date' }}</mat-label>
+                        <input matInput
+                               formControlName="commencementDate"
+                               [placeholder]="label.COMPANY.COMMENCEMENT_DATE || 'DD/MM/YYYY'"
+                               [matDatepicker]="commencementDatePicker"
+                               required>
+                        <mat-datepicker-toggle matSuffix [for]="commencementDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #commencementDatePicker></mat-datepicker>
+                        @if (formGroup.get('commencementDate')?.hasError('required') && formGroup.get('commencementDate')?.touched) {
+                        <mat-error>
+                            {{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement date is required' }}
+                        </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
 
-        <!-- Contract Expiry Date -->
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Expiry Date</mat-label>
-            <input matInput
-                   formControlName="contractExpiryDate"
-                   placeholder="DD/MM/YYYY"
-                   [matDatepicker]="contractExpiryDatePicker">
-            <mat-datepicker-toggle matSuffix [for]="contractExpiryDatePicker"></mat-datepicker-toggle>
-            <mat-datepicker #contractExpiryDatePicker></mat-datepicker>
-        </mat-form-field>
+                <!-- Contract Expiry Date -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
+                    <input matInput
+                           formControlName="contractExpiryDate"
+                           [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'"
+                           [matDatepicker]="contractExpiryDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="contractExpiryDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #contractExpiryDatePicker></mat-datepicker>
+                </mat-form-field>
 
-        <!-- Contract Description -->
-        <mat-form-field appearance="outline">
-            <mat-label>Contract Description</mat-label>
-            <textarea  matInput formControlName="contractDescription" rows="3"></textarea>
-        </mat-form-field>
+                <!-- Contract Description -->
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ label.COMPANY.DESCRIPTION || 'Contract Description' }}</mat-label>
+                    <textarea  matInput formControlName="contractDescription" rows="3"></textarea>
+                </mat-form-field>
 
-        <!-- Contract Status -->
-        <mat-form-field appearance="outline">
-            <mat-label>Contract Status</mat-label>
-            <mat-select formControlName="contractStatus" >
-                <mat-option *ngFor="let option of statusOptions" [value]="option.value">
-                    {{ option.label }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+                <!-- Contract Status -->
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ label.COMPANY.STATUS || 'Contract Status' }}</mat-label>
+                    <mat-select formControlName="contractStatus" >
+                        <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+                            {{ option.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-         <div class="col-12">
-            <mat-slide-toggle formControlName="contractExpiryActiveReminder">
-                Active Reminder
-            </mat-slide-toggle>
-        
-        </div>
+                <div class="col-12">
+                    <mat-slide-toggle formControlName="contractExpiryActiveReminder">
+                        {{ label.COMPANY.REMINDER || 'Active Reminder' }}
+                    </mat-slide-toggle>
+                </div>
             </form>
         </div>
-
 
         <!-- Right: File Preview -->
         <div class="preview-side">
@@ -127,22 +125,20 @@
             </div>
             <div class="file-preview empty" *ngIf="!element?.imageUrl">
                 <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
-                <div class="empty-text">No file selected</div>
+                <div class="empty-text">{{ label.COMMON.NO_FILE_SELECTED || 'No file selected' }}</div>
             </div>
         </div>
-
-
     </div>
 
     <!-- Footer -->
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <button mat-flat-button class="save-btn" (click)="save(true)">
             <mat-icon>save</mat-icon>
-            Save
+            {{ label.COMMON.SAVE || 'Save' }}
         </button>
     </div>
 </div>

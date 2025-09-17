@@ -8,10 +8,10 @@
 
         <!-- Right: Action Buttons -->
         <div class="actions d-flex align-items-center gap-2">
-            <button mat-icon-button (click)="download()" aria-label="Download">
+            <button mat-icon-button (click)="download()" aria-label="{{ label.COMMON.DOWNLOAD || 'Download' }}">
                 <mat-icon>download</mat-icon>
             </button>
-            <button mat-icon-button (click)="close()" aria-label="Close">
+            <button mat-icon-button (click)="close()" aria-label="{{ label.COMMON.CLOSE || 'Close' }}">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
@@ -21,22 +21,21 @@
         <div class="col-md-4 props">
             <div class="detail-box p-3">
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Classification</span>
+                    <span class="label text-muted">{{ label.COMPANY.LICENSE_CLASSIFICATION || 'Classification' }}</span>
                     <span class="value">{{ data.licenseClassification}}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Number</span>
+                    <span class="label text-muted">{{ label.COMPANY.LICENSE_NUMBER || 'Number' }}</span>
                     <span class="value">{{ data.licenseNumber }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Issue Date</span>
+                    <span class="label text-muted">{{ label.COMMON.ISSUE_DATE || 'Issue Date' }}</span>
                     <span class="value">{{ data.licenseIssueDate | textPipe: 'date' | async }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Expiry Date</span>
+                    <span class="label text-muted">{{ label.COMMON.EXPIRY_DATE || 'Expiry Date' }}</span>
                     <span class="value">{{ data.licenseExpiryDate | textPipe: 'date' | async }}</span>
                 </div>
-            
             </div>
         </div>
 

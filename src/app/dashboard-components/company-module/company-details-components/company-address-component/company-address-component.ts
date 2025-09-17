@@ -7,6 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyAddressDto } from '../../../../models/company-models/company-address/dtos/company-address-dto';
 import { CompanyAddressDialogFormComponent } from './company-address-dialog-form-component/company-address-dialog-form-component';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { LanguageService } from '../../../../services/language-service';
 
 @Component({
   selector: 'app-company-address-component',
@@ -16,6 +19,11 @@ import { CompanyAddressDialogFormComponent } from './company-address-dialog-form
   styleUrl: './company-address-component.scss'
 })
 export class CompanyAddressComponent implements OnInit {
+
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
 
   @Input() company!: GetCompanyDto;
   showLoading = false;
@@ -29,7 +37,8 @@ export class CompanyAddressComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private service: CompanyAddressService,
     private dialog: MatDialog,
-    private dlService: DynamicListService
+    private dlService: DynamicListService,
+    private langService: LanguageService,
 
   ) { }
 
@@ -37,12 +46,15 @@ export class CompanyAddressComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
 
 
   private fetchData() {
-    this.service.getAll({ companyId:this.company.id }).subscribe(
+    this.service.getAll({ companyId: this.company.id }).subscribe(
       {
         next: (res => {
           this.companyAddresses = res;
@@ -76,18 +88,18 @@ export class CompanyAddressComponent implements OnInit {
     })
   }
 
-  onAdd(){
-    let element:CompanyAddressDto = {
-    id: 0,
-    companyId: this.company.id,
-    addressPrimary: false,
-    addressLine1: '',
-    addressLine2: '',
-    addressLine3: '',
-    poBoxNumber: '',
-    poBoxCity: 0,
-    poBoxCountry: 0
-  }
+  onAdd() {
+    let element: CompanyAddressDto = {
+      id: 0,
+      companyId: this.company.id,
+      addressPrimary: false,
+      addressLine1: '',
+      addressLine2: '',
+      addressLine3: '',
+      poBoxNumber: '',
+      poBoxCity: 0,
+      poBoxCountry: 0
+    }
     const dialogRef = this.dialog.open(CompanyAddressDialogFormComponent, {
       panelClass: 'dialog-container',
       disableClose: true,
@@ -101,7 +113,7 @@ export class CompanyAddressComponent implements OnInit {
     });
   }
 
-    onEdit(element:CompanyAddressDto){ 
+  onEdit(element: CompanyAddressDto) {
     const dialogRef = this.dialog.open(CompanyAddressDialogFormComponent, {
       panelClass: 'dialog-container',
       disableClose: true,

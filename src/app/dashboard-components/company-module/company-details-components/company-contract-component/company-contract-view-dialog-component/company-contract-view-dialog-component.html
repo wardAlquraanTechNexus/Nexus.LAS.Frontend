@@ -8,10 +8,10 @@
 
         <!-- Right: Action Buttons -->
         <div class="actions d-flex align-items-center gap-2">
-            <button mat-icon-button (click)="download()" aria-label="Download">
+            <button mat-icon-button (click)="download()" [aria-label]="[label.COMMON.DOWNLOAD || 'Download']">
                 <mat-icon>download</mat-icon>
             </button>
-            <button mat-icon-button (click)="close()" aria-label="Close">
+            <button mat-icon-button (click)="close()" [aria-label]="[label.COMMON.CLOSE || 'Close']">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
@@ -21,23 +21,23 @@
         <div class="col-md-4 props">
             <div class="detail-box p-3">
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Contract Type</span>
+                    <span class="label text-muted">{{ label.COMPANY.CONTRACT_TYPE || 'Contract Type' }}</span>
                     <span class="value">{{ data.contractType | textPipe: 'company-contract-type' | async }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Document Date</span>
+                    <span class="label text-muted">{{ label.COMPANY.DOCUMENT_DATE || 'Document Date' }}</span>
                     <span class="value">{{ data.documentDate | textPipe: 'date' | async}}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Commencement Date</span>
+                    <span class="label text-muted">{{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement Date' }}</span>
                     <span class="value">{{ data.commencementDate| textPipe: 'date' | async }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Expiry Date</span>
+                    <span class="label text-muted">{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</span>
                     <span class="value">{{ data.contractExpiryDate| textPipe: 'date' | async }}</span>
                 </div>
                 <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">Description</span>
+                    <span class="label text-muted">{{ label.COMPANY.DESCRIPTION || 'Description' }}</span>
                     <span class="value">{{ data.contractDescription }}</span>
                 </div>
             </div>
