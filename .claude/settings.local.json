@@ -22,7 +22,10 @@
       "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\_base\\company-table-view/**)",
       "Bash(timeout:*)",
       "Bash(npm install:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(Remove-Item -Path \"C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\setting-module\\number-format-settings\" -Recurse -Force)",
+      "Bash(code --version)",
+      "Bash(code C:DevNexus.LAS.Frontend)"
     ],
     "deny": [],
     "ask": [],

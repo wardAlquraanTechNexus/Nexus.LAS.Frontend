@@ -38,7 +38,10 @@ export class ThousandSeparatorDirective implements ControlValueAccessor, OnInit 
 
   writeValue(value: any): void {
     if (value !== undefined && value !== null) {
-      this.el.value = this.formatNumber(value.toString());
+      // Convert value to string and check if it has decimals
+      const stringValue = value.toString();
+      // Only show decimals if the original value has them
+      this.el.value = this.formatNumber(stringValue);
     } else {
       this.el.value = '';
     }
@@ -231,6 +234,9 @@ export class ThousandSeparatorDirective implements ControlValueAccessor, OnInit 
       return '';
     }
 
+    // Check if the original value has decimals
+    const hasDecimals = cleanValue.includes('.');
+
     // Split into integer and decimal parts
     const parts = cleanValue.split('.');
     let integerPart = parts[0];
@@ -248,22 +254,23 @@ export class ThousandSeparatorDirective implements ControlValueAccessor, OnInit 
     // Reconstruct the number
     let formattedValue = integerPart;
 
-    if (this.allowDecimal && decimalPart !== undefined) {
-      // Pad or trim decimal places
-      let formattedDecimal = decimalPart;
-      if (formattedDecimal.length > this.decimals) {
-        formattedDecimal = formattedDecimal.substring(0, this.decimals);
-      } else {
-        formattedDecimal = formattedDecimal.padEnd(this.decimals, '0');
-      }
-
-      if (formattedDecimal) {
+    if (this.allowDecimal && hasDecimals) {
+      // Only show decimals if the original value had them
+      if (decimalPart !== undefined && decimalPart !== '') {
+        // Pad or trim decimal places
+        let formattedDecimal = decimalPart;
+        if (formattedDecimal.length > this.decimals) {
+          formattedDecimal = formattedDecimal.substring(0, this.decimals);
+        } else {
+          formattedDecimal = formattedDecimal.padEnd(this.decimals, '0');
+        }
         formattedValue += this.decimalSeparator + formattedDecimal;
+      } else {
+        // Value had decimal point but no decimal digits (like "10.")
+        formattedValue += this.decimalSeparator + ''.padEnd(this.decimals, '0');
       }
-    } else if (this.allowDecimal && this.decimals > 0) {
-      // Add decimal zeros if required
-      formattedValue += this.decimalSeparator + ''.padEnd(this.decimals, '0');
     }
+    // Don't add decimals for whole numbers
 
     // Add negative sign back
     if (isNegative) {

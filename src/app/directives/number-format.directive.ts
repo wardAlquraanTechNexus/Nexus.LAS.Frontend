@@ -238,9 +238,14 @@ export class NumberFormatDirective implements OnInit, OnDestroy, AfterViewInit {
       return '';
     }
 
+    // Check if original value has decimals
+    const stringValue = value.toString();
+    const hasDecimals = stringValue.includes('.');
+
     // Use Intl.NumberFormat for consistent formatting
+    // Only show minimum decimals if the original value had them
     const formatter = new Intl.NumberFormat('en-US', {
-      minimumFractionDigits: 0,
+      minimumFractionDigits: hasDecimals ? Math.min(this.decimals, (stringValue.split('.')[1] || '').length) : 0,
       maximumFractionDigits: this.decimals,
       useGrouping: true
     });
