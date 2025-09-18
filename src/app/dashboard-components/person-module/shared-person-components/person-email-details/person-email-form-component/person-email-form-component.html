@@ -1,4 +1,4 @@
-<div class="modern-dialog-container">
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
     <!-- Enhanced Header with Icon and Professional Typography -->
     <div class="dialog-header">
         <div class="header-content">
@@ -9,7 +9,7 @@
                 <h2 class="dialog-title">
                     <span>
                         {{ personEmail && personEmail.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add' }}
-                        {{ label.COMMON.EMAIL_ADDRESS || 'Email Address' }}
+                        {{ label.COMMON.EMAIL_ADDRESS || 'Email' }}
                     </span>
                 </h2>
                 <p class="dialog-subtitle">
@@ -17,7 +17,7 @@
                         {{ label.COMMON.EDIT_EMAIL || 'Modify existing email details' }}
                     </span>
                     <span *ngIf="!personEmail || !personEmail.id">
-                        {{ label.COMMON.ADD_EMAIL || 'Add a new email address to the record' }}
+                        {{ label.COMMON.ADD_EMAIL || 'Add a new email' }}
                     </span>
                 </p>
             </div>
@@ -35,7 +35,7 @@
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMMON.EMAIL_ADDRESS }}</mat-label>
-                    <input matInput formControlName="email" [placeholder]="label.COMMON.ADD_EMAIL || 'Enter email address...'" required />
+                    <input matInput formControlName="email" [placeholder]="label.COMMON.ADD_EMAIL || 'Enter email...'" required />
                     <mat-error *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
                         {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
                     </mat-error>

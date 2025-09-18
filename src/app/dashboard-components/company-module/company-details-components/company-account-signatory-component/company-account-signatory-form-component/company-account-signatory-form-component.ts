@@ -41,7 +41,14 @@ export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
-  
+  override ngOnInit(): void {
+    this.setup(this.element);
+    super.ngOnInit();
+
+    // Initialize load functions
+    this.loadPersonssFn = (search: string) => this.loadPersons(search);
+    this.loadRulesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.rule, search);
+  }
 
   loadPersons(search: string) {
     return this.personService.getAllPersons({

@@ -95,12 +95,12 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       },
       {
         key: "shareHolderDate",
-        label: this.langService.getLabel('COMPANY.APPOINTMENT_DATE') || "Date of Appointment",
+        label: this.langService.getLabel('COMPANY.APPOINTMENT_DATE') || "Appointment Date",
         pipes: ['date']
       },
       {
         key: "cessationDate",
-        label: this.langService.getLabel('COMPANY.CESSATION_DATE') || "Date of Cessation",
+        label: this.langService.getLabel('COMPANY.CESSATION_DATE') || "Cessation Date",
         pipes: ["date"]
       },
       {

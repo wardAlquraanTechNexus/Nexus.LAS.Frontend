@@ -1,4 +1,4 @@
-<div class="modern-dialog-container">
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
   <!-- Header -->
   <div class="dialog-header">
     <div class="header-content">
@@ -11,7 +11,7 @@
           {{ label.COMMON.PHONE_NUMBER || 'Person Phone' }}
         </h2>
         <p class="dialog-subtitle">
-          {{ label.COMMON.EDIT_PHONE || 'Enter Phone Number Details' }}
+          {{ label.COMMON.EDIT_PHONE || 'Enter Phone Details' }}
         </p>
       </div>
     </div>
@@ -25,13 +25,13 @@
     <div class="form-container">
       <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100 nexus-form">
 
-        <!-- Phone Number -->
+        <!-- Phone -->
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{ label.COMMON.PHONE_NUMBERS || 'Phone Number' }}</mat-label>
-            <input matInput formControlName="phoneNumber" [placeholder]="label.COMMON.ADD_PHONE || 'Enter phone number with country code...'" required />
+            <mat-label>{{ label.COMMON.PHONE_NUMBERS || 'Phone' }}</mat-label>
+            <input matInput formControlName="phoneNumber" [placeholder]="label.COMMON.ADD_PHONE || 'Enter phone with country code...'" required />
             <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('required') && formGroup.get('phoneNumber')?.touched">
-              {{ label.COMMON.PHONE_REQUIRED || 'Phone Number is required' }}
+              {{ label.COMMON.PHONE_REQUIRED || 'Phone is required' }}
             </mat-error>
           </mat-form-field>
         </div>

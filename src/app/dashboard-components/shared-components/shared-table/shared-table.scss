@@ -1,3 +1,48 @@
+// Base font sizes for table
+$base-font-size: 15px; // English base size (increased from default)
+$arabic-font-size: 18px; // Arabic 20% larger
+
+// Table container with language-specific styling
+table[dir="ltr"] {
+  // English text sizing
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    font-size: $base-font-size !important;
+    line-height: 1.5;
+  }
+
+  // Ensure consistent sizing for nested elements
+  .mat-mdc-cell {
+    button, a, span, div {
+      font-size: inherit;
+    }
+  }
+}
+
+table[dir="rtl"] {
+  // Arabic text sizing (20% larger)
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    font-size: $arabic-font-size !important;
+    line-height: 1.6;
+    font-weight: 500; // Slightly bolder for better Arabic readability
+  }
+
+  // Ensure consistent sizing for nested elements
+  .mat-mdc-cell {
+    button, a, span, div {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+  }
+
+  // Increase padding for better readability with larger text
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    padding: 12px 16px;
+  }
+}
+
 .empty-table {
   display: flex;
   color: #000000;
@@ -7,6 +52,12 @@
   width: 100%;
   font-size: 18px;
   border-top: 1px solid #E0E0E0;
+
+  // Make empty message responsive to language
+  &[dir="rtl"] {
+    font-size: 20px;
+    font-weight: 500;
+  }
 }
 
 .odd-row {
@@ -58,11 +109,16 @@
     &.rtl {
       margin-left: 0;
       margin-right: 16px;
+
+      span {
+        font-size: 16px !important; // 20% larger for Arabic (16px * 1.2)
+        font-weight: 500;
+      }
     }
 
     span {
       color: #013772;
-      font-size: 14px;
+      font-size: 12px; // 20% larger (14px * 1.2)
       font-weight: 400;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -73,6 +129,24 @@
     background: transparent;
     color: #013772;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    // Increase paginator text size for English
+    ::ng-deep .mat-mdc-paginator {
+      font-size: 14px;
+    }
+  }
+
+  &.rtl mat-paginator {
+    // Increase paginator text size even more for Arabic
+    ::ng-deep .mat-mdc-paginator {
+      font-size: 16px;
+      font-weight: 500;
+
+      .mat-mdc-paginator-page-size-label,
+      .mat-mdc-paginator-range-label {
+        font-size: inherit;
+      }
+    }
   }
 }
 

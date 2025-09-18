@@ -1,4 +1,4 @@
-<div class="modern-dialog-container">
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
     <!-- Header -->
     <div class="dialog-header">
         <div class="header-content">
@@ -7,7 +7,7 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id != 0 ? label.COMPANY.EDIT_ACCOUNT_SIGNATORY || 'Edit' : label.COMPANY.ADD_ACCOUNT_SIGNATORY || 'Add'}} {{ label.COMPANY.ACCOUNT_SIGNATORY || 'Account Signatory' }}
+                    {{element.id != 0 ? label.COMPANY.EDIT_ACCOUNT_SIGNATORY || 'Edit' : label.COMPANY.ADD_ACCOUNT_SIGNATORY || 'Add'}} 
                 </h2>
                 <p class="dialog-subtitle">{{ label.COMPANY.ENTER_ACCOUNT_SIGNATORY_DETAILS || 'Enter account signatory details' }}</p>
             </div>

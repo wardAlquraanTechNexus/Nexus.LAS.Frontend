@@ -33,7 +33,9 @@ export class CompanyBankAccountFormComponent extends BaseFormComponent
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
- 
-
+  override ngOnInit(): void {
+    this.setup(this.element);
+    super.ngOnInit();
+  }
 
 }

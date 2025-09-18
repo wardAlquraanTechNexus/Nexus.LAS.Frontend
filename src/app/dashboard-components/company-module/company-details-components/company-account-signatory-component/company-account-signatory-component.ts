@@ -87,7 +87,7 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
       },
       {
         key:"accountSignatoryDate",
-        label: this.langService.getLabel('COMMON.DATE_OF_APPOINTMENT') || "Date of Appointment",
+        label: this.langService.getLabel('COMMON.DATE_OF_APPOINTMENT') || "Appointment Date",
         pipes:["date"]
       },
       {

@@ -34,7 +34,7 @@ export class ValidationUtils {
   }
 
   /**
-   * Phone number validation (basic pattern)
+   * Phone validation (basic pattern)
    */
   static phoneNumber(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -162,10 +162,10 @@ export class ValidationUtils {
     const errors = control.errors;
 
     if (errors['required']) return `${fieldName} is required`;
-    if (errors['email']) return 'Please enter a valid email address';
+    if (errors['email']) return 'Please enter a valid email';
     if (errors['minlength']) return `${fieldName} must be at least ${errors['minlength'].requiredLength} characters`;
     if (errors['maxlength']) return `${fieldName} cannot exceed ${errors['maxlength'].requiredLength} characters`;
-    if (errors['phoneNumber']) return 'Please enter a valid phone number';
+    if (errors['phoneNumber']) return 'Please enter a valid phone';
     if (errors['url']) return 'Please enter a valid URL';
     if (errors['pastDate']) return 'Date cannot be in the future';
     if (errors['numeric']) return 'Only numbers are allowed';

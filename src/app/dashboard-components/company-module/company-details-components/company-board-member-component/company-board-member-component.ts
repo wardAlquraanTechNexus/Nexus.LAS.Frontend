@@ -77,12 +77,12 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
       },
       {
         key: "appointmentDate",
-        label: this.langService.getLabel('COMPANY.APPOINTMENT_DATE') || "Date of Appointment",
+        label: this.langService.getLabel('COMPANY.APPOINTMENT_DATE') || "Appointment Date",
         pipes: ["date"]
       },
       {
         key: "cessationDate",
-        label: this.langService.getLabel('COMPANY.CESSATION_DATE') || "Date of Cessation",
+        label: this.langService.getLabel('COMPANY.CESSATION_DATE') || "Cessation Date",
         pipes: ["date"]
       },
       {
