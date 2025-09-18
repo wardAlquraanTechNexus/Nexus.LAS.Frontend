@@ -106,46 +106,82 @@
             </div>
           </ng-template>
           <div class="tab-content">
-            <div class="contact-section">
-              @if (person) {
-              <app-person-overview-component [person]="person"></app-person-overview-component>
-              }
-            </div>
-            <div class="contact-section">
-              @if (person) {
-              <app-person-in-charge-component [person]="person"></app-person-in-charge-component>
-              }
-            </div>
-            <div class="contact-section">
-              @if (person) {
-              <app-person-board-membership-component [person]="person"></app-person-board-membership-component>
-              }
-            </div>
-            <div class="contact-section">
-              @if (person) {
-              <app-person-account-signatory-component [person]="person"></app-person-account-signatory-component>
-              }
-            </div>
-            <div class="contact-section">
-              <app-shared-register-note-table [registersIdc]="personIdc"
-                [registersIdn]="personId" [canCrud]="false"></app-shared-register-note-table>
-            </div>
+            <mat-accordion multi>
+              <!-- Personal Information Group -->
+              <mat-expansion-panel expanded="true" class="overview-panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>person</mat-icon>
+                    <span>{{ 'Personal Information' }}</span>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                  <div class="contact-section">
+                    @if (person) {
+                    <app-person-overview-component [person]="person"></app-person-overview-component>
+                    }
+                  </div>
+                  <div class="contact-section">
+                    <app-shared-register-note-table [registersIdc]="personIdc"
+                      [registersIdn]="personId" [canCrud]="false"></app-shared-register-note-table>
+                  </div>
+                </div>
+              </mat-expansion-panel>
 
-            <div class="contact-section">
-              @if(person) {
-                <app-person-email-component [readOnly]="true" [person]="person"></app-person-email-component>
-              }
-              </div>
-              <div class="contact-section">
-                @if(person) {
-                  <app-person-phone-component [readOnly]="true" [person]="person"></app-person-phone-component>
-                }
-              </div>
-              <div class="contact-section">
-                @if(person) {
-                  <app-person-address-component [readOnly]="true" [person]="person"></app-person-address-component>
-                }
-              </div>
+              <!-- Contact Information Group -->
+              <mat-expansion-panel expanded="true" class="overview-panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>contact_mail</mat-icon>
+                    <span>{{ 'Contact Information' }}</span>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                  <div class="contact-section">
+                    @if(person) {
+                      <app-person-email-component [readOnly]="true" [person]="person"></app-person-email-component>
+                    }
+                  </div>
+                  <div class="contact-section">
+                    @if(person) {
+                      <app-person-phone-component [readOnly]="true" [person]="person"></app-person-phone-component>
+                    }
+                  </div>
+                  <div class="contact-section">
+                    @if(person) {
+                      <app-person-address-component [readOnly]="true" [person]="person"></app-person-address-component>
+                    }
+                  </div>
+                </div>
+              </mat-expansion-panel>
+
+              <!-- Business Relationships Group -->
+              <mat-expansion-panel expanded="true" class="overview-panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>business</mat-icon>
+                    <span>{{ 'Business Relationships' }}</span>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                  <div class="contact-section">
+                    @if (person) {
+                    <app-person-in-charge-component [person]="person"></app-person-in-charge-component>
+                    }
+                  </div>
+                  <div class="contact-section">
+                    @if (person) {
+                    <app-person-board-membership-component [person]="person"></app-person-board-membership-component>
+                    }
+                  </div>
+                  <div class="contact-section">
+                    @if (person) {
+                    <app-person-account-signatory-component [person]="person"></app-person-account-signatory-component>
+                    }
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </mat-tab>
 

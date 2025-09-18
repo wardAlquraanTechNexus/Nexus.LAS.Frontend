@@ -24,6 +24,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { SharedTable } from '../dashboard-components/shared-components/shared-table/shared-table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from './confirm-delete-component/confirm-delete-component';
@@ -120,6 +121,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     MatToolbarModule,
     MatCardModule,
     MatTooltipModule,
+    MatExpansionModule,
     DatePickerModule
 
   ],
@@ -168,6 +170,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     MatToolbarModule,
     MatCardModule,
     MatTooltipModule,
+    MatExpansionModule,
     SharedTreeComponent,
     SelectAutoComplete,
     BaseDialogFormComponent,

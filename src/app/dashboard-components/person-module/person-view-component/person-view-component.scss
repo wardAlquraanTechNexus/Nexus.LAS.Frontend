@@ -551,5 +551,106 @@
 }
 
 .contact-section{
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Overview tab grouping styles
+.overview-group {
+  margin-bottom: 32px;
+  background: linear-gradient(to bottom, #ffffff, #fafbfc);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .group-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #013772;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      line-height: 1.2;
+    }
+  }
+
+  // Subtle hover effect
+  &:hover {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+  }
+}
+
+// Expansion panel styles
+mat-accordion {
+  .overview-panel {
+    margin-bottom: 16px;
+    border-radius: 8px !important;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    background: linear-gradient(to bottom, #ffffff, #fafbfc);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    // Header styling
+    .mat-expansion-panel-header {
+      height: 56px;
+      background: rgba(1, 55, 114, 0.03);
+      border-bottom: 1px solid #e9ecef;
+
+      &:hover {
+        background: rgba(1, 55, 114, 0.05) !important;
+      }
+
+      .mat-panel-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #013772;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    // Content styling
+    .panel-content {
+      padding: 20px;
+      background: white;
+    }
+
+    // Expanded state
+    &.mat-expanded {
+      .mat-expansion-panel-header {
+        background: rgba(1, 55, 114, 0.05);
+        border-bottom: 2px solid #013772;
+      }
+    }
+  }
 }
