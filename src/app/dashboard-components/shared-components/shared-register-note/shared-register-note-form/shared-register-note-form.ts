@@ -22,7 +22,6 @@ import { LanguageService } from '../../../../services/language-service';
 export class SharedRegisterNoteForm extends BaseFormComponent {
 
   @Input() registerNote!: RegisterNote;
-  showLoading = false;
   constructor(
     private service: RegisterNoteService,
     protected override fb: FormBuilder,

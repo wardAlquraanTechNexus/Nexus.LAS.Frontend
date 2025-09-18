@@ -1,9 +1,5 @@
-<div *ngIf="showLoading" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-  <mat-spinner></mat-spinner>
-</div>
 
-<app-shared-register-note-form *ngIf="!showLoading"
-  [registerNote]="data" 
-  (saveEmitter)="onSave($event)" 
+
+<app-shared-register-note-form [showLoading]="showLoading" [registerNote]="data" (saveEmitter)="onSave($event)"
   (cancelEditEmitter)="onCancel($event)">
 </app-shared-register-note-form>

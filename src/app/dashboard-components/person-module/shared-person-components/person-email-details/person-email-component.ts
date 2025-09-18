@@ -86,6 +86,7 @@ export class PersonEmailComponent implements OnInit {
     createdBy: "",
     createdAt: ""
   }) {
+    console.log("open person email dialog");
     const dialogRef = this.dialog.open(PersonEmailDialogComponent, {
       panelClass: 'dialog-container',
       disableClose: true,

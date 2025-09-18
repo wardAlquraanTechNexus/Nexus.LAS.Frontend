@@ -20,6 +20,7 @@ import { Labels } from '../../../models/consts/labels';
 })
 export class BaseFormComponent implements OnInit, OnDestroy {
 
+  
   isDragging = false;
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
@@ -29,6 +30,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
   }
+  @Input() showLoading:boolean = false;
   @Input() object: | null = null;
   @Input() validationRules: { [key: string]: ValidatorFn[] } = {};
   @Output() saveEmitter: EventEmitter<any> = new EventEmitter<any>();

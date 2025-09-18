@@ -31,27 +31,29 @@
     <div class="dialog-body">
         <div class="form-container">
             <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
-            <div class="col-12">
+                <div class="col-12">
 
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.EMAIL_ADDRESS }}</mat-label>
-                    <input matInput formControlName="email" [placeholder]="label.COMMON.ADD_EMAIL || 'Enter email...'" required />
-                    <mat-error *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
-                        {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
-                    </mat-error>
-                </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.EMAIL_ADDRESS }}</mat-label>
+                        <input matInput formControlName="email"
+                            [placeholder]="label.COMMON.ADD_EMAIL || 'Enter email...'" required />
+                        <mat-error
+                            *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
+                            {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
+                        </mat-error>
+                    </mat-form-field>
 
-            </div>
+                </div>
 
-            <div class="col-12">
-                <div class="nexus-switch-wrapper">
-                    <div class="nexus-switch-container">
-                        <mat-slide-toggle formControlName="emailPrimary" color="primary" class="nexus-switch">
-                            {{ label.COMMON.PRIMARY || 'Primary' }}
-                        </mat-slide-toggle>
+                <div class="col-12">
+                    <div class="nexus-switch-wrapper">
+                        <div class="nexus-switch-container">
+                            <mat-slide-toggle formControlName="emailPrimary" color="primary" class="nexus-switch">
+                                {{ label.COMMON.PRIMARY || 'Primary' }}
+                            </mat-slide-toggle>
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
         </div>
     </div>
@@ -62,9 +64,7 @@
             <mat-icon>close</mat-icon>
             {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
-        <button mat-flat-button class="save-btn" (click)="save()">
-            <mat-icon>{{ personEmail && personEmail.id ? 'save' : 'add' }}</mat-icon>
-            {{ personEmail && personEmail.id ? (label.COMMON.EDIT_EMAIL || 'Update Email') : (label.COMMON.ADD_EMAIL || 'Save Email') }}
-        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
     </div>
 </div>

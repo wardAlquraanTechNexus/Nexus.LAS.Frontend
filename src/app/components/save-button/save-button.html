@@ -1,0 +1,15 @@
+<button mat-flat-button class="save-btn" (click)="onclick()" [disabled]="showLoading">
+  <ng-container *ngIf="!showLoading; else spinnerTemplate">
+    <mat-icon>save</mat-icon>
+    {{ label.COMMON.SAVE || 'Save' }}
+  </ng-container>
+
+  <ng-template #spinnerTemplate>
+    <mat-progress-spinner
+      diameter="24"
+      mode="indeterminate"
+      color="accent"
+      style="display: block; margin: auto;">
+    </mat-progress-spinner>
+  </ng-template>
+</button>

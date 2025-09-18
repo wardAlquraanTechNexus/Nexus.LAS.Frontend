@@ -123,6 +123,16 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+          case 'dl-by-comparekey': 
+            if (column.compareKey) {
+              return this.dlService.GetAllByParentId(element[column.compareKey]).pipe(
+                map(list => {
+                  const found = list.find(x => x.id == value);
+                  return found ? found.name : '';
+                })
+              );
+            }
+            return of(value?.toString() ?? '');
 
         case 'original-document-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes).pipe(

@@ -186,8 +186,7 @@
   border-top: 1px solid rgba(1, 55, 114, 0.1);
   backdrop-filter: blur(10px);
 
-  .cancel-btn,
-  .save-btn {
+  .cancel-btn{
     display: flex;
     align-items: center;
     gap: 8px;
@@ -224,23 +223,7 @@
     }
   }
 
-  .save-btn {
-    background: linear-gradient(135deg, #013772, #0056b3);
-    color: white;
-    border: none;
-    box-shadow: 0 4px 15px rgba(1, 55, 114, 0.3);
 
-    &:hover:not(:disabled) {
-      background: linear-gradient(135deg, #0056b3, #013772);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(1, 55, 114, 0.4);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
 }
 
 /* Form Fields Enhancement */
@@ -422,8 +405,7 @@ mat-form-field {
     .dialog-footer {
       padding: 16px 20px;
 
-      .cancel-btn,
-      .save-btn {
+      .cancel-btn{
         padding: 8px 20px;
         font-size: 0.9rem;
       }

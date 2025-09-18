@@ -268,6 +268,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     }).subscribe({
       next: (res => {
         this.errorHandler.showSuccess("Updated Successfully");
+        this.selectedCompanies = [];
         this.fetchData();
       }), error: (err => {
         this.showLoading = false;
@@ -283,6 +284,8 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     }).subscribe({
       next: (res => {
         this.errorHandler.showSuccess("Updated Successfully");
+        this.selectedCompanies = [];
+
         this.fetchData();
       }), error: (err => {
         this.showLoading = false;

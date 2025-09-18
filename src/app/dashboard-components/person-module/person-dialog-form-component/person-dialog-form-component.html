@@ -20,18 +20,13 @@
 
   <div class="dialog-body">
     <div class="form-container">
-      <app-person-form-component [element]="data" (saveEmitter)="onSave($event)" (cancelEditEmitter)="onCancel(true)">
+      <app-person-form-component 
+      [showLoading]="showLoading"
+      [element]="data" 
+      (saveEmitter)="onSave($event)" 
+      (cancelEditEmitter)="onCancel(true)">
       </app-person-form-component>
     </div>
   </div>
 
-  <!-- Loading Overlay -->
-  @if(showLoading){
-  <div class="loading-overlay">
-    <div class="loading-content">
-      <mat-spinner diameter="40"></mat-spinner>
-      <p class="loading-text">{{ label.PERSON.PERSON_CREATED_SUCCESSFULLY || 'Creating person...' }}</p>
-    </div>
-  </div>
-  }
 </div>

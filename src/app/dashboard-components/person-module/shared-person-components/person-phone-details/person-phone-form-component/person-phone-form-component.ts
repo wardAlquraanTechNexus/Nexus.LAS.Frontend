@@ -17,7 +17,6 @@ import { LanguageService } from '../../../../../services/language-service';
   styleUrl: './person-phone-form-component.scss'
 })
 export class PersonPhoneFormComponent extends BaseFormComponent {
-  @Input() showLoading = false;
   @Input() personPhone!: PersonPhone;
   loadPersonsPhonesFn!: (search: string) => Observable<DynamicList[]>;
 
@@ -49,4 +48,5 @@ export class PersonPhoneFormComponent extends BaseFormComponent {
     this.loadPersonsPhonesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.PersonsPhonesTypes, search)
 
   }
+  
 }

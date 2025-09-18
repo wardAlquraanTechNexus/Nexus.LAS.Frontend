@@ -56,6 +56,7 @@ import { ThousandSeparatorDirective } from '../directives/thousand-separator.dir
 import { NumberFormatDirective } from '../directives/number-format.directive';
 
 import { DatePickerModule } from 'primeng/datepicker';
+import { SaveButtonComponent } from './save-button/save-button';
 
 
 
@@ -88,7 +89,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     PersonDialogFormComponent,
     SharedCompanyShareholderComponent,
     DateInputComponent,
-
+    SaveButtonComponent
 
   ],
   imports: [
@@ -183,7 +184,9 @@ import { DatePickerModule } from 'primeng/datepicker';
     PersonDialogFormComponent,
     SharedCompanyShareholderComponent,
     DateInputComponent,
-    DatePickerModule
+    DatePickerModule,
+    SaveButtonComponent
+
   ],
   providers: [
 
