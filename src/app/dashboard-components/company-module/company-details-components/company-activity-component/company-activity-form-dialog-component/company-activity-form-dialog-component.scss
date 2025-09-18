@@ -3,8 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 600px !important;  /* fixed width */
-  max-width: 90vw !important;
+  /* Width is now controlled by dialog config in component.ts */
   margin: auto;
   padding: 0 !important;
 }

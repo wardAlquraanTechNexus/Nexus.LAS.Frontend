@@ -114,7 +114,9 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
     };
     const dialogRef = this.dialog.open(CompanyActivityFormDialogComponent, {
       disableClose: true,
-      data: element
+      data: element,
+      width: '800px',  // Adjust this value as needed (600px, 900px, 50vw, etc.)
+      maxWidth: '90vw'  // Ensures it doesn't exceed viewport on small screens
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -127,7 +129,9 @@ export class CompanyActivityComponent extends TableFormComponent<CompanyActivity
   onEdit(row: any) {
     const dialogRef = this.dialog.open(CompanyActivityFormDialogComponent, {
       disableClose: true,
-      data: row
+      data: row,
+      width: '800px',  // Adjust this value as needed (600px, 900px, 50vw, etc.)
+      maxWidth: '90vw'  // Ensures it doesn't exceed viewport on small screens
     });
 
     dialogRef.afterClosed().subscribe(result => {
