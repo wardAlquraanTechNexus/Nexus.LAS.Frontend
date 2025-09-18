@@ -97,7 +97,8 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
       {
         key: "placeOfIssue",
         label: getLabel('PERSON.PLACE_OF_ISSUE') || "Place of Issue",
-        pipes: ['document-nationality']
+        pipes: ['dl-by-comparekey'],
+        compareKey: 'nationality'
       },
       {
         key: "idNumber",
@@ -264,6 +265,7 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
       isPrimary: false,
       fileName: "",
       contentType: "",
+      removeFile : false,
       dataFile: [],
       imageUrl: null,
       activeReminder: false,

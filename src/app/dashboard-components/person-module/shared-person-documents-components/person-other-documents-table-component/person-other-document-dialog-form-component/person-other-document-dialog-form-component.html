@@ -3,7 +3,7 @@
 
         <ng-container>
             <app-person-other-document-form-component [element]="data" (saveEmitter)="onSave($event)"
-                (cancelEditEmitter)="onCancel($event)">
+                (cancelEditEmitter)="onCancel($event)" [showLoading]="showLoading">
             </app-person-other-document-form-component>
         </ng-container>
     </div>

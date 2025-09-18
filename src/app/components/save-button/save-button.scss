@@ -1,0 +1,36 @@
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers spinner */
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #013772, #0056b3);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(1, 55, 114, 0.3);
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0056b3, #013772);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 55, 114, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

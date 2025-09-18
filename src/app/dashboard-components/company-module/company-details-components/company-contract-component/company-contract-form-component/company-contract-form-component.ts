@@ -23,7 +23,6 @@ import { LanguageService } from '../../../../../services/language-service';
 })
 export class CompanyContractFormComponent extends BaseFormComponent {
 
-  showLoading = false;
   @Input() element!: CompanyContractDto;
   loadCompanyContractTypesFn!: (search: string) => Observable<DynamicList[]>;
   statusOptions = [

@@ -114,9 +114,6 @@
             <mat-icon>close</mat-icon>
             {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
-        <button mat-flat-button class="save-btn" (click)="save(true)">
-            <mat-icon>save</mat-icon>
-            {{ label.COMMON.SAVE || 'Save' }}
-        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
     </div>
 </div>

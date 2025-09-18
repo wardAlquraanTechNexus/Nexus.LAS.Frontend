@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth-service';
 import { AuthResponse } from '../../models/auth-response';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { Language } from './models/language';
 import { LanguageService } from '../../services/language-service';
 import { GetCompanyDto } from '../../models/company-models/get-company-query/get-company-dto';
@@ -199,10 +198,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
     dialogRef.afterClosed()
-      .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         if (result) {
-          debugger
           this.router.navigate([`${basePersonPath?.path}/${path?.path}`], {
             queryParams: { id: result.id }
           });

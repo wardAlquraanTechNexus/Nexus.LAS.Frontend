@@ -74,11 +74,6 @@
       <mat-icon>close</mat-icon>
       {{ label.COMMON.CANCEL || 'Cancel' }}
     </button>
-    <button mat-flat-button class="save-btn" (click)="save()" 
-            [disabled]="formGroup.invalid || showLoading">
-      <mat-icon *ngIf="!showLoading">{{ personPhone.id ? 'save' : 'add' }}</mat-icon>
-      <mat-spinner *ngIf="showLoading" diameter="20"></mat-spinner>
-      {{ personPhone.id ? (label.COMMON.EDIT_PHONE || 'Update Phone') : (label.COMMON.ADD_PHONE || 'Save Phone') }}
-    </button>
+    <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
   </div>
 </div>

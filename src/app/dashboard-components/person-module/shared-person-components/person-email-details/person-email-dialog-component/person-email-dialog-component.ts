@@ -28,7 +28,7 @@ export class PersonEmailDialogComponent extends BaseDialogComponent {
     this.isInsert = this.personEmail?.id ? false : true;
   }
 
-  onSave(object: any) {
+   onSave(object: any) {
     this.showLoading = true;
     if (this.isInsert) {
       this.service.create(object.element).subscribe( 

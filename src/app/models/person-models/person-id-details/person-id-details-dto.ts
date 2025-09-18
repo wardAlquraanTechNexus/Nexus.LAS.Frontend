@@ -9,6 +9,7 @@ export interface PersonIdDetailDto {
   expiryDate: string;
   activeReminder?:boolean;
   isPrimary: boolean;
+  removeFile:boolean;
   fileName: string;
   contentType: string;
   dataFile: number[];

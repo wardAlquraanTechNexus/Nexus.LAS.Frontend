@@ -74,9 +74,6 @@
             <mat-icon>close</mat-icon>
             {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
-        <button mat-flat-button class="save-btn" (click)="save()">
-            <mat-icon>{{ registerNote && registerNote.id ? 'save' : 'add' }}</mat-icon>
-            {{ registerNote && registerNote.id ? (label.COMMON.EDIT_NOTE || 'Update Note') : (label.COMMON.ADD_NOTE || 'Save Note') }}
-        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
     </div>
 </div>

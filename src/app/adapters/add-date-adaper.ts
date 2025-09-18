@@ -4,7 +4,6 @@ import { NativeDateAdapter } from "@angular/material/core";
 @Injectable()
 export class AppDateAdapter extends NativeDateAdapter {
   override parse(value: any): Date | null {
-    debugger
     if (!value) return null;
 
     if (typeof value === 'string') {
@@ -23,7 +22,6 @@ export class AppDateAdapter extends NativeDateAdapter {
   }
 
   override format(date: Date, displayFormat: any): string {
-    debugger;
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();

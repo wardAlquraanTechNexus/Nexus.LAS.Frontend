@@ -10,7 +10,8 @@
     <div class="dialog-body">
 
         <ng-container>
-           <app-company-champer-of-commerce-form-component *ngIf="!showLoading"
+           <app-company-champer-of-commerce-form-component 
+           [showLoading]="showLoading"
 [element]="data"
 (saveEmitter)="onSave($event)"
 (cancelEditEmitter)="onCancel($event)"

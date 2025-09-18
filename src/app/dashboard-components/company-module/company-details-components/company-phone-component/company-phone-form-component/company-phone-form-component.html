@@ -76,13 +76,6 @@
       <mat-icon>close</mat-icon>
       {{ label.COMMON.CANCEL || 'Cancel' }}
     </button>
-    <button 
-      mat-flat-button 
-      class="save-btn" 
-      type="submit"
-      [disabled]="formGroup.invalid" (click)="save()">
-      <mat-icon>save</mat-icon>
-      {{ label.COMMON.SAVE || 'Save Phone' }}
-    </button>
+    <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
   </div>
 </div>
