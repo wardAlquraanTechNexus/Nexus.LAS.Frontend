@@ -35,8 +35,27 @@ export class CompanyLicenseFormComponent extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
-
-
   }
 
+  onRemoveAttachment() {
+    // Clear the file from form
+    this.formGroup.get('file')?.setValue(null);
+
+    // Clear the uploaded file
+    this.uploadedFile = null;
+
+    // Set flag to indicate file was removed
+    this.isFileRemoved = true;
+
+    // Clear display properties
+    if (this.element) {
+      this.element.file = null;
+      this.element.imageUrl = null;
+      this.element.fileName = '';
+      this.element.contentType = '';
+      this.element.dataFile = undefined;
+    }
+
+    this.cdr.markForCheck();
+  }
 }

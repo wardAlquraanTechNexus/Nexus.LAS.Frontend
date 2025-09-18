@@ -46,10 +46,27 @@ export class CompanyContractFormComponent extends BaseFormComponent {
     this.setup(this.element);
     super.ngOnInit();
     this.loadCompanyContractTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType, search);
-
-
-
   }
 
+  onRemoveAttachment() {
+    // Clear the file from form
+    this.formGroup.get('file')?.setValue(null);
 
+    // Clear the uploaded file
+    this.uploadedFile = null;
+
+    // Set flag to indicate file was removed
+    this.isFileRemoved = true;
+
+    // Clear display properties
+    if (this.element) {
+      this.element.file = null;
+      this.element.imageUrl = null;
+      this.element.fileName = '';
+      this.element.contentType = '';
+      this.element.dataFile = undefined;
+    }
+
+    this.cdr.markForCheck();
+  }
 }

@@ -65,12 +65,25 @@ export class PersonIdDocumentFormComponent extends BaseFormComponent {
   }
 
   onRemoveAttachment() {
+    // Clear the file from form
     this.formGroup.get('file')?.setValue(null);
+
+    // Clear the uploaded file
+    this.uploadedFile = null;
+
+    // Set flag to indicate file was removed
+    this.isFileRemoved = true;
+
+    // Clear display properties
     if (this.element) {
       this.element.file = null;
       this.element.imageUrl = null;
-      this.uploadedFile = null;
+      this.element.fileName = '';
+      this.element.contentType = '';
+      this.element.dataFile = [];
     }
+
+    this.cdr.markForCheck();
   }
 
   expiryDate: Date | null = null;

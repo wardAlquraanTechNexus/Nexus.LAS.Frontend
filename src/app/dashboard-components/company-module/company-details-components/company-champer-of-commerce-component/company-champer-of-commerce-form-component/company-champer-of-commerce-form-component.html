@@ -85,9 +85,13 @@
 
                 <!-- Expiry Reminder -->
                 <div class="col-12">
-                    <mat-slide-toggle formControlName="cciExpiryActiveReminder">
-                        {{ label.COMPANY.REMINDER || 'Active Reminder' }}
-                    </mat-slide-toggle>
+                    <div class="nexus-switch-wrapper">
+                        <div class="nexus-switch-container">
+                            <mat-slide-toggle formControlName="cciExpiryActiveReminder" color="primary" class="nexus-switch">
+                                {{ label.COMPANY.REMINDER || 'Active Reminder' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Username -->
@@ -111,6 +115,12 @@
 
         <!-- Right: File Preview -->
         <div class="preview-side">
+            <!-- Remove Attachment Button - Shows when file is selected or image exists -->
+            <div *ngIf="element?.imageUrl || formGroup.get('file')?.value" class="mb-3 text-center">
+                <button mat-icon-button color="warn" type="button" (click)="onRemoveAttachment()" matTooltip="Remove Attachment">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
             <div class="file-preview" *ngIf="element?.imageUrl">
                 <ng-container *ngIf="element?.contentType === 'application/pdf'; else showImage">
                     <iframe [src]="element.imageUrl" width="100%" height="500px" type="application/pdf"></iframe>

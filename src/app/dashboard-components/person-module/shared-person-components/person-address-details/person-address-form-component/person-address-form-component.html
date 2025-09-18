@@ -91,9 +91,13 @@
                 </div>
 
                 <div class="col-12">
-                    <mat-slide-toggle formControlName="addressPrimary">
-                        <span class="label-toggel">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
-                    </mat-slide-toggle>
+                    <div class="nexus-switch-wrapper">
+                        <div class="nexus-switch-container">
+                            <mat-slide-toggle formControlName="addressPrimary" color="primary" class="nexus-switch">
+                                {{ label.COMMON.PRIMARY || 'Primary' }}
+                            </mat-slide-toggle>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

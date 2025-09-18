@@ -24,6 +24,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
   uploadedFile: File | null = null;
+  isFileRemoved = false; // Track if file was removed
   currentLang: LanguageCode = 'en';
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
@@ -211,8 +212,12 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       });
 
       if (isFormData) {
+        // Handle file upload or removal
         if (this.uploadedFile) {
           formData.append('file', this.uploadedFile!, this.uploadedFile!.name);
+        } else if (this.isFileRemoved) {
+          // Explicitly indicate file removal
+          formData.append('removeFile', 'true');
         }
         this.saveEmitter.emit({ element: this.object, formData });
       } else {
@@ -245,32 +250,39 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files[0]) {
-      this.uploadedFile = input.files[0];
-      const file = this.uploadedFile;
-
-      if (this.object) {
-        (this.object as any).contentType = file.type;
+      const file = input.files[0];
+      if (this.validateFile(file)) {
+        this.processFile(file);
       }
-      this.formGroup.get('file')?.setValue(file);
-
-      if (file.type === 'application/pdf') {
-        const blobUrl = URL.createObjectURL(file);
-        if (this.object) {
-          (this.object as any).imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
-        }
-      } else if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (this.object) {
-            (this.object as any).imageUrl = reader.result as string;
-          }
-          this.cdr.markForCheck();
-        };
-        reader.readAsDataURL(file);
-      }
-
-      this.cdr.markForCheck();
     }
+  }
+
+  private processFile(file: File): void {
+    this.uploadedFile = file;
+    this.isFileRemoved = false; // Reset removal flag when new file is selected
+
+    if (this.object) {
+      (this.object as any).contentType = file.type;
+    }
+    this.formGroup.get('file')?.setValue(file);
+
+    if (file.type === 'application/pdf') {
+      const blobUrl = URL.createObjectURL(file);
+      if (this.object) {
+        (this.object as any).imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
+      }
+    } else if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (this.object) {
+          (this.object as any).imageUrl = reader.result as string;
+        }
+        this.cdr.markForCheck();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    this.cdr.markForCheck();
   }
 
   ngOnDestroy(): void {
@@ -317,8 +329,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     if (event.dataTransfer && event.dataTransfer.files.length > 0) {
       const file = event.dataTransfer.files[0];
       if (this.validateFile(file)) {
-        this.uploadedFile = file;
-        this.formGroup.get('file')?.setValue(file);
+        this.processFile(file);
       }
     }
   }

@@ -141,6 +141,12 @@
 
         <!-- Right: File Preview -->
         <div class="preview-side">
+            <!-- Remove Attachment Button - Shows when file is selected or image exists -->
+            <div *ngIf="element?.imageUrl || formGroup.get('file')?.value" class="mb-3 text-center">
+                <button mat-icon-button color="warn" type="button" (click)="onRemoveAttachment()" matTooltip="Remove Attachment">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
             <div class="file-preview" *ngIf="element?.imageUrl">
                 <ng-container *ngIf="element?.contentType === 'application/pdf'; else showImage">
                     <iframe [src]="element.imageUrl" width="100%" height="500px" type="application/pdf"></iframe>
@@ -148,13 +154,6 @@
                 <ng-template #showImage>
                     <img *ngIf="element?.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
                 </ng-template>
-                <!-- Remove Attachment Button under the file preview -->
-                <div class="mt-2 mb-2 text-center">
-                    <button mat-stroked-button color="warn" type="button" (click)="onRemoveAttachment()">
-                        <mat-icon>delete</mat-icon>
-                        {{ label.PERSON.REMOVE_ATTACHMENT || 'Remove Attachment' }}
-                    </button>
-                </div>
             </div>
             <div class="file-preview empty" *ngIf="!element?.imageUrl">
                 <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
