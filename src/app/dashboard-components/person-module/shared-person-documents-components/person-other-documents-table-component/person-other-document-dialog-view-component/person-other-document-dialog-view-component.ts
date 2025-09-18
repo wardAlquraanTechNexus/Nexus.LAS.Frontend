@@ -9,6 +9,9 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
 import { base64ToBlob, downloadBlob } from '../../../../_shared/shared-methods/downloadBlob';
 import { PersonIdDocumentViewComponent } from '../../person-id-documents-table-component/person-id-document-view-component/person-id-document-view-component';
 import { ComponentsModule } from "../../../../../components/components-module";
+import { LanguageService } from '../../../../../services/language-service';
+import { Labels } from '../../../../../models/consts/labels';
+import { LanguageCode } from '../../../../../models/types/lang-type';
 
 @Component({
   selector: 'app-person-other-document-dialog-view-component',
@@ -18,6 +21,11 @@ import { ComponentsModule } from "../../../../../components/components-module";
 })
 export class PersonOtherDocumentDialogViewComponent  implements OnInit {
 
+  currentLang: LanguageCode = 'en';
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+
   constructor(
     private service: PersonOtherDocumentService,
     protected router: Router,
@@ -26,7 +34,8 @@ export class PersonOtherDocumentDialogViewComponent  implements OnInit {
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     protected dialogRef: MatDialogRef<PersonIdDocumentViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: PersonOtherDocumentDTO
+    @Inject(MAT_DIALOG_DATA) public data: PersonOtherDocumentDTO,
+    private langService: LanguageService
   ) {
 
   }
@@ -39,17 +48,17 @@ export class PersonOtherDocumentDialogViewComponent  implements OnInit {
       this.data.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.cdr.markForCheck();
     }
+
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
   }
 
   download() {
     downloadBlob(this.data.dataFile , this.data.contentType! , this.data?.fileName!);
   }
 
-
-
   close() {
     this.dialogRef.close();
   }
-
-
 }

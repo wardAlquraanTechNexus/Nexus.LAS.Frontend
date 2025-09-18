@@ -22,7 +22,10 @@
       "Read(/C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\company-module\\_base\\company-table-view/**)",
       "Bash(timeout:*)",
       "Bash(npm install:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(del \"C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\shared-components\\shared-register-note\\shared-register-note-table\\shared-register-note-table.scss\")",
+      "Bash(curl:*)",
+      "Bash(del nul)"
     ],
     "deny": [],
     "ask": [],

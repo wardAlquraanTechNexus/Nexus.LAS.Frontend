@@ -1,3 +1,6 @@
+// Import local fonts first for offline/on-prem deployment
+@use 'styles/fonts/local-fonts';
+
 // Import unified Nexus theme and components
 @use 'styles/themes/theme';
 @use 'styles/themes/variables' as vars;

@@ -105,7 +105,7 @@ export const Labels = {
             APPOINTMENT_DATE: "Appointment Date",
             CESSATION_DATE: "Cessation Date",
             ORG_CHART: "Org Chart",
-            CHAMBER_OF_COMMERCE: "Chamber Of Commerce",
+            CHAMBER_OF_COMMERCE: "Chamber of Commerce",
             ADD_CHAMBER: "Add Chamber",
             LICENSES_AND_REGISTERS: "Licenses & Registers",
             ADD_LICENSE_OR_REGISTER: "Add License or Register",
