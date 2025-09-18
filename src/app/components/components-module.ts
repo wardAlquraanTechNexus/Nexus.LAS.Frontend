@@ -37,8 +37,6 @@ import { BaseDialogComponent } from '../dashboard-components/base-components/bas
 import { BaseFormComponent } from '../dashboard-components/base-components/base-form-component/base-form-component';
 import { SharedTreeComponent } from './shared-tree-component/shared-tree-component';
 import { SelectAutoComplete } from './select-auto-complete/select-auto-complete';
-import { NavbarEnComponent } from './navbar-components/navbar-en-component/navbar-en-component';
-import { NavbarArComponent } from './navbar-components/navbar-ar-component/navbar-ar-component';
 import { BaseDialogFormComponent } from '../dashboard-components/base-components/base-dialog-form-component/base-dialog-form-component';
 import { TableDataPipe } from '../pipes/table-data-pipe';
 import { TextPipe } from '../pipes/text-pipe';
@@ -63,8 +61,6 @@ import { SaveButtonComponent } from './save-button/save-button';
 @NgModule({
   declarations: [
     NavbarComponent,
-    NavbarEnComponent,
-    NavbarArComponent,
     Sidebar,
     Footer,
     SharedTable,
@@ -142,8 +138,7 @@ import { SaveButtonComponent } from './save-button/save-button';
     MatPaginatorModule,
     MatTableModule,
     NavbarComponent,
-    NavbarEnComponent,
-    NavbarArComponent,
+    // NavbarEnComponent,
     Sidebar,
     Footer,
     FormsModule,

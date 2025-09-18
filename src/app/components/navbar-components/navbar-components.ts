@@ -6,7 +6,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth-service';
 import { AuthResponse } from '../../models/auth-response';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Language } from './models/language';
 import { LanguageService } from '../../services/language-service';
 import { GetCompanyDto } from '../../models/company-models/get-company-query/get-company-dto';
@@ -16,6 +16,8 @@ import { PersonDialogFormComponent } from '../../dashboard-components/person-mod
 import { PersonDto } from '../../models/person-models/person-dto';
 import { Labels } from '../../models/consts/labels';
 import { LanguageCode } from '../../models/types/lang-type';
+import { MenuTree } from '../../models/menus/menu-tree';
+import { Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   sidebarOpen = true;
   currentLang: LanguageCode = 'en';
 
+  isNavigating = false;
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
   }
@@ -106,10 +109,23 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.langService.language$.subscribe(lang => {
+      this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
-      this.selectedLanguage = this.languages.find(x => x.value == lang) || this.languages[0];
     });
+
+
+    this.router.events
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((event: RouterEvent) => {
+        if (event instanceof NavigationStart) {
+          this.isNavigating = true;
+        }
+        if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+          this.isNavigating = false;
+        }
+      });
+
+
   }
 
   private get isBrowser(): boolean {
@@ -172,7 +188,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   private onAddNewPerson() {
     let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
       this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
+      // this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
       this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
     let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
 
@@ -197,15 +213,12 @@ export class NavbarComponent implements OnDestroy, OnInit {
       data: person
     });
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
-        if (result) {
-          this.router.navigate([`${basePersonPath?.path}/${path?.path}`], {
-            queryParams: { id: result.id }
-          });
-        }
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      this.navigate(result.id, basePersonPath, path);
+    });
   }
+
+
 
   selectDirection(language: Language) {
     this.selectedLanguage = language;
@@ -261,11 +274,20 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.router.navigate([`${baseCompanyPath?.path}/${path?.path}`], {
-          queryParams: { id: result.id }
-        });
+        this.navigate(result.id, baseCompanyPath, path);
       }
     })
+  }
+
+
+  navigate(id: any, basePath: MenuTree | null, path: MenuTree | null): void {
+    if (!id || !basePath || !path) return;
+
+    // Force reload if navigating to same route
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+
+    this.router.navigate([`${basePath.path}/${path.path}`], { queryParams: { id } });
   }
 }
 

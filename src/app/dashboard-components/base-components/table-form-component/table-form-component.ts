@@ -127,7 +127,6 @@ export class TableFormComponent<T extends BaseEntity> implements OnInit, OnDestr
     this.loadingService.startLoading('Loading data');
 
     this.service.getByParams(this.params)
-      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res => {
           this.data = res;

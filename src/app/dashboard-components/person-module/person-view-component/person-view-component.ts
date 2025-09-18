@@ -33,8 +33,8 @@ export class PersonViewComponent implements OnInit {
 
   currentLang: LanguageCode = 'en';
   get label() {
-      return Labels[this.currentLang as keyof typeof Labels];
-    }
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
 
   @Output() backToTableEmit = new EventEmitter();
   constructor(
@@ -49,16 +49,21 @@ export class PersonViewComponent implements OnInit {
     private langService: LanguageService,
   ) { }
   ngOnInit(): void {
-    let personId = this.route.snapshot.queryParamMap.get('id');
-    if (personId) {
-      this.personId = parseInt(personId);
-      this.getPerson();
-      this.personsUrl =
-        this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
-    }
+    // react to query param changes
+    this.route.queryParams.subscribe(params => {
+      let personId = params['id'];
+      if (personId) {
+        this.personId = parseInt(personId, 10);
+        this.getPerson();
+        this.personsUrl =
+          this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
+      }
+    });
 
+    // still keep language subscription
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
     });

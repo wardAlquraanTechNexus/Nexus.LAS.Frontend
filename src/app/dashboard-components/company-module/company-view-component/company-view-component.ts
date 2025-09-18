@@ -17,7 +17,7 @@ import { CompanyBoardDto } from '../../../models/company-models/company-board/dt
   styleUrl: './company-view-component.scss'
 })
 export class CompanyViewComponent implements OnInit {
-    get label() {
+  get label() {
     return Labels[this.currentLang as keyof typeof Labels];
   }
   currentLang: LanguageCode = 'en';
@@ -48,12 +48,11 @@ export class CompanyViewComponent implements OnInit {
       if (params['id']) {
         this.companyId = parseInt(params['id']);
         this.getCompany();
-        this.langService.language$.subscribe(lang => {
-          this.applyLanguage(lang);
-        });
       }
-    })
-
+    });
+    this.langService.language$.subscribe(lang => {
+      this.applyLanguage(lang);
+    });
 
   }
 
@@ -135,10 +134,10 @@ export class CompanyViewComponent implements OnInit {
   }
 
   showBoardMember = false;
-  onSelectCompanyBoard(event:CompanyBoardDto){
+  onSelectCompanyBoard(event: CompanyBoardDto) {
     this.selectedCompanyBoard = event;
     this.showBoardMember = false;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.showBoardMember = true;
       this.cdr.markForCheck();
     })
