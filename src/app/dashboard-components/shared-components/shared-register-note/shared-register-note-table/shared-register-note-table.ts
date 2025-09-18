@@ -23,6 +23,7 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
   @Input() registersIdc!: string;
   @Input() registersIdn!: number;
   @Input() canCrud: boolean = true;
+  showTable: boolean = true;
   override params: GetRegisterNoteParam = {
     page: 0,
     pageSize: 10,
@@ -129,6 +130,10 @@ const dialogRef = this.dialog.open(SharedRegisterNoteFormDialog, {
 
   onSelectionChange(selectedRows: any[]) {
     // Handle selection change if needed
+  }
+
+  toggleTable(): void {
+    this.showTable = !this.showTable;
   }
 
 }

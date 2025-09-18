@@ -1,36 +1,24 @@
-<div class="nexus-entity-container">
-
-  <!-- SECTION 1: Title and Records -->
-  <div class="nexus-entity-section">
-    <div class="nexus-entity-header">
-      <div class="nexus-entity-title">
-        <h2>{{ label.COMMON.NOTES }}</h2>
-      </div>
-      <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="addNote()">
-        <mat-icon>add</mat-icon> {{ label.COMMON.ADD_NOTE || 'Add Note' }}
-      </button>
-    </div>
+<div class="table-header">
+  <div class="header-title">{{ label.COMMON.NOTES }}</div>
+  <div class="header-actions">
+    <button mat-icon-button class="add-btn" (click)="addNote()" [attr.aria-label]="label.COMMON.ADD_NOTE">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? label.COMMON.HIDE : label.COMMON.SHOW">
+      <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
+    </button>
   </div>
-
-  <!-- SECTION 2: Data Grid -->
-  <div class="nexus-entity-section">
-    <div class="nexus-entity-data">
-      <!-- Loading -->
-      <div *ngIf="showLoading" class="nexus-loading">
-        <mat-spinner></mat-spinner>
-      </div>
-
-      <!-- Table -->
-      <div class="nexus-table-container" *ngIf="!showLoading">
-        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
-          [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (rowClick)="onRowClick($event)"
-          (onSortChangeEvent)="changeSort($event)" (selectionChange)="onSelectionChange($event)">
-        </app-shared-table>
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<app-shared-table *ngIf="showTable && !showLoading"
+  [displayedColumns]="displayColumns"
+  [paginateResult]="data"
+  [action]="actionButtonsTemplate"
+  (onChangePage)="changePage($event)"
+  (onSortChangeEvent)="changeSort($event)"
+  (selectionChange)="onSelectionChange($event)"
+  (rowClick)="onRowClick($event)"
+>
 
 <!-- Row Actions -->
 <ng-template #actionButtonsTemplate let-row>
