@@ -6,7 +6,7 @@ export interface PropertyDTO {
     code: string;
 
     typeOfTitle?: string | null;
-    grantor: boolean ;
+    grantor: boolean;
     grantorAddress?: string | null;
     grantorTitleCommencementDate?: string | null; // use string to hold ISO date from API
     grantorTitleExpiryDate?: string | null;
@@ -18,7 +18,7 @@ export interface PropertyDTO {
     locationAreaId?: number | null;
     locationDetails?: string | null;
 
-    type?: number  | null;
+    type?: number | null;
     purpose?: number | null;
     legalStatuses?: string | null; // comma-separated values
     legalStatusIds?: number[] | null;
@@ -31,4 +31,9 @@ export interface PropertyDTO {
     plotMArea?: string | null;
     propertyFArea?: string | null;
     propertyMArea?: string | null;
+
+    createdBy?: string;
+    createdAt?: string;
+    modifiedBy?: string | null;
+    modifiedAt?: string | null;
 }

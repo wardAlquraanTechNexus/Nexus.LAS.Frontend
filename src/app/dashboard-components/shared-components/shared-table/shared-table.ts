@@ -184,8 +184,8 @@ export class SharedTable implements OnInit, OnChanges {
           case 'common-status':
           {
             let color = '#9E77ED';
-            if (value === CommonStatus.Active) color = '#22C993';
-            else if (value === CommonStatus.Inactive) color = '#423e3ede';
+            if (value === CommonStatus[CommonStatus.Active] ) color = '#22C993';
+            else if (value === CommonStatus[CommonStatus.Inactive]) color = '#423e3ede';
             Object.assign(styles, {
               'border': `2px solid ${color}`,
               'color': color,

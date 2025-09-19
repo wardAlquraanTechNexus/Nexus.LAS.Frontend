@@ -15,6 +15,7 @@ import { LanguageService } from '../../../../services/language-service';
 import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
 import { environment } from '../../../../../environment/environment.prod';
 import { CommonStatus } from '../../../../enums/common-status';
+import { CompanyStatus } from '../../../../enums/company-status';
 
 @Component({
   selector: 'app-base-properties-component',
@@ -24,6 +25,8 @@ import { CommonStatus } from '../../../../enums/common-status';
 })
 export class BasePropertiesComponent extends TableFormComponent<Property> implements OnInit {
 
+  activeStatus = CommonStatus.Active;
+  inactiveStatus = CommonStatus.Inactive
   propertyStatuses = [
     {
       value: CommonStatus.New, label: this.label.COMMON.NEW
@@ -233,4 +236,120 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     this.params.purpose = id;
     this.search();
   }
+
+  bulkChangeStatus(status: CommonStatus) {
+    this.showLoading = true;
+    this.service.updateStatus({
+      ids: this.selectedProperties.map(x => x.id),
+      status: status
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.selectedProperties = [];
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+  bulkChangePrivate(isPrivate: boolean) {
+    this.showLoading = true;
+    this.service.updatePrivate({
+      ids: this.selectedProperties.map(x => x.id),
+      isPrivate: isPrivate
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.selectedProperties = [];
+
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+
+
+  activate(event: any) {
+    this.changeStatus(event, CommonStatus.Active);
+  }
+  deactivate(event: any) {
+    this.changeStatus(event, CommonStatus.Inactive);
+  }
+  markPublic(event: any) {
+    this.changePrivate(event, false);
+  }
+  markPrivate(event: any) {
+    this.changePrivate(event, true);
+
+  }
+  deleteCompany(event: any) {
+    return () => this.deleteCompanyAfterConfirm(event);
+  }
+
+  deleteCompanyAfterConfirm(event: any) {
+    this.showLoading = true;
+    this.service.delete(event.id).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Deleted Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+
+  changeStatus(event: any, status: CommonStatus) {
+    this.showLoading = true;
+    this.service.updateStatus({
+      ids: [event.id],
+      status: status
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+  changePrivate(event: any, isPrivate: boolean) {
+    this.showLoading = true;
+    this.service.updatePrivate({
+      ids: [event.id],
+      isPrivate: isPrivate
+    }).subscribe({
+      next: (res => {
+        this.errorHandler.showSuccess("Updated Successfully");
+        this.fetchData();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
+
+  onSelectionChange(selectedRows: PropertyDTO[]) {
+    this.selectedProperties = selectedRows;
+    this.cdr.markForCheck();
+  }
+
+
+  getAuditTooltip(person: any): string {
+    const createdBy = person?.createdBy || 'N/A';
+    const createdAt = person?.createdAt ? new Date(person.createdAt).toLocaleDateString('en-GB') : 'N/A';
+    const modifiedBy = person?.modifiedBy || 'N/A';
+    const modifiedAt = person?.modifiedAt ? new Date(person.modifiedAt).toLocaleDateString('en-GB') : 'N/A';
+
+    return `Created by: ${createdBy}\nCreated at: ${createdAt}\n\nModified by: ${modifiedBy}\nModified at: ${modifiedAt}`;
+  }
+
+
 }

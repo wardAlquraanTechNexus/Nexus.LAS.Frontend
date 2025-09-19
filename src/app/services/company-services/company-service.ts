@@ -6,9 +6,9 @@ import { GetCompanyDto } from '../../models/company-models/get-company-query/get
 import { Observable } from 'rxjs';
 import GetCompanyQuery from '../../models/company-models/get-company-query/get-company-dto-command';
 import { PaginateRsult } from '../../models/paginate-result';
-import { BulkChangeCompanyStatusCommand } from '../../models/company-models/update-status-command/update-status-command';
-import { BulkChangeCompanyPrivateCommand } from '../../models/company-models/update-private-command/update-private-command';
 import { ExportModel } from '../../models/export-to-excel-dto';
+import { BulkChangePrivateCommand } from '../../models/person-models/bulk-change-private-command';
+import { BulkChangeStatusCommand } from '../../models/person-models/bulk-change-status-command';
 
 @Injectable({
   providedIn: 'root'
@@ -57,11 +57,11 @@ export class CompanyService extends BaseService<Company> {
     return this.httpClient.put<boolean>(this.url + "/UpdateCompany", item);
   }
 
-  updateStatus(command: BulkChangeCompanyStatusCommand) {
+  updateStatus(command: BulkChangeStatusCommand) {
     return this.httpClient.put<number>(this.url + "/BulkChangeStatus", command);
   }
 
-  updatePrivate(command: BulkChangeCompanyPrivateCommand) {
+  updatePrivate(command: BulkChangePrivateCommand) {
     return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
   }
 }

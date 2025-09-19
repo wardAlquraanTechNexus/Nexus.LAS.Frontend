@@ -1,4 +1,3 @@
-
 <div class="nexus-entity-container">
 
     <!-- SECTION 1: Title and Records -->
@@ -35,8 +34,9 @@
                 </div>
 
 
-                <div class="nexus-toggle-group" >
-                    <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple class="nexus-toggle-compact">
+                <div class="nexus-toggle-group">
+                    <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple
+                        class="nexus-toggle-compact">
                         <mat-button-toggle *ngFor="let status of propertyStatuses" [value]="status.value">{{
                             status.label }}</mat-button-toggle>
                     </mat-button-toggle-group>
@@ -66,51 +66,39 @@
                         <div class="row mb-3">
 
                             <div *ngIf="propertyTypeOfTitleId">
-                                <dl-select-auto-complete 
-                                [withNullOption]="true"
-                                [controlName]="'typeOfTitle'" [formGroup]="formGroup"
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'typeOfTitle'"
+                                    [formGroup]="formGroup"
                                     [label]="label.PROPERTY.TYPE_OF_TITLE || 'Property Type Of Title'"
-                                    [parentId]="propertyTypeOfTitleId"
-                                    (selectEmitter)="onTypeOfTitleChange($event)">
+                                    [parentId]="propertyTypeOfTitleId" (selectEmitter)="onTypeOfTitleChange($event)">
                                 </dl-select-auto-complete>
                             </div>
                             <div *ngIf="propertyTypeId">
-                                <dl-select-auto-complete 
-                                [withNullOption]="true"
-                                [controlName]="'type'" [formGroup]="formGroup"
-                                    [label]="label.PROPERTY.PROPERTY_TYPE || 'Property Type'"
-                                    [parentId]="propertyTypeId"
-                                    (selectEmitter)="onTypeChange($event)">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'type'"
+                                    [formGroup]="formGroup" [label]="label.PROPERTY.PROPERTY_TYPE || 'Property Type'"
+                                    [parentId]="propertyTypeId" (selectEmitter)="onTypeChange($event)">
                                 </dl-select-auto-complete>
                             </div>
 
                         </div>
                         <div class="row mb-3">
                             <div *ngIf="countryParentId">
-                                <dl-select-auto-complete 
-                                [withNullOption]="true"
-                                [controlName]="'country'" [formGroup]="formGroup"
-                                    [label]="label.COMMON.COUNTRY || 'Property Country'" [parentId]="countryParentId"
-                                    (selectEmitter)="onCountryChange($event)">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'country'"
+                                    [formGroup]="formGroup" [label]="label.COMMON.COUNTRY || 'Property Country'"
+                                    [parentId]="countryParentId" (selectEmitter)="onCountryChange($event)">
                                 </dl-select-auto-complete>
                             </div>
 
                             <div *ngIf="cityParentId && showCity">
-                                <dl-select-auto-complete 
-                                [withNullOption]="true"
-                                [controlName]="'city'" [formGroup]="formGroup"
-                                    [label]="label.COMMON.CITY || 'Property City'" [parentId]="cityParentId"
-                                    (selectEmitter)="onCityChange($event)">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'city'"
+                                    [formGroup]="formGroup" [label]="label.COMMON.CITY || 'Property City'"
+                                    [parentId]="cityParentId" (selectEmitter)="onCityChange($event)">
                                 </dl-select-auto-complete>
                             </div>
 
                             <div *ngIf="areaParentId && showArea">
-                                <dl-select-auto-complete 
-                                [withNullOption]="true"
-                                [controlName]="'zone'" [formGroup]="formGroup"
-                                [label]="label.COMMON.ZONE || 'Property ZONE'" 
-                                [parentId]="areaParentId"
-                                (selectEmitter)="onAreaChange($event)">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'zone'"
+                                    [formGroup]="formGroup" [label]="label.COMMON.ZONE || 'Property ZONE'"
+                                    [parentId]="areaParentId" (selectEmitter)="onAreaChange($event)">
                                 </dl-select-auto-complete>
                             </div>
                         </div>
@@ -119,23 +107,25 @@
             </div>
 
             <!-- Bulk Actions -->
-            <!-- <div class="nexus-bulk-actions" *ngIf="selectedProperties.length">
-        <span class="nexus-bulk-count">{{ selectedProperties.length }} {{ label.COMMON.SELECTED }}</span>
-        <div class="nexus-bulk-buttons" >
-          <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
-            <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
-          </button>
-          <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inActiveStatus)">
-            <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
-          </button>
-          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-            <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
-          </button>
-          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
-            <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
-          </button>
-        </div>
-      </div> -->
+            <div class="nexus-bulk-actions" *ngIf="selectedProperties.length">
+                <span class="nexus-bulk-count">{{ selectedProperties.length }} {{ label.COMMON.SELECTED }}</span>
+                <div class="nexus-bulk-buttons">
+                    <button mat-stroked-button class="nexus-btn nexus-bulk-success"
+                        (click)="bulkChangeStatus(activeStatus)">
+                        <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
+                    </button>
+                    <button mat-stroked-button class="nexus-btn nexus-bulk-warning"
+                        (click)="bulkChangeStatus(inactiveStatus)">
+                        <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
+                    </button>
+                    <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
+                        <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
+                    </button>
+                    <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
+                        <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -149,8 +139,8 @@
 
             <!-- Table -->
             <div class="nexus-table-container" *ngIf="!showLoading">
-                <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
-                    [action]="actionButtonsTemplate" (onChangePage)="changePage($event)"
+                <app-shared-table (selectionChange)="onSelectionChange($event)" [displayedColumns]="displayColumns"
+                    [paginateResult]="data" [action]="actionButtonsTemplate" (onChangePage)="changePage($event)"
                     (onSortChangeEvent)="changeSort($event)">
                 </app-shared-table>
             </div>
@@ -159,10 +149,10 @@
 
     <!-- Row Actions -->
     <ng-template #actionButtonsTemplate let-row>
-        <!-- <button mat-icon-button [matTooltip]="getAuditTooltip(row)" matTooltipClass="audit-tooltip"
-      matTooltipPosition="left" [matTooltipShowDelay]="300" class="audit-info-btn">
-      <mat-icon>info</mat-icon>
-    </button> -->
+        <button mat-icon-button [matTooltip]="getAuditTooltip(row)" matTooltipClass="audit-tooltip"
+            matTooltipPosition="left" [matTooltipShowDelay]="300" class="audit-info-btn">
+            <mat-icon>info</mat-icon>
+        </button>
         <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
             <mat-icon>more_vert</mat-icon>
         </button>
@@ -170,34 +160,27 @@
             <button mat-menu-item class="nexus-menu-item nexus-menu-neutral">
                 <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
             </button>
-            <button mat-menu-item class="nexus-menu-item nexus-menu-neutral" (click)="onEdit(row)">
-                <mat-icon class="nexus-icon-print">edit</mat-icon> {{ label.COMMON.EDIT }}
+
+
+            <button mat-menu-item (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
+                <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
             </button>
-            <!--       
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)"
-        class="nexus-menu-item nexus-menu-success">
-        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
-      </button>
 
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)"
-        class="nexus-menu-item nexus-menu-warning">
-        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
-      </button>
+            <button mat-menu-item (click)="deactivate(row)" class="nexus-menu-item nexus-menu-warning">
+                <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
+            </button>
 
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)"
-        class="nexus-menu-item nexus-menu-info">
-        <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
-      </button>
+            <button mat-menu-item (click)="markPublic(row)" class="nexus-menu-item nexus-menu-info">
+                <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
+            </button>
 
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)"
-        class="nexus-menu-item nexus-menu-neutral">
-        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
-      </button>
+            <button mat-menu-item (click)="markPrivate(row)" class="nexus-menu-item nexus-menu-neutral">
+                <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
+            </button>
 
-      <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteCompany(row)"
-        class="nexus-menu-item nexus-menu-danger">
-        <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
-      </button> -->
+            <button mat-menu-item [confirmDelete]="deleteCompany(row)" class="nexus-menu-item nexus-menu-danger">
+                <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
+            </button>
 
         </mat-menu>
     </ng-template>

@@ -1,6 +1,6 @@
 import { CompanyStatus } from "../../../enums/company-status";
 
-export interface BulkChangeCompanyStatusCommand{
+export interface BulkChangeStatusCommand{
     ids:number[],
-    status:CompanyStatus
+    status:number
 }
