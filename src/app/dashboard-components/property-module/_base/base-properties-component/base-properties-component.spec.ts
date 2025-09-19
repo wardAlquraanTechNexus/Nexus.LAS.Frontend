@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddRealEstate } from './add-real-estate';
+import { BasePropertiesComponent } from './base-properties-component';
 
-describe('AddRealEstate', () => {
-  let component: AddRealEstate;
-  let fixture: ComponentFixture<AddRealEstate>;
+describe('BasePropertiesComponent', () => {
+  let component: BasePropertiesComponent;
+  let fixture: ComponentFixture<BasePropertiesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddRealEstate]
+      imports: [BasePropertiesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddRealEstate);
+    fixture = TestBed.createComponent(BasePropertiesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

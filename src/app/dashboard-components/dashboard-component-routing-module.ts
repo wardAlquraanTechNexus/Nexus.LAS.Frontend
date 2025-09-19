@@ -23,6 +23,12 @@ const routes: Routes = [
     path: environment.routes.Setting,
     loadChildren: () => import('./setting-module/setting-module').then(m => m.SettingModule),
     canActivate: [authGuard]
+  },
+  {
+    path: environment.routes.Properties,
+    loadChildren: () => import('./property-module/property-module').then(m => m.PropertyModule),
+    canActivate: [authGuard]
+    
   }
 ];
 

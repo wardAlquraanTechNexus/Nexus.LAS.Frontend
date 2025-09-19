@@ -28,16 +28,6 @@ export interface Routes {
   AddCompany: string;
   EditCompany: string;
 
-  // Real Estates module
-  RealEstates: string;
-  AllRealEstates: string;
-  ActiveRealEstates: string;
-  ActivePrivateRealEstates: string;
-  ActivePublicRealEstates: string;
-  InactiveRealEstates: string;
-  ViewRealEstates: string;
-  AddRealEstate: string;
-  EditRealEstate: string;
 
   // Law Firms module
   LawFirms: string;
@@ -93,6 +83,15 @@ export interface Routes {
   GroupsMenus: string;
   UserSettings:string;
 
+
+
+  // Properties
+  Properties: string;
+  AllProperties: string;
+  ActiveProperties: string;
+  ActivePrivateProperties: string;
+  ActivePublicProperties: string;
+
 }
 
 export interface Environment {
@@ -120,6 +119,10 @@ export interface Environment {
     designation : number;
     country: number;
     classOfShares: number;
+    propertyTypeOfTitle: number;
+    propertyType: number;
+    propertyPurpose: number;
+    propertyStatus: number;
   }
 }
 

@@ -33,17 +33,7 @@ export const environment: Environment = {
     AddCompany: 'Add-company',
     EditCompany: 'Edit-company',
 
-    // Real Estates module
-    RealEstates: 'Real-estates',
-    AllRealEstates: 'All-real-estates',
-    ActiveRealEstates: 'Active-real-estates',
-    ActivePrivateRealEstates: 'Active-private-real-estates',
-    ActivePublicRealEstates: 'Active-public-real-estates',
-    InactiveRealEstates: 'Inactive-real-estates',
-    ViewRealEstates: 'View-real-estates',
-    AddRealEstate: 'Real-estates/add-real-estate',
-    EditRealEstate: 'Real-estates/edit-real-estate',
-
+  
     // Law Firms module
     LawFirms: 'Law-firms',
     AllLawFirms: 'All-law-firms',
@@ -96,7 +86,14 @@ export const environment: Environment = {
     UserGroups: 'User-groups',
     Groups: 'Groups',
     GroupsMenus: 'Groups-menus',
-    UserSettings: "User-settings"
+    UserSettings: "User-settings",
+
+    // Properties
+    Properties: "Real-Estates",
+    AllProperties: "All-Real-Estates",
+    ActiveProperties: "Active-Real-Estates",
+    ActivePrivateProperties: "Active-Private-Real-Estates",
+    ActivePublicProperties: "Active-Public-Real-Estates",
   },
 
   rootDynamicLists: {
@@ -117,6 +114,10 @@ export const environment: Environment = {
     designation: 1012,
     country: 1010,
     classOfShares: 1053,
+    propertyTypeOfTitle: 1027,
+    propertyType: 1031,
+    propertyPurpose:1029,
+    propertyStatus: 1030
 
   }
 } as const;

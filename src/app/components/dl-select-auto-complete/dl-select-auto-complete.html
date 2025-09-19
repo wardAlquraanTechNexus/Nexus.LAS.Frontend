@@ -1,0 +1,11 @@
+<select-auto-complete *ngIf="fnGet" 
+[controlName]="controlName" 
+[fnGet]="fnGet" 
+[formGroup]="formGroup"
+[isRequired]="isRequired" 
+[label]="label" 
+[keyToShow]="'name'" 
+[valueKey]="'id'" 
+[withNullOption]="withNullOption"
+(selectEmitter)="onSelectChange($event)">
+</select-auto-complete>

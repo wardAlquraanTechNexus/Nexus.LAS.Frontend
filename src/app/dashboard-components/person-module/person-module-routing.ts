@@ -4,7 +4,6 @@ import { environment } from '../../../environment/environment';
 import { AddDocumentTracking } from '../document-tracking-components/add-document-tracking/add-document-tracking';
 import { AddFpc } from '../fpc-components/add-fpc/add-fpc';
 import { AddLawFirm } from '../law-firm-components/add-law-firm/add-law-firm';
-import { AddRealEstate } from '../real-estate-components/add-real-estate/add-real-estate';
 import { AddTransaction } from '../transaction-components/add-transaction/add-transaction';
 import { ActivePersons } from './active-persons/active-persons';
 import { ActivePrivatePersons } from './active-private-persons/active-private-persons';
@@ -41,10 +40,6 @@ const routes: Routes = [
       component: PersonViewComponent,
     }
     ,
-    {
-      path: environment.routes.AddRealEstate,
-      component: AddRealEstate,
-    },
     {
       path: environment.routes.AddLawFirm,
       component: AddLawFirm,

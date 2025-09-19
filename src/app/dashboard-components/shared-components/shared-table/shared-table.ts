@@ -20,6 +20,7 @@ import { CompanyContractStatus } from '../../../enums/company-contract-status';
 import { CompanyLicenseStatus } from '../../../enums/company-license-status';
 import { PersonStatus } from '../../../enums/person-status';
 import { CompanyStatus } from '../../../enums/company-status';
+import { CommonStatus } from '../../../enums/common-status';
 
 @Component({
   selector: 'app-shared-table',
@@ -180,6 +181,19 @@ export class SharedTable implements OnInit, OnChanges {
             });
           }
           break;
+          case 'common-status':
+          {
+            let color = '#9E77ED';
+            if (value === CommonStatus.Active) color = '#22C993';
+            else if (value === CommonStatus.Inactive) color = '#423e3ede';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
+          }
+          break;
 
         case 'company-license-status':
           {
@@ -201,6 +215,8 @@ export class SharedTable implements OnInit, OnChanges {
         case 'private-company':
         case 'capital-active':
         case 'signatory-active':
+        case 'private':
+
           const color = value ? '#025EBA' : '#423e3ede';
           Object.assign(styles, {
             'border': `2px solid ${color}`,

@@ -66,11 +66,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       icon: "business",
       value: environment.routes.AddCompany
     },
-    {
-      name: "Real Estate",
-      icon: "home_work",
-      value: environment.routes.AddRealEstate
-    },
+
     {
       name: "Law Firm",
       icon: "gavel",

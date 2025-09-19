@@ -52,9 +52,6 @@
             <mat-icon>close</mat-icon>
             Cancel
         </button>
-        <button mat-flat-button class="save-btn" (clickEmitter)="save(true)">
-            <mat-icon>save</mat-icon>
-            Save Dynamic List
-        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
     </div>
 </div>

@@ -11,6 +11,7 @@ import { PersonService } from '../services/person-services/person-service';
 import { LanguageService } from '../services/language-service';
 import { CompanyLicenseStatus } from '../enums/company-license-status';
 import { NumberFormatConfigService } from '../services/number-format-config.service';
+import { CommonStatus } from '../enums/common-status';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -54,6 +55,13 @@ export class TableDataPipe implements PipeTransform {
             case CompanyStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
             default: return of(value?.toString() ?? '');
           }
+          case 'common-status':
+          switch (value) {
+            case CommonStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
+            case CommonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
+            case CommonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
+            default: return of(value?.toString() ?? '');
+          }
 
         case 'company-contract-status':
           switch (value) {
@@ -70,6 +78,8 @@ export class TableDataPipe implements PipeTransform {
 
         case 'private-person':
         case 'private-company':
+        case 'private':
+
           return of(value === true ? getLabel('COMPANY.PRIVATE') : getLabel('COMPANY.PUBLIC'));
 
         case 'signatory-active':
@@ -117,6 +127,7 @@ export class TableDataPipe implements PipeTransform {
           return of(percentValue + "%")
 
         case 'document-nationality':
+        case 'country':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.country).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
@@ -136,6 +147,13 @@ export class TableDataPipe implements PipeTransform {
 
         case 'original-document-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+          case 'property-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyType).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';

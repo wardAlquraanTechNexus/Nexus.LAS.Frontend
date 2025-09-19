@@ -303,8 +303,10 @@ export const Labels = {
             ADDRESS_LINE_2: "Address Line 2",
             ADDRESS_LINE_3: "Address Line 3",
             ADDRESS_LINE_1_REQUIRED: "Address Line 1 is required",
+            DETAILS: "Details",
             COUNTRY: "Country",
             CITY: "City",
+            ZONE: "Zone",
             POSTAL_CODE: "Postal Code",
             ADDRESS: "Address",
             FIRST_NAME: "First Name",
@@ -314,7 +316,27 @@ export const Labels = {
             LOGIN_NAME: "Login Name",
             ADD_NEW_USER_GROUP: "Add New User Group",
             SEARCH_BY_NAME: "Search by name",
+            CODE: "Code",
         },
+        PROPERTY:{
+            REAL_EASTATES: "Real Estates",
+            REAL_EASTATE: "Real Estate",
+            ADD_NEW_PROPERTY: "Add New Property",
+            EDIT_PROPERTY: "Edit Property",
+            ENTER_PROPERTY_DETAILS: "Enter Property Details",
+            TYPE_OF_TITLE: "Type of Title",
+            PROPERTY_TYPE: "Property Type",
+            PROPERTY_PURPOSE: "Property Purpose",
+            TYPE_OF_TITLE_REQUIRED: "Type of Title is required",
+            PLOT: "Plot",
+            PLOT_F_AREA: "Plot F Area(Sq F)",
+            PLOT_M_AREA: "Plot M Area(Sq M)",
+            PROPERTY_F_AREA: "Property F Area(Sq F)",
+            PROPERTY_M_AREA: "Property M Area(Sq M)",
+            LOCATION_DETAILS: 'Location Details',
+            SEARCH_BY_CODE: "Search by Code",
+
+        }
     },
     ar: {
         PERSON: {
@@ -387,7 +409,6 @@ export const Labels = {
             ENTER_ACCOUNT_SIGNATORY_DETAILS: "أدخل تفاصيل المفوض بالتوقيع", // <-- Added
             ACCOUNT_SIGNATORY: "المفوض بالتوقيع",
             ACCOUNT_SIGNATORY_DATE: "تاريخ المفوض بالتوقيع",
-
             SELECT_COMPANY_ACTIVITY: "اختر نشاط الشركة",
             ACTIVE_COMPANIES: "الشركات النشطة",
             SEARCH_ACTIVE_COMPANIES: "بحث عن الشركات النشطة",
@@ -488,6 +509,7 @@ export const Labels = {
             EMAIL_REQUIRED: "البريد الإلكتروني مطلوب",
             PHONE_REQUIRED: "رقم الهاتف مطلوب",
             ADDRESS_REQUIRED: "العنوان مطلوب",
+            DETAILS: "التفاصيل",
             NT_LOGGIN: "NT تسجيل الدخول",
             NO_FILE_SELECTED: "لم يتم اختيار ملف",
             UPLOAD_DOCUMENT: "رفع مستند",
@@ -626,6 +648,7 @@ export const Labels = {
             ADDRESS_LINE_1_REQUIRED: "العنوان 1 مطلوب",
             COUNTRY: "الدولة",
             CITY: "المدينة",
+            ZONE: "المنطقة",
             POSTAL_CODE: "الرمز البريدي",
             FIRST_NAME: "الاسم الأول",
             USERNAME: "اسم المستخدم",
@@ -633,7 +656,26 @@ export const Labels = {
             LOGIN_NAME: "اسم الدخول",
             ADD_NEW_USER_GROUP: "إضافة مجموعة مستخدمين جديدة",
             SEARCH_BY_NAME: "البحث بالاسم",
+            CODE: "الرمز",
 
         },
+         PROPERTY:{
+            REAL_EASTATES: "العقارات",
+            REAL_EASTATE: "عقار",
+            ADD_NEW_PROPERTY: "إضافة عقار جديد",
+            EDIT_PROPERTY: "تعديل العقار",
+            ENTER_PROPERTY_DETAILS: "أدخل تفاصيل العقار",
+            TYPE_OF_TITLE: "نوع الملكية",
+            PROPERTY_TYPE: "نوع العقار",
+            PROPERTY_PURPOSE: "غرض العقار",
+            TYPE_OF_TITLE_REQUIRED: "نوع الملكية مطلوب",
+            PLOT: "قطعة أرض",
+            PLOT_F_AREA: "مساحة القطعة (قدم مربع)",
+            PLOT_M_AREA: "مساحة القطعة (متر مربع)",
+            PROPERTY_F_AREA: "مساحة العقار (قدم مربع)",
+            PROPERTY_M_AREA: "مساحة العقار (متر مربع)",
+            LOCATION_DETAILS: 'تفاصيل الموقع',
+            SEARCH_BY_CODE: "البحث بالرمز",
+        }
     }
 } as const;

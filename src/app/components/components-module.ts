@@ -55,6 +55,7 @@ import { NumberFormatDirective } from '../directives/number-format.directive';
 
 import { DatePickerModule } from 'primeng/datepicker';
 import { SaveButtonComponent } from './save-button/save-button';
+import { DlSelectAutoComplete } from './dl-select-auto-complete/dl-select-auto-complete';
 
 
 
@@ -85,7 +86,8 @@ import { SaveButtonComponent } from './save-button/save-button';
     PersonDialogFormComponent,
     SharedCompanyShareholderComponent,
     DateInputComponent,
-    SaveButtonComponent
+    SaveButtonComponent,
+    DlSelectAutoComplete
 
   ],
   imports: [
@@ -180,7 +182,8 @@ import { SaveButtonComponent } from './save-button/save-button';
     SharedCompanyShareholderComponent,
     DateInputComponent,
     DatePickerModule,
-    SaveButtonComponent
+    SaveButtonComponent,
+    DlSelectAutoComplete
 
   ],
   providers: [
