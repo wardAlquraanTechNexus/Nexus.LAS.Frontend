@@ -351,5 +351,14 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     return `Created by: ${createdBy}\nCreated at: ${createdAt}\n\nModified by: ${modifiedBy}\nModified at: ${modifiedAt}`;
   }
 
+    onRowClick(event: any) {
+    if (event.key == "code") {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { id: event.element.id },
+      });
+    }
+  }
+
 
 }

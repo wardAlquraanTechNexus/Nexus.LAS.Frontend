@@ -1,0 +1,71 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>draw</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{element.id != 0 ? label.PROPERTY.EDIT_PROPERTY || 'Edit' : label.PROPERTY.ADD_NEW_PROPERTY ||
+                    'Add'}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.PROPERTY.ENTER_PROPERTY_DETAILS || 'Enter property details' }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                <div class="form-group col-12">
+                    <div *ngIf="loadPropertiesFn">
+                        <select-auto-complete [controlName]="'registerIdn'" [fnGet]="loadPropertiesFn"
+                            [formGroup]="formGroup" [label]="label.PROPERTY.PROPERTY_LINK" [keyToShow]="'code'"
+                            [valueKey]="'id'" [isRequired]="true" (selectEmitter)="onPropertyChange($event)">
+                        </select-auto-complete>
+
+                        <mat-error
+                            *ngIf="formGroup.get('registerIdn')?.invalid && (formGroup.get('registerIdn')?.touched || formGroup.touched)">
+                            {{ label.PROPERTY.PROPERTY_LINK_REQUIRED || 'Property Link is required' }}
+                        </mat-error>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.PROPERTY.LOCATION_DETAILS }}</mat-label>
+                        <textarea matInput [value]="(selectedProperty$ | async)?.locationDetails" disabled></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.STATUS }}</mat-label>
+                        <input matInput [value]="(selectedProperty$ | async)?.status" disabled>
+                    </mat-form-field>
+
+                    <div class="col-12">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{ label.PROPERTY.LINK_REMARKS}}</mat-label>
+                            <textarea matInput formControlName="propertyLinksRemarks"
+                                [placeholder]="label.PROPERTY.LINK_REMARKS || 'Enter notes'" rows="3"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
+    </div>
+</div>

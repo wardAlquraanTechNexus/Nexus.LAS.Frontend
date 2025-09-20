@@ -1,3 +1,5 @@
+import { DOCUMENT } from "@angular/core";
+
 export const Labels = {
     en: {
         PERSON: {
@@ -151,6 +153,7 @@ export const Labels = {
             ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details", // <-- Added
         },
         COMMON: {
+            DOCUMENTS: "Documents",
             DESCRIPTION: "Description",
             NT_LOGIN: "NT Login",
             ADD_NEW_MENU_ITEM: "Add New Menu Item",
@@ -322,6 +325,8 @@ export const Labels = {
             REAL_EASTATES: "Real Estates",
             REAL_EASTATE: "Real Estate",
             ADD_NEW_PROPERTY: "Add New Property",
+            OWNERS: "Owners",
+            OWNER: "Owner",
             EDIT_PROPERTY: "Edit Property",
             ENTER_PROPERTY_DETAILS: "Enter Property Details",
             TYPE_OF_TITLE: "Type of Title",
@@ -335,6 +340,14 @@ export const Labels = {
             PROPERTY_M_AREA: "Property M Area(Sq M)",
             LOCATION_DETAILS: 'Location Details',
             SEARCH_BY_CODE: "Search by Code",
+            LINKS: "Links",
+            PROPERTY_LINK: "Property Link Value",
+            LINK_REMARKS: "Property Link Remarks",  
+            PROPERTY_LINKS: "Property Links",
+            ADD_PROPERTY_LINK: "Add Property Link",
+            EDIT_PROPERTY_LINK: "Edit Property Link",
+            ENTER_PROPERTY_LINK_DETAILS: "Enter Property Link Details",
+            PROPERTY_LINK_REQUIRED: "Property Link is required",
 
         }
     },
@@ -492,6 +505,7 @@ export const Labels = {
             ENTER_BOARD_MEMBER_DETAILS: "أدخل تفاصيل عضو مجلس الإدارة", // <-- Added
         },
         COMMON: {
+            DOCUMENTS: "الوثائق",
             NT_LOGIN: "تسجيل الدخول NT",
             DESCRIPTION: "الوصف",
             ADD_NEW_MENU_ITEM: "إضافة عنصر قائمة جديد",
@@ -664,6 +678,7 @@ export const Labels = {
             REAL_EASTATE: "عقار",
             ADD_NEW_PROPERTY: "إضافة عقار جديد",
             EDIT_PROPERTY: "تعديل العقار",
+            OWNERS: "المالكون",
             ENTER_PROPERTY_DETAILS: "أدخل تفاصيل العقار",
             TYPE_OF_TITLE: "نوع الملكية",
             PROPERTY_TYPE: "نوع العقار",
@@ -676,6 +691,15 @@ export const Labels = {
             PROPERTY_M_AREA: "مساحة العقار (متر مربع)",
             LOCATION_DETAILS: 'تفاصيل الموقع',
             SEARCH_BY_CODE: "البحث بالرمز",
+            LINKS: "الروابط",
+            OWNER: "المالك",
+            PROPERTY_LINK: "رابط العقار",
+            PROPERTY_LINKS: "روابط العقار",
+            LINK_REMARKS: "ملاحظات الرابط",
+            ADD_PROPERTY_LINK: "إضافة رابط عقار",
+            EDIT_PROPERTY_LINK: "تعديل رابط العقار",
+            ENTER_PROPERTY_LINK_DETAILS: "أدخل تفاصيل رابط العقار",
+            PROPERTY_LINK_REQUIRED: "رابط العقار مطلوب",
         }
     }
 } as const;

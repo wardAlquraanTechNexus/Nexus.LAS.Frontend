@@ -1,2 +1,4 @@
 <app-all-properties-table-component *ngIf="!showLoading && !propertyId"></app-all-properties-table-component>
-<app-property-table-view *ngIf="!showLoading && propertyId" (backToTableEmit)="backToTable()"></app-property-table-view>
+<app-property-view *ngIf="!showLoading && propertyId" 
+    (backToTableEmit)="backToTable()">
+</app-property-view>

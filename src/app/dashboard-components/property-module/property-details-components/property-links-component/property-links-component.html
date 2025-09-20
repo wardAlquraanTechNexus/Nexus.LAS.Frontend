@@ -1,0 +1,40 @@
+<div class="table-header">
+  <div class="header-title">{{ label.PROPERTY.PROPERTY_LINKS || 'Property Links' }}</div>
+  <div class="header-actions">
+
+    <!-- Add button only shows when table is visible -->
+    <button *ngIf="showTable" mat-raised-button color="primary" (click)="onAddNew()">
+      <mat-icon>add</mat-icon>
+      {{ label.PROPERTY.ADD_PROPERTY_LINK || 'Add Property Link' }}
+    </button>
+
+    <!-- Toggle button -->
+    <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? (label.COMMON.HIDE || 'Hide') : (label.COMMON.SHOW || 'Show')">
+      <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- Shared table -->
+<app-shared-table *ngIf="showTable && !showLoading"
+  [displayedColumns]="displayColumns"
+  [paginateResult]="data"
+  (onChangePage)="changePage($event)"
+  (onSortChangeEvent)="changeSort($event)"
+  [action]="actionButtonsTemplate">
+</app-shared-table>
+
+<!-- Action buttons -->
+<ng-template #actionButtonsTemplate let-row>
+  <button mat-icon-button [matMenuTriggerFor]="menuRow">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menuRow="matMenu">
+    <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
+      <mat-icon>edit</mat-icon> {{ label.COMMON.EDIT || 'Edit' }}
+    </button>
+    <button mat-menu-item class="btn-delete" [confirmDelete]="deleteFn(row.id)">
+      <mat-icon>delete</mat-icon> {{ label.COMMON.DELETE || 'Delete' }}
+    </button>
+  </mat-menu>
+</ng-template>

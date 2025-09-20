@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PropertyTableView } from '../_base/property-table-view/property-table-view';
+import { PropertyViewComponent } from '../_base/property-view-component/property-view-component';
 
 @Component({
   selector: 'app-all-properties-component',
@@ -7,7 +7,7 @@ import { PropertyTableView } from '../_base/property-table-view/property-table-v
   templateUrl: './all-properties-component.html',
   styleUrl: './all-properties-component.scss'
 })
-export class AllPropertiesComponent extends PropertyTableView
+export class AllPropertiesComponent extends PropertyViewComponent
 {
 
 }

@@ -1,0 +1,51 @@
+<div class="section">
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.PROPERTY.TYPE_OF_TITLE }}</div>
+        <div class="section-body">{{ property.typeOfTitle }}</div>
+        <div class="section-subject">{{ label.COMMON.STATUS }}</div>
+        <div class="section-body">{{ property.legalStatuses | textPipe:'property-legal-statuses' | async }}</div>
+    </div>
+
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.COUNTRY }}</div>
+        <div class="section-body">{{ property.locationCountryId | textPipe:'country' | async}}</div>
+
+        <div class="section-subject">{{ label.COMMON.CITY }}</div>
+        <div class="section-body">{{ property.locationCityId | textPipe:'dl-by-parent-id' : property.locationCountryId | async}}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.ZONE }}</div>
+        <div class="section-body">{{ property.locationAreaId | textPipe:'dl-by-parent-id' : property.locationCityId | async}}</div>
+        <div class="section-subject">{{ label.PROPERTY.PROPERTY_TYPE}}</div>
+        <div class="section-body">{{ property.type | textPipe:'property-type' | async}}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.PROPERTY.PROPERTY_PURPOSE }}</div>
+        <div class="section-body">{{ property.purpose | textPipe:'property-purpose' | async}}</div>
+        <div class="section-subject">{{ label.COMMON.DETAILS }}</div>
+        <div class="section-body">{{ property.locationDetails }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.PROPERTY.PLOT }}</div>
+        <div class="section-body">{{ property.plot }}</div>
+        <div class="section-subject">{{ label.PROPERTY.PLOT_F_AREA }}</div>
+        <div class="section-body">{{ property.plotFArea | numberSeperator}}</div>
+    </div>
+    <div class="section-row">
+        <div class="section-subject">{{ label.PROPERTY.PLOT_M_AREA }}</div>
+        <div class="section-body">{{ property.plotMArea | numberSeperator}}</div>
+        <div class="section-subject">{{ label.PROPERTY.PROPERTY_F_AREA }}</div>
+        <div class="section-body">{{ property.propertyFArea | numberSeperator}}</div>
+    </div>
+    <div class="section-row">
+        <div class="section-subject">{{ label.PROPERTY.PROPERTY_M_AREA }}</div>
+        <div class="section-body">{{ property.propertyMArea | numberSeperator}}</div>
+    </div>
+
+
+</div>

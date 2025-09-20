@@ -16,8 +16,9 @@ export class TextPipe implements PipeTransform {
     private languageService: LanguageService // <-- Inject LanguageService
   ) { }
 
-  transform(value: any, pipe: string): Observable<string> {
+  transform(value: any, pipe: string, parentId: any = null): Observable<string> {
     const getLabel = this.languageService.getLabel.bind(this.languageService);
+
 
     switch (pipe.toLowerCase()) {
       case 'person-status':
@@ -49,6 +50,50 @@ export class TextPipe implements PipeTransform {
 
       case 'other-document-type':
         return this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
+
+      case 'country':
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.country).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
+
+      case 'property-purpose':
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyPurpose).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
+
+      case 'property-type':
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyType).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
+
+      case 'property-legal-statuses':
+        if(!value) return of('');
+        let ids: number[] = value.split(',').map((id: string) => parseInt(id.trim()));
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyStatus).pipe(
+          map(list => {
+            let names = list.filter(x => ids.includes(x.id)).map(x => x.name);
+            return names.join(', ');
+          })
+        );
+      case 'dl-by-parent-id':
+        if (parentId == null) {
+          return of(value);
+        }
+        return this.dlService.GetAllByParentId(parentId).pipe(
           map(list => {
             const found = list.find(x => x.id == value);
             return found ? found.name : '';
