@@ -1,0 +1,10 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <div class="dialog-body">
+
+        <ng-container>
+            <app-property-document-form [showLoading]="showLoading" [element]="data" (saveEmitter)="onSave($event)"
+                (cancelEditEmitter)="onCancel($event)">
+            </app-property-document-form>
+        </ng-container>
+    </div>
+</div>

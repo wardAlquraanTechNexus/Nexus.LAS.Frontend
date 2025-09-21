@@ -168,6 +168,13 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+           case 'property-document-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyDocumentType).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'other-document-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType).pipe(
             map(list => {

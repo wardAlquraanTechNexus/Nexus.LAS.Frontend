@@ -1,22 +1,22 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { PropertyDocument } from '../../../../../models/property-models/property-document/property-document';
+import { PropertyDocumentDTO } from '../../../../../models/property-models/property-document/dtos/property-document-dto';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
-import { PersonIdDetailDto } from '../../../../../models/person-models/person-id-details/person-id-details-dto';
-import { PersonIdDetailService } from '../../../../../services/person-services/person-id-detail-service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PersonsIDDetail } from '../../../../../models/person-models/person-id-details/person-id-details';
+import { PropertyDocumentService } from '../../../../../services/property-services/property-document-service';
 import { LanguageService } from '../../../../../services/language-service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-person-id-document-form-dialog-component',
-  standalone:false,
-  templateUrl: './person-id-document-form-dialog-component.html',
-  styleUrl: './person-id-document-form-dialog-component.scss'
+  selector: 'app-property-document-dialog-form-component',
+  standalone: false,
+  templateUrl: './property-document-dialog-form-component.html',
+  styleUrls: ['./property-document-dialog-form-component.scss']
 })
-export class PersonIdDocumentFormDialogComponent extends BaseDialogFormComponent<PersonsIDDetail> {
+export class PropertyDocumentDialogFormComponent  extends BaseDialogFormComponent<PropertyDocument> {
   constructor(
-    override dialogRef: MatDialogRef<PersonIdDocumentFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public override data: PersonIdDetailDto,
-    override service: PersonIdDetailService,
+    override dialogRef: MatDialogRef<PropertyDocumentDialogFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public override data: PropertyDocumentDTO,
+    override service: PropertyDocumentService,
     override cdr: ChangeDetectorRef,
     protected override langService: LanguageService
   ) {

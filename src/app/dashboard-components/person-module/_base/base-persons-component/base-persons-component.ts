@@ -51,7 +51,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   selectedPersons: Person[] = [];
 
 
-  
+
   currentMenu: MenuTree | null = null;
   formGroup!: FormGroup;
   loadNationalitiesFn!: (search: string) => Observable<DynamicList[]>;
@@ -134,7 +134,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       elementRow.key === "personCode"
     ) {
 
-    this.router.navigate([], {
+      this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { id: elementRow.element.id },
       });
@@ -314,6 +314,15 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
     });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { id: result.id },
+        });
+      }
+    })
+
   }
 
   exportToPdf(id: number) {
@@ -340,6 +349,6 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
 
-  
+
 
 }

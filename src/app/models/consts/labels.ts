@@ -324,7 +324,7 @@ export const Labels = {
             SEARCH_BY_NAME: "Search by name",
             CODE: "Code",
         },
-        PROPERTY:{
+        PROPERTY: {
             RELATION_REQUIRED: "Relation is required",
             REAL_EASTATES: "Real Estates",
             REAL_EASTATE: "Real Estate",
@@ -346,7 +346,7 @@ export const Labels = {
             SEARCH_BY_CODE: "Search by Code",
             LINKS: "Links",
             PROPERTY_LINK: "Property Link Value",
-            LINK_REMARKS: "Property Link Remarks",  
+            LINK_REMARKS: "Property Link Remarks",
             PROPERTY_LINKS: "Property Links",
             ADD_PROPERTY_LINK: "Add Property Link",
             EDIT_PROPERTY_LINK: "Edit Property Link",
@@ -357,6 +357,13 @@ export const Labels = {
             EDIT_PROPERTY_OWNER: "Edit Property Owner",
             ENTER_PROPERTY_OWNER_DETAILS: "Enter Property Owner Details",
             REMARKS: "Remarks",
+            PROPERTY_DOCUMENTS: "Property Documents",
+            ADD_PROPERTY_DOCUMENT: "Add Property Document",
+            EDIT_PROPERTY_DOCUMENT: "Edit Property Document",
+            ENTER_PROPERTY_DOCUMENT_DETAILS: "Enter Property Document Details",
+            DOCUMENT_TYPE: "Document Type",
+            DOCUMENT_TYPE_REQUIRED: "Document Type is required",
+            DOCUMENT: "Document",
         }
     },
     ar: {
@@ -684,7 +691,7 @@ export const Labels = {
             CODE: "الرمز",
 
         },
-         PROPERTY:{
+        PROPERTY: {
             RELATION_REQUIRED: "العلاقة مطلوبة",
             REAL_EASTATES: "العقارات",
             REAL_EASTATE: "عقار",
@@ -717,7 +724,14 @@ export const Labels = {
             EDIT_PROPERTY_OWNER: "تعديل مالك العقار",
             ENTER_PROPERTY_OWNER_DETAILS: "أدخل تفاصيل مالك العقار",
             REMARKS: "ملاحظات",
-            
+            PROPERTY_DOCUMENTS: "وثائق العقار",
+            ADD_PROPERTY_DOCUMENT: "إضافة وثيقة عقار",
+            EDIT_PROPERTY_DOCUMENT: "تعديل وثيقة عقار",
+            ENTER_PROPERTY_DOCUMENT_DETAILS: "أدخل تفاصيل وثيقة العقار",
+            DOCUMENT_TYPE: "نوع الوثيقة",
+            DOCUMENT_TYPE_REQUIRED: "نوع الوثيقة مطلوب",
+            DOCUMENT: "الوثيقة",
+
         }
     }
 } as const;

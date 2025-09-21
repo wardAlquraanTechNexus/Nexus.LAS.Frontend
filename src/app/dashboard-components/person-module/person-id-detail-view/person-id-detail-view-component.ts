@@ -169,7 +169,7 @@ export class PersonIdDetailViewComponent extends BaseDialogComponent {
     this.personIdDetail = event.element;
     this.showLoading = true;
 
-    this.service.updateByDto(event.formData).subscribe({
+    this.service.updateByForm(event.formData).subscribe({
       next: (res) => {
         this.showLoading = false;
         this.errorHandler.showSuccess('Updated Successfully');

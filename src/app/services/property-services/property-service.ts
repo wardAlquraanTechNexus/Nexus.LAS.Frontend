@@ -8,6 +8,7 @@ import { PropertyDTO } from '../../models/property-models/property/dtos/propery-
 import { GetPropertyQuery } from '../../models/property-models/property/params/get-property-query';
 import { Observable, shareReplay } from 'rxjs';
 import { GetAllPropertiesQuery } from '../../models/property-models/property/params/get-all-properties-query';
+import { ExportModel } from '../../models/export-to-excel-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,10 +40,15 @@ export class PropertyService extends BaseService<Property> {
       const params = this.httpParams(propertyQuery);
       this.propertiesRequest$ = this.httpClient.get<PropertyDTO[]>(this.url + "/GetAllByQuery", { params })
         .pipe(
-          shareReplay(1) 
+          shareReplay(1)
         );
     }
     return this.propertiesRequest$;
+  }
+
+  exportToExcel(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
   }
 
 }

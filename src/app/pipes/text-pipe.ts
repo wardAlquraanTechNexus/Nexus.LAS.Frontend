@@ -79,6 +79,13 @@ export class TextPipe implements PipeTransform {
             return found ? found.name : '';
           })
         );
+        case 'property-document-type':
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyDocumentType).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
 
       case 'property-legal-statuses':
         if(!value) return of('');

@@ -15,6 +15,10 @@ import { PropertyLinkDialogFormComponent } from './property-details-components/p
 import { PropertyOwnersComponent } from './property-details-components/property-owners-component/property-owners-component';
 import { PropertyOwnerFormComponent } from './property-details-components/property-owners-component/property-owner-form-component/property-owner-form-component';
 import { PropertyOwnerDialogFormComponent } from './property-details-components/property-owners-component/property-owner-dialog-form-component/property-owner-dialog-form-component';
+import { PropertyDocumentsComponent } from './property-details-components/property-documents-component/property-documents-component';
+import { PropertyDocumentDialogFormComponent } from './property-details-components/property-documents-component/property-document-dialog-form-component/property-document-dialog-form-component';
+import { PropertyDocumentDialogViewComponent } from './property-details-components/property-documents-component/property-document-dialog-view-component/property-document-dialog-view-component';
+import { PropertyDocumentFormComponent } from './property-details-components/property-documents-component/property-document-form-component/property-document-form-component';
 
 
 
@@ -32,7 +36,11 @@ import { PropertyOwnerDialogFormComponent } from './property-details-components/
     PropertyLinkFormComponent,
     PropertyOwnersComponent,
     PropertyOwnerFormComponent,
-    PropertyOwnerDialogFormComponent
+    PropertyOwnerDialogFormComponent,
+    PropertyDocumentsComponent,
+    PropertyDocumentDialogFormComponent,
+    PropertyDocumentDialogViewComponent,
+    PropertyDocumentFormComponent
   ],
   imports: [
     CommonModule,

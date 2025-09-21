@@ -20,7 +20,7 @@ export class PersonIdDetailService extends BaseService<PersonsIDDetail> {
     return this.httpClient.post<number>(this.url, formData);
 
   }
-  updateByDto(formData: FormData): Observable<number> {
+  updateByForm(formData: FormData): Observable<number> {
     return this.httpClient.put<number>(this.url, formData);
 
   }

@@ -16,6 +16,8 @@ import { PropertyDialogFormComponent } from '../../property-dialog-form-componen
 import { environment } from '../../../../../environment/environment.prod';
 import { CommonStatus } from '../../../../enums/common-status';
 import { CompanyStatus } from '../../../../enums/company-status';
+import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
+import { navigate } from '../../../_shared/shared-methods/navigate';
 
 @Component({
   selector: 'app-base-properties-component',
@@ -160,9 +162,20 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
       data: element
     });
 
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllProperties) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Properties);
+
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.fetchData();
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { id: result.id },
+        });
       }
     })
   }
@@ -351,7 +364,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     return `Created by: ${createdBy}\nCreated at: ${createdAt}\n\nModified by: ${modifiedBy}\nModified at: ${modifiedAt}`;
   }
 
-    onRowClick(event: any) {
+  onRowClick(event: any) {
     if (event.key == "code") {
       this.router.navigate([], {
         relativeTo: this.route,
@@ -359,6 +372,26 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
       });
     }
   }
+
+  exportToExcel() {
+    this.service.exportToExcel(this.params).subscribe(res => {
+      // Assuming res.data is base64 string:
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      const blob = new Blob([bytes], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+
+      downloadBlobFile(blob, res.fileName || 'export.xlsx');
+    });
+  }
+
 
 
 }

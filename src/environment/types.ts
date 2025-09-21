@@ -87,6 +87,7 @@ export interface Routes {
 
   // Properties
   Properties: string;
+  AddProperty: string;
   AllProperties: string;
   ActiveProperties: string;
   ActivePrivateProperties: string;
@@ -124,6 +125,7 @@ export interface Environment {
     propertyPurpose: number;
     propertyStatus: number;
     propertyOwnerRelation: number;
+    propertyDocumentType: number;
   }
 }
 

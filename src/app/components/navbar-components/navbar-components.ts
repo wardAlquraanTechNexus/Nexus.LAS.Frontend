@@ -18,6 +18,9 @@ import { Labels } from '../../models/consts/labels';
 import { LanguageCode } from '../../models/types/lang-type';
 import { MenuTree } from '../../models/menus/menu-tree';
 import { Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { PropertyDTO } from '../../models/property-models/property/dtos/propery-dto';
+import { PropertyDialogFormComponent } from '../../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
+import { navigate } from '../../dashboard-components/_shared/shared-methods/navigate';
 
 
 @Component({
@@ -66,6 +69,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
       icon: "business",
       value: environment.routes.AddCompany
     },
+    {
+      name: "Real Estate",
+      icon: "home_work",
+      value: environment.routes.AddProperty
+    },
 
     {
       name: "Law Firm",
@@ -105,7 +113,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-      this.langService.language$.subscribe(lang => {
+    this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
     });
 
@@ -167,6 +175,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   openAddDialog(item: any): void {
+
     switch (item.value) {
 
       case environment.routes.AddPerson:
@@ -174,6 +183,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
         break;
       case environment.routes.AddCompany:
         this.onAddNewCompany();
+        break;
+      case environment.routes.AddProperty:
+        this.onAddNewRealEstate();
         break;
       default:
         break;
@@ -186,7 +198,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
       // this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
       this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
-    let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
 
     let person: PersonDto = {
       id: 0,
@@ -210,7 +222,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.navigate(result.id, basePersonPath, path);
+        navigate(this.router , basePath, path, result.id);
     });
   }
 
@@ -232,7 +244,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
       this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
       this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
-    let baseCompanyPath = this.menuService.getMenuByPath(environment.routes.Companies);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Companies);
 
     let companyDto: GetCompanyDto = {
       id: 0,
@@ -270,21 +282,69 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.navigate(result.id, baseCompanyPath, path);
+        navigate(this.router , basePath, path, result.id);
       }
     })
   }
 
 
-  navigate(id: any, basePath: MenuTree | null, path: MenuTree | null): void {
-    if (!id || !basePath || !path) return;
+  onAddNewRealEstate() {
+    const element: PropertyDTO = {
+      id: 0,
+      code: "",
 
-    // Force reload if navigating to same route
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
+      typeOfTitle: null,
+      grantor: false,
+      grantorAddress: null,
+      grantorTitleCommencementDate: null,
+      grantorTitleExpiryDate: null,
+      grantorTitleExpiryActiveReminder: false,
+      grantorDescription: null,
 
-    this.router.navigate([`${basePath.path}/${path.path}`], { queryParams: { id } });
+      locationCountryId: null,
+      locationCityId: null,
+      locationAreaId: null,
+      locationDetails: null,
+
+      type: null,
+      purpose: null,
+      legalStatuses: null,
+      legalStatusIds: [],
+
+      private: false,
+
+      plot: null,
+      plotFArea: null,
+      plotMArea: null,
+      propertyFArea: null,
+      propertyMArea: null,
+
+    };
+
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllProperties) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Properties);
+
+
+    const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
+      disableClose: true,
+      data: element
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        navigate(this.router , basePath, path, result.id);
+      }
+    })
   }
+
+
+
+ 
 }
 
 

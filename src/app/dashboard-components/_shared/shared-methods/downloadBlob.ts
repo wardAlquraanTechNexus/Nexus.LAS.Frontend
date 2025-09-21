@@ -1,4 +1,4 @@
-export function downloadBlob(dataFile: any, contentType?: string, fileName?: string) {
+export function downloadBlob(dataFile: any, contentType?: any, fileName?: any) {
     if (dataFile && contentType && fileName) {
         const blob = base64ToBlob(dataFile, contentType);
         const url = window.URL.createObjectURL(blob);

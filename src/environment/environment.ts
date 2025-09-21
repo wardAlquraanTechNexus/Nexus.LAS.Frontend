@@ -91,6 +91,7 @@ export const environment: Environment = {
 
     // Properties
     Properties: "Real-estates",
+    AddProperty: "Add-real-estate",
     AllProperties: "All-real-estates",
     ActiveProperties: "Active-real-estates",
     ActivePrivateProperties: "Active-private-real-estates",
@@ -120,5 +121,7 @@ export const environment: Environment = {
     propertyPurpose:1029,
     propertyStatus: 1030,
     propertyOwnerRelation: 1026,
+    propertyDocumentType: 1028,
+
   }
 } as const;

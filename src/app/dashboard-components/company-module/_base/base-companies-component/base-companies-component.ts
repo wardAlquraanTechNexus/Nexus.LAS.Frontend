@@ -331,11 +331,14 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       data: companyDto
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+       dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.fetchData();
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { id: result.id },
+        });
       }
-    });
+    })
   }
 
   onRowClick(event: any) {
