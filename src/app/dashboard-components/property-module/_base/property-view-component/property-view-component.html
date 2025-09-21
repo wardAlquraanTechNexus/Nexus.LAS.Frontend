@@ -89,7 +89,7 @@
                             <app-property-overview [property]="property"></app-property-overview>
                         </div>
                         <div class="overview-component">
-                            <app-property-links [property]="property"></app-property-links>
+                            <app-property-links [readonly]="true" [property]="property"></app-property-links>
                         </div>
                     </div>
                 </mat-tab>
@@ -105,7 +105,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            
+                            <app-property-owners [property]="property"></app-property-owners>
                         </div>
                     </div>
                 </mat-tab>
@@ -119,7 +119,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            
+                            <app-property-links [property]="property"></app-property-links>
                         </div>
                     </div>
                 </mat-tab>
@@ -147,7 +147,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            
+                            <app-shared-register-note-table [registersIdn]="property.id" [registersIdc]="propertyIdc"></app-shared-register-note-table>
                         </div>
                     </div>
                 </mat-tab>

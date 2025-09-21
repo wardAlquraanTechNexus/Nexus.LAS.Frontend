@@ -8,6 +8,7 @@ import { LanguageService } from '../../../../services/language-service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonStatus } from '../../../../enums/common-status';
 import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
+import { EntityIDc } from '../../../../enums/entity-idc';
 
 @Component({
   selector: 'app-property-view',
@@ -27,6 +28,7 @@ export class PropertyViewComponent implements OnInit {
   showLoading = false;
   propertyId = 0;
 
+  propertyIdc = EntityIDc.Properties;
 
   selectedTab = 0;
   constructor(

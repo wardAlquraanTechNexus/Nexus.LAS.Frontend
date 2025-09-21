@@ -174,6 +174,7 @@ export const Labels = {
             NO_FILE_SELECTED: "No file selected",
             UPLOAD_FILE: "Upload File",
             UPLOAD_DOCUMENT: "Upload Document",
+            END_DATE: "End Date",
             VIEW_FILE: "View File",
             PHONE_TYPE: "Phone Type",
             PHONE_TYPE_REQUIRED: "Phone type is required",
@@ -191,6 +192,7 @@ export const Labels = {
             PRIMARY: "Primary",
             FILE_NAME: "File Name",
             ADD_USER: "Add User",
+            START_DATE_REQUIRED: "Start Date is required",
             ADD_USERS: "Add Users",
             ADD_MENUS: "Add Menus",
             SET_MENUS: "Set Menus",
@@ -213,6 +215,7 @@ export const Labels = {
             MORE_ACTIONS: "More Actions",
             REMINDER: "Reminder",
             INC_DATE: "Inc. Date",
+            START_DATE: "Start Date",
             SHORT_NAME: "Short Name",
             FPC_CODE: "FPC Code",
             LICENSE_NUMBER: "License Number",
@@ -322,6 +325,7 @@ export const Labels = {
             CODE: "Code",
         },
         PROPERTY:{
+            RELATION_REQUIRED: "Relation is required",
             REAL_EASTATES: "Real Estates",
             REAL_EASTATE: "Real Estate",
             ADD_NEW_PROPERTY: "Add New Property",
@@ -348,7 +352,11 @@ export const Labels = {
             EDIT_PROPERTY_LINK: "Edit Property Link",
             ENTER_PROPERTY_LINK_DETAILS: "Enter Property Link Details",
             PROPERTY_LINK_REQUIRED: "Property Link is required",
-
+            RELATION: "Relation",
+            ADD_PROPERTY_OWNER: "Add Property Owner",
+            EDIT_PROPERTY_OWNER: "Edit Property Owner",
+            ENTER_PROPERTY_OWNER_DETAILS: "Enter Property Owner Details",
+            REMARKS: "Remarks",
         }
     },
     ar: {
@@ -509,6 +517,7 @@ export const Labels = {
             NT_LOGIN: "تسجيل الدخول NT",
             DESCRIPTION: "الوصف",
             ADD_NEW_MENU_ITEM: "إضافة عنصر قائمة جديد",
+            START_DATE_REQUIRED: "تاريخ البدء مطلوب",
             NAME: "الاسم",
             ADD_GROUP_MENU: "إضافة مجموعة قائمة",
             EDIT_OTHER_DOCUMENT: "تعديل مستند آخر",
@@ -530,6 +539,8 @@ export const Labels = {
             UPLOAD_FILE: "رفع ملف",
             VIEW_FILE: "عرض الملف",
             PHONE_TYPE: "نوع الهاتف",
+            START_DATE: "تاريخ البدء",
+            END_DATE: "تاريخ الانتهاء",
             PHONE_TYPE_REQUIRED: "نوع الهاتف مطلوب",
             ID: "المعرف",
             ADD: "إضافة",
@@ -674,6 +685,7 @@ export const Labels = {
 
         },
          PROPERTY:{
+            RELATION_REQUIRED: "العلاقة مطلوبة",
             REAL_EASTATES: "العقارات",
             REAL_EASTATE: "عقار",
             ADD_NEW_PROPERTY: "إضافة عقار جديد",
@@ -700,6 +712,12 @@ export const Labels = {
             EDIT_PROPERTY_LINK: "تعديل رابط العقار",
             ENTER_PROPERTY_LINK_DETAILS: "أدخل تفاصيل رابط العقار",
             PROPERTY_LINK_REQUIRED: "رابط العقار مطلوب",
+            RELATION: "العلاقة",
+            ADD_PROPERTY_OWNER: "إضافة مالك عقار",
+            EDIT_PROPERTY_OWNER: "تعديل مالك العقار",
+            ENTER_PROPERTY_OWNER_DETAILS: "أدخل تفاصيل مالك العقار",
+            REMARKS: "ملاحظات",
+            
         }
     }
 } as const;

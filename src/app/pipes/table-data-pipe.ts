@@ -12,6 +12,7 @@ import { LanguageService } from '../services/language-service';
 import { CompanyLicenseStatus } from '../enums/company-license-status';
 import { NumberFormatConfigService } from '../services/number-format-config.service';
 import { CommonStatus } from '../enums/common-status';
+import { CompanyService } from '../services/company-services/company-service';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -22,6 +23,7 @@ export class TableDataPipe implements PipeTransform {
   constructor(
     private dlService: DynamicListService,
     private personService: PersonService,
+    private companyService:CompanyService,
     private languageService: LanguageService, // Inject LanguageService
     private numberFormatConfig: NumberFormatConfigService // Inject NumberFormatConfigService
   ) { }
@@ -42,8 +44,8 @@ export class TableDataPipe implements PipeTransform {
       switch (pipe.toLowerCase()) {
         case 'person-status':
           switch (value) {
-            case PersonStatus.New: 
-            return of(getLabel('COMMON.NEW') ?? 'New');
+            case PersonStatus.New:
+              return of(getLabel('COMMON.NEW') ?? 'New');
             case PersonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
             case PersonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
             default: return of(value?.toString() ?? '');
@@ -55,7 +57,7 @@ export class TableDataPipe implements PipeTransform {
             case CompanyStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
             default: return of(value?.toString() ?? '');
           }
-          case 'common-status':
+        case 'common-status':
           switch (value) {
             case CommonStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
             case CommonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
@@ -134,16 +136,16 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
-          case 'dl-by-comparekey': 
-            if (column.compareKey) {
-              return this.dlService.GetAllByParentId(element[column.compareKey]).pipe(
-                map(list => {
-                  const found = list.find(x => x.id == value);
-                  return found ? found.name : '';
-                })
-              );
-            }
-            return of(value?.toString() ?? '');
+        case 'dl-by-comparekey':
+          if (column.compareKey) {
+            return this.dlService.GetAllByParentId(element[column.compareKey]).pipe(
+              map(list => {
+                const found = list.find(x => x.id == value);
+                return found ? found.name : '';
+              })
+            );
+          }
+          return of(value?.toString() ?? '');
 
         case 'original-document-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes).pipe(
@@ -152,8 +154,15 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
-          case 'property-type':
+        case 'property-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyType).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+          case 'property-owner-relation':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyOwnerRelation).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';
@@ -186,7 +195,7 @@ export class TableDataPipe implements PipeTransform {
             })
           );
 
-          case 'designation':
+        case 'designation':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.designation).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
@@ -221,6 +230,24 @@ export class TableDataPipe implements PipeTransform {
               return found?.personEnglishName || "N/A"
             })
           );
+
+        case 'person-or-company':
+          if (element[column.compareKey!] == EntityIDc.Person) {
+            return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
+              map(list => {
+                const found = list.find(x => x.id == value);
+                return found?.personEnglishName || "N/A"
+              })
+            );
+
+          } else {
+            return this.companyService.getAllCompanies({ pageSize: 100, page: 1 }).pipe(
+              map(list => {
+                const found = list.find(x => x.id == value);
+                return found?.companyEnglishName || "N/A"
+              })
+            );
+          }
         case 'capital-currency':
           const currencyDecimals = column.decimals ?? this.numberFormatConfig.getConfig().currencyDecimals;
           if (column.compareKey) {

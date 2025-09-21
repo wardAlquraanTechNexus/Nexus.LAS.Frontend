@@ -26,6 +26,7 @@ import { EntityIDc } from '../../../../enums/entity-idc';
 })
 export class PropertyLinksComponent extends TableFormComponent<PropertyLink> {
 
+  @Input() readonly:boolean = false;
   @Input() property!: PropertyDTO;
   override params: GetPropertyLinkQuery = {
     page: 0,
@@ -79,12 +80,17 @@ export class PropertyLinksComponent extends TableFormComponent<PropertyLink> {
         key: "propertyLinkedStatus",
         label: this.label.COMMON.STATUS,
         pipes: ['common-status']
-      },
-      {
-        key: "action",
-        label: this.label.COMMON.ACTIONS
       }
     ];
+
+    if (!this.readonly) {
+      this.displayColumns.push(
+        {
+          key: "action",
+          label: this.label.COMMON.ACTIONS
+        }
+      );
+    }
   }
   override fetchData() {
     this.showLoading = true;

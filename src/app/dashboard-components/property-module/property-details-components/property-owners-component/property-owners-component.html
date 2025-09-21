@@ -1,11 +1,11 @@
 <div class="table-header">
-  <div class="header-title">{{ label.PROPERTY.PROPERTY_LINKS || 'Property Links' }}</div>
+  <div class="header-title">{{ label.PROPERTY.OWNERS || 'Property Owners' }}</div>
   <div class="header-actions">
 
     <!-- Add button only shows when table is visible -->
-    <button *ngIf="showTable && !readonly" mat-raised-button color="primary" (click)="onAddNew()">
+    <button *ngIf="showTable" mat-raised-button color="primary" (click)="onAddNew()">
       <mat-icon>add</mat-icon>
-      {{ label.PROPERTY.ADD_PROPERTY_LINK || 'Add Property Link' }}
+      {{ label.PROPERTY.ADD_PROPERTY_OWNER || 'Add Property Owner' }}
     </button>
 
     <!-- Toggle button -->
@@ -15,26 +15,14 @@
   </div>
 </div>
 
-@if(readonly){
-
-     <app-shared-table *ngIf="showTable && !showLoading"
-      [displayedColumns]="displayColumns"
-      [paginateResult]="data"
-      (onChangePage)="changePage($event)"
-      (onSortChangeEvent)="changeSort($event)"
-      >
-    </app-shared-table>
-}@else{
-    
-    <app-shared-table *ngIf="showTable && !showLoading"
-      [displayedColumns]="displayColumns"
-      [paginateResult]="data"
-      (onChangePage)="changePage($event)"
-      (onSortChangeEvent)="changeSort($event)"
-      [action]="actionButtonsTemplate">
-    </app-shared-table>
-}
 <!-- Shared table -->
+<app-shared-table *ngIf="showTable && !showLoading"
+  [displayedColumns]="displayColumns"
+  [paginateResult]="data"
+  (onChangePage)="changePage($event)"
+  (onSortChangeEvent)="changeSort($event)"
+  [action]="actionButtonsTemplate">
+</app-shared-table>
 
 <!-- Action buttons -->
 <ng-template #actionButtonsTemplate let-row>

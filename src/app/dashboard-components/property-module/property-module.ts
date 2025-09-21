@@ -12,6 +12,9 @@ import { PropertyOverviewComponent } from './property-details-components/propert
 import { PropertyLinksComponent } from './property-details-components/property-links-component/property-links-component';
 import { PropertyLinkFormComponent } from './property-details-components/property-links-component/property-link-form-component/property-link-form-component';
 import { PropertyLinkDialogFormComponent } from './property-details-components/property-links-component/property-link-dialog-form-component/property-link-dialog-form-component';
+import { PropertyOwnersComponent } from './property-details-components/property-owners-component/property-owners-component';
+import { PropertyOwnerFormComponent } from './property-details-components/property-owners-component/property-owner-form-component/property-owner-form-component';
+import { PropertyOwnerDialogFormComponent } from './property-details-components/property-owners-component/property-owner-dialog-form-component/property-owner-dialog-form-component';
 
 
 
@@ -26,7 +29,10 @@ import { PropertyLinkDialogFormComponent } from './property-details-components/p
     PropertyOverviewComponent,
     PropertyLinksComponent,
     PropertyLinkDialogFormComponent,
-    PropertyLinkFormComponent
+    PropertyLinkFormComponent,
+    PropertyOwnersComponent,
+    PropertyOwnerFormComponent,
+    PropertyOwnerDialogFormComponent
   ],
   imports: [
     CommonModule,

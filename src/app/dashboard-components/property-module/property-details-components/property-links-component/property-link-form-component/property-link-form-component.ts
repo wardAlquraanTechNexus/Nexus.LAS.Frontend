@@ -56,8 +56,8 @@ export class PropertyLinkFormComponent extends BaseFormComponent {
     return this.propertyService.getAllProperties({}).pipe(
       map(res => res.filter(p =>
         (p.code && p.code.toLowerCase().includes(search.toLowerCase())) &&
-        (id === null || p.id === id) &&
-        p.id != this.element.propertyLinksValue
+        (id === null || p.id === id) 
+        && p.id != this.element.propertyLinksValue
       ))
     );  
   }

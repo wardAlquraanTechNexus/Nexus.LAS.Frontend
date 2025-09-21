@@ -3,7 +3,7 @@ import { BaseService } from '../base/base-service';
 import { Company } from '../../models/company-models/company';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { GetCompanyDto } from '../../models/company-models/get-company-query/get-company-dto';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import GetCompanyQuery from '../../models/company-models/get-company-query/get-company-dto-command';
 import { PaginateRsult } from '../../models/paginate-result';
 import { ExportModel } from '../../models/export-to-excel-dto';
@@ -14,6 +14,9 @@ import { BulkChangeStatusCommand } from '../../models/person-models/bulk-change-
   providedIn: 'root'
 })
 export class CompanyService extends BaseService<Company> {
+
+  private companiesRequest$?: Observable<Company[]>;
+
   constructor(httpClient: HttpClient) {
     super(httpClient);
     this.setPath('Company');
@@ -63,5 +66,16 @@ export class CompanyService extends BaseService<Company> {
 
   updatePrivate(command: BulkChangePrivateCommand) {
     return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
+  }
+
+  getAllCompanies(getAllCompanyQuery: GetCompanyQuery): Observable<Company[]> {
+    if (!this.companiesRequest$) {
+      const params = this.httpParams(getAllCompanyQuery);
+      this.companiesRequest$ = super.getAllByParams(params)
+        .pipe(
+          shareReplay(1) 
+        );
+    }
+    return this.companiesRequest$;
   }
 }

@@ -118,6 +118,7 @@ export const environment: Environment = {
     propertyTypeOfTitle: 1027,
     propertyType: 1031,
     propertyPurpose:1029,
-    propertyStatus: 1030
+    propertyStatus: 1030,
+    propertyOwnerRelation: 1026,
   }
 } as const;

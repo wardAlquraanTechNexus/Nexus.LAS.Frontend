@@ -123,6 +123,7 @@ export interface Environment {
     propertyType: number;
     propertyPurpose: number;
     propertyStatus: number;
+    propertyOwnerRelation: number;
   }
 }
 
