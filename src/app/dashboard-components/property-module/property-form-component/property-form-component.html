@@ -3,7 +3,7 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>draw</mat-icon>
+                <mat-icon>home_work</mat-icon>
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
@@ -115,14 +115,17 @@
                     </dl-select-auto-complete>
                 </div>
 
-                <mat-button-toggle-group #toggleGroup="matButtonToggleGroup" (change)="changeStatus(toggleGroup.value)"
-                    multiple class="nexus-toggle-compact"  formControlName="legalStatusIds">
+                <div class="form-group col-12">
+                    <label class="form-label">{{ label.PROPERTY.LEGAL_STATUS || 'Legal Status' }}</label>
+                    <mat-button-toggle-group #toggleGroup="matButtonToggleGroup" (change)="changeStatus(toggleGroup.value)"
+                        multiple class="nexus-toggle-compact"  formControlName="legalStatusIds">
 
-                    <mat-button-toggle *ngFor="let status of propertyStatuses | async" [value]="status.id">
-                        {{ status.name }}
-                    </mat-button-toggle>
+                        <mat-button-toggle *ngFor="let status of propertyStatuses | async" [value]="status.id">
+                            {{ status.name }}
+                        </mat-button-toggle>
 
-                </mat-button-toggle-group>
+                    </mat-button-toggle-group>
+                </div>
 
             </form>
         </div>

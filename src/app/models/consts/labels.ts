@@ -334,27 +334,28 @@ export const Labels = {
             EDIT_PROPERTY: "Edit Property",
             ENTER_PROPERTY_DETAILS: "Enter Property Details",
             TYPE_OF_TITLE: "Type of Title",
-            PROPERTY_TYPE: "Property Type",
-            PROPERTY_PURPOSE: "Property Purpose",
+            PROPERTY_TYPE: "Type",
+            PROPERTY_PURPOSE: "Purpose",
             TYPE_OF_TITLE_REQUIRED: "Type of Title is required",
-            PLOT: "Plot",
-            PLOT_F_AREA: "Plot F Area(Sq F)",
-            PLOT_M_AREA: "Plot M Area(Sq M)",
-            PROPERTY_F_AREA: "Property F Area(Sq F)",
-            PROPERTY_M_AREA: "Property M Area(Sq M)",
-            LOCATION_DETAILS: 'Location Details',
+            PLOT: "Plot #",
+            PLOT_F_AREA: "Plot Area(Sq F)",
+            PLOT_M_AREA: "Plot Area(Sq M)",
+            PROPERTY_F_AREA: "Property Area(Sq F)",
+            PROPERTY_M_AREA: "Property Area(Sq M)",
+            LOCATION_DETAILS: 'Details',
             SEARCH_BY_CODE: "Search by Code",
             LINKS: "Links",
             PROPERTY_LINK: "Property Link Value",
             LINK_REMARKS: "Property Link Remarks",
+            OWNER_REMARKS: "Owner Remarks",
             PROPERTY_LINKS: "Property Links",
             ADD_PROPERTY_LINK: "Add Property Link",
             EDIT_PROPERTY_LINK: "Edit Property Link",
             ENTER_PROPERTY_LINK_DETAILS: "Enter Property Link Details",
             PROPERTY_LINK_REQUIRED: "Property Link is required",
             RELATION: "Relation",
-            ADD_PROPERTY_OWNER: "Add Property Owner",
-            EDIT_PROPERTY_OWNER: "Edit Property Owner",
+            ADD_PROPERTY_OWNER: "Add Owner",
+            EDIT_PROPERTY_OWNER: "Edit Owner",
             ENTER_PROPERTY_OWNER_DETAILS: "Enter Property Owner Details",
             REMARKS: "Remarks",
             PROPERTY_DOCUMENTS: "Property Documents",
@@ -364,6 +365,8 @@ export const Labels = {
             DOCUMENT_TYPE: "Document Type",
             DOCUMENT_TYPE_REQUIRED: "Document Type is required",
             DOCUMENT: "Document",
+            LEGAL_STATUS: "Legal Status",
+            LEGAL_STATUS_REQUIRED: "Legal Status is required",
         }
     },
     ar: {
@@ -403,6 +406,8 @@ export const Labels = {
             BOARD_MEMBERSHIP: "عضوية مجلس الإدارة",
             ACCOUNT_SIGNATORIES: "المفوضون بالتوقيع",
             PERSON_REQUIRED: "الشخص مطلوب",
+            ADD_ADDRESS: "إضافة العنوان",
+            EDIT_ADDRESS: "تعديل العنوان",
         },
 
         COMPANY: {
@@ -518,6 +523,8 @@ export const Labels = {
             BANK_ACCOUNT: "الحساب البنكي",           // <-- Added
             EDIT_BOARD_MEMBER: "تعديل عضو مجلس الإدارة", // <-- Added
             ENTER_BOARD_MEMBER_DETAILS: "أدخل تفاصيل عضو مجلس الإدارة", // <-- Added
+            ADDRESS: "العنوان",
+            COUNTRY: "البلد",
         },
         COMMON: {
             DOCUMENTS: "الوثائق",
@@ -689,6 +696,7 @@ export const Labels = {
             ADD_NEW_USER_GROUP: "إضافة مجموعة مستخدمين جديدة",
             SEARCH_BY_NAME: "البحث بالاسم",
             CODE: "الرمز",
+            
 
         },
         PROPERTY: {
@@ -731,6 +739,9 @@ export const Labels = {
             DOCUMENT_TYPE: "نوع الوثيقة",
             DOCUMENT_TYPE_REQUIRED: "نوع الوثيقة مطلوب",
             DOCUMENT: "الوثيقة",
+            LEGAL_STATUS: "الحالة القانونية",
+            LEGAL_STATUS_REQUIRED: "الحالة القانونية مطلوبة",
+            OWNER_REMARKS: "ملاحظات المالك",
 
         }
     }

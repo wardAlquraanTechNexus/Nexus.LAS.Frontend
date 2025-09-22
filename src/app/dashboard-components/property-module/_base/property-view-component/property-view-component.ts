@@ -122,7 +122,11 @@ export class PropertyViewComponent implements OnInit {
   onEdit() {
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
       disableClose: true,
-      data: this.property
+      data: this.property,
+      width: '900px',
+      maxWidth: '95vw',
+      minWidth: '800px',
+      panelClass: 'property-dialog-panel'
     });
 
     dialogRef.afterClosed().subscribe(result => {

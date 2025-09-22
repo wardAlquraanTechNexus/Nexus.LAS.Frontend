@@ -159,7 +159,11 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     };
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
       disableClose: true,
-      data: element
+      data: element,
+      width: '900px',
+      maxWidth: '95vw',
+      minWidth: '800px',
+      panelClass: 'property-dialog-panel'
     });
 
     let path =
@@ -184,7 +188,11 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     const element = { ...row };
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
       disableClose: true,
-      data: element
+      data: element,
+      width: '900px',
+      maxWidth: '95vw',
+      minWidth: '800px',
+      panelClass: 'property-dialog-panel'
     });
 
     dialogRef.afterClosed().subscribe(result => {
