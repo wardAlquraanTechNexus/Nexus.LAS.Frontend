@@ -27,6 +27,9 @@ export class PropertyFormComponent extends BaseFormComponent {
   cityParentId!: number;
   areaParentId!: number;
   statuses: number[] = [];
+  showCity = false;
+  showZone = false;
+
   
   propertyStatuses!: Observable<DynamicList[]>;
 
@@ -65,16 +68,25 @@ export class PropertyFormComponent extends BaseFormComponent {
 
 
   onCountryChange(id: number) {
+    this.showCity = false;
+    this.showZone = false;
     this.cityParentId = id;
     this.formGroup.get('locationCityId')?.setValue(null);
     this.formGroup.get('locationAreaId')?.setValue(null);
-    this.cdr.markForCheck();
+   setTimeout(() => {
+      this.showCity = true;
+      this.cdr.markForCheck();
+    }, 100);
   }
 
   onCityChange(id: number) {
+    this.showZone = false;
     this.areaParentId = id;
     this.formGroup.get('locationAreaId')?.setValue(null);
-    this.cdr.markForCheck();
+       setTimeout(() => {
+      this.showZone = true;
+      this.cdr.markForCheck();
+    }, 100);
 
   }
 

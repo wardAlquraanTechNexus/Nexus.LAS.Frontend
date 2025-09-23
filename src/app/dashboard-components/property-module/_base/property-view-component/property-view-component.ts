@@ -48,6 +48,8 @@ export class PropertyViewComponent implements OnInit {
       if (params['id']) {
         this.propertyId = parseInt(params['id']);
         this.getProperty();
+      }else{
+        this.backToTable();
       }
     });
     this.langService.language$.subscribe(lang => {

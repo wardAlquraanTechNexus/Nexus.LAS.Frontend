@@ -332,9 +332,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
       disableClose: true,
       data: element,
-      width: '900px',
-      maxWidth: '95vw',
-      minWidth: '800px',
+      // width: '900px',
+      // maxWidth: '95vw',
+      // minWidth: '800px',
       panelClass: 'property-dialog-panel'
     });
 

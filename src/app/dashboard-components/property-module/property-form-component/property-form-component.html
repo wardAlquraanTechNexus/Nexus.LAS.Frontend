@@ -43,14 +43,14 @@
                 </div>
 
                 <div class="form-group col-12">
-                    <dl-select-auto-complete *ngIf="cityParentId" [controlName]="'locationCityId'"
+                    <dl-select-auto-complete *ngIf="cityParentId && showCity" [controlName]="'locationCityId'"
                         [formGroup]="formGroup" [label]="label.COMMON.CITY || 'Location City'" [parentId]="cityParentId"
                         (selectEmitter)="onCityChange($event)">
                     </dl-select-auto-complete>
                 </div>
 
                 <div class="form-group col-12">
-                    <dl-select-auto-complete *ngIf="areaParentId" [controlName]="'locationAreaId'"
+                    <dl-select-auto-complete *ngIf="areaParentId && showZone" [controlName]="'locationAreaId'"
                         [formGroup]="formGroup" [label]="label.COMMON.ZONE || 'Location Zone'"
                         [parentId]="areaParentId">
                     </dl-select-auto-complete>
