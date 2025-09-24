@@ -23,7 +23,7 @@ export interface PropertyDTO {
     legalStatuses?: string | null; // comma-separated values
     legalStatusIds?: number[] | null;
 
-    status?: CommonStatus | null;
+    status?: CommonStatus | null | string;
     private: boolean;
 
     plot?: string | null;

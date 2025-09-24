@@ -9,6 +9,9 @@ import { GetPropertyQuery } from '../../models/property-models/property/params/g
 import { Observable, shareReplay } from 'rxjs';
 import { GetAllPropertiesQuery } from '../../models/property-models/property/params/get-all-properties-query';
 import { ExportModel } from '../../models/export-to-excel-dto';
+import { GetSharedPropertyParams } from '../../models/property-models/property/params/get-shared-property';
+import { SharedPropertyDTO } from '../../models/property-models/property/dtos/shared-property-dto';
+import { PaginateRsult } from '../../models/paginate-result';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +36,11 @@ export class PropertyService extends BaseService<Property> {
 
   getDtoById(id: number) {
     return this.httpClient.get<PropertyDTO>(`${this.url}/${id}`);
+  }
+
+  getShared(query:GetSharedPropertyParams): Observable<PaginateRsult<SharedPropertyDTO>> {
+    const params = this.httpParams(query);
+    return this.httpClient.get<PaginateRsult<SharedPropertyDTO>>(this.url + "/GetSharedProperties", { params });
   }
 
   getAllProperties(propertyQuery: GetAllPropertiesQuery): Observable<PropertyDTO[]> {

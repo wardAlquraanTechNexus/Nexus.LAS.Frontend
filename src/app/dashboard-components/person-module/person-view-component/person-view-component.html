@@ -28,12 +28,14 @@
         <!-- Profile Image -->
         <div class="person-image-container">
           <img *ngIf="imageUrl" [src]="imageUrl" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]" class="person-image" />
-          <img *ngIf="!imageUrl" [src]="fallbackImage" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]" class="person-image" />
+          <img *ngIf="!imageUrl" [src]="fallbackImage" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]"
+            class="person-image" />
 
           <!-- Hidden file input -->
           <input type="file" accept="image/*" #fileInput style="display: none" (change)="onFileSelected($event)" />
 
-          <button mat-icon-button class="upload-btn" (click)="openFilePicker(fileInput)" [title]="label.PERSON.UPLOAD_DOCUMENT">
+          <button mat-icon-button class="upload-btn" (click)="openFilePicker(fileInput)"
+            [title]="label.PERSON.UPLOAD_DOCUMENT">
             <mat-icon>photo_camera</mat-icon>
           </button>
         </div>
@@ -122,8 +124,8 @@
                     }
                   </div>
                   <div class="contact-section">
-                    <app-shared-register-note-table [registersIdc]="personIdc"
-                      [registersIdn]="personId" [canCrud]="false"></app-shared-register-note-table>
+                    <app-shared-register-note-table [registersIdc]="personIdc" [registersIdn]="personId"
+                      [canCrud]="false"></app-shared-register-note-table>
                   </div>
                 </div>
               </mat-expansion-panel>
@@ -139,17 +141,17 @@
                 <div class="panel-content">
                   <div class="contact-section">
                     @if(person) {
-                      <app-person-email-component [readOnly]="true" [person]="person"></app-person-email-component>
+                    <app-person-email-component [readOnly]="true" [person]="person"></app-person-email-component>
                     }
                   </div>
                   <div class="contact-section">
                     @if(person) {
-                      <app-person-phone-component [readOnly]="true" [person]="person"></app-person-phone-component>
+                    <app-person-phone-component [readOnly]="true" [person]="person"></app-person-phone-component>
                     }
                   </div>
                   <div class="contact-section">
                     @if(person) {
-                      <app-person-address-component [readOnly]="true" [person]="person"></app-person-address-component>
+                    <app-person-address-component [readOnly]="true" [person]="person"></app-person-address-component>
                     }
                   </div>
                 </div>
@@ -214,17 +216,17 @@
               <div class="contact-section col-6">
                 @if(person) {
                 <app-person-email-component [person]="person"></app-person-email-component>
-              }
+                }
               </div>
               <div class="contact-section col-6">
                 @if (person) {
                 <app-person-phone-component [person]="person"></app-person-phone-component>
-              }
+                }
               </div>
               <div class="contact-section">
                 @if (person) {
                 <app-person-address-component [person]="person"></app-person-address-component>
-              }
+                }
               </div>
             </div>
           </div>
@@ -238,12 +240,17 @@
             </div>
           </ng-template>
           <div class="tab-content">
+            @if (person) {
             <div class="company-overview-component">
-              @if (person) {
               <app-shared-company-shareholder-component [registersIdc]="personIdc"
                 [registersIdn]="person!.id"></app-shared-company-shareholder-component>
-              }
             </div>
+
+            <div class="company-overview-component">
+              <app-shared-property-component [registersIdc]="personIdc"
+                [registersIdn]="person!.id"></app-shared-property-component>
+            </div>
+            }
           </div>
         </mat-tab>
 

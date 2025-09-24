@@ -58,6 +58,7 @@ export class PropertyLinkFormComponent extends BaseFormComponent {
         (p.code && p.code.toLowerCase().includes(search.toLowerCase())) &&
         (id === null || p.id === id) 
         && p.id != this.element.propertyLinksValue
+        && p.status != CommonStatus[CommonStatus.New] 
       ))
     );  
   }

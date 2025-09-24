@@ -87,7 +87,7 @@ export class PropertyDocumentsComponent extends TableFormComponent<PropertyDocum
       {
         key: "description",
         label: this.label.COMMON.DESCRIPTION,
-        pipes: ['active']
+        
       },
       {
         key: "activeReminder",

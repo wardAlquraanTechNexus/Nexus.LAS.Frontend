@@ -23,7 +23,7 @@ export class TableDataPipe implements PipeTransform {
   constructor(
     private dlService: DynamicListService,
     private personService: PersonService,
-    private companyService:CompanyService,
+    private companyService: CompanyService,
     private languageService: LanguageService, // Inject LanguageService
     private numberFormatConfig: NumberFormatConfigService // Inject NumberFormatConfigService
   ) { }
@@ -161,14 +161,21 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
-          case 'property-owner-relation':
+        case 'property-type-of-title':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyTypeOfTitle).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+        case 'property-owner-relation':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyOwnerRelation).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';
             })
           );
-           case 'property-document-type':
+        case 'property-document-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyDocumentType).pipe(
             map(list => {
               const found = list.find(x => x.id == value);

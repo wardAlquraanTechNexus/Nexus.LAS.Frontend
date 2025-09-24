@@ -1,0 +1,138 @@
+<div class="nexus-entity-container">
+
+    <!-- SECTION 1: Title and Records -->
+    <div class="nexus-entity-section">
+        <div class="nexus-entity-header">
+            <div class="nexus-entity-title">
+                <h2>{{ label.PROPERTY.REAL_EASTATES }}</h2>
+            </div>
+            <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="onAddNew()">
+                <mat-icon>add</mat-icon> {{ label.PROPERTY.ADD_NEW_PROPERTY }}
+            </button>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Filters and Actions -->
+    <div class="nexus-entity-section">
+        <div class="nexus-entity-filters">
+            <div class="nexus-filters-container" [class.has-expanded-filters]="showFilters">
+                <div class="nexus-search-field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ label.COMMON.SEARCH }}</mat-label>
+                        <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()"
+                            [placeholder]="label.PROPERTY.SEARCH_BY_CODE || 'Search by Code'">
+                        <mat-icon matSuffix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <div class="nexus-filter-actions">
+                    <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
+                        <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
+                        {{ label.COMMON.FILTERS }}
+                    </button>
+                    <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
+                        <mat-icon>download</mat-icon> {{ label.COMPANY.EXPORT }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Advanced Filters Section -->
+            <div class="additional-filters" *ngIf="showFilters">
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>{{ label.COMPANY.ADVANCED_FILTER }}</h3>
+                    </div>
+                    <div class="section-body">
+
+                        <!-- Basic Information -->
+                        <div class="row mb-3">
+
+                            <div *ngIf="propertyTypeOfTitleId">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'typeOfTitle'"
+                                    [formGroup]="formGroup"
+                                    [label]="label.PROPERTY.TYPE_OF_TITLE || 'Property Type Of Title'"
+                                    [parentId]="propertyTypeOfTitleId" (selectEmitter)="onTypeOfTitleChange($event)">
+                                </dl-select-auto-complete>
+                            </div>
+                            <div *ngIf="propertyTypeId">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'type'"
+                                    [formGroup]="formGroup" [label]="label.PROPERTY.PROPERTY_TYPE || 'Property Type'"
+                                    [parentId]="propertyTypeId" (selectEmitter)="onTypeChange($event)">
+                                </dl-select-auto-complete>
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div *ngIf="countryParentId">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'country'"
+                                    [formGroup]="formGroup" [label]="label.COMMON.COUNTRY || 'Property Country'"
+                                    [parentId]="countryParentId" (selectEmitter)="onCountryChange($event)">
+                                </dl-select-auto-complete>
+                            </div>
+
+                            <div *ngIf="cityParentId && showCity">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'city'"
+                                    [formGroup]="formGroup" [label]="label.COMMON.CITY || 'Property City'"
+                                    [parentId]="cityParentId" (selectEmitter)="onCityChange($event)">
+                                </dl-select-auto-complete>
+                            </div>
+
+                            <div *ngIf="areaParentId && showArea">
+                                <dl-select-auto-complete [withNullOption]="true" [controlName]="'zone'"
+                                    [formGroup]="formGroup" [label]="label.COMMON.ZONE || 'Property ZONE'"
+                                    [parentId]="areaParentId" (selectEmitter)="onAreaChange($event)">
+                                </dl-select-auto-complete>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="nexus-bulk-actions" *ngIf="selectedProperties.length">
+                <span class="nexus-bulk-count">{{ selectedProperties.length }} {{ label.COMMON.SELECTED }}</span>
+                <div class="nexus-bulk-buttons">
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Data Grid -->
+    <div class="nexus-entity-section">
+        <div class="nexus-entity-data">
+            <!-- Loading -->
+            <div *ngIf="showLoading" class="nexus-loading">
+                <mat-spinner></mat-spinner>
+            </div>
+
+            <!-- Table -->
+            <div class="nexus-table-container" *ngIf="!showLoading">
+                <app-shared-table (rowClick)="onRowClick($event)" (selectionChange)="onSelectionChange($event)"
+                    [displayedColumns]="displayColumns" [paginateResult]="data" [action]="actionButtonsTemplate"
+                    (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+                </app-shared-table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row Actions -->
+    <ng-template #actionButtonsTemplate let-row>
+        <button mat-icon-button [matTooltip]="getAuditTooltip(row)" matTooltipClass="audit-tooltip"
+            matTooltipPosition="left" [matTooltipShowDelay]="300" class="audit-info-btn">
+            <mat-icon>info</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+
+            <button mat-menu-item [confirmDelete]="deleteCompany(row)" class="nexus-menu-item nexus-menu-danger">
+                <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
+            </button>
+
+        </mat-menu>
+    </ng-template>
+
+</div>

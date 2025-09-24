@@ -1,0 +1,13 @@
+<div class="table-header">
+  <div class="header-title">
+    {{ langService.getLabel(label.PROPERTY.REAL_EASTATES) || 'Real Estates' }}
+  </div>
+</div>
+
+<app-shared-table *ngIf="showTable && !showLoading"
+  [displayedColumns]="displayColumns"
+  [paginateResult]="data"
+  (onChangePage)="changePage($event)"
+  (onSortChangeEvent)="changeSort($event)"
+ >
+</app-shared-table>

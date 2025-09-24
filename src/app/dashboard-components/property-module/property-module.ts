@@ -19,6 +19,12 @@ import { PropertyDocumentsComponent } from './property-details-components/proper
 import { PropertyDocumentDialogFormComponent } from './property-details-components/property-documents-component/property-document-dialog-form-component/property-document-dialog-form-component';
 import { PropertyDocumentDialogViewComponent } from './property-details-components/property-documents-component/property-document-dialog-view-component/property-document-dialog-view-component';
 import { PropertyDocumentFormComponent } from './property-details-components/property-documents-component/property-document-form-component/property-document-form-component';
+import { ActivePropertiesComponent } from './active-properties-component/active-properties-component';
+import { ActivePropertiesTableComponent } from './active-properties-component/active-properties-table-component/active-properties-table-component';
+import { ActivePrivatePropertiesComponent } from './active-private-properties-component/active-private-properties-component';
+import { ActivePrivatePropertiesTableComponent } from './active-private-properties-component/active-private-properties-table-component/active-private-properties-table-component';
+import { ActivePublicPropertiesComponent } from './active-public-properties-component/active-public-properties-component';
+import { ActivePublicPropertiesTableComponent } from './active-public-properties-component/active-public-properties-table-component/active-public-properties-table-component';
 
 
 
@@ -40,7 +46,13 @@ import { PropertyDocumentFormComponent } from './property-details-components/pro
     PropertyDocumentsComponent,
     PropertyDocumentDialogFormComponent,
     PropertyDocumentDialogViewComponent,
-    PropertyDocumentFormComponent
+    PropertyDocumentFormComponent,
+    ActivePropertiesComponent,
+    ActivePropertiesTableComponent,
+    ActivePrivatePropertiesComponent,
+    ActivePrivatePropertiesTableComponent,
+    ActivePublicPropertiesComponent,
+    ActivePublicPropertiesTableComponent
   ],
   imports: [
     CommonModule,
