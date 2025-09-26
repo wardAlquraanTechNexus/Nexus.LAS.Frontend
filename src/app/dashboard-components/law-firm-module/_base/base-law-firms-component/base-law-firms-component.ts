@@ -1,35 +1,37 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PropertyDTO } from '../../../../models/property-models/property/dtos/propery-dto';
-import { PaginateRsult } from '../../../../models/paginate-result';
-import { Property } from '../../../../models/property-models/property/property';
-import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { GetPropertyQuery } from '../../../../models/property-models/property/params/get-property-query';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { PropertyService } from '../../../../services/property-services/property-service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ErrorHandlerService } from '../../../../services/error-handler.service';
-import { MenuService } from '../../../../services/menu-service';
-import { MatDialog } from '@angular/material/dialog';
-import { DynamicListService } from '../../../../services/dynamic-list-service';
-import { LanguageService } from '../../../../services/language-service';
-import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
-import { environment } from '../../../../../environment/environment.prod';
+import { LawFirm } from '../../../../models/law-firm-models/law-firm/law-firm';
 import { CommonStatus } from '../../../../enums/common-status';
-import { CompanyStatus } from '../../../../enums/company-status';
+import { LawFirmDTO } from '../../../../models/law-firm-models/law-firm/dtos/law-firm-dto';
+import { PaginateRsult } from '../../../../models/paginate-result';
+import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
+import { GetLawFirmQuery } from '../../../../models/law-firm-models/law-firm/params/get-law-firm-query';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { LawFirmService } from '../../../../services/law-firm-services/law-firm-service';
+import { LawFirmDialogFormComponent } from '../../law-firm-dialog-form-component/law-firm-dialog-form-component';
+import { environment } from '../../../../../environment/environment';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
-import { navigate } from '../../../_shared/shared-methods/navigate';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { LanguageService } from '../../../../services/language-service';
+import { MenuService } from '../../../../services/menu-service';
 
 @Component({
-  selector: 'app-base-properties-component',
+  selector: 'app-base-law-firms-component',
   standalone: false,
-  templateUrl: './base-properties-component.html',
-  styleUrl: './base-properties-component.scss'
+  templateUrl: './base-law-firms-component.html',
+  styleUrl: './base-law-firms-component.scss'
 })
-export class BasePropertiesComponent extends TableFormComponent<Property> implements OnInit {
+export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implements OnInit {
 
   activeStatus = CommonStatus.Active;
-  inactiveStatus = CommonStatus.Inactive
-  propertyStatuses = [
+  inactiveStatus = CommonStatus.Inactive;
+  countryParentId!: number;
+
+  formGroup!: FormGroup;
+
+  statuses = [
     {
       value: CommonStatus.New, label: this.label.COMMON.NEW
     },
@@ -41,10 +43,9 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     }
   ];
 
-  
 
-  selectedProperties: PropertyDTO[] = [];
-  override data: PaginateRsult<PropertyDTO> = {
+  selectedProperties: LawFirmDTO[] = [];
+  override data: PaginateRsult<LawFirmDTO> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,
@@ -52,28 +53,17 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     page: 0
   };
 
-  override params: GetPropertyQuery = {
+  override params: GetLawFirmQuery = {
     page: 0,
     pageSize: 10,
     orderBy: 'id',
     orderDir: 'desc'
   }
 
-
-  formGroup!: FormGroup;
   showFilters = false;
 
-  propertyTypeOfTitleId!: number;
-  propertyTypeId!: number;
-  propertyPurposeId!: number;
-  propertyStatusId!: number;
-  countryParentId!: number;
-  cityParentId!: number;
-  areaParentId!: number;
-
-
   constructor(
-    override service: PropertyService,
+    override service: LawFirmService,
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
@@ -90,25 +80,8 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.formGroup = this.fb.group(
-      {
-        typeOfTitle: [null],
-        country: [null],
-        city: [null],
-        zone: [null],
-        type: [null],
-        legalStatus: [null],
 
-      },
-    )
-
-    this.propertyPurposeId = environment.rootDynamicLists.propertyPurpose;
-    this.propertyStatusId = environment.rootDynamicLists.propertyStatus;
-    this.propertyTypeId = environment.rootDynamicLists.propertyType;
-    this.propertyTypeOfTitleId = environment.rootDynamicLists.propertyTypeOfTitle;
-    this.countryParentId = environment.rootDynamicLists.country;
-
-    this.propertyStatuses = [
+    this.statuses = [
       {
         value: CommonStatus.New, label: this.label.COMMON.NEW
       },
@@ -118,47 +91,50 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
       {
         value: CommonStatus.Inactive, label: this.label.COMMON.INACTIVE
       }
-    ]
+    ];
+    this.countryParentId = environment.rootDynamicLists.country;
+
+
+     this.formGroup = this.fb.group(
+      {
+        countryId: [null],
+      },
+    )
   }
 
+  override fetchData(): void {
+    this.showLoading = true;
+    this.service.getPaging(this.params).subscribe({
+      next: (res => {
+        this.data = res;
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      }), error: (err => {
+        this.showLoading = false;
+        this.cdr.markForCheck();
+      })
+    })
+  }
 
   toggleFilters() {
     this.showFilters = !this.showFilters;
   }
 
   onAddNew() {
-    const element: PropertyDTO = {
+    const element: LawFirmDTO = {
       id: 0,
-      code: "",
-
-      typeOfTitle: null,
-      grantor: false,
-      grantorAddress: null,
-      grantorTitleCommencementDate: null,
-      grantorTitleExpiryDate: null,
-      grantorTitleExpiryActiveReminder: false,
-      grantorDescription: null,
-
-      locationCountryId: null,
-      locationCityId: null,
-      locationAreaId: null,
-      locationDetails: null,
-
-      type: null,
-      purpose: null,
-      legalStatuses: null,
-      legalStatusIds: [],
-
-      private: false,
-
-      plot: null,
-      plotFArea: null,
-      plotMArea: null,
-      propertyFArea: null,
-      propertyMArea: null,
+      lawFirmCode: '',
+      englishName: '',
+      arabicName: '',
+      shortName: '',
+      status: '',
+      lasDate: null,
+      estYear: null,
+      website: null,
+      private: false
 
     };
-    const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
+    const dialogRef = this.dialog.open(LawFirmDialogFormComponent, {
       disableClose: true,
       data: element,
       // width: '900px',
@@ -168,11 +144,11 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     });
 
     let path =
-      this.menuService.getMenuByPath(environment.routes.AllProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Properties);
+      this.menuService.getMenuByPath(environment.routes.AllLawFirms) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveLawFirms) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateLawFirms) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicLawFirms);
+    let basePath = this.menuService.getMenuByPath(environment.routes.LawFirms);
 
 
     dialogRef.afterClosed().subscribe(result => {
@@ -187,7 +163,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
 
   onEdit(row: any) {
     const element = { ...row };
-    const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
+    const dialogRef = this.dialog.open(LawFirmDialogFormComponent, {
       disableClose: true,
       data: element,
       width: '900px',
@@ -204,59 +180,9 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
 
   }
 
-  showCity = false;
-  onCountryChange(id: number) {
-    this.cityParentId = id;
-    this.params.locationCountryId = id;
-    this.params.locationCityId = null;
-    this.params.locationAreaId = null;
-    this.formGroup.get('city')?.setValue(null);
-    this.formGroup.get('zone')?.setValue(null);
-    this.showCity = false;
-    this.showArea = false;
-    setTimeout(() => {
-      this.showCity = true;
-      this.cdr.markForCheck();
-    }, 100);
-
-    this.search();
-
-  }
-
-  showArea = false;
-  onCityChange(id: number) {
-    this.params.locationCityId = id;
-    this.params.locationAreaId = null;
-    this.showArea = false;
-    this.areaParentId = id;
-    this.formGroup.get('zone')?.setValue(null);
-    setTimeout(() => {
-      this.showArea = true;
-      this.cdr.markForCheck();
-    }, 100);
-    this.search();
-  }
-
-  onAreaChange(id: number) {
-    this.params.locationAreaId = id;
-    this.search();
-  }
-
-  onTypeOfTitleChange(id: number) {
-    this.params.typeOfTitle = id;
-    this.search();
-
-  }
-
-  onTypeChange(id: number) {
-    this.params.type = id;
-    this.search();
-
-  }
-
-  onPurposeChange(id: number) {
-    this.params.purpose = id;
-    this.search();
+  onCountryChange($event:any){
+    this.params.countryId = $event;
+    this.fetchData();
   }
 
   bulkChangeStatus(status: CommonStatus) {
@@ -358,7 +284,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     })
   }
 
-  onSelectionChange(selectedRows: PropertyDTO[]) {
+  onSelectionChange(selectedRows: LawFirmDTO[]) {
     this.selectedProperties = selectedRows;
     this.cdr.markForCheck();
   }
@@ -374,7 +300,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
   }
 
   onRowClick(event: any) {
-    if (event.key == "code") {
+    if (event.key == "lawFirmCode") {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { id: event.element.id },
@@ -382,7 +308,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     }
   }
 
-  exportToExcel() {
+exportToExcel() {
     this.service.exportToExcel(this.params).subscribe(res => {
       // Assuming res.data is base64 string:
       const binaryString = atob(res.data);

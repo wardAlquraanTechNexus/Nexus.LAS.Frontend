@@ -367,6 +367,21 @@ export const Labels = {
             DOCUMENT: "Document",
             LEGAL_STATUS: "Legal Status",
             LEGAL_STATUS_REQUIRED: "Legal Status is required",
+        },
+        LAW_FIRM: {
+            LAW_FIRMS: "Law Firms",
+            LAW_FIRM: "Law Firm",
+            ALL_LAW_FIRMS: "All Law Firms",
+            ACTIVE_LAW_FIRMS: "Active Law Firms",
+            ACTIVE_PRIVATE_LAW_FIRMS: "Active Private Law Firms",
+            ADD_LAW_FIRM: "Add Law Firm",
+            ENTER_LAW_FIRM_DETAILS: "Enter Law Firm Details",
+            EDIT_LAW_FIRM: "Edit Law Firm",
+            LAS_DATE: "LAS Date",
+            EST_YEAR: "Est. Year",
+            WEBSITE: "Website",
+            EST_YEAR_MIN: "Minimum year is 1800",
+            EST_YEAR_MAX: "Maximum year is " + (new Date().getFullYear()),
         }
     },
     ar: {
@@ -743,6 +758,21 @@ export const Labels = {
             LEGAL_STATUS_REQUIRED: "الحالة القانونية مطلوبة",
             OWNER_REMARKS: "ملاحظات المالك",
 
+        },
+        LAW_FIRM:{
+            LAW_FIRMS: "مكاتب المحاماة",
+            LAW_FIRM: "مكتب المحاماة",
+            ALL_LAW_FIRMS: "جميع مكاتب المحاماة",
+            ACTIVE_LAW_FIRMS: "مكاتب المحاماة النشطة",
+            ACTIVE_PRIVATE_LAW_FIRMS: "مكاتب المحاماة الخاصة النشطة",
+            ADD_LAW_FIRM: "إضافة مكتب محاماة",
+            ENTER_LAW_FIRM_DETAILS: "أدخل تفاصيل مكتب المحاماة",
+            EDIT_LAW_FIRM: "تعديل مكتب المحاماة",
+            LAS_DATE: "تاريخ نظام المساعدة القانونية",
+            EST_YEAR: "سنة التأسيس",
+            WEBSITE: "الموقع الإلكتروني",
+            EST_YEAR_MIN: "الحد الأدنى للسنة هو 1800",
+            EST_YEAR_MAX: "الحد الأقصى للسنة هو " + (new Date().getFullYear()),
         }
     }
 } as const;

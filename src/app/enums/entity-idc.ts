@@ -2,6 +2,8 @@ export class EntityIDc {
   static readonly Person = "P";
   static readonly Company = "C";
   static readonly Properties = "R";
+  static readonly LawFirm = "LF";
+
   
 }
 

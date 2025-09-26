@@ -29,6 +29,12 @@ const routes: Routes = [
     loadChildren: () => import('./property-module/property-module').then(m => m.PropertyModule),
     canActivate: [authGuard]
     
+  },
+  {
+    path: environment.routes.LawFirms,
+    loadChildren: () => import('./law-firm-module/law-firm-module').then(m => m.LawFirmModule),
+    canActivate: [authGuard]
+    
   }
 ];
 

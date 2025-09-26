@@ -57,6 +57,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SaveButtonComponent } from './save-button/save-button';
 import { DlSelectAutoComplete } from './dl-select-auto-complete/dl-select-auto-complete';
 import { SharedPropertyComponent } from '../dashboard-components/shared-components/shared-property-component/shared-property-component';
+import { LawFirmFormComponent } from '../dashboard-components/law-firm-module/law-firm-form-component/law-firm-form-component';
+import { LawFirmDialogFormComponent } from '../dashboard-components/law-firm-module/law-firm-dialog-form-component/law-firm-dialog-form-component';
 
 
 
@@ -89,7 +91,9 @@ import { SharedPropertyComponent } from '../dashboard-components/shared-componen
     DateInputComponent,
     SaveButtonComponent,
     DlSelectAutoComplete,
-    SharedPropertyComponent
+    SharedPropertyComponent,
+    LawFirmFormComponent,
+    LawFirmDialogFormComponent
 
   ],
   imports: [
@@ -186,7 +190,9 @@ import { SharedPropertyComponent } from '../dashboard-components/shared-componen
     DatePickerModule,
     SaveButtonComponent,
     DlSelectAutoComplete,
-    SharedPropertyComponent
+    SharedPropertyComponent,
+    LawFirmFormComponent,
+    LawFirmDialogFormComponent
 
   ],
   providers: [
