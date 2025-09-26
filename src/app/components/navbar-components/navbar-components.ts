@@ -21,6 +21,8 @@ import { Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel,
 import { PropertyDTO } from '../../models/property-models/property/dtos/propery-dto';
 import { PropertyDialogFormComponent } from '../../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
 import { navigate } from '../../dashboard-components/_shared/shared-methods/navigate';
+import { LawFirmDTO } from '../../models/law-firm-models/law-firm/dtos/law-firm-dto';
+import { LawFirmDialogFormComponent } from '../../dashboard-components/law-firm-module/law-firm-dialog-form-component/law-firm-dialog-form-component';
 
 
 @Component({
@@ -187,6 +189,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
       case environment.routes.AddProperty:
         this.onAddNewRealEstate();
         break;
+      case environment.routes.AddLawFirm:
+        this.onAddNewLawFirm();
+        break;
       default:
         break;
     }
@@ -222,7 +227,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        navigate(this.router , basePath, path, result.id);
+      navigate(this.router, basePath, path, result.id);
     });
   }
 
@@ -282,7 +287,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        navigate(this.router , basePath, path, result.id);
+        navigate(this.router, basePath, path, result.id);
       }
     })
   }
@@ -341,14 +346,53 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        navigate(this.router , basePath, path, result.id);
+        navigate(this.router, basePath, path, result.id);
+      }
+    })
+  }
+
+  onAddNewLawFirm() {
+    const element: LawFirmDTO = {
+      id: 0,
+      lawFirmCode: '',
+      englishName: '',
+      arabicName: '',
+      shortName: '',
+      status: '',
+      lasDate: null,
+      estYear: null,
+      website: null,
+      private: false
+
+    };
+    const dialogRef = this.dialog.open(LawFirmDialogFormComponent, {
+      disableClose: true,
+      data: element,
+      // width: '900px',
+      // maxWidth: '95vw',
+      // minWidth: '800px',
+      panelClass: 'property-dialog-panel'
+    });
+
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllLawFirms) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveLawFirms) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateLawFirms) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicLawFirms);
+    let basePath = this.menuService.getMenuByPath(environment.routes.LawFirms);
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        navigate(this.router, basePath, path, result.id);
+
       }
     })
   }
 
 
 
- 
+
 }
 
 

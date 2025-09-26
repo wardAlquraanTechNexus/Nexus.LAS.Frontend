@@ -1,1 +1,167 @@
-<p>law-firm-view-component works!</p>
+<div class="main-container">
+
+    <!-- SECTION 1: Loading State -->
+    <div *ngIf="showLoading" class="section loading-section">
+        <div class="loading">
+            <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+        </div>
+    </div>
+
+    <!-- SECTION 2:  Header -->
+    <div *ngIf="!showLoading && lawFirm" class="section section-header">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-nav">
+            <a (click)="navigateToTable()" class="breadcrumb-link">
+                <mat-icon>arrow_back</mat-icon>
+                {{ label.LAW_FIRM.LAW_FIRMS || 'Law Firms' }}
+            </a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="current-page">{{ lawFirm.englishName | titlecase }}</span>
+        </div>
+
+        <!--  Header Card -->
+        <div class="header-card">
+            <div class="profile-section">
+                <!-- Profile Image -->
+
+
+                <!--  Details -->
+                <div class="details">
+                    <div class="name-section">
+                        <div class="name-and-badges">
+                            <h1 class="name">{{ lawFirm.lawFirmCode | titlecase }}</h1>
+                            <div class="status-badges">
+                                <span class="status-badge" [ngStyle]="getStatusStyle()">
+                                    <mat-icon>{{ lawFirm.status === statuses.Active ? 'check_circle' : 'cancel'
+                                        }}</mat-icon>
+                                    {{ lawFirm.status | textPipe: 'property-status' | async }}
+                                </span>
+                                <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
+                                    <mat-icon>{{ lawFirm.private ? 'lock' : 'public' }}</mat-icon>
+                                    {{ lawFirm.private | textPipe: 'private' | async }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="meta-info">
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.CODE || 'ID:' }}</span>
+                            <span class="info-value">{{ lawFirm.lawFirmCode }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.NAME_EN }}</span>
+                            <span class="info-value">{{ lawFirm.englishName }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.NAME_AR }}</span>
+                            <span class="info-value">{{ lawFirm.arabicName }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.SHORT_NAME }}</span>
+                            <span class="info-value">{{ lawFirm.shortName }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions">
+                <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
+                    <mat-icon>edit</mat-icon>
+                    {{ label.COMMON.EDIT || 'Edit' }}
+                </button>
+
+                <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
+                    <mat-icon>more_vert</mat-icon>
+                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <!-- Add menu items here if needed -->
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Content Tabs -->
+    <div *ngIf="!showLoading" class="section section-content">
+        <div class="tabs-container">
+            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
+                (selectedIndexChange)="selectedTab = $event">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>dashboard</mat-icon>
+                            <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+
+                        </div>
+
+                    </div>
+                </mat-tab>
+
+
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>account_tree</mat-icon>
+                            <span>{{ label.LAW_FIRM.BRANCHES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>people</mat-icon>
+                            <span>{{ label.LAW_FIRM.COUNSLES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>receipt_long</mat-icon>
+                            <span>{{ label.LAW_FIRM.INVOICES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>notes</mat-icon>
+                            <span>{{ label.COMMON.NOTES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-shared-register-note-table [registersIdn]="lawFirm.id"
+                                [registersIdc]="idc"></app-shared-register-note-table>
+
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

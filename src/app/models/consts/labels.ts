@@ -382,6 +382,9 @@ export const Labels = {
             WEBSITE: "Website",
             EST_YEAR_MIN: "Minimum year is 1800",
             EST_YEAR_MAX: "Maximum year is " + (new Date().getFullYear()),
+            BRANCHES: "Branches",
+            COUNSLES: "Counsels",
+            INVOICES: "Invoices",
         }
     },
     ar: {
@@ -773,6 +776,9 @@ export const Labels = {
             WEBSITE: "الموقع الإلكتروني",
             EST_YEAR_MIN: "الحد الأدنى للسنة هو 1800",
             EST_YEAR_MAX: "الحد الأقصى للسنة هو " + (new Date().getFullYear()),
+            BRANCHES: "الفروع",
+            COUNSLES: "المستشارون",
+            INVOICES: "الفواتير",
         }
     }
 } as const;

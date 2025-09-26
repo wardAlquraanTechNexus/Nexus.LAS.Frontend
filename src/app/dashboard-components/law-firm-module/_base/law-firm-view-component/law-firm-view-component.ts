@@ -30,6 +30,7 @@ export class LawFirmViewComponent  implements OnInit {
   lawFirmId = 0;
 
   idc = EntityIDc.LawFirm;
+  statuses = CommonStatus;
 
   selectedTab = 0;
   constructor(
