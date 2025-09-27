@@ -358,7 +358,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       englishName: '',
       arabicName: '',
       shortName: '',
-      status: '',
+      status: null,
       lasDate: null,
       estYear: null,
       website: null,

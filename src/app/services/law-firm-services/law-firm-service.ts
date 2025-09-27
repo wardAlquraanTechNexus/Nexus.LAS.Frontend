@@ -37,4 +37,8 @@ export class LawFirmService extends BaseService<LawFirm> {
     return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
   }
 
+  getDtoById(id: number): Observable<LawFirmDTO> {
+    return this.httpClient.get<LawFirmDTO>(this.url + "/" + id);
+  }
+
 }

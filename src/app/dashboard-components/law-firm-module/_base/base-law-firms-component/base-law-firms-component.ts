@@ -127,7 +127,7 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
       englishName: '',
       arabicName: '',
       shortName: '',
-      status: '',
+      status: null,
       lasDate: null,
       estYear: null,
       website: null,

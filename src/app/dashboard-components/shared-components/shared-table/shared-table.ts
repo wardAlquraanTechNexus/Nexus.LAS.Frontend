@@ -242,6 +242,7 @@ export class SharedTable implements OnInit, OnChanges {
 
         case 'person-document-primary':
         case 'person-in-charge-primary':
+        case 'primary':
           if (value.toString() === 'true') {
             Object.assign(styles, {
               'border': `2px solid #025EBA`,

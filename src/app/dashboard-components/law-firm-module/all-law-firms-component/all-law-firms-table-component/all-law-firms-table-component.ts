@@ -83,6 +83,12 @@ export class AllLawFirmsTableComponent  extends BaseLawFirmsComponent
         pipes: ['common-status']
       },
       { 
+        key: "countryId", 
+        label: this.label.COMMON.COUNTRY, 
+        sort: true ,
+        pipes: ['country']
+      },
+      { 
         key: "private", 
         label: this.label.COMMON.PRIVATE, 
         sort: true ,

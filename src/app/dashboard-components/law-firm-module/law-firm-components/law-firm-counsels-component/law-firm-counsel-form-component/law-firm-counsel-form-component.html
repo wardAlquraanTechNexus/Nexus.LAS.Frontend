@@ -1,0 +1,69 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>home_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{element.id != 0 ? label.LAW_FIRM.EDIT_LAW_FIRM_COUNSEL || 'Edit' :
+                    label.LAW_FIRM.ADD_LAW_FIRM_COUNSEL ||
+                    'Add'}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.LAW_FIRM.ENTER_LAW_FIRM_COUNSEL_DETAILS }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.COMMON.NAME }}</mat-label>
+                    <input matInput type="text" formControlName="counselName" [placeholder]="label.COMMON.NAME || 'Enter Name'"
+                        required>
+                    <mat-error *ngIf="formGroup.get('counselName')?.hasError('required')">
+                        {{ label.COMMON.NAME_REQUIRED || 'Name is required' }}
+                    </mat-error>
+                </mat-form-field>
+                
+                <div class="form-group col-12">
+                    <dl-select-auto-complete *ngIf="staffLevelParentId" [controlName]="'counselLevel'"
+                        [formGroup]="formGroup" [label]="label.LAW_FIRM.COUNSEL_LEVEL || 'Counsel Level'"
+                        [parentId]="staffLevelParentId" [isRequired]="true">
+                    </dl-select-auto-complete>
+                    <mat-error
+                        *ngIf="formGroup.get('counselLevel')?.invalid && (formGroup.get('counselLevel')?.touched || formGroup.touched)">
+                        {{ label.LAW_FIRM.COUNSEL_LEVEL_REQUIRED || 'Counsel Level is required' }}
+                    </mat-error>
+                </div>
+
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.LAW_FIRM.COUNSEL_RATE }}</mat-label>
+                    <input matInput type="text" formControlName="rate" [placeholder]="label.LAW_FIRM.COUNSEL_RATE || 'Enter Rate'"
+                        required>
+                    <mat-error *ngIf="formGroup.get('rate')?.hasError('required')">
+                        {{ label.LAW_FIRM.COUNSEL_RATE_REQUIRED || 'Rate is required' }}
+                    </mat-error>
+                </mat-form-field>
+             
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
+    </div>
+</div>

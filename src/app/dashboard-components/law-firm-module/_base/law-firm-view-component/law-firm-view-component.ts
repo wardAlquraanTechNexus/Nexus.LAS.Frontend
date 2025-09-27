@@ -25,7 +25,7 @@ export class LawFirmViewComponent  implements OnInit {
   currentLang: LanguageCode = 'en';
 
   @Output() backToTableEmit = new EventEmitter();
-  lawFirm!: LawFirm;
+  lawFirm!: LawFirmDTO;
   showLoading = false;
   lawFirmId = 0;
 
@@ -62,7 +62,7 @@ export class LawFirmViewComponent  implements OnInit {
 
   private getLawFirm() {
     this.showLoading = true;
-    this.service.getById(this.lawFirmId)
+    this.service.getDtoById(this.lawFirmId)
     .subscribe({
       next: (res => {
         this.lawFirm = res;

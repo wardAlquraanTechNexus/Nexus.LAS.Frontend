@@ -91,6 +91,7 @@ export class TableDataPipe implements PipeTransform {
 
         case 'person-document-primary':
         case 'person-in-charge-primary':
+        case 'primary':
           return of(value === true ? getLabel('COMMON.PRIMARY') ?? 'Primary' : '');
 
         case 'date-time':
@@ -170,6 +171,13 @@ export class TableDataPipe implements PipeTransform {
           );
         case 'property-owner-relation':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyOwnerRelation).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
+        case 'staff-level':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.lawFirmsCounselLevels).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
               return found ? found.name : '';

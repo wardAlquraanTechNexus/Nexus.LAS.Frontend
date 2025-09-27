@@ -98,7 +98,10 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-
+                            <app-law-firm-overview [lawFirm]="lawFirm"></app-law-firm-overview>
+                        </div>
+                        <div class="overview-component">
+                            <app-law-firm-persons [lawFirm]="lawFirm"></app-law-firm-persons>
                         </div>
 
                     </div>
@@ -115,6 +118,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
+                            <app-law-firm-branches [lawFirm]="lawFirm"></app-law-firm-branches>
                         </div>
                     </div>
                 </mat-tab>
@@ -128,6 +132,10 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
+                            <!-- <app-law-firm-counsels [lawFirm]="lawFirm"></app-law-firm-counsels> -->
+                        </div>
+                        <div class="overview-component">
+                            <!-- <app-law-firm-expertises [lawFirm]="lawFirm"></app-law-firm-expertises> -->
                         </div>
                     </div>
                 </mat-tab>
