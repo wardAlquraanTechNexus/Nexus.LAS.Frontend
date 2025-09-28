@@ -16,6 +16,10 @@ import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
+import { LawFirmExpertiseDto } from '../../../../models/law-firm-models/law-firm-expertise/dtos/law-firm-expertise-dto';
+import { map, Observable } from 'rxjs';
+import { LawFirmExpertiseService } from '../../../../services/law-firm-services/law-firm-expertise-service';
+import { GetLawFirmExpertiseQuery } from '../../../../models/law-firm-models/law-firm-expertise/params/get-law-firm-expertise-query';
 
 @Component({
   selector: 'app-base-law-firms-component',
@@ -24,6 +28,8 @@ import { MenuService } from '../../../../services/menu-service';
   styleUrl: './base-law-firms-component.scss'
 })
 export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implements OnInit {
+
+  loadLawFirmExpertiesesFn!: (search: string) => Observable<LawFirmExpertiseDto[]>;
 
   activeStatus = CommonStatus.Active;
   inactiveStatus = CommonStatus.Inactive;
@@ -72,7 +78,8 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
     protected menuService: MenuService,
     protected dialog: MatDialog,
     protected dlService: DynamicListService,
-    override langService: LanguageService
+    override langService: LanguageService,
+    protected lawFirmExpertiseService: LawFirmExpertiseService,
 
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService);
@@ -95,11 +102,17 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
     this.countryParentId = environment.rootDynamicLists.country;
 
 
-     this.formGroup = this.fb.group(
+    this.formGroup = this.fb.group(
       {
         countryId: [null],
+        lawFirmExpertiseId: [null],
       },
-    )
+    );
+
+    this.loadLawFirmExpertiesesFn = (search: string) => this.loadLawFirmExpertises(search);
+
+
+
   }
 
   override fetchData(): void {
@@ -114,6 +127,17 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
         this.cdr.markForCheck();
       })
     })
+  }
+
+   loadLawFirmExpertises(search: string) {
+    let expertiseName = search && search.trim() != '' ? search : null;
+    let params: GetLawFirmExpertiseQuery = { page: 0, pageSize: 100 };
+    if(expertiseName){
+      params.expertiseName = expertiseName;
+    }
+    return this.lawFirmExpertiseService.getPaging(params).pipe(
+      map(res => res.collection)
+    );
   }
 
   toggleFilters() {
@@ -180,8 +204,12 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
 
   }
 
-  onCountryChange($event:any){
+  onCountryChange($event: any) {
     this.params.countryId = $event;
+    this.fetchData();
+  }
+   onLawFirmExpertiseChange($event: any) {
+    this.params.expertiseId = $event;
     this.fetchData();
   }
 
@@ -308,7 +336,7 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
     }
   }
 
-exportToExcel() {
+  exportToExcel() {
     this.service.exportToExcel(this.params).subscribe(res => {
       // Assuming res.data is base64 string:
       const binaryString = atob(res.data);

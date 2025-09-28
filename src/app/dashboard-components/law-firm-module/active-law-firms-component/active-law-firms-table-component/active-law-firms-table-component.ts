@@ -5,19 +5,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
+import { LawFirmExpertiseService } from '../../../../services/law-firm-services/law-firm-expertise-service';
 import { LawFirmService } from '../../../../services/law-firm-services/law-firm-service';
 import { MenuService } from '../../../../services/menu-service';
 import { BaseLawFirmsComponent } from '../../_base/base-law-firms-component/base-law-firms-component';
-import { LawFirmExpertiseService } from '../../../../services/law-firm-services/law-firm-expertise-service';
+import { GetLawFirmQuery } from '../../../../models/law-firm-models/law-firm/params/get-law-firm-query';
+import { CommonStatus } from '../../../../enums/common-status';
 
 @Component({
-  selector: 'app-all-law-firms-table-component',
+  selector: 'app-active-law-firms-table-component',
   standalone: false,
-  templateUrl: './all-law-firms-table-component.html',
-  styleUrl: './all-law-firms-table-component.scss'
+  templateUrl: './active-law-firms-table-component.html',
+  styleUrl: './active-law-firms-table-component.scss'
 })
-export class AllLawFirmsTableComponent  extends BaseLawFirmsComponent
+export class ActiveLawFirmsTableComponent extends BaseLawFirmsComponent
 {
+
   
   constructor(
     override service: LawFirmService,
@@ -36,6 +39,7 @@ export class AllLawFirmsTableComponent  extends BaseLawFirmsComponent
   }
 
   override ngOnInit(): void {
+    this.params.statuses = CommonStatus.Active.toString();
     super.ngOnInit();
   }
 
@@ -77,12 +81,6 @@ export class AllLawFirmsTableComponent  extends BaseLawFirmsComponent
         label: this.label.LAW_FIRM.LAS_DATE, 
         sort: false,
         pipes: ['date']
-      },
-      { 
-        key: "status", 
-        label: this.label.COMMON.STATUS, 
-        sort: true ,
-        pipes: ['common-status']
       },
       { 
         key: "countryId", 

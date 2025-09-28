@@ -20,6 +20,12 @@ import { LawFirmCounselDialogFormComponent } from './law-firm-components/law-fir
 import { LawFirmExpertisesComponent } from './law-firm-components/law-firm-expertises-component/law-firm-expertises-component';
 import { LawFirmExpertiseFormComponent } from './law-firm-components/law-firm-expertises-component/law-firm-expertise-form-component/law-firm-expertise-form-component';
 import { LawFirmExpertiseDialogFormComponent } from './law-firm-components/law-firm-expertises-component/law-firm-expertise-dialog-form-component/law-firm-expertise-dialog-form-component';
+import { ActiveLawFirmsComponent } from './active-law-firms-component/active-law-firms-component';
+import { ActivePrivateLawFirmsComponent } from './active-private-law-firms-component/active-private-law-firms-component';
+import { ActivePublicLawFirmsComponent } from './active-public-law-firms-component/active-public-law-firms-component';
+import { ActiveLawFirmsTableComponent } from './active-law-firms-component/active-law-firms-table-component/active-law-firms-table-component';
+import { ActivePrivateLawFirmsTableComponent } from './active-private-law-firms-component/active-private-law-firms-table-component/active-private-law-firms-table-component';
+import { ActivePublicLawFirmsTableComponent } from './active-public-law-firms-component/active-public-law-firms-table-component/active-public-law-firms-table-component';
 
 
 @NgModule({
@@ -27,7 +33,13 @@ import { LawFirmExpertiseDialogFormComponent } from './law-firm-components/law-f
     BaseLawFirmsComponent,
     LawFirmViewComponent,
     AllLawFirmsTableComponent,
+    ActiveLawFirmsTableComponent,
+    ActivePrivateLawFirmsTableComponent,
+    ActivePublicLawFirmsTableComponent,
     AllLawFirmsComponent,
+    ActiveLawFirmsComponent,
+    ActivePrivateLawFirmsComponent,
+    ActivePublicLawFirmsComponent,
     LawFirmOverviewComponent,
     LawFirmPersonsComponent,
     LawFirmPersonFormComponent,

@@ -25,22 +25,6 @@
                     </mat-form-field>
                 </div>
 
-                <div class="nexus-toggle-group">
-                    <mat-button-toggle-group [(ngModel)]="params.privates" (change)="search()" multiple
-                        class="nexus-toggle-compact">
-                        <mat-button-toggle [value]="false">{{ label.COMPANY.PUBLIC }}</mat-button-toggle>
-                        <mat-button-toggle [value]="true">{{ label.COMPANY.PRIVATE }}</mat-button-toggle>
-                    </mat-button-toggle-group>
-                </div>
-
-
-                <div class="nexus-toggle-group">
-                    <mat-button-toggle-group [(ngModel)]="params.statuses" (change)="search()" multiple
-                        class="nexus-toggle-compact">
-                        <mat-button-toggle *ngFor="let status of statuses" [value]="status.value">{{
-                            status.label }}</mat-button-toggle>
-                    </mat-button-toggle-group>
-                </div>
 
                 <div class="nexus-filter-actions">
                     <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
@@ -93,20 +77,7 @@
             <div class="nexus-bulk-actions" *ngIf="selectedProperties.length">
                 <span class="nexus-bulk-count">{{ selectedProperties.length }} {{ label.COMMON.SELECTED }}</span>
                 <div class="nexus-bulk-buttons">
-                    <button mat-stroked-button class="nexus-btn nexus-bulk-success"
-                        (click)="bulkChangeStatus(activeStatus)">
-                        <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
-                    </button>
-                    <button mat-stroked-button class="nexus-btn nexus-bulk-warning"
-                        (click)="bulkChangeStatus(inactiveStatus)">
-                        <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
-                    </button>
-                    <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-                        <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
-                    </button>
-                    <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
-                        <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
-                    </button>
+
                 </div>
             </div>
         </div>
@@ -144,22 +115,6 @@
                 <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
             </button>
  -->
-
-            <button mat-menu-item (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
-                <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
-            </button>
-
-            <button mat-menu-item (click)="deactivate(row)" class="nexus-menu-item nexus-menu-warning">
-                <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
-            </button>
-
-            <button mat-menu-item (click)="markPublic(row)" class="nexus-menu-item nexus-menu-info">
-                <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
-            </button>
-
-            <button mat-menu-item (click)="markPrivate(row)" class="nexus-menu-item nexus-menu-neutral">
-                <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
-            </button>
 
             <button mat-menu-item [confirmDelete]="deleteCompany(row)" class="nexus-menu-item nexus-menu-danger">
                 <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
