@@ -34,10 +34,6 @@ export class ActivePublicPersonsTable  extends BasePersonsComponent {
     }
   override displayColumns: DisplayColumn[] = [
     {
-      key: "select",
-      label: "",
-    },
-    {
       key: "personCode",
       label: "Code",
       sort: true,
@@ -94,7 +90,6 @@ export class ActivePublicPersonsTable  extends BasePersonsComponent {
     override applyLanguage(lang: LanguageCode) {
       if (lang === 'ar') {
         this.displayColumns = [
-          { key: "select", label: "" },
           { key: "personCode", label: "الكود", sort: true, pipes: ["link"] },
           { key: "personEnglishName", label: "الاسم بالانجليزية", pipes: ["link"], sort: true },
           { key: "personArabicName", label: "الاسم بالعربية", pipes: ["link"], sort: true },
@@ -105,7 +100,6 @@ export class ActivePublicPersonsTable  extends BasePersonsComponent {
       } else {
         // default English
         this.displayColumns = [
-          { key: "select", label: "" },
           { key: "personCode", label: "Code", sort: true, pipes: ["link"] },
           { key: "personEnglishName", label: "Name En", pipes: ["link"], sort: true },
           { key: "personArabicName", label: "Name Ar", pipes: ["link"], sort: true },

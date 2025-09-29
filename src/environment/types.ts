@@ -127,6 +127,7 @@ export interface Environment {
     propertyOwnerRelation: number;
     propertyDocumentType: number;
     lawFirmsCounselLevels: number;
+    transactionTypes: number;
 
   }
 }

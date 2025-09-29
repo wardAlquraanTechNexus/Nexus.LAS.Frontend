@@ -122,7 +122,8 @@ export const environment: Environment = {
     propertyStatus: 1030,
     propertyOwnerRelation: 1026,
     propertyDocumentType: 1028,
-    lawFirmsCounselLevels: 1014
+    lawFirmsCounselLevels: 1014,
+    transactionTypes: 1035
 
   }
 } as const;
