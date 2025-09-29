@@ -6,13 +6,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicListService } from '../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LanguageService } from '../../../services/language-service';
+import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
 
 @Component({
   selector: 'app-law-firm-form',
   standalone: false,
   templateUrl: './law-firm-form-component.html',
-  styleUrls: ['./law-firm-form-component.scss']
-})
+  styleUrls: ['./law-firm-form-component.scss'],
+  providers: [
+    ...DATE_FORMAT_PROVIDERS
+  ]})
 export class LawFirmFormComponent  extends BaseFormComponent {
 
   
