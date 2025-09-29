@@ -10,11 +10,6 @@
     <div class="section-body">{{ lawFirm.estYear }}</div>
   </div>
 
-    <div class="section-row">
-    <div class="section-subject">{{ label.COMMON.COUNTRY || 'Country' }}</div>
-    <div class="section-body">{{ lawFirm.countryId | textPipe: 'country' | async }}</div>
-  </div>
-
  <div class="section-row">
     <div class="section-subject">{{ label.LAW_FIRM.WEBSITE || 'Website' }}</div>
     <div class="section-body">{{ lawFirm.website }}</div>

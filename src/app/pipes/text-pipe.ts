@@ -72,6 +72,13 @@ export class TextPipe implements PipeTransform {
           })
         );
 
+      case 'property-type-of-title':
+        return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyTypeOfTitle).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found ? found.name : '';
+          })
+        );
       case 'property-type':
         return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyType).pipe(
           map(list => {
@@ -79,7 +86,7 @@ export class TextPipe implements PipeTransform {
             return found ? found.name : '';
           })
         );
-        case 'property-document-type':
+      case 'property-document-type':
         return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyDocumentType).pipe(
           map(list => {
             const found = list.find(x => x.id == value);
@@ -88,7 +95,7 @@ export class TextPipe implements PipeTransform {
         );
 
       case 'property-legal-statuses':
-        if(!value) return of('');
+        if (!value) return of('');
         let ids: number[] = value.split(',').map((id: string) => parseInt(id.trim()));
         return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyStatus).pipe(
           map(list => {
