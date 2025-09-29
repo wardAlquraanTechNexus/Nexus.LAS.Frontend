@@ -3,7 +3,7 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>home_work</mat-icon>
+                <mat-icon>contacts</mat-icon>
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
@@ -64,6 +64,9 @@
                         [placeholder]="label.COMMON.PHONE_NUMBER || 'Enter Phone Number'" required>
                     <mat-error *ngIf="formGroup.get('phone')?.hasError('required')">
                         {{ label.COMMON.PHONE_REQUIRED || 'Phone Number is required' }}
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('phone')?.hasError('invalidPhone')">
+                        {{ label.COMMON.PHONE_INVALID }}
                     </mat-error>
                 </mat-form-field>
 
