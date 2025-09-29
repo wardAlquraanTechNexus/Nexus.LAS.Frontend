@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { LawFirmBranchDto } from '../../../../../models/law-firm-models/law-firm-branch/dtos/law-firm-branch-dto';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../../../../environment/environment.prod';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
@@ -32,12 +32,55 @@ export class LawFirmBranchFormComponent  extends BaseFormComponent {
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
+  // Validator for phone and fax (digits only, length between 7 and 15)
+  private phoneFaxValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return null;
+    return /^\d{7,15}$/.test(value) ? null : { invalidPhoneFax: true };
+  }
+
+  // Validator for email
+  private emailValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return null;
+    // Simple email regex
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? null : { invalidEmail: true };
+  }
+
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
 
     this.countryId = environment.rootDynamicLists.country;
 
+    // Add validators to phone, fax, and email controls if they exist
+    this.formGroup.get('phone1')?.setValidators([
+      this.phoneFaxValidator.bind(this)
+    ]);
+    this.formGroup.get('phone1')?.updateValueAndValidity();
+    this.formGroup.get('phone2')?.setValidators([
+      this.phoneFaxValidator.bind(this)
+    ]);
+    this.formGroup.get('phone2')?.updateValueAndValidity();
+    this.formGroup.get('phone3')?.setValidators([
+      this.phoneFaxValidator.bind(this)
+    ]);
+    this.formGroup.get('phone3')?.updateValueAndValidity();
+
+    this.formGroup.get('fax')?.setValidators([
+      this.phoneFaxValidator.bind(this)
+    ]);
+    this.formGroup.get('fax')?.updateValueAndValidity();
+
+    this.formGroup.get('email1')?.setValidators([
+      this.emailValidator.bind(this)
+    ]);
+    this.formGroup.get('email1')?.updateValueAndValidity();
+
+    this.formGroup.get('email2')?.setValidators([
+      this.emailValidator.bind(this)
+    ]);
+    this.formGroup.get('email2')?.updateValueAndValidity();
   }
 
 }

@@ -93,7 +93,7 @@ export class LawFirmCounselsComponent extends TableFormComponent<LawFirmCounsel>
       lawFirmId: this.lawFirm.id,
       counselName: null,
       counselLevel: null,
-      rate: 0
+      rate: null
     };
     const dialogRef = this.dialog.open(LawFirmCounselDialogFormComponent, {
       disableClose: true,

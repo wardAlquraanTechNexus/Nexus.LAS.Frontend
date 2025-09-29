@@ -332,6 +332,10 @@ export const Labels = {
             SEARCH_BY_NAME: "Search by name",
             CODE: "Code",
             NAME_REQUIRED: "Name is required",
+            DESCRIPTION_REQUIRED: "Description is required",
+            PHONE_INVALID: "Phone number must contain only digits (7-15 digits)",
+            FAX_INVALID: "Fax number must contain only digits (7-15 digits)",
+            EMAIL_INVALID: "Invalid email address"
         },
         PROPERTY: {
             RELATION_REQUIRED: "Relation is required",
@@ -386,6 +390,7 @@ export const Labels = {
             ADD_LAW_FIRM: "Add Law Firm",
             ENTER_LAW_FIRM_DETAILS: "Enter Law Firm Details",
             EDIT_LAW_FIRM: "Edit Law Firm",
+            BRANCH_NAME: "Branch Name",
             LAS_DATE: "LAS Date",
             EST_YEAR: "Est. Year",
             WEBSITE: "Website",
@@ -425,6 +430,22 @@ export const Labels = {
             ENTER_LAW_FIRM_EXPERTISE_DETAILS: "Enter Expertise Details",
             EXPERTISE_NAME: "Expertise Name",
             EXPERTISE_NAME_REQUIRED: "Expertise Name is required",
+            EST_YEAR_DIGITS_ONLY: "Year must contain only digits",
+        },
+        TRANSACTION: {
+            ALL_TRANSACTIONS: "All Transactions",
+            ACTIVE_TRANSACTIONS: "Active Transactions",
+            ACTIVE_PRIVATE_TRANSACTIONS: "Active Private Transactions",
+            ACTIVE_PUBLIC_TRANSACTIONS: "Active Public Transactions",
+            TRANSACTIONS: "Transactions",
+            TRANSACTION: "Transaction",
+            SUBJECT_TYPE: "Subject Type",
+            ADD_TRANSACTION: "Add Transaction",
+            ENTER_TRANSACTION_DETAILS: "Enter Transaction Details",
+            EDIT_TRANSACTION: "Edit Transaction",
+            TRANSACTION_DATE: "Transaction Date",
+            TRANSACTION_DATE_REQUIRED: "Transaction Date is required",
+            SUBJECT_TYPE_REQUIRED: "Subject Type is required",
         }
     },
     ar: {
@@ -763,7 +784,10 @@ export const Labels = {
             SEARCH_BY_NAME: "البحث بالاسم",
             CODE: "الرمز",
             NAME_REQUIRED: "الاسم مطلوب",
-
+            DESCRIPTION_REQUIRED: "الوصف مطلوب",
+            PHONE_INVALID: "يجب أن يحتوي رقم الهاتف على أرقام فقط (من 7 إلى 15 رقمًا)",
+            FAX_INVALID: "يجب أن يحتوي رقم الفاكس على أرقام فقط (من 7 إلى 15 رقمًا)",
+            EMAIL_INVALID: "عنوان البريد الإلكتروني غير صالح"
         },
         PROPERTY: {
             RELATION_REQUIRED: "العلاقة مطلوبة",
@@ -819,6 +843,7 @@ export const Labels = {
             ADD_LAW_FIRM: "إضافة مكتب محاماة",
             ENTER_LAW_FIRM_DETAILS: "أدخل تفاصيل مكتب المحاماة",
             EDIT_LAW_FIRM: "تعديل مكتب المحاماة",
+            BRANCH_NAME: "اسم الفرع",
             LAS_DATE: "تاريخ نظام المساعدة القانونية",
             EST_YEAR: "سنة التأسيس",
             WEBSITE: "الموقع الإلكتروني",
@@ -858,6 +883,22 @@ export const Labels = {
             ENTER_LAW_FIRM_EXPERTISE_DETAILS: "أدخل تفاصيل الخبرة",
             EXPERTISE_NAME: "اسم الخبرة",
             EXPERTISE_NAME_REQUIRED: "اسم الخبرة مطلوب",
+            EST_YEAR_DIGITS_ONLY: "السنة يجب أن تحتوي على أرقام فقط",
+        },
+        TRANSACTION: {
+            TRANSACTIONS: "المعاملات",
+            TRANSACTION: "معاملة",
+            SUBJECT_TYPE: "نوع الموضوع",
+            ADD_TRANSACTION: "إضافة معاملة",
+            ENTER_TRANSACTION_DETAILS: "أدخل تفاصيل المعاملة",
+            EDIT_TRANSACTION: "تعديل المعاملة",
+            ALL_TRANSACTIONS: "جميع المعاملات",
+            ACTIVE_TRANSACTIONS: "المعاملات النشطة",
+            ACTIVE_PRIVATE_TRANSACTIONS: "المعاملات الخاصة النشطة",
+            ACTIVE_PUBLIC_TRANSACTIONS: "المعاملات العامة النشطة",
+            TRANSACTION_DATE: "تاريخ المعاملة",
+            TRANSACTION_DATE_REQUIRED: "تاريخ المعاملة مطلوب",
+            SUBJECT_TYPE_REQUIRED: "نوع الموضوع مطلوب",
         }
     }
 } as const;

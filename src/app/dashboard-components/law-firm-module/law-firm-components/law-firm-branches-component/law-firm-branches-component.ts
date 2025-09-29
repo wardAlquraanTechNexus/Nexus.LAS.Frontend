@@ -62,7 +62,7 @@ export class LawFirmBranchesComponent extends TableFormComponent<LawFirmBranch> 
     this.displayColumns = [
       {
         key: "branchName",
-        label: this.label.COMMON.NAME,
+        label: this.label.LAW_FIRM.BRANCH_NAME,
         keysPipes: [
           { 
             key: 'branchName' 

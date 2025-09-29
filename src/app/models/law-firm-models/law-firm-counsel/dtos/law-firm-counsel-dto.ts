@@ -3,5 +3,5 @@ export interface LawFirmCounselDto {
   lawFirmId: number;
   counselName?: string | null;
   counselLevel?: number | null;
-  rate?: number ;
+  rate?: number | null ;
 }

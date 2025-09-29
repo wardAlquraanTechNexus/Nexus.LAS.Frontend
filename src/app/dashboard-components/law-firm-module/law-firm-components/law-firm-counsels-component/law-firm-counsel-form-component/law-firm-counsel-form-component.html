@@ -3,7 +3,7 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>home_work</mat-icon>
+                <mat-icon>account_circle</mat-icon>
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
@@ -46,7 +46,7 @@
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.LAW_FIRM.COUNSEL_RATE }}</mat-label>
-                    <input matInput type="text" formControlName="rate" [placeholder]="label.LAW_FIRM.COUNSEL_RATE || 'Enter Rate'"
+                    <input matInput type="number" formControlName="rate" [placeholder]="label.LAW_FIRM.COUNSEL_RATE || 'Enter Rate'"
                         required>
                     <mat-error *ngIf="formGroup.get('rate')?.hasError('required')">
                         {{ label.LAW_FIRM.COUNSEL_RATE_REQUIRED || 'Rate is required' }}
