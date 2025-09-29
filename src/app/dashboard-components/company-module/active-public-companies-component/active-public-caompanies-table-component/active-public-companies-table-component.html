@@ -25,13 +25,6 @@
           </mat-form-field>
         </div>
 
-        <div class="nexus-toggle-group">
-          <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple
-            class="nexus-toggle-compact">
-            <mat-button-toggle [value]="false">{{ label.COMPANY.PUBLIC }}</mat-button-toggle>
-            <mat-button-toggle [value]="true">{{ label.COMPANY.PRIVATE }}</mat-button-toggle>
-          </mat-button-toggle-group>
-        </div>
 
         <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
@@ -88,58 +81,42 @@
               </div>
               <div>
                 <select-auto-complete *ngIf="loadCompanyLegalsFn" [controlName]="'legalTypeIdn'"
-                  [fnGet]="loadCompanyLegalsFn" [formGroup]="formGroup" [label]="label.COMPANY.LEGAL_FORM" [keyToShow]="'name'"
-                  [valueKey]="'id'" (selectEmitter)="onSelectCompanyLegalType($event)" [withNullOption]="true">
+                  [fnGet]="loadCompanyLegalsFn" [formGroup]="formGroup" [label]="label.COMPANY.LEGAL_FORM"
+                  [keyToShow]="'name'" [valueKey]="'id'" (selectEmitter)="onSelectCompanyLegalType($event)"
+                  [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div>
                 <select-auto-complete *ngIf="loadActivitiesFn" [controlName]="'companyActivityIdn'"
-                  [fnGet]="loadActivitiesFn" [formGroup]="formGroup" [label]="label.COMPANY.ACTIVITY" [keyToShow]="'name'"
-                  [valueKey]="'id'" (selectEmitter)="onSelectCompanyActivity($event)" [withNullOption]="true">
+                  [fnGet]="loadActivitiesFn" [formGroup]="formGroup" [label]="label.COMPANY.ACTIVITY"
+                  [keyToShow]="'name'" [valueKey]="'id'" (selectEmitter)="onSelectCompanyActivity($event)"
+                  [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div>
                 <select-auto-complete *ngIf="loadContractTypesFn" [controlName]="'companyContractTypeIdn'"
-                  [fnGet]="loadContractTypesFn" [formGroup]="formGroup" [label]="label.COMPANY.CONTRACT_TYPE" [keyToShow]="'name'"
-                  [valueKey]="'id'" (selectEmitter)="onSelectContractType($event)" [withNullOption]="true">
+                  [fnGet]="loadContractTypesFn" [formGroup]="formGroup" [label]="label.COMPANY.CONTRACT_TYPE"
+                  [keyToShow]="'name'" [valueKey]="'id'" (selectEmitter)="onSelectContractType($event)"
+                  [withNullOption]="true">
                 </select-auto-complete>
               </div>
 
               <div *ngIf="loadPlaceOfRegistrationFn">
                 <select-auto-complete [controlName]="'placeOfRegistrationMainIdn'" [fnGet]="loadPlaceOfRegistrationFn"
-                  [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION" [keyToShow]="'name'" [valueKey]="'id'"
-                  (selectEmitter)="onSelectMainRegistrtaion($event)" [withNullOption]="true">
+                  [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION" [keyToShow]="'name'"
+                  [valueKey]="'id'" (selectEmitter)="onSelectMainRegistrtaion($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
               <div *ngIf="loadPlaceOfRegistrationSubFn">
                 <select-auto-complete [controlName]="'placeOfRegistrationSubIdn'" [fnGet]="loadPlaceOfRegistrationSubFn"
-                  [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION_SUB" [keyToShow]="'name'" [valueKey]="'id'"
-                  (selectEmitter)="onSelectSubRegistrtaion($event)" [withNullOption]="true">
+                  [formGroup]="formGroup" [label]="label.COMPANY.PLACE_OF_REGISTRATION_SUB" [keyToShow]="'name'"
+                  [valueKey]="'id'" (selectEmitter)="onSelectSubRegistrtaion($event)" [withNullOption]="true">
                 </select-auto-complete>
               </div>
 
             </div>
           </div>
 
-        </div>
-
-        <!-- Bulk Actions -->
-        <div class="nexus-bulk-actions" *ngIf="selectedCompanies.length">
-          <span class="nexus-bulk-count">{{ selectedCompanies.length }} {{ label.COMMON.SELECTED }}</span>
-          <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
-            <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
-              <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
-            </button>
-            <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inActiveStatus)">
-              <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
-            </button>
-            <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-              <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
-            </button>
-            <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
-              <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -175,25 +152,6 @@
     <mat-menu #menuRow="matMenu" class="nexus-action-menu">
       <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
         <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
-      </button>
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)"
-        class="nexus-menu-item nexus-menu-success">
-        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
-      </button>
-
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)"
-        class="nexus-menu-item nexus-menu-warning">
-        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
-      </button>
-
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)"
-        class="nexus-menu-item nexus-menu-info">
-        <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
-      </button>
-
-      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)"
-        class="nexus-menu-item nexus-menu-neutral">
-        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
       </button>
 
       <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteCompany(row)"

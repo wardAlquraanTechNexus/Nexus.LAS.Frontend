@@ -54,7 +54,6 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
   override setDisplayColumns() {
     const labels = this.currentLang === 'ar'
       ? {
-          select: 'اختيار',
           code: 'الرمز',
           incDate: 'تاريخ التأسيس',
           nameEn: 'الاسم بالإنجليزية',
@@ -66,7 +65,6 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
           action: 'إجراء'
         }
       : {
-          select: 'Select',
           code: 'Code',
           incDate: 'Inc. Date',
           nameEn: 'Name En',
@@ -79,7 +77,6 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
         };
 
     this.displayColumns = [
-      { key: "select", label: labels.select },
       { key: "companyCode", label: labels.code, pipes: ["link"], sort: true },
       { key: "incorporationDate", label: labels.incDate, pipes: ["date"], sort: true },
       { key: "companyEnglishName", label: labels.nameEn, pipes: ["link"], sort: true },

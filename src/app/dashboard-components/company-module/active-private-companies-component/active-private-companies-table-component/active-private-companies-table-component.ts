@@ -57,7 +57,6 @@ export class ActivePrivateCompaniesTableComponent  extends BaseCompaniesComponen
   override setDisplayColumns() {
 
     this.displayColumns = [
-      { key: "select", label: this.currentLang === 'ar' ? 'اختيار' : 'Select' },
       { key: "companyCode", label: this.currentLang === 'ar' ? 'رمز الشركة' : 'Company Code', pipes: ["link"], sort: true },
       { key: "incorporationDate", label: this.currentLang === 'ar' ? 'تاريخ التأسيس' : 'Inc. Date', pipes: ["date"], sort: true },
       { key: "companyEnglishName", label: this.currentLang === 'ar' ? 'اسم الشركة بالإنجليزية' : 'Company Name (EN)', pipes: ["link"], sort: true },
