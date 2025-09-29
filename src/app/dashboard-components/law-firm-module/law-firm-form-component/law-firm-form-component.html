@@ -57,13 +57,16 @@
                 <div class="form-group col-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.LAW_FIRM.EST_YEAR || 'Est. Year' }}</mat-label>
-                        <input matInput type="number" formControlName="estYear"
+                        <input matInput type="text" formControlName="estYear"
                             [placeholder]="label.LAW_FIRM.EST_YEAR || 'Enter Est. Year'">
                         <mat-error *ngIf="formGroup.get('estYear')?.hasError('min')">
                             {{ label.LAW_FIRM.EST_YEAR_MIN || 'Minimum year is 1800' }}
                         </mat-error>
                         <mat-error *ngIf="formGroup.get('estYear')?.hasError('max')">
                             {{ label.LAW_FIRM.EST_YEAR_MAX }}
+                        </mat-error>
+                        <mat-error *ngIf="formGroup.get('estYear')?.hasError('digitsOnly')">
+                            {{ label.LAW_FIRM.EST_YEAR_DIGITS_ONLY || 'Year must contain only digits' }}
                         </mat-error>
                     </mat-form-field>
                 </div>

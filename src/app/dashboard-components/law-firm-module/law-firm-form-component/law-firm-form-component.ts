@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../base-components/base-form-component/base-form-component';
 import { LawFirmDTO } from '../../../models/law-firm-models/law-firm/dtos/law-firm-dto';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DynamicListService } from '../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
@@ -30,6 +30,13 @@ export class LawFirmFormComponent  extends BaseFormComponent {
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
 
+  // Custom validator to check if value contains only digits
+  private digitsOnlyValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (value == null || value === '') return null;
+    return /^\d+$/.test(value) ? null : { digitsOnly: true };
+  }
+
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
@@ -37,7 +44,8 @@ export class LawFirmFormComponent  extends BaseFormComponent {
     const currentYear = new Date().getFullYear();
     this.formGroup.get('estYear')?.setValidators([
       Validators.min(1800),
-      Validators.max(currentYear)
+      Validators.max(currentYear),
+      this.digitsOnlyValidator.bind(this)
     ]);
     this.formGroup.get('estYear')?.updateValueAndValidity();
 
