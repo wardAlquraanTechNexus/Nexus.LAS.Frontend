@@ -57,7 +57,7 @@ export class LawFirmCounselsComponent extends TableFormComponent<LawFirmCounsel>
     this.displayColumns = [
       { key: 'counselName', label: this.label.LAW_FIRM.COUNSEL_NAME || 'Counsel Name' },
       { key: 'counselLevel', label: this.label.LAW_FIRM.COUNSEL_LEVEL || 'Counsel Level', pipes: ['staff-level'] },
-      { key: 'rate', label: this.label.LAW_FIRM.COUNSEL_RATE || 'Rate' },
+      { key: 'rate', label: this.label.LAW_FIRM.COUNSEL_RATE || 'Rate' , pipes: ['number-separator'] },
       { key: "action", label: this.label.COMMON.ACTIONS}
     ];
   }

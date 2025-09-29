@@ -231,6 +231,13 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+        case 'transaction-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.transactionTypes).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'board-position':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.boardPosition).pipe(
             map(list => {
@@ -293,6 +300,15 @@ export class TableDataPipe implements PipeTransform {
           if (value === EntityIDc.Person) return of(getLabel('COMMON.PERSON') ?? 'Person');
           if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
           return of(value?.toString() ?? '');
+
+        case 'number-separator':
+          if (value === null || value === undefined || value === '') {
+            return of('');
+          }
+          const strValue = value.toString();
+          // Separate every 3 characters from the right
+          const separated = strValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          return of(separated);
 
         default:
           return of(value?.toString() ?? '');
