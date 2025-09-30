@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { AddDocumentTracking } from '../document-tracking-components/add-document-tracking/add-document-tracking';
 import { AddFpc } from '../fpc-components/add-fpc/add-fpc';
-import { AddTransaction } from '../transaction-components/add-transaction/add-transaction';
 import { ActivePersons } from './active-persons/active-persons';
 import { ActivePrivatePersons } from './active-private-persons/active-private-persons';
 import { ActivePublicPersons } from './active-public-persons/active-public-persons';
@@ -37,23 +36,6 @@ const routes: Routes = [
     {
       path: environment.routes.ViewPersons,
       component: PersonViewComponent,
-    }
-    ,
-    // {
-    //   path: environment.routes.AddLawFirm,
-    //   component: AddLawFirm,
-    // },
-    {
-      path: environment.routes.AddTransaction,
-      component: AddTransaction,
-    },
-    {
-      path: environment.routes.AddDocumentTracking,
-      component: AddDocumentTracking,
-    },
-    {
-      path: environment.routes.AddFpc,
-      component: AddFpc,
     }
     ,
     {

@@ -59,6 +59,8 @@ import { DlSelectAutoComplete } from './dl-select-auto-complete/dl-select-auto-c
 import { SharedPropertyComponent } from '../dashboard-components/shared-components/shared-property-component/shared-property-component';
 import { LawFirmFormComponent } from '../dashboard-components/law-firm-module/law-firm-form-component/law-firm-form-component';
 import { LawFirmDialogFormComponent } from '../dashboard-components/law-firm-module/law-firm-dialog-form-component/law-firm-dialog-form-component';
+import { TransactionFormComponent } from '../dashboard-components/transaction-module/transaction-form-component/transaction-form-component';
+import { TransactionDialogFormComponent } from '../dashboard-components/transaction-module/transaction-dialog-form-component/transaction-dialog-form-component';
 
 
 
@@ -93,7 +95,9 @@ import { LawFirmDialogFormComponent } from '../dashboard-components/law-firm-mod
     DlSelectAutoComplete,
     SharedPropertyComponent,
     LawFirmFormComponent,
-    LawFirmDialogFormComponent
+    LawFirmDialogFormComponent,
+    TransactionFormComponent,
+    TransactionDialogFormComponent
 
   ],
   imports: [
@@ -192,7 +196,9 @@ import { LawFirmDialogFormComponent } from '../dashboard-components/law-firm-mod
     DlSelectAutoComplete,
     SharedPropertyComponent,
     LawFirmFormComponent,
-    LawFirmDialogFormComponent
+    LawFirmDialogFormComponent,
+    TransactionFormComponent,
+    TransactionDialogFormComponent
 
   ],
   providers: [

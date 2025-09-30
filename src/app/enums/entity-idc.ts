@@ -3,6 +3,7 @@ export class EntityIDc {
   static readonly Company = "C";
   static readonly Properties = "R";
   static readonly LawFirm = "LF";
+  static readonly Transactions = "T";
 
   
 }

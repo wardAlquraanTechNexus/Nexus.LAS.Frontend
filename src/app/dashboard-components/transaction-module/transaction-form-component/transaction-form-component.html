@@ -1,0 +1,80 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>home_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{element.id != 0 ? label.TRANSACTION.EDIT_TRANSACTION || 'Edit' : label.TRANSACTION.ADD_TRANSACTION
+                    ||
+                    'Add'}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.TRANSACTION.ENTER_TRANSACTION_DETAILS || 'Enter transaction details'
+                    }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+                <div class="form-group col-12">
+                    <div *ngIf="transactionTypeParentId">
+                         <dl-select-auto-complete [isRequired]="true" [controlName]="'subjectType'"
+                            [formGroup]="formGroup" [label]="label.TRANSACTION.SUBJECT_TYPE || 'Subject Type'"
+                            [parentId]="transactionTypeParentId">
+                        </dl-select-auto-complete>
+                        <mat-error
+                            *ngIf="formGroup.get('subjectType')?.invalid && (formGroup.get('subjectType')?.touched || formGroup.touched)">
+                            {{ label.TRANSACTION.SUBJECT_TYPE_REQUIRED || 'Subject Type is required' }}
+                        </mat-error>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.TRANSACTION.TRANSACTION_DATE || 'Transaction Date' }}</mat-label>
+                        <input matInput formControlName="transactionDate"
+                            [placeholder]="label.TRANSACTION.TRANSACTION_DATE || 'DD/MM/YYYY'"
+                            [matDatepicker]="startDatePicker" required>
+                        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startDatePicker></mat-datepicker>
+                        <mat-error *ngIf="formGroup.get('transactionDate')?.hasError('required')">
+                            {{ label.TRANSACTION.TRANSACTION_DATE_REQUIRED || 'Transaction Date is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.DESCRIPTION || 'Description' }}</mat-label>
+                        <input matInput type="text" formControlName="subjectDescription"
+                            [placeholder]="label.COMMON.DESCRIPTION || 'Enter Description'" required>
+
+                        <mat-error *ngIf="formGroup.get('subjectDescription')?.hasError('required')">
+                            {{ label.COMMON.DESCRIPTION_REQUIRED || 'Description is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
+    </div>
+</div>

@@ -2,7 +2,7 @@
 
     <div class="section-row">
         <div class="section-subject">{{ label.PROPERTY.TYPE_OF_TITLE }}</div>
-        <div class="section-body">{{ property.typeOfTitle }}</div>
+        <div class="section-body">{{ property.typeOfTitle | textPipe:'property-type-of-title' | async }}</div>
         <div class="section-subject">{{ label.COMMON.STATUS }}</div>
         <div class="section-body">{{ property.legalStatuses | textPipe:'property-legal-statuses' | async }}</div>
     </div>

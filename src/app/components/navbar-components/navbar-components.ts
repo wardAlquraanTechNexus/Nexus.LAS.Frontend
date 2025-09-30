@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject, PLATFORM_ID, OnDestroy, Output, EventEmitter, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,13 +16,13 @@ import { PersonDialogFormComponent } from '../../dashboard-components/person-mod
 import { PersonDto } from '../../models/person-models/person-dto';
 import { Labels } from '../../models/consts/labels';
 import { LanguageCode } from '../../models/types/lang-type';
-import { MenuTree } from '../../models/menus/menu-tree';
 import { Event as RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { PropertyDTO } from '../../models/property-models/property/dtos/propery-dto';
 import { PropertyDialogFormComponent } from '../../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
-import { navigate } from '../../dashboard-components/_shared/shared-methods/navigate';
 import { LawFirmDTO } from '../../models/law-firm-models/law-firm/dtos/law-firm-dto';
 import { LawFirmDialogFormComponent } from '../../dashboard-components/law-firm-module/law-firm-dialog-form-component/law-firm-dialog-form-component';
+import { TransactionDto } from '../../models/transaction-models/transaction/dtos/transaction-dto';
+import { TransactionDialogFormComponent } from '../../dashboard-components/transaction-module/transaction-dialog-form-component/transaction-dialog-form-component';
 
 
 @Component({
@@ -109,6 +109,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     protected langService: LanguageService,
     private menuService: MenuService,
+    private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.user = this.authService.getUser();
@@ -192,6 +193,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
       case environment.routes.AddLawFirm:
         this.onAddNewLawFirm();
         break;
+      case environment.routes.AddTransaction:
+        this.onAddNewTransaction();
+        break;
       default:
         break;
     }
@@ -227,7 +231,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      navigate(this.router, basePath, path, result.id);
+      this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
     });
   }
 
@@ -287,7 +291,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        navigate(this.router, basePath, path, result.id);
+        this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
       }
     })
   }
@@ -346,7 +350,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        navigate(this.router, basePath, path, result.id);
+        this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
       }
     })
   }
@@ -384,8 +388,44 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        navigate(this.router, basePath, path, result.id);
+        this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
 
+
+      }
+    })
+  }
+
+  onAddNewTransaction() {
+    const element: TransactionDto = {
+      id: 0,
+      transactionDate: null,
+      transactionCode: '',
+      subjectType: null,
+      subjectDescription: null,
+      status: null,
+      private: false,
+
+    };
+    const dialogRef = this.dialog.open(TransactionDialogFormComponent, {
+      disableClose: true,
+      data: element,
+      // width: '900px',
+      // maxWidth: '95vw',
+      // minWidth: '800px',
+      panelClass: 'property-dialog-panel'
+    });
+
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllTransactions) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveTransactions) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateTransactions) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicTransactions);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Transactions);
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
       }
     })
   }
