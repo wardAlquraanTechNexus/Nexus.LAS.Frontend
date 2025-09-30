@@ -19,22 +19,18 @@
             <span class="current-page">{{ lawFirm.englishName | titlecase }}</span>
         </div>
 
-        <!--  Header Card -->
         <div class="header-card">
             <div class="profile-section">
-                <!-- Profile Image -->
 
 
-                <!--  Details -->
-                <div class="details">
-                    <div class="name-section">
+                <div class="profile-details">
+                    <div class="profile-name-section">
                         <div class="name-and-badges">
-                            <h1 class="name">{{ lawFirm.lawFirmCode | titlecase }}</h1>
+                            <h1 class="profile-name">{{ lawFirm.englishName | titlecase }}</h1>
                             <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                    <mat-icon>{{ lawFirm.status === statuses.Active ? 'check_circle' : 'cancel'
-                                        }}</mat-icon>
-                                    {{ lawFirm.status | textPipe: 'property-status' | async }}
+                                    <mat-icon>{{ lawFirm.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    {{ lawFirm.status | textPipe: 'common-status' | async }}
                                 </span>
                                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
                                     <mat-icon>{{ lawFirm.private ? 'lock' : 'public' }}</mat-icon>
@@ -42,6 +38,7 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="profile-name-arabic">{{ lawFirm.arabicName | titlecase }}</div>
                     </div>
 
                     <div class="meta-info">
@@ -49,27 +46,18 @@
                             <span class="info-label">{{ label.COMMON.CODE || 'ID:' }}</span>
                             <span class="info-value">{{ lawFirm.lawFirmCode }}</span>
                         </div>
-                        <div class="info-item">
-                            <span class="info-label">{{ label.COMMON.NAME_EN }}</span>
-                            <span class="info-value">{{ lawFirm.englishName }}</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">{{ label.COMMON.NAME_AR }}</span>
-                            <span class="info-value">{{ lawFirm.arabicName }}</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">{{ label.COMMON.SHORT_NAME }}</span>
-                            <span class="info-value">{{ lawFirm.shortName }}</span>
+                        <div class="info-item" *ngIf="lawFirm.shortName">
+                            <span class="info-label">{{ label.COMMON.SHORT_NAME || 'Short Name:' }}</span>
+                            <span class="info-value">{{ lawFirm.shortName | uppercase }}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="actions">
+            <div class="profile-action">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
-                    {{ label.COMMON.EDIT || 'Edit' }}
+                    {{ label.COMMON.EDIT_COMPANY || 'Edit Company' }}
                 </button>
 
                 <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
@@ -78,7 +66,6 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-                    <!-- Add menu items here if needed -->
                 </mat-menu>
             </div>
         </div>

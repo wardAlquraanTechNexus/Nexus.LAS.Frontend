@@ -1,15 +1,12 @@
 <div class="main-container">
 
-    <!-- SECTION 1: Loading State -->
     <div *ngIf="showLoading" class="section loading-section">
         <div class="loading">
             <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
         </div>
     </div>
 
-    <!-- SECTION 2: Person Header -->
     <div *ngIf="!showLoading && company" class="section section-header">
-        <!-- Breadcrumb -->
         <div class="breadcrumb-nav">
             <a (click)="navigateToCompanies()" class="breadcrumb-link">
                 <mat-icon>arrow_back</mat-icon>
@@ -19,18 +16,15 @@
             <span class="current-page">{{ company.companyEnglishName | titlecase }}</span>
         </div>
 
-        <!-- Person Header Card -->
-        <div class="person-header-card">
-            <div class="person-profile-section">
-                <!-- Profile Image -->
+        <div class="header-card">
+            <div class="profile-section">
 
 
-                <!-- Person Details -->
-                <div class="person-details">
-                    <div class="person-name-section">
+                <div class="profile-details">
+                    <div class="profile-name-section">
                         <div class="name-and-badges">
-                            <h1 class="person-name">{{ company.companyEnglishName | titlecase }}</h1>
-                            <div class="person-status-badges">
+                            <h1 class="profile-name">{{ company.companyEnglishName | titlecase }}</h1>
+                            <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getCompanyStatusStyle()">
                                     <mat-icon>{{ company.companyStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
                                     {{ company.companyStatus| textPipe: 'company-status' | async}}
@@ -41,10 +35,10 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="person-name-arabic">{{ company.companyArabicName| titlecase }}</div>
+                        <div class="profile-name-arabic">{{ company.companyArabicName| titlecase }}</div>
                     </div>
 
-                    <div class="person-meta-info">
+                    <div class="meta-info">
                         <div class="info-item">
                             <span class="info-label">{{ label.COMPANY.CODE || 'ID:' }}</span>
                             <span class="info-value">{{ company.companyCode }}</span>
@@ -57,8 +51,7 @@
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="person-actions">
+            <div class="profile-action">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
                     {{ label.COMMON.EDIT_COMPANY || 'Edit Company' }}
@@ -70,13 +63,11 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
-                    <!-- Add menu items here if needed -->
                 </mat-menu>
             </div>
         </div>
     </div>
 
-    <!-- SECTION 3: Content Tabs -->
     <div *ngIf="!showLoading" class="section section-content">
         <div class="tabs-container">
             <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
@@ -89,10 +80,10 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-overview-component [company]="company"></app-company-overview-component>
                         </div>
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-person-in-charge-component
                                 [company]="company"></app-company-person-in-charge-component>
 
@@ -119,16 +110,16 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-champer-of-commerce-component
                                 [company]="company"></app-company-champer-of-commerce-component>
                         </div>
 
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-license-component [company]="company"></app-company-license-component>
                         </div>
 
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-activity-component [company]="company"></app-company-activity-component>
                         </div>
 
@@ -143,10 +134,10 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-capital-component [company]="company"></app-company-capital-component>
                         </div>
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-shareholder-component [company]="company"></app-company-shareholder-component>
                         </div>
                     </div>
@@ -160,7 +151,7 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-contract-component [company]="company"></app-company-contract-component>
                         </div>
                     </div>
@@ -174,11 +165,11 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-shared-company-shareholder-component [registersIdc]="company.companyIdc!"
                                 [registersIdn]="company.id"></app-shared-company-shareholder-component>
                         </div>
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-shared-property-component [registersIdc]="company.companyIdc!"
                                 [registersIdn]="company.id"></app-shared-property-component>
                         </div>
@@ -193,7 +184,7 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-board-member-component
                                 [company]="company"></app-company-board-member-component>
                         </div>
@@ -219,7 +210,7 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <div class="row">
                                 <div class="col-6">
                                     <app-company-email-component [company]="company"></app-company-email-component>
@@ -229,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-company-address-component [company]="company"></app-company-address-component>
                         </div>
                     </div>
@@ -242,7 +233,7 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
-                        <div class="company-overview-component">
+                        <div class="overview-component">
                             <app-shared-register-note-table [registersIdc]="company.companyIdc!"
                                 [registersIdn]="company.id"></app-shared-register-note-table>
                         </div>
