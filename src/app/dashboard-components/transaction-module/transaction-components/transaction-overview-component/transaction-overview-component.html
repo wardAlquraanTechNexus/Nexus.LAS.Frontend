@@ -1,0 +1,18 @@
+<div class="section">
+
+  <div class="section-row">
+    <div class="section-subject">{{ label.TRANSACTION.TRANSACTION_DATE }}</div>
+    <div class="section-body">{{ transaction.transactionDate | date:"dd/MM/yyyy" }}</div>
+  </div>
+
+  <div class="section-row">
+    <div class="section-subject">{{ label.TRANSACTION.SUBJECT_TYPE  }}</div>
+    <div class="section-body">{{ transaction.subjectType | textPipe: 'transaction-subject-type' | async }}</div>
+  </div>
+
+ <div class="section-row">
+    <div class="section-subject">{{ label.COMMON.DESCRIPTION }}</div>
+    <div class="section-body">{{ transaction.subjectDescription }}</div>
+  </div>
+ 
+</div>

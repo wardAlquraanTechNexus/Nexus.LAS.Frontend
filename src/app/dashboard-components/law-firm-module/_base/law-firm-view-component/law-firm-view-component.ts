@@ -149,9 +149,6 @@ export class LawFirmViewComponent  implements OnInit {
     });
   }
 
-
- 
-
 }
 
 

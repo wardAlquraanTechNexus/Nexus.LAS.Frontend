@@ -103,6 +103,14 @@ export class TextPipe implements PipeTransform {
             return names.join(', ');
           })
         );
+
+        case 'transaction-subject-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.transactionTypes).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
       case 'dl-by-parent-id':
         if (parentId == null) {
           return of(value);

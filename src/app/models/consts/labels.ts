@@ -446,6 +446,15 @@ export const Labels = {
             TRANSACTION_DATE: "Transaction Date",
             TRANSACTION_DATE_REQUIRED: "Transaction Date is required",
             SUBJECT_TYPE_REQUIRED: "Subject Type is required",
+            TRANSACTION_REGISTERS: "Transaction Registers",
+            TRANSACTION_REGISTER: "Transaction Register",
+            ADD_TRANSACTION_REGISTER: "Add Transaction Register",
+            EDIT_TRANSACTION_REGISTER: "Edit Transaction Register",
+            ENTER_TRANSACTION_REGISTER_DETAILS: "Enter Transaction Register Details",
+            REGISTER_TYPE: "Register Type",
+            REGISTER_TYPE_REQUIRED: "Register Type is required",
+            REGISTER: "Register",
+            REGISTER_REQUIRED: "Register is required",
         }
     },
     ar: {
@@ -899,6 +908,15 @@ export const Labels = {
             TRANSACTION_DATE: "تاريخ المعاملة",
             TRANSACTION_DATE_REQUIRED: "تاريخ المعاملة مطلوب",
             SUBJECT_TYPE_REQUIRED: "نوع الموضوع مطلوب",
+            TRANSACTION_REGISTERS: "سجلات المعاملات",
+            TRANSACTION_REGISTER: "سجل المعاملة",
+            ADD_TRANSACTION_REGISTER: "إضافة سجل معاملة",
+            EDIT_TRANSACTION_REGISTER: "تعديل سجل معاملة",
+            ENTER_TRANSACTION_REGISTER_DETAILS: "أدخل تفاصيل سجل المعاملة",
+            REGISTER_TYPE: "نوع السجل",
+            REGISTER_TYPE_REQUIRED: "نوع السجل مطلوب",
+            REGISTER: "سجل",
+            REGISTER_REQUIRED: "السجل مطلوب",
         }
     }
 } as const;

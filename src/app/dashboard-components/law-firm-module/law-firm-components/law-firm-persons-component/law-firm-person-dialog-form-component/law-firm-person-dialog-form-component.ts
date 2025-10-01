@@ -18,8 +18,8 @@ export class LawFirmPersonDialogFormComponent  extends BaseDialogFormComponent<L
     protected override dialogRef: MatDialogRef<LawFirmPersonDialogFormComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: LawFirmPersonDto,
     override service: LawFirmPersonService,
-    protected override cdr: ChangeDetectorRef,
-    protected override langService: LanguageService
+    override cdr: ChangeDetectorRef,
+    override langService: LanguageService
   ) {
     super(dialogRef, data, service, cdr, langService)
   }

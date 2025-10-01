@@ -1,1 +1,157 @@
-<p>transaction-view-component works!</p>
+<div class="main-container">
+
+    <!-- SECTION 1: Loading State -->
+    <div *ngIf="showLoading" class="section loading-section">
+        <div class="loading">
+            <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+        </div>
+    </div>
+
+    <!-- SECTION 2:  Header -->
+    <div *ngIf="!showLoading && transaction" class="section section-header">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-nav">
+            <a (click)="navigateToTable()" class="breadcrumb-link">
+                <mat-icon>arrow_back</mat-icon>
+                {{ label.TRANSACTION.TRANSACTIONS }}
+            </a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="current-page">{{ transaction.transactionCode | titlecase }}</span>
+        </div>
+
+        <div class="header-card">
+            <div class="profile-section">
+
+
+                <div class="profile-details">
+                    <div class="profile-name-section">
+                        <div class="name-and-badges">
+                            <h1 class="profile-name">{{ transaction.transactionCode | titlecase }}</h1>
+                            <div class="status-badges">
+                                <span class="status-badge" [ngStyle]="getStatusStyle()">
+                                    <mat-icon>{{ transaction.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    {{ transaction.status | textPipe: 'common-status' | async }}
+                                </span>
+                                <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
+                                    <mat-icon>{{ transaction.private ? 'lock' : 'public' }}</mat-icon>
+                                    {{ transaction.private | textPipe: 'private' | async }}
+                                </span>
+                            </div>
+                        </div>
+                        <!-- <div class="profile-name-arabic">{{ transaction.transactionCode | titlecase }}</div> -->
+                    </div>
+
+                    <!-- <div class="meta-info">
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.CODE || 'ID:' }}</span>
+                            <span class="info-value">{{ transaction.transactionCode }}</span>
+                        </div>
+                        
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="profile-action">
+                <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
+                    <mat-icon>edit</mat-icon>
+                    {{ label.COMMON.EDIT_COMPANY || 'Edit Company' }}
+                </button>
+
+                <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
+                    <mat-icon>more_vert</mat-icon>
+                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Content Tabs -->
+    <div *ngIf="!showLoading" class="section section-content">
+        <div class="tabs-container">
+            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
+                (selectedIndexChange)="selectedTab = $event">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>dashboard</mat-icon>
+                            <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-transaction-overview [transaction]="transaction"></app-transaction-overview>
+                        </div>
+                        <div class="overview-component">
+                            <app-transaction-registers [readonly]="true" [transaction]="transaction"></app-transaction-registers>
+                        </div>
+
+                    </div>
+                </mat-tab>
+
+
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>list_alt</mat-icon>
+                            <span>{{ label.TRANSACTION.TRANSACTION_REGISTERS }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-transaction-registers [readonly]="false" [transaction]="transaction"></app-transaction-registers>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>people</mat-icon>
+                            <span>{{ label.LAW_FIRM.COUNSLES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                       
+                        </div>
+                       
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>receipt_long</mat-icon>
+                            <span>{{ label.LAW_FIRM.INVOICES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>notes</mat-icon>
+                            <span>{{ label.COMMON.NOTES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-shared-register-note-table [registersIdn]="transactionId"
+                                [registersIdc]="idc"></app-shared-register-note-table>
+
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>
