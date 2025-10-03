@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
+import { EntityIDc } from '../../../../enums/entity-idc';
 
 @Component({
   selector: 'app-transaction-registers',
@@ -22,6 +23,7 @@ import { MenuService } from '../../../../services/menu-service';
 })
 export class TransactionRegistersComponent extends TableFormComponent<TransactionRegister> {
 
+  @Input() registerTypes?: { idc: string, name: string } [] ;
   @Input() transaction!: TransactionDto;
   @Input() readonly = false;
   override params: GetTransactionRegisterQuery = {
@@ -53,8 +55,15 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
 
   override ngOnInit(): void {
     this.params.transactionId = this.transaction.id;
+    this.params.registerIdcs = this.registerTypes?.map(rt => rt.idc);
     super.ngOnInit();
-
+    if(!this.registerTypes){
+      this.registerTypes = [
+        { idc: EntityIDc.Company, name: this.label.COMPANY.COMPANY },
+        { idc: EntityIDc.Person, name: this.label.PERSON.PERSON },
+        { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
+      ];
+    }
 
   }
 
@@ -64,6 +73,7 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
       { 
         key: 'registerIdc',
         label: this.label.TRANSACTION.REGISTER_TYPE,
+        sort: true,
         keysPipes:[
           { key: 'registerIdc' , pipes: ['register-type'] },
           { key: 'primaryRegister' , pipes: ['primary'] }
@@ -73,14 +83,17 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
       {
         key: 'registerId',
         label: this.label.TRANSACTION.REGISTER,
-        pipes: ['person-or-company'],
+        sort: true,
+        pipes: ['register'],
         compareKey: 'registerIdc',
-      },
-      {
-        key: "action",
-        label: this.label.COMMON.ACTIONS
       }
     ];
+
+    if (!this.readonly) {
+      this.displayColumns.push(
+        { key: "action", label: this.label.COMMON.ACTIONS }
+      );
+    }
   }
   override fetchData() {
     this.showLoading = true;
@@ -112,7 +125,8 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
       transactionId: this.transaction.id,
       registerIdc: null,
       registerId: null,
-      primaryRegister: false
+      primaryRegister: false,
+      registerTypes: this.registerTypes
     };
     const dialogRef = this.dialog.open(TransactionRegisterDialogFormComponent, {
       disableClose: true,
@@ -127,7 +141,7 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
   }
 
   onEdit(element: TransactionRegisterDto) {
-
+    element.registerTypes = this.registerTypes;
     const dialogRef = this.dialog.open(TransactionRegisterDialogFormComponent, {
       disableClose: true,
       data: element

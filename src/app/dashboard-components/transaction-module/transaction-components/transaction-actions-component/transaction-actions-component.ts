@@ -1,37 +1,35 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { TransactionAction } from '../../../../models/transaction-models/transaction-action/transaction-action';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { PropertyOwner } from '../../../../models/property-models/property-owner/property-owner';
-import { PropertyDTO } from '../../../../models/property-models/property/dtos/propery-dto';
-import { GetPropertyOwnerQuery } from '../../../../models/property-models/property-owner/params/get-property-owner-query';
-import { PropertyOwnerDTO } from '../../../../models/property-models/property-owner/dtos/property-owner-dto';
+import { TransactionDto } from '../../../../models/transaction-models/transaction/dtos/transaction-dto';
+import { GetTransactionActionParam } from '../../../../models/transaction-models/transaction-action/params/get-transaction-action-param';
+import { TransactionActionDto } from '../../../../models/transaction-models/transaction-action/dtos/transaction-dto';
 import { PaginateRsult } from '../../../../models/paginate-result';
-import { PropertyOwnerService } from '../../../../services/property-services/property-owner-service';
+import { TransactionActionService } from '../../../../services/transaction-services/transaction-action-service';
+import { TransactionActionsDialogFormComponent } from './transaction-actions-dialog-form-component/transaction-actions-dialog-form-component';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EntityIDc } from '../../../../enums/entity-idc';
-import { PropertyLinkDTO } from '../../../../models/property-models/property-link/dtos/property-link-dto';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
-import { PropertyLinkDialogFormComponent } from '../property-links-component/property-link-dialog-form-component/property-link-dialog-form-component';
-import { PropertyOwnerDialogFormComponent } from './property-owner-dialog-form-component/property-owner-dialog-form-component';
+import { TransactionActionViewDialogComponent } from './transaction-action-view-dialog-component/transaction-action-view-dialog-component';
 
 @Component({
-  selector: 'app-property-owners',
+  selector: 'app-transaction-actions',
   standalone: false,
-  templateUrl: './property-owners-component.html',
+  templateUrl: './transaction-actions-component.html',
   styleUrls: ['../../../_shared/styles/table-style.scss']
 })
-export class PropertyOwnersComponent extends TableFormComponent<PropertyOwner> {
+export class TransactionActionsComponent  extends TableFormComponent<TransactionAction> {
 
-  @Input() property!: PropertyDTO;
-  override params: GetPropertyOwnerQuery = {
+  @Input() transaction!: TransactionDto;
+  override params: GetTransactionActionParam = {
     page: 0,
     pageSize: 10,
-    propertyId: 0
+    transactionId: 0
   };
-  override data: PaginateRsult<PropertyOwnerDTO> = {
+  override data: PaginateRsult<TransactionActionDto> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,
@@ -40,7 +38,7 @@ export class PropertyOwnersComponent extends TableFormComponent<PropertyOwner> {
   };
 
   constructor(
-    override service: PropertyOwnerService,
+    override service: TransactionActionService,
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
@@ -54,46 +52,47 @@ export class PropertyOwnersComponent extends TableFormComponent<PropertyOwner> {
   }
 
   override ngOnInit(): void {
-    this.params.propertyId = this.property.id;
+    this.params.transactionId = this.transaction.id;
     super.ngOnInit();
-
-
 
   }
 
   override setDisplayColumns() {
     this.displayColumns = [
+
       {
-        key: "registerIdn",
+        key: "id",
+        label: this.label.COMMON.ID,
+      },
+      { 
+        key: 'personId',
         label: this.label.PROPERTY.OWNER,
-        pipes: ["register"],
-        compareKey: "registerIdc"
+        pipes: ['person']
       },
       {
-        key: "relation",
-        label: this.label.PROPERTY.RELATION,
-        pipes: ['property-owner-relation']
+        key: 'description',
+        label: this.label.COMMON.DESCRIPTION,
       },
       {
-        key: "ownStartDate",
-        label: this.label.COMMON.START_DATE,
+        key: 'dueDate',
+        label: this.label.TRANSACTION.DUE_DATE,
         pipes: ['date']
       },
       {
-        key: "ownFinishDate",
-        label: this.label.COMMON.END_DATE,
+        key: 'closedDate',
+        label: this.label.TRANSACTION.CLOSED_DATE,
         pipes: ['date']
       },
-      {
-        key: "ownActive",
-        label: this.label.COMMON.ACTIVE,
-        pipes: ['active']
+      { 
+        key: 'actionStatus',
+        label: this.label.COMMON.STATUS,
       },
       {
-        key: "action",
+        key: "action", 
         label: this.label.COMMON.ACTIONS
       }
     ];
+
   }
   override fetchData() {
     this.showLoading = true;
@@ -120,18 +119,17 @@ export class PropertyOwnersComponent extends TableFormComponent<PropertyOwner> {
 
 
   onAddNew() {
-    let element: PropertyOwnerDTO = {
+    let element: TransactionActionDto = {
       id: 0,
-      registerIdc: null,
-      registerIdn: null,
-      propertyId: this.property.id,
-      ownActive: false,
-      ownStartDate: null,
-      ownFinishDate: null,
-      relation: null,
-      remarks: null
+      transactionId: this.transaction.id,
+      personId: null,
+      time: null,
+      description: '',
+      dueDate: null,
+      closedDate: null,
+      files: [],
     };
-    const dialogRef = this.dialog.open(PropertyOwnerDialogFormComponent, {
+    const dialogRef = this.dialog.open(TransactionActionsDialogFormComponent, {
       disableClose: true,
       data: element
     });
@@ -143,9 +141,8 @@ export class PropertyOwnersComponent extends TableFormComponent<PropertyOwner> {
     })
   }
 
-  onEdit(element: PropertyOwnerDTO) {
-
-    const dialogRef = this.dialog.open(PropertyOwnerDialogFormComponent, {
+  onEdit(element: TransactionActionDto) {
+    const dialogRef = this.dialog.open(TransactionActionsDialogFormComponent, {
       disableClose: true,
       data: element
     });
@@ -173,6 +170,22 @@ export class PropertyOwnersComponent extends TableFormComponent<PropertyOwner> {
       })
     })
   }
+
+  viewFiles(row: TransactionActionDto) {
+  if (!row.files || row.files.length === 0) {
+    this.errorHandler.handleError('No files available for this transaction action.');
+    return;
+  }
+
+  // Option 1: Open a dialog (Angular Material example)
+  this.dialog.open(TransactionActionViewDialogComponent, {
+    width: '600px',
+    data: { files: row.files }
+  });
+
+  
+}
+
 
 
 

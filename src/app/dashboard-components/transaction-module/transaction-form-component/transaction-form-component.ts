@@ -7,12 +7,16 @@ import { DynamicListService } from '../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LanguageService } from '../../../services/language-service';
 import { environment } from '../../../../environment/environment';
+import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
 
 @Component({
   selector: 'app-transaction-form',
   standalone: false,
   templateUrl: './transaction-form-component.html',
-  styleUrl: './transaction-form-component.scss'
+  styleUrl: './transaction-form-component.scss',
+  providers: [
+      ...DATE_FORMAT_PROVIDERS
+    ]
 })
 export class TransactionFormComponent  extends BaseFormComponent {
 

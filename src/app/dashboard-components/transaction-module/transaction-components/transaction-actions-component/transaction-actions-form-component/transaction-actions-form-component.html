@@ -1,0 +1,128 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>assignment</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{ element.id ? (label.TRANSACTION.EDIT_FOLLOW_UP || 'Edit') : (label.TRANSACTION.ADD_FOLLOW_UP ||
+                    'Add') }}
+                </h2>
+                <p class="dialog-subtitle">{{ label.TRANSACTION.ENTER_FOLLOW_UP_DETAILS }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <form [formGroup]="formGroup" class="form-container row w-100">
+
+            <!-- Description -->
+            <div class="form-group">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.COMMON.DESCRIPTION }}</mat-label>
+                    <textarea matInput formControlName="description" required
+                        [placeholder]="label.COMMON.DESCRIPTION || 'Enter Description'"></textarea>
+                    <mat-error *ngIf="formGroup.get('description')?.hasError('required')">
+                        {{ label.COMMON.DESCRIPTION_REQUIRED || 'Description is required' }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- Person -->
+            <div class="form-group" *ngIf="loadPersonsFn">
+                <select-auto-complete [controlName]="'personId'" [fnGet]="loadPersonsFn" [formGroup]="formGroup"
+                    [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'" [keyToShow]="'personEnglishName'"
+                    [valueKey]="'id'">
+                </select-auto-complete>
+                <mat-error *ngIf="formGroup.get('personId')?.hasError('required')">
+                    {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
+                </mat-error>
+            </div>
+
+            <!-- Time -->
+            <div class="form-group">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.MINUTES }}</mat-label>
+                    <input matInput formControlName="time" type="number"
+                        [placeholder]="label.TRANSACTION.MINUTES || 'Enter Minutes'">
+                </mat-form-field>
+            </div>
+
+            <!-- Due Date -->
+            <div class="form-group">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.DUE_DATE }}</mat-label>
+                    <input matInput formControlName="dueDate" [matDatepicker]="dueDatePicker" required
+                        [placeholder]="label.TRANSACTION.DUE_DATE || 'DD/MM/YYYY'">
+                    <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dueDatePicker></mat-datepicker>
+                    <mat-error *ngIf="formGroup.get('dueDate')?.hasError('required')">
+                        {{ label.TRANSACTION.DUE_DATE_REQUIRED || 'Due Date is required' }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- Closed Date -->
+            <div class="form-group">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.CLOSED_DATE }}</mat-label>
+                    <input matInput formControlName="closedDate" [matDatepicker]="closedDatePicker"
+                        [placeholder]="label.TRANSACTION.CLOSED_DATE || 'DD/MM/YYYY'">
+                    <mat-datepicker-toggle matSuffix [for]="closedDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #closedDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <!-- File Upload -->
+            <div class="form-group">
+                <!-- Hidden file input -->
+                <input type="file" multiple hidden #fileInput accept="image/*,.pdf" (change)="onFileChange($event)">
+
+                <!-- Upload button -->
+                <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)">
+                    <mat-icon>attach_file</mat-icon>
+                    {{ label.COMMON.UPLOAD_FILE || 'Upload File' }}
+                </button>
+
+                <!-- Uploaded files list -->
+                <div formArrayName="files" class="mt-2">
+                    <div *ngFor="let fileGroup of files.controls; let i = index" [formGroupName]="i"
+                        class="d-flex align-items-center mb-2">
+                        <mat-form-field appearance="outline" class="flex-grow-1">
+                            <input matInput [value]="fileGroup.get('fileName')?.value" readonly
+                                (click)="previewFile(i)">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="primary" type="button" (click)="previewFile(i)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" type="button" (click)="downloadFile(i)">
+                            <mat-icon>download</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" type="button" (click)="removeFileControl(i, fileGroup)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="saveTransactionAction()"></app-save-button>
+    </div>
+</div>

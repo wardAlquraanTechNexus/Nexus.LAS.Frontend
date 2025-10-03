@@ -1,0 +1,46 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>assignment</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{ (label.TRANSACTION.FOLLOW_UP_FILES)}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.TRANSACTION.FOLLOW_UP_FILES }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div *ngIf="data.files?.length; else noFiles">
+            <div *ngFor="let file of data.files" class="file-item d-flex align-items-center mb-2">
+                <span class="file-name flex-grow-1">{{ file.fileName }}</span>
+                <button mat-icon-button color="primary" (click)="previewFile(file)" matTooltip="Preview">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" (click)="downloadFile(file)" matTooltip="Download">
+                    <mat-icon>download</mat-icon>
+                </button>
+            </div>
+        </div>
+        <ng-template #noFiles>
+            <p>No files available.</p>
+        </ng-template>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+    </div>
+</div>

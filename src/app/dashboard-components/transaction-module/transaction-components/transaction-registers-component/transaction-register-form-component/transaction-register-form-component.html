@@ -28,8 +28,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.COMMON.REGISTER_TYPE || 'Type' }}</mat-label>
                         <mat-select formControlName="registerIdc" required>
-                            <mat-option [value]="EntityIDc.Person">{{ label.COMMON.PERSON || 'Person' }}</mat-option>
-                            <mat-option [value]="EntityIDc.Company">{{ label.COMMON.COMPANY || 'Company' }}</mat-option>
+                            <mat-option *ngFor="let type of element.registerTypes" [value]="type.idc">{{ type.name }}</mat-option>
                         </mat-select>
                         <mat-error *ngIf="formGroup.get('registerIdc')?.hasError('required')">
                             {{ label.COMMON.REGISTER_TYPE_REQUIRED || 'Register type is required' }}
@@ -66,6 +65,22 @@
                         {{ label.COMPANY.COMPANY_REQUIRED || 'Company is required' }}
                     </mat-error>
                 </div>
+
+                <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.LawFirm && loadLawFirmsFn">
+                    <select-auto-complete
+                        [controlName]="'registerId'" 
+                        [fnGet]="loadLawFirmsFn" 
+                        [formGroup]="formGroup"
+                        [isRequired]="true" 
+                        [label]="label.LAW_FIRM.LAW_FIRM " 
+                        [keyToShow]="'englishName'"
+                        [valueKey]="'id'">
+                    </select-auto-complete>
+                    <mat-error *ngIf="formGroup.get('registerId')?.hasError('required')">
+                        {{ label.LAW_FIRM.LAW_FIRM_REQUIRED || 'Law Firm is required' }}
+                    </mat-error>
+                </div>
+
 
 
                 <div class="nexus-switch-container">

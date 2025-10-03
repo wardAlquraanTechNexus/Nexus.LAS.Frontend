@@ -13,6 +13,7 @@ import { CompanyLicenseStatus } from '../enums/company-license-status';
 import { NumberFormatConfigService } from '../services/number-format-config.service';
 import { CommonStatus } from '../enums/common-status';
 import { CompanyService } from '../services/company-services/company-service';
+import { LawFirmService } from '../services/law-firm-services/law-firm-service';
 
 @Pipe({
   name: 'tableDataPipe',
@@ -24,8 +25,9 @@ export class TableDataPipe implements PipeTransform {
     private dlService: DynamicListService,
     private personService: PersonService,
     private companyService: CompanyService,
-    private languageService: LanguageService, // Inject LanguageService
-    private numberFormatConfig: NumberFormatConfigService // Inject NumberFormatConfigService
+    private lawFirmService: LawFirmService,
+    private languageService: LanguageService,
+    private numberFormatConfig: NumberFormatConfigService
   ) { }
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
@@ -260,7 +262,7 @@ export class TableDataPipe implements PipeTransform {
             })
           );
 
-        case 'person-or-company':
+        case 'register':
           if (element[column.compareKey!] == EntityIDc.Person) {
             return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
               map(list => {
@@ -269,13 +271,22 @@ export class TableDataPipe implements PipeTransform {
               })
             );
 
-          } else {
+          } else if (element[column.compareKey!] == EntityIDc.Company) {
             return this.companyService.getAllCompanies({ pageSize: 100, page: 1 }).pipe(
               map(list => {
                 const found = list.find(x => x.id == value);
                 return found?.companyEnglishName || "N/A"
               })
             );
+          } else if (element[column.compareKey!] == EntityIDc.LawFirm) {
+            return this.lawFirmService.getAllLawFirms({ pageSize: 100, page: 1 }).pipe(
+              map(list => {
+                const found = list.find(x => x.id == value);
+                return found?.englishName || "N/A"
+              })
+            );
+          }else{
+            return of('N/A');
           }
         case 'capital-currency':
           const currencyDecimals = column.decimals ?? this.numberFormatConfig.getConfig().currencyDecimals;
@@ -299,6 +310,7 @@ export class TableDataPipe implements PipeTransform {
         case 'register-type':
           if (value === EntityIDc.Person) return of(getLabel('COMMON.PERSON') ?? 'Person');
           if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
+          if (value === EntityIDc.LawFirm) return of(getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm');
           return of(value?.toString() ?? '');
 
         case 'number-separator':

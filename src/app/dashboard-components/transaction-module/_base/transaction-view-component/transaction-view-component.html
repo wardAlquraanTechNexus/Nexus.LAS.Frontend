@@ -102,7 +102,8 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-transaction-registers [readonly]="false" [transaction]="transaction"></app-transaction-registers>
+                            <app-transaction-registers [readonly]="false" [transaction]="transaction"
+                                [registerTypes]="companyPersonRegisterTypes"></app-transaction-registers>
                         </div>
                     </div>
                 </mat-tab>
@@ -110,27 +111,29 @@
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
-                            <mat-icon>people</mat-icon>
-                            <span>{{ label.LAW_FIRM.COUNSLES }}</span>
+                            <mat-icon>insert_drive_file</mat-icon>
+                            <span>{{ label.TRANSACTION.OTFS }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                       
+                            <app-transaction-registers [readonly]="false" [transaction]="transaction"
+                                [registerTypes]="lawFirmRegisterTypes"></app-transaction-registers>
                         </div>
-                       
+
                     </div>
                 </mat-tab>
 
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
-                            <mat-icon>receipt_long</mat-icon>
-                            <span>{{ label.LAW_FIRM.INVOICES }}</span>
+                            <mat-icon>assignment</mat-icon>
+                            <span>{{ label.TRANSACTION.FOLLOW_UPS }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
+                            <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
                         </div>
                     </div>
                 </mat-tab>

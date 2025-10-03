@@ -3,6 +3,7 @@ import { DOCUMENT } from "@angular/core";
 export const Labels = {
     en: {
         PERSON: {
+            PERSON: "Person",
             PERSONS: "Persons",
             ALL_PERSONS: "All Persons",
             ACTIVE_PERSONS: "Active Persons",
@@ -42,6 +43,7 @@ export const Labels = {
         },
 
         COMPANY: {
+            COMPANY: "Company",
             CODE: "Code",
             SELECT_COMPANY_ACTIVITY: "Select Company Activity",
             COMPANY_NAME: "Company Name",
@@ -431,6 +433,7 @@ export const Labels = {
             EXPERTISE_NAME: "Expertise Name",
             EXPERTISE_NAME_REQUIRED: "Expertise Name is required",
             EST_YEAR_DIGITS_ONLY: "Year must contain only digits",
+            LAW_FIRM_REQUIRED: "Law Firm is required",
         },
         TRANSACTION: {
             ALL_TRANSACTIONS: "All Transactions",
@@ -455,10 +458,23 @@ export const Labels = {
             REGISTER_TYPE_REQUIRED: "Register Type is required",
             REGISTER: "Register",
             REGISTER_REQUIRED: "Register is required",
+            OTFS: "OTFs",
+            FOLLOW_UPS: "Follow Ups",
+            FOLLOW_UP: "Follow Up",
+            ADD_FOLLOW_UP: "Add Follow Up",
+            EDIT_FOLLOW_UP: "Edit Follow Up",
+            ENTER_FOLLOW_UP_DETAILS: "Enter Follow Up Details",
+            DUE_DATE: "Due Date",
+            CLOSED_DATE: "Closed Date",
+            TIME: "Time",
+            MINUTES: "Minutes",
+            DUE_DATE_REQUIRED: "Due Date is required",
+            FOLLOW_UP_FILES: "Follow Up Files",
         }
     },
     ar: {
         PERSON: {
+            PERSON: "شخص",
             PERSONS: "الأشخاص",
             ALL_PERSONS: "جميع الأشخاص",
             ACTIVE_PERSONS: "الأشخاص النشطون",
@@ -500,7 +516,7 @@ export const Labels = {
 
         COMPANY: {
             CODE: "الرمز",
-
+            COMPANY: "شركة",
             NAME_EN: "الاسم بالإنجليزية",
             ENTER_COMPANY_DETAILS: "أدخل تفاصيل الشركة",
             NAME_AR: "الاسم بالعربية",
@@ -893,6 +909,7 @@ export const Labels = {
             EXPERTISE_NAME: "اسم الخبرة",
             EXPERTISE_NAME_REQUIRED: "اسم الخبرة مطلوب",
             EST_YEAR_DIGITS_ONLY: "السنة يجب أن تحتوي على أرقام فقط",
+            LAW_FIRM_REQUIRED: "مكتب المحاماة مطلوب",
         },
         TRANSACTION: {
             TRANSACTIONS: "المعاملات",
@@ -917,6 +934,18 @@ export const Labels = {
             REGISTER_TYPE_REQUIRED: "نوع السجل مطلوب",
             REGISTER: "سجل",
             REGISTER_REQUIRED: "السجل مطلوب",
+            OTFS: "OTFs",
+            FOLLOW_UPS: "متابعات",
+            FOLLOW_UP: "متابعة",
+            ADD_FOLLOW_UP: "إضافة متابعة",
+            EDIT_FOLLOW_UP: "تعديل متابعة",
+            ENTER_FOLLOW_UP_DETAILS: "أدخل تفاصيل المتابعة",
+            DUE_DATE: "تاريخ الاستحقاق",
+            CLOSED_DATE: "تاريخ الإغلاق",
+            TIME: "الوقت",
+            MINUTES: "الدقائق",
+            DUE_DATE_REQUIRED: "تاريخ الاستحقاق مطلوب",
+            FOLLOW_UP_FILES: "ملفات المتابعة",
         }
     }
 } as const;

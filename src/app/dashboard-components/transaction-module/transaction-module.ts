@@ -11,6 +11,10 @@ import { TransactionOverviewComponent } from './transaction-components/transacti
 import { TransactionRegisterFormComponent } from './transaction-components/transaction-registers-component/transaction-register-form-component/transaction-register-form-component';
 import { TransactionRegisterDialogFormComponent } from './transaction-components/transaction-registers-component/transaction-register-dialog-form-component/transaction-register-dialog-form-component';
 import { TransactionRegistersComponent } from './transaction-components/transaction-registers-component/transaction-registers-component';
+import { TransactionActionsComponent } from './transaction-components/transaction-actions-component/transaction-actions-component';
+import { TransactionActionsDialogFormComponent } from './transaction-components/transaction-actions-component/transaction-actions-dialog-form-component/transaction-actions-dialog-form-component';
+import { TransactionActionsFormComponent } from './transaction-components/transaction-actions-component/transaction-actions-form-component/transaction-actions-form-component';
+import { TransactionActionViewDialogComponent } from './transaction-components/transaction-actions-component/transaction-action-view-dialog-component/transaction-action-view-dialog-component';
 
 
 @NgModule({
@@ -22,7 +26,11 @@ import { TransactionRegistersComponent } from './transaction-components/transact
     TransactionOverviewComponent,
     TransactionRegistersComponent,
     TransactionRegisterFormComponent,
-    TransactionRegisterDialogFormComponent
+    TransactionRegisterDialogFormComponent,
+    TransactionActionsComponent,
+    TransactionActionsDialogFormComponent,
+    TransactionActionsFormComponent,
+    TransactionActionViewDialogComponent
 
   ],
   imports: [

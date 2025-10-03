@@ -4,4 +4,6 @@ export interface FileDto {
     dataFile?: Uint8Array | null;
     imageUrl: any;
     file:any;
+    fileId?: number | null;
+    data?: string | null;
 }

@@ -12,17 +12,20 @@ import { GetCompanyDto } from '../../../../../models/company-models/get-company-
 import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/get-person-dto';
 import { CompanyService } from '../../../../../services/company-services/company-service';
 import { PersonService } from '../../../../../services/person-services/person-service';
+import { LawFirmService } from '../../../../../services/law-firm-services/law-firm-service';
+import { LawFirmDTO } from '../../../../../models/law-firm-models/law-firm/dtos/law-firm-dto';
 
 @Component({
   selector: 'app-transaction-register-form',
   standalone: false,
   templateUrl: './transaction-register-form-component.html',
-  styleUrls: ['../../../../_shared/styles/coomon-form-style.scss']
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class TransactionRegisterFormComponent extends BaseFormComponent {
 
   loadPersonssFn!: (search: string) => Observable<GetPersonsDTO[]>;
   loadCompaniesFn!: (search: string) => Observable<GetCompanyDto[]>;
+  loadLawFirmsFn!: (search: string) => Observable<LawFirmDTO[]>;
 
   EntityIDc = EntityIDc
 
@@ -35,6 +38,7 @@ export class TransactionRegisterFormComponent extends BaseFormComponent {
     protected override errorHandler: ErrorHandlerService,
     private personService: PersonService,
     private companyService: CompanyService,
+    private lawFirmService: LawFirmService,
     override langService: LanguageService,
     private dlService: DynamicListService,
 
@@ -49,6 +53,7 @@ export class TransactionRegisterFormComponent extends BaseFormComponent {
     super.ngOnInit();
     this.loadPersonssFn = (search: string) => this.loadPersons(search);
     this.loadCompaniesFn = (search: string) => this.loadCompanies(search);
+    this.loadLawFirmsFn = (search: string) => this.loadLawFirms(search);
 
     this.formGroup.get('registerIdc')?.valueChanges.subscribe(() => {
       this.formGroup.get('registerId')?.reset();
@@ -74,6 +79,18 @@ export class TransactionRegisterFormComponent extends BaseFormComponent {
       page: 0,
       pageSize: 100
     }).pipe(map(x => x.collection))
+  }
+
+  loadLawFirms(search: string) {
+    return this.lawFirmService.getAllLawFirms({
+      searchBy: search,
+      page: 0,
+      pageSize: 100
+   }).pipe(
+      map(res=> res.filter(p=>
+        !search || p.englishName && p.englishName.toLowerCase().includes(search.toLowerCase())
+      ))
+    )
   }
 
 }

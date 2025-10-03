@@ -16,10 +16,14 @@ import { TransactionDialogFormComponent } from '../../transaction-dialog-form-co
   templateUrl: './transaction-view-component.html',
   styleUrl: './transaction-view-component.scss'
 })
-export class TransactionViewComponent  implements OnInit {
+export class TransactionViewComponent implements OnInit {
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
-  }
+  };
+
+  companyPersonRegisterTypes?: { idc: string, name: string }[];
+
+  lawFirmRegisterTypes?: { idc: string, name: string }[];
 
   currentLang: LanguageCode = 'en';
 
@@ -49,12 +53,20 @@ export class TransactionViewComponent  implements OnInit {
       if (params['id']) {
         this.transactionId = parseInt(params['id']);
         this.getTransaction();
-      }else{
+      } else {
         this.backToTable();
       }
     });
     this.langService.language$.subscribe(lang => {
       this.applyLanguage(lang);
+      this.companyPersonRegisterTypes = [
+        { idc: EntityIDc.Company, name: this.label.COMPANY.COMPANY },
+        { idc: EntityIDc.Person, name: this.label.PERSON.PERSON },
+      ];
+
+      this.lawFirmRegisterTypes = [
+        { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
+      ];
     });
 
   }
@@ -62,15 +74,15 @@ export class TransactionViewComponent  implements OnInit {
   private getTransaction() {
     this.showLoading = true;
     this.service.getDtoById(this.transactionId)
-    .subscribe({
-      next: (res => {
-        this.transaction = res;
-        this.showLoading = false;
-        this.cdr.markForCheck();
-      }), error: (err => {
-        this.showLoading = false;
-      })
-    });
+      .subscribe({
+        next: (res => {
+          this.transaction = res;
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+        })
+      });
   }
 
   navigateToTable() {
@@ -140,16 +152,16 @@ export class TransactionViewComponent  implements OnInit {
     });
   }
 
-   backToTable(){
+  backToTable() {
     this.transactionId = 0;
     this.router.navigate([], {
-      relativeTo: this.route, 
-      queryParams: {  }, 
+      relativeTo: this.route,
+      queryParams: {},
     });
   }
 
 
- 
+
 
 }
 
