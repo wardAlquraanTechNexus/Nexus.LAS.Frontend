@@ -1,0 +1,4 @@
+<app-active-public-transactions-table-component *ngIf="!showLoading && !transactionId"></app-active-public-transactions-table-component>
+<app-transaction-view *ngIf="!showLoading && transactionId" 
+    (backToTableEmit)="backToTable()">
+</app-transaction-view>

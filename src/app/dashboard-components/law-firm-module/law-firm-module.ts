@@ -26,6 +26,7 @@ import { ActivePublicLawFirmsComponent } from './active-public-law-firms-compone
 import { ActiveLawFirmsTableComponent } from './active-law-firms-component/active-law-firms-table-component/active-law-firms-table-component';
 import { ActivePrivateLawFirmsTableComponent } from './active-private-law-firms-component/active-private-law-firms-table-component/active-private-law-firms-table-component';
 import { ActivePublicLawFirmsTableComponent } from './active-public-law-firms-component/active-public-law-firms-table-component/active-public-law-firms-table-component';
+import { LawFirmInvoicesComponent } from './law-firm-components/law-firm-invoices-component/law-firm-invoices-component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ActivePublicLawFirmsTableComponent } from './active-public-law-firms-co
     LawFirmCounselDialogFormComponent,
     LawFirmExpertisesComponent,
     LawFirmExpertiseFormComponent,
-    LawFirmExpertiseDialogFormComponent
+    LawFirmExpertiseDialogFormComponent,
+    LawFirmInvoicesComponent
   ],
   imports: [
     CommonModule,

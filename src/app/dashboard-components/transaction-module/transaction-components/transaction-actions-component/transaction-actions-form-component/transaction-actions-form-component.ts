@@ -11,6 +11,7 @@ import { map, Observable } from 'rxjs';
 import { base64ToBlob, downloadBlob, downloadBlobFile } from '../../../../_shared/shared-methods/downloadBlob';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 import { FileDto } from '../../../../../models/base/file-dto';
+import { TransactionActionStatus } from '../../../../../models/transaction-models/transaction-action/enums/transaction-action-status';
 
 @Component({
   selector: 'app-transaction-actions-form',
@@ -25,6 +26,7 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
   @Input() element!: TransactionActionDto;
   fileIdsToRemove: number[] = [];
   loadPersonsFn?: (search: string) => Observable<GetPersonsDTO[]>;
+  statuses: any[] = [];
 
   constructor(
     protected override fb: FormBuilder,
@@ -50,6 +52,14 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
 
     // Load existing files if any
     this.element?.files?.forEach(f => this.addFileFromDto(f));
+
+    this.statuses = Object.keys(TransactionActionStatus)
+      .filter(k => isNaN(Number(k))) // keep only names
+      .map(k => ({
+        value: k,
+        label: k
+      }));
+
   }
 
   get files(): FormArray {
@@ -156,6 +166,9 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
     formData.append('description', formValue.description || '');
     formData.append('personId', formValue.personId?.toString() || '');
     formData.append('time', formValue.time?.toString() || '');
+    if(this.element.id){
+      formData.append('actionStatus', formValue.actionStatus);
+    }
 
     const dueDate = formValue.dueDate ? new Date(formValue.dueDate) : null;
     const closedDate = formValue.closedDate ? new Date(formValue.closedDate) : null;

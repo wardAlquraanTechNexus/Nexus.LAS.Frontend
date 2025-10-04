@@ -285,10 +285,18 @@ export class TableDataPipe implements PipeTransform {
                 return found?.englishName || "N/A"
               })
             );
-          }else{
+          } else {
             return of('N/A');
           }
-        case 'capital-currency':
+
+        case 'law-firm':
+          return this.lawFirmService.getAllLawFirms({ pageSize: 100, page: 1 }).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found?.englishName || "N/A"
+            })
+          );
+        case 'currency':
           const currencyDecimals = column.decimals ?? this.numberFormatConfig.getConfig().currencyDecimals;
           if (column.compareKey) {
             return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(

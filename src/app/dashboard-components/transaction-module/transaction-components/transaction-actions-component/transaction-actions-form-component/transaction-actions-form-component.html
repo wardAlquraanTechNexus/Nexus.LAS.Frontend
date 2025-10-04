@@ -80,6 +80,19 @@
                 </mat-form-field>
             </div>
 
+            <div *ngIf="element.id" class="col-12">
+                <div class="nexus-filter-field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="actionStatus">
+                            <mat-option *ngFor="let status of statuses" [value]="status.value">
+                                {{ status.label }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
             <!-- File Upload -->
             <div class="form-group">
                 <!-- Hidden file input -->

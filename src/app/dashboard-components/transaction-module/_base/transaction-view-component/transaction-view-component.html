@@ -141,6 +141,20 @@
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
+                            <mat-icon>request_quote</mat-icon>
+                            <span>{{ label.TRANSACTION.INVOICES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-transaction-invoices [transaction]="transaction"></app-transaction-invoices>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
                             <mat-icon>notes</mat-icon>
                             <span>{{ label.COMMON.NOTES }}</span>
                         </div>

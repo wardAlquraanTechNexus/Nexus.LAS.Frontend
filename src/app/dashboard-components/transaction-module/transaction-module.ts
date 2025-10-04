@@ -15,6 +15,15 @@ import { TransactionActionsComponent } from './transaction-components/transactio
 import { TransactionActionsDialogFormComponent } from './transaction-components/transaction-actions-component/transaction-actions-dialog-form-component/transaction-actions-dialog-form-component';
 import { TransactionActionsFormComponent } from './transaction-components/transaction-actions-component/transaction-actions-form-component/transaction-actions-form-component';
 import { TransactionActionViewDialogComponent } from './transaction-components/transaction-actions-component/transaction-action-view-dialog-component/transaction-action-view-dialog-component';
+import { TransactionInvoicesComponent } from './transaction-components/transaction-invoices-component/transaction-invoices-component';
+import { TransactionInvoicesFormComponent } from './transaction-components/transaction-invoices-component/transaction-invoices-form-component/transaction-invoices-form-component';
+import { TransactionInvoicesDialogFormComponent } from './transaction-components/transaction-invoices-component/transaction-invoices-dialog-form-component/transaction-invoices-dialog-form-component';
+import { ActiveTransactionsComponent } from './active-transactions-component/active-transactions-component';
+import { ActiveTransactionsTableComponent } from './active-transactions-component/active-transactions-table-component/active-transactions-table-component';
+import { ActivePrivateTransactionsComponent } from './active-private-transactions-component/active-private-transactions-component';
+import { ActivePrivateTransactionsTableComponent } from './active-private-transactions-component/active-private-transactions-table-component/active-private-transactions-table-component';
+import { ActivePublicTransactionsComponent } from './active-public-transactions-component/active-public-transactions-component';
+import { ActivePublicTransactionsTableComponent } from './active-public-transactions-component/active-public-transactions-table-component/active-public-transactions-table-component';
 
 
 @NgModule({
@@ -30,7 +39,16 @@ import { TransactionActionViewDialogComponent } from './transaction-components/t
     TransactionActionsComponent,
     TransactionActionsDialogFormComponent,
     TransactionActionsFormComponent,
-    TransactionActionViewDialogComponent
+    TransactionActionViewDialogComponent,
+    TransactionInvoicesComponent,
+    TransactionInvoicesFormComponent,
+    TransactionInvoicesDialogFormComponent,
+    ActiveTransactionsComponent,
+    ActiveTransactionsTableComponent,
+    ActivePrivateTransactionsComponent,
+    ActivePrivateTransactionsTableComponent,
+    ActivePublicTransactionsComponent,
+    ActivePublicTransactionsTableComponent
 
   ],
   imports: [

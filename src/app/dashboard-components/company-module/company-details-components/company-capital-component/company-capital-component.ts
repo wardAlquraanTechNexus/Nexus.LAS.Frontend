@@ -83,19 +83,19 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       {
         key: "nominalValueOfShare",
         label: this.langService.getLabel(this.label.COMPANY.NOMINAL_VALUE_OF_SHARE) || "Nominal Value of share",
-        pipes: ['capital-currency'],
+        pipes: ['currency'],
         compareKey: 'capitalCurrency',
         decimals: 2
       }, {
         key: "capitalAuthorized",
         label: this.langService.getLabel(this.label.COMPANY.AUTHORIZED_CAPITAL_AMOUNT) || "Authorized Capital Amount",
-        pipes: ['capital-currency'],
+        pipes: ['currency'],
         compareKey: 'capitalCurrency',
         decimals: 2
       }, {
         key: "capitalPaid",
         label: this.langService.getLabel(this.label.COMPANY.PAID_CAPITAL_AMOUNT) || "Paid",
-        pipes: ['capital-currency'],
+        pipes: ['currency'],
         compareKey: 'capitalCurrency',
         decimals: 2
       }, {

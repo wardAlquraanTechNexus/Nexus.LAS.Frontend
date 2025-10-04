@@ -1,0 +1,108 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>assignment</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{
+                    element.id ?
+                    (label.TRANSACTION.EDIT_INVOICE) :
+                    (label.TRANSACTION.ADD_INVOICE)
+                    }}
+                </h2>
+                <p class="dialog-subtitle">{{ label.TRANSACTION.ENTER_INVOICE_DETAILS }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <form [formGroup]="formGroup" class="form-container row w-100">
+
+
+            <div class="form-group" *ngIf="loadLawFirmsFn">
+                <select-auto-complete [controlName]="'lawFirmId'" [fnGet]="loadLawFirmsFn" [formGroup]="formGroup"
+                    [isRequired]="true" [label]="label.LAW_FIRM.LAW_FIRM " [keyToShow]="'englishName'"
+                    [valueKey]="'id'">
+                </select-auto-complete>
+                <mat-error *ngIf="formGroup.get('lawFirmId')?.hasError('required')">
+                    {{ label.LAW_FIRM.LAW_FIRM_REQUIRED || 'Law Firm is required' }}
+                </mat-error>
+            </div>
+
+            <div class="form-group col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.INVOICE_NUMBER }}</mat-label>
+                    <input matInput type="text" formControlName="invoice"
+                        [placeholder]="label.TRANSACTION.INVOICE_NUMBER || 'Enter Invoice Number'">
+                </mat-form-field>
+            </div>
+
+
+            <div class="form-group">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.INVOICE_DATE }}</mat-label>
+                    <input matInput formControlName="invoiceDate" [matDatepicker]="invoiceDatePicker"
+                        [placeholder]="label.TRANSACTION.INVOICE_DATE || 'DD/MM/YYYY'">
+                    <mat-datepicker-toggle matSuffix [for]="invoiceDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #invoiceDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <div class="form-group col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.AMOUNT }}</mat-label>
+                    <input matInput type="number" formControlName="amount"
+                        [placeholder]="label.TRANSACTION.AMOUNT || 'Enter Amount'">
+                </mat-form-field>
+            </div>
+
+            <div class="form-group col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.TRANSACTION.PAID }}</mat-label>
+                    <input matInput type="number" formControlName="paid"
+                        [placeholder]="label.TRANSACTION.PAID || 'Enter Paid Amount'">
+                </mat-form-field>
+            </div>
+
+            <div class="form-group col-12" *ngIf="currencyDlId">
+                <dl-select-auto-complete [controlName]="'currency'" [formGroup]="formGroup"
+                    [label]="label.TRANSACTION.INVOICE_CURRENCY" [parentId]="currencyDlId">
+                </dl-select-auto-complete>
+            </div>
+
+            <div class="form-group col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.COMMON.NOTES }}</mat-label>
+                    <input matInput type="text" formControlName="note"
+                        [placeholder]="label.COMMON.NOTES || 'Enter Notes'" required>
+                        <mat-error *ngIf="formGroup.get('note')?.hasError('required')">
+                            {{ label.COMMON.NOTES_REQUIRED || 'Notes is required' }}
+                        </mat-error>
+                </mat-form-field>
+            </div>
+
+
+
+
+
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+    </div>
+</div>
