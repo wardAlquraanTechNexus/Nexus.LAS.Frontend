@@ -1,158 +1,148 @@
 <div class="main-container">
 
     <!-- SECTION 1: Loading State -->
-    <div *ngIf="showLoading" class="section loading-section">
-        <div class="loading">
-            <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+    @if (showLoading) {
+        <div class="section loading-section">
+            <div class="loading">
+                <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+            </div>
         </div>
-    </div>
+    }
 
     <!-- SECTION 2:  Header -->
-    <div *ngIf="!showLoading && property" class="section section-header">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-nav">
-            <a (click)="navigateToTable()" class="breadcrumb-link">
-                <mat-icon>arrow_back</mat-icon>
-                {{ label.PROPERTY.REAL_EASTATES || 'Real Estates' }}
-            </a>
-            <!-- <span class="breadcrumb-separator">/</span>
-            <span class="current-page">{{ property.propertyName | titlecase }}</span> -->
-        </div>
+    @if (!showLoading && property) {
+        <div class="section section-header">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-nav">
+                <a (click)="navigateToTable()" class="breadcrumb-link">
+                    <mat-icon>arrow_back</mat-icon>
+                    {{ label.PROPERTY.REAL_EASTATES || 'Real Estates' }}
+                </a>
+            </div>
 
-        <!--  Header Card -->
-        <div class="header-card">
-            <div class="profile-section">
-                <!-- Profile Image -->
-
-
-                <!--  Details -->
-                <div class="details">
-                    <div class="name-section">
-                        <div class="name-and-badges">
-                            <h1 class="name">{{ property.code | titlecase }}</h1>
-                            <div class="status-badges">
-                                <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                    <mat-icon>{{ property.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
-                                    {{ property.status | textPipe: 'property-status' | async }}
-                                </span>
-                                <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
-                                    <mat-icon>{{ property.private ? 'lock' : 'public' }}</mat-icon>
-                                    {{ property.private | textPipe: 'private' | async }}
-                                </span>
+            <!--  Header Card -->
+            <div class="header-card">
+                <div class="profile-section">
+                    <!--  Details -->
+                    <div class="details">
+                        <div class="name-section">
+                            <div class="name-and-badges">
+                                <h1 class="name">{{ property.code | titlecase }}</h1>
+                                <div class="status-badges">
+                                    <span class="status-badge" [ngStyle]="getStatusStyle()">
+                                        <mat-icon>{{ property.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                        {{ property.status | textPipe: 'property-status' | async }}
+                                    </span>
+                                    <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
+                                        <mat-icon>{{ property.private ? 'lock' : 'public' }}</mat-icon>
+                                        {{ property.private | textPipe: 'private' | async }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="meta-info">
+                            <div class="info-item">
+                                <span class="info-label">{{ label.COMMON.CODE || 'ID:' }}</span>
+                                <span class="info-value">{{ property.code }}</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="meta-info">
-                        <div class="info-item">
-                            <span class="info-label">{{ label.COMMON.CODE || 'ID:' }}</span>
-                            <span class="info-value">{{ property.code }}</span>
-                        </div>
-                        
-                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="actions">
+                    <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
+                        <mat-icon>edit</mat-icon>
+                        {{ label.COMMON.EDIT || 'Edit' }}
+                    </button>
+                    <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
+                        <mat-icon>more_vert</mat-icon>
+                        {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
+                    </button>
+                    <mat-menu #moreMenu="matMenu">
+                        <!-- Add menu items here if needed -->
+                    </mat-menu>
                 </div>
             </div>
-
-            <!-- Action Buttons -->
-            <div class="actions">
-                <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
-                    <mat-icon>edit</mat-icon>
-                    {{ label.COMMON.EDIT || 'Edit' }}
-                </button>
-
-                <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
-                    <mat-icon>more_vert</mat-icon>
-                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
-                </button>
-
-                <mat-menu #moreMenu="matMenu">
-                    <!-- Add menu items here if needed -->
-                </mat-menu>
-            </div>
         </div>
-    </div>
+    }
 
     <!-- SECTION 3: Content Tabs -->
-    <div *ngIf="!showLoading" class="section section-content">
-        <div class="tabs-container">
-            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
-                (selectedIndexChange)="selectedTab = $event">
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>dashboard</mat-icon>
-                            <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
+    @if (!showLoading) {
+        <div class="section section-content">
+            <div class="tabs-container">
+                <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
+                    (selectedIndexChange)="selectedTab = $event">
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-label">
+                                <mat-icon>dashboard</mat-icon>
+                                <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
+                            </div>
+                        </ng-template>
+                        <div class="tab-content">
+                            <div class="overview-component">
+                                <app-property-overview [property]="property"></app-property-overview>
+                            </div>
+                            <div class="overview-component">
+                                <app-property-links [readonly]="true" [property]="property"></app-property-links>
+                            </div>
                         </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-property-overview [property]="property"></app-property-overview>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-label">
+                                <mat-icon>people</mat-icon>
+                                <span>{{ label.PROPERTY.OWNERS }}</span>
+                            </div>
+                        </ng-template>
+                        <div class="tab-content">
+                            <div class="overview-component">
+                                <app-property-owners [property]="property"></app-property-owners>
+                            </div>
                         </div>
-                        <div class="overview-component">
-                            <app-property-links [readonly]="true" [property]="property"></app-property-links>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-label">
+                                <mat-icon>link</mat-icon>
+                                <span>{{ label.PROPERTY.LINKS }}</span>
+                            </div>
+                        </ng-template>
+                        <div class="tab-content">
+                            <div class="overview-component">
+                                <app-property-links [property]="property"></app-property-links>
+                            </div>
                         </div>
-                    </div>
-                </mat-tab>
-
-             
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>people</mat-icon>
-                            <span>{{ label.PROPERTY.OWNERS }}</span>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-label">
+                                <mat-icon>description</mat-icon>
+                                <span>{{ label.COMMON.DOCUMENTS }}</span>
+                            </div>
+                        </ng-template>
+                        <div class="tab-content">
+                            <div class="overview-component">
+                                <app-property-documents [property]="property"></app-property-documents>
+                            </div>
                         </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-property-owners [property]="property"></app-property-owners>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <div class="tab-label">
+                                <mat-icon>notes</mat-icon>
+                                <span>{{ label.COMMON.NOTES }}</span>
+                            </div>
+                        </ng-template>
+                        <div class="tab-content">
+                            <div class="overview-component">
+                                <app-shared-register-note-table [registersIdn]="property.id" [registersIdc]="propertyIdc"></app-shared-register-note-table>
+                            </div>
                         </div>
-                    </div>
-                </mat-tab>
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>link</mat-icon>
-                            <span>{{ label.PROPERTY.LINKS }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-property-links [property]="property"></app-property-links>
-                        </div>
-                    </div>
-                </mat-tab>
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>description</mat-icon>
-                            <span>{{ label.COMMON.DOCUMENTS }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-property-documents [property]="property"></app-property-documents>
-                        </div>
-                    </div>
-                </mat-tab>
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>notes</mat-icon>
-                            <span>{{ label.COMMON.NOTES }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-shared-register-note-table [registersIdn]="property.id" [registersIdc]="propertyIdc"></app-shared-register-note-table>
-                        </div>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
         </div>
-    </div>
+    }
 
 </div>

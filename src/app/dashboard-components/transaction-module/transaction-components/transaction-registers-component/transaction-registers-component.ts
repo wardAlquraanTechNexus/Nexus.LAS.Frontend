@@ -14,6 +14,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
 import { EntityIDc } from '../../../../enums/entity-idc';
+import { TransactionRegisterPersonCompanyFormDialogComponent } from './transaction-register-person-company-form-dialog-component/transaction-register-person-company-form-dialog-component';
 
 @Component({
   selector: 'app-transaction-registers',
@@ -23,6 +24,7 @@ import { EntityIDc } from '../../../../enums/entity-idc';
 })
 export class TransactionRegistersComponent extends TableFormComponent<TransactionRegister> {
 
+  @Input() idc!: string;
   @Input() registerTypes?: { idc: string, name: string } [] ;
   @Input() transaction!: TransactionDto;
   @Input() readonly = false;
@@ -120,24 +122,54 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
 
 
   onAddNew() {
-    let element: TransactionRegisterDto = {
-      id: 0,
-      transactionId: this.transaction.id,
-      registerIdc: null,
-      registerId: null,
-      primaryRegister: false,
-      registerTypes: this.registerTypes
-    };
-    const dialogRef = this.dialog.open(TransactionRegisterDialogFormComponent, {
-      disableClose: true,
-      data: element
-    });
+    let element: TransactionRegisterDto ;
+    if(this.idc == EntityIDc.Company){
+      element = {
+        id: 0,
+        transactionId: this.transaction.id,
+        registerIdc: EntityIDc.Company,
+        registerId: null,
+        primaryRegister: false,
+        registerTypes: this.registerTypes,
+        companyId : null,
+        personId : null,
+      };
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchData();
-      }
-    })
+      const dialogRef = this.dialog.open(TransactionRegisterPersonCompanyFormDialogComponent, {
+        disableClose: true,
+        data: element
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.fetchData();
+        }
+      })
+
+    }else{
+      element = {
+        id: 0,
+        transactionId: this.transaction.id,
+        registerIdc: this.idc,
+        registerId: null,
+        primaryRegister: false,
+        registerTypes: this.registerTypes,
+        companyId : null,
+        personId : null,
+      };
+
+      const dialogRef = this.dialog.open(TransactionRegisterDialogFormComponent, {
+        disableClose: true,
+        data: element
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.fetchData();
+        }
+      })
+      
+    }
   }
 
   onEdit(element: TransactionRegisterDto) {

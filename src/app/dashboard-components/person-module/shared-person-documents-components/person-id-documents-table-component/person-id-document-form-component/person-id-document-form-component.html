@@ -52,10 +52,6 @@
                             [label]="label.PERSON.DOCUMENT_TYPE || 'Document Type'" [keyToShow]="'name'"
                             [valueKey]="'id'" [withNullOption]="false">
                         </select-auto-complete>
-                        <div class="text-danger"
-                            *ngIf="formGroup.get('type')?.invalid && formGroup.get('type')?.touched">
-                            {{ label.PERSON.DOCUMENT_TYPE_REQUIRED || 'Document Type is required' }}
-                        </div>
                     </div>
 
                     <!-- Nationality -->
@@ -65,10 +61,6 @@
                             [label]="label.COMMON.NATIONALITY || 'Nationality'" [keyToShow]="'name'" [valueKey]="'id'"
                             (selectEmitter)="onSelectCountry($event)">
                         </select-auto-complete>
-                        <div class="text-danger"
-                            *ngIf="formGroup.get('nationality')?.invalid && formGroup.get('nationality')?.touched">
-                            {{ label.PERSON.NATIONALITY_REQUIRED || 'Nationality is required' }}
-                        </div>
                     </div>
 
                     <div class="col-6">

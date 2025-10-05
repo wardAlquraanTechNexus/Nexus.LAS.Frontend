@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Labels } from '../../../../models/consts/labels';
 import { LanguageCode } from '../../../../models/types/lang-type';
@@ -16,7 +16,7 @@ import { EntityIDc } from '../../../../enums/entity-idc';
   templateUrl: './property-view-component.html',
   styleUrl: './property-view-component.scss'
 })
-export class PropertyViewComponent implements OnInit {
+export class PropertyViewComponent implements OnInit, OnDestroy {
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
   }
@@ -32,15 +32,15 @@ export class PropertyViewComponent implements OnInit {
 
   selectedTab = 0;
   constructor(
-    private service: PropertyService,
-    private router: Router,
-    private route: ActivatedRoute,
+    protected service: PropertyService,
+    protected router: Router,
+    protected route: ActivatedRoute,
     protected langService: LanguageService,
-    private dialog: MatDialog,
+    protected dialog: MatDialog,
     protected cdr: ChangeDetectorRef,
 
   ) {
-
+    console.log('PropertyViewComponent constructor');
   }
 
   ngOnInit() {
@@ -146,6 +146,10 @@ export class PropertyViewComponent implements OnInit {
     });
   }
 
+
+  ngOnDestroy(): void {
+    console.log('PropertyViewComponent ngOnDestroy');
+  }
 
  
 

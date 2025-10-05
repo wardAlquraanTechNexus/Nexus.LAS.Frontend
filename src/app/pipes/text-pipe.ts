@@ -5,6 +5,7 @@ import { CompanyStatus } from '../enums/company-status';
 import { DynamicListService } from '../services/dynamic-list-service';
 import { environment } from '../../environment/environment';
 import { LanguageService } from '../services/language-service'; // <-- Import LanguageService
+import { CommonStatus } from '../enums/common-status';
 
 @Pipe({
   name: 'textPipe',
@@ -21,6 +22,14 @@ export class TextPipe implements PipeTransform {
 
 
     switch (pipe.toLowerCase()) {
+      case 'common-status':
+        switch (value) {
+          case CommonStatus[CommonStatus.New].toLowerCase(): return of(getLabel('COMMON.NEW') ?? 'New');
+          case CommonStatus[CommonStatus.Active].toLowerCase(): return of(getLabel('COMMON.ACTIVE') ?? 'Active');
+          case CommonStatus[CommonStatus.Inactive].toLowerCase(): return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
+          default: return of(value?.toString() ?? '');
+        }
+      
       case 'person-status':
         switch (value) {
           case PersonStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
@@ -38,6 +47,7 @@ export class TextPipe implements PipeTransform {
 
       case 'private-person':
       case 'private-company':
+      case 'private':
         return of(value === true ? getLabel('COMPANY.PRIVATE') ?? 'Private' : getLabel('COMPANY.PUBLIC') ?? 'Public');
 
       case 'company-contract-type':

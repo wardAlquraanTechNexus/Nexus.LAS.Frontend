@@ -19,4 +19,11 @@ export class TransactionInvoiceService extends BaseService<TransactionInvoice> {
   getPaging(query: GetTransactionInvoiceParam): Observable<PaginateRsult<TransactionInvoiceDto>> {
     return this.httpClient.get<PaginateRsult<TransactionInvoiceDto>>(this.url, { params: this.httpParams(query) });
   }
+
+  createByForm(formData: FormData): Observable<number> {
+    return this.httpClient.post<number>(this.url + "/CreateByForm", formData);
+  }
+  updateByForm(formData: FormData): Observable<number> {
+    return this.httpClient.put<number>(this.url + "/UpdateByForm", formData);
+  }
 }

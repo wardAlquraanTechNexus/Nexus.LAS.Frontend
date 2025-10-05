@@ -29,11 +29,6 @@
                             [formGroup]="formGroup" [label]="label.PROPERTY.PROPERTY_LINK" [keyToShow]="'code'"
                             [valueKey]="'id'" [isRequired]="true" (selectEmitter)="onPropertyChange($event)">
                         </select-auto-complete>
-
-                        <mat-error
-                            *ngIf="formGroup.get('registerIdn')?.invalid && (formGroup.get('registerIdn')?.touched || formGroup.touched)">
-                            {{ label.PROPERTY.PROPERTY_LINK_REQUIRED || 'Property Link is required' }}
-                        </mat-error>
                     </div>
 
                     <mat-form-field appearance="outline" class="w-100">

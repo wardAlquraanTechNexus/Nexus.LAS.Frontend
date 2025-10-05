@@ -181,10 +181,10 @@ export class SharedTable implements OnInit, OnChanges {
             });
           }
           break;
-          case 'common-status':
+        case 'common-status':
           {
             let color = '#9E77ED';
-            if (value === CommonStatus[CommonStatus.Active] ) color = '#22C993';
+            if (value === CommonStatus[CommonStatus.Active]) color = '#22C993';
             else if (value === CommonStatus[CommonStatus.Inactive]) color = '#423e3ede';
             Object.assign(styles, {
               'border': `2px solid ${color}`,
@@ -248,7 +248,8 @@ export class SharedTable implements OnInit, OnChanges {
               'border': `2px solid #025EBA`,
               'color': '#025EBA',
               'border-radius': '20px',
-              'padding': '10px'
+              'text-overflow': 'ellipsis',
+              'padding': '5px'
             });
           }
           break;

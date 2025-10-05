@@ -28,7 +28,7 @@ export class TransactionInvoicesDialogFormComponent extends BaseDialogFormCompon
   override onSave(element: any): void {
     this.showLoading = true;
     if(!element.element.id){
-      this.service.create(element.element).subscribe({
+      this.service.createByForm(element.formData).subscribe({
         next: (res => {
           this.showLoading = false;
           element.element.id = res;
@@ -40,7 +40,7 @@ export class TransactionInvoicesDialogFormComponent extends BaseDialogFormCompon
         })
       });
     }else{
-      this.service.update(element.element).subscribe({
+      this.service.updateByForm(element.formData).subscribe({
         next: (res => {
           this.showLoading = false;
           this.dialogRef.close(element.element);

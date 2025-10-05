@@ -26,10 +26,6 @@
             [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'" [keyToShow]="'personEnglishName'"
             [valueKey]="'id'">
           </select-auto-complete>
-          <mat-error
-            *ngIf="formGroup.get('personIdn')?.invalid && (formGroup.get('personIdn')?.touched || formGroup.touched)">
-            {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
-          </mat-error>
         </div>
 
         <!-- designation -->
@@ -37,10 +33,6 @@
           <select-auto-complete *ngIf="loadDesignation" [controlName]="'designation'" [fnGet]="loadDesignation"
             [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Designation'" [keyToShow]="'name'" [valueKey]="'id'">
           </select-auto-complete>
-          <mat-error
-            *ngIf="formGroup.get('designation')?.invalid && (formGroup.get('designation')?.touched || formGroup.touched)">
-            {{ label.COMPANY.DESIGNATION_REQUIRED || 'Designation is required' }}
-          </mat-error>
         </div>
 
         <!-- Authority Rule -->

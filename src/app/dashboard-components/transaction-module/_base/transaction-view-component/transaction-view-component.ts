@@ -21,6 +21,8 @@ export class TransactionViewComponent implements OnInit {
     return Labels[this.currentLang as keyof typeof Labels];
   };
 
+  EntityIDc = EntityIDc;
+  
   companyPersonRegisterTypes?: { idc: string, name: string }[];
 
   lawFirmRegisterTypes?: { idc: string, name: string }[];
@@ -91,12 +93,12 @@ export class TransactionViewComponent implements OnInit {
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    switch (this.transaction?.status) {
-      case CommonStatus.Active:
+    switch (this.transaction?.status?.toString()) {
+      case  CommonStatus[CommonStatus.Active].toString():
         borderColor = '#22C993';
         color = '#22C993';
         break;
-      case CommonStatus.Inactive:
+      case CommonStatus[CommonStatus.Inactive].toString():
         borderColor = '#423e3ede';
         color = '#423e3ede';
         break;

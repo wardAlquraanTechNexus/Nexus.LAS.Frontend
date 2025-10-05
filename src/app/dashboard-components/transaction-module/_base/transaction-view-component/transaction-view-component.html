@@ -54,7 +54,7 @@
             <div class="profile-action">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
-                    {{ label.COMMON.EDIT_COMPANY || 'Edit Company' }}
+                    {{ label.TRANSACTION.EDIT_TRANSACTION }}
                 </button>
 
                 <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
@@ -102,7 +102,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-transaction-registers [readonly]="false" [transaction]="transaction"
+                            <app-transaction-registers [readonly]="false" [idc]="EntityIDc.Company" [transaction]="transaction"
                                 [registerTypes]="companyPersonRegisterTypes"></app-transaction-registers>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-transaction-registers [readonly]="false" [transaction]="transaction"
+                            <app-transaction-registers [readonly]="false" [idc]="EntityIDc.LawFirm" [transaction]="transaction"
                                 [registerTypes]="lawFirmRegisterTypes"></app-transaction-registers>
                         </div>
 

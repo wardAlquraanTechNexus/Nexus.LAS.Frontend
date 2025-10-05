@@ -80,12 +80,12 @@ export class LawFirmViewComponent  implements OnInit {
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    switch (this.lawFirm?.status) {
-      case CommonStatus.Active:
+    switch (this.lawFirm?.status && this.lawFirm?.status.toString()) {
+      case CommonStatus[CommonStatus.Active].toString():
         borderColor = '#22C993';
         color = '#22C993';
         break;
-      case CommonStatus.Inactive:
+      case CommonStatus[CommonStatus.Inactive].toString():
         borderColor = '#423e3ede';
         color = '#423e3ede';
         break;

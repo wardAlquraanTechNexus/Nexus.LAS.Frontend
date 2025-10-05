@@ -1,34 +1,32 @@
 <mat-form-field [dir]="dir" appearance="outline" class="full-width col-12">
   <mat-label>{{ label }}</mat-label>
-  <mat-select
-    [formControlName]="controlName"
-    (selectionChange)="selectionChange($event)"
-    [required] ="isRequired"
-    (openedChange)="onSelect($event)"
-    [multiple]="isMultiple"
-  >
+  <mat-select [formControlName]="controlName" (selectionChange)="selectionChange($event)" [required]="isRequired"
+    (openedChange)="onSelect($event)" [multiple]="isMultiple">
     <!-- Search input inside disabled option -->
     <mat-option class="search-option">
-      <input
-        matInput
-        class="input-search"
-        [placeholder]="labels[label]"
-        [(ngModel)]="searchText"
-        [ngModelOptions]="{standalone: true}"
-        (ngModelChange)="loadData()"
-        autocomplete="off"
-        (click)="$event.stopPropagation()"
-        (keydown)="$event.stopPropagation()"
-      />
+      <input matInput class="input-search" [placeholder]="labels[label]" [(ngModel)]="searchText"
+        [ngModelOptions]="{standalone: true}" (ngModelChange)="loadData()" autocomplete="off"
+        (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" />
     </mat-option>
 
     <mat-option *ngIf="withNullOption" [value]="null">
-      {{ labels.COMMON.ALL  }}
+      {{ labels.COMMON.ALL }}
     </mat-option>
 
     <mat-option *ngFor="let item of data" [value]="item[valueKey]">
       {{ item[keyToShow] }}
     </mat-option>
   </mat-select>
+
+  
+  <mat-error
+    *ngIf="formGroup.get(controlName)?.invalid && (formGroup.get(controlName)?.touched || formGroup.touched)">
+    
+    @if(dir === 'rtl'){
+      {{ "مطلوب " + label }}
+    }@else{
+      {{ label + " is required" }}
+    }
+  </mat-error>
 
 </mat-form-field>

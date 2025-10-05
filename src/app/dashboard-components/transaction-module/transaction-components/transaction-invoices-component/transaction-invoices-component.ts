@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
+import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-transaction-invoices',
@@ -131,6 +132,8 @@ export class TransactionInvoicesComponent extends TableFormComponent<Transaction
       paid: null,
       currency: null,
       note: null,
+      file: null,
+      imageUrl: null,
     };
     const dialogRef = this.dialog.open(TransactionInvoicesDialogFormComponent, {
       disableClose: true,
@@ -172,6 +175,19 @@ export class TransactionInvoicesComponent extends TableFormComponent<Transaction
         this.showLoading = false;
       })
     })
+  }
+
+
+  previewFile(ti: TransactionInvoiceDto) {
+    if (ti.data) {
+      const fileBlob = base64ToBlob(ti.data, ti.contentType!);
+      const file = new File([fileBlob], ti.fileName || 'file', { type: ti.contentType! });
+
+      const url = URL.createObjectURL(file);
+      if (!url) return;
+      window.open(url, '_blank');
+      URL.revokeObjectURL(url); // free memory after use
+    }
   }
 
 

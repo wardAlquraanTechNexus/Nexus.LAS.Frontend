@@ -8,7 +8,7 @@
 
     <div *ngIf="!showLoading && company" class="section section-header">
         <div class="breadcrumb-nav">
-            <a (click)="navigateToCompanies()" class="breadcrumb-link">
+            <a (click)="backToTable()" class="breadcrumb-link">
                 <mat-icon>arrow_back</mat-icon>
                 {{ label.COMPANY.COMPANIES || 'Companies' }}
             </a>

@@ -48,10 +48,6 @@
               [label]="label.PERSON.DOCUMENT_TYPE || 'Document Type'" [keyToShow]="'name'" [valueKey]="'id'"
               [withNullOption]="false">
             </select-auto-complete>
-            <div class="text-danger"
-              *ngIf="formGroup.get('documentType')?.invalid && formGroup.get('documentType')?.touched">
-              {{ label.PERSON.DOCUMENT_TYPE_REQUIRED || 'Document Type is required' }}
-            </div>
           </div>
 
           <mat-form-field appearance="outline" class="full-width col-12">

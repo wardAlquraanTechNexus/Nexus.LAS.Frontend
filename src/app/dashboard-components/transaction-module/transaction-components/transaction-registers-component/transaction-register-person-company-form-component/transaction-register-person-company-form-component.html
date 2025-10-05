@@ -24,21 +24,26 @@
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
 
-                <!-- <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMMON.REGISTER_TYPE || 'Type' }}</mat-label>
-                        <mat-select formControlName="registerIdc" required>
-                            <mat-option *ngFor="let type of element.registerTypes" [value]="type.idc">{{ type.name }}</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="formGroup.get('registerIdc')?.hasError('required')">
-                            {{ label.COMMON.REGISTER_TYPE_REQUIRED || 'Register type is required' }}
-                        </mat-error>
-                    </mat-form-field>
-                </div> -->
-
-                <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Person && loadPersonssFn">
+                
+                <div class="col-12" *ngIf="loadCompaniesFn">
                     <select-auto-complete
-                        [controlName]="'registerId'" 
+                        [controlName]="'companyId'" 
+                        [fnGet]="loadCompaniesFn" 
+                        [formGroup]="formGroup"
+                        [isRequired]="true" 
+                        [label]="label.COMMON.COMPANY || 'Company'" 
+                        [keyToShow]="'companyEnglishName'"
+                        [valueKey]="'id'"
+                        (selectEmitter)="onSelectCompany($event)">
+                    </select-auto-complete>
+
+                    
+                </div>
+                
+
+                <div class="col-12" *ngIf="showPersonField && loadPersonssFn">
+                    <select-auto-complete
+                        [controlName]="'personId'" 
                         [fnGet]="loadPersonssFn" 
                         [formGroup]="formGroup"
                         [isRequired]="true" 
@@ -46,33 +51,10 @@
                         [keyToShow]="'personEnglishName'"
                         [valueKey]="'id'">
                     </select-auto-complete>
-         
                 </div>
 
-                <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Company && loadCompaniesFn">
-                    <select-auto-complete
-                        [controlName]="'registerId'" 
-                        [fnGet]="loadCompaniesFn" 
-                        [formGroup]="formGroup"
-                        [isRequired]="true" 
-                        [label]="label.COMMON.COMPANY || 'Company'" 
-                        [keyToShow]="'companyEnglishName'"
-                        [valueKey]="'id'">
-                    </select-auto-complete>
-                </div>
 
-                <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.LawFirm && loadLawFirmsFn">
-                    <select-auto-complete
-                        [controlName]="'registerId'" 
-                        [fnGet]="loadLawFirmsFn" 
-                        [formGroup]="formGroup"
-                        [isRequired]="true" 
-                        [label]="label.LAW_FIRM.LAW_FIRM " 
-                        [keyToShow]="'englishName'"
-                        [valueKey]="'id'">
-                    </select-auto-complete>
-              
-                </div>
+               
 
 
 

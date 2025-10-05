@@ -4,5 +4,7 @@ export interface TransactionRegisterDto {
   registerIdc?: string | null;
   registerId?: number | null;
   primaryRegister?: boolean | null;
-  registerTypes?: { idc: string, name: string } [] | null
+  companyId?: number | null;
+  personId?: number | null;
+  registerTypes?: { idc: string, name: string }[] | null
 }

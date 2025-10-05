@@ -13,7 +13,7 @@ import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
   selector: 'app-transaction-form',
   standalone: false,
   templateUrl: './transaction-form-component.html',
-  styleUrl: './transaction-form-component.scss',
+  styleUrls: ['../../_shared/styles/common-form-style.scss'],
   providers: [
       ...DATE_FORMAT_PROVIDERS
     ]

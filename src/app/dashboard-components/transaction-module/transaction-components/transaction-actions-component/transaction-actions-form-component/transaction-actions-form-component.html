@@ -41,9 +41,6 @@
                     [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'" [keyToShow]="'personEnglishName'"
                     [valueKey]="'id'">
                 </select-auto-complete>
-                <mat-error *ngIf="formGroup.get('personId')?.hasError('required')">
-                    {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
-                </mat-error>
             </div>
 
             <!-- Time -->

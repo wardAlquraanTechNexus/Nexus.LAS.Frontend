@@ -27,6 +27,10 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu">
+        <button *ngIf="row.data" mat-menu-item class="btn-view-files" (click)="previewFile(row)">
+            <mat-icon>visibility</mat-icon>
+            {{ label.COMMON.VIEW_FILE || 'Preview' }}
+        </button>
         <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
             <mat-icon>edit</mat-icon> {{ label.COMMON.EDIT || 'Edit' }}
         </button>

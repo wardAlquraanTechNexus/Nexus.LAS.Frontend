@@ -50,10 +50,6 @@
                         [formGroup]="formGroup" [isRequired]="true"
                         [label]="label.PROPERTY.DOCUMENT_TYPE || 'Document Type'" [parentId]="propertyDocumentTypeId">
                     </dl-select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('type')?.invalid && (formGroup.get('type')?.touched || formGroup.touched)">
-                        {{ label.PROPERTY.DOCUMENT_TYPE_REQUIRED || 'Document Type is required' }}
-                    </mat-error>
                 </div>
 
                      <div class="col-12">

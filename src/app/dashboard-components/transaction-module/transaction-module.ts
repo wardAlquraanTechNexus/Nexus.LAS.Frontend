@@ -24,6 +24,8 @@ import { ActivePrivateTransactionsComponent } from './active-private-transaction
 import { ActivePrivateTransactionsTableComponent } from './active-private-transactions-component/active-private-transactions-table-component/active-private-transactions-table-component';
 import { ActivePublicTransactionsComponent } from './active-public-transactions-component/active-public-transactions-component';
 import { ActivePublicTransactionsTableComponent } from './active-public-transactions-component/active-public-transactions-table-component/active-public-transactions-table-component';
+import { TransactionRegisterPersonCompanyFormDialogComponent } from './transaction-components/transaction-registers-component/transaction-register-person-company-form-dialog-component/transaction-register-person-company-form-dialog-component';
+import { TransactionRegisterPersonCompanyFormComponent } from './transaction-components/transaction-registers-component/transaction-register-person-company-form-component/transaction-register-person-company-form-component';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { ActivePublicTransactionsTableComponent } from './active-public-transact
     ActivePrivateTransactionsComponent,
     ActivePrivateTransactionsTableComponent,
     ActivePublicTransactionsComponent,
-    ActivePublicTransactionsTableComponent
+    ActivePublicTransactionsTableComponent,
+    TransactionRegisterPersonCompanyFormDialogComponent,
+    TransactionRegisterPersonCompanyFormComponent
 
   ],
   imports: [

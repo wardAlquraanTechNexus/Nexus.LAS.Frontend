@@ -37,10 +37,6 @@
                     <dl-select-auto-complete *ngIf="countryId" [controlName]="'countryId'" [formGroup]="formGroup"
                         [label]="label.COMMON.COUNTRY || 'Country'" [parentId]="countryId" [isRequired]="true">
                     </dl-select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('countryId')?.invalid && (formGroup.get('countryId')?.touched || formGroup.touched)">
-                        {{ label.COMMON.COUNTRY_REQUIRED || 'Country is required' }}
-                    </mat-error>
                 </div>
 
                 <mat-form-field appearance="outline" class="w-100">

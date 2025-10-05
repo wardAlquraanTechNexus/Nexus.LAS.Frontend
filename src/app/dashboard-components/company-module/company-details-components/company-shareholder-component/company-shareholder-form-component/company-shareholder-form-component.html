@@ -42,9 +42,6 @@
                     [keyToShow]="'personEnglishName'"
                     [valueKey]="'id'">
                 </select-auto-complete>
-                <mat-error *ngIf="formGroup.get('registersIdn')?.hasError('required')">
-                    {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
-                </mat-error>
 
                 <select-auto-complete *ngIf="formGroup.get('registersIdc')?.value === EntityIDc.Company && loadCompaniesFn"
                     [controlName]="'registersIdn'"
@@ -55,9 +52,6 @@
                     [keyToShow]="'companyEnglishName'"
                     [valueKey]="'id'">
                 </select-auto-complete>
-                <mat-error *ngIf="formGroup.get('registersIdn')?.hasError('required')">
-                    {{ label.COMPANY.COMPANY_REQUIRED || 'Company is required' }}
-                </mat-error>
 
                 <!-- NumbersOfShares -->
                 <mat-form-field appearance="outline" class="w-100">

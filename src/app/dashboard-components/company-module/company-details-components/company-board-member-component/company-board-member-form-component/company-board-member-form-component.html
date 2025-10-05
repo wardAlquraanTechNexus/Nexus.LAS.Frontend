@@ -28,10 +28,6 @@
                             [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'"
                             [keyToShow]="'personEnglishName'" [valueKey]="'id'">
                         </select-auto-complete>
-                        <mat-error
-                            *ngIf="formGroup.get('personId')?.invalid && (formGroup.get('personId')?.touched || formGroup.touched)">
-                            {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
-                        </mat-error>
                     </div>
                 </div>
 
@@ -41,10 +37,6 @@
                         [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Position'" [keyToShow]="'name'"
                         [valueKey]="'id'">
                     </select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('position')?.invalid && (formGroup.get('position')?.touched || formGroup.touched)">
-                        {{ label.COMPANY.DESIGNATION_REQUIRED || 'Position is required' }}
-                    </mat-error>
                 </div>
 
                 <div class="form-group col-12">

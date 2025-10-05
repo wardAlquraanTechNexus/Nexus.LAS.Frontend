@@ -29,10 +29,6 @@
                         [formGroup]="formGroup" [isRequired]="true"
                         [label]="label.PROPERTY.TYPE_OF_TITLE || 'Type of Title'" [parentId]="propertyTypeOfTitleId">
                     </dl-select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('typeOfTitle')?.invalid && (formGroup.get('typeOfTitle')?.touched || formGroup.touched)">
-                        {{ label.PROPERTY.TYPE_OF_TITLE_REQUIRED || 'Type of Title is required' }}
-                    </mat-error>
                 </div>
 
                 <div class="form-group col-12">

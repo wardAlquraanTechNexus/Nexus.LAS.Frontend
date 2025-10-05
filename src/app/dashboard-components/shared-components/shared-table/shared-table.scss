@@ -1,3 +1,10 @@
+
+.table-scroll-container {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+
 // Base font sizes for table
 $base-font-size: 15px; // English base size (increased from default)
 $arabic-font-size: 18px; // Arabic 20% larger
@@ -149,6 +156,4 @@ table[dir="rtl"] {
     }
   }
 }
-
-
 

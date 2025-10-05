@@ -59,6 +59,16 @@ export class PersonService extends BaseService<Person> {
     return this.httpClient.get<PaginateRsult<GetPersonsDTO>>(this.url + "/GetAllActivePerson", { params });
   }
 
+  getAllPersonsCompany(companyId:number, personName:string | null): Observable<GetPersonsDTO[]> {
+    let p = {
+      companyId: companyId,
+    }
+    if (personName) {
+      (p as any).personName = personName;
+    }
+    return this.httpClient.get<GetPersonsDTO[]>(this.url + "/GetPersonsCompany", { params: this.httpParams(p) });
+  }
+
   bulkChangeStatus(command: BulkChangeStatusCommand): Observable<number> {
     return this.httpClient.put<number>(this.url + "/BulkChangeStatus", command);
   }

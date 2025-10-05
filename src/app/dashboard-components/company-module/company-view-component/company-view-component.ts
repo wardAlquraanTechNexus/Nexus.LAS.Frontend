@@ -48,6 +48,8 @@ export class CompanyViewComponent implements OnInit {
       if (params['id']) {
         this.companyId = parseInt(params['id']);
         this.getCompany();
+      }else{
+        this.backToTable();
       }
     });
     this.langService.language$.subscribe(lang => {
@@ -69,7 +71,7 @@ export class CompanyViewComponent implements OnInit {
     });
   }
 
-  navigateToCompanies() {
+  backToTable() {
     this.backToTableEmit.emit();
   }
   getCompanyStatusStyle() {

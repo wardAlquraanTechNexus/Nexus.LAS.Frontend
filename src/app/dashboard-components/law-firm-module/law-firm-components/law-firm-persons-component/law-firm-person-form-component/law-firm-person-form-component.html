@@ -37,10 +37,6 @@
                         [formGroup]="formGroup" [label]="label.LAW_FIRM.STAFF_LEVEL || 'Staff Level'"
                         [parentId]="staffLevelParentId" [isRequired]="true">
                     </dl-select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('staffLevel')?.invalid && (formGroup.get('staffLevel')?.touched || formGroup.touched)">
-                        {{ label.LAW_FIRM.STAFF_LEVEL_REQUIRED || 'Staff Level is required' }}
-                    </mat-error>
                 </div>
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.LAW_FIRM.PRACTICE }}</mat-label>

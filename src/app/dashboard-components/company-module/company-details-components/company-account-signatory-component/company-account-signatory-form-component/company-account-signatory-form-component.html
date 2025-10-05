@@ -28,10 +28,6 @@
                         [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'"
                         [keyToShow]="'personEnglishName'" [valueKey]="'id'">
                     </select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('personId')?.invalid && (formGroup.get('personId')?.touched || formGroup.touched)">
-                        {{ label.PERSON.PERSON_REQUIRED || 'Person is required' }}
-                    </mat-error>
                 </div>
 
                 <!-- Rule -->
@@ -40,10 +36,6 @@
                         [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.RULE || 'Rule'" [keyToShow]="'name'"
                         [valueKey]="'id'">
                     </select-auto-complete>
-                    <mat-error
-                        *ngIf="formGroup.get('rule')?.invalid && (formGroup.get('rule')?.touched || formGroup.touched)">
-                        {{ label.COMMON.RULE_REQUIRED || 'Rule is required' }}
-                    </mat-error>
                 </div>
 
                 <!-- From Amount -->

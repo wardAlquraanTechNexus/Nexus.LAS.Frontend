@@ -33,9 +33,6 @@
             [withNullOption]="false"
             [isRequired]="true">
           </select-auto-complete>
-          <div class="text-danger" *ngIf="formGroup.get('phoneType')?.invalid && formGroup.get('phoneType')?.touched">
-            {{ label.COMMON.PHONE_TYPE_REQUIRED || 'Phone type is required' }}
-          </div>
         </div>
 
         <!-- Phone -->
