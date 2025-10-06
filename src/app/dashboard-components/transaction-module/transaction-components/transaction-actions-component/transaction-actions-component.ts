@@ -14,6 +14,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
 import { TransactionActionViewDialogComponent } from './transaction-action-view-dialog-component/transaction-action-view-dialog-component';
+import { TransactionActionStatus } from '../../../../models/transaction-models/transaction-action/enums/transaction-action-status';
 
 @Component({
   selector: 'app-transaction-actions',
@@ -128,6 +129,8 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
       dueDate: null,
       closedDate: null,
       files: [],
+      actionStatus: TransactionActionStatus[TransactionActionStatus.New],
+      fileIdsToRemove: []
     };
     const dialogRef = this.dialog.open(TransactionActionsDialogFormComponent, {
       disableClose: true,
@@ -142,6 +145,7 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   }
 
   onEdit(element: TransactionActionDto) {
+    element.fileIdsToRemove = [];
     const dialogRef = this.dialog.open(TransactionActionsDialogFormComponent, {
       disableClose: true,
       data: element

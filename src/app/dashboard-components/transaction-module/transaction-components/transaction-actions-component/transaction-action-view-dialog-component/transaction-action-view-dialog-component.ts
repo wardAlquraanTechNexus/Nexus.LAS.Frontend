@@ -13,7 +13,7 @@ import { TransactionActionsDialogFormComponent } from '../transaction-actions-di
   selector: 'app-transaction-action-view-dialog-component',
   standalone: false,
   templateUrl: './transaction-action-view-dialog-component.html',
-  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss' , '../../../../_shared/styles/common-form-style.scss']
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss' , '../../../../_shared/styles/common-form-style.scss','./transaction-action-view-dialog-component.scss']
 })
 export class TransactionActionViewDialogComponent extends BaseDialogFormComponent<TransactionAction> {
 

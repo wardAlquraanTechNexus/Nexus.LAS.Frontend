@@ -41,19 +41,6 @@ export class TransactionInvoicesFormComponent extends BaseFormComponent {
     super.ngOnInit();
     this.loadLawFirmsFn = (search: string) => this.loadLawFirms(search);
     this.currencyDlId = environment.rootDynamicLists.currencies;
-    if (this.element?.file) {
-      const fileBlob = base64ToBlob(this.element.data, this.element.file.contentType!);
-      const file = new File([fileBlob], this.element.file.fileName || 'file', { type: this.element.file.contentType! });
-
-      this.formGroup.setControl('file', this.fb.control(file));
-      this.formGroup.setControl('fileName', this.fb.control(file.name));
-      this.formGroup.setControl('fileId', this.fb.control(this.element.file.fileId || null));
-    }else{
-      this.formGroup.addControl('file', this.fb.control(null));
-      this.formGroup.addControl('fileName', this.fb.control(null));
-
-    }
-
   }
 
   loadLawFirms(search: string) {
@@ -69,53 +56,7 @@ export class TransactionInvoicesFormComponent extends BaseFormComponent {
   }
 
 
-  triggerFileInput(fileInput: HTMLInputElement) {
-    fileInput.click();
-  }
 
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
-
-    this.file = input.files[0];
-
-    this.formGroup.patchValue({
-      file: this.file,
-      fileName: this.file.name
-    });
-
-    this.cdr.detectChanges();
-
-    input.value = '';
-  }
-
-  override get fileUrl(): string | null {
-    return this.file ? URL.createObjectURL(this.file) : null;
-  }
-
-  previewFile() {
-    if (this.file) {
-      const url = this.fileUrl;
-      if (!url) return;
-      window.open(url, '_blank');
-      URL.revokeObjectURL(url); // free memory after use
-    }
-  }
-
-  downloadFile() {
-    if (this.file) {
-      downloadBlobFile(this.file, this.file.name);
-    }
-  }
-
-  removeFileControl(): void {
-    this.file = null;
-    this.formGroup.patchValue({
-      file: null,
-      fileName: null
-    });
-    this.formGroup.addControl('removeFile', this.fb.control("true"));
-  }
 
 
   saveTransactionInvoice() {

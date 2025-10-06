@@ -61,6 +61,9 @@ import { LawFirmFormComponent } from '../dashboard-components/law-firm-module/la
 import { LawFirmDialogFormComponent } from '../dashboard-components/law-firm-module/law-firm-dialog-form-component/law-firm-dialog-form-component';
 import { TransactionFormComponent } from '../dashboard-components/transaction-module/transaction-form-component/transaction-form-component';
 import { TransactionDialogFormComponent } from '../dashboard-components/transaction-module/transaction-dialog-form-component/transaction-dialog-form-component';
+import { FileFormGroupComponent } from './file-form-group-component/file-form-group-component';
+import { MultipleFilesFormGroupComponent } from './multiple-files-form-group-component/multiple-files-form-group-component';
+import { SharedTransactionRegisterComponent } from '../dashboard-components/shared-components/shared-transaction-register-component/shared-transaction-register-component';
 
 
 
@@ -97,7 +100,10 @@ import { TransactionDialogFormComponent } from '../dashboard-components/transact
     LawFirmFormComponent,
     LawFirmDialogFormComponent,
     TransactionFormComponent,
-    TransactionDialogFormComponent
+    TransactionDialogFormComponent,
+    FileFormGroupComponent,
+    MultipleFilesFormGroupComponent,
+    SharedTransactionRegisterComponent
 
   ],
   imports: [
@@ -198,7 +204,10 @@ import { TransactionDialogFormComponent } from '../dashboard-components/transact
     LawFirmFormComponent,
     LawFirmDialogFormComponent,
     TransactionFormComponent,
-    TransactionDialogFormComponent
+    TransactionDialogFormComponent,
+    FileFormGroupComponent,
+    MultipleFilesFormGroupComponent,
+    SharedTransactionRegisterComponent
 
   ],
   providers: [

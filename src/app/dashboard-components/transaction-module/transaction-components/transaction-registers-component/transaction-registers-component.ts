@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { TransactionRegister } from '../../../../models/transaction-models/transaction-register/transaction-register';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { TransactionDto } from '../../../../models/transaction-models/transaction/dtos/transaction-dto';
-import { GetTransactionRegisterQuery } from '../../../../models/transaction-models/transaction-register/params/get-transaction-register-query';
 import { TransactionRegisterDto } from '../../../../models/transaction-models/transaction-register/dtos/transaction-register-dto';
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { TransactionRegisterService } from '../../../../services/transaction-services/transaction-register-service';
@@ -15,6 +14,7 @@ import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
 import { EntityIDc } from '../../../../enums/entity-idc';
 import { TransactionRegisterPersonCompanyFormDialogComponent } from './transaction-register-person-company-form-dialog-component/transaction-register-person-company-form-dialog-component';
+import { GetTransactionRegisterByListIdcsQuery } from '../../../../models/transaction-models/transaction-register/params/get-transaction-register-query-by-list-idcs';
 
 @Component({
   selector: 'app-transaction-registers',
@@ -28,7 +28,10 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
   @Input() registerTypes?: { idc: string, name: string } [] ;
   @Input() transaction!: TransactionDto;
   @Input() readonly = false;
-  override params: GetTransactionRegisterQuery = {
+  @Input() addLabel = '';
+  @Input() editLabel = '';
+  @Input() enterDetailsLabel = '';
+  override params: GetTransactionRegisterByListIdcsQuery = {
     page: 0,
     pageSize: 10,
     transactionId: 0
@@ -66,6 +69,15 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
         { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
       ];
     }
+    if(!this.addLabel){
+      this.addLabel = this.label.TRANSACTION.ADD_FOLLOW_UP;
+    }
+    if(!this.editLabel){
+      this.editLabel = this.label.TRANSACTION.EDIT_FOLLOW_UP;
+    }
+    if(!this.enterDetailsLabel){
+      this.enterDetailsLabel = this.label.TRANSACTION.ENTER_TRANSACTION_REGISTER_DETAILS;
+    }
 
   }
 
@@ -99,7 +111,7 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
   }
   override fetchData() {
     this.showLoading = true;
-    this.service.getPaging(this.params)
+    this.service.getPagingByListIdcs(this.params)
       .subscribe({
         next: (res => {
           this.data = res;
@@ -133,6 +145,9 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
         registerTypes: this.registerTypes,
         companyId : null,
         personId : null,
+        addLabel: this.addLabel,
+        editLabel: this.editLabel,
+        enterDetailsLabel: this.enterDetailsLabel
       };
 
       const dialogRef = this.dialog.open(TransactionRegisterPersonCompanyFormDialogComponent, {
@@ -156,6 +171,10 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
         registerTypes: this.registerTypes,
         companyId : null,
         personId : null,
+        addLabel: this.addLabel,
+        editLabel: this.editLabel,
+        enterDetailsLabel: this.enterDetailsLabel
+
       };
 
       const dialogRef = this.dialog.open(TransactionRegisterDialogFormComponent, {

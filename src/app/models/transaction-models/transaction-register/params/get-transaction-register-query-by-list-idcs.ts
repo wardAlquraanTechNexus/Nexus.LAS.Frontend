@@ -1,7 +1,7 @@
 import { BaseParam } from '../../../base/base-param';
 import { TransactionRegisterDto } from '../dtos/transaction-register-dto';
 
-export interface GetTransactionRegisterQuery extends BaseParam {
+export interface GetTransactionRegisterByListIdcsQuery extends BaseParam {
   transactionId: number;
   registerIdcs?: string[];
 }

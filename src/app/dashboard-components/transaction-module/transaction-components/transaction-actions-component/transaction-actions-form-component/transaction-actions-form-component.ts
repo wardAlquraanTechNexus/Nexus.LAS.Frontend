@@ -24,7 +24,7 @@ import { TransactionActionStatus } from '../../../../../models/transaction-model
 })
 export class TransactionActionsFormComponent extends BaseFormComponent {
   @Input() element!: TransactionActionDto;
-  fileIdsToRemove: number[] = [];
+
   loadPersonsFn?: (search: string) => Observable<GetPersonsDTO[]>;
   statuses: any[] = [];
 
@@ -50,9 +50,6 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
 
     this.loadPersonsFn = (search: string) => this.loadPersons(search);
 
-    // Load existing files if any
-    this.element?.files?.forEach(f => this.addFileFromDto(f));
-
     this.statuses = Object.keys(TransactionActionStatus)
       .filter(k => isNaN(Number(k))) // keep only names
       .map(k => ({
@@ -60,96 +57,6 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
         label: k
       }));
 
-  }
-
-  get files(): FormArray {
-    const control = this.formGroup.get('files');
-    if (control instanceof FormArray) return control;
-
-    const arr = this.fb.array([]);
-    this.formGroup.addControl('files', arr);
-    return arr;
-  }
-
-  addFileFromDto(fileDto: FileDto) {
-    if (!fileDto.data) throw new Error('Missing file data');
-
-
-    let filesControl = this.formGroup.get('files');
-    if (!(filesControl instanceof FormArray)) {
-      filesControl = this.fb.array([]);
-      this.formGroup.setControl('files', filesControl);
-    }
-
-    const filesArray = filesControl as FormArray; // Cast to FormArray
-
-    // Convert Base64 string to Blob
-    const fileBlob = base64ToBlob(fileDto.data, fileDto.contentType!);
-    const file = new File([fileBlob], fileDto.fileName || 'file', { type: fileDto.contentType! });
-
-
-    filesArray.push(this.fb.group({
-      file: [file, Validators.required],
-      fileName: [file.name],
-      fileId: [fileDto.fileId || null]
-    }));
-
-  }
-
-
-
-  triggerFileInput(fileInput: HTMLInputElement) {
-    fileInput.click();
-  }
-
-  onFileChange(event: any) {
-    const inputFiles: FileList = event.target.files;
-    if (!inputFiles || inputFiles.length === 0) return;
-
-    // Get or create FormArray
-    let filesControl = this.formGroup.get('files');
-    if (!(filesControl instanceof FormArray)) {
-      filesControl = this.fb.array([]);
-      this.formGroup.setControl('files', filesControl);
-    }
-
-    const filesArray = filesControl as FormArray; // Cast to FormArray
-
-    // Add each file
-    for (let i = 0; i < inputFiles.length; i++) {
-      const file = inputFiles[i];
-      filesArray.push(this.fb.group({
-        file: [file, Validators.required],
-        fileName: [file.name],
-        fileId: [null]
-      }));
-    }
-
-    this.cdr.detectChanges();
-
-    // Reset input
-    event.target.value = '';
-  }
-
-
-
-
-  removeFileControl(index: number, fileGroup: any) {
-    const fileId = fileGroup.get('fileId')?.value;
-    if (fileId) {
-      this.fileIdsToRemove.push(fileId);
-    }
-    this.files.removeAt(index);
-  }
-
-  previewFile(index: number) {
-    const file = this.files.at(index).get('file')?.value as File;
-    if (file) window.open(URL.createObjectURL(file), '_blank');
-  }
-
-  downloadFile(index: number) {
-    const file = this.files.at(index).get('file')?.value as File;
-    if (file) downloadBlobFile(file, file.name);
   }
 
   saveTransactionAction() {
@@ -166,7 +73,7 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
     formData.append('description', formValue.description || '');
     formData.append('personId', formValue.personId?.toString() || '');
     formData.append('time', formValue.time?.toString() || '');
-    if(this.element.id){
+    if (this.element.id) {
       formData.append('actionStatus', formValue.actionStatus);
     }
 
@@ -176,12 +83,18 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
     formData.append('dueDate', dueDate ? dueDate.toISOString() : '');
     formData.append('closedDate', closedDate ? closedDate.toISOString() : '');
 
-    this.fileIdsToRemove.forEach(id => {
-      formData.append('fileIdsToRemove', id.toString());
-    });
-    formValue.files?.forEach((fileObj: any) => {
-      if (fileObj.file && !fileObj.fileId) formData.append('files', fileObj.file, fileObj.fileName);
-    });
+    if( formValue.fileIdsToRemove && formValue.fileIdsToRemove.length > 0 ){
+      formValue.fileIdsToRemove.forEach((id: number) => {
+        formData.append('fileIdsToRemove', id.toString());
+      });
+    }
+    if(formValue.files && formValue.files.length > 0)
+    {
+      formValue.files?.forEach((fileObj: any) => {
+        if (fileObj.file && !fileObj.fileId) formData.append('files', fileObj.file, fileObj.fileName);
+      });
+
+    }
 
     this.saveEmitter.emit({ element: this.object, formData });
   }

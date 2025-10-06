@@ -9,6 +9,7 @@ export interface TransactionActionDto {
   description: string;
   dueDate?: string | null;
   closedDate?: string | null;
-  actionStatus?: TransactionActionStatus | null;
+  actionStatus?: string | null;
   files: FileDto[];
+  fileIdsToRemove?: number[];
 }

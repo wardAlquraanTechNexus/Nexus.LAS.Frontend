@@ -7,11 +7,11 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id != 0 ? label.TRANSACTION.EDIT_TRANSACTION_REGISTER || 'Edit' :
-                    label.TRANSACTION.ADD_TRANSACTION_REGISTER ||
-                    'Add'}}
+                    {{element.id != 0 ? 
+                    element.editLabel || label.TRANSACTION.EDIT_TRANSACTION_REGISTER  :
+                    element.addLabel || label.TRANSACTION.ADD_TRANSACTION_REGISTER }}
                 </h2>
-                <p class="dialog-subtitle">{{ label.TRANSACTION.ENTER_TRANSACTION_REGISTER_DETAILS }}</p>
+                <p class="dialog-subtitle">{{ element.enterDetailsLabel}}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">

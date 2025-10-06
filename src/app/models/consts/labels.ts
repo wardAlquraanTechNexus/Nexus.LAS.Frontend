@@ -461,6 +461,9 @@ export const Labels = {
             REGISTER: "Register",
             REGISTER_REQUIRED: "Register is required",
             OTFS: "OTFs",
+            ADD_OTF: "Add OTF",
+            EDIT_OTF: "Edit OTF",
+            ENTER_OTF_DETAILS: "Enter OTF Details",
             FOLLOW_UPS: "Follow Ups",
             FOLLOW_UP: "Follow Up",
             ADD_FOLLOW_UP: "Add Follow Up",
@@ -482,6 +485,9 @@ export const Labels = {
             AMOUNT: "Amount",
             PAID: "Paid",
             INVOICE_CURRENCY: "Invoice Currency",
+            FILE_COUNT: "File Count",
+            NO_FILES: "No Files",
+            ACTION_STATUS: "Action Status",
         }
     },
     ar: {
@@ -970,6 +976,12 @@ export const Labels = {
             AMOUNT: "المبلغ",
             PAID: "مدفوع",
             INVOICE_CURRENCY: "عملة الفاتورة",
+            FILE_COUNT: "عدد الملفات",
+            NO_FILES: "لا توجد ملفات",
+            ADD_OTF: "إضافة OTF",
+            EDIT_OTF: "تعديل OTF",
+            ENTER_OTF_DETAILS: "أدخل تفاصيل OTF",
+            ACTION_STATUS: "حالة الإجراء",
         }
     }
 } as const;

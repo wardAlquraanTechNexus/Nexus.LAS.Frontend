@@ -5,6 +5,7 @@ export const environment: Environment = {
   serverUrls: {
     host: 'https://localhost:44325/api/'
   },
+  acceptFiles: "image/*,.pdf,.msg,.eml",
   routes: {
     // Core
     dashboard: 'Dashboard',

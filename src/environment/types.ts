@@ -102,6 +102,8 @@ export interface Environment {
   };
   routes: Routes;
 
+  acceptFiles: string;
+
   rootDynamicLists: {
     companyType:number,
     companyClass:number,

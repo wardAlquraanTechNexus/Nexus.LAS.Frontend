@@ -20,9 +20,26 @@
 
     <!-- Body -->
     <div class="dialog-body">
+        <!-- File Count and List Design -->
+        <div class="file-summary-container mb-3">
+            <mat-card class="file-summary-card">
+                <div class="d-flex align-items-center">
+                    <mat-icon color="primary" class="mr-2">attach_file</mat-icon>
+                    <span class="file-count-label">
+                        {{ label.TRANSACTION.FILE_COUNT || 'File Count' }}:
+                    </span>
+                    
+                    <span  class="file-count-number ml-1">
+                        {{ data.files.length || 0 }}
+                    </span>
+                </div>
+            </mat-card>
+        </div>
+
+        <!-- File List -->
         <div *ngIf="data.files?.length; else noFiles">
-            <div *ngFor="let file of data.files" class="file-item d-flex align-items-center mb-2">
-                <span class="file-name flex-grow-1">{{ file.fileName }}</span>
+            <div *ngFor="let file of data.files; let index = index" class="file-item d-flex align-items-center mb-2">
+                <span class="file-name flex-grow-1">{{ index + 1 }}. {{ file.fileName }}</span>
                 <button mat-icon-button color="primary" (click)="previewFile(file)" matTooltip="Preview">
                     <mat-icon>visibility</mat-icon>
                 </button>
@@ -32,7 +49,10 @@
             </div>
         </div>
         <ng-template #noFiles>
-            <p>No files available.</p>
+            <mat-card class="no-files-card">
+                <mat-icon color="warn">info</mat-icon>
+                <span>{{ label.TRANSACTION.NO_FILES || 'No files available.' }}</span>
+            </mat-card>
         </ng-template>
     </div>
 

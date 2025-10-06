@@ -77,10 +77,10 @@
                 </mat-form-field>
             </div>
 
-            <div *ngIf="element.id" class="col-12">
+            <div class="col-12">
                 <div class="nexus-filter-field">
                     <mat-form-field appearance="outline">
-                        <mat-label>Status</mat-label>
+                        <mat-label>{{label.TRANSACTION.ACTION_STATUS}}</mat-label>
                         <mat-select formControlName="actionStatus">
                             <mat-option *ngFor="let status of statuses" [value]="status.value">
                                 {{ status.label }}
@@ -91,36 +91,15 @@
             </div>
 
             <!-- File Upload -->
-            <div class="form-group">
-                <!-- Hidden file input -->
-                <input type="file" multiple hidden #fileInput accept="image/*,.pdf" (change)="onFileChange($event)">
-
-                <!-- Upload button -->
-                <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)">
-                    <mat-icon>attach_file</mat-icon>
-                    {{ label.COMMON.UPLOAD_FILE || 'Upload File' }}
-                </button>
-
-                <!-- Uploaded files list -->
-                <div formArrayName="files" class="mt-2">
-                    <div *ngFor="let fileGroup of files.controls; let i = index" [formGroupName]="i"
-                        class="d-flex align-items-center mb-2">
-                        <mat-form-field appearance="outline" class="flex-grow-1">
-                            <input matInput [value]="fileGroup.get('fileName')?.value" readonly
-                                (click)="previewFile(i)">
-                        </mat-form-field>
-
-                        <button mat-icon-button color="primary" type="button" (click)="previewFile(i)">
-                            <mat-icon>visibility</mat-icon>
-                        </button>
-                        <button mat-icon-button color="accent" type="button" (click)="downloadFile(i)">
-                            <mat-icon>download</mat-icon>
-                        </button>
-                        <button mat-icon-button color="warn" type="button" (click)="removeFileControl(i, fileGroup)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </div>
-                </div>
+            <div class="form-group col-12">
+                <multiple-files-form-group 
+                [formGroup]="formGroup" 
+                [filesControlName]="'files'"
+                [fileIdControlName]="'fileId'"
+                [fileNameControl]="'fileName'"
+                [fileIdsToRemoveControlName]="'fileIdsToRemove'"
+                [fileDtos]="element.files || []">
+                </multiple-files-form-group>
             </div>
 
 

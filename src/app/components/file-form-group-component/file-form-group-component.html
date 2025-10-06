@@ -1,0 +1,30 @@
+
+<form class="form-group" [formGroup]="formGroup">
+    <!-- Hidden file input -->
+    <input type="file" hidden #fileInput [accept]="acceptFiles" (change)="onFileChange($event)">
+
+    <!-- Upload button -->
+    <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)">
+        <mat-icon>attach_file</mat-icon>
+        {{ label.COMMON.UPLOAD_FILE || 'Upload File' }}
+    </button>
+
+    <!-- Uploaded file -->
+    <div class="mt-2" *ngIf="formGroup.get(fileNameControl)?.value">
+        <div class="d-flex align-items-center mb-2">
+            <mat-form-field appearance="outline" class="flex-grow-1">
+                <input matInput [value]="formGroup.get(fileNameControl)?.value" readonly (click)="previewFile()">
+            </mat-form-field>
+
+            <button mat-icon-button color="primary" type="button" (click)="previewFile()">
+                <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" type="button" (click)="downloadFile()">
+                <mat-icon>download</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" type="button" (click)="removeFileControl()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</form>
