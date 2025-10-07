@@ -489,6 +489,14 @@ export const Labels = {
             FILE_COUNT: "File Count",
             NO_FILES: "No Files",
             ACTION_STATUS: "Action Status",
+        },
+        FPC:{
+            FPCS: "FPCs",
+            FPC: "FPC",
+            ALL_FPCS: "All FPCs",
+            ADD_NEW_FPC: "Add New FPC",
+            ENTER_FPC_DETAILS: "Enter FPC Details",
+            EDIT_FPC: "Edit FPC",
         }
     },
     ar: {
@@ -984,6 +992,14 @@ export const Labels = {
             EDIT_OTF: "تعديل OTF",
             ENTER_OTF_DETAILS: "أدخل تفاصيل OTF",
             ACTION_STATUS: "حالة الإجراء",
+        },
+        FPC:{
+            FPC:"FPC",
+            FPCS: "FPCs",
+            ALL_FPCS: "جميع FPCs",
+            ADD_NEW_FPC: "إضافة FPC جديد",
+            ENTER_FPC_DETAILS: "أدخل تفاصيل FPC",
+            EDIT_FPC: "تعديل FPC",
         }
     }
 } as const;

@@ -39,6 +39,12 @@ const routes: Routes = [
     loadChildren: () => import('./transaction-module/transaction-module').then(m => m.TransactionModule),
     canActivate: [authGuard]
   }
+  ,
+  {
+    path: environment.routes.FPCs,
+    loadChildren: () => import('./fpc-module/fpc-module').then(m => m.FpcModule),
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({

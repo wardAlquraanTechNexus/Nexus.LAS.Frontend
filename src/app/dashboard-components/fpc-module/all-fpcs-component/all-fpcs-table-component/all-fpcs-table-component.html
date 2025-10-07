@@ -1,0 +1,153 @@
+<div  class="nexus-entity-container">
+
+  <!-- SECTION 1: Title and Records -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-header">
+      <div class="nexus-entity-title">
+        <h2>{{ label.FPC.ALL_FPCS }}</h2>
+      </div>
+      <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="onAddNew()">
+        <mat-icon>add</mat-icon> {{ label.FPC.ADD_NEW_FPC }}
+      </button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Filters and Actions -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-filters">
+      <div class="nexus-filters-container" [class.has-expanded-filters]="showFilters">
+        <div class="nexus-search-field">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ label.COMMON.SEARCH }}</mat-label>
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [placeholder]="label.COMPANY.SEARCH_ACTIVE_COMPANIES">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="nexus-toggle-group">
+          <mat-button-toggle-group [(ngModel)]="params.private" (change)="search()" multiple
+            class="nexus-toggle-compact">
+            <mat-button-toggle [value]="false">{{ label.COMPANY.PUBLIC }}</mat-button-toggle>
+            <mat-button-toggle [value]="true">{{ label.COMPANY.PRIVATE }}</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="nexus-toggle-group">
+          <mat-button-toggle-group [(ngModel)]="params.status" (change)="search()" multiple class="nexus-toggle-normal">
+            <mat-button-toggle [value]="0">{{ label.COMMON.NEW }}</mat-button-toggle>
+            <mat-button-toggle [value]="1">{{ label.COMMON.ACTIVE }}</mat-button-toggle>
+            <mat-button-toggle [value]="2">{{ label.COMMON.INACTIVE }}</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <div class="nexus-filter-actions">
+          <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
+            <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
+            {{ label.COMMON.FILTERS }}
+          </button>
+          <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
+            <mat-icon>download</mat-icon> {{ label.COMPANY.EXPORT }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Advanced Filters Section -->
+      <div class="additional-filters" *ngIf="showFilters">
+
+        <div class="section">
+          <div class="section-header">
+            <h3>{{ label.COMPANY.ADVANCED_FILTER }}</h3>
+          </div>
+          <div class="section-body">
+
+            <!-- Basic Information -->
+            <div class="row mb-3">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bulk Actions -->
+      <div class="nexus-bulk-actions" *ngIf="selectedFPCs.length">
+        <span class="nexus-bulk-count">{{ selectedFPCs.length }} {{ label.COMMON.SELECTED }}</span>
+        <div class="nexus-bulk-buttons" *ngIf="currentMenu?.canUpdate">
+          <button mat-stroked-button class="nexus-btn nexus-bulk-success" (click)="bulkChangeStatus(activeStatus)">
+            <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
+          </button>
+          <button mat-stroked-button class="nexus-btn nexus-bulk-warning" (click)="bulkChangeStatus(inactiveStatus)">
+            <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
+          </button>
+          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
+            <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
+          </button>
+          <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
+            <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Data Grid -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-data">
+      <!-- Loading -->
+      <div *ngIf="showLoading" class="nexus-loading">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- Table -->
+      <div class="nexus-table-container" *ngIf="!showLoading">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data" [action]="actionButtonsTemplate"
+          (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+          (selectionChange)="onSelectionChange($event)" (rowClick)="onRowClick($event)">
+        </app-shared-table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row Actions -->
+  <ng-template #actionButtonsTemplate let-row>
+    <button mat-icon-button [matTooltip]="getAuditTooltip(row)" matTooltipClass="audit-tooltip"
+      matTooltipPosition="left" [matTooltipShowDelay]="300" class="audit-info-btn">
+      <mat-icon>info</mat-icon>
+    </button>
+    <!-- Actions Menu -->
+    <button mat-icon-button [matMenuTriggerFor]="menuRow" class="nexus-table-action-btn">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+      <!-- <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
+        <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
+      </button> -->
+      
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)"
+        class="nexus-menu-item nexus-menu-success">
+        <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="deactivate(row)"
+        class="nexus-menu-item nexus-menu-warning">
+        <mat-icon class="nexus-icon-deactivate">cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)"
+        class="nexus-menu-item nexus-menu-info">
+        <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)"
+        class="nexus-menu-item nexus-menu-neutral">
+        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
+      </button>
+
+      <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteFpc(row)"
+        class="nexus-menu-item nexus-menu-danger">
+        <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}
+      </button>
+
+    </mat-menu>
+  </ng-template>
+
+</div>

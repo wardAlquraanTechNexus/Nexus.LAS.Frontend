@@ -12,7 +12,7 @@ import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
   selector: 'app-law-firm-form',
   standalone: false,
   templateUrl: './law-firm-form-component.html',
-  styleUrls: ['./law-firm-form-component.scss'],
+  styleUrls: ['../../_shared/styles/common-form-style.scss'],
   providers: [
     ...DATE_FORMAT_PROVIDERS
   ]})

@@ -87,8 +87,6 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
 
   override setDisplayColumns() {
     this.displayColumns = [
-
-      
       {
         key: 'registerId',
         label: this.label.COMMON.NAME,

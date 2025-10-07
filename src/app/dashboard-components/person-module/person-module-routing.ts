@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../../../environment/environment';
-import { AddDocumentTracking } from '../document-tracking-components/add-document-tracking/add-document-tracking';
-import { AddFpc } from '../fpc-components/add-fpc/add-fpc';
 import { ActivePersons } from './active-persons/active-persons';
 import { ActivePrivatePersons } from './active-private-persons/active-private-persons';
 import { ActivePublicPersons } from './active-public-persons/active-public-persons';

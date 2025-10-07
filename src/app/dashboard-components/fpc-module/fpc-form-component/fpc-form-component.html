@@ -1,0 +1,75 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>home_work</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{element.id != 0 ? label.FPC.EDIT_FPC || 'Edit' : label.FPC.ADD_NEW_FPC || 'Add'}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.FPC.ENTER_FPC_DETAILS || 'Enter FPC details' }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                 <div class="col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.REGISTER_TYPE || 'Type' }}</mat-label>
+                        <mat-select formControlName="registerIdc" required>
+                            <mat-option *ngFor="let type of registerTypes" [value]="type.idc">{{ type.name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formGroup.get('registerIdc')?.hasError('required')">
+                            {{ label.COMMON.REGISTER_TYPE_REQUIRED || 'Register type is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+               <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Person && loadPersonssFn">
+                    <select-auto-complete
+                        [controlName]="'registerIdn'" 
+                        [fnGet]="loadPersonssFn" 
+                        [formGroup]="formGroup"
+                        [isRequired]="true" 
+                        [label]="label.COMMON.PERSON || 'Person'" 
+                        [keyToShow]="'personEnglishName'"
+                        [valueKey]="'id'">
+                    </select-auto-complete>
+         
+                </div>
+
+                <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Company && loadCompaniesFn">
+                    <select-auto-complete
+                        [controlName]="'registerId'" 
+                        [fnGet]="loadCompaniesFn" 
+                        [formGroup]="formGroup"
+                        [isRequired]="true" 
+                        [label]="label.COMMON.COMPANY || 'Company'" 
+                        [keyToShow]="'companyEnglishName'"
+                        [valueKey]="'id'">
+                    </select-auto-complete>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
+    </div>
+</div>
