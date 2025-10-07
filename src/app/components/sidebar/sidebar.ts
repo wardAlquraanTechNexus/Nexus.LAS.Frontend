@@ -205,10 +205,8 @@ export class Sidebar implements OnInit, OnDestroy {
     event.stopPropagation();
 
     if (this.hasChild(0, node)) {
-      console.log('Toggling node:', node);
       this.toggleNode(node);
     } else if (node.path) {
-      console.log('Navigating to:', node.path);
       // Always remove query params by navigating without preserving them
       this.router.navigate([node.path], { queryParams: {} });
     }

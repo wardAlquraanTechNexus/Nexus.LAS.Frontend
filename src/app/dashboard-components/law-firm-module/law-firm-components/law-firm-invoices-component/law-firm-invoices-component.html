@@ -15,6 +15,7 @@
   [displayedColumns]="displayColumns"
   [paginateResult]="data"
   (onChangePage)="changePage($event)"
-  (onSortChangeEvent)="changeSort($event)">
+  (onSortChangeEvent)="changeSort($event)"
+  (rowClick)="onClickRow($event)">
 </app-shared-table>
 

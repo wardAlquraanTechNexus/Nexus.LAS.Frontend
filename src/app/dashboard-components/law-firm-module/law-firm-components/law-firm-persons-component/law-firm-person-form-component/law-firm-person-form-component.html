@@ -46,25 +46,16 @@
                         {{ label.LAW_FIRM.PRACTICE_REQUIRED || 'Practice is required' }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.EMAIL }}</mat-label>
-                    <input matInput type="text" formControlName="email"
-                        [placeholder]="label.COMMON.EMAIL || 'Enter Email'" required>
-                    <mat-error *ngIf="formGroup.get('email')?.hasError('required')">
-                        {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.PHONE_NUMBER }}</mat-label>
-                    <input matInput type="text" formControlName="phone"
-                        [placeholder]="label.COMMON.PHONE_NUMBER || 'Enter Phone Number'" required>
-                    <mat-error *ngIf="formGroup.get('phone')?.hasError('required')">
-                        {{ label.COMMON.PHONE_REQUIRED || 'Phone Number is required' }}
-                    </mat-error>
-                    <mat-error *ngIf="formGroup.get('phone')?.hasError('invalidPhone')">
-                        {{ label.COMMON.PHONE_INVALID }}
-                    </mat-error>
-                </mat-form-field>
+                <email-form
+                    [formGroup]="formGroup"
+                    controlName="email"
+                    [required]="true">
+                </email-form>
+                <phone-form
+                    [formGroup]="formGroup"
+                    controlName="phone"
+                    [required]="true">
+                </phone-form>
 
                 <div class="nexus-switch-container">
                     <mat-slide-toggle formControlName="staffStatus" color="primary" class="nexus-switch">

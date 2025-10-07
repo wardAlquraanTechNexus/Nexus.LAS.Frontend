@@ -7,7 +7,7 @@
       </div>
       <div class="header-text">
         <h2 class="dialog-title">
-          {{personPhone.id ? (label.COMMON.EDIT || 'Edit') : (label.COMMON.ADD || 'Add')}} 
+          {{personPhone.id ? (label.COMMON.EDIT || 'Edit') : (label.COMMON.ADD || 'Add')}}
           {{ label.COMMON.PHONE_NUMBER || 'Person Phone' }}
         </h2>
         <p class="dialog-subtitle">
@@ -27,26 +27,19 @@
 
         <!-- Phone -->
         <div class="col-12">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{ label.COMMON.PHONE_NUMBERS || 'Phone' }}</mat-label>
-            <input matInput formControlName="phoneNumber" [placeholder]="label.COMMON.ADD_PHONE || 'Enter phone with country code...'" required />
-            <mat-error *ngIf="formGroup.get('phoneNumber')?.hasError('required') && formGroup.get('phoneNumber')?.touched">
-              {{ label.COMMON.PHONE_REQUIRED || 'Phone is required' }}
-            </mat-error>
-          </mat-form-field>
+          <phone-form 
+            [formGroup]="formGroup" 
+            controlName="phoneNumber" 
+            [required]="true">
+          </phone-form>
+
         </div>
 
         <!-- Phone Type -->
         <div class="col-12">
-          <select-auto-complete 
-            *ngIf="loadPersonsPhonesFn" 
-            [controlName]="'phoneType'" 
-            [fnGet]="loadPersonsPhonesFn"
-            [formGroup]="formGroup" 
-            [label]="label.COMMON.PHONE_TYPE || 'Phone Type'" 
-            [keyToShow]="'name'" 
-            [valueKey]="'id'"
-            [withNullOption]="false">
+          <select-auto-complete *ngIf="loadPersonsPhonesFn" [controlName]="'phoneType'" [fnGet]="loadPersonsPhonesFn"
+            [formGroup]="formGroup" [label]="label.COMMON.PHONE_TYPE || 'Phone Type'" [keyToShow]="'name'"
+            [valueKey]="'id'" [withNullOption]="false">
           </select-auto-complete>
         </div>
 

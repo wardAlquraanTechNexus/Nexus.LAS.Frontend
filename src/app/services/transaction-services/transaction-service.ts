@@ -29,15 +29,21 @@ export class TransactionService extends BaseService<Transaction> {
   }
 
   updateStatus(command: BulkChangeStatusCommand) {
-      return this.httpClient.put<number>(this.url + "/BulkChangeStatus", command);
-    }
-  
-    updatePrivate(command: BulkChangePrivateCommand) {
-      return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
-    }
-  
-    exportToExcel(filter: any): Observable<ExportModel> {
-      var params = this.httpParams(filter);
-      return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
-    }
+    return this.httpClient.put<number>(this.url + "/BulkChangeStatus", command);
+  }
+
+  updatePrivate(command: BulkChangePrivateCommand) {
+    return this.httpClient.put<number>(this.url + "/BulkChangePrivate", command);
+  }
+
+  exportToExcel(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
+  }
+
+  exportToPdf(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToPdf", { params });
+  }
+
 }

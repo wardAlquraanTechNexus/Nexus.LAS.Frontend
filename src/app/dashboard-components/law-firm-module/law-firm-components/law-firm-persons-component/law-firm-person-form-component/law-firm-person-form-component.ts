@@ -33,12 +33,7 @@ export class LawFirmPersonFormComponent extends BaseFormComponent {
   }
 
   // Validator for phone number (digits only, optional length check)
-  private phoneValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) return null;
-    // Example: only digits, length between 7 and 15
-    return /^\d{7,15}$/.test(value) ? null : { invalidPhone: true };
-  }
+ 
 
   override ngOnInit(): void {
     this.setup(this.element);
@@ -46,11 +41,9 @@ export class LawFirmPersonFormComponent extends BaseFormComponent {
 
     this.staffLevelParentId = environment.rootDynamicLists.lawFirmsCounselLevels;
 
-    // Add phone validator to phone control if exists
-    this.formGroup.get('phone')?.setValidators([
-      this.phoneValidator.bind(this)
-    ]);
-    this.formGroup.get('phone')?.updateValueAndValidity();
+   
   }
+
+  
 
 }

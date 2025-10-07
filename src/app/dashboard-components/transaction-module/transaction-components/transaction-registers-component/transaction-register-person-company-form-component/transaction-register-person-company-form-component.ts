@@ -85,6 +85,7 @@ export class TransactionRegisterPersonCompanyFormComponent  extends BaseFormComp
       this.companyId = companyId;
       this.loadPersonssFn = (search: string) => this.loadPersons(search);
       this.showPersonField = true;
+      this.cdr.markForCheck();
     },100);
   }
 

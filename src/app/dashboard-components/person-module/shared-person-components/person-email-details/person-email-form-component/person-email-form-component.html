@@ -33,15 +33,12 @@
             <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
                 <div class="col-12">
 
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMMON.EMAIL_ADDRESS }}</mat-label>
-                        <input matInput formControlName="email"
-                            [placeholder]="label.COMMON.ADD_EMAIL || 'Enter email...'" required />
-                        <mat-error
-                            *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
-                            {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
-                        </mat-error>
-                    </mat-form-field>
+                    <email-form
+                        [formGroup]="formGroup"
+                        controlName="email"
+                        [required]="true">
+
+                    </email-form>
 
                 </div>
 

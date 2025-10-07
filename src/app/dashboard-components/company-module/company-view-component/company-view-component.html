@@ -176,22 +176,7 @@
                     </div>
                 </mat-tab>
 
-                  <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>list_alt</mat-icon>
-                            <span>{{ label.TRANSACTION.TRANSACTION_REGISTERS }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-shared-transaction-register 
-                            [idc]="company.companyIdc!" 
-                            [id]="company.id"
-                                ></app-shared-transaction-register>
-                        </div>
-                    </div>
-                </mat-tab>
+                 
 
                 <mat-tab>
                     <ng-template mat-tab-label>
@@ -239,6 +224,22 @@
                         </div>
                         <div class="overview-component">
                             <app-company-address-component [company]="company"></app-company-address-component>
+                        </div>
+                    </div>
+                </mat-tab>
+                 <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>list_alt</mat-icon>
+                            <span>{{ label.TRANSACTION.TRANSACTIONS }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-shared-transaction-register 
+                            [idc]="company.companyIdc!" 
+                            [id]="company.id"
+                                ></app-shared-transaction-register>
                         </div>
                     </div>
                 </mat-tab>

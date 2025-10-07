@@ -27,7 +27,7 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu">
-        <button mat-menu-item class="btn-view-files" (click)="viewFiles(row)">
+        <button *ngIf="row.files.length>0" mat-menu-item class="btn-view-files" (click)="viewFiles(row)">
             <mat-icon>attach_file</mat-icon>
             {{ label.COMMON.VIEW || 'View Files' }}
         </button>

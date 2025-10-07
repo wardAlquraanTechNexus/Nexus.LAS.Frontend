@@ -22,8 +22,9 @@
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Name</mat-label>
-                        <input matInput formControlName="name" required placeholder="Enter menu name"/>
-                        <mat-error *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
+                        <input matInput formControlName="name" required placeholder="Enter menu name" />
+                        <mat-error
+                            *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
                             Name is required
                         </mat-error>
                     </mat-form-field>
@@ -31,26 +32,29 @@
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Path</mat-label>
-                        <input matInput formControlName="path" placeholder="Enter navigation path"/>
+                        <input matInput formControlName="path" placeholder="Enter navigation path" />
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Description</mat-label>
-                        <textarea matInput formControlName="description" placeholder="Enter description" rows="3"></textarea>
+                        <textarea matInput formControlName="description" placeholder="Enter description"
+                            rows="3"></textarea>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Icon Class</mat-label>
-                        <input matInput formControlName="iconClass" placeholder="Enter icon class"/>
+                        <input matInput formControlName="iconClass" placeholder="Enter icon class" />
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Rank</mat-label>
-                        <input matInput formControlName="rank" required type="number" placeholder="Enter display order"/>
-                        <mat-error *ngIf="formGroup.get('rank')?.hasError('required') && formGroup.get('rank')?.touched">
+                        <input matInput formControlName="rank" required type="number"
+                            placeholder="Enter display order" />
+                        <mat-error
+                            *ngIf="formGroup.get('rank')?.hasError('required') && formGroup.get('rank')?.touched">
                             Rank is required
                         </mat-error>
                     </mat-form-field>
@@ -70,9 +74,7 @@
             <mat-icon>close</mat-icon>
             Cancel
         </button>
-        <button mat-flat-button class="save-btn" (clickEmitter)="save(true)">
-            <mat-icon>save</mat-icon>
-            Save Menu
-        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
     </div>
 </div>

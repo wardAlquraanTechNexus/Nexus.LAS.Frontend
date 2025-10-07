@@ -35,18 +35,7 @@ export class PersonPhoneFormComponent extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.personPhone);
     super.ngOnInit();
-    if (this.formGroup && this.formGroup.get('phoneNumber')) {
-      const ctrl = this.formGroup.get('phoneNumber');
-      const existingValidators = ctrl?.validator ? [ctrl.validator] : [];
-      ctrl?.setValidators([
-        ...existingValidators,    
-        Validators.minLength(6),
-        Validators.maxLength(14)
-      ]);
-      ctrl?.updateValueAndValidity();
-    }
     this.loadPersonsPhonesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.PersonsPhonesTypes, search)
-
   }
   
 }

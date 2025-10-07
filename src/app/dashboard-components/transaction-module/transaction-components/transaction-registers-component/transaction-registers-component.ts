@@ -28,6 +28,7 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
   @Input() registerTypes?: { idc: string, name: string } [] ;
   @Input() transaction!: TransactionDto;
   @Input() readonly = false;
+  @Input() title: string = '';
   @Input() addLabel = '';
   @Input() editLabel = '';
   @Input() enterDetailsLabel = '';
@@ -70,13 +71,16 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
       ];
     }
     if(!this.addLabel){
-      this.addLabel = this.label.TRANSACTION.ADD_FOLLOW_UP;
+      this.addLabel = this.label.TRANSACTION.ADD_TRANSACTION_REGISTER;
     }
     if(!this.editLabel){
-      this.editLabel = this.label.TRANSACTION.EDIT_FOLLOW_UP;
+      this.editLabel = this.label.TRANSACTION.EDIT_TRANSACTION_REGISTER;
     }
     if(!this.enterDetailsLabel){
       this.enterDetailsLabel = this.label.TRANSACTION.ENTER_TRANSACTION_REGISTER_DETAILS;
+    }
+    if(!this.title){
+      this.title = this.label.TRANSACTION.TRANSACTION_REGISTERS;
     }
 
   }
@@ -84,23 +88,25 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
   override setDisplayColumns() {
     this.displayColumns = [
 
+      
+      {
+        key: 'registerId',
+        label: this.label.COMMON.NAME,
+        sort: true,
+        pipes: ['register'],
+        compareKey: 'registerIdc',
+        keysPipes:[
+          { key: 'registerId' , pipes: ['register'] },
+          { key: 'primaryRegister' , pipes: ['primary'] }
+  
+        ]
+      },
       { 
         key: 'registerIdc',
         label: this.label.TRANSACTION.REGISTER_TYPE,
         sort: true,
-        keysPipes:[
-          { key: 'registerIdc' , pipes: ['register-type'] },
-          { key: 'primaryRegister' , pipes: ['primary'] }
-
-        ]
+        pipes: ['register-type']
       },
-      {
-        key: 'registerId',
-        label: this.label.TRANSACTION.REGISTER,
-        sort: true,
-        pipes: ['register'],
-        compareKey: 'registerIdc',
-      }
     ];
 
     if (!this.readonly) {

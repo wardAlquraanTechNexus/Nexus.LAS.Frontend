@@ -133,11 +133,9 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuRow="matMenu" class="nexus-action-menu">
-            <!-- <button mat-menu-item class="nexus-menu-item nexus-menu-neutral">
+            <button mat-menu-item class="nexus-menu-item nexus-menu-neutral" (click)="exportToPdf(row.id)">
                 <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
             </button>
- -->
-
             <button mat-menu-item (click)="activate(row)" class="nexus-menu-item nexus-menu-success">
                 <mat-icon class="nexus-icon-activate">check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
             </button>

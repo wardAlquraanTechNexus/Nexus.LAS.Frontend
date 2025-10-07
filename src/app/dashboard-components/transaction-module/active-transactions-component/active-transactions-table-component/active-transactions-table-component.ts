@@ -74,12 +74,6 @@ export class ActiveTransactionsTableComponent extends BaseTransactionsComponent
         sort: true 
       },
       { 
-        key: "status", 
-        label: this.label.COMMON.STATUS, 
-        sort: true ,
-        pipes: ['common-status']
-      },
-      { 
         key: "private", 
         label: this.label.COMMON.PRIVATE, 
         sort: true ,

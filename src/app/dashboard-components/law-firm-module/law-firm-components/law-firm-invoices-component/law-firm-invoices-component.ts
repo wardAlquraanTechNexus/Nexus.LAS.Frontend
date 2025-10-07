@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-law-firm-invoices',
@@ -19,7 +20,7 @@ import { MenuService } from '../../../../services/menu-service';
   templateUrl: './law-firm-invoices-component.html',
   styleUrls: ['../../../_shared/styles/table-style.scss']
 })
-export class LawFirmInvoicesComponent  extends TableFormComponent<TransactionInvoice> {
+export class LawFirmInvoicesComponent extends TableFormComponent<TransactionInvoice> {
 
   @Input() lawFirm!: LawFirmDTO;
   override params: GetTransactionInvoiceParam = {
@@ -43,6 +44,8 @@ export class LawFirmInvoicesComponent  extends TableFormComponent<TransactionInv
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     override langService: LanguageService,
+    private menuService: MenuService,
+
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService);
   }
@@ -55,11 +58,12 @@ export class LawFirmInvoicesComponent  extends TableFormComponent<TransactionInv
   }
 
   override setDisplayColumns() {
-     this.displayColumns = [
+    this.displayColumns = [
 
       {
         key: 'transactionNumber',
         label: this.label.TRANSACTION.TRANSACTION_NUMBER,
+        pipes: ['link']
       },
       {
         key: 'invoice',
@@ -81,10 +85,6 @@ export class LawFirmInvoicesComponent  extends TableFormComponent<TransactionInv
         label: this.label.TRANSACTION.PAID,
         pipes: ['currency'],
         compareKey: 'currency'
-      },
-      {
-        key: "note",
-        label: this.label.COMMON.NOTES,
       }
     ];
 
@@ -110,6 +110,21 @@ export class LawFirmInvoicesComponent  extends TableFormComponent<TransactionInv
   showTable = true;
   toggleTable() {
     this.showTable = !this.showTable;
+  }
+
+  onClickRow(row: any) {
+
+    if (row.key !== 'transactionNumber') return;
+
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllTransactions) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveTransactions) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateTransactions) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicTransactions);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Transactions);
+
+
+    this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + row.element.transactionId);
   }
 
 

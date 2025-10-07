@@ -51,7 +51,6 @@ export class ActivePrivateTransactionsTableComponent extends BaseTransactionsCom
 
   override setDisplayColumns() {
     this.displayColumns = [
-      { key: "select", label: this.label.COMMON.SELECT },
       { 
         key: "transactionCode", 
         label: this.label.COMMON.CODE, 
@@ -75,19 +74,6 @@ export class ActivePrivateTransactionsTableComponent extends BaseTransactionsCom
         label: this.label.COMMON.DESCRIPTION, 
         sort: true 
       },
-      { 
-        key: "status", 
-        label: this.label.COMMON.STATUS, 
-        sort: true ,
-        pipes: ['common-status']
-      },
-      { 
-        key: "private", 
-        label: this.label.COMMON.PRIVATE, 
-        sort: true ,
-        pipes: ['private']
-      },
-      
       { key: "action", label: this.label.COMMON.ACTIONS }
     ];
 

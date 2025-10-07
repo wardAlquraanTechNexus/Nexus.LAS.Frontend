@@ -64,6 +64,8 @@ import { TransactionDialogFormComponent } from '../dashboard-components/transact
 import { FileFormGroupComponent } from './file-form-group-component/file-form-group-component';
 import { MultipleFilesFormGroupComponent } from './multiple-files-form-group-component/multiple-files-form-group-component';
 import { SharedTransactionRegisterComponent } from '../dashboard-components/shared-components/shared-transaction-register-component/shared-transaction-register-component';
+import { PhoneFormComponent } from './phone-form-component/phone-form-component';
+import { EmailFormComponent } from './email-form-component/email-form-component';
 
 
 
@@ -103,7 +105,9 @@ import { SharedTransactionRegisterComponent } from '../dashboard-components/shar
     TransactionDialogFormComponent,
     FileFormGroupComponent,
     MultipleFilesFormGroupComponent,
-    SharedTransactionRegisterComponent
+    SharedTransactionRegisterComponent,
+    PhoneFormComponent,
+    EmailFormComponent
 
   ],
   imports: [
@@ -207,7 +211,9 @@ import { SharedTransactionRegisterComponent } from '../dashboard-components/shar
     TransactionDialogFormComponent,
     FileFormGroupComponent,
     MultipleFilesFormGroupComponent,
-    SharedTransactionRegisterComponent
+    SharedTransactionRegisterComponent,
+    PhoneFormComponent,
+    EmailFormComponent
 
   ],
   providers: [

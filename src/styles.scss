@@ -172,3 +172,8 @@ app-date-input + mat-error + mat-error {
   right: unset !important;  // removes the right positioning
   left: auto;               // keeps left auto
 }
+
+.nexus-entity-container .nexus-table-container {
+  overflow-y: auto;
+  max-height: 70vh; // Adjust as needed
+}

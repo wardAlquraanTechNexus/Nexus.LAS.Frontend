@@ -1,0 +1,18 @@
+<form [formGroup]="formGroup"  class="form-group">
+    <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{ label.COMMON.EMAIL }}</mat-label>
+            <input 
+            matInput 
+            type="text" 
+            [formControlName]="controlName"
+            [placeholder]="label.COMMON.EMAIL" 
+            [required]="required"
+            >
+            <mat-error *ngIf="formGroup.get(controlName)?.hasError('required')">
+                {{ label.COMMON.EMAIL_REQUIRED || 'Email is required' }}
+            </mat-error>
+            <mat-error *ngIf="formGroup.get(controlName)?.hasError('email')">
+                {{ label.COMMON.EMAIL_INVALID || 'Invalid email address' }}
+            </mat-error>
+    </mat-form-field>
+</form>
