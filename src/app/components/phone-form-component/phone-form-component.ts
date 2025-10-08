@@ -15,9 +15,8 @@ export class PhoneFormComponent implements OnInit {
   @Input() formGroup!:FormGroup;
   @Input() controlName!:string
   @Input() required: boolean = false;
-  @Input() lebelValue: string = '';
+  @Input() labelValue: string = '';
 
-  labelValue: string = '';
   currentLang: LanguageCode = 'en';
     get label() {
       return Labels[this.currentLang as keyof typeof Labels];
