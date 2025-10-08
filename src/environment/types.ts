@@ -130,6 +130,7 @@ export interface Environment {
     propertyDocumentType: number;
     lawFirmsCounselLevels: number;
     transactionTypes: number;
+    originalDocumentActionTypes: number;
 
   }
 }

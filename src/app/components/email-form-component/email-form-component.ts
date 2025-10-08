@@ -15,6 +15,7 @@ export class EmailFormComponent  implements OnInit {
   @Input() formGroup!:FormGroup;
   @Input() controlName!:string
   @Input() required: boolean = false;
+  @Input() labelValue: string = '';
 
   currentLang: LanguageCode = 'en';
     get label() {
@@ -29,7 +30,9 @@ export class EmailFormComponent  implements OnInit {
     ]);
     this.formGroup.get('email')?.updateValueAndValidity();
 
-    
+    if (!this.labelValue) {
+      this.labelValue = this.label.COMMON.EMAIL ;
+    }
   }
 
 

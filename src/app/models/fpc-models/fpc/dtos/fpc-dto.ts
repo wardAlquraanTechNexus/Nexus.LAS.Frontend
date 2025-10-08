@@ -7,6 +7,10 @@ export interface FPCDto {
   registerIdn: number;
   fpcStatus: CommonStatus;
   private: boolean;
+  registerEnglishName?: string | null;
+  registerArabicName?: string | null;
+  registerShortName?: string | null;
+  registerCode?: string | null;
   createdBy?: string | null;
   createdAt?: string | null;
   modifiedBy?: string | null;

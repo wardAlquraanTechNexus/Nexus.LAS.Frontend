@@ -15,7 +15,9 @@ export class PhoneFormComponent implements OnInit {
   @Input() formGroup!:FormGroup;
   @Input() controlName!:string
   @Input() required: boolean = false;
+  @Input() lebelValue: string = '';
 
+  labelValue: string = '';
   currentLang: LanguageCode = 'en';
     get label() {
       return Labels[this.currentLang as keyof typeof Labels];
@@ -28,6 +30,9 @@ export class PhoneFormComponent implements OnInit {
       this.phoneValidator.bind(this)
     ]);
 
+    if(!this.labelValue){
+      this.labelValue = this.label.COMMON.PHONE_NUMBER;
+    }
     this.formGroup.get(this.controlName)?.updateValueAndValidity();
     
   }

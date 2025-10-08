@@ -57,7 +57,7 @@ export class FpcFormComponent extends BaseFormComponent {
     this.loadCompaniesFn = (search: string) => this.loadCompanies(search);
 
     this.formGroup.get('registerIdc')?.valueChanges.subscribe(() => {
-      this.formGroup.get('registerId')?.reset();
+      this.formGroup.get('registerIdn')?.reset();
     });
   }
 

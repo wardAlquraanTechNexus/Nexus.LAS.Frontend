@@ -294,6 +294,8 @@ export const Labels = {
             DOWNLOAD: "Download",
             CLOSE: "Close",
             REGISTER_TYPE: "Register Type",
+            REGISTER_NAME: "Register Name",
+            REGISTER_CODE: "Register Code",
             REGISTER_TYPE_REQUIRED: "Register Type is required",
             BANK_NAME: "Bank Name",               // <-- Added
             BANK_NAME_REQUIRED: "Bank Name is required", // <-- Added
@@ -490,13 +492,28 @@ export const Labels = {
             NO_FILES: "No Files",
             ACTION_STATUS: "Action Status",
         },
-        FPC:{
+        FPC: {
             FPCS: "FPCs",
             FPC: "FPC",
             ALL_FPCS: "All FPCs",
             ADD_NEW_FPC: "Add New FPC",
             ENTER_FPC_DETAILS: "Enter FPC Details",
             EDIT_FPC: "Edit FPC",
+            FPC_ODS: "FPC Original Documents",
+            FPC_OD: "FPC Original Document",
+            ADD_FPC_OD: "Add FPC Original Document",
+            EDIT_FPC_OD: "Edit FPC Original Document",
+            ENTER_FPC_OD_DETAILS: "Enter FPC Original Document Details",
+            DOCUMENT_TYPE: "Document Type",
+            ACTION_DATE: "Action Date",
+            ACTION_DATE_REQUIRED: "Action Date is required",
+            ACTION_TYPE: "Action Type",
+            ACTION_TYPE_REQUIRED: "Action Type is required",
+            FPC_OD_ACTIONS: "FPC Original Document Actions",
+            FPC_OD_ACTION: "FPC Original Document Action",
+            ADD_FPC_OD_ACTION: "Add FPC Original Document Action",
+            EDIT_FPC_OD_ACTION: "Edit FPC Original Document Action",
+            ENTER_FPC_OD_ACTION_DETAILS: "Enter FPC Original Document Action Details",
         }
     },
     ar: {
@@ -801,6 +818,8 @@ export const Labels = {
             CLOSE: "إغلاق",
             ADDRESS: "عنوان",
             REGISTER_TYPE: "نوع السجل",
+            REGISTER_NAME: "اسم السجل",
+            REGISTER_CODE: "رمز السجل",
             REGISTER_TYPE_REQUIRED: "نوع السجل مطلوب",
             BANK_NAME: "اسم البنك",               // <-- Added
             BANK_NAME_REQUIRED: "اسم البنك مطلوب", // <-- Added
@@ -993,13 +1012,28 @@ export const Labels = {
             ENTER_OTF_DETAILS: "أدخل تفاصيل OTF",
             ACTION_STATUS: "حالة الإجراء",
         },
-        FPC:{
-            FPC:"FPC",
+        FPC: {
+            FPC: "FPC",
             FPCS: "FPCs",
             ALL_FPCS: "جميع FPCs",
             ADD_NEW_FPC: "إضافة FPC جديد",
             ENTER_FPC_DETAILS: "أدخل تفاصيل FPC",
             EDIT_FPC: "تعديل FPC",
+            FPC_ODS: "وثائق FPC الأصلية",
+            FPC_OD: "وثيقة FPC الأصلية",
+            ADD_FPC_OD: "إضافة وثيقة FPC الأصلية",
+            EDIT_FPC_OD: "تعديل وثيقة FPC الأصلية",
+            ENTER_FPC_OD_DETAILS: "أدخل تفاصيل وثيقة FPC الأصلية",
+            DOCUMENT_TYPE: "نوع الوثيقة",
+            ACTION_DATE: "تاريخ الإجراء",
+            ACTION_DATE_REQUIRED: "تاريخ الإجراء مطلوب",
+            ACTION_TYPE: "نوع الإجراء",
+            ACTION_TYPE_REQUIRED: "نوع الإجراء مطلوب",
+            FPC_OD_ACTIONS: "إجراءات وثيقة FPC الأصلية",
+            FPC_OD_ACTION: "إجراء وثيقة FPC الأصلية",
+            ADD_FPC_OD_ACTION: "إضافة إجراء وثيقة FPC الأصلية",
+            EDIT_FPC_OD_ACTION: "تعديل إجراء وثيقة FPC الأصلية",
+            ENTER_FPC_OD_ACTION_DETAILS: "أدخل تفاصيل إجراء وثيقة FPC الأصلية",
         }
     }
 } as const;

@@ -47,30 +47,28 @@
                         {{ label.COMMON.CITY_REQUIRED || 'City is required' }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.PHONE_1 }}</mat-label>
-                    <input matInput type="text" formControlName="phone1"
-                        [placeholder]="label.COMMON.PHONE_1 || 'Enter Phone 1'">
-                    <mat-error *ngIf="formGroup.get('phone1')?.hasError('invalidPhoneFax')">
-                        {{ label.COMMON.PHONE_INVALID || 'Phone number must contain only digits (7-15 digits)' }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.PHONE_2 }}</mat-label>
-                    <input matInput type="text" formControlName="phone2"
-                        [placeholder]="label.COMMON.PHONE_2 || 'Enter Phone 2'">
-                    <mat-error *ngIf="formGroup.get('phone2')?.hasError('invalidPhoneFax')">
-                        {{ label.COMMON.PHONE_INVALID || 'Phone number must contain only digits (7-15 digits)' }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.PHONE_3 }}</mat-label>
-                    <input matInput type="text" formControlName="phone3"
-                        [placeholder]="label.COMMON.PHONE_3 || 'Enter Phone 3'">
-                    <mat-error *ngIf="formGroup.get('phone3')?.hasError('invalidPhoneFax')">
-                        {{ label.COMMON.PHONE_INVALID || 'Phone number must contain only digits (7-15 digits)' }}
-                    </mat-error>
-                </mat-form-field>
+                <phone-form
+                [formGroup]="formGroup"
+                [controlName]="'phone1'"
+                [lebelValue]="label.COMMON.PHONE_1 || 'Enter Phone 1'"
+                >
+                </phone-form>
+
+                 <phone-form
+                [formGroup]="formGroup"
+                [controlName]="'phone2'"
+                [lebelValue]="label.COMMON.PHONE_2 || 'Enter Phone 2'"
+                >
+                </phone-form>
+
+                 <phone-form
+                [formGroup]="formGroup"
+                [controlName]="'phone3'"
+                [lebelValue]="label.COMMON.PHONE_3 || 'Enter Phone 3'"
+                >
+                </phone-form>
+`
+               
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMMON.FAX }}</mat-label>
                     <input matInput type="text" formControlName="fax" [placeholder]="label.COMMON.FAX || 'Enter Fax'">
@@ -78,22 +76,18 @@
                         {{ label.COMMON.FAX_INVALID || 'Fax must contain only digits (7-15 digits)' }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.EMAIL_1 }}</mat-label>
-                    <input matInput type="text" formControlName="email1"
-                        [placeholder]="label.COMMON.EMAIL_1 || 'Enter Email 1'">
-                    <mat-error *ngIf="formGroup.get('email1')?.hasError('invalidEmail')">
-                        {{ label.COMMON.EMAIL_INVALID || 'Invalid email address' }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.EMAIL_2 }}</mat-label>
-                    <input matInput type="text" formControlName="email2"
-                        [placeholder]="label.COMMON.EMAIL_2 || 'Enter Email 2'">
-                    <mat-error *ngIf="formGroup.get('email2')?.hasError('invalidEmail')">
-                        {{ label.COMMON.EMAIL_INVALID || 'Invalid email address' }}
-                    </mat-error>
-                </mat-form-field>
+
+               <email-form
+               [formGroup]="formGroup"
+               [controlName]="'email1'"
+               [labelValue]="label.COMMON.EMAIL_1 || 'Enter Email 1'">
+               </email-form>
+               
+               <email-form
+               [formGroup]="formGroup"
+               [controlName]="'email2'"
+               [labelValue]="label.COMMON.EMAIL_2 || 'Enter Email 2'">
+               </email-form>
 
                 <div class="nexus-switch-container">
                     <mat-slide-toggle formControlName="branchPrimary" color="primary" class="nexus-switch">

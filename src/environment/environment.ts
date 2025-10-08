@@ -124,7 +124,8 @@ export const environment: Environment = {
     propertyOwnerRelation: 1026,
     propertyDocumentType: 1028,
     lawFirmsCounselLevels: 1014,
-    transactionTypes: 1035
+    transactionTypes: 1035,
+    originalDocumentActionTypes: 1017
 
   }
 } as const;

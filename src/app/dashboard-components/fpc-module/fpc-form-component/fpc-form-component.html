@@ -22,7 +22,7 @@
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
 
-                 <div class="col-12">
+                 <div class="col-12" *ngIf="!element.registerIdc">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.COMMON.REGISTER_TYPE || 'Type' }}</mat-label>
                         <mat-select formControlName="registerIdc" required>
@@ -49,7 +49,7 @@
 
                 <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Company && loadCompaniesFn">
                     <select-auto-complete
-                        [controlName]="'registerId'" 
+                        [controlName]="'registerIdn'" 
                         [fnGet]="loadCompaniesFn" 
                         [formGroup]="formGroup"
                         [isRequired]="true" 

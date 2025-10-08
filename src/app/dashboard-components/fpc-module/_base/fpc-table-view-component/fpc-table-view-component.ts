@@ -1,5 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FpcDialogFormComponent } from '../../fpc-dialog-form-component/fpc-dialog-form-component';
+import { Labels } from '../../../../models/consts/labels';
+import { EntityIDc } from '../../../../enums/entity-idc';
+import { LanguageCode } from '../../../../models/types/lang-type';
+import { FPCDto } from '../../../../models/fpc-models/fpc/dtos/fpc-dto';
+import { CommonStatus } from '../../../../enums/common-status';
+import { FPCService } from '../../../../services/fpc-services/fpc-service';
+import { LanguageService } from '../../../../services/language-service';
+import { MatDialog } from '@angular/material/dialog';
+import { FPCODDto } from '../../../../models/fpc-models/fpc-od/dtos/fpc-od-dto';
 
 @Component({
   selector: 'app-fpc-table-view-component',
@@ -7,41 +17,159 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './fpc-table-view-component.html',
   styleUrls: ['./fpc-table-view-component.scss']
 })
-export class FpcTableViewComponent  implements OnInit {
+export class FpcTableViewComponent implements OnInit {
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  };
 
-  companyId:number = 0;
+  EntityIDc = EntityIDc;
+
+
+  showFpcOdActions = false;
+  selectedOd!: FPCODDto;
+
+  currentLang: LanguageCode = 'en';
+
+  @Output() backToTableEmit = new EventEmitter();
+  fpc!: FPCDto;
   showLoading = false;
+  fpcId = 0;
+
+  idc = EntityIDc.FPCs;
+  statuses = CommonStatus;
+
+  selectedTab = 0;
   constructor(
+    private service: FPCService,
     private router: Router,
     private route: ActivatedRoute,
+    protected langService: LanguageService,
+    private dialog: MatDialog,
+    protected cdr: ChangeDetectorRef,
+
   ) {
+
   }
 
-  ngOnInit(): void {
-
-    this.showLoading = true;
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if(params['id']){
-        this.companyId = parseInt(params['id']);
-      }else{
-        this.companyId = 0;
+      if (params['id']) {
+        this.fpcId = parseInt(params['id']);
+        this.getFpc();
+      } else {
+        this.backToTable();
       }
-      this.showLoading = false;
-      
-    })
-    
-    
+    });
+    this.langService.language$.subscribe(lang => {
+      this.applyLanguage(lang);
+    });
+
   }
 
-  backToTable(){
-    this.companyId = 0;
-    this.router.navigate([], {
-      relativeTo: this.route, 
-      queryParams: {  }, 
+  private getFpc() {
+    this.showLoading = true;
+    this.service.getDtoById(this.fpcId)
+      .subscribe({
+        next: (res => {
+          this.fpc = res;
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+        })
+      });
+  }
+
+  navigateToTable() {
+    this.backToTableEmit.emit();
+  }
+  getStatusStyle() {
+    let borderColor = '#9E77ED';
+    let color = '#9E77ED';
+    switch (this.fpc?.fpcStatus?.toString()) {
+      case CommonStatus[CommonStatus.Active].toString():
+        borderColor = '#22C993';
+        color = '#22C993';
+        break;
+      case CommonStatus[CommonStatus.Inactive].toString():
+        borderColor = '#423e3ede';
+        color = '#423e3ede';
+        break;
+    }
+    return {
+      'border': `2px solid ${borderColor}`,
+      'color': color,
+      'border-radius': '20px',
+      'padding': '10px',
+
+    };
+
+  }
+
+  getPrivateStyle() {
+    let borderColor = '#025EBA';
+    let color = '#025EBA';
+    if (!this.fpc?.private) {
+      borderColor = '#423e3ede';
+      color = '#423e3ede';
+    }
+    return {
+      'border': `2px solid ${borderColor}`,
+      'color': color,
+      'border-radius': '20px',
+      'padding': '10px',
+
+    };
+
+  }
+
+
+  protected applyLanguage(lang: LanguageCode) {
+    this.currentLang = lang;
+  }
+
+
+
+  onEdit() {
+    const dialogRef = this.dialog.open(FpcDialogFormComponent, {
+      disableClose: true,
+      data: this.fpc,
+      width: '900px',
+      maxWidth: '95vw',
+      minWidth: '800px',
+      panelClass: 'property-dialog-panel'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getFpc();
+      }
     });
   }
 
-  
+  loadFocOdActions(element: FPCODDto) {
+    if(this.selectedOd && this.selectedOd.id == element.id){
+      return;
+    }
+    this.showFpcOdActions = false;
+    this.selectedOd = element;
+    setTimeout(() => {
+      this.showFpcOdActions = true;
+      this.cdr.markForCheck();
+    }, 100);
+  }
+
+  backToTable() {
+    this.fpcId = 0;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {},
+    });
+  }
+
+
+
 
 }
+
 

@@ -1,1 +1,132 @@
-<p>fpc-table-view-component works!</p>
+<div class="main-container">
+
+    <!-- SECTION 1: Loading State -->
+    <div *ngIf="showLoading" class="section loading-section">
+        <div class="loading">
+            <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+        </div>
+    </div>
+
+    <!-- SECTION 2:  Header -->
+    <div *ngIf="!showLoading && fpc" class="section section-header">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-nav">
+            <a (click)="navigateToTable()" class="breadcrumb-link">
+                <mat-icon>arrow_back</mat-icon>
+                {{ label.FPC.FPCS }}
+            </a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="current-page">{{ fpc.fpcCode | titlecase }}</span>
+        </div>
+
+        <div class="header-card">
+            <div class="profile-section">
+
+
+                <div class="profile-details">
+                    <div class="profile-name-section">
+                        <div class="name-and-badges">
+                            <h1 class="profile-name">{{ fpc.fpcCode | titlecase }}</h1>
+                            <div class="status-badges">
+                                <span class="status-badge" [ngStyle]="getStatusStyle()">
+                                    <mat-icon>{{ fpc.fpcStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    {{ fpc.fpcStatus | textPipe: 'company-status' | async}}
+                                </span>
+                                <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
+                                    <mat-icon>{{ fpc.private ? 'lock' : 'public' }}</mat-icon>
+                                    {{ fpc.private | textPipe: 'private-company' | async }}
+                                </span>
+                            </div>
+                        </div>
+                        <!-- <div class="profile-name-arabic">{{ fpc.registerArabicName | titlecase }}</div> -->
+                    </div>
+
+                    <!-- <div class="meta-info">
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMPANY.CODE || 'ID:' }}</span>
+                            <span class="info-value">{{ fpc.fpcCode }}</span>
+                        </div>
+                        <div class="info-item" *ngIf="fpc.registerShortName">
+                            <span class="info-label">{{ label.COMPANY.SHORT_NAME || 'Short Name:' }}</span>
+                            <span class="info-value">{{ fpc.registerShortName | uppercase }}</span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="profile-action">
+                <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
+                    <mat-icon>edit</mat-icon>
+                    {{ label.FPC.EDIT_FPC }}
+                </button>
+
+                <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
+                    <mat-icon>more_vert</mat-icon>
+                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Content Tabs -->
+    <div *ngIf="!showLoading" class="section section-content">
+        <div class="tabs-container">
+            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
+                (selectedIndexChange)="selectedTab = $event">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>dashboard</mat-icon>
+                            <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-fpc-overview [fpc]="fpc"></app-fpc-overview>
+                        </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>local_fire_department</mat-icon>
+                            <span>{{ label.FPC.FPC_OD }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-fpc-ods [fpc]="fpc" (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods>
+                        </div>
+                        <div class="overview-component">
+                            <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd" ></app-fpc-od-actions>
+                        </div>
+                    </div>
+                </mat-tab>
+
+
+
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>notes</mat-icon>
+                            <span>{{ label.COMMON.NOTES }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                            <app-shared-register-note-table [registersIdn]="fpc.id"
+                                [registersIdc]="idc"></app-shared-register-note-table>
+
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

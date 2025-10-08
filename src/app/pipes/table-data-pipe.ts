@@ -157,6 +157,13 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+        case 'original-document-action-type':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentActionTypes).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'property-type':
           return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyType).pipe(
             map(list => {

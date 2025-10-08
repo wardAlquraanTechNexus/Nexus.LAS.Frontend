@@ -6,6 +6,7 @@ import { DynamicListService } from '../services/dynamic-list-service';
 import { environment } from '../../environment/environment';
 import { LanguageService } from '../services/language-service'; // <-- Import LanguageService
 import { CommonStatus } from '../enums/common-status';
+import { EntityIDc } from '../enums/entity-idc';
 
 @Pipe({
   name: 'textPipe',
@@ -132,6 +133,12 @@ export class TextPipe implements PipeTransform {
           })
         );
 
+        case 'register-type':
+                  if (value === EntityIDc.Person) return of(getLabel('COMMON.PERSON') ?? 'Person');
+                  if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
+                  if (value === EntityIDc.LawFirm) return of(getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm');
+                  return of(value?.toString() ?? '');
+        
       case 'date-time':
         const dateTime = value instanceof Date ? value : new Date(value);
         return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));

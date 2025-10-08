@@ -53,20 +53,6 @@ export class LawFirmBranchFormComponent  extends BaseFormComponent {
 
     this.countryId = environment.rootDynamicLists.country;
 
-    // Add validators to phone, fax, and email controls if they exist
-    this.formGroup.get('phone1')?.setValidators([
-      this.phoneFaxValidator.bind(this)
-    ]);
-    this.formGroup.get('phone1')?.updateValueAndValidity();
-    this.formGroup.get('phone2')?.setValidators([
-      this.phoneFaxValidator.bind(this)
-    ]);
-    this.formGroup.get('phone2')?.updateValueAndValidity();
-    this.formGroup.get('phone3')?.setValidators([
-      this.phoneFaxValidator.bind(this)
-    ]);
-    this.formGroup.get('phone3')?.updateValueAndValidity();
-
     this.formGroup.get('fax')?.setValidators([
       this.phoneFaxValidator.bind(this)
     ]);

@@ -1,0 +1,57 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>account_tree</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{element.id != 0 ? label.FPC.EDIT_FPC_OD || 'Edit' :
+                    label.FPC.ADD_FPC_OD ||
+                    'Add'}}
+                </h2>
+                <p class="dialog-subtitle">{{ label.FPC.ENTER_FPC_OD_DETAILS }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+                <div class="form-group col-12">
+                    <dl-select-auto-complete 
+                        *ngIf="actionType" 
+                        [controlName]="'actionType'" 
+                        [formGroup]="formGroup"
+                        [label]="label.FPC.ACTION_TYPE" 
+                        [parentId]="actionType" 
+                        [isRequired]="true">
+                    </dl-select-auto-complete>
+                </div>
+             
+                <div class="form-group col-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.DESCRIPTION }}</mat-label>
+                        <textarea matInput formControlName="actionDescription" [placeholder]="label.COMMON.DESCRIPTION"></textarea>
+                    </mat-form-field>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
+    </div>
+</div>

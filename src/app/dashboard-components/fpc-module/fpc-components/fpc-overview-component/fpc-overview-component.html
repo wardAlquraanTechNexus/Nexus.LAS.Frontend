@@ -1,0 +1,25 @@
+<div class="section">
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.REGISTER_TYPE }}</div>
+        <div class="section-body">{{ fpc.registerIdc | textPipe: 'register-type' | async }}</div>
+    </div>
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.REGISTER_CODE }}</div>
+        <div class="section-body">{{ fpc.registerCode }}</div>
+    </div>
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.NAME_EN }}</div>
+        <div class="section-body">{{ fpc.registerEnglishName }}</div>
+    </div>
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.NAME_AR }}</div>
+        <div class="section-body">{{ fpc.registerArabicName }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.COMMON.SHORT_NAME || 'Website' }}</div>
+        <div class="section-body">{{ fpc.registerShortName }}</div>
+    </div>
+
+</div>

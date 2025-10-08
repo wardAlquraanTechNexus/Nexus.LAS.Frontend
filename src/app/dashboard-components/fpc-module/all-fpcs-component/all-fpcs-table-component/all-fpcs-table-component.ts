@@ -51,18 +51,44 @@ export class AllFpcsTableComponent  extends BaseFpcsComponent {
   override setDisplayColumns() {
      this.displayColumns = [
       {
+        key: "select",
+        label: this.label.COMMON.SELECT
+      },
+      {
+        key: "fpcCode",
+        label: this.label.COMMON.CODE,
+        pipes: ["link"],
+        sort: true
+      },
+      {
         key: 'registerIdn',
         label: this.label.COMMON.NAME,
         sort: true,
-        pipes: ['register'],
+        pipes: ['register', 'link'],
         compareKey: 'registerIdc',
       },
       { 
         key: 'registerIdc',
         label: this.label.TRANSACTION.REGISTER_TYPE,
         sort: true,
-        pipes: ['register-type']
+        pipes: ['register-type', 'link']
       },
+      { 
+        key: "fpcStatus", 
+        label: this.label.COMMON.STATUS, 
+        sort: true ,
+        pipes: ['common-status']
+      },
+      { 
+        key: "private", 
+        label: this.label.COMMON.PRIVATE, 
+        sort: true ,
+        pipes: ['private']
+      },
+      {
+        key: 'action',
+        label: this.label.COMMON.ACTIONS,
+      }
     ];
   }
 

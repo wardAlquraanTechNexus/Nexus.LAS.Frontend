@@ -18,7 +18,9 @@ export class FPCService extends BaseService<FPC> {
     super(http);
     this.setPath('FPC');
   }
-
+  getDtoById(id: number): Observable<FPCDto> {
+    return this.httpClient.get<FPCDto>(this.url + "/" + id);
+  }
   getPaging(query: GetFPCParam): Observable<PaginateRsult<FPCDto>> {
     const params = this.httpParams(query);
     return this.httpClient.get<PaginateRsult<FPCDto>>(this.url, { params });

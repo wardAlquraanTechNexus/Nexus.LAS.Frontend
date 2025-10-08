@@ -101,7 +101,9 @@
       <div class="nexus-table-container" *ngIf="!showLoading">
         <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data" [action]="actionButtonsTemplate"
           (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
-          (selectionChange)="onSelectionChange($event)" (rowClick)="onRowClick($event)">
+          (selectionChange)="onSelectionChange($event)" (rowClick)="onRowClick($event)"
+         [action]="actionButtonsTemplate"
+          >
         </app-shared-table>
       </div>
     </div>
