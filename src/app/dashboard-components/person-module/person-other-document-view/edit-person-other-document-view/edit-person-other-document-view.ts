@@ -14,6 +14,7 @@ import { PersonOtherDocumentDTO } from '../../../../models/person-models/person-
 })
 export class EditPersonOtherDocumentView extends BaseDialogComponent {
 
+  fileUrl:any;
   showLoading = false;
   isEdit = false;
   personOtherDocument!: PersonOtherDocumentDTO;
@@ -38,13 +39,13 @@ export class EditPersonOtherDocumentView extends BaseDialogComponent {
   
             this.personOtherDocument = data;
   
-            if (data.dataFile && data.contentType) {
+            if (data.data && data.contentType) {
   
               // If dataFile is base64
-              const base64Data = data.dataFile;
+              const base64Data = data.data;
               const blob = this.base64ToBlob(base64Data, data.contentType);
               const url = URL.createObjectURL(blob);
-              this.personOtherDocument.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+              this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
             }
             this.showLoading = false;
             this.cdr.markForCheck();

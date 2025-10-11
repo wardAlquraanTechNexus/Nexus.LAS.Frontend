@@ -1,4 +1,6 @@
-export interface PropertyDocumentDTO {
+import { FileDto } from "../../../base/file-dto";
+
+export interface PropertyDocumentDTO extends FileDto{
   id: number;
   propertyId?: number | null;
   type?: number | null;
@@ -7,10 +9,5 @@ export interface PropertyDocumentDTO {
   documentExpiryDate?: string | null;
   activeReminder?: boolean | null;
   description?: string | null;
-  fileName?: string | null;
-  contentType?: string | null;
-  dataFile?: any | null;
   removeFile?: boolean;
-  file:any;
-  imageUrl:any;
 }

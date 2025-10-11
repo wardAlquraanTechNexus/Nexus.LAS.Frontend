@@ -41,7 +41,6 @@ export const Labels = {
             EDIT_ADDRESS: "Edit Address",
             PERSON_REQUIRED: "Person is required",
         },
-
         COMPANY: {
             COMPANY: "Company",
             CODE: "Code",
@@ -196,6 +195,7 @@ export const Labels = {
             FILE_NAME: "File Name",
             ADD_USER: "Add User",
             START_DATE_REQUIRED: "Start Date is required",
+            DATE_REQUIRED: "Date is required",
             ADD_USERS: "Add Users",
             ADD_MENUS: "Add Menus",
             SET_MENUS: "Set Menus",
@@ -514,6 +514,10 @@ export const Labels = {
             ADD_FPC_OD_ACTION: "Add FPC Original Document Action",
             EDIT_FPC_OD_ACTION: "Edit FPC Original Document Action",
             ENTER_FPC_OD_ACTION_DETAILS: "Enter FPC Original Document Action Details",
+            LAST_ACTION_DATE: "last action date",
+            ACTIVE_PUBLIC_FPCS: "Active Public FPCs",
+            ACTIVE_PRIVATE_FPCS: "Active Private FPCs",
+            ACTIVE_FPCS: "Active FPCs"
         }
     },
     ar: {
@@ -703,6 +707,7 @@ export const Labels = {
             VIEW_FILE: "عرض الملف",
             PHONE_TYPE: "نوع الهاتف",
             START_DATE: "تاريخ البدء",
+            DATE_REQUIRED: "التاريخ مطلوب",
             END_DATE: "تاريخ الانتهاء",
             PHONE_TYPE_REQUIRED: "نوع الهاتف مطلوب",
             ID: "المعرف",
@@ -1034,6 +1039,10 @@ export const Labels = {
             ADD_FPC_OD_ACTION: "إضافة إجراء وثيقة FPC الأصلية",
             EDIT_FPC_OD_ACTION: "تعديل إجراء وثيقة FPC الأصلية",
             ENTER_FPC_OD_ACTION_DETAILS: "أدخل تفاصيل إجراء وثيقة FPC الأصلية",
+            LAST_ACTION_DATE: "اخر تاريخ اجراء",
+            ACTIVE_PUBLIC_FPCS: "FPCs النشطة العامة",
+            ACTIVE_PRIVATE_FPCS: "FPCs الخاصة النشطة",
+            ACTIVE_FPCS: "FPCs النشطة"
         }
     }
 } as const;

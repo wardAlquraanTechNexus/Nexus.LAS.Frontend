@@ -16,6 +16,12 @@ import { FpcOdDialogFormComponent } from './fpc-components/fpc-ods-component/fpc
 import { FpcOdActionsComponent } from './fpc-components/fpc-od-actions-component/fpc-od-actions-component';
 import { FpcOdActionFormComponent } from './fpc-components/fpc-od-actions-component/fpc-od-action-form-component/fpc-od-action-form-component';
 import { FpcOdActionDialogFormComponent } from './fpc-components/fpc-od-actions-component/fpc-od-action-dialog-form-component/fpc-od-action-dialog-form-component';
+import { ActiveFpcsComponent } from './active-fpcs-component/active-fpcs-component';
+import { ActiveFpcsTableComponent } from './active-fpcs-component/active-fpcs-table-component/active-fpcs-table-component';
+import { ActivePublicFpcsComponent } from './active-public-fpcs-component/active-public-fpcs-component';
+import { ActivePublicFpcsTableComponent } from './active-public-fpcs-component/active-public-fpcs-table-component/active-public-fpcs-table-component';
+import { ActivePrivateFpcsComponent } from './active-private-fpcs-component/active-private-fpcs-component';
+import { ActivePrivateFpcsTableComponent } from './active-private-fpcs-component/active-private-fpcs-table-component/active-private-fpcs-table-component';
 
 
 @NgModule({
@@ -32,7 +38,13 @@ import { FpcOdActionDialogFormComponent } from './fpc-components/fpc-od-actions-
     FpcOdDialogFormComponent,
     FpcOdActionsComponent,
     FpcOdActionFormComponent,
-    FpcOdActionDialogFormComponent
+    FpcOdActionDialogFormComponent,
+    ActiveFpcsComponent,
+    ActiveFpcsTableComponent,
+    ActivePublicFpcsComponent,
+    ActivePublicFpcsTableComponent,
+    ActivePrivateFpcsComponent,
+    ActivePrivateFpcsTableComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,6 @@
-export interface CompanyContractDto {
+import { FileDto } from "../../../base/file-dto";
+
+export interface CompanyContractDto extends FileDto {
     id: number;
     companyId: number;
     contractType: number;
@@ -8,9 +10,4 @@ export interface CompanyContractDto {
     contractExpiryActiveReminder?: boolean;
     contractDescription?: string;
     contractStatus?: number | null;
-    contentType?: string;
-    dataFile?: number[];
-    imageUrl?: any;
-    file?:any;
-    fileName?:string;
 }

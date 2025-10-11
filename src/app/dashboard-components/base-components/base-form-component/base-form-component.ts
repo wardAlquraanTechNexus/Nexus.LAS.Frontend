@@ -24,7 +24,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   isDragging = false;
   private destroy$ = new Subject<void>();
   protected isBrowser: boolean = true;
-  uploadedFile: File | null = null;
   isFileRemoved = false; // Track if file was removed
   currentLang: LanguageCode = 'en';
   get label() {
@@ -86,24 +85,8 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   }
 
 
-  /**
-   * Get validation error message for a specific field
-   */
-  getFieldError(fieldName: string): string {
-    const control = this.formGroup?.get(fieldName);
-    if (!control || !control.touched || !control.errors) return '';
-
-    return ValidationUtils.getErrorMessage(control, this.getFieldDisplayName(fieldName));
-  }
-
-  /**
-   * Check if a field has validation errors
-   */
-  hasFieldError(fieldName: string): boolean {
-    const control = this.formGroup?.get(fieldName);
-    return !!(control && control.invalid && control.touched);
-  }
-
+  
+  
   /**
    * Get display name for field (override in child components)
    */
@@ -126,39 +109,8 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     this.cancelEditEmitter.emit();
   }
 
-  download(): void {
-    if (!this.isBrowser) {
-      this.errorHandler.showInfo('Download not available in server mode.');
-      return;
-    }
 
-    if (this.object && (this.object as any).dataFile && (this.object as any).contentType && (this.object as any).fileName) {
-      const blob = this.base64ToBlob((this.object as any).dataFile, (this.object as any).contentType);
-      const url = window.URL.createObjectURL(blob);
 
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = (this.object as any).fileName;
-      a.click();
-
-      // Optional cleanup
-      window.URL.revokeObjectURL(url);
-    } else {
-      this.errorHandler.showInfo('No file available to download.');
-    }
-  }
-
-  base64ToBlob(base64: string, contentType: string): Blob {
-    const byteCharacters = atob(base64);
-    const byteNumbers = new Array(byteCharacters.length);
-
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-
-    const byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], { type: contentType });
-  }
 
 
   save(isFormData: boolean = false): void {
@@ -214,13 +166,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       });
 
       if (isFormData) {
-        // Handle file upload or removal
-        if (this.uploadedFile) {
-          formData.append('file', this.uploadedFile!, this.uploadedFile!.name);
-        } else if (this.isFileRemoved) {
-          // Explicitly indicate file removal
-          formData.append('removeFile', 'true');
-        }
         this.saveEmitter.emit({ element: this.object, formData });
       } else {
         this.saveEmitter.emit({ element: this.object });
@@ -247,45 +192,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      if (this.validateFile(file)) {
-        this.processFile(file);
-      }
-    }
-  }
-
-  private processFile(file: File): void {
-    this.uploadedFile = file;
-    this.isFileRemoved = false; // Reset removal flag when new file is selected
-
-    if (this.object) {
-      (this.object as any).contentType = file.type;
-    }
-    this.formGroup.get('file')?.setValue(file);
-
-    if (file.type === 'application/pdf') {
-      const blobUrl = URL.createObjectURL(file);
-      if (this.object) {
-        (this.object as any).imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
-      }
-    } else if (file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (this.object) {
-          (this.object as any).imageUrl = reader.result as string;
-        }
-        this.cdr.markForCheck();
-      };
-      reader.readAsDataURL(file);
-    }
-
-    this.cdr.markForCheck();
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -325,17 +231,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
     this.isDragging = false;
   }
 
-  onFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging = false;
-    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
-      const file = event.dataTransfer.files[0];
-      if (this.validateFile(file)) {
-        this.processFile(file);
-      }
-    }
-  }
-
+ 
 
 
   validateFile(file: File): boolean {

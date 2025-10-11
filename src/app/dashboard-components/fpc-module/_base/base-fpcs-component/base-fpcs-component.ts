@@ -234,7 +234,7 @@ export class BaseFpcsComponent extends TableFormComponent<FPC> {
   }
 
   onRowClick(event: any) {
-    if (event.key == "registerIdn" || event.key == "registerIdc") {
+    if (event.key == "fpcCode" || event.key == "registerIdn" || event.key == "registerIdc") {
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: { id: event.element.id },

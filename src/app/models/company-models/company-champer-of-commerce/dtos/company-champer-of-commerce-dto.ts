@@ -1,5 +1,6 @@
+import { FileDto } from "../../../base/file-dto";
 
-export interface CompanyChamberOfCommerceDTO {
+export interface CompanyChamberOfCommerceDTO extends FileDto{
   id: number;
   companyIdn: number;
   cciNumber: string;
@@ -9,8 +10,4 @@ export interface CompanyChamberOfCommerceDTO {
   cciUsername?: string;
   cciPassword?: string;
   contentType?: string;
-  dataFile?: number[];
-  imageUrl?: any;
-  file?: any;
-  fileName?: string;
 }

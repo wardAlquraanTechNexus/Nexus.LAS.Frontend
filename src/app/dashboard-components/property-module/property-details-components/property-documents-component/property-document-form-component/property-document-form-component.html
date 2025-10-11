@@ -25,7 +25,7 @@
             <form [formGroup]="formGroup" class="dialog-content">
 
                 <!-- License File Upload -->
-                <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
+                <!-- <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
                     (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
                     <label class="upload-button">
                         <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)"
@@ -41,9 +41,19 @@
                     *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
                     class="mat-error">
                     {{ label.PERSON.FILE_REQUIRED || 'File is required.' }}
-                </mat-error>
+                </mat-error> -->
 
 
+                <file-form-group
+                [formGroup]="formGroup"
+                [controlName]="'file'"
+                [element]="element"
+                [removeFileControlName]="'removeFile'"
+                [isRequired]="true"
+                
+                >
+
+                </file-form-group>
                 <div class="row">
                       <div class="form-group col-12">
                     <dl-select-auto-complete *ngIf="propertyDocumentTypeId" [controlName]="'type'"
@@ -118,8 +128,7 @@
         </div>
 
         <!-- Right: File Preview -->
-        <div class="preview-side">
-            <!-- Remove Attachment Button - Shows when file is selected or image exists -->
+        <!-- <div class="preview-side">
             <div *ngIf="element?.imageUrl || formGroup.get('file')?.value" class="mb-3 text-center">
                 <button mat-icon-button color="warn" type="button" (click)="onRemoveAttachment()"
                     matTooltip="Remove Attachment">
@@ -138,7 +147,7 @@
                 <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
                 <div class="empty-text">{{ label.COMMON.NO_FILE_SELECTED || 'No file selected' }}</div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <!-- Footer -->

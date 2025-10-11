@@ -7,14 +7,18 @@ import { DynamicListService } from '../../../../../services/dynamic-list-service
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { LanguageService } from '../../../../../services/language-service';
 import { environment } from '../../../../../../environment/environment';
+import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 
 @Component({
   selector: 'app-property-document-form',
   standalone: false,
   templateUrl: './property-document-form-component.html',
-  styleUrls: ['./property-document-form-component.scss']
+  styleUrls: ['./property-document-form-component.scss'],
+  providers: [
+      ...DATE_FORMAT_PROVIDERS
+    ]
 })
-export class PropertyDocumentFormComponent  extends BaseFormComponent {
+export class PropertyDocumentFormComponent extends BaseFormComponent {
   @Input() element!: PropertyDocumentDTO;
   propertyDocumentTypeId = environment.rootDynamicLists.propertyDocumentType;
 
@@ -33,30 +37,8 @@ export class PropertyDocumentFormComponent  extends BaseFormComponent {
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
-    this.formGroup.get('file')?.setValidators([Validators.required])
-
-  }
- 
-  onRemoveAttachment() {
-    this.formGroup.get('file')?.setValue(null);
-
-    this.uploadedFile = null;
-
-    this.isFileRemoved = true;
-    this.element.removeFile = true;
-
-    if (this.element) {
-      this.element.file = null;
-      this.element.imageUrl = null;
-      this.element.fileName = '';
-      this.element.contentType = '';
-      this.element.dataFile = [];
-    }
-
-    this.cdr.markForCheck();
   }
 
-
-
+  
 
 }

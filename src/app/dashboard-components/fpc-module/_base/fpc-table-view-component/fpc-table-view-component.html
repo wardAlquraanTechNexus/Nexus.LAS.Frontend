@@ -99,10 +99,10 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-fpc-ods [fpc]="fpc" (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods>
+                            <app-fpc-ods *ngIf="showFpcOd" [fpc]="fpc" (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods>
                         </div>
                         <div class="overview-component">
-                            <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd" ></app-fpc-od-actions>
+                            <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd" (onSave)="onActionEdit()" ></app-fpc-od-actions>
                         </div>
                     </div>
                 </mat-tab>

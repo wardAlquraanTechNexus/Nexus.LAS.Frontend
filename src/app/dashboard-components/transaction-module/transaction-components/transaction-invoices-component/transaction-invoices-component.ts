@@ -133,7 +133,6 @@ export class TransactionInvoicesComponent extends TableFormComponent<Transaction
       currency: null,
       note: null,
       file: null,
-      imageUrl: null,
     };
     const dialogRef = this.dialog.open(TransactionInvoicesDialogFormComponent, {
       disableClose: true,

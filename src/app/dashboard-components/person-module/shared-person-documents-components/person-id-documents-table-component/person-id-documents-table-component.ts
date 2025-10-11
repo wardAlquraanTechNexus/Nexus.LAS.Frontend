@@ -266,8 +266,6 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
       fileName: "",
       contentType: "",
       removeFile : false,
-      dataFile: [],
-      imageUrl: null,
       activeReminder: false,
       file: null
     };
@@ -284,13 +282,7 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
   }
 
   onEdit(row: any) {
-    if (row.dataFile && row.contentType) {
-      const base64Data = row.dataFile;
-      const blob = base64ToBlob(base64Data, row.contentType);
-      const url = URL.createObjectURL(blob);
-      row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.cdr.markForCheck();
-    }
+    row.removeFile = false;
     const dialogRef = this.dialog.open(PersonIdDocumentFormDialogComponent, {
       disableClose: true,
       data: row

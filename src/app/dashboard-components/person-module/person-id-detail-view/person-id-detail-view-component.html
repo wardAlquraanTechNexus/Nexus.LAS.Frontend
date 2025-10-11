@@ -60,11 +60,11 @@
         <div class="col-md-9">
             <div class="image-wrapper">
                 <ng-container *ngIf="personIdDetail.contentType === 'application/pdf'; else showImage">
-                    <iframe [src]="personIdDetail.imageUrl" width="100%" height="100%" type="application/pdf"></iframe>
+                    <iframe [src]="fileUrl" width="100%" height="100%" type="application/pdf"></iframe>
                 </ng-container>
 
                 <ng-template #showImage>
-                    <img *ngIf="personIdDetail.imageUrl" [src]="personIdDetail.imageUrl" alt="Document" class="img-fluid" />
+                    <img *ngIf="fileUrl" [src]="fileUrl" alt="Document" class="img-fluid" />
                 </ng-template>
             </div>
         </div>

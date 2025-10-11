@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { FPCODAction } from '../../../../models/fpc-models/fpc-od-action/fpc-od-action';
 import { FPCODDto } from '../../../../models/fpc-models/fpc-od/dtos/fpc-od-dto';
@@ -22,6 +22,7 @@ import { MenuService } from '../../../../services/menu-service';
 })
 export class FpcOdActionsComponent extends TableFormComponent<FPCODAction> {
 
+  @Output() onSave = new EventEmitter();
   @Input() fpcOd!: FPCODDto;
   override params: GetFPCODActionParam = {
     page: 0,
@@ -51,7 +52,6 @@ export class FpcOdActionsComponent extends TableFormComponent<FPCODAction> {
   }
 
   override ngOnInit(): void {
-    debugger
     this.params.fpcOdIdn = this.fpcOd.id;
     super.ngOnInit();
 
@@ -113,9 +113,9 @@ export class FpcOdActionsComponent extends TableFormComponent<FPCODAction> {
     let element: FPCODActionDto = {
       id: 0,
       fpcOdIdn: this.fpcOd.id,
-      actionType: 0,
+      actionType: null,
       actionDate: null,
-      actionDescription: null
+      actionDescription: null,
     };
     const dialogRef = this.dialog.open(FpcOdActionDialogFormComponent, {
       disableClose: true,
@@ -125,6 +125,7 @@ export class FpcOdActionsComponent extends TableFormComponent<FPCODAction> {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchData();
+        this.onSave.emit();
       }
     })
   }
@@ -138,6 +139,7 @@ export class FpcOdActionsComponent extends TableFormComponent<FPCODAction> {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchData();
+        this.onSave.emit();
       }
     })
   }

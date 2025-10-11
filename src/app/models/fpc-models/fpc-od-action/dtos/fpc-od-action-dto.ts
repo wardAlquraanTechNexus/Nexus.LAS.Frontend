@@ -4,4 +4,5 @@ export interface FPCODActionDto {
   actionType?: number | null;
   actionDate?: string | null;
   actionDescription?: string | null;
+  lastActionDate?: string | null;
 }

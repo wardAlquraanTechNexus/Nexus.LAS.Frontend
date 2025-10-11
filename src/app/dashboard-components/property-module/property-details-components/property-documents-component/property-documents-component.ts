@@ -136,10 +136,9 @@ export class PropertyDocumentsComponent extends TableFormComponent<PropertyDocum
       description: null,
       fileName: null,
       contentType: null,
-      dataFile: null,
+      data: null,
       removeFile: false,
       file: null,
-      imageUrl: null
     };
     const dialogRef = this.dialog.open(PropertyDocumentDialogFormComponent, {
       disableClose: true,
@@ -155,13 +154,7 @@ export class PropertyDocumentsComponent extends TableFormComponent<PropertyDocum
 
   onEdit(element: PropertyDocumentDTO) {
 
-    if (element.dataFile && element.contentType) {
-      const base64Data = element.dataFile;
-      const blob = base64ToBlob(base64Data, element.contentType);
-      const url = URL.createObjectURL(blob);
-      element.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.cdr.markForCheck();
-    }
+    element.removeFile = false;
     const dialogRef = this.dialog.open(PropertyDocumentDialogFormComponent, {
       disableClose: true,
       data: element

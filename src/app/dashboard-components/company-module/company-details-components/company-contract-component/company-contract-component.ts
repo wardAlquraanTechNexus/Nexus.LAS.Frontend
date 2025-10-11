@@ -134,15 +134,7 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
   }
 
   onEdit(row: any) {
-    if (row.dataFile && row.contentType) {
-          const base64Data = row.dataFile;
-          const blob = base64ToBlob(base64Data, row.contentType);
-          const url = URL.createObjectURL(blob);
-          row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-          this.cdr.markForCheck();
-        }
-        row.file = null;
-    
+    row.removeFile = false;
     const dialogRef = this.dialog.open(CompanyContractFormDialogComponent, {
       disableClose: true,
       data: row
@@ -206,7 +198,7 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
       })
     }
     else if(event.key == 'fileName'){
-      downloadBlob(event.element.dataFile , event.element.contentType , event.element.fileName);
+      downloadBlob(event.element.data , event.element.contentType , event.element.fileName);
     }
   }
 }

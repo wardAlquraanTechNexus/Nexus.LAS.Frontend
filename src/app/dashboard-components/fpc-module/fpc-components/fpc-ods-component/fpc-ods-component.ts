@@ -76,6 +76,11 @@ export class FpcOdsComponent  extends TableFormComponent<FPCOD> {
         pipes: ['link']
       },
       {
+        key: 'lastActionDate',
+        label: this.label.FPC.LAST_ACTION_DATE,
+        pipes: ['date']
+      },
+      {
         key: "action", 
         label: this.label.COMMON.ACTIONS
       }

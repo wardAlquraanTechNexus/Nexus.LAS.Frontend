@@ -7,6 +7,7 @@ import { BaseDialogComponent } from '../../base-components/base-dialog-component
 import { FormBuilder } from '@angular/forms';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { PersonIdDetailDto } from '../../../models/person-models/person-id-details/person-id-details-dto';
+import { downloadBlobFile } from '../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-person-id-detail-view-component',
@@ -18,6 +19,7 @@ export class PersonIdDetailViewComponent extends BaseDialogComponent {
   openEditForm = false;
   isEdit = false;
   personIdDetail!: PersonIdDetailDto;
+  fileUrl:any;
 
   showLoading = false;
   constructor(
@@ -47,13 +49,13 @@ export class PersonIdDetailViewComponent extends BaseDialogComponent {
 
           this.personIdDetail = data;
 
-          if (data.dataFile && data.contentType) {
+          if (data.data && data.contentType) {
 
             // If dataFile is base64
-            const base64Data = data.dataFile;
+            const base64Data = data.data;
             const blob = this.base64ToBlob(base64Data, data.contentType);
             const url = URL.createObjectURL(blob);
-            this.personIdDetail.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+            this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           }
           this.showLoading = false;
           this.cdr.markForCheck();
@@ -104,20 +106,7 @@ export class PersonIdDetailViewComponent extends BaseDialogComponent {
   }
 
   download() {
-    if (this.personIdDetail.dataFile && this.personIdDetail.contentType && this.personIdDetail.fileName) {
-      const blob = this.base64ToBlob(this.personIdDetail.dataFile, this.personIdDetail.contentType);
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = this.personIdDetail.fileName;
-      a.click();
-
-      // Optional cleanup
-      window.URL.revokeObjectURL(url);
-    } else {
-      this.errorHandler.showInfo('No file available to download.');
-    }
+    downloadBlobFile(this.data.data , this.data.file)
   }
 
   getRemoveCallback(): () => void {
@@ -139,31 +128,7 @@ export class PersonIdDetailViewComponent extends BaseDialogComponent {
   }
 
   uploadedFile: File | null = null;
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files[0]) {
-      this.uploadedFile = input.files[0];
-      const file = this.uploadedFile;
-
-      this.personIdDetail.contentType = file.type;
-
-      if (file.type === 'application/pdf') {
-        const blobUrl = URL.createObjectURL(file);
-        this.personIdDetail.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(blobUrl);
-      } else if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.personIdDetail.imageUrl = reader.result as string;
-          this.cdr.markForCheck();
-        };
-        reader.readAsDataURL(file);
-      }
-
-      this.cdr.markForCheck();
-    }
-  }
-
+ 
 
   save(event: any) {
     this.personIdDetail = event.element;

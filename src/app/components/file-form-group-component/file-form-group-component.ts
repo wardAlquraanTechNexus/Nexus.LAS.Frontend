@@ -4,7 +4,7 @@ import { LanguageService } from '../../services/language-service';
 import { base64ToBlob, downloadBlobFile } from '../../dashboard-components/_shared/shared-methods/downloadBlob';
 import { Labels } from '../../models/consts/labels';
 import { LanguageCode } from '../../models/types/lang-type';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileDto } from '../../models/base/file-dto';
 
 @Component({
@@ -23,6 +23,7 @@ export class FileFormGroupComponent implements OnInit {
   @Input() fileNameControl: string = 'fileName';
   @Input() removeFileControlName: string = 'removeFile';
   @Input() fileIdControlName: string = 'fileId';
+  @Input() isRequired: boolean = false;
 
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
@@ -33,24 +34,31 @@ export class FileFormGroupComponent implements OnInit {
     protected fb: FormBuilder,
     private cdr: ChangeDetectorRef
   ) {
+  }
+  
+  ngOnInit(): void {
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
     });
-  }
-
-  ngOnInit(): void {
     this.acceptFiles = environment.acceptFiles;
-    if (this.element?.file) {
-      const fileBlob = base64ToBlob(this.element.data, this.element.file.contentType!);
-      const file = new File([fileBlob], this.element.file.fileName || 'file', { type: this.element.file.contentType! });
-
+    if (this.element?.data) {
+      const fileBlob = base64ToBlob(this.element.data, this.element.contentType!);
+      const file = new File([fileBlob], this.element.fileName || 'file', { type: this.element.contentType! });
+      this.file = file;
       this.formGroup.setControl(this.controlName, this.fb.control(file));
       this.formGroup.setControl(this.fileNameControl, this.fb.control(file.name));
-      this.formGroup.setControl(this.fileIdControlName, this.fb.control(this.element.file.fileId || null));
+      this.formGroup.setControl(this.fileIdControlName, this.fb.control(this.element.fileId || null));
     } else {
       this.formGroup.addControl(this.controlName, this.fb.control(null));
       this.formGroup.addControl(this.fileNameControl, this.fb.control(null));
 
+    }
+    if (this.isRequired) {
+      const fileCtrl = this.formGroup.get(this.controlName);
+      if (fileCtrl) {
+        fileCtrl.setValidators([Validators.required]);
+        fileCtrl.updateValueAndValidity();
+      }
     }
   }
 

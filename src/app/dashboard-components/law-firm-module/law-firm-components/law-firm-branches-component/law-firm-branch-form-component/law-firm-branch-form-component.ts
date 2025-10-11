@@ -39,13 +39,7 @@ export class LawFirmBranchFormComponent  extends BaseFormComponent {
     return /^\d{7,15}$/.test(value) ? null : { invalidPhoneFax: true };
   }
 
-  // Validator for email
-  private emailValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) return null;
-    // Simple email regex
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? null : { invalidEmail: true };
-  }
+  
 
   override ngOnInit(): void {
     this.setup(this.element);
@@ -57,16 +51,6 @@ export class LawFirmBranchFormComponent  extends BaseFormComponent {
       this.phoneFaxValidator.bind(this)
     ]);
     this.formGroup.get('fax')?.updateValueAndValidity();
-
-    this.formGroup.get('email1')?.setValidators([
-      this.emailValidator.bind(this)
-    ]);
-    this.formGroup.get('email1')?.updateValueAndValidity();
-
-    this.formGroup.get('email2')?.setValidators([
-      this.emailValidator.bind(this)
-    ]);
-    this.formGroup.get('email2')?.updateValueAndValidity();
   }
 
 }

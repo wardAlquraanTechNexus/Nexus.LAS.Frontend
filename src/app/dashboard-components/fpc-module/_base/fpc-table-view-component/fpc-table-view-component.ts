@@ -25,6 +25,7 @@ export class FpcTableViewComponent implements OnInit {
   EntityIDc = EntityIDc;
 
 
+  showFpcOd = true;
   showFpcOdActions = false;
   selectedOd!: FPCODDto;
 
@@ -148,7 +149,7 @@ export class FpcTableViewComponent implements OnInit {
   }
 
   loadFocOdActions(element: FPCODDto) {
-    if(this.selectedOd && this.selectedOd.id == element.id){
+    if (this.selectedOd && this.selectedOd.id == element.id) {
       return;
     }
     this.showFpcOdActions = false;
@@ -167,6 +168,14 @@ export class FpcTableViewComponent implements OnInit {
     });
   }
 
+
+  onActionEdit() {
+    this.showFpcOd = false;
+    setTimeout(() => {
+      this.showFpcOd = true;
+      this.cdr.markForCheck();
+    }, 100);
+  }
 
 
 

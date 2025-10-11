@@ -21,6 +21,7 @@ import { LanguageCode } from '../../../../../models/types/lang-type';
 })
 export class PersonOtherDocumentDialogViewComponent  implements OnInit {
 
+  fileUrl:any;
   currentLang: LanguageCode = 'en';
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
@@ -41,11 +42,11 @@ export class PersonOtherDocumentDialogViewComponent  implements OnInit {
   }
   ngOnInit(): void {
 
-    if (this.data.dataFile && this.data.contentType) {
-      const base64Data = this.data.dataFile;
+    if (this.data.data && this.data.contentType) {
+      const base64Data = this.data.data;
       const blob = base64ToBlob(base64Data, this.data.contentType);
       const url = URL.createObjectURL(blob);
-      this.data.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.cdr.markForCheck();
     }
 
@@ -55,7 +56,7 @@ export class PersonOtherDocumentDialogViewComponent  implements OnInit {
   }
 
   download() {
-    downloadBlob(this.data.dataFile , this.data.contentType! , this.data?.fileName!);
+    downloadBlob(this.data.data , this.data.contentType! , this.data?.fileName!);
   }
 
   close() {

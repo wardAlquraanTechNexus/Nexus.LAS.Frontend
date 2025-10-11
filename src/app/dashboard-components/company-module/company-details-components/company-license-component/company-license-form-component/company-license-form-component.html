@@ -23,23 +23,14 @@
         <div class="form-side">
             <form [formGroup]="formGroup" class="dialog-content">
 
-                <!-- License File Upload -->
-                <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
-                    (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
-                    <label class="upload-button">
-                        <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)" hidden />
-                        <a mat-raised-button color="primary" type="button">
-                            {{ label.COMMON.UPLOAD_DOCUMENT || 'Click to Upload' }}
-                        </a>
-                    </label>
-                    <p>{{ label.PERSON.OR_DRAG_AND_DROP || 'or drag and drop' }}</p>
-                    <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
-                </div>
-                <mat-error
-                    *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
-                    class="mat-error">
-                    {{ label.PERSON.FILE_REQUIRED || 'File is required.' }}
-                </mat-error>
+                 <file-form-group
+                [formGroup]="formGroup"
+                [controlName]="'file'"
+                [element]="element"
+                [removeFileControlName]="'removeFile'"
+                [isRequired]="true"
+                >
+                </file-form-group>
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMMON.STATUS || 'Status' }}</mat-label>
@@ -105,28 +96,6 @@
                 </div>
 
             </form>
-        </div>
-
-        <!-- Right: File Preview -->
-        <div class="preview-side">
-            <!-- Remove Attachment Button - Shows when file is selected or image exists -->
-            <div *ngIf="element?.imageUrl || formGroup.get('file')?.value" class="mb-3 text-center">
-                <button mat-icon-button color="warn" type="button" (click)="onRemoveAttachment()" matTooltip="Remove Attachment">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
-            <div class="file-preview" *ngIf="element?.imageUrl">
-                <ng-container *ngIf="element?.contentType === 'application/pdf'; else showImage">
-                    <iframe [src]="element.imageUrl" width="100%" height="500px" type="application/pdf"></iframe>
-                </ng-container>
-                <ng-template #showImage>
-                    <img *ngIf="element?.imageUrl" [src]="element.imageUrl" alt="Document" class="img-fluid" />
-                </ng-template>
-            </div>
-            <div class="file-preview empty" *ngIf="!element?.imageUrl">
-                <mat-icon color="disabled" style="font-size: 64px;">insert_drive_file</mat-icon>
-                <div class="empty-text">{{ label.COMMON.NO_FILE_SELECTED || 'No file selected' }}</div>
-            </div>
         </div>
     </div>
 

@@ -64,24 +64,6 @@ export class PersonIdDocumentFormComponent extends BaseFormComponent {
     return this.dlService.GetAllByParentId(this.countryId, search);
   }
 
-  onRemoveAttachment() {
-    this.formGroup.get('file')?.setValue(null);
-
-    this.uploadedFile = null;
-
-    this.isFileRemoved = true;
-    this.element.removeFile = true;
-
-    if (this.element) {
-      this.element.file = null;
-      this.element.imageUrl = null;
-      this.element.fileName = '';
-      this.element.contentType = '';
-      this.element.dataFile = [];
-    }
-
-    this.cdr.markForCheck();
-  }
 
   expiryDate: Date | null = null;
   onExpiryDateChange(value: string) {

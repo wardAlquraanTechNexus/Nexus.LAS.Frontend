@@ -97,7 +97,6 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
       cciExpiryActiveReminder: false,
       cciUsername: "",
       cciPassword: "",
-      imageUrl: null,
       file: null
     };
     const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
@@ -113,15 +112,7 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
   }
 
   onEdit(row: any) {
-    if (row.dataFile && row.contentType) {
-      const base64Data = row.dataFile;
-      const blob = base64ToBlob(base64Data, row.contentType);
-      const url = URL.createObjectURL(blob);
-      row.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.cdr.markForCheck();
-    }
-    row.file = null;
-
+    row.removeFile = false;
 
     const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
       disableClose: true,

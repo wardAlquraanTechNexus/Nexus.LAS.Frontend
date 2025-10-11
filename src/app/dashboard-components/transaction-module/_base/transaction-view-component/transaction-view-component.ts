@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../../../services/language-service';
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionDialogFormComponent } from '../../transaction-dialog-form-component/transaction-dialog-form-component';
+import { downloadBlob } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-transaction-view',
@@ -22,7 +23,7 @@ export class TransactionViewComponent implements OnInit {
   };
 
   EntityIDc = EntityIDc;
-  
+
   companyPersonRegisterTypes?: { idc: string, name: string }[];
 
   lawFirmRegisterTypes?: { idc: string, name: string }[];
@@ -94,7 +95,7 @@ export class TransactionViewComponent implements OnInit {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     switch (this.transaction?.status?.toString()) {
-      case  CommonStatus[CommonStatus.Active].toString():
+      case CommonStatus[CommonStatus.Active].toString():
         borderColor = '#22C993';
         color = '#22C993';
         break;
@@ -153,6 +154,13 @@ export class TransactionViewComponent implements OnInit {
       }
     });
   }
+
+  exportToPdf() {
+    this.service.exportToPdf({ id: this.transactionId }).subscribe(res => {
+      downloadBlob(res.data, 'application/pdf', res.fileName)
+    });
+  }
+
 
   backToTable() {
     this.transactionId = 0;

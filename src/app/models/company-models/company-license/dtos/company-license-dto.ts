@@ -1,6 +1,7 @@
 import { CompanyLicenseStatus } from "../../../../enums/company-license-status";
+import { FileDto } from "../../../base/file-dto";
 
-export interface CompanyLicenseDto {
+export interface CompanyLicenseDto extends FileDto{
   id: number;
   companyIdn: number;
   licensePrimary: boolean;
@@ -10,9 +11,5 @@ export interface CompanyLicenseDto {
   licenseIssueDate: string;
   licenseExpiryDate?: string;
   licenseExpiryActiveReminder: boolean;
-  contentType?: string;
-  dataFile?: number[];
-  imageUrl?: any;
-  file?: any;
-  fileName?: string;
+  removeFile?: string | null;
 }

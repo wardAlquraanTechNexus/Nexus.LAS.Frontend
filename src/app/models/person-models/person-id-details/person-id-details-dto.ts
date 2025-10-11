@@ -1,4 +1,6 @@
-export interface PersonIdDetailDto {
+import { FileDto } from "../../base/file-dto";
+
+export interface PersonIdDetailDto extends FileDto {
   id: number;
   personsIdn:number;
   type?: number | null;
@@ -10,9 +12,4 @@ export interface PersonIdDetailDto {
   activeReminder?:boolean;
   isPrimary: boolean;
   removeFile:boolean;
-  fileName: string;
-  contentType: string;
-  dataFile: number[];
-  imageUrl:any;
-  file:any;
 }

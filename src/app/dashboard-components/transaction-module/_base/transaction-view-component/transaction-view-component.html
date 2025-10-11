@@ -63,6 +63,10 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item (click)="exportToPdf()">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        {{ label.COMMON.PRINT }}
+                    </button>
                 </mat-menu>
             </div>
         </div>
@@ -85,7 +89,8 @@
                             <app-transaction-overview [transaction]="transaction"></app-transaction-overview>
                         </div>
                         <div class="overview-component">
-                            <app-transaction-registers [readonly]="true" [transaction]="transaction"></app-transaction-registers>
+                            <app-transaction-registers [readonly]="true"
+                                [transaction]="transaction"></app-transaction-registers>
                         </div>
 
                     </div>
@@ -102,11 +107,9 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-transaction-registers 
-                            [readonly]="false" 
-                            [idc]="EntityIDc.Company" 
-                            [transaction]="transaction"
-                            [registerTypes]="companyPersonRegisterTypes"></app-transaction-registers>
+                            <app-transaction-registers [readonly]="false" [idc]="EntityIDc.Company"
+                                [transaction]="transaction"
+                                [registerTypes]="companyPersonRegisterTypes"></app-transaction-registers>
                         </div>
                     </div>
                 </mat-tab>
@@ -120,16 +123,11 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-transaction-registers 
-                            [readonly]="false" 
-                            [idc]="EntityIDc.LawFirm" 
-                            [transaction]="transaction"
-                            [registerTypes]="lawFirmRegisterTypes" 
-                            [title]="label.TRANSACTION.OTFS"
-                            [addLabel]="label.TRANSACTION.ADD_OTF"
-                            [editLabel]="label.TRANSACTION.EDIT_OTF"
-                            [enterDetailsLabel]="label.TRANSACTION.ENTER_OTF_DETAILS"
-                            ></app-transaction-registers>
+                            <app-transaction-registers [readonly]="false" [idc]="EntityIDc.LawFirm"
+                                [transaction]="transaction" [registerTypes]="lawFirmRegisterTypes"
+                                [title]="label.TRANSACTION.OTFS" [addLabel]="label.TRANSACTION.ADD_OTF"
+                                [editLabel]="label.TRANSACTION.EDIT_OTF"
+                                [enterDetailsLabel]="label.TRANSACTION.ENTER_OTF_DETAILS"></app-transaction-registers>
                         </div>
 
                     </div>

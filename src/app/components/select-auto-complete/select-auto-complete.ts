@@ -50,6 +50,14 @@ export class SelectAutoComplete implements OnInit, OnChanges, OnDestroy {
       this.dir = lang === 'ar' ? 'rtl' : 'ltr';
       this.labels = Labels[lang as keyof typeof Labels];
     });
+    if (this.isRequired) {
+      const fileCtrl = this.formGroup.get(this.controlName);
+      if (fileCtrl) {
+        fileCtrl.setValidators([Validators.required]);
+        fileCtrl.updateValueAndValidity();
+      }
+    }
+
     this.loadData();
   }
   ngOnChanges(changes: SimpleChanges): void {

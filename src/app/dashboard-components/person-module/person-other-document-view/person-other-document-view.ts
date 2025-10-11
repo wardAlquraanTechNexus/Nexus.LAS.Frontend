@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { BaseDialogComponent } from '../../base-components/base-dialog-component/base-dialog-component';
 import { PersonOtherDocumentDTO } from '../../../models/person-models/person-other-document/person-other-document-dto';
+import { downloadBlob, downloadBlobFile } from '../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-person-other-document-view',
@@ -18,6 +19,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
   showLoading = false;
   openEditForm = false;
   isEdit = false;
+  fileUrl:any;
   constructor(
     private service: PersonOtherDocumentService,
     protected router: Router,
@@ -39,13 +41,13 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
 
           this.personOtherDocument = data;
 
-          if (data.dataFile && data.contentType) {
+          if (data.data && data.contentType) {
 
             // If dataFile is base64
-            const base64Data = data.dataFile;
+            const base64Data = data.data;
             const blob = this.base64ToBlob(base64Data, data.contentType);
             const url = URL.createObjectURL(blob);
-            this.personOtherDocument.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+            this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           }
           this.showLoading = false;
           this.cdr.markForCheck();
@@ -72,20 +74,7 @@ export class PersonOtherDocumentView extends BaseDialogComponent {
 
 
   download() {
-    if (this.personOtherDocument.dataFile && this.personOtherDocument.contentType && this.personOtherDocument.fileName) {
-      const blob = this.base64ToBlob(this.personOtherDocument.dataFile, this.personOtherDocument.contentType);
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = this.personOtherDocument.fileName;
-      a.click();
-
-      // Optional cleanup
-      window.URL.revokeObjectURL(url);
-    } else {
-      this.errorHandler.showInfo('No file available to download.');
-    }
+    downloadBlob(this.personOtherDocument.data , this.personOtherDocument.fileName , this.personOtherDocument.contentType)
   }
 
   openEdit() {
