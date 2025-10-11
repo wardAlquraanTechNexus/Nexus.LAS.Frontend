@@ -66,6 +66,8 @@ import { MultipleFilesFormGroupComponent } from './multiple-files-form-group-com
 import { SharedTransactionRegisterComponent } from '../dashboard-components/shared-components/shared-transaction-register-component/shared-transaction-register-component';
 import { PhoneFormComponent } from './phone-form-component/phone-form-component';
 import { EmailFormComponent } from './email-form-component/email-form-component';
+import { FpcDialogFormComponent } from '../dashboard-components/fpc-module/fpc-dialog-form-component/fpc-dialog-form-component';
+import { FpcFormComponent } from '../dashboard-components/fpc-module/fpc-form-component/fpc-form-component';
 
 
 
@@ -107,7 +109,9 @@ import { EmailFormComponent } from './email-form-component/email-form-component'
     MultipleFilesFormGroupComponent,
     SharedTransactionRegisterComponent,
     PhoneFormComponent,
-    EmailFormComponent
+    EmailFormComponent,
+    FpcDialogFormComponent,
+    FpcFormComponent,
 
   ],
   imports: [
@@ -213,8 +217,9 @@ import { EmailFormComponent } from './email-form-component/email-form-component'
     MultipleFilesFormGroupComponent,
     SharedTransactionRegisterComponent,
     PhoneFormComponent,
-    EmailFormComponent
-
+    EmailFormComponent,
+    FpcDialogFormComponent,
+    FpcFormComponent,
   ],
   providers: [
 

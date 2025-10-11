@@ -45,6 +45,12 @@ const routes: Routes = [
     loadChildren: () => import('./fpc-module/fpc-module').then(m => m.FpcModule),
     canActivate: [authGuard]
   }
+  ,
+  {
+    path: environment.routes.DocumentTrackings,
+    loadChildren: () => import('./document-tracking-module/document-tracking-module').then(m => m.DocumentTrackingModule),
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({

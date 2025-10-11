@@ -69,8 +69,8 @@ export const environment: Environment = {
     EditFpc: 'Fpcs/edit-fpc',
 
     // Document Trackings module
-    DocumentTrackings: 'Document-trackings',
-    AllDocumentTrackings: 'All-document-trackings',
+    DocumentTrackings: 'Doc-tracking',
+    AllDocumentTrackings: 'All-documents',
     ActiveDocumentTrackings: 'Active-document-trackings',
     ActivePrivateDocumentTrackings: 'Active-private-document-trackings',
     ActivePublicDocumentTrackings: 'Active-public-document-trackings',
@@ -100,7 +100,7 @@ export const environment: Environment = {
   },
 
   rootDynamicLists: {
-     companyType: 1008,
+    companyType: 1008,
     companyClass: 1006,
     groupCompany: 1004,
     relevantCompany: 1032,
@@ -112,14 +112,14 @@ export const environment: Environment = {
     originalDocumentTypes: 1018,
     otherDocumentType: 1023,
     companyContractType: 1003,
-    rule : 1033,
+    rule: 1033,
     boardPosition: 1000,
-    designation : 1012,
+    designation: 1012,
     country: 1010,
     classOfShares: 1053,
     propertyTypeOfTitle: 1027,
     propertyType: 1031,
-    propertyPurpose:1029,
+    propertyPurpose: 1029,
     propertyStatus: 1030,
     propertyOwnerRelation: 1026,
     propertyDocumentType: 1028,

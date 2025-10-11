@@ -23,6 +23,9 @@ import { LawFirmDTO } from '../../models/law-firm-models/law-firm/dtos/law-firm-
 import { LawFirmDialogFormComponent } from '../../dashboard-components/law-firm-module/law-firm-dialog-form-component/law-firm-dialog-form-component';
 import { TransactionDto } from '../../models/transaction-models/transaction/dtos/transaction-dto';
 import { TransactionDialogFormComponent } from '../../dashboard-components/transaction-module/transaction-dialog-form-component/transaction-dialog-form-component';
+import { FPCDto } from '../../models/fpc-models/fpc/dtos/fpc-dto';
+import { CommonStatus } from '../../enums/common-status';
+import { FpcDialogFormComponent } from '../../dashboard-components/fpc-module/fpc-dialog-form-component/fpc-dialog-form-component';
 
 
 @Component({
@@ -195,6 +198,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
         break;
       case environment.routes.AddTransaction:
         this.onAddNewTransaction();
+        break;
+      case environment.routes.AddFpc:
+        this.onAddNewFPC();
         break;
       default:
         break;
@@ -426,6 +432,36 @@ export class NavbarComponent implements OnDestroy, OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
+      }
+    })
+  }
+
+
+  onAddNewFPC() {
+    let fpcDto: FPCDto = {
+      id: 0,
+      fpcCode: '',
+      registerIdc: '',
+      registerIdn: 0,
+      fpcStatus: CommonStatus.New,
+      private: false,
+    };
+    const dialogRef = this.dialog.open(FpcDialogFormComponent, {
+      disableClose: true,
+      data: fpcDto
+    });
+
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllFPCs) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateFPCs) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicFPCs);
+    let basePath = this.menuService.getMenuByPath(environment.routes.FPCs);
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
+
       }
     })
   }

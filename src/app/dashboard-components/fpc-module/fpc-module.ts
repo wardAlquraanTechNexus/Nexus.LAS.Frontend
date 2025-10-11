@@ -6,8 +6,6 @@ import { BaseFpcsComponent } from './_base/base-fpcs-component/base-fpcs-compone
 import { FpcTableViewComponent } from './_base/fpc-table-view-component/fpc-table-view-component';
 import { AllFpcsComponent } from './all-fpcs-component/all-fpcs-component';
 import { AllFpcsTableComponent } from './all-fpcs-component/all-fpcs-table-component/all-fpcs-table-component';
-import { FpcDialogFormComponent } from './fpc-dialog-form-component/fpc-dialog-form-component';
-import { FpcFormComponent } from './fpc-form-component/fpc-form-component';
 import { ComponentsModule } from '../../components/components-module';
 import { FpcOverviewComponent } from './fpc-components/fpc-overview-component/fpc-overview-component';
 import { FpcOdsComponent } from './fpc-components/fpc-ods-component/fpc-ods-component';
@@ -30,8 +28,6 @@ import { ActivePrivateFpcsTableComponent } from './active-private-fpcs-component
     FpcTableViewComponent,
     AllFpcsComponent,
     AllFpcsTableComponent,
-    FpcDialogFormComponent,
-    FpcFormComponent,
     FpcOverviewComponent,
     FpcOdsComponent,
     FpcOdFormComponent,

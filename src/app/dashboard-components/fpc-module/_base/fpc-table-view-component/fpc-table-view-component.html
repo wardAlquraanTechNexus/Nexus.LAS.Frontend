@@ -38,19 +38,7 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="profile-name-arabic">{{ fpc.registerArabicName | titlecase }}</div> -->
                     </div>
-
-                    <!-- <div class="meta-info">
-                        <div class="info-item">
-                            <span class="info-label">{{ label.COMPANY.CODE || 'ID:' }}</span>
-                            <span class="info-value">{{ fpc.fpcCode }}</span>
-                        </div>
-                        <div class="info-item" *ngIf="fpc.registerShortName">
-                            <span class="info-label">{{ label.COMPANY.SHORT_NAME || 'Short Name:' }}</span>
-                            <span class="info-value">{{ fpc.registerShortName | uppercase }}</span>
-                        </div>
-                    </div> -->
                 </div>
             </div>
 
@@ -66,6 +54,10 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item (click)="exportToPdf()">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        {{ label.COMMON.PRINT }}
+                    </button>
                 </mat-menu>
             </div>
         </div>
@@ -99,10 +91,12 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-fpc-ods *ngIf="showFpcOd" [fpc]="fpc" (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods>
+                            <app-fpc-ods *ngIf="showFpcOd" [fpc]="fpc"
+                                (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods>
                         </div>
                         <div class="overview-component">
-                            <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd" (onSave)="onActionEdit()" ></app-fpc-od-actions>
+                            <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd"
+                                (onSave)="onActionEdit()"></app-fpc-od-actions>
                         </div>
                     </div>
                 </mat-tab>

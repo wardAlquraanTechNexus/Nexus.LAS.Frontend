@@ -10,6 +10,7 @@ import { FPCService } from '../../../../services/fpc-services/fpc-service';
 import { LanguageService } from '../../../../services/language-service';
 import { MatDialog } from '@angular/material/dialog';
 import { FPCODDto } from '../../../../models/fpc-models/fpc-od/dtos/fpc-od-dto';
+import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-fpc-table-view-component',
@@ -175,6 +176,24 @@ export class FpcTableViewComponent implements OnInit {
       this.showFpcOd = true;
       this.cdr.markForCheck();
     }, 100);
+  }
+
+  exportToPdf() {
+    this.service.exportToPdf({ id: this.fpcId }).subscribe(res => {
+      // Assuming res.data is a base64 string
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      const blob = new Blob([bytes], {
+        type: 'application/pdf'
+      });
+
+      downloadBlobFile(blob, res.fileName || 'report.pdf');
+    });
   }
 
 

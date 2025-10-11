@@ -276,22 +276,22 @@ export class BaseFpcsComponent extends TableFormComponent<FPC> {
   }
 
 
-  // exportToPdf(id: number) {
-  //   this.service.exportToPdf({ id: id }).subscribe(res => {
-  //     // Assuming res.data is a base64 string
-  //     const binaryString = atob(res.data);
-  //     const len = binaryString.length;
-  //     const bytes = new Uint8Array(len);
-  //     for (let i = 0; i < len; i++) {
-  //       bytes[i] = binaryString.charCodeAt(i);
-  //     }
-
-  //     const blob = new Blob([bytes], {
-  //       type: 'application/pdf'
-  //     });
-
-  //     downloadBlobFile(blob, res.fileName || 'report.pdf');
-  //   });
-  // }
+  exportToPdf(id: number) {
+      this.service.exportToPdf({ id: id }).subscribe(res => {
+        // Assuming res.data is a base64 string
+        const binaryString = atob(res.data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+  
+        const blob = new Blob([bytes], {
+          type: 'application/pdf'
+        });
+  
+        downloadBlobFile(blob, res.fileName || 'report.pdf');
+      });
+    }
 
 }

@@ -69,8 +69,8 @@ export const environment: Environment = {
     EditFpc: 'Fpcs/edit-fpc',
 
     // Document Trackings module
-    DocumentTrackings: 'Document-trackings',
-    AllDocumentTrackings: 'All-document-trackings',
+    DocumentTrackings: 'Doc-tracking',
+    AllDocumentTrackings: 'All-documents',
     ActiveDocumentTrackings: 'Active-document-trackings',
     ActivePrivateDocumentTrackings: 'Active-private-document-trackings',
     ActivePublicDocumentTrackings: 'Active-public-document-trackings',

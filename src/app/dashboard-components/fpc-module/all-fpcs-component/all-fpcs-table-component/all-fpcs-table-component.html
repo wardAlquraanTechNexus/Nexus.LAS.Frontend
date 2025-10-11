@@ -120,9 +120,9 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu" class="nexus-action-menu">
-      <!-- <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
+      <button mat-menu-item (click)="exportToPdf(row.id)" class="nexus-menu-item nexus-menu-neutral">
         <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
-      </button> -->
+      </button>
       
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="activate(row)"
         class="nexus-menu-item nexus-menu-success">
