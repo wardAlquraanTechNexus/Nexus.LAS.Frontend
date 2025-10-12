@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-person-other-document-dialog-form-component',
   standalone:false,
   templateUrl: './person-other-document-dialog-form-component.html',
-  styleUrl: './person-other-document-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class PersonOtherDocumentDialogFormComponent extends BaseDialogFormComponent<PersonOtherDocument> {
   constructor(

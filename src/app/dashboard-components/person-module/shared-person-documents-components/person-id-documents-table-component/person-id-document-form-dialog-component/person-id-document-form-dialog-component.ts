@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-person-id-document-form-dialog-component',
   standalone:false,
   templateUrl: './person-id-document-form-dialog-component.html',
-  styleUrl: './person-id-document-form-dialog-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class PersonIdDocumentFormDialogComponent extends BaseDialogFormComponent<PersonsIDDetail> {
   constructor(

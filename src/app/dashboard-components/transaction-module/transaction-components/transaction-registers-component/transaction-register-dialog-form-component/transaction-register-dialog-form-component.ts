@@ -12,7 +12,7 @@ import { TransactionRegisterDto } from '../../../../../models/transaction-models
   selector: 'app-transaction-register-dialog-form-component',
   standalone: false,
   templateUrl: './transaction-register-dialog-form-component.html',
-  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss','./transaction-register-dialog-form-component.scss']
 })
 export class TransactionRegisterDialogFormComponent extends BaseDialogFormComponent<TransactionRegister> {
 

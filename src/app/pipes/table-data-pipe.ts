@@ -102,7 +102,7 @@ export class TableDataPipe implements PipeTransform {
 
         case 'date':
           if (!value) {
-            return of("N/A")
+            return of("")
           }
           const date = value instanceof Date ? value : new Date(value);
           return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
@@ -117,7 +117,7 @@ export class TableDataPipe implements PipeTransform {
 
         case 'number':
           if (value === null || value === undefined) {
-            return of('N/A');
+            return of('');
           }
           const numValue = typeof value === 'string' ? parseFloat(value) : value;
           if (isNaN(numValue)) {
@@ -265,7 +265,7 @@ export class TableDataPipe implements PipeTransform {
           return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
             map(list => {
               const found = list.find(x => x.id == value);
-              return found?.personEnglishName || "N/A"
+              return found?.personEnglishName || ""
             })
           );
 
@@ -274,7 +274,7 @@ export class TableDataPipe implements PipeTransform {
             return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
               map(list => {
                 const found = list.find(x => x.id == value);
-                return found?.personEnglishName || "N/A"
+                return found?.personEnglishName || ""
               })
             );
 
@@ -293,7 +293,7 @@ export class TableDataPipe implements PipeTransform {
               })
             );
           } else {
-            return of('N/A');
+            return of('');
           }
 
         case 'law-firm':

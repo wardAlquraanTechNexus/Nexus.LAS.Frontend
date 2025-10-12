@@ -49,12 +49,7 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
 
   override ngOnInit(): void {
     
-    if (this.canCrud) {
-      this.displayColumns.push({
-        key: 'action',
-        label: this.langService.getLabel('COMMON.ACTIONS') || 'Actions'
-      });
-    }
+    
     this.params.registersIdc = this.registersIdc;
     this.params.registersIdn = this.registersIdn;
     super.ngOnInit();
@@ -74,6 +69,13 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
         pipes: ["date"]
       }
     ];
+
+    if (this.canCrud) {
+      this.displayColumns.push({
+        key: 'action',
+        label: this.langService.getLabel('COMMON.ACTIONS') || 'Actions'
+      });
+    }
   }
 
   addNote() {

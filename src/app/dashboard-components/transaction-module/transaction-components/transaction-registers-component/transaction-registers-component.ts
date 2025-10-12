@@ -197,6 +197,9 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
 
   onEdit(element: TransactionRegisterDto) {
     element.registerTypes = this.registerTypes;
+    element.editLabel = this.editLabel;
+    element.addLabel = this.addLabel;
+    element.enterDetailsLabel = this.enterDetailsLabel;
     const dialogRef = this.dialog.open(TransactionRegisterDialogFormComponent, {
       disableClose: true,
       data: element

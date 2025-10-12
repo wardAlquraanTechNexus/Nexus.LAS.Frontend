@@ -16,7 +16,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-person-other-document-form-component',
   standalone: false,
   templateUrl: './person-other-document-form-component.html',
-  styleUrl: './person-other-document-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss'],
 })
 export class PersonOtherDocumentFormComponent extends BaseFormComponent {
   @Input() element!: PersonOtherDocumentDTO;

@@ -31,6 +31,7 @@ import { CommonStatus } from '../../../enums/common-status';
 export class SharedTable implements OnInit, OnChanges {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @Input() selectedRowIndex: number = -1;
 
   @Input() displayedColumns: DisplayColumn[] = [];
 
@@ -45,7 +46,6 @@ export class SharedTable implements OnInit, OnChanges {
   @Input() action!: TemplateRef<any>;
 
   selection = new SelectionModel<any>(true, []);
-
 
   dataSource!: MatTableDataSource<any, MatPaginator>
   displayedColumnKeys: any;
@@ -109,8 +109,9 @@ export class SharedTable implements OnInit, OnChanges {
     });
   }
 
-  onRowClick(element: any, key: any) {
-    let rowClick = { element, key }
+  onRowClick(element: any, key: any, index: number) {
+    this.selectedRowIndex = index;
+    let rowClick = { element, key, index }
     this.rowClick.emit(rowClick);
   }
 

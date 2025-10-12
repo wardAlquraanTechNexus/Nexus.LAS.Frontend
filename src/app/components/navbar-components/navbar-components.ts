@@ -91,15 +91,15 @@ export class NavbarComponent implements OnDestroy, OnInit {
       value: environment.routes.AddTransaction
     },
     {
+      name: "FPC",
+      icon: "business_center",
+      value: environment.routes.AddFpc
+    },
+    {
       name: "Documents Tracking",
       icon: "description",
       value: environment.routes.AddDocumentTracking
     },
-    {
-      name: "FPC",
-      icon: "account_balance",
-      value: environment.routes.AddFpc
-    }
   ]
 
   selectedLanguage = this.languages[0];

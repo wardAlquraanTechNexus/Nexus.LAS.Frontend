@@ -68,6 +68,15 @@ export class LawFirmPersonsComponent extends TableFormComponent<LawFirmPerson> {
         label: this.label.COMMON.NAME
       },
       {
+        key: "staffLevel",
+        label: this.label.LAW_FIRM.STAFF_LEVEL,
+        pipes: ['staff-level']
+      },
+      {
+        key: "practice",
+        label: this.label.LAW_FIRM.PRACTICE
+      },
+      {
         key: "email",
         label: this.label.COMMON.EMAIL
       },
@@ -76,18 +85,9 @@ export class LawFirmPersonsComponent extends TableFormComponent<LawFirmPerson> {
         label: this.label.COMMON.PHONE_NUMBER
       },
       {
-        key: "staffLevel",
-        label: this.label.LAW_FIRM.STAFF_LEVEL,
-        pipes: ['staff-level']
-      },
-      {
         key: "staffStatus",
         label: this.label.COMMON.ACTIVE,
         pipes: ['active']
-      },
-      {
-        key: "practice",
-        label: this.label.LAW_FIRM.PRACTICE
       },
       {
         key: "action",

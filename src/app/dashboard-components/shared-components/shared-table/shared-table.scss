@@ -79,14 +79,30 @@ table[dir="rtl"] {
    background-color: #dfd6d6;
 }
 
+.selected-row {
+  background-color: #e3f2fd !important; /* Light blue highlight */
+  border-left: 4px solid #1976d2 !important; /* Blue left border */
+}
+
 
 .mat-mdc-header-cell {
   border-bottom-style: none;
 }
 
 .mat-mdc-cell {
-
   border-bottom: none;
+  max-width: 300px; /* Fixed max width for all columns */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  overflow-wrap: break-word;
+}
+
+.mat-mdc-header-cell {
+  max-width: 300px; /* Fixed max width for header cells */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
 }
 
 .disabled-row {

@@ -15,7 +15,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-person-id-document-form-component',
   standalone: false,
   templateUrl: './person-id-document-form-component.html',
-  styleUrl: './person-id-document-form-component.scss',
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss'],
   providers: [
     ...DATE_FORMAT_PROVIDERS
   ]

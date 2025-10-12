@@ -1,0 +1,57 @@
+::ng-deep .mat-mdc-dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 1200px !important;
+    max-width: 95vw !important;
+    margin: auto;
+    padding: 0 !important;
+}
+
+::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 4px !important;
+    /* better to have some rounding */
+    overflow: hidden;
+    width: 1200px !important;
+    height: 100% !important;
+}
+
+mat-dialog-content {
+    flex: 1 1 auto;
+    overflow: auto;
+    height: auto !important;
+    min-height: 0;
+    padding: 16px;
+}
+
+.spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+app-transaction-register-person-company-form {
+    margin-left: 15%;
+}

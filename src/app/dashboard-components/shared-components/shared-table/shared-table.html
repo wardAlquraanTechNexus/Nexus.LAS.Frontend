@@ -31,7 +31,7 @@
           </ng-template>
 
           <!-- Cell -->
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element; let i = index">
             <ng-container *ngIf="column.key === 'select'; else regularCell">
               <mat-checkbox (click)="$event.stopPropagation()"
                 [checked]="selection.isSelected(element) || (keyToCheck && element[keyToCheck])"
@@ -47,7 +47,7 @@
 
               <!-- Default cell (row click applies here only) -->
               <ng-template #defaultCell>
-                <div (click)="onRowClick(element, column.key)">
+                <div (click)="onRowClick(element, column.key, i)">
                   <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
                     <span [ngStyle]="getCellStyle(element[column.key], column.pipes)">
                       <span *ngIf="!column.inputType">
@@ -81,7 +81,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnKeys"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index">
+        <tr mat-row *matRowDef="let row; columns: displayedColumnKeys; let i = index" 
+            [class.selected-row]="i === selectedRowIndex">
         </tr>
       </table>
     </div>

@@ -1,9 +1,11 @@
 <div class="table-header">
   <div class="header-title">{{ label.COMMON.NOTES }}</div>
   <div class="header-actions">
-    <button mat-icon-button class="add-btn" (click)="addNote()" [attr.aria-label]="label.COMMON.ADD_NOTE">
-      <mat-icon>add</mat-icon>
-    </button>
+    @if(canCrud){
+      <button mat-icon-button class="add-btn" (click)="addNote()" [attr.aria-label]="label.COMMON.ADD_NOTE">
+        <mat-icon>add</mat-icon>
+      </button>
+    }
     <button mat-icon-button (click)="toggleTable()" [attr.aria-label]="showTable ? label.COMMON.HIDE : label.COMMON.SHOW">
       <mat-icon [ngClass]="{'rotated': !showTable}">expand_more</mat-icon>
     </button>

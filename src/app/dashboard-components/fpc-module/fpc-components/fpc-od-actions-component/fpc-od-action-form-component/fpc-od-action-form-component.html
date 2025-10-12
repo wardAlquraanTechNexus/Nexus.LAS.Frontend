@@ -3,15 +3,15 @@
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
-                <mat-icon>account_tree</mat-icon>
+                <mat-icon>article</mat-icon>
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id != 0 ? label.FPC.EDIT_FPC_OD || 'Edit' :
-                    label.FPC.ADD_FPC_OD ||
+                    {{element.id != 0 ? label.FPC.EDIT_FPC_OD_ACTION || 'Edit' :
+                    label.FPC.ADD_FPC_OD_ACTION ||
                     'Add'}}
                 </h2>
-                <p class="dialog-subtitle">{{ label.FPC.ENTER_FPC_OD_DETAILS }}</p>
+                <p class="dialog-subtitle">{{ label.FPC.ENTER_FPC_OD_ACTION_DETAILS }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
