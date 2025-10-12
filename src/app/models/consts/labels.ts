@@ -514,7 +514,7 @@ export const Labels = {
             ADD_FPC_OD_ACTION: "Add FPC Original Document Action",
             EDIT_FPC_OD_ACTION: "Edit FPC Original Document Action",
             ENTER_FPC_OD_ACTION_DETAILS: "Enter FPC Original Document Action Details",
-            LAST_ACTION_DATE: "last action date",
+            LAST_ACTION_DATE: "Last Action Date",
             ACTIVE_PUBLIC_FPCS: "Active Public FPCs",
             ACTIVE_PRIVATE_FPCS: "Active Private FPCs",
             ACTIVE_FPCS: "Active FPCs"

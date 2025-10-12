@@ -74,7 +74,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
   navigateToTable() {
     this.backToTableEmit.emit();
   }
-  getStatusStyle() {
+   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     switch (this.property?.status) {
@@ -87,6 +87,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
         color = '#423e3ede';
         break;
     }
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -97,12 +98,23 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
 
   }
 
+  getIcon() {
+    switch (this.property?.status) {
+      case CommonStatus.Active:
+        return 'check_circle';
+      case CommonStatus.Inactive:
+        return 'cancel';
+      default:
+        return 'star';
+    }
+  }
+
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
     if (!this.property?.private) {
-      borderColor = '#423e3ede';
-      color = '#423e3ede';
+      borderColor = '#FFA500';
+      color = '#FFA500';
     }
     return {
       'border': `2px solid ${borderColor}`,

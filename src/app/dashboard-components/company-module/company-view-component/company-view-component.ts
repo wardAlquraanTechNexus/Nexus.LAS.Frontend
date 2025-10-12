@@ -74,45 +74,57 @@ export class CompanyViewComponent implements OnInit {
   backToTable() {
     this.backToTableEmit.emit();
   }
-  getCompanyStatusStyle() {
-    let borderColor = '#9E77ED';
-    let color = '#9E77ED';
-    switch (this.company?.companyStatus) {
-      case CompanyStatus.Active:
-        borderColor = '#22C993';
-        color = '#22C993';
-        break;
-      case CompanyStatus.Inactive:
-        borderColor = '#423e3ede';
-        color = '#423e3ede';
-        break;
-    }
-    return {
-      'border': `2px solid ${borderColor}`,
-      'color': color,
-      'border-radius': '20px',
-      'padding': '10px',
-
-    };
-
-  }
-
-  getCompanyPrivateStyle() {
-    let borderColor = '#025EBA';
-    let color = '#025EBA';
-    if (!this.company?.private) {
-      borderColor = '#423e3ede';
-      color = '#423e3ede';
-    }
-    return {
-      'border': `2px solid ${borderColor}`,
-      'color': color,
-      'border-radius': '20px',
-      'padding': '10px',
-
-    };
-
-  }
+  getStatusStyle() {
+     let borderColor = '#9E77ED';
+     let color = '#9E77ED';
+     switch (this.company?.companyStatus) {
+       case CompanyStatus.Active:
+         borderColor = '#22C993';
+         color = '#22C993';
+         break;
+       case CompanyStatus.Inactive:
+         borderColor = '#423e3ede';
+         color = '#423e3ede';
+         break;
+     }
+ 
+     return {
+       'border': `2px solid ${borderColor}`,
+       'color': color,
+       'border-radius': '20px',
+       'padding': '10px',
+ 
+     };
+ 
+   }
+ 
+   getIcon() {
+     switch (this.company?.companyStatus) {
+       case CompanyStatus.Active:
+         return 'check_circle';
+       case CompanyStatus.Inactive:
+         return 'cancel';
+       default:
+         return 'star';
+     }
+   }
+ 
+   getPrivateStyle() {
+     let borderColor = '#025EBA';
+     let color = '#025EBA';
+     if (!this.company?.private) {
+       borderColor = '#FFA500';
+       color = '#FFA500';
+     }
+     return {
+       'border': `2px solid ${borderColor}`,
+       'color': color,
+       'border-radius': '20px',
+       'padding': '10px',
+ 
+     };
+ 
+   }
 
 
   protected applyLanguage(lang: LanguageCode) {

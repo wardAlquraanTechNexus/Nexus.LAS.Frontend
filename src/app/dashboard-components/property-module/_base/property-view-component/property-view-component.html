@@ -30,7 +30,7 @@
                                 <h1 class="name">{{ property.code | titlecase }}</h1>
                                 <div class="status-badges">
                                     <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                        <mat-icon>{{ property.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                        <mat-icon>{{ getIcon() }}</mat-icon>
                                         {{ property.status | textPipe: 'property-status' | async }}
                                     </span>
                                     <span class="privacy-badge" [ngStyle]="getPrivateStyle()">

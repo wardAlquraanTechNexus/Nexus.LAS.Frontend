@@ -112,7 +112,7 @@ export class PersonViewComponent implements OnInit {
   navigateToPersons() {
     this.backToTableEmit.emit();
   }
-  getPersonStatusStyle() {
+  getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     switch (this.person?.personStatus) {
@@ -125,6 +125,7 @@ export class PersonViewComponent implements OnInit {
         color = '#423e3ede';
         break;
     }
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -135,12 +136,23 @@ export class PersonViewComponent implements OnInit {
 
   }
 
-  getPersonPrivateStyle() {
+   getIcon(){
+      switch (this.person?.personStatus) {
+        case PersonStatus.Active:
+          return 'check_circle';
+        case PersonStatus.Inactive:
+          return 'cancel';
+        default:
+          return 'star';
+      }
+  }
+
+  getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
     if (!this.person?.private) {
-      borderColor = '#423e3ede';
-      color = '#423e3ede';
+      borderColor = '#FFA500';
+      color = '#FFA500';
     }
     return {
       'border': `2px solid ${borderColor}`,

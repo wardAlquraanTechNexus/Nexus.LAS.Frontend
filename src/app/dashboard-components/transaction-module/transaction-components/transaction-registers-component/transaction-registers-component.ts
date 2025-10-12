@@ -32,6 +32,7 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
   @Input() addLabel = '';
   @Input() editLabel = '';
   @Input() enterDetailsLabel = '';
+  @Input() icon = "list_alt";
   override params: GetTransactionRegisterByListIdcsQuery = {
     page: 0,
     pageSize: 10,
@@ -151,7 +152,8 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
         personId : null,
         addLabel: this.addLabel,
         editLabel: this.editLabel,
-        enterDetailsLabel: this.enterDetailsLabel
+        enterDetailsLabel: this.enterDetailsLabel,
+        icon: this.icon
       };
 
       const dialogRef = this.dialog.open(TransactionRegisterPersonCompanyFormDialogComponent, {
@@ -177,7 +179,8 @@ export class TransactionRegistersComponent extends TableFormComponent<Transactio
         personId : null,
         addLabel: this.addLabel,
         editLabel: this.editLabel,
-        enterDetailsLabel: this.enterDetailsLabel
+        enterDetailsLabel: this.enterDetailsLabel,
+        icon: this.icon
 
       };
 

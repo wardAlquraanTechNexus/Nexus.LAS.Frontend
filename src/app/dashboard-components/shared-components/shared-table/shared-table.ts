@@ -210,7 +210,6 @@ export class SharedTable implements OnInit, OnChanges {
           }
           break;
 
-        case 'active':
         case 'company-shareholder-status':
         case 'private-person':
         case 'private-company':
@@ -218,13 +217,26 @@ export class SharedTable implements OnInit, OnChanges {
         case 'signatory-active':
         case 'private':
 
-          const color = value ? '#025EBA' : '#423e3ede';
+          const color = value ? '#025EBA' : '#FFA500';
           Object.assign(styles, {
             'border': `2px solid ${color}`,
             'color': color,
             'border-radius': '20px',
             'padding': '10px'
           });
+          break;
+
+        case 'active':
+          {
+            let color = '#423e3ede';
+            if (value) color = '#22C993';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
+          }
           break;
 
         case 'person-company-in-charge':

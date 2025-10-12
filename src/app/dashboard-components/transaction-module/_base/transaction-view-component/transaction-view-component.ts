@@ -91,19 +91,20 @@ export class TransactionViewComponent implements OnInit {
   navigateToTable() {
     this.backToTableEmit.emit();
   }
-  getStatusStyle() {
+   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    switch (this.transaction?.status?.toString()) {
-      case CommonStatus[CommonStatus.Active].toString():
+    switch (this.transaction?.status) {
+      case CommonStatus.Active:
         borderColor = '#22C993';
         color = '#22C993';
         break;
-      case CommonStatus[CommonStatus.Inactive].toString():
+      case CommonStatus.Inactive:
         borderColor = '#423e3ede';
         color = '#423e3ede';
         break;
     }
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -114,12 +115,23 @@ export class TransactionViewComponent implements OnInit {
 
   }
 
+  getIcon() {
+    switch (this.transaction?.status) {
+      case CommonStatus.Active:
+        return 'check_circle';
+      case CommonStatus.Inactive:
+        return 'cancel';
+      default:
+        return 'star';
+    }
+  }
+
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
     if (!this.transaction?.private) {
-      borderColor = '#423e3ede';
-      color = '#423e3ede';
+      borderColor = '#FFA500';
+      color = '#FFA500';
     }
     return {
       'border': `2px solid ${borderColor}`,

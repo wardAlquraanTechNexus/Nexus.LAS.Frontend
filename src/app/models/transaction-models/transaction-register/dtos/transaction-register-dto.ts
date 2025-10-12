@@ -14,4 +14,5 @@ export interface TransactionRegisterDto {
   addLabel?: string;
   editLabel?: string;
   enterDetailsLabel?: string;
+  icon?: string;
 }

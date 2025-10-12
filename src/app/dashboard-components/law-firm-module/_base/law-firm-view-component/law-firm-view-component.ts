@@ -77,7 +77,7 @@ export class LawFirmViewComponent  implements OnInit {
   navigateToTable() {
     this.backToTableEmit.emit();
   }
-  getStatusStyle() {
+   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     switch (this.lawFirm?.status && this.lawFirm?.status.toString()) {
@@ -90,6 +90,7 @@ export class LawFirmViewComponent  implements OnInit {
         color = '#423e3ede';
         break;
     }
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -100,12 +101,23 @@ export class LawFirmViewComponent  implements OnInit {
 
   }
 
+  getIcon() {
+    switch (this.lawFirm?.status && this.lawFirm?.status.toString()) {
+      case CommonStatus[CommonStatus.Active].toString():
+        return 'check_circle';
+      case CommonStatus[CommonStatus.Inactive].toString():
+        return 'cancel';
+      default:
+        return 'star';
+    }
+  }
+
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
     if (!this.lawFirm?.private) {
-      borderColor = '#423e3ede';
-      color = '#423e3ede';
+      borderColor = '#FFA500';
+      color = '#FFA500';
     }
     return {
       'border': `2px solid ${borderColor}`,

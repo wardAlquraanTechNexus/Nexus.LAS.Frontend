@@ -29,7 +29,7 @@
                             <h1 class="profile-name">{{ transaction.transactionCode | titlecase }}</h1>
                             <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                    <mat-icon>{{ transaction.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    <mat-icon>{{ getIcon() }}</mat-icon>
                                     {{ transaction.status | textPipe: 'common-status' | async }}
                                 </span>
                                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
@@ -127,7 +127,8 @@
                                 [transaction]="transaction" [registerTypes]="lawFirmRegisterTypes"
                                 [title]="label.TRANSACTION.OTFS" [addLabel]="label.TRANSACTION.ADD_OTF"
                                 [editLabel]="label.TRANSACTION.EDIT_OTF"
-                                [enterDetailsLabel]="label.TRANSACTION.ENTER_OTF_DETAILS"></app-transaction-registers>
+                                [enterDetailsLabel]="label.TRANSACTION.ENTER_OTF_DETAILS"
+                                [icon]="'insert_drive_file'"></app-transaction-registers>
                         </div>
 
                     </div>

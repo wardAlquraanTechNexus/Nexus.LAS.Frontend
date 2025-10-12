@@ -25,11 +25,11 @@
                         <div class="name-and-badges">
                             <h1 class="profile-name">{{ company.companyEnglishName | titlecase }}</h1>
                             <div class="status-badges">
-                                <span class="status-badge" [ngStyle]="getCompanyStatusStyle()">
-                                    <mat-icon>{{ company.companyStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                <span class="status-badge" [ngStyle]="getStatusStyle()">
+                                    <mat-icon>{{ getIcon() }}</mat-icon>
                                     {{ company.companyStatus| textPipe: 'company-status' | async}}
                                 </span>
-                                <span class="privacy-badge" [ngStyle]="getCompanyPrivateStyle()">
+                                <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
                                     <mat-icon>{{ company.private ? 'lock' : 'public' }}</mat-icon>
                                     {{ company.private | textPipe: 'private-company' | async }}
                                 </span>

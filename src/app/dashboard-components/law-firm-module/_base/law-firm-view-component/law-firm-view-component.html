@@ -29,7 +29,7 @@
                             <h1 class="profile-name">{{ lawFirm.englishName | titlecase }}</h1>
                             <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                    <mat-icon>{{ lawFirm.status === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    <mat-icon>{{ getIcon() }}</mat-icon>
                                     {{ lawFirm.status | textPipe: 'common-status' | async }}
                                 </span>
                                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">

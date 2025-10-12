@@ -29,7 +29,7 @@
                             <h1 class="profile-name">{{ fpc.fpcCode | titlecase }}</h1>
                             <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                    <mat-icon>{{ fpc.fpcStatus === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                                    <mat-icon>{{ getIcon() }}</mat-icon>
                                     {{ fpc.fpcStatus | textPipe: 'company-status' | async}}
                                 </span>
                                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
