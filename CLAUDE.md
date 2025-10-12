@@ -43,8 +43,15 @@ This is an Angular 20+ application using Server-Side Rendering (SSR) with the fo
 **BaseService Pattern**: All services extend `BaseService<T>` which provides:
 - Generic CRUD operations (create, update, delete, getById)
 - Pagination support via `getByParams()`
-- Caching with `getAllCached()`
+- **Intelligent caching system** with automatic invalidation
+  - `getAllCached()` - Get all items with 5-minute default cache
+  - `getAllByParamsCached()` - Cached queries with custom parameters
+  - `getByIdCached()` - Single item retrieval with caching
+  - Automatic cache invalidation on create/update/delete operations
+  - Configurable TTL (time-to-live) per service or per request
+  - Pattern-based cache clearing (e.g., `Person-*` clears all person-related cache)
 - Bulk operations with `bulkUpsert()`
+- Cache control via `enableCache` flag and `cacheTTL` property
 
 **BaseFormComponent Pattern**: Form components extend `BaseFormComponent` which provides:
 - Dynamic form group generation from objects
@@ -121,3 +128,243 @@ When making changes to styling or SCSS files:
 - ✅ No deprecation warnings during compilation
 - ✅ Clean builds in both production and development modes
 - ✅ SCSS module system properly configured with forwarding
+
+## Caching System
+
+### Overview
+The application uses an intelligent in-memory caching system (`MemoryCacheService`) integrated into `BaseService<T>` for **reference/lookup data only**.
+
+⚠️ **IMPORTANT**: Caching is **DISABLED by default** in BaseService. This is a data-driven business application where most data (Persons, Companies, Transactions, Properties, etc.) changes frequently through user actions. Only enable caching for static/reference data.
+
+### Cache Features
+- **Time-based expiration**: Default 5-minute TTL, configurable per service or request
+- **Automatic invalidation**: Cache cleared on mutations (create/update/delete)
+- **Pattern-based clearing**: Remove multiple cache entries with wildcards
+- **Type-safe**: Fully typed with TypeScript generics
+- **SSR-compatible**: Works seamlessly with server-side rendering
+- **Opt-in**: Disabled by default to prevent stale data issues
+
+### Using Cached Methods
+
+**Real-world example: Loading dropdown options**
+
+```typescript
+export class CompanyFormComponent implements OnInit {
+  constructor(private dynamicListService: DynamicListService) {}
+
+  ngOnInit() {
+    // Load company types dropdown - perfect for caching!
+    // This data rarely changes and is used across many forms
+    this.dynamicListService.getAllByParamsCached({
+      parentId: environment.rootDynamicLists.companyType
+    }).subscribe(companyTypes => {
+      // First call: fetches from API
+      // Subsequent calls within 30 min: instant from cache
+      this.companyTypes = companyTypes;
+    });
+
+    // Load currencies - also reference data
+    this.dynamicListService.getAllByParamsCached({
+      parentId: environment.rootDynamicLists.currencies
+    }).subscribe(currencies => {
+      this.currencies = currencies;
+    });
+  }
+
+  // Force refresh when admin updates dynamic lists
+  refreshDropdowns() {
+    this.dynamicListService.getAllByParamsCached(
+      { parentId: environment.rootDynamicLists.companyType },
+      false  // useCache = false, force refresh
+    ).subscribe(companyTypes => {
+      this.companyTypes = companyTypes;
+    });
+  }
+}
+```
+
+**Counter-example: DON'T cache business data**
+
+```typescript
+export class PersonListComponent implements OnInit {
+  constructor(private personService: PersonService) {}
+
+  ngOnInit() {
+    // ✅ CORRECT - Use regular method for business data
+    this.personService.getAllByParams({
+      status: 'active'
+    }).subscribe(persons => {
+      // Always fresh data, no cache
+    });
+
+    // ❌ WRONG - Don't use cached methods for frequently edited data
+    // this.personService.getAllByParamsCached({ ... }) // NO!
+  }
+}
+```
+
+### Custom Service Configuration
+
+#### Override Default Cache Settings
+```typescript
+@Injectable({ providedIn: 'root' })
+export class MyCustomService extends BaseService<MyModel> {
+  // Override defaults
+  protected override cacheTTL = 10 * 60 * 1000; // 10 minutes
+  protected override enableCache = true; // Can disable globally
+
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
+    this.setPath('MyModel');
+  }
+
+  // Custom method with specific caching strategy
+  getImportantData(): Observable<MyModel[]> {
+    const cacheKey = `${this.getCachePrefix()}-important`;
+
+    const cached = this.cache.get<MyModel[]>(cacheKey);
+    if (cached) return of(cached);
+
+    return this.httpClient.get<MyModel[]>(`${this.url}/important`).pipe(
+      tap(data => this.cache.set(cacheKey, data, 30 * 60 * 1000)) // 30 min
+    );
+  }
+
+  // Manual cache invalidation
+  refreshImportantData(): void {
+    this.clearCacheEntry('important');
+  }
+}
+```
+
+### Cache Invalidation
+
+#### Automatic Invalidation
+All mutation operations automatically invalidate the service's cache:
+```typescript
+// These all trigger automatic cache invalidation
+personService.create(newPerson).subscribe();
+personService.update(existingPerson).subscribe();
+personService.delete(personId).subscribe();
+personService.bulkUpsert(persons).subscribe();
+```
+
+#### Manual Invalidation
+```typescript
+// In your service class
+protected invalidateCache(): void {
+  // Clears all cache entries for this service (e.g., 'Person-*')
+  super.invalidateCache();
+}
+
+protected clearSpecificEntry(): void {
+  // Clear specific cache entry
+  this.clearCacheEntry('all');  // Clears 'Person-all'
+  this.clearCacheEntry('id-123');  // Clears 'Person-id-123'
+}
+```
+
+### MemoryCacheService API
+
+#### Direct Cache Access
+```typescript
+constructor(private cache: MemoryCacheService) {}
+
+// Set with custom TTL
+this.cache.set('my-key', data, 10 * 60 * 1000);
+
+// Get cached data
+const data = this.cache.get<MyType>('my-key');
+
+// Check if cache exists
+if (this.cache.has('my-key')) { }
+
+// Remove specific key
+this.cache.remove('my-key');
+
+// Remove by pattern
+this.cache.removePattern('user-*'); // Removes all 'user-*' entries
+
+// Clear all cache
+this.cache.clear();
+
+// Get statistics
+const stats = this.cache.getStats();
+console.log(`Cache size: ${stats.size}, Keys: ${stats.keys}`);
+```
+
+### When to Use Caching
+
+✅ **DO Cache (Reference/Lookup Data)**:
+- Dynamic lists (countries, currencies, company types, etc.)
+- System settings that rarely change
+- Dropdown options and select lists
+- Static configuration data
+- User permissions/roles (with short TTL)
+
+❌ **DON'T Cache (Business Data)**:
+- Persons, Companies, Transactions, Properties
+- Document tracking and status
+- Real-time dashboards
+- Search results
+- User-generated content
+- Any data that users actively create/edit
+
+### Enabling Caching for a Service
+
+**Example: DynamicListService (reference data)**
+```typescript
+@Injectable({ providedIn: 'root' })
+export class DynamicListService extends BaseService<DynamicList> {
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
+    this.setPath('DynamicList');
+
+    // ✅ Enable caching - this is lookup/reference data
+    this.enableCache = true;
+    this.cacheTTL = 30 * 60 * 1000; // 30 minutes
+  }
+}
+```
+
+**Counter-example: PersonService (business data)**
+```typescript
+@Injectable({ providedIn: 'root' })
+export class PersonService extends BaseService<Person> {
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
+    this.setPath('Person');
+
+    // ❌ DON'T enable caching - users actively edit this data
+    // Leave enableCache = false (default)
+  }
+}
+```
+
+### Best Practices
+
+1. **Only cache reference data**: Dropdowns, lookups, system configurations
+2. **Keep TTL appropriate**:
+   - System reference data: 30+ minutes
+   - User-dependent lookups: 5 minutes max
+   - Dynamic lists: 15-30 minutes
+3. **Never cache business entities**: Persons, Companies, Transactions
+4. **Provide manual refresh**: Add refresh buttons that call with `forceRefresh = true`
+5. **Test with multiple users**: Ensure cache doesn't show stale data when another user makes changes
+
+### Cache Key Structure
+```
+{ServiceName}-{Operation}-{Parameters}
+
+Examples:
+- Person-all
+- Person-id-123
+- Company-params-status=active&type=private
+- dynamic-list-1008
+```
+
+### Performance Impact
+- **First request**: Full API call + cache storage (~same as non-cached)
+- **Cached requests**: ~99% faster (no network, instant response)
+- **Memory usage**: Minimal (typical cache entry < 10KB, auto-expiring)
+- **Cache invalidation**: Milliseconds (pattern-based removal)

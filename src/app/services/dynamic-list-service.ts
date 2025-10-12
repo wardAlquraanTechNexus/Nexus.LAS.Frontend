@@ -4,18 +4,18 @@ import { HttpClient } from '@angular/common/http';
 import { DynamicList } from '../models/dynamic-list/dynamic-list';
 import { Observable, of, tap } from 'rxjs';
 import { PaginateRsult } from '../models/paginate-result';
-import { MemoryCacheService } from './memory-cache-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DynamicListService extends BaseService<DynamicList> {
 
-  constructor(
-    httpClient: HttpClient,
-    private cache: MemoryCacheService) {
+  constructor(httpClient: HttpClient) {
     super(httpClient);
     this.setPath('DynamicList');
+    // Enable caching for DynamicList - it's reference/lookup data that rarely changes
+    this.enableCache = true;
+    this.cacheTTL = 30 * 60 * 1000; // 30 minutes for reference data
   }
 
   GetParents(id: number): Observable<DynamicList[]> {

@@ -39,7 +39,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                 message += messages.join('\n');  // Or use '<br>' if showing in HTML
             }
 
-            if (error.status == 401) {
+            if (error.status === 401) {
                 if(message == '')
                     message = 'Unauthorized.';
                 router.navigateByUrl('auth');
