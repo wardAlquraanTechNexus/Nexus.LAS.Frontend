@@ -79,7 +79,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
       }
 
       this.formGroup = this.fb.group(group);
-      console.log(this.formGroup.getRawValue());
       this.cdr.markForCheck();
     }
   }
@@ -151,17 +150,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
             }
           }
 
-          if (value instanceof Date) {
-            if (value != null) {
-              // Format as yyyy-MM-dd for backend compatibility
-              const formattedDate = value.toISOString().split('T')[0];
-              formData.append(key, formattedDate);
-            }
-          } else {
-            if (value != null) {
-              formData.append(key, value);
-            }
-          }
         }
       });
 
