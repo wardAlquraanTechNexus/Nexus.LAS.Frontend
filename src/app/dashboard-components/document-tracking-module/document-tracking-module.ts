@@ -5,6 +5,9 @@ import { AllDocumentTrackingsComponent } from './all-document-trackings-componen
 import { AllDocumentTrackingTableComponent } from './all-document-trackings-component/all-document-tracking-table-component/all-document-tracking-table-component';
 import { DocumentTrackingViewComponent } from './_base/document-tracking-view-component/document-tracking-view-component';
 import { BaseDocumentTrackingsComponent } from './_base/base-document-trackings-component/base-document-trackings-component';
+import { DocumentTrackingFormComponent } from './document-tracking-form-component/document-tracking-form-component';
+import { DocumentTrackingDialogFormComponent } from './document-tracking-dialog-form-component/document-tracking-dialog-form-component';
+import { ComponentsModule } from '../../components/components-module';
 
 
 @NgModule({
@@ -13,10 +16,13 @@ import { BaseDocumentTrackingsComponent } from './_base/base-document-trackings-
     AllDocumentTrackingsComponent,
     AllDocumentTrackingTableComponent,
     DocumentTrackingViewComponent,
+    DocumentTrackingFormComponent,
+    DocumentTrackingDialogFormComponent
   ],
   imports: [
     CommonModule,
-    DocumentTrackingRoutingModule
+    DocumentTrackingRoutingModule,
+    ComponentsModule
   ]
 })
 export class DocumentTrackingModule { }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DocumentTrackingViewComponent } from '../_base/document-tracking-view-component/document-tracking-view-component';
 
 @Component({
   selector: 'app-all-document-trackings-component',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './all-document-trackings-component.html',
   styleUrls: ['./all-document-trackings-component.scss']
 })
-export class AllDocumentTrackingsComponent {
+export class AllDocumentTrackingsComponent extends DocumentTrackingViewComponent {
 
 }

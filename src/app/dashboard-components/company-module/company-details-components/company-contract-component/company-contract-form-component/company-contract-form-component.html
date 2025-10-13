@@ -6,8 +6,8 @@
                 <mat-icon>assignment</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{ label.COMPANY.CONTRACTS || 'Company Contract' }}</h2>
-                <p class="dialog-subtitle">{{ label.COMPANY.ADD_CONTRACT || 'Enter Company Contract Details' }}</p>
+                <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_CONTRACT || 'Edit' : label.COMPANY.ADD_CONTRACT || 'Add' }}</h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.ENTER_CONTRACT_DETAILS || 'Enter Company Contract Details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">

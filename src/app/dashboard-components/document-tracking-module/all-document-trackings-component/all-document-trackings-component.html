@@ -1,1 +1,2 @@
-<p>all-document-trackings-component works!</p>
+<app-all-document-tracking-table *ngIf="!showLoading && !documentTrackingId"></app-all-document-tracking-table>
+<app-document-tracking-view *ngIf="!showLoading && documentTrackingId" (backToTableEmit)="backToTable()"></app-document-tracking-view>

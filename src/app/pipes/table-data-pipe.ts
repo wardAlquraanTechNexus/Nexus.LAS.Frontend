@@ -326,6 +326,8 @@ export class TableDataPipe implements PipeTransform {
           if (value === EntityIDc.Person) return of(getLabel('COMMON.PERSON') ?? 'Person');
           if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
           if (value === EntityIDc.LawFirm) return of(getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm');
+          if (value === EntityIDc.Transactions) return of(getLabel('TRANSACTION.TRANSACTION') ?? 'Transaction');
+
           return of(value?.toString() ?? '');
 
         case 'number-separator':

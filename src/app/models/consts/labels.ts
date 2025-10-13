@@ -85,6 +85,11 @@ export const Labels = {
             LEGAL_FORM: "Legal Form",
             ACTIVITY: "Activity",
             CONTRACT_TYPE: "Contract Type",
+            CONTRACTS: "Contracts",
+            CONTRACT: "Contract",
+            ADD_CONTRACT: "Add Contract",
+            EDIT_CONTRACT: "Edit Contract",
+            ENTER_CONTRACT_DETAILS: "Enter contract details",
             PLACE_OF_REGISTRATION: "Place of Registration",
             PLACE_OF_REGISTRATION_SUB: "Place of Registration Sub",
             REMINDER: "Reminder",
@@ -131,8 +136,6 @@ export const Labels = {
             CCI_EXPIRY_DATE: "CCI Expiry Date",
             CCI_USERNAME: "CCI Username",
             CCI_PASSWORD: "CCI Password",
-            CONTRACTS: "Company Contracts",         // <-- Added
-            ADD_CONTRACT: "Add Contract",           // <-- Added
             ADD_BOARD_MEMBER: "Add Board Member", // <-- Added
             BANK_ACCOUNTS: "Bank Accounts",           // <-- Added
             BANK_ACCOUNT: "Bank Account",           // <-- Added
@@ -518,6 +521,22 @@ export const Labels = {
             ACTIVE_PUBLIC_FPCS: "Active Public FPCs",
             ACTIVE_PRIVATE_FPCS: "Active Private FPCs",
             ACTIVE_FPCS: "Active FPCs"
+        },
+         DOCUMENT_TRACKING: {
+            DOCUMENT_TRACKINGS: "Document Trackings",
+            DOCUMENT_TRACKING: "Document Tracking",
+            ALL_DOCUMENT_TRACKINGS: "All Document Trackings",
+            ACTIVE_DOCUMENT_TRACKINGS: "Active Document Trackings",
+            ADD_DOCUMENT_TRACKING: "Add Document Tracking",
+            ENTER_DOCUMENT_TRACKING_DETAILS: "Enter Document Tracking Details",
+            EDIT_DOCUMENT_TRACKING: "Edit Document Tracking",
+            REFERENCE_NUMBER: "Reference Number",
+            REGISTER_CODE: "Register Code",
+            REGISTER_TYPE: "Register Type",
+            DESCRIPTION: "Description",
+            STATUS: "Status",
+            REFERENCE_NUMBER_REQUIRED: "Reference Number is required",
+
         }
     },
     ar: {
@@ -575,6 +594,11 @@ export const Labels = {
             STATUS: "الحالة",
             PRIVATE: "خاص",
             ADD_NEW: "إضافة شركة جديدة",
+            CONTRACTS: "عقود",
+            CONTRACT: "عقد",
+            ADD_CONTRACT: "اضافة عقد",
+            EDIT_CONTRACT: "تعديل عقد",
+            ENTER_CONTRACT_DETAILS: "أدخل تفاصيل العقد",
             ACTIVATE: "تفعيل",
             DEACTIVATE: "إلغاء التفعيل",
             MARK_PUBLIC: "تعيين كعام",
@@ -656,8 +680,6 @@ export const Labels = {
             CCI_EXPIRY_DATE: "تاريخ انتهاء غرفة التجارة",
             CCI_USERNAME: "اسم مستخدم غرفة التجارة",
             CCI_PASSWORD: "كلمة مرور غرفة التجارة",
-            CONTRACTS: "عقود الشركة",               // <-- Added
-            ADD_CONTRACT: "إضافة عقد",              // <-- Added
             ADD_BOARD_MEMBER: "إضافة عضو مجلس إدارة", // <-- Added
             BANK_ACCOUNTS: "الحسابات البنكية",        // <-- Added
             ADD_BANK_ACCOUNT: "إضافة حساب بنكي",      // <-- Added
@@ -1043,6 +1065,22 @@ export const Labels = {
             ACTIVE_PUBLIC_FPCS: "FPCs النشطة العامة",
             ACTIVE_PRIVATE_FPCS: "FPCs الخاصة النشطة",
             ACTIVE_FPCS: "FPCs النشطة"
+        },
+        DOCUMENT_TRACKING: {
+            DOCUMENT_TRACKINGS: "تتبع الوثائق",
+            DOCUMENT_TRACKING: "تتبع الوثيقة",
+            ALL_DOCUMENT_TRACKINGS: "جميع تتبع الوثائق",
+            ACTIVE_DOCUMENT_TRACKINGS: "تتبع الوثائق النشط",
+            ADD_DOCUMENT_TRACKING: "إضافة تتبع الوثيقة",
+            ENTER_DOCUMENT_TRACKING_DETAILS: "أدخل تفاصيل تتبع الوثيقة",
+            EDIT_DOCUMENT_TRACKING: "تعديل تتبع الوثيقة",
+            REFERENCE_NUMBER: "رقم المرجع",
+            REGISTER_CODE: "رمز السجل",
+            REGISTER_TYPE: "نوع السجل",
+            DESCRIPTION: "الوصف",
+            STATUS: "الحالة",
+            REFERENCE_NUMBER_REQUIRED: "رقم المرجع مطلوب",
+
         }
     }
 } as const;

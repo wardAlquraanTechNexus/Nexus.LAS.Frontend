@@ -5,6 +5,7 @@ export class EntityIDc {
   static readonly LawFirm = "LF";
   static readonly Transactions = "T";
   static readonly FPCs = "F";
+  static readonly DocumentTracking = "D";
 
   
 }
