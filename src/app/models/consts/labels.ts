@@ -40,6 +40,9 @@ export const Labels = {
             ADD_ADDRESS: "Add Address",
             EDIT_ADDRESS: "Edit Address",
             PERSON_REQUIRED: "Person is required",
+            PERSON_ENGLISH_NAME: "Person English Name",
+            PERSON_ARABIC_NAME: "Person Arabic Name",
+            PERSON_SHORT_NAME: "Person Short Name",
         },
         COMPANY: {
             COMPANY: "Company",
@@ -522,7 +525,8 @@ export const Labels = {
             ACTIVE_PRIVATE_FPCS: "Active Private FPCs",
             ACTIVE_FPCS: "Active FPCs"
         },
-         DOCUMENT_TRACKING: {
+        DOCUMENT_TRACKING: {
+            SEARCH: "Search by Code Or Reference Number",
             DOCUMENT_TRACKINGS: "Document Trackings",
             DOCUMENT_TRACKING: "Document Tracking",
             ALL_DOCUMENT_TRACKINGS: "All Document Trackings",
@@ -536,7 +540,16 @@ export const Labels = {
             DESCRIPTION: "Description",
             STATUS: "Status",
             REFERENCE_NUMBER_REQUIRED: "Reference Number is required",
-
+            DOCUMENT_TRACKING_ACTIONS: "Document Tracking Actions",
+            DOCUMENT_TRACKING_ACTION: "Document Tracking Action",
+            ADD_DOCUMENT_TRACKING_ACTION: "Add Document Tracking Action",
+            EDIT_DOCUMENT_TRACKING_ACTION: "Edit Document Tracking Action",
+            ENTER_DOCUMENT_TRACKING_ACTION_DETAILS: "Enter Document Tracking Action Details",
+            ACTION_DATE: "Action Date",
+            ACTION_DATE_REQUIRED: "Action Date is required",
+            ACTION_TYPE: "Action Type",
+            ACTION_TYPE_REQUIRED: "Action Type is required",
+            ACTION_DESCRIPTION: "Action Description",
         }
     },
     ar: {
@@ -579,6 +592,9 @@ export const Labels = {
             PERSON_REQUIRED: "الشخص مطلوب",
             ADD_ADDRESS: "إضافة العنوان",
             EDIT_ADDRESS: "تعديل العنوان",
+            PERSON_ENGLISH_NAME: "اسم الشخص بالإنجليزية",
+            PERSON_ARABIC_NAME: "اسم الشخص بالعربية",
+            PERSON_SHORT_NAME: "الاسم المختصر للشخص",
         },
 
         COMPANY: {
@@ -1067,6 +1083,7 @@ export const Labels = {
             ACTIVE_FPCS: "FPCs النشطة"
         },
         DOCUMENT_TRACKING: {
+            SEARCH: "البحث بالرمز أو رقم المرجع",   
             DOCUMENT_TRACKINGS: "تتبع الوثائق",
             DOCUMENT_TRACKING: "تتبع الوثيقة",
             ALL_DOCUMENT_TRACKINGS: "جميع تتبع الوثائق",
@@ -1080,7 +1097,16 @@ export const Labels = {
             DESCRIPTION: "الوصف",
             STATUS: "الحالة",
             REFERENCE_NUMBER_REQUIRED: "رقم المرجع مطلوب",
-
+            DOCUMENT_TRACKING_ACTIONS: "إجراءات تتبع الوثائق",
+            DOCUMENT_TRACKING_ACTION: "إجراء تتبع الوثيقة",
+            ADD_DOCUMENT_TRACKING_ACTION: "إضافة إجراء تتبع الوثيقة",
+            EDIT_DOCUMENT_TRACKING_ACTION: "تعديل إجراء تتبع الوثيقة",
+            ENTER_DOCUMENT_TRACKING_ACTION_DETAILS: "أدخل تفاصيل إجراء تتبع الوثيقة",
+            ACTION_DATE: "تاريخ الإجراء",
+            ACTION_DATE_REQUIRED: "تاريخ الإجراء مطلوب",
+            ACTION_TYPE: "نوع الإجراء",
+            ACTION_TYPE_REQUIRED: "نوع الإجراء مطلوب",
+            ACTION_DESCRIPTION: "وصف الإجراء",
         }
     }
 } as const;

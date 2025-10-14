@@ -1,0 +1,90 @@
+.table-header-container{
+
+  padding: 16px 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+  box-shadow: 0 8px 32px rgba(1, 55, 114, 0.08);
+  border: 1px solid rgba(1, 55, 114, 0.1);
+  border-radius: 16px 16px 0 0; 
+  margin-bottom: 0; // remove gap, so it touches the table
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  // only top rounded, matches table wrapper
+  
+    .header-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #013772;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    button[mat-raised-button] {
+      font-weight: 500;
+      border-radius: 8px;
+    }
+
+    .rotated {
+      transform: rotate(180deg);
+      transition: transform 0.3s ease;
+    }
+  }
+}
+.table-filters {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
+  border-left: 1px solid rgba(1, 55, 114, 0.1);
+  border-right: 1px solid rgba(1, 55, 114, 0.1);
+  border-bottom: 1px solid rgba(1, 55, 114, 0.1);
+  padding: 16px 24px;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 8px 32px rgba(1, 55, 114, 0.05);
+  margin-bottom: 16px; /* space before table */
+}
+
+/* Make labels and selects look aligned and clean */
+.table-filters mat-label {
+  display: block;
+  font-weight: 500;
+  color: #013772;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.table-filters mat-select {
+  width: 100%;
+  background: white;
+  border-radius: 6px;
+}
+
+.table-filters .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Optional: match Angular Material appearance with consistent height */
+.table-filters .mat-form-field {
+  width: 100%;
+}
+
+.action-types {
+    border: 1px solid rgba(1, 55, 114, 0.1);
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+/* Wrap shared table so it connects to the header */
+app-shared-table {
+  display: block;
+  border: 1px solid rgba(1, 55, 114, 0.1);
+  border-top: none; /* removes double border */
+  border-radius: 0 0 16px 16px; /* only bottom corners */
+  box-shadow: 0 8px 32px rgba(1, 55, 114, 0.08);
+  overflow: hidden;
+}

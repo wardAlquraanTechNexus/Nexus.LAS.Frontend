@@ -16,7 +16,7 @@ import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
   providers: [
     ...DATE_FORMAT_PROVIDERS
   ]})
-export class LawFirmFormComponent  extends BaseFormComponent {
+export class LawFirmFormComponent extends BaseFormComponent {
 
   
   @Input() element!: LawFirmDTO;

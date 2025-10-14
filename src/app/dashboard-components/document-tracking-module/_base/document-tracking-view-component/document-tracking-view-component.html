@@ -45,7 +45,7 @@
             <div class="profile-action">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
-                    {{ label.FPC.EDIT_FPC }}
+                    {{ label.DOCUMENT_TRACKING.EDIT_DOCUMENT_TRACKING || 'Edit Document Tracking' }}
                 </button>
 
                 <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
@@ -77,7 +77,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <!-- <app-fpc-overview [fpc]="fpc"></app-fpc-overview> -->
+                            <app-document-tracking-overview [documentTracking]="documentTracking"></app-document-tracking-overview>
                         </div>
                     </div>
                 </mat-tab>
@@ -85,25 +85,17 @@
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
-                            <mat-icon>local_fire_department</mat-icon>
-                            <span>{{ label.FPC.FPC_OD }}</span>
+                            <mat-icon>track_changes</mat-icon>
+                            <span>{{ label.DOCUMENT_TRACKING.DOCUMENT_TRACKING_ACTIONS || 'Document Tracking Actions' }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <!-- <app-fpc-ods *ngIf="showFpcOd" [fpc]="fpc"
-                                (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods> -->
-                        </div>
-                        <div class="overview-component">
-                            <!-- <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd"
-                                (onSave)="onActionEdit()"></app-fpc-od-actions> -->
+                            <app-document-tracking-action [documentTracking]="documentTracking"></app-document-tracking-action>
                         </div>
                     </div>
                 </mat-tab>
-
-
-
-
+                
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -113,8 +105,8 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <!-- <app-shared-register-note-table [registersIdn]="fpc.id"
-                                [registersIdc]="idc"></app-shared-register-note-table> -->
+                            <app-shared-register-note-table [registersIdn]="documentTracking.id!"
+                                [registersIdc]="idc"></app-shared-register-note-table>
 
                         </div>
                     </div>

@@ -19,7 +19,7 @@
         <div class="nexus-search-field">
           <mat-form-field appearance="outline">
             <mat-label>{{ label.COMMON.SEARCH }}</mat-label>
-            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [placeholder]="label.COMPANY.SEARCH_ACTIVE_COMPANIES">
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" [placeholder]="label.DOCUMENT_TRACKING.SEARCH">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
@@ -40,7 +40,7 @@
           </mat-button-toggle-group>
         </div> -->
 
-        <div class="nexus-filter-actions">
+        <!-- <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
             <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
             {{ label.COMMON.FILTERS }}
@@ -48,7 +48,7 @@
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
             <mat-icon>download</mat-icon> {{ label.COMPANY.EXPORT }}
           </button>
-        </div>
+        </div> -->
       </div>
 
       <!-- Advanced Filters Section -->

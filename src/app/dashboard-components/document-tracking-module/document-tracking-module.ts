@@ -8,6 +8,10 @@ import { BaseDocumentTrackingsComponent } from './_base/base-document-trackings-
 import { DocumentTrackingFormComponent } from './document-tracking-form-component/document-tracking-form-component';
 import { DocumentTrackingDialogFormComponent } from './document-tracking-dialog-form-component/document-tracking-dialog-form-component';
 import { ComponentsModule } from '../../components/components-module';
+import { DocumentTrackingOverviewComponent } from './document-tracking-components/document-tracking-overview-component/document-tracking-overview-component';
+import { DocumentTrackingActionComponent } from './document-tracking-components/document-tracking-action-component/document-tracking-action-component';
+import { DocumentTrackingActionFormComponent } from './document-tracking-components/document-tracking-action-component/document-tracking-action-form-component/document-tracking-action-form-component';
+import { DocumentTrackingActionDialogFormComponent } from './document-tracking-components/document-tracking-action-component/document-tracking-action-dialog-form-component/document-tracking-action-dialog-form-component';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { ComponentsModule } from '../../components/components-module';
     AllDocumentTrackingTableComponent,
     DocumentTrackingViewComponent,
     DocumentTrackingFormComponent,
-    DocumentTrackingDialogFormComponent
+    DocumentTrackingDialogFormComponent,
+    DocumentTrackingOverviewComponent,
+    DocumentTrackingActionComponent,
+    DocumentTrackingActionFormComponent,
+    DocumentTrackingActionDialogFormComponent
   ],
   imports: [
     CommonModule,

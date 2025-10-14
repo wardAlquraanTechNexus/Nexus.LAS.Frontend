@@ -1,0 +1,39 @@
+<div class="section">
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.DOCUMENT_TRACKING.REFERENCE_NUMBER }}</div>
+        <div class="section-body">{{ documentTracking.referenceNumber }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.PERSON.PERSON_ENGLISH_NAME }}</div>
+        <div class="section-body">{{ documentTracking.personEnglishName }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.PERSON.PERSON_ARABIC_NAME }}</div>
+        <div class="section-body">{{ documentTracking.personArabicName }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.PERSON.PERSON_SHORT_NAME }}</div>
+        <div class="section-body">{{ documentTracking.personShortName }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.DOCUMENT_TRACKING.REGISTER_TYPE }}</div>
+        <div class="section-body">{{ documentTracking.registerIdc | textPipe: 'register-type' | async}}</div>
+    </div>
+
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.DOCUMENT_TRACKING.REGISTER_CODE  }}</div>
+        <div class="section-body">{{ documentTracking.registerCode  }}</div>
+    </div>
+
+    <div class="section-row">
+        <div class="section-subject">{{ label.DOCUMENT_TRACKING.DESCRIPTION }}</div>
+        <div class="section-body">{{ documentTracking.description }}</div>
+    </div>
+
+</div>

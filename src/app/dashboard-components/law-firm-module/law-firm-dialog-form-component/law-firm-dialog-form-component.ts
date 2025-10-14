@@ -12,7 +12,7 @@ import { LawFirmDTO } from '../../../models/law-firm-models/law-firm/dtos/law-fi
   templateUrl: './law-firm-dialog-form-component.html',
   styleUrls: ['./law-firm-dialog-form-component.scss']
 })
-export class LawFirmDialogFormComponent  extends BaseDialogFormComponent<LawFirm> {
+export class LawFirmDialogFormComponent extends BaseDialogFormComponent<LawFirm> {
 
   constructor(
     protected override dialogRef: MatDialogRef<LawFirmDialogFormComponent>,

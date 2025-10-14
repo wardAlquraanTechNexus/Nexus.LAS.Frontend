@@ -41,10 +41,10 @@ export class AllDocumentTrackingTableComponent  extends BaseDocumentTrackingsCom
 
   override setDisplayColumns() {
      this.displayColumns = [
-      {
-        key: "select",
-        label: this.label.COMMON.SELECT
-      },
+      // {
+      //   key: "select",
+      //   label: this.label.COMMON.SELECT
+      // },
       {
         key: "documentTrackingCode",
         label: this.label.COMMON.CODE,
@@ -73,6 +73,10 @@ export class AllDocumentTrackingTableComponent  extends BaseDocumentTrackingsCom
         label: this.label.DOCUMENT_TRACKING.DESCRIPTION,
         sort: true,
         pipes: ['register-type']
+      },
+      {
+        key: "actionType",
+        label: this.label.COMMON.STATUS,
       },
       {
         key: 'action',
