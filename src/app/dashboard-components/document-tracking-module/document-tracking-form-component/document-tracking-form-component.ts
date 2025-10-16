@@ -29,12 +29,17 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
   @Input() element!: DocumentTrackingDto;
 
   registerTypes: { idc: EntityIDc; name: string }[] = [
+    { idc: EntityIDc.Person, name: 'Person' },
     { idc: EntityIDc.Company, name: 'Company' },
+    { idc: EntityIDc.Properties, name: 'Real Estate' },
+    { idc: EntityIDc.LawFirm, name: 'Law Firm' },
     { idc: EntityIDc.Transactions, name: 'Transaction' },
+    { idc: EntityIDc.FPCs, name: 'FPC' },
+
   ];
 
   loadPersonssFn!: (search: string) => Observable<GetPersonsDTO[]>;
-
+  loadSentByFn!: (search: string) => Observable<GetPersonsDTO[]>;
   loadTransactionsFn!: (search: string) => Observable<AllTransactionDto[]>;
   loadCompaniesFn!: (search: string) => Observable<Company[]>;
 
@@ -67,6 +72,21 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
 
     this.formGroup.get('registerIdc')?.valueChanges.subscribe(() => {
       this.formGroup.get('registerIdn')?.reset();
+    });
+  }
+
+  override subscripeLanguage(): void {
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+      this.registerTypes = [
+    { idc: EntityIDc.Person, name: this.label.PERSON.PERSON },
+    { idc: EntityIDc.Company, name: this.label.COMPANY.COMPANY },
+    { idc: EntityIDc.Properties, name: this.label.PROPERTY.REAL_EASTATE },
+    { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
+    { idc: EntityIDc.Transactions, name: this.label.TRANSACTION.TRANSACTION },
+    { idc: EntityIDc.FPCs, name: this.label.FPC.FPC },
+
+  ];
     });
   }
 

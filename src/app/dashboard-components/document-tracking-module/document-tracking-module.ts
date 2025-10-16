@@ -20,8 +20,6 @@ import { DocumentTrackingActionDialogFormComponent } from './document-tracking-c
     AllDocumentTrackingsComponent,
     AllDocumentTrackingTableComponent,
     DocumentTrackingViewComponent,
-    DocumentTrackingFormComponent,
-    DocumentTrackingDialogFormComponent,
     DocumentTrackingOverviewComponent,
     DocumentTrackingActionComponent,
     DocumentTrackingActionFormComponent,

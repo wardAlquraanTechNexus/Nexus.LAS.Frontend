@@ -39,7 +39,7 @@ export class AllPersonTable extends BasePersonsComponent {
     this.route.queryParams.subscribe(params => {
       let id = +params['id'];
     })
-    
+
     super.ngOnInit();
   }
 
@@ -53,9 +53,9 @@ export class AllPersonTable extends BasePersonsComponent {
         { key: "personEnglishName", label: "الاسم بالانجليزية", pipes: ["link"], sort: true },
         { key: "personArabicName", label: "الاسم بالعربية", pipes: ["link"], sort: true },
         { key: "personShortName", label: "الاسم المختصر", sort: true },
-        { key: "personStatus", label: "الحالة", pipes: ["person-Status"], sort: true },
+        { key: "personStatus", label: "الحالة", pipes: ["person-Status"], sort: true, hasIcon: true },
         { key: "fpcCode", label: "رمز FPC" },
-        { key: "private", label: "خاص", pipes: ['private-Person'], sort: true },
+        { key: "private", label: "خاص", pipes: ['private'], sort: true, hasIcon: true },
         { key: "action", label: "إجراءات" },
       ];
     } else {
@@ -66,9 +66,9 @@ export class AllPersonTable extends BasePersonsComponent {
         { key: "personEnglishName", label: "Name En", pipes: ["link"], sort: true },
         { key: "personArabicName", label: "Name Ar", pipes: ["link"], sort: true },
         { key: "personShortName", label: "Short Name", sort: true },
-        { key: "personStatus", label: "Status", pipes: ["person-Status"], sort: true },
+        { key: "personStatus", label: "Status", pipes: ["person-Status"], sort: true, hasIcon: true },
         { key: "fpcCode", label: "FPC Code" },
-        { key: "private", label: "Private", pipes: ['private-Person'], sort: true },
+        { key: "private", label: "Private", pipes: ['private'], sort: true, hasIcon: true },
         { key: "action", label: "Action" },
       ];
     }

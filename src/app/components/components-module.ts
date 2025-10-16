@@ -68,6 +68,8 @@ import { PhoneFormComponent } from './phone-form-component/phone-form-component'
 import { EmailFormComponent } from './email-form-component/email-form-component';
 import { FpcDialogFormComponent } from '../dashboard-components/fpc-module/fpc-dialog-form-component/fpc-dialog-form-component';
 import { FpcFormComponent } from '../dashboard-components/fpc-module/fpc-form-component/fpc-form-component';
+import { DocumentTrackingDialogFormComponent } from '../dashboard-components/document-tracking-module/document-tracking-dialog-form-component/document-tracking-dialog-form-component';
+import { DocumentTrackingFormComponent } from '../dashboard-components/document-tracking-module/document-tracking-form-component/document-tracking-form-component';
 
 
 
@@ -112,7 +114,8 @@ import { FpcFormComponent } from '../dashboard-components/fpc-module/fpc-form-co
     EmailFormComponent,
     FpcDialogFormComponent,
     FpcFormComponent,
-
+    DocumentTrackingFormComponent,
+    DocumentTrackingDialogFormComponent,
   ],
   imports: [
     CommonModule,
@@ -220,6 +223,8 @@ import { FpcFormComponent } from '../dashboard-components/fpc-module/fpc-form-co
     EmailFormComponent,
     FpcDialogFormComponent,
     FpcFormComponent,
+    DocumentTrackingFormComponent,
+    DocumentTrackingDialogFormComponent,
   ],
   providers: [
 

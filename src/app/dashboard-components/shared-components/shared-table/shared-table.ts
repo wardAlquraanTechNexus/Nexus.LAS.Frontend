@@ -78,6 +78,7 @@ export class SharedTable implements OnInit, OnChanges {
       this.cdRef.detectChanges();
     }
   }
+
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.paginateResult.collection);
     this.displayedColumnKeys = this.displayedColumns.map(c => c.key);
@@ -115,6 +116,81 @@ export class SharedTable implements OnInit, OnChanges {
     this.rowClick.emit(rowClick);
   }
 
+  getIcon(value: any, pipes: string[] | undefined): string {
+    if (!pipes) {
+      return "";
+    }
+    for (const pipe of pipes) {
+      if (!pipe) continue;
+
+      switch (pipe.toLowerCase()) {
+        case 'private':
+          {
+            if (value) {
+              return 'lock';
+            } else {
+              return 'public'
+            }
+          }
+        case 'capital-active':
+          {
+            if (value)
+              return 'check_circle';
+            else
+              return 'cancel';
+          }
+        case 'person-status':
+          {
+            switch (value) {
+              case PersonStatus.Active:
+                return 'check_circle';
+              case PersonStatus.Inactive:
+                return 'cancel';
+              default:
+                return 'star';
+            }
+          }
+        case 'company-status':
+          {
+            switch (value) {
+              case CompanyStatus.Active:
+                return 'check_circle';
+              case CompanyStatus.Inactive:
+                return 'cancel';
+              default:
+                return 'star';
+            }
+          }
+        case 'common-status':
+          {
+            switch (value) {
+              case CommonStatus[CommonStatus.Active]:
+                return 'check_circle';
+              case CommonStatus[CommonStatus.Inactive]:
+                return 'cancel';
+              default:
+                return 'star';
+            }
+          }
+        case 'person-company-in-charge':
+          {
+            if (value == 'active') return 'check_circle';
+            else if (value == 'inactive') return 'cancel';
+            else return 'star';
+
+          }
+        case 'company-license-status':
+          {
+            if (value === CompanyLicenseStatus.Active) return 'check_circle';
+            else if (value === CompanyLicenseStatus.Expired) return 'cancel';
+            else return 'star';
+
+          }
+      }
+    }
+    return "";
+
+  }
 
   lastSortColumn: string | null = null;
 

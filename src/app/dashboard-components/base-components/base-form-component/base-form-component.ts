@@ -60,12 +60,14 @@ export class BaseFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initFormGroup();
-
+    this.subscripeLanguage();
+  }
+  
+  subscripeLanguage(){
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
     });
   }
-
 
   initFormGroup(): void {
     if (this.object) {

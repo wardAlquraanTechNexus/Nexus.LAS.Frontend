@@ -7,9 +7,9 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id != 0 ? label.DOCUMENT_TRACKING.EDIT_DOCUMENT_TRACKING || 'Edit' : label.DOCUMENT_TRACKING.ADD_DOCUMENT_TRACKING || 'Add'}}
+                    {{element.id != 0 ? label.DOCUMENT_TRACKING.EDIT_FOLLOW_UP : label.DOCUMENT_TRACKING.ADD_FOLLOW_UP}}
                 </h2>
-                <p class="dialog-subtitle">{{ label.DOCUMENT_TRACKING.ENTER_DOCUMENT_TRACKING_DETAILS || 'Enter Document Tracking details' }}</p>
+                <p class="dialog-subtitle">{{ label.DOCUMENT_TRACKING.ENTER_FOLLOW_UP_DETAILS }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -42,7 +42,7 @@
                         [fnGet]="loadPersonssFn" 
                         [formGroup]="formGroup"
                         [isRequired]="true" 
-                        [label]="label.PERSON.PERSON || 'Person'" 
+                        [label]="label.DOCUMENT_TRACKING.SENT_BY" 
                         [keyToShow]="'personEnglishName'"
                         [valueKey]="'id'">
                     </select-auto-complete>
@@ -80,8 +80,20 @@
                         [fnGet]="loadCompaniesFn" 
                         [formGroup]="formGroup"
                         [isRequired]="true" 
-                        [label]="label.COMMON.COMPANY || 'Company'" 
-                        [keyToShow]="'companyEnglishName'"
+                        [label]="label.COMMON.COMPANY" 
+                        [keyToShow]="'companyCode'"
+                        [valueKey]="'id'">
+                    </select-auto-complete>
+                </div>
+
+                <div class="col-12" *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Person && loadPersonssFn">
+                    <select-auto-complete
+                        [controlName]="'registerIdn'" 
+                        [fnGet]="loadPersonssFn" 
+                        [formGroup]="formGroup"
+                        [isRequired]="true" 
+                        [label]="label.PERSON.PERSON" 
+                        [keyToShow]="'personCode'"
                         [valueKey]="'id'">
                     </select-auto-complete>
                 </div>

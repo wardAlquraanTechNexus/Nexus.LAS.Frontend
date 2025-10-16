@@ -46,12 +46,12 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     private sanitizer: DomSanitizer,
     override langService: LanguageService
   ) {
-    super(service, cdr, fb, router, errorHandler, route , langService)
+    super(service, cdr, fb, router, errorHandler, route, langService)
   }
 
   override ngOnInit(): void {
     this.params.companyId = this.company.id;
-  
+
     super.ngOnInit();
   }
 
@@ -59,14 +59,14 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
     super.ngOnDestroy();
   }
 
-   override setDisplayColumns() {
+  override setDisplayColumns() {
     this.displayColumns = getDisplayColumns(this.langService, [
       { key: "licenseClassification", labelKey: 'COMPANY.CLASS' },
       { key: "licenseNumber", labelKey: 'COMPANY.CODE' },
       { key: "licenseIssueDate", labelKey: 'COMPANY.ISSUE_DATE', pipes: ["date"] },
       { key: "licenseExpiryDate", labelKey: 'COMPANY.EXPIRY_DATE', pipes: ["date"] },
       { key: "licenseExpiryActiveReminder", labelKey: 'COMPANY.REMINDER', inputType: "mat-slide-toggle" },
-      { key: "licenseStatus", labelKey: 'COMPANY.STATUS', pipes: ['company-license-status'] },
+      { key: "licenseStatus", labelKey: 'COMPANY.STATUS', pipes: ['company-license-status'], hasIcon: true },
       { key: "licensePrimary", labelKey: 'COMMON.PRIMARY', pipes: ['person-in-charge-primary'] },
       { key: "action", labelKey: 'COMMON.ACTIONS' }
     ]);
@@ -143,7 +143,7 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
   }
 
 
-   onRowClick(event: any) {
+  onRowClick(event: any) {
     if (event.key == 'licenseExpiryActiveReminder') {
       this.showLoading = true;
       this.service.update(event.element).subscribe({

@@ -6,7 +6,8 @@ export interface DisplayColumn{
     sort?:boolean,
     inputType?:string,
     compareKey?:string,
-    decimals?:number  // Add support for custom decimal places
+    decimals?:number,
+    hasIcon?:boolean;
 }
 
 export interface keysPipes{

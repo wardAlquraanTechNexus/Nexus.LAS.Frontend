@@ -5,7 +5,7 @@ export interface CompanyPersonInChargeDto {
   designation?: string;
   authorityRule?: number | null;
   notes?: string | null;
-  personInChargeDate?: string; // or Date if you parse it
+  personInChargeDate?: string | null; // or Date if you parse it
   cessationDate?: string | null;      // or Date
   personInChargeActive?: boolean;
   personNameEn?: string;

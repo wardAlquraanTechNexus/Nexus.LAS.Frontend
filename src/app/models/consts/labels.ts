@@ -541,6 +541,7 @@ export const Labels = {
             STATUS: "Status",
             REFERENCE_NUMBER_REQUIRED: "Reference Number is required",
             DOCUMENT_TRACKING_ACTIONS: "Document Tracking Actions",
+            FOLLOW_UP: "Follow up",
             DOCUMENT_TRACKING_ACTION: "Document Tracking Action",
             ADD_DOCUMENT_TRACKING_ACTION: "Add Document Tracking Action",
             EDIT_DOCUMENT_TRACKING_ACTION: "Edit Document Tracking Action",
@@ -550,6 +551,12 @@ export const Labels = {
             ACTION_TYPE: "Action Type",
             ACTION_TYPE_REQUIRED: "Action Type is required",
             ACTION_DESCRIPTION: "Action Description",
+            SENT_BY: "Sent By",
+            SENT_BY_REQUIRED: "Sent By is required",
+            FOLLOW_UPS: "Follow Ups",
+            ADD_FOLLOW_UP: "Add Follow Up",
+            EDIT_FOLLOW_UP: "Edit Follow Up",
+            ENTER_FOLLOW_UP_DETAILS: "Enter Follow Up Details"
         }
     },
     ar: {
@@ -1103,10 +1110,17 @@ export const Labels = {
             EDIT_DOCUMENT_TRACKING_ACTION: "تعديل إجراء تتبع الوثيقة",
             ENTER_DOCUMENT_TRACKING_ACTION_DETAILS: "أدخل تفاصيل إجراء تتبع الوثيقة",
             ACTION_DATE: "تاريخ الإجراء",
+            FOLLOW_UPS: "المتابعات",
             ACTION_DATE_REQUIRED: "تاريخ الإجراء مطلوب",
             ACTION_TYPE: "نوع الإجراء",
             ACTION_TYPE_REQUIRED: "نوع الإجراء مطلوب",
             ACTION_DESCRIPTION: "وصف الإجراء",
+            SENT_BY: "تم إرساله بواسطة",
+            SENT_BY_REQUIRED: "المرسل مطلوب",
+            FOLLOW_UP: "متابعة",
+            ADD_FOLLOW_UP: "إضافة متابعة",
+            EDIT_FOLLOW_UP: "تعديل المتابعة",
+            ENTER_FOLLOW_UP_DETAILS: "ادخل متابعة التفاصيل"
         }
     }
 } as const;

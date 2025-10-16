@@ -77,7 +77,8 @@ export class ActiveTransactionsTableComponent extends BaseTransactionsComponent
         key: "private", 
         label: this.label.COMMON.PRIVATE, 
         sort: true ,
-        pipes: ['private']
+        pipes: ['private'],
+        hasIcon: true
       },
       
       { key: "action", label: this.label.COMMON.ACTIONS }

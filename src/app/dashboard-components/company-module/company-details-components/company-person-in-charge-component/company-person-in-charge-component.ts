@@ -95,7 +95,8 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
     {
       key: "statusName",
       label: this.label.COMMON.STATUS,
-      pipes: ['person-company-in-charge']
+      pipes: ['person-company-in-charge'],
+      hasIcon: true
     },
     {
       key: "personInChargeActive",
@@ -142,7 +143,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
       designation: "",
       authorityRule: null,
       notes: null,
-      personInChargeDate: "",
+      personInChargeDate: null,
       cessationDate: null,
       personInChargeActive: false,
       personIdn: null,

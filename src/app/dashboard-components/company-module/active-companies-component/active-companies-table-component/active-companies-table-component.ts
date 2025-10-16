@@ -64,9 +64,8 @@ export class ActiveCompaniesTableComponent extends BaseCompaniesComponent {
       { key: "companyEnglishName", label: this.currentLang === 'ar' ? 'اسم الشركة بالإنجليزية' : 'Company Name (EN)', pipes: ["link"], sort: true },
       { key: "companyArabicName", label: this.currentLang === 'ar' ? 'اسم الشركة بالعربية' : 'Company Name (AR)', pipes: ["link"], sort: true },
       { key: "companyShortName", label: this.currentLang === 'ar' ? 'الاسم المختصر' : 'Short Name', pipes: ["link"], sort: true },
-      { key: "companyStatus", label: this.currentLang === 'ar' ? 'حالة الشركة' : 'Company Status', pipes: ["company-Status"], sort: true },
       { key: "fpcCode", label: this.currentLang === 'ar' ? 'رمز FPC' : 'FPC Code', sort: true },
-      { key: "private", label: this.currentLang === 'ar' ? 'خاص' : 'Private', pipes: ["private-Company"], sort: true },
+      { key: "private", label: this.currentLang === 'ar' ? 'خاص' : 'Private', pipes: ["private"], sort: true, hasIcon: true },
       { key: "action", label: this.currentLang === 'ar' ? 'إجراء' : 'Action' }
     ];
   }

@@ -6,8 +6,10 @@
         <mat-icon>badge</mat-icon>
       </div>
       <div class="header-text">
-        <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_PERSON_IN_CHARGE || 'Edit Person In Charge' : label.COMPANY.ADD_PERSON_IN_CHARGE || 'Add Person In Charge'}}</h2>
-        <p class="dialog-subtitle">{{ label.COMPANY.ENTER_PERSON_IN_CHARGE_DETAILS || 'Enter Person In Charge Details' }}</p>
+        <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_PERSON_IN_CHARGE || 'Edit Person In Charge' :
+          label.COMPANY.ADD_PERSON_IN_CHARGE || 'Add Person In Charge'}}</h2>
+        <p class="dialog-subtitle">{{ label.COMPANY.ENTER_PERSON_IN_CHARGE_DETAILS || 'Enter Person In Charge Details'
+          }}</p>
       </div>
     </div>
     <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -23,49 +25,38 @@
         <!-- Person Select -->
         <div class="col-12">
           <select-auto-complete *ngIf="loadPersonssFn" [controlName]="'personIdn'" [fnGet]="loadPersonssFn"
-            [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'" [keyToShow]="'personEnglishName'"
-            [valueKey]="'id'">
+            [formGroup]="formGroup" [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'"
+            [keyToShow]="'personEnglishName'" [valueKey]="'id'">
           </select-auto-complete>
         </div>
 
         <!-- designation -->
         <div class="col-12">
           <select-auto-complete *ngIf="loadDesignation" [controlName]="'designation'" [fnGet]="loadDesignation"
-            [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Designation'" [keyToShow]="'name'" [valueKey]="'id'">
+            [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Designation'"
+            [keyToShow]="'name'" [valueKey]="'id'">
           </select-auto-complete>
         </div>
 
         <!-- Authority Rule -->
         <div class="col-12">
           <select-auto-complete *ngIf="loadAuthorityRulesFn" [controlName]="'authorityRule'"
-            [fnGet]="loadAuthorityRulesFn" [formGroup]="formGroup" [label]="label.COMPANY.AUTHORITY_RULE || 'Authority Rule'" [keyToShow]="'name'"
-            [valueKey]="'id'">
+            [fnGet]="loadAuthorityRulesFn" [formGroup]="formGroup"
+            [label]="label.COMPANY.AUTHORITY_RULE || 'Authority Rule'" [keyToShow]="'name'" [valueKey]="'id'">
           </select-auto-complete>
         </div>
-
-        <!-- Dates -->
         <div class="col-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>{{ label.COMPANY.APPOINTMENT_DATE || 'Appointment Date' }}</mat-label>
-            <input matInput
-                   formControlName="personInChargeDate"
-                   [placeholder]="label.COMPANY.APPOINTMENT_DATE || 'DD/MM/YYYY'"
-                   [matDatepicker]="personInChargePicker">
-            <mat-datepicker-toggle matSuffix [for]="personInChargePicker"></mat-datepicker-toggle>
-            <mat-datepicker #personInChargePicker></mat-datepicker>
-            <mat-error *ngIf="formGroup.get('personInChargeDate')?.hasError('required')">
-              {{ label.COMMON.APPOINTMENT_DATE_REQUIRED || 'Person In Charge Date is required' }}
-            </mat-error>
-          </mat-form-field>
+          <app-date-input [formGroup]="formGroup" [controlName]="'personInChargeDate'"
+            [label]="label.COMPANY.APPOINTMENT_DATE">
+          </app-date-input>
+
         </div>
 
         <div class="col-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{ label.COMPANY.CESSATION_DATE || 'Cessation Date' }}</mat-label>
-            <input matInput
-                   formControlName="cessationDate"
-                   [placeholder]="label.COMPANY.CESSATION_DATE || 'DD/MM/YYYY'"
-                   [matDatepicker]="cessationPicker">
+            <input matInput formControlName="cessationDate" [placeholder]="label.COMPANY.CESSATION_DATE || 'DD/MM/YYYY'"
+              [matDatepicker]="cessationPicker">
             <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
             <mat-datepicker #cessationPicker></mat-datepicker>
           </mat-form-field>
@@ -75,7 +66,8 @@
         <div class="col-12">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{ label.COMMON.NOTES || 'Notes' }}</mat-label>
-            <textarea matInput formControlName="notes" [placeholder]="label.COMMON.NOTES || 'Enter notes'" rows="3"></textarea>
+            <textarea matInput formControlName="notes" [placeholder]="label.COMMON.NOTES || 'Enter notes'"
+              rows="3"></textarea>
           </mat-form-field>
         </div>
 

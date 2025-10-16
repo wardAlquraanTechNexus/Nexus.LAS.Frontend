@@ -75,7 +75,8 @@ export class ActiveFpcsTableComponent extends BaseFpcsComponent {
         key: "private", 
         label: this.label.COMMON.PRIVATE, 
         sort: true ,
-        pipes: ['private']
+        pipes: ['private'],
+        hasIcon: true
       },
       {
         key: 'action',

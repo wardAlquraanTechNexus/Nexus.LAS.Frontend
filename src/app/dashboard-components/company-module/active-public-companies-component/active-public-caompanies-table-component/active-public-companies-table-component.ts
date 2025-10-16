@@ -82,9 +82,7 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
       { key: "companyEnglishName", label: labels.nameEn, pipes: ["link"], sort: true },
       { key: "companyArabicName", label: labels.nameAr, pipes: ["link"], sort: true },
       { key: "companyShortName", label: labels.shortName, pipes: ["link"], sort: true },
-      { key: "companyStatus", label: labels.status, pipes: ["company-Status"], sort: true },
       { key: "fpcCode", label: labels.fpcCode, sort: true },
-      { key: "private", label: labels.private, pipes: ["private-Company"], sort: true },
       { key: "action", label: labels.action }
     ];
   }

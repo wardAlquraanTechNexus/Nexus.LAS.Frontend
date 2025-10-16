@@ -92,7 +92,8 @@ export class ActiveLawFirmsTableComponent extends BaseLawFirmsComponent
         key: "private", 
         label: this.label.COMMON.PRIVATE, 
         sort: true ,
-        pipes: ['private']
+        pipes: ['private'],
+        hasIcon: true
       },
       
       { key: "action", label: this.label.COMMON.ACTIONS }

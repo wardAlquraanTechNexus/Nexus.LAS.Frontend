@@ -77,13 +77,15 @@ export class AllFpcsTableComponent  extends BaseFpcsComponent {
         key: "fpcStatus", 
         label: this.label.COMMON.STATUS, 
         sort: true ,
-        pipes: ['common-status']
+        pipes: ['common-status'],
+        hasIcon: true
       },
       { 
         key: "private", 
         label: this.label.COMMON.PRIVATE, 
         sort: true ,
-        pipes: ['private']
+        pipes: ['private'],
+        hasIcon: true
       },
       {
         key: 'action',

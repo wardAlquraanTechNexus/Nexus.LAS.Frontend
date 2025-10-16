@@ -109,7 +109,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       }, {
         key: "capitalActive",
         label: this.langService.getLabel(this.label.COMMON.STATUS) || "Status",
-        pipes:['capital-active']
+        pipes:['capital-active'],
       },
       {
         key: 'action',

@@ -50,6 +50,7 @@
                 <div (click)="onRowClick(element, column.key, i)">
                   <ng-container *ngIf="!column.keysPipes; else multiKeyCell">
                     <span [ngStyle]="getCellStyle(element[column.key], column.pipes)">
+                      <mat-icon class="pt-1" *ngIf="column.hasIcon">{{getIcon(element[column.key], column.pipes)}}</mat-icon>
                       <span *ngIf="!column.inputType">
                         {{ element[column.key] | tableDataPipe: element : column : column.pipes | async }}
                       </span>
@@ -69,7 +70,10 @@
                   <ng-template #multiKeyCell>
                     <span *ngFor="let keyPipe of column.keysPipes"
                       [ngStyle]="getCellStyle(element[keyPipe.key] , keyPipe.pipes)">
-                      <span>{{ element[keyPipe.key] | tableDataPipe: element : column : keyPipe.pipes | async }}</span>
+                      <span>{{ element[keyPipe.key] | tableDataPipe: element : column : keyPipe.pipes | async }}
+                        <mat-icon *ngIf="column.hasIcon">{{getIcon(element[keyPipe.key] , keyPipe.pipes)}}</mat-icon>
+
+                      </span>
                         
                       
                     </span>

@@ -133,9 +133,9 @@ export class BaseDocumentTrackingsComponent extends TableFormComponent<DocumentT
       id: 0,
       documentTrackingCode: '',
       referenceNumber: '',
-      personId: 0,
+      personId: null,
       registerIdc: '',
-      registerIdn: 0,
+      registerIdn: null,
       description: ''
     };
     const dialogRef = this.dialog.open(DocumentTrackingDialogFormComponent, {
