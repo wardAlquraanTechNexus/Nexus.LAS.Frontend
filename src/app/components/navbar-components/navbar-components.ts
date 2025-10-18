@@ -1,4 +1,4 @@
-import { Component, ViewChild, Inject, PLATFORM_ID, OnDestroy, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID, OnDestroy, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environment/environment';
@@ -26,6 +26,11 @@ import { TransactionDialogFormComponent } from '../../dashboard-components/trans
 import { FPCDto } from '../../models/fpc-models/fpc/dtos/fpc-dto';
 import { CommonStatus } from '../../enums/common-status';
 import { FpcDialogFormComponent } from '../../dashboard-components/fpc-module/fpc-dialog-form-component/fpc-dialog-form-component';
+import { DocumentTrackingDto } from '../../models/document-tracking-models/document-tracking/dtos/document-tracking-dto';
+import { DocumentTrackingDialogFormComponent } from '../../dashboard-components/document-tracking-module/document-tracking-dialog-form-component/document-tracking-dialog-form-component';
+import { SearchService } from '../../services/search-services/search-service';
+import { GlobalSearchQuery } from '../../models/search-models/global-search-param';
+import { GlobalSearchDTO } from '../../models/search-models/global-search-dto';
 
 
 @Component({
@@ -35,10 +40,20 @@ import { FpcDialogFormComponent } from '../../dashboard-components/fpc-module/fp
   standalone: false
 })
 export class NavbarComponent implements OnDestroy, OnInit {
-  searchText = '';
-  searchResults: string[] = [];
+  
   sidebarOpen = true;
   currentLang: LanguageCode = 'en';
+
+  params: GlobalSearchQuery = {
+    search : "",
+    page: 0,
+    pageSize: 5
+  };
+  searchResults: GlobalSearchDTO[] = [];
+  isSearching = false;
+  isLoadingMore = false;
+  hasMoreResults = false; 
+
 
   isNavigating = false;
   get label() {
@@ -49,6 +64,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
   private destroy$ = new Subject<void>();
+
 
   languages: Language[] = [
     {
@@ -113,7 +129,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
     protected langService: LanguageService,
     private menuService: MenuService,
     private route: ActivatedRoute,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private searchService: SearchService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef
   ) {
     this.user = this.authService.getUser();
   }
@@ -150,14 +168,51 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.router.navigateByUrl("");
   }
 
-  onSearch() {
-    // Simulate a search; replace with actual logic
-    const allItems = ['Person A', 'Company B', 'Real Estate C', 'Law Firm D'];
-    this.searchResults = allItems.filter(item =>
-      item.toLowerCase().includes(this.searchText.toLowerCase())
-    );
-  }
 
+
+  onSearch(): void {
+    if (!this.params.search) return;
+  
+    this.params.page = 0;
+    this.isSearching = true;
+  
+    this.searchService.globalSearch(this.params).subscribe({
+      next: (results) => {
+        this.searchResults = results;
+        this.hasMoreResults = results.length === this.params.pageSize;
+        this.isSearching = false;
+      },
+      error: (err) => {
+        console.error('Search failed:', err);
+        this.isSearching = false;
+      },
+    });
+  }
+  
+  loadMore(event: MouseEvent): void {
+    event.stopPropagation(); // 🧠 Prevents mat-menu from closing
+    this.isLoadingMore = true;
+    this.params.page++;
+  
+    this.searchService.globalSearch(this.params).subscribe({
+      next: (results) => {
+        this.searchResults = [...this.searchResults, ...results];
+        this.hasMoreResults = results.length === this.params.pageSize;
+        this.isLoadingMore = false;
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Load more failed:', err);
+        this.isLoadingMore = false;
+      },
+    });
+  }
+  
+  
+  openEntity(result: GlobalSearchDTO): void {
+    // navigate to the entity details or perform another action
+    console.log('Opening:', result);
+  }
 
   toggleSidebar() {
     if (!this.isBrowser) return;
@@ -201,6 +256,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
         break;
       case environment.routes.AddFpc:
         this.onAddNewFPC();
+        break;
+      case environment.routes.AddDocumentTracking:
+        this.onAddNewDocumentTracking();
         break;
       default:
         break;
@@ -465,6 +523,35 @@ export class NavbarComponent implements OnDestroy, OnInit {
       }
     })
   }
+
+  onAddNewDocumentTracking() {
+    let document: DocumentTrackingDto = {
+      id: 0,
+      documentTrackingCode: '',
+      referenceNumber: '',
+      personId: null,
+      registerIdc: '',
+      registerIdn: null,
+      description: ''
+    };
+    const dialogRef = this.dialog.open(DocumentTrackingDialogFormComponent, {
+      disableClose: true,
+      data: document
+    });
+
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllDocumentTrackings);
+    let basePath = this.menuService.getMenuByPath(environment.routes.DocumentTrackings);
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.id);
+
+      }
+    })
+  }
+
 
 
 

@@ -11,6 +11,17 @@
         </button>
   </div>
 </div>
+<div class="table-filters">
+  <div class="row">
+    <div class="col-md-4 col-12 mb-2">
+      <select-expiry-dates [formGroup]="formGroup" [controlName]="'expiryDate'"
+        (onExpirySelect)="onExpiryDateSelect($event)"></select-expiry-dates>
+    </div>
+    <div class="col-md-4 col-12 mb-2">
+      <select-reminder (onSelect)="onActiveReminderSelect($event)"></select-reminder>
+    </div>
+
+  </div>
 <app-shared-table *ngIf="showTable && !showLoading"
   [displayedColumns]="displayColumns"
   [paginateResult]="data"

@@ -6,7 +6,7 @@ import { GetPropertyDocumentQuery } from '../../../../models/property-models/pro
 import { PropertyDocumentDTO } from '../../../../models/property-models/property-document/dtos/property-document-dto';
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { PropertyDocumentService } from '../../../../services/property-services/property-document-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyOwnerDTO } from '../../../../models/property-models/property-owner/dtos/property-owner-dto';
@@ -25,6 +25,11 @@ import { PropertyDocumentDialogViewComponent } from './property-document-dialog-
   styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class PropertyDocumentsComponent extends TableFormComponent<PropertyDocument> {
+
+  formGroup = new FormGroup({
+    expiryDate: new FormControl(null),
+    activeReminder: new FormControl(null)
+  });
 
   @Input() property!: PropertyDTO;
   override params: GetPropertyDocumentQuery = {
@@ -87,7 +92,7 @@ export class PropertyDocumentsComponent extends TableFormComponent<PropertyDocum
       {
         key: "description",
         label: this.label.COMMON.DESCRIPTION,
-        
+
       },
       {
         key: "activeReminder",
@@ -185,32 +190,40 @@ export class PropertyDocumentsComponent extends TableFormComponent<PropertyDocum
   }
 
   onRowClick(elementRow: any) {
-      if (elementRow.key === "activeReminder") {
-        const personIdDetail: PropertyDocumentDTO = elementRow.element;
-  
-        this.showLoading = true;
-  
-        this.service.updateByBody(personIdDetail).subscribe({
-          next: () => {
-            this.errorHandler.showSuccess("Updated Successfully");
-            this.cdr.markForCheck();
-            this.showLoading = false;
-          },
-          error: () => {
-            this.showLoading = false;
-          }
-        });
-      }
-    }
+    if (elementRow.key === "activeReminder") {
+      const personIdDetail: PropertyDocumentDTO = elementRow.element;
 
-     onView(row: any) {
-          this.dialog.open(PropertyDocumentDialogViewComponent, {
-            width: '900px',
-            maxWidth: '98vw',
-            data: row
-          });
+      this.showLoading = true;
+
+      this.service.updateByBody(personIdDetail).subscribe({
+        next: () => {
+          this.errorHandler.showSuccess("Updated Successfully");
+          this.cdr.markForCheck();
+          this.showLoading = false;
+        },
+        error: () => {
+          this.showLoading = false;
         }
+      });
+    }
+  }
 
+  onView(row: any) {
+    this.dialog.open(PropertyDocumentDialogViewComponent, {
+      width: '900px',
+      maxWidth: '98vw',
+      data: row
+    });
+  }
 
+  onActiveReminderSelect(event: any){
+    this.params.activeReminder = event;
+    this.fetchData();
+  }
+
+  onExpiryDateSelect(event: any){
+    this.params.expiryDatePeriod = event;
+    this.fetchData();
+  }
 
 }

@@ -13,28 +13,23 @@
   <div class="table-filters">
     <div class="row">
       <div class="col-md-4 col-12 mb-2">
-        <select-auto-complete *ngIf="loadDocumentTypesFn"
-          [controlName]="'documentType'"
-          [fnGet]="loadDocumentTypesFn"
-          [formGroup]="formGroup"
-          [label]="languageService.getLabel('PERSON.DOCUMENT_TYPE') || 'Document Type'"
-          [keyToShow]="'name'"
-          [valueKey]="'id'"
-          [withNullOption]="true"
-          (selectEmitter)="onDocumentTypeSelect($event)">
+        <select-expiry-dates [formGroup]="formGroup" [controlName]="'expiryDate'"
+          (onExpirySelect)="onExpiryDateSelect($event)"></select-expiry-dates>
+      </div>
+      <div class="col-md-4 col-12 mb-2">
+        <select-auto-complete *ngIf="loadDocumentTypesFn" [controlName]="'documentType'" [fnGet]="loadDocumentTypesFn"
+          [formGroup]="formGroup" [label]="languageService.getLabel('PERSON.DOCUMENT_TYPE') || 'Document Type'"
+          [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true" (selectEmitter)="onDocumentTypeSelect($event)">
         </select-auto-complete>
       </div>
       <div class="col-md-4 col-12 mb-2">
-        <select-auto-complete *ngIf="loadNationalitiesFn"
-          [controlName]="'nationality'"
-          [fnGet]="loadNationalitiesFn"
-          [formGroup]="formGroup"
-          [label]="languageService.getLabel('COMMON.NATIONALITY') || 'Nationality'"
-          [keyToShow]="'name'"
-          [valueKey]="'id'"
-          [withNullOption]="true"
-          (selectEmitter)="onNationalitySelect($event)">
+        <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'" [fnGet]="loadNationalitiesFn"
+          [formGroup]="formGroup" [label]="languageService.getLabel('COMMON.NATIONALITY') || 'Nationality'"
+          [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true" (selectEmitter)="onNationalitySelect($event)">
         </select-auto-complete>
+      </div>
+      <div class="col-md-4 col-12 mb-2">
+        <select-reminder (onSelect)="onActiveReminderSelect($event)"></select-reminder>
       </div>
     </div>
   </div>
@@ -45,12 +40,8 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<app-shared-table *ngIf="!showLoading"
-  [displayedColumns]="displayColumns"
-  [paginateResult]="data"
-  (onChangePage)="changePage($event)"
-  (onSortChangeEvent)="changeSort($event)"
-  [action]="actionButtonsTemplate"
+<app-shared-table *ngIf="!showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+  (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate"
   (rowClick)="onRowClick($event)">
 </app-shared-table>
 

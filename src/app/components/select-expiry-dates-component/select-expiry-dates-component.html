@@ -1,0 +1,11 @@
+<form *ngIf="formGroup" [formGroup]="formGroup">
+    <mat-form-field *ngIf="listDates && listDates.length" appearance="outline" class="full-width col-12">
+  <mat-select [placeholder]="placeholder" [formControlName]="controlName" (selectionChange)="selectionChange($event)" >
+      <mat-option *ngFor="let item of listDates" [value]="item.value">
+          {{ item.label }}
+      </mat-option>
+      
+    </mat-select>
+</mat-form-field>
+
+</form>

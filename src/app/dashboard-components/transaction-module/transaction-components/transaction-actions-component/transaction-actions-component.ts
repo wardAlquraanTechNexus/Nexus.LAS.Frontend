@@ -7,7 +7,7 @@ import { TransactionActionDto } from '../../../../models/transaction-models/tran
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { TransactionActionService } from '../../../../services/transaction-services/transaction-action-service';
 import { TransactionActionsDialogFormComponent } from './transaction-actions-dialog-form-component/transaction-actions-dialog-form-component';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
@@ -15,6 +15,9 @@ import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';
 import { TransactionActionViewDialogComponent } from './transaction-action-view-dialog-component/transaction-action-view-dialog-component';
 import { TransactionActionStatus } from '../../../../models/transaction-models/transaction-action/enums/transaction-action-status';
+import { map, Observable } from 'rxjs';
+import { GetPersonsDTO } from '../../../../models/person-models/get-persons/get-person-dto';
+import { PersonService } from '../../../../services/person-services/person-service';
 
 @Component({
   selector: 'app-transaction-actions',
@@ -23,6 +26,10 @@ import { TransactionActionStatus } from '../../../../models/transaction-models/t
   styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class TransactionActionsComponent  extends TableFormComponent<TransactionAction> {
+  loadPersonsFn?: (search: string) => Observable<GetPersonsDTO[]>;
+  formGroup = new FormGroup({
+    personId: new FormControl(null)
+  });
 
   @Input() transaction!: TransactionDto;
   override params: GetTransactionActionParam = {
@@ -48,6 +55,8 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
     private dialog: MatDialog,
     private menuService: MenuService,
     override langService: LanguageService,
+    private personService: PersonService
+
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService);
   }
@@ -55,6 +64,7 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   override ngOnInit(): void {
     this.params.transactionId = this.transaction.id;
     super.ngOnInit();
+    this.loadPersonsFn = (search: string) => this.loadPersons(search);
 
   }
 
@@ -189,7 +199,18 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
 
   
 }
+private loadPersons(search: string) {
+  return this.personService.getAllPersons({ searchBy: search, page: 0, pageSize: 100 }).pipe(
+    map(res => res.filter(p =>
+      !search || p.personEnglishName?.toLowerCase().includes(search.toLowerCase())
+    ))
+  );
+}
 
+onSelectOwner(event:number | null){
+  this.params.personId = event;
+  this.fetchData();
+}
 
 
 

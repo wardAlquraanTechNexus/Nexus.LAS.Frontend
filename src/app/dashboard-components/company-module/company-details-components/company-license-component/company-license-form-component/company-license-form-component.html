@@ -7,9 +7,11 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{ label.COMPANY.LICENSES_AND_REGISTERS || 'Company Licenses & Register' }}
+                    {{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{
+                    label.COMPANY.LICENSES_AND_REGISTERS || 'Company Licenses & Register' }}
                 </h2>
-                <p class="dialog-subtitle">{{ label.COMPANY.ADD_LICENSE_OR_REGISTER || 'Enter Company License & Register Details' }}</p>
+                <p class="dialog-subtitle">{{ label.COMPANY.ADD_LICENSE_OR_REGISTER || 'Enter Company License & Register
+                    Details' }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -23,13 +25,8 @@
         <div class="form-side">
             <form [formGroup]="formGroup" class="dialog-content">
 
-                 <file-form-group
-                [formGroup]="formGroup"
-                [controlName]="'file'"
-                [element]="element"
-                [removeFileControlName]="'removeFile'"
-                [isRequired]="true"
-                >
+                <file-form-group [formGroup]="formGroup" [controlName]="'file'" [element]="element"
+                    [removeFileControlName]="'removeFile'" [isRequired]="true">
                 </file-form-group>
 
                 <mat-form-field appearance="outline" class="w-100">
@@ -43,25 +40,26 @@
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMPANY.LICENSE_CLASSIFICATION || 'Classification' }}</mat-label>
-                    <input matInput formControlName="licenseClassification" [placeholder]="label.COMPANY.LICENSE_CLASSIFICATION || 'Enter classification'" required />
+                    <input matInput formControlName="licenseClassification"
+                        [placeholder]="label.COMPANY.LICENSE_CLASSIFICATION || 'Enter classification'" required />
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMPANY.LICENSE_NUMBER || 'License Number' }}</mat-label>
-                    <input matInput formControlName="licenseNumber" [placeholder]="label.COMPANY.LICENSE_NUMBER || 'Enter license number'" required />
+                    <input matInput formControlName="licenseNumber"
+                        [placeholder]="label.COMPANY.LICENSE_NUMBER || 'Enter license number'" required />
                 </mat-form-field>
 
                 <!-- Issue Date field -->
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMPANY.ISSUE_DATE || 'Issue Date' }}</mat-label>
-                    <input matInput
-                           formControlName="licenseIssueDate"
-                           [placeholder]="label.COMPANY.ISSUE_DATE || 'DD/MM/YYYY'"
-                           [matDatepicker]="issueDatePicker"
-                           required>
+                    <input matInput formControlName="licenseIssueDate"
+                        [placeholder]="label.COMPANY.ISSUE_DATE || 'DD/MM/YYYY'" [matDatepicker]="issueDatePicker"
+                        required>
                     <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #issueDatePicker></mat-datepicker>
-                    @if (formGroup.get('licenseIssueDate')?.hasError('required') && formGroup.get('licenseIssueDate')?.touched) {
+                    @if (formGroup.get('licenseIssueDate')?.hasError('required') &&
+                    formGroup.get('licenseIssueDate')?.touched) {
                     <mat-error>
                         {{ label.COMPANY.ISSUE_DATE_REQUIRED || 'Issue Date is required' }}
                     </mat-error>
@@ -71,14 +69,19 @@
                 <!-- Expiry Date field -->
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
-                    <input matInput
-                           formControlName="licenseExpiryDate"
-                           [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'"
-                           [matDatepicker]="expiryDatePicker">
+                    <input matInput formControlName="licenseExpiryDate"
+                        [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'" [matDatepicker]="expiryDatePicker">
                     <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #expiryDatePicker></mat-datepicker>
                 </mat-form-field>
-
+                <div class="nexus-switch-wrapper">
+                    <div class="nexus-switch-container">
+                        <mat-slide-toggle formControlName="licenseExpiryActiveReminder" color="primary"
+                            class="nexus-switch">
+                            {{ label.COMPANY.REMINDER || 'Active Reminder' }}
+                        </mat-slide-toggle>
+                    </div>
+                </div>
                 <div class="nexus-switch-wrapper">
                     <div class="nexus-switch-container">
                         <mat-slide-toggle formControlName="licensePrimary" color="primary" class="nexus-switch">
@@ -87,13 +90,7 @@
                     </div>
                 </div>
 
-                <div class="nexus-switch-wrapper">
-                    <div class="nexus-switch-container">
-                        <mat-slide-toggle formControlName="licenseExpiryActiveReminder" color="primary" class="nexus-switch">
-                            {{ label.COMPANY.REMINDER || 'Active Reminder' }}
-                        </mat-slide-toggle>
-                    </div>
-                </div>
+
 
             </form>
         </div>

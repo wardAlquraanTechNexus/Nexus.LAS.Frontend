@@ -5,7 +5,7 @@ import { TableFormComponent } from '../../../base-components/table-form-componen
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GetcompanyLicenseParams } from '../../../../models/company-models/company-license/params/get-company-license-params';
 import { CompanyLicenseService } from '../../../../services/company-services/company-license-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { CompanyLicenseFormDialogComponent } from './company-license-form-dialog-component/company-license-form-dialog-component';
@@ -23,9 +23,15 @@ import { getDisplayColumns } from '../../../_shared/shared-methods/getDisplayCol
   selector: 'app-company-license-component',
   standalone: false,
   templateUrl: './company-license-component.html',
-  styleUrl: './company-license-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> implements OnInit, OnDestroy {
+  
+  formGroup = new FormGroup({
+    expiryDate: new FormControl(null),
+    activeReminder: new FormControl(null)
+  });
+  
   override displayColumns: DisplayColumn[] = [];
 
   override params: GetcompanyLicenseParams = {
@@ -156,6 +162,16 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
         })
       })
     }
+  }
+
+  onActiveReminderSelect(event: any){
+    this.params.licenseExpiryActiveReminder = event;
+    this.fetchData();
+  }
+
+  onExpiryDateSelect(event: any){
+    this.params.licenseExpiryDatePeriod = event;
+    this.fetchData();
   }
 
 }

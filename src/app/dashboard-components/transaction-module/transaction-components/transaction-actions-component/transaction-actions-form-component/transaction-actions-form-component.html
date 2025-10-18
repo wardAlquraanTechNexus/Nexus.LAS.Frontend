@@ -38,7 +38,7 @@
             <!-- Person -->
             <div class="form-group" *ngIf="loadPersonsFn">
                 <select-auto-complete [controlName]="'personId'" [fnGet]="loadPersonsFn" [formGroup]="formGroup"
-                    [isRequired]="true" [label]="label.COMMON.PERSON || 'Person'" [keyToShow]="'personEnglishName'"
+                    [isRequired]="true" [label]="label.PROPERTY.OWNER || 'Person'" [keyToShow]="'personEnglishName'"
                     [valueKey]="'id'">
                 </select-auto-complete>
             </div>

@@ -17,25 +17,41 @@
 </div>
 
 
-<app-shared-table *ngIf="showTable && !showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-    (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate">
-</app-shared-table>
+<div class="table-filters">
+    <div class="row">
+        <div *ngIf="loadPersonsFn" class="col-md-4 col-12 mb-2">
+            <select-auto-complete 
+            [controlName]="'personId'" 
+            [fnGet]="loadPersonsFn" 
+            [formGroup]="formGroup"
+            [label]="label.PROPERTY.OWNER || 'Person'" 
+            [keyToShow]="'personEnglishName'"
+            [valueKey]="'id'"
+            (selectEmitter)="onSelectOwner($event)"
+            >
+            </select-auto-complete>
+        </div>
+    </div>
 
-<!-- Action buttons -->
-<ng-template #actionButtonsTemplate let-row>
-    <button mat-icon-button [matMenuTriggerFor]="menuRow">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menuRow="matMenu">
-        <button *ngIf="row.files.length>0" mat-menu-item class="btn-view-files" (click)="viewFiles(row)">
-            <mat-icon>attach_file</mat-icon>
-            {{ label.COMMON.VIEW || 'View Files' }}
+    <app-shared-table *ngIf="showTable && !showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
+        (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" [action]="actionButtonsTemplate">
+    </app-shared-table>
+
+    <!-- Action buttons -->
+    <ng-template #actionButtonsTemplate let-row>
+        <button mat-icon-button [matMenuTriggerFor]="menuRow">
+            <mat-icon>more_vert</mat-icon>
         </button>
-        <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
-            <mat-icon>edit</mat-icon> {{ label.COMMON.EDIT || 'Edit' }}
-        </button>
-        <button mat-menu-item class="btn-delete" [confirmDelete]="deleteFn(row.id)">
-            <mat-icon>delete</mat-icon> {{ label.COMMON.DELETE || 'Delete' }}
-        </button>
-    </mat-menu>
-</ng-template>
+        <mat-menu #menuRow="matMenu">
+            <button *ngIf="row.files.length>0" mat-menu-item class="btn-view-files" (click)="viewFiles(row)">
+                <mat-icon>attach_file</mat-icon>
+                {{ label.COMMON.VIEW || 'View Files' }}
+            </button>
+            <button mat-menu-item class="btn-edit" (click)="onEdit(row)">
+                <mat-icon>edit</mat-icon> {{ label.COMMON.EDIT || 'Edit' }}
+            </button>
+            <button mat-menu-item class="btn-delete" [confirmDelete]="deleteFn(row.id)">
+                <mat-icon>delete</mat-icon> {{ label.COMMON.DELETE || 'Delete' }}
+            </button>
+        </mat-menu>
+    </ng-template>

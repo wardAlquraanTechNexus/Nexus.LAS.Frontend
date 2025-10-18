@@ -129,7 +129,7 @@ export class BaseDocumentTrackingsComponent extends TableFormComponent<DocumentT
 
 
   onAddNew() {
-    let fpcDto: DocumentTrackingDto = {
+    let document: DocumentTrackingDto = {
       id: 0,
       documentTrackingCode: '',
       referenceNumber: '',
@@ -140,7 +140,7 @@ export class BaseDocumentTrackingsComponent extends TableFormComponent<DocumentT
     };
     const dialogRef = this.dialog.open(DocumentTrackingDialogFormComponent, {
       disableClose: true,
-      data: fpcDto
+      data: document
     });
 
     dialogRef.afterClosed().subscribe(result => {

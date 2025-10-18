@@ -1,0 +1,3 @@
+<mat-button-toggle-group (change)="select($event)" class="nexus-toggle-compact">
+    <mat-button-toggle *ngFor="let item of list" [value]="item.value">{{ item.label }}</mat-button-toggle>
+</mat-button-toggle-group>

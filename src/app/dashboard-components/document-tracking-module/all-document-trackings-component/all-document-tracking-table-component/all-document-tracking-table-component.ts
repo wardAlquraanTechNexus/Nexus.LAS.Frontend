@@ -58,6 +58,11 @@ export class AllDocumentTrackingTableComponent  extends BaseDocumentTrackingsCom
         sort: true
       },
       {
+        key: "personEnglishName",
+        label: this.label.DOCUMENT_TRACKING.SENT_BY,
+        pipes: ["link"],
+      },
+      {
         key: 'registerCode',
         label: this.label.DOCUMENT_TRACKING.REGISTER_CODE,
         sort: true,
@@ -72,7 +77,6 @@ export class AllDocumentTrackingTableComponent  extends BaseDocumentTrackingsCom
         key: 'description',
         label: this.label.DOCUMENT_TRACKING.DESCRIPTION,
         sort: true,
-        pipes: ['register-type']
       },
       {
         key: "actionType",

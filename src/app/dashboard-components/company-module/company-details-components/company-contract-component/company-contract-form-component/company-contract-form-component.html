@@ -6,8 +6,10 @@
                 <mat-icon>assignment</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_CONTRACT || 'Edit' : label.COMPANY.ADD_CONTRACT || 'Add' }}</h2>
-                <p class="dialog-subtitle">{{ label.COMPANY.ENTER_CONTRACT_DETAILS || 'Enter Company Contract Details' }}</p>
+                <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_CONTRACT || 'Edit' :
+                    label.COMPANY.ADD_CONTRACT || 'Add' }}</h2>
+                <p class="dialog-subtitle">{{ label.COMPANY.ENTER_CONTRACT_DETAILS || 'Enter Company Contract Details'
+                    }}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -21,17 +23,12 @@
         <div class="form-side">
             <form [formGroup]="formGroup" class="dialog-content">
 
-                 <file-form-group
-                [formGroup]="formGroup"
-                [controlName]="'file'"
-                [element]="element"
-                [removeFileControlName]="'removeFile'"
-                [isRequired]="true"
-                >
+                <file-form-group [formGroup]="formGroup" [controlName]="'file'" [element]="element"
+                    [removeFileControlName]="'removeFile'" [isRequired]="true">
                 </file-form-group>
                 <div class="col-12">
                     <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
-                        [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup" 
+                        [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup"
                         [label]="label.COMPANY.CONTRACT_TYPE || 'Contract Type'" [keyToShow]="'name'" [valueKey]="'id'">
                     </select-auto-complete>
                 </div>
@@ -39,10 +36,9 @@
                 <!-- Document Date -->
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.COMPANY.DOCUMENT_DATE || 'Document Date' }}</mat-label>
-                    <input matInput
-                           formControlName="documentDate"
-                           [placeholder]="label.COMPANY.DOCUMENT_DATE || 'DD/MM/YYYY'"
-                           [matDatepicker]="documentDatePicker">
+                    <input matInput formControlName="documentDate"
+                        [placeholder]="label.COMPANY.DOCUMENT_DATE || 'DD/MM/YYYY'"
+                        [matDatepicker]="documentDatePicker">
                     <mat-datepicker-toggle matSuffix [for]="documentDatePicker"></mat-datepicker-toggle>
                     <mat-datepicker #documentDatePicker></mat-datepicker>
                 </mat-form-field>
@@ -51,14 +47,13 @@
                 <div>
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement Date' }}</mat-label>
-                        <input matInput
-                               formControlName="commencementDate"
-                               [placeholder]="label.COMPANY.COMMENCEMENT_DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="commencementDatePicker"
-                               required>
+                        <input matInput formControlName="commencementDate"
+                            [placeholder]="label.COMPANY.COMMENCEMENT_DATE || 'DD/MM/YYYY'"
+                            [matDatepicker]="commencementDatePicker" required>
                         <mat-datepicker-toggle matSuffix [for]="commencementDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #commencementDatePicker></mat-datepicker>
-                        @if (formGroup.get('commencementDate')?.hasError('required') && formGroup.get('commencementDate')?.touched) {
+                        @if (formGroup.get('commencementDate')?.hasError('required') &&
+                        formGroup.get('commencementDate')?.touched) {
                         <mat-error>
                             {{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement date is required' }}
                         </mat-error>
@@ -66,37 +61,37 @@
                     </mat-form-field>
                 </div>
 
-                <!-- Contract Expiry Date -->
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
-                    <input matInput
-                           formControlName="contractExpiryDate"
-                           [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'"
-                           [matDatepicker]="contractExpiryDatePicker">
-                    <mat-datepicker-toggle matSuffix [for]="contractExpiryDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #contractExpiryDatePicker></mat-datepicker>
-                </mat-form-field>
+
 
                 <!-- Contract Description -->
                 <mat-form-field appearance="outline">
                     <mat-label>{{ label.COMPANY.DESCRIPTION || 'Contract Description' }}</mat-label>
-                    <textarea  matInput formControlName="contractDescription" rows="3"></textarea>
+                    <textarea matInput formControlName="contractDescription" rows="3"></textarea>
                 </mat-form-field>
 
                 <!-- Contract Status -->
                 <mat-form-field appearance="outline">
                     <mat-label>{{ label.COMPANY.STATUS || 'Contract Status' }}</mat-label>
-                    <mat-select formControlName="contractStatus" >
+                    <mat-select formControlName="contractStatus">
                         <mat-option *ngFor="let option of statusOptions" [value]="option.value">
                             {{ option.label }}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-
+                <!-- Contract Expiry Date -->
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
+                    <input matInput formControlName="contractExpiryDate"
+                        [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'"
+                        [matDatepicker]="contractExpiryDatePicker">
+                    <mat-datepicker-toggle matSuffix [for]="contractExpiryDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #contractExpiryDatePicker></mat-datepicker>
+                </mat-form-field>
                 <div class="col-12">
                     <div class="nexus-switch-wrapper">
                         <div class="nexus-switch-container">
-                            <mat-slide-toggle formControlName="contractExpiryActiveReminder" color="primary" class="nexus-switch">
+                            <mat-slide-toggle formControlName="contractExpiryActiveReminder" color="primary"
+                                class="nexus-switch">
                                 {{ label.COMPANY.REMINDER || 'Active Reminder' }}
                             </mat-slide-toggle>
                         </div>

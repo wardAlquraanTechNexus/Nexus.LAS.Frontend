@@ -6,7 +6,7 @@ import { BaseParam } from '../../../../models/base/base-param';
 import { GetCompanyChamperOfCommerceParams } from '../../../../models/company-models/company-champer-of-commerce/params/get-company-champer-of-commerce-command';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { CompanyChamperOfCommerceService } from '../../../../services/company-services/company-champer-of-commerce-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { CompanyChamberOfCommerceDTO } from '../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
@@ -26,6 +26,10 @@ import { LanguageService } from '../../../../services/language-service';
 export class CompanyChamperOfCommerceComponent extends TableFormComponent<CompanyChamberOfCommerce> {
 
 
+  formGroup = new FormGroup({
+    expiryDate: new FormControl(null),
+    activeReminder: new FormControl(null)
+  });
   override params: GetCompanyChamperOfCommerceParams = {
     page: 0,
     pageSize: 10
@@ -176,5 +180,15 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
         })
       })
     }
+  }
+
+  onActiveReminderSelect(event: any){
+    this.params.cciExpiryActiveReminder = event;
+    this.fetchData();
+  }
+
+  onExpiryDateSelect(event: any){
+    this.params.cciExpiryDatePeriod = event;
+    this.fetchData();
   }
 }

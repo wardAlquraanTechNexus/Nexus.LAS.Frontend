@@ -16,6 +16,12 @@ import { Company } from '../../../models/company-models/company';
 import { AllTransactionDto } from '../../../models/transaction-models/transaction/dtos/all-transaction-dto';
 import { GetPersonsDTO } from '../../../models/person-models/get-persons/get-person-dto';
 import { PersonService } from '../../../services/person-services/person-service';
+import { LawFirmDTO } from '../../../models/law-firm-models/law-firm/dtos/law-firm-dto';
+import { LawFirmService } from '../../../services/law-firm-services/law-firm-service';
+import { PropertyDTO } from '../../../models/property-models/property/dtos/propery-dto';
+import { PropertyService } from '../../../services/property-services/property-service';
+import { FPCService } from '../../../services/fpc-services/fpc-service';
+import { FPCDto } from '../../../models/fpc-models/fpc/dtos/fpc-dto';
 
 @Component({
   selector: 'app-document-tracking-form',
@@ -42,6 +48,9 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
   loadSentByFn!: (search: string) => Observable<GetPersonsDTO[]>;
   loadTransactionsFn!: (search: string) => Observable<AllTransactionDto[]>;
   loadCompaniesFn!: (search: string) => Observable<Company[]>;
+  loadLawFirmsFn?: (search: string) => Observable<LawFirmDTO[]>;
+  loadPropertiesFn!: (search: string) => Observable<PropertyDTO[]>;
+  loadFPCsFn!: (search: string) => Observable<FPCDto[]>;
 
   EntityIDc = EntityIDc;
 
@@ -56,6 +65,9 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
     private transactionService: TransactionService,
     override langService: LanguageService,
     private dlService: DynamicListService,
+    private lawFirmService: LawFirmService,
+    private propertyService: PropertyService,
+    private fpcService: FPCService
 
   ) {
     super(fb, cdr, sanitizer, errorHandler, langService);
@@ -68,6 +80,9 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
     this.loadPersonssFn = (search: string) => this.loadPersons(search);
     this.loadCompaniesFn = (search: string) => this.loadCompanies(search);
     this.loadTransactionsFn = (search: string) => this.loadTransactions(search);
+    this.loadLawFirmsFn = (search: string) => this.loadLawFirms(search);
+    this.loadPropertiesFn = (search: string) => this.loadProperties(search);
+    this.loadFPCsFn = (search: string) => this.loadFPCs(search);
 
 
     this.formGroup.get('registerIdc')?.valueChanges.subscribe(() => {
@@ -79,18 +94,18 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
       this.registerTypes = [
-    { idc: EntityIDc.Person, name: this.label.PERSON.PERSON },
-    { idc: EntityIDc.Company, name: this.label.COMPANY.COMPANY },
-    { idc: EntityIDc.Properties, name: this.label.PROPERTY.REAL_EASTATE },
-    { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
-    { idc: EntityIDc.Transactions, name: this.label.TRANSACTION.TRANSACTION },
-    { idc: EntityIDc.FPCs, name: this.label.FPC.FPC },
+        { idc: EntityIDc.Person, name: this.label.PERSON.PERSON },
+        { idc: EntityIDc.Company, name: this.label.COMPANY.COMPANY },
+        { idc: EntityIDc.Properties, name: this.label.PROPERTY.REAL_EASTATE },
+        { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
+        { idc: EntityIDc.Transactions, name: this.label.TRANSACTION.TRANSACTION },
+        { idc: EntityIDc.FPCs, name: this.label.FPC.FPC },
 
-  ];
+      ];
     });
   }
 
- loadPersons(search: string) {
+  loadPersons(search: string) {
     return this.personService.getAllPersons({
       searchBy: search,
       page: 0,
@@ -109,4 +124,33 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
   loadTransactions(search: string) {
     return this.transactionService.getAllTransactions(search)
   }
+
+  loadLawFirms(search: string) {
+    return this.lawFirmService.getAllLawFirms({
+      searchBy: search,
+      page: 0,
+      pageSize: 100
+    }).pipe(
+      map(res => res.filter(p =>
+        !search || p.englishName && p.englishName.toLowerCase().includes(search.toLowerCase())
+      ))
+    )
+  }
+
+  loadProperties(search: string): Observable<PropertyDTO[]> {
+    return this.propertyService.getAllProperties({}).pipe(
+      map(res => res.filter(p =>
+        (p.code && p.code.toLowerCase().includes(search.toLowerCase()))
+      ))
+    );
+  }
+
+  loadFPCs(search: string): Observable<FPCDto[]> {
+    return this.fpcService.getAllFPCs({}).pipe(
+      map(res => res.filter(p =>
+        (p.fpcCode && p.fpcCode.toLowerCase().includes(search.toLowerCase()))
+      ))
+    );
+  }
+
 }

@@ -1,15 +1,20 @@
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.table-header-container{
+
   padding: 16px 24px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9));
   box-shadow: 0 8px 32px rgba(1, 55, 114, 0.08);
   border: 1px solid rgba(1, 55, 114, 0.1);
-
-  // only top rounded, matches table wrapper
   border-radius: 16px 16px 0 0; 
   margin-bottom: 0; // remove gap, so it touches the table
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  // only top rounded, matches table wrapper
+  
     .header-title {
     font-size: 18px;
     font-weight: 600;
@@ -32,7 +37,10 @@
     }
   }
 }
+.table-filters{
+  margin-top: 20px;
 
+}
 /* Wrap shared table so it connects to the header */
 app-shared-table {
   display: block;

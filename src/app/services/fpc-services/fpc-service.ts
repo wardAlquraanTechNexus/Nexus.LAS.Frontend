@@ -4,16 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../base/base-service';
 import { GetFPCParam } from '../../models/fpc-models/fpc/params/get-fpc-param';
 import { FPCDto } from '../../models/fpc-models/fpc/dtos/fpc-dto';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { PaginateRsult } from '../../models/paginate-result';
 import { ExportModel } from '../../models/export-to-excel-dto';
 import { BulkChangePrivateCommand } from '../../models/person-models/bulk-change-private-command';
 import { BulkChangeStatusCommand } from '../../models/person-models/bulk-change-status-command';
+import { GetAllFPCParam } from '../../models/fpc-models/fpc/params/get-all-fpc-param';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FPCService extends BaseService<FPC> {
+    private fpcsRequest$?: Observable<FPCDto[]>;
+  
   constructor(http: HttpClient) {
     super(http);
     this.setPath('FPC');
@@ -44,5 +47,16 @@ export class FPCService extends BaseService<FPC> {
     var params = this.httpParams(filter);
     return this.httpClient.get<ExportModel>(this.url + "/ExportToPdf", { params });
   }
+
+  getAllFPCs(query: GetAllFPCParam): Observable<FPCDto[]> {
+      if (!this.fpcsRequest$) {
+        const params = this.httpParams(query);
+        this.fpcsRequest$ = this.httpClient.get<FPCDto[]>(this.url + "/GetAllByQuery", {params})
+          .pipe(
+            shareReplay(1) 
+          );
+      }
+      return this.fpcsRequest$;
+    }
 
 }

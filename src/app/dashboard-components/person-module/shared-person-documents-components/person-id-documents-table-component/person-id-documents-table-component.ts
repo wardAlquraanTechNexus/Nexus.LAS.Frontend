@@ -70,6 +70,7 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
     this.formGroup = this.fb.group({
       documentType: [],
       nationality: [],
+      expiryDate:[]
     })
     this.loadDocumentTypesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes, search)
     this.loadNationalitiesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search)
@@ -231,7 +232,14 @@ export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsI
     this.params.nationality = value;
     this.search();
   }
-
+  onExpiryDateSelect(value?:number | null){
+    this.params.expityDatePeriod = value;
+    this.search();
+  }
+  onActiveReminderSelect(value?:boolean | null){
+    this.params.activeReminder = value;
+    this.search();
+  }
   onRowClick(elementRow: any) {
     if (elementRow.key === "activeReminder") {
       const personIdDetail: PersonsIDDetail = elementRow.element;

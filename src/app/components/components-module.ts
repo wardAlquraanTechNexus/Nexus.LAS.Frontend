@@ -70,6 +70,8 @@ import { FpcDialogFormComponent } from '../dashboard-components/fpc-module/fpc-d
 import { FpcFormComponent } from '../dashboard-components/fpc-module/fpc-form-component/fpc-form-component';
 import { DocumentTrackingDialogFormComponent } from '../dashboard-components/document-tracking-module/document-tracking-dialog-form-component/document-tracking-dialog-form-component';
 import { DocumentTrackingFormComponent } from '../dashboard-components/document-tracking-module/document-tracking-form-component/document-tracking-form-component';
+import { SelectExpiryDatesComponent } from './select-expiry-dates-component/select-expiry-dates-component';
+import { SelectReminderComponent } from './select-reminder-component/select-reminder-component';
 
 
 
@@ -116,6 +118,9 @@ import { DocumentTrackingFormComponent } from '../dashboard-components/document-
     FpcFormComponent,
     DocumentTrackingFormComponent,
     DocumentTrackingDialogFormComponent,
+    SelectExpiryDatesComponent,
+    SelectReminderComponent
+
   ],
   imports: [
     CommonModule,
@@ -225,6 +230,8 @@ import { DocumentTrackingFormComponent } from '../dashboard-components/document-
     FpcFormComponent,
     DocumentTrackingFormComponent,
     DocumentTrackingDialogFormComponent,
+    SelectExpiryDatesComponent,
+    SelectReminderComponent
   ],
   providers: [
 

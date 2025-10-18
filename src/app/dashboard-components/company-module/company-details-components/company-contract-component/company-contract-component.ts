@@ -5,7 +5,7 @@ import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GetPagingCompanyContractQuery } from '../../../../models/company-models/company-contract/params/get-paging-company-contract';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { CompanyContractService } from '../../../../services/company-services/company-contract-service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,10 +21,15 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'app-company-contract-component',
   standalone: false,
   templateUrl: './company-contract-component.html',
-  styleUrl: './company-contract-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class CompanyContractComponent extends TableFormComponent<CompanyContract> implements OnInit, OnDestroy {
 
+  formGroup = new FormGroup({
+    expiryDate: new FormControl(null),
+    activeReminder: new FormControl(null)
+  });
+  
   override displayColumns: DisplayColumn[] = [];
 
 
@@ -200,5 +205,15 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
     else if(event.key == 'fileName'){
       downloadBlob(event.element.data , event.element.contentType , event.element.fileName);
     }
+  }
+
+  onActiveReminderSelect(event: any){
+    this.params.activeReminder = event;
+    this.fetchData();
+  }
+
+  onExpiryDateSelect(event: any){
+    this.params.expiryDatePeriod = event;
+    this.fetchData();
   }
 }

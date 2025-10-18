@@ -5,8 +5,8 @@ export interface GetCompanyChamperOfCommerceParams extends BaseParam {
     companyIdn?: number;
     cciNumber?: string;
     cciIssueDate?: Date;
-    cciExpiryDate?: Date | null;
-    cciExpiryActiveReminder?: boolean;
+    cciExpiryDatePeriod?: number | null;
+    cciExpiryActiveReminder?: boolean | null;
     cciUsername?: string;
     cciPassword?: string;
 }

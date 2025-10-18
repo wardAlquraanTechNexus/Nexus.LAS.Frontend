@@ -327,6 +327,9 @@ export class TableDataPipe implements PipeTransform {
           if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
           if (value === EntityIDc.LawFirm) return of(getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm');
           if (value === EntityIDc.Transactions) return of(getLabel('TRANSACTION.TRANSACTION') ?? 'Transaction');
+          if (value === EntityIDc.FPCs) return of(getLabel('FPC.FPC') ?? 'FPC');
+          if (value === EntityIDc.Properties) return of(getLabel('PROPERTY.REAL_EASTATE') ?? 'Real Estate');
+
 
           return of(value?.toString() ?? '');
 
