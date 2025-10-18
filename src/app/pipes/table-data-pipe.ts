@@ -328,11 +328,27 @@ export class TableDataPipe implements PipeTransform {
           if (value === EntityIDc.LawFirm) return of(getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm');
           if (value === EntityIDc.Transactions) return of(getLabel('TRANSACTION.TRANSACTION') ?? 'Transaction');
           if (value === EntityIDc.FPCs) return of(getLabel('FPC.FPC') ?? 'FPC');
+          if (value === EntityIDc.DocumentTracking) return of(getLabel('DOCUMENT_TRACKING.DOCUMENT_TRACKING') ?? 'Document Tracking');
           if (value === EntityIDc.Properties) return of(getLabel('PROPERTY.REAL_EASTATE') ?? 'Real Estate');
+          if (value === EntityIDc.PersonIdDetail) return of(getLabel('PERSON.PERSON_ID_DOCUMENTS'));
+          if (value === EntityIDc.CompaniesChamberOfCommerces) return of(getLabel('COMPANY.CHAMBER_OF_COMMERCE'));
+          if (value === EntityIDc.CompaniesLicenseIDC) return of(getLabel('COMPANY.LICENSES_AND_REGISTERS'));
+          if (value === EntityIDc.CompaniesContracts) return of(getLabel('COMPANY.CONTRACT'));
+          if (value === EntityIDc.PropertyDocuments) return of(getLabel('PROPERTY.PROPERTY_DOCUMENTS') ?? 'Real Estate');
 
 
           return of(value?.toString() ?? '');
 
+        case 'expired-before':
+          switch (value) {
+            case 15:
+              return of("Expired Before 15 days");
+            case 30:
+              return of("Expired Before 30 days");
+            case 45:
+              return of("Expired Before 45 days or more");
+            default: return of(value);
+          }
         case 'number-separator':
           if (value === null || value === undefined || value === '') {
             return of('');

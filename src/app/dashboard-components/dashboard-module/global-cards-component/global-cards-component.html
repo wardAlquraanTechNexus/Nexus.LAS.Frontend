@@ -1,0 +1,34 @@
+<!-- ...existing code... -->
+<div class="main-dashboard">
+  <div class="cards-grid">
+    <!-- Show spinner when fetching -->
+    <div class="spinner-container" *ngIf="isFetching">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        diameter="60">
+      </mat-progress-spinner>
+    </div>
+
+    <!-- Show cards when data is ready -->
+    <ng-container *ngIf="!isFetching">
+      <a *ngFor="let item of globalInfo"
+         class="dashboard-card"
+         [routerLink]="item.path"
+         aria-label="{{item.name}}">
+        <mat-card>
+          <mat-card-content class="card-content">
+            <div class="card-icon">
+              <mat-icon>{{ item.icon }}</mat-icon>
+            </div>
+            <div class="card-info">
+              <div class="card-count">{{ item.count }}</div>
+              <div class="card-label">{{ item.name }}</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </a>
+    </ng-container>
+  </div>
+
+</div>

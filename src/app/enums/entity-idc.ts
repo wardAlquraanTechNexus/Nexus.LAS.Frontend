@@ -6,8 +6,11 @@ export class EntityIDc {
   static readonly Transactions = "T";
   static readonly FPCs = "F";
   static readonly DocumentTracking = "D";
-
-  
+  static readonly PersonIdDetail = "PID";
+  static readonly CompaniesChamberOfCommerces = "CCOC";
+  static readonly CompaniesLicenseIDC = "CL";
+  static readonly CompaniesContracts = "CLC";
+  static readonly PropertyDocuments = "PD";
 }
 
 // Define the type based on the values

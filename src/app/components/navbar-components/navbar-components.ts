@@ -28,9 +28,9 @@ import { CommonStatus } from '../../enums/common-status';
 import { FpcDialogFormComponent } from '../../dashboard-components/fpc-module/fpc-dialog-form-component/fpc-dialog-form-component';
 import { DocumentTrackingDto } from '../../models/document-tracking-models/document-tracking/dtos/document-tracking-dto';
 import { DocumentTrackingDialogFormComponent } from '../../dashboard-components/document-tracking-module/document-tracking-dialog-form-component/document-tracking-dialog-form-component';
-import { SearchService } from '../../services/search-services/search-service';
-import { GlobalSearchQuery } from '../../models/search-models/global-search-param';
-import { GlobalSearchDTO } from '../../models/search-models/global-search-dto';
+import { GlobalService } from '../../services/global-services/global-service';
+import { GlobalSearchDTO } from '../../models/global-models/global-search/global-search-dto';
+import { GlobalSearchQuery } from '../../models/global-models/global-search/global-search-param';
 
 
 @Component({
@@ -129,7 +129,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     protected langService: LanguageService,
     private menuService: MenuService,
     private route: ActivatedRoute,
-    private searchService: SearchService,
+    private globalService: GlobalService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private cdr: ChangeDetectorRef
   ) {
@@ -176,7 +176,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.params.page = 0;
     this.isSearching = true;
   
-    this.searchService.globalSearch(this.params).subscribe({
+    this.globalService.globalSearch(this.params).subscribe({
       next: (results) => {
         this.searchResults = results;
         this.hasMoreResults = results.length === this.params.pageSize;
@@ -194,7 +194,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.isLoadingMore = true;
     this.params.page++;
   
-    this.searchService.globalSearch(this.params).subscribe({
+    this.globalService.globalSearch(this.params).subscribe({
       next: (results) => {
         this.searchResults = [...this.searchResults, ...results];
         this.hasMoreResults = results.length === this.params.pageSize;

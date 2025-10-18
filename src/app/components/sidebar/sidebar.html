@@ -11,7 +11,7 @@
              [class.has-children]="hasChild(0, item)"
              [class.expanded]="isExpanded(item)">
           
-          <a *ngIf="item.path && !hasChild(0, item)"  
+          <a *ngIf="!hasChild(0, item)"  
              class="tree-link"
              routerLinkActive="router-link-active">
             <mat-icon *ngIf="item.iconClass">{{ item.iconClass }}</mat-icon>

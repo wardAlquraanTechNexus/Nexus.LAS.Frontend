@@ -1,0 +1,50 @@
+.main-dashboard {
+  position: relative; /* ensures spinner is positioned relative to this component */
+  min-height: 300px; /* ensures there's space while loading */
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 16px;
+}
+
+/* Spinner overlay centered within the component */
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.8); /* slight background to dim content */
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+.spinner-container {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+
+
+.cards-separator {
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+  margin: 24px 0;
+}
+
+.documents-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}

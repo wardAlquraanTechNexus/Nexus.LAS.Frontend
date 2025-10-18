@@ -25,7 +25,6 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 export class UserSettingsComponent extends TableFormComponent<User> {
 
   selectedUsers: UserDto[] = [];
-  labels: any;
   @Input() groupId!: number;
   userGroups: UserGroupDto[] = [];
   override data: PaginateRsult<UserDto> = {
@@ -98,9 +97,7 @@ export class UserSettingsComponent extends TableFormComponent<User> {
 
   override ngOnInit() {
     super.ngOnInit();
-    this.langService.language$.subscribe(lang => {
-      this.labels = Labels[lang as keyof typeof Labels];
-    });
+   
   }
 
   override fetchData() {

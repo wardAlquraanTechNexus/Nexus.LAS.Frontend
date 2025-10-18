@@ -18,14 +18,6 @@ export class Sidebar implements OnInit, OnDestroy {
   private toggleListener: ((event: any) => void) | null = null;
   private langSub?: Subscription;
 
-  defaultItem: MenuTree = {
-    name: 'Home',
-    menuId: 0,
-    path: environment.routes.dashboard,
-    iconClass: "home",
-    inDashboard: true,
-    children: []
-  };
 
   menuItems: MenuTree[] = [];
   originalMenuItems: MenuTree[] = []; // Store original menu items for translation
@@ -45,7 +37,7 @@ export class Sidebar implements OnInit, OnDestroy {
     private langService: LanguageService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    
+
     // Listen for toggle events from navbar only in browser
     if (this.isBrowser) {
       this.toggleListener = (event: any) => {
@@ -81,6 +73,9 @@ export class Sidebar implements OnInit, OnDestroy {
       this.originalMenuItems = [];
     }
 
+    this.translateMenuItems();
+
+
     // Subscribe to language changes
     this.langSub = this.langService.language$.subscribe(lang => {
       this.dir = lang === 'ar' ? 'rtl' : 'ltr';
@@ -90,15 +85,7 @@ export class Sidebar implements OnInit, OnDestroy {
   }
 
   private translateMenuItems(): void {
-    // Create translated copy of menu items
     this.menuItems = this.translateMenuTree([...this.originalMenuItems]);
-
-    // Translate and add the default Home item
-    const translatedHome: MenuTree = {
-      ...this.defaultItem,
-      name: this.getTranslatedMenuName('Home')
-    };
-    this.menuItems.unshift(translatedHome);
   }
 
   private translateMenuTree(items: MenuTree[]): MenuTree[] {
@@ -203,10 +190,12 @@ export class Sidebar implements OnInit, OnDestroy {
   // Handle menu item click
   onMenuItemClick(node: MenuTree, event: Event): void {
     event.stopPropagation();
-
     if (this.hasChild(0, node)) {
       this.toggleNode(node);
-    } else if (node.path) {
+    } else {
+      if(!node.path){
+        node.path = "";
+      }
       // Always remove query params by navigating without preserving them
       this.router.navigate([node.path], { queryParams: {} });
     }

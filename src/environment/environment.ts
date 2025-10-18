@@ -8,7 +8,7 @@ export const environment: Environment = {
   acceptFiles: "image/*,.pdf,.msg,.eml",
   routes: {
     // Core
-    dashboard: 'Dashboard',
+    dashboard: '',
 
     // Persons module
     Persons: 'Persons',

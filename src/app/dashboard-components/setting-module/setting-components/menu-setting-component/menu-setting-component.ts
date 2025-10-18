@@ -25,7 +25,6 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 export class MenuSettingComponent extends TableFormComponent<Menu> {
 
   selectedMenus: Menu[] = [];
-  labels: any;
   @Input() groupId!: number;
   groupMenus: GroupMenu[] = [];
   override data: PaginateRsult<any> = {
@@ -106,9 +105,6 @@ export class MenuSettingComponent extends TableFormComponent<Menu> {
 
   override ngOnInit() {
     super.ngOnInit();
-    this.langService.language$.subscribe(lang => {
-      this.labels = Labels[lang];
-    });
   }
 
   override fetchData() {
@@ -156,7 +152,7 @@ export class MenuSettingComponent extends TableFormComponent<Menu> {
 
   onSelectionChange(selectedRows: Menu[]) {
     this.selectedMenus = selectedRows;
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
 
@@ -168,7 +164,7 @@ export class MenuSettingComponent extends TableFormComponent<Menu> {
     this.data.collection.forEach(menu => {
       menus.push({
         id: menu.id,
-        isChecked: menu.isChecked || false,
+        isChecked: this.selectedMenus.find(x=>x.id == menu.id) != null,
         canInsert: menu.canInsert,
         canUpdate: menu.canUpdate,
         canDelete: menu.canDelete,

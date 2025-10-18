@@ -1,0 +1,34 @@
+<div  class="nexus-entity-container">
+
+  <!-- SECTION 1: Title and Records -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-header">
+      <div class="nexus-entity-title">
+        <h2>Expired Documents</h2>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- SECTION 3: Data Grid -->
+  <div class="nexus-entity-section">
+    <div class="nexus-entity-data">
+      <!-- Loading -->
+      <div *ngIf="showLoading" class="nexus-loading">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <!-- Table -->
+      <div class="nexus-table-container" *ngIf="!showLoading">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data" 
+          (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+          >
+        </app-shared-table>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
