@@ -6,7 +6,7 @@
                 <mat-icon>people</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_SHAREHOLDER || 'Edit' : label.COMPANY.ADD_SHAREHOLDER || 'Add'}} {{ label.COMPANY.SHAREHOLDER || 'Company Shareholder' }}</h2>
+                <h2 class="dialog-title">{{element.id ? label.COMPANY.EDIT_SHAREHOLDER : label.COMPANY.ADD_SHAREHOLDER }}</h2>
                 <p class="dialog-subtitle">{{ label.COMPANY.ENTER_SHAREHOLDER_DETAILS || 'Enter shareholder details' }}</p>
             </div>
         </div>
@@ -66,33 +66,24 @@
 
                     <!-- ShareHolderDate -->
                     <div class="col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{ label.COMPANY.APPOINTMENT_DATE || 'Appointment Date' }}</mat-label>
-                            <input matInput
-                                   formControlName="shareHolderDate"
-                                   [placeholder]="label.COMPANY.APPOINTMENT_DATE || 'DD/MM/YYYY'"
-                                   [matDatepicker]="appointmentDatePicker"
-                                   required>
-                            <mat-datepicker-toggle matSuffix [for]="appointmentDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #appointmentDatePicker></mat-datepicker>
-                            @if (formGroup.get('shareHolderDate')?.hasError('required') && formGroup.get('shareHolderDate')?.touched) {
-                            <mat-error>
-                                {{ label.COMMON.APPOINTMENT_DATE_REQUIRED || 'Appointment Date is required' }}
-                            </mat-error>
-                            }
-                        </mat-form-field>
+                       
+                        <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'shareHolderDate'"
+                        [label]="label.COMPANY.APPOINTMENT_DATE"
+                        [requiredMsg]="label.COMMON.APPOINTMENT_DATE_REQUIRED"
+                        [isRequired]="true"
+                        >
+                        </app-date-input>
                     </div>
 
                     <div class="col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{ label.COMPANY.CESSATION_DATE || 'Cessation Date' }}</mat-label>
-                            <input matInput
-                                   formControlName="cessationDate"
-                                   [placeholder]="label.COMPANY.CESSATION_DATE || 'DD/MM/YYYY'"
-                                   [matDatepicker]="cessationDatePicker">
-                            <mat-datepicker-toggle matSuffix [for]="cessationDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #cessationDatePicker></mat-datepicker>
-                        </mat-form-field>
+                         <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'cessationDate'"
+                        [label]="label.COMPANY.CESSATION_DATE"
+                        >
+                        </app-date-input>
                     </div>
                 </div>
             </form>

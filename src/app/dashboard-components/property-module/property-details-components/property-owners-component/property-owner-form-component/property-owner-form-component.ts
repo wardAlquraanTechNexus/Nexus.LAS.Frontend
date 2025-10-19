@@ -21,7 +21,8 @@ import { environment } from '../../../../../../environment/environment.prod';
   selector: 'app-property-owner-form',
   standalone: false,
   templateUrl: './property-owner-form-component.html',
-  styleUrl: './property-owner-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
+
 })
 export class PropertyOwnerFormComponent extends BaseFormComponent {
 
@@ -53,11 +54,11 @@ export class PropertyOwnerFormComponent extends BaseFormComponent {
     super.ngOnInit();
     this.loadPersonssFn = (search: string) => this.loadPersons(search);
     this.loadCompaniesFn = (search: string) => this.loadCompanies(search);
-    this.propertyRelationId =  environment.rootDynamicLists.propertyOwnerRelation;
+    this.propertyRelationId = environment.rootDynamicLists.propertyOwnerRelation;
 
   }
 
-   loadPersons(search: string) {
+  loadPersons(search: string) {
     return this.personService.getAllPersons({
       searchBy: search,
       page: 0,
@@ -75,8 +76,8 @@ export class PropertyOwnerFormComponent extends BaseFormComponent {
       searchBy: search,
       page: 0,
       pageSize: 100
-    }).pipe(map(res=> res.filter( c=>
-        c.companyEnglishName && c.companyEnglishName.toLowerCase().includes(search.toLowerCase())
+    }).pipe(map(res => res.filter(c =>
+      c.companyEnglishName && c.companyEnglishName.toLowerCase().includes(search.toLowerCase())
     )))
   }
 

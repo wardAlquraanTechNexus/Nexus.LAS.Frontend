@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MenuService } from '../../../services/menu-service';
 import { environment } from '../../../../environment/environment';
 import { EntityIDc } from '../../../enums/entity-idc';
-import { PersonFormComponent } from '../shared-person-components/person-form-component/person-form-component';
+import { PersonFormComponent } from '../person-form-component/person-form-component';
 import { PersonDialogFormComponent } from '../person-dialog-form-component/person-dialog-form-component';
 import { LanguageService } from '../../../services/language-service';
 import { LanguageCode } from '../../../models/types/lang-type';

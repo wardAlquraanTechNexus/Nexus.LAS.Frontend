@@ -11,7 +11,8 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-license-form-dialog-component',
   standalone: false,
   templateUrl: './company-license-form-dialog-component.html',
-  styleUrl: './company-license-form-dialog-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
+
 })
 export class CompanyLicenseFormDialogComponent extends BaseDialogFormComponent<CompanyLicense> {
   constructor(

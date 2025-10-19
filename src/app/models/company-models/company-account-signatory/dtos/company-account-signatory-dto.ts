@@ -1,8 +1,8 @@
 export interface CompanyAccountSignatoryDto{
   id: number;
   companyBankAccountId: number;
-  personId: number;
-  rule: number;
+  personId?: number | null;
+  rule?: number | null;
   fromAmount: number;   
   toAmount: number;     
   description: string;  

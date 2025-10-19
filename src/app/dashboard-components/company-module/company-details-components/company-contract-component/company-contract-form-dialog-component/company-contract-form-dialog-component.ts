@@ -8,20 +8,20 @@ import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-contract-form-dialog-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-contract-form-dialog-component.html',
-  styleUrl: './company-contract-form-dialog-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
-export class CompanyContractFormDialogComponent  extends BaseDialogFormComponent<CompanyContract> {
-  
+export class CompanyContractFormDialogComponent extends BaseDialogFormComponent<CompanyContract> {
+
   constructor(
-    override dialogRef: MatDialogRef<CompanyContractFormDialogComponent>, 
+    override dialogRef: MatDialogRef<CompanyContractFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: CompanyContractDto,
-    override service:CompanyContractService,
+    override service: CompanyContractService,
     override cdr: ChangeDetectorRef,
     protected override langService: LanguageService
   ) {
-    super(dialogRef, data , service , cdr, langService)
+    super(dialogRef, data, service, cdr, langService)
   }
 
   override ngOnInit(): void {

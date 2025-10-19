@@ -10,9 +10,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   selector: 'app-property-document-dialog-form-component',
   standalone: false,
   templateUrl: './property-document-dialog-form-component.html',
-  styleUrls: ['./property-document-dialog-form-component.scss']
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
-export class PropertyDocumentDialogFormComponent  extends BaseDialogFormComponent<PropertyDocument> {
+export class PropertyDocumentDialogFormComponent extends BaseDialogFormComponent<PropertyDocument> {
   constructor(
     override dialogRef: MatDialogRef<PropertyDocumentDialogFormComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: PropertyDocumentDTO,

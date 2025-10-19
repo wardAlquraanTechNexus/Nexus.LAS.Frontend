@@ -10,7 +10,7 @@ import { BaseDialogFormComponent } from '../../../../base-components/base-dialog
   selector: 'app-law-firm-branch-dialog-form-component',
   standalone : false,
   templateUrl: './law-firm-branch-dialog-form-component.html',
-  styleUrl: './law-firm-branch-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class LawFirmBranchDialogFormComponent  extends BaseDialogFormComponent<LawFirmBranch> {
 

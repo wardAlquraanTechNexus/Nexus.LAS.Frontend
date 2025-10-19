@@ -19,10 +19,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-shareholder-form-component',
   standalone: false,
   templateUrl: './company-shareholder-form-component.html',
-  styleUrl: './company-shareholder-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class CompanyShareholderFormComponent extends BaseFormComponent {
   @Input() element!: CompaniesShareHolderDto;
@@ -37,7 +34,7 @@ export class CompanyShareholderFormComponent extends BaseFormComponent {
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
     private personService: PersonService,
-    private companyService:CompanyService,
+    private companyService: CompanyService,
     override langService: LanguageService,
   ) {
     super(fb, cdr, sanitizer, errorHandler, langService);
@@ -49,9 +46,9 @@ export class CompanyShareholderFormComponent extends BaseFormComponent {
     this.loadPersonssFn = (search: string) => this.loadPersons(search);
     this.loadCompaniesFn = (search: string) => this.loadCompanies(search);
 
-      this.formGroup.get('registersIdc')?.valueChanges.subscribe(() => {
-          this.formGroup.get('registersIdn')?.reset();
-        });
+    this.formGroup.get('registersIdc')?.valueChanges.subscribe(() => {
+      this.formGroup.get('registersIdn')?.reset();
+    });
   }
 
 
@@ -69,7 +66,7 @@ export class CompanyShareholderFormComponent extends BaseFormComponent {
       searchBy: search,
       page: 0,
       pageSize: 100
-    }).pipe(map(x=>x.collection))
+    }).pipe(map(x => x.collection))
   }
 
 

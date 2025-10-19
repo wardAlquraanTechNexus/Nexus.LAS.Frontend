@@ -8,9 +8,9 @@ import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-board-member-dialog-form-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-board-member-dialog-form-component.html',
-  styleUrl: './company-board-member-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class CompanyBoardMemberDialogFormComponent extends BaseDialogFormComponent<CompanyBoardMember> {
   constructor(

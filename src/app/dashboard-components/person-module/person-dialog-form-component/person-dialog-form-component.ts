@@ -10,7 +10,8 @@ import { LanguageService } from '../../../services/language-service';
   selector: 'app-person-dialog-form-component',
   standalone: false,
   templateUrl: './person-dialog-form-component.html',
-  styleUrl: './person-dialog-form-component.scss'
+    styleUrls: ['../../_shared/styles/common-dialog-form-style.scss']
+
 })
 export class PersonDialogFormComponent extends BaseDialogFormComponent<Person> {
   constructor(

@@ -70,27 +70,24 @@
 
                 <!-- Account Signatory Date -->
                 <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.ACCOUNT_SIGNATORY_DATE || 'Account Signatory Date' }}</mat-label>
-                        <input matInput
-                               formControlName="accountSignatoryDate"
-                               [placeholder]="label.COMPANY.ACCOUNT_SIGNATORY_DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="accountSignatoryPicker">
-                        <mat-datepicker-toggle matSuffix [for]="accountSignatoryPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #accountSignatoryPicker></mat-datepicker>
-                    </mat-form-field>
+                    <app-date-input
+                    [formGroup]="formGroup"
+                    [controlName]="'accountSignatoryDate'"
+                    [label]="label.COMPANY.ACCOUNT_SIGNATORY_DATE"
+                    >
+                    </app-date-input>
                 </div>
+
+
                 <!-- Cessation Date -->
                 <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.CESSATION_DATE || 'Cessation Date' }}</mat-label>
-                        <input matInput
-                               formControlName="cessationDate"
-                               [placeholder]="label.COMPANY.CESSATION_DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="cessationPicker">
-                        <mat-datepicker-toggle matSuffix [for]="cessationPicker"></mat-datepicker-toggle>
-                        <mat-datepicker #cessationPicker></mat-datepicker>
-                    </mat-form-field>
+                    <app-date-input
+                    [formGroup]="formGroup"
+                    [controlName]="'cessationDate'"
+                    [label]="label.COMPANY.CESSATION_DATE"
+                    >
+                    </app-date-input>
+                    
                 </div>
 
             </form>

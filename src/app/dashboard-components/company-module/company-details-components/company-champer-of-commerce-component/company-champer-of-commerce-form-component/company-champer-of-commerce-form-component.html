@@ -43,34 +43,25 @@
 
                 <!-- CCI Issue Date -->
                 <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.CCI_ISSUE_DATE || 'CCI Issue Date' }}</mat-label>
-                        <input matInput
-                               formControlName="cciIssueDate"
-                               [placeholder]="label.COMPANY.CCI_ISSUE_DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="cciIssueDatePicker"
-                               required>
-                        <mat-datepicker-toggle matSuffix [for]="cciIssueDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #cciIssueDatePicker></mat-datepicker>
-                        @if (formGroup.get('cciIssueDate')?.hasError('required') && formGroup.get('cciIssueDate')?.touched) {
-                        <mat-error>
-                            {{ label.COMPANY.CCI_ISSUE_DATE_REQUIRED || 'CCI Issue Date is required' }}
-                        </mat-error>
-                        }
-                    </mat-form-field>
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'cciIssueDate'"
+                        [label]="label.COMMON.ISSUE_DATE"
+                        [requiredMsg]="label.COMPANY.CCI_ISSUE_DATE_REQUIRED"
+                        [isRequired]="true"
+                        >
+                        </app-date-input>
                 </div>
 
                 <!-- CCI Expiry Date -->
                 <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.CCI_EXPIRY_DATE || 'CCI Expiry Date' }}</mat-label>
-                        <input matInput
-                               formControlName="cciExpiryDate"
-                               [placeholder]="label.COMPANY.CCI_EXPIRY_DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="cciExpiryDatePicker">
-                        <mat-datepicker-toggle matSuffix [for]="cciExpiryDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #cciExpiryDatePicker></mat-datepicker>
-                    </mat-form-field>
+                 
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'cciExpiryDate'"
+                        [label]="label.COMPANY.CCI_EXPIRY_DATE"
+                        >
+                        </app-date-input>
                 </div>
 
                 <!-- Expiry Reminder -->

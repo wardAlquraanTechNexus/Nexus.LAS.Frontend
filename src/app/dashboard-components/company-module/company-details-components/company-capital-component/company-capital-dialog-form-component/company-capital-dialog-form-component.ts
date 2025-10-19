@@ -12,7 +12,8 @@ import { LanguageService } from '../../../../../services/language-service';
   standalone: false,
 
   templateUrl: './company-capital-dialog-form-component.html',
-  styleUrl: './company-capital-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
+
 })
 export class CompanyCapitalDialogFormComponent extends BaseDialogFormComponent<CompanyCapital> {
   constructor(

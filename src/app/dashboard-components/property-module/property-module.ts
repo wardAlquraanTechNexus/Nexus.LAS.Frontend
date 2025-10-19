@@ -5,7 +5,6 @@ import { BasePropertiesComponent } from './_base/base-properties-component/base-
 import { AllPropertiesComponent } from './all-properties-component/all-properties-component';
 import { AllPropertiesTableComponent } from './all-properties-component/all-properties-table-component/all-properties-table-component';
 import { ComponentsModule } from '../../components/components-module';
-import { PropertyFormComponent } from './property-form-component/property-form-component';
 import { PropertyDialogFormComponent } from './property-dialog-form-component/property-dialog-form-component';
 import { PropertyViewComponent } from './_base/property-view-component/property-view-component';
 import { PropertyOverviewComponent } from './property-details-components/property-overview-component/property-overview-component';
@@ -34,8 +33,6 @@ import { ActivePublicPropertiesTableComponent } from './active-public-properties
     PropertyViewComponent,
     AllPropertiesComponent,
     AllPropertiesTableComponent,
-    PropertyFormComponent,
-    PropertyDialogFormComponent,
     PropertyOverviewComponent,
     PropertyLinksComponent,
     PropertyLinkDialogFormComponent,

@@ -11,9 +11,9 @@ import { LawFirmCounselService } from '../../../../../services/law-firm-services
 
 @Component({
   selector: 'app-law-firm-counsel-dialog-form-component',
-  standalone : false,
+  standalone: false,
   templateUrl: './law-firm-counsel-dialog-form-component.html',
-  styleUrl: './law-firm-counsel-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class LawFirmCounselDialogFormComponent extends BaseDialogFormComponent<LawFirmCounsel> {
 
@@ -27,6 +27,6 @@ export class LawFirmCounselDialogFormComponent extends BaseDialogFormComponent<L
     super(dialogRef, data, service, cdr, langService)
   }
 
-  
- 
+
+
 }

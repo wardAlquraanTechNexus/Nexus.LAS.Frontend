@@ -14,7 +14,7 @@ import { DynamicList } from '../../../models/dynamic-list/dynamic-list';
   selector: 'app-property-form',
   standalone: false,
   templateUrl: './property-form-component.html',
-  styleUrl: './property-form-component.scss'
+  styleUrls: ['../../_shared/styles/common-form-style.scss']
 })
 export class PropertyFormComponent extends BaseFormComponent {
 

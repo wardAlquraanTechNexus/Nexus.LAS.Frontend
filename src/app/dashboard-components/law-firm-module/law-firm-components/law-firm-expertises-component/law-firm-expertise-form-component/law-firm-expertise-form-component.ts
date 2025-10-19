@@ -11,7 +11,7 @@ import { LawFirmExpertiseDto } from '../../../../../models/law-firm-models/law-f
   selector: 'app-law-firm-expertise-form',
   standalone: false,
   templateUrl: './law-firm-expertise-form-component.html',
-  styleUrl: './law-firm-expertise-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class LawFirmExpertiseFormComponent  extends BaseFormComponent {
 

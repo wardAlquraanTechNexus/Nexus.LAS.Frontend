@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-account-signatory-dialog-form-component',
   standalone: false,
   templateUrl: './company-account-signatory-dialog-form-component.html',
-  styleUrl: './company-account-signatory-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class CompanyAccountSignatoryDialogFormComponent extends BaseDialogFormComponent<CompanyAccountSignatory> {
 

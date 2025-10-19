@@ -12,10 +12,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-license-form-component',
   standalone: false,
   templateUrl: './company-license-form-component.html',
-  styleUrl: './company-license-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class CompanyLicenseFormComponent extends BaseFormComponent {
   @Input() element!: CompanyLicenseDto;

@@ -9,7 +9,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-law-firm-expertise-dialog-form-component',
   standalone: false,
   templateUrl: './law-firm-expertise-dialog-form-component.html',
-  styleUrl: './law-firm-expertise-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class LawFirmExpertiseDialogFormComponent extends BaseDialogFormComponent<LawFirmExpertiseDto> {
 

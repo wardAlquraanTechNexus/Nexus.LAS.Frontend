@@ -17,10 +17,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-board-member-form-component',
   standalone: false,
   templateUrl: './company-board-member-form-component.html',
-  styleUrl: './company-board-member-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class CompanyBoardMemberFormComponent extends BaseFormComponent {
   @Input() element!: CompanyBoardMemberDto;

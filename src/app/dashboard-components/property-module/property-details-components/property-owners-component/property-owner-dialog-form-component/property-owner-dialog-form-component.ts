@@ -10,7 +10,7 @@ import { PropertyOwnerService } from '../../../../../services/property-services/
   selector: 'app-property-owner-dialog-form-component',
   standalone: false,
   templateUrl: './property-owner-dialog-form-component.html',
-  styleUrl: './property-owner-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class PropertyOwnerDialogFormComponent  extends BaseDialogFormComponent<PropertyOwner> {
 

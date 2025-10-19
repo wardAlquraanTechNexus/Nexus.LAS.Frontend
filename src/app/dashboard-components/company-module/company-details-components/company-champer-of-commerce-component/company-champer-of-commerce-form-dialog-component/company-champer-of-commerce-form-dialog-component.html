@@ -1,23 +1,3 @@
-
-
-
-<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
-
-
-
-
-    <!-- Enhanced Body with Smooth Scrolling -->
-    <div class="dialog-body">
-
-        <ng-container>
-           <app-company-champer-of-commerce-form-component 
-           [showLoading]="showLoading"
-[element]="data"
-(saveEmitter)="onSave($event)"
-(cancelEditEmitter)="onCancel($event)"
-></app-company-champer-of-commerce-form-component>
-        </ng-container>
-    </div>
-
-
-</div>
+<app-company-champer-of-commerce-form-component [showLoading]="showLoading" [element]="data"
+    (saveEmitter)="onSave($event)"
+    (cancelEditEmitter)="onCancel($event)"></app-company-champer-of-commerce-form-component>

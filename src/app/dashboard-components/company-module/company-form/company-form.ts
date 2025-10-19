@@ -16,10 +16,7 @@ import { LanguageService } from '../../../services/language-service';
   selector: 'app-company-form',
   standalone: false,
   templateUrl: './company-form.html',
-  styleUrl: './company-form.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../_shared/styles/common-form-style.scss']
 })
 export class CompanyForm extends BaseFormComponent {
   @Input() company!: GetCompanyDto;
@@ -48,15 +45,15 @@ export class CompanyForm extends BaseFormComponent {
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
   onDateInput(event: any) {
-  const value = event.target.value; // dd/MM/yyyy
-  const parts = value.split('/');
-  if (parts.length === 3) {
-    const day = +parts[0];
-    const month = +parts[1] - 1;
-    const year = +parts[2];
-    this.formGroup.get('incorporationDate')?.setValue(new Date(year, month, day));
+    const value = event.target.value; // dd/MM/yyyy
+    const parts = value.split('/');
+    if (parts.length === 3) {
+      const day = +parts[0];
+      const month = +parts[1] - 1;
+      const year = +parts[2];
+      this.formGroup.get('incorporationDate')?.setValue(new Date(year, month, day));
+    }
   }
-}
 
   override ngOnInit(): void {
     this.setup(this.company);
@@ -70,7 +67,7 @@ export class CompanyForm extends BaseFormComponent {
     if (this.company?.companyTypeIdn) {
       this.onCompanyType(this.company.companyTypeIdn);
     }
-    if(this.company?.placeOfRegistrationMainIdn){
+    if (this.company?.placeOfRegistrationMainIdn) {
       this.onSelectMainRegistrtaion(this.company?.placeOfRegistrationMainIdn)
     }
 
@@ -95,7 +92,7 @@ export class CompanyForm extends BaseFormComponent {
     this.cdr.markForCheck();
   }
 
-  onSelectClass(){
+  onSelectClass() {
   }
 
 

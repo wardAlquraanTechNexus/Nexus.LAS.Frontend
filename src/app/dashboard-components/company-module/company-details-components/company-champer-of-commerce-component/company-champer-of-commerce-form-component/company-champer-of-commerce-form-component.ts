@@ -10,14 +10,11 @@ import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-champer-of-commerce-form-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-champer-of-commerce-form-component.html',
-  styleUrl: './company-champer-of-commerce-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
-export class CompanyChamperOfCommerceFormComponent  extends BaseFormComponent {
+export class CompanyChamperOfCommerceFormComponent extends BaseFormComponent {
   @Input() element!: CompanyChamberOfCommerceDTO;
 
   constructor(

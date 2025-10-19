@@ -1,10 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
-import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { PropertyLinkDTO } from '../../../../../models/property-models/property-link/dtos/property-link-dto';
-import { FormBuilder } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { DynamicListService } from '../../../../../services/dynamic-list-service';
-import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { LanguageService } from '../../../../../services/language-service';
 import { PropertyLink } from '../../../../../models/property-models/property-link/property-link';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,7 +10,7 @@ import { BaseDialogFormComponent } from '../../../../base-components/base-dialog
   selector: 'app-property-link-dialog-form',
   standalone: false,
   templateUrl: './property-link-dialog-form-component.html',
-  styleUrls: ['./property-link-dialog-form-component.scss']
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class PropertyLinkDialogFormComponent  extends BaseDialogFormComponent<PropertyLink> {
 

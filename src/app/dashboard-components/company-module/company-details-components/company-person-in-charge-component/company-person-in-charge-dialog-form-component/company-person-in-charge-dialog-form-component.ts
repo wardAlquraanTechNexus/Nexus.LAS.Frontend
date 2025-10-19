@@ -9,19 +9,19 @@ import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-person-in-charge-dialog-form-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-person-in-charge-dialog-form-component.html',
-  styleUrl: './company-person-in-charge-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
-export class CompanyPersonInChargeDialogFormComponent  extends BaseDialogFormComponent<CompanyPersonInCharge> {
+export class CompanyPersonInChargeDialogFormComponent extends BaseDialogFormComponent<CompanyPersonInCharge> {
   constructor(
-    protected override dialogRef: MatDialogRef<CompanyPersonInChargeDialogFormComponent>, 
+    protected override dialogRef: MatDialogRef<CompanyPersonInChargeDialogFormComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: CompanyPersonInChargeDto,
-    override service:CompanyPersonInChargeService,
+    override service: CompanyPersonInChargeService,
     override cdr: ChangeDetectorRef,
     protected override langService: LanguageService
   ) {
-    super(dialogRef, data,service,cdr,langService)
+    super(dialogRef, data, service, cdr, langService)
   }
 
 }

@@ -16,9 +16,6 @@ import { LanguageService } from '../../../../../services/language-service';
   standalone: false,
   templateUrl: './person-id-document-form-component.html',
   styleUrls: ['../../../../_shared/styles/common-form-style.scss'],
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
 })
 export class PersonIdDocumentFormComponent extends BaseFormComponent {
   @Input() element!: PersonIdDetailDto;

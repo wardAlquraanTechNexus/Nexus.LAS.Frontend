@@ -33,32 +33,26 @@
                     </select-auto-complete>
                 </div>
 
-                <!-- Document Date -->
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.DOCUMENT_DATE || 'Document Date' }}</mat-label>
-                    <input matInput formControlName="documentDate"
-                        [placeholder]="label.COMPANY.DOCUMENT_DATE || 'DD/MM/YYYY'"
-                        [matDatepicker]="documentDatePicker">
-                    <mat-datepicker-toggle matSuffix [for]="documentDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #documentDatePicker></mat-datepicker>
-                </mat-form-field>
+          
+
+                 <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'documentDate'"
+                        [label]="label.COMPANY.DOCUMENT_DATE"
+                        >
+                        </app-date-input>
 
                 <!-- Commencement Date -->
                 <div>
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement Date' }}</mat-label>
-                        <input matInput formControlName="commencementDate"
-                            [placeholder]="label.COMPANY.COMMENCEMENT_DATE || 'DD/MM/YYYY'"
-                            [matDatepicker]="commencementDatePicker" required>
-                        <mat-datepicker-toggle matSuffix [for]="commencementDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #commencementDatePicker></mat-datepicker>
-                        @if (formGroup.get('commencementDate')?.hasError('required') &&
-                        formGroup.get('commencementDate')?.touched) {
-                        <mat-error>
-                            {{ label.COMPANY.COMMENCEMENT_DATE || 'Commencement date is required' }}
-                        </mat-error>
-                        }
-                    </mat-form-field>
+                    
+                     <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'commencementDate'"
+                        [label]="label.COMPANY.COMMENCEMENT_DATE"
+                        [isRequired]="true"
+                        [requiredMsg]="label.COMPANY.COMMENCEMENT_DATE"
+                        >
+                        </app-date-input>
                 </div>
 
 
@@ -79,14 +73,14 @@
                     </mat-select>
                 </mat-form-field>
                 <!-- Contract Expiry Date -->
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
-                    <input matInput formControlName="contractExpiryDate"
-                        [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'"
-                        [matDatepicker]="contractExpiryDatePicker">
-                    <mat-datepicker-toggle matSuffix [for]="contractExpiryDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #contractExpiryDatePicker></mat-datepicker>
-                </mat-form-field>
+         
+                 <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'contractExpiryDate'"
+                        [label]="label.COMPANY.EXPIRY_DATE"
+
+                        >
+                        </app-date-input>
                 <div class="col-12">
                     <div class="nexus-switch-wrapper">
                         <div class="nexus-switch-container">

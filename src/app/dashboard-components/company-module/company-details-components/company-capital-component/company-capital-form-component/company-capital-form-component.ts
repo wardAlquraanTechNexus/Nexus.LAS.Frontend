@@ -15,10 +15,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-capital-form-component',
   standalone: false,
   templateUrl: './company-capital-form-component.html',
-  styleUrl: './company-capital-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class CompanyCapitalFormComponent  extends BaseFormComponent {
   @Input() element!: CompanyCapitalDto;

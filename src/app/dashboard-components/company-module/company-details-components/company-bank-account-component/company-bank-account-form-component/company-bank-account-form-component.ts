@@ -13,10 +13,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-bank-account-form-component',
   standalone:false,
   templateUrl: './company-bank-account-form-component.html',
-  styleUrl: './company-bank-account-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+    styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class CompanyBankAccountFormComponent extends BaseFormComponent
 {

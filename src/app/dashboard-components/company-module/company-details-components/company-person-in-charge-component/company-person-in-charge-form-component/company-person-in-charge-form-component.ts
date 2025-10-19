@@ -17,10 +17,9 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-person-in-charge-form-component',
   standalone: false,
   templateUrl: './company-person-in-charge-form-component.html',
-  styleUrl: './company-person-in-charge-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+    styleUrls: ['../../../../_shared/styles/common-form-style.scss']
+
+  
 })
 export class CompanyPersonInChargeFormComponent extends BaseFormComponent {
   @Input() element!: CompanyPersonInChargeDto;

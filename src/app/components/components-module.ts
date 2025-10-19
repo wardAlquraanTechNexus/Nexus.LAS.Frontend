@@ -47,7 +47,7 @@ import { CompanyFormDialog } from '../dashboard-components/company-module/compan
 import { CompanyForm } from '../dashboard-components/company-module/company-form/company-form';
 import { PersonDialogFormComponent } from '../dashboard-components/person-module/person-dialog-form-component/person-dialog-form-component';
 import { SharedCompanyShareholderComponent } from '../dashboard-components/shared-components/shared-company-shareholder-component/shared-company-shareholder-component';
-import { PersonFormComponent } from '../dashboard-components/person-module/shared-person-components/person-form-component/person-form-component';
+import { PersonFormComponent } from '../dashboard-components/person-module/person-form-component/person-form-component';
 import { DateInputComponent } from './date-input-component/date-input-component';
 import { NumberSeperatorPipe } from '../pipes/number-seperator-pipe';
 import { ThousandSeparatorDirective } from '../directives/thousand-separator.directive';
@@ -72,6 +72,8 @@ import { DocumentTrackingDialogFormComponent } from '../dashboard-components/doc
 import { DocumentTrackingFormComponent } from '../dashboard-components/document-tracking-module/document-tracking-form-component/document-tracking-form-component';
 import { SelectExpiryDatesComponent } from './select-expiry-dates-component/select-expiry-dates-component';
 import { SelectReminderComponent } from './select-reminder-component/select-reminder-component';
+import { PropertyFormComponent } from '../dashboard-components/property-module/property-form-component/property-form-component';
+import { PropertyDialogFormComponent } from '../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
 
 
 
@@ -119,7 +121,9 @@ import { SelectReminderComponent } from './select-reminder-component/select-remi
     DocumentTrackingFormComponent,
     DocumentTrackingDialogFormComponent,
     SelectExpiryDatesComponent,
-    SelectReminderComponent
+    SelectReminderComponent,
+    PropertyDialogFormComponent,
+    PropertyFormComponent
 
   ],
   imports: [
@@ -231,7 +235,9 @@ import { SelectReminderComponent } from './select-reminder-component/select-remi
     DocumentTrackingFormComponent,
     DocumentTrackingDialogFormComponent,
     SelectExpiryDatesComponent,
-    SelectReminderComponent
+    SelectReminderComponent,
+    PropertyDialogFormComponent,
+    PropertyFormComponent
   ],
   providers: [
 

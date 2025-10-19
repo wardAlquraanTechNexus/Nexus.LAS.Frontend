@@ -124,8 +124,8 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
     const element: CompanyAccountSignatoryDto = {
       id: 0,
       companyBankAccountId: this.companyBankAccount.id,
-      personId: 0,
-      rule: 0,
+      personId: null,
+      rule: null,
       fromAmount: 0,
       toAmount: 0,
       description: "",

@@ -12,7 +12,7 @@ import { environment } from '../../../../../../environment/environment';
   selector: 'app-law-firm-person-form',
   standalone: false,
   templateUrl: './law-firm-person-form-component.html',
-  styleUrls: ['./law-firm-person-form-component.scss']
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class LawFirmPersonFormComponent extends BaseFormComponent {
 
@@ -33,7 +33,7 @@ export class LawFirmPersonFormComponent extends BaseFormComponent {
   }
 
   // Validator for phone number (digits only, optional length check)
- 
+
 
   override ngOnInit(): void {
     this.setup(this.element);
@@ -41,9 +41,9 @@ export class LawFirmPersonFormComponent extends BaseFormComponent {
 
     this.staffLevelParentId = environment.rootDynamicLists.lawFirmsCounselLevels;
 
-   
+
   }
 
-  
+
 
 }

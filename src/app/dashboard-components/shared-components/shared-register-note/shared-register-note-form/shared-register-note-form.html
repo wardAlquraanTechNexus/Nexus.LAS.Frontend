@@ -48,21 +48,14 @@
 
                 <!-- Note Date Field -->
                 <div class="form-field-wrapper">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMMON.DATE || 'Note Date' }}</mat-label>
-                        <input matInput
-                               formControlName="noteDate"
-                               [placeholder]="label.COMMON.DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="noteDatePicker"
-                               required>
-                        <mat-datepicker-toggle matSuffix [for]="noteDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #noteDatePicker></mat-datepicker>
-                        @if (formGroup.get('noteDate')?.hasError('required') && formGroup.get('noteDate')?.touched) {
-                        <mat-error>
-                            {{ label.COMMON.DATE || 'Note Date is required' }}
-                        </mat-error>
-                        }
-                    </mat-form-field>
+                    <app-date-input
+                    [formGroup]="formGroup"
+                    [controlName]="'noteDate'"
+                    [label]="label.COMMON.DATE"
+                    [requiredMsg]="label.COMMON.DATE"
+                    [isRequired]="true"
+                    >
+                    </app-date-input>
                 </div>
             </form>
         </div>

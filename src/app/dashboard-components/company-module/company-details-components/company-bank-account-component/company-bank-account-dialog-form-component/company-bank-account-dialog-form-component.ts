@@ -8,9 +8,9 @@ import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-bank-account-dialog-form-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-bank-account-dialog-form-component.html',
-  styleUrl: './company-bank-account-dialog-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class CompanyBankAccountDialogFormComponent extends BaseDialogFormComponent<CompanyBankAccount> {
 

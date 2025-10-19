@@ -1,16 +1,13 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
 import { TransactionActionDto } from '../../../../../models/transaction-models/transaction-action/dtos/transaction-dto';
-import { FormBuilder, FormArray, Validators, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { LanguageService } from '../../../../../services/language-service';
 import { PersonService } from '../../../../../services/person-services/person-service';
 import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/get-person-dto';
 import { map, Observable } from 'rxjs';
-import { base64ToBlob, downloadBlob, downloadBlobFile } from '../../../../_shared/shared-methods/downloadBlob';
-import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
-import { FileDto } from '../../../../../models/base/file-dto';
 import { TransactionActionStatus } from '../../../../../models/transaction-models/transaction-action/enums/transaction-action-status';
 
 @Component({
@@ -18,9 +15,6 @@ import { TransactionActionStatus } from '../../../../../models/transaction-model
   standalone: false,
   templateUrl: './transaction-actions-form-component.html',
   styleUrls: ['../../../../_shared/styles/common-form-style.scss'],
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
 })
 export class TransactionActionsFormComponent extends BaseFormComponent {
   @Input() element!: TransactionActionDto;

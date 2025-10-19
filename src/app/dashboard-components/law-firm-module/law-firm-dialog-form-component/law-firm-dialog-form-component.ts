@@ -10,7 +10,7 @@ import { LawFirmDTO } from '../../../models/law-firm-models/law-firm/dtos/law-fi
   selector: 'app-law-firm-dialog-form-component',
   standalone: false,
   templateUrl: './law-firm-dialog-form-component.html',
-  styleUrls: ['./law-firm-dialog-form-component.scss']
+  styleUrls: ['../../_shared/styles/common-dialog-form-style.scss']
 })
 export class LawFirmDialogFormComponent extends BaseDialogFormComponent<LawFirm> {
 
@@ -24,6 +24,6 @@ export class LawFirmDialogFormComponent extends BaseDialogFormComponent<LawFirm>
     super(dialogRef, data, service, cdr, langService)
   }
 
-  
- 
+
+
 }

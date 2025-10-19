@@ -13,9 +13,7 @@ import { DATE_FORMAT_PROVIDERS } from '../../../shared/date-format.config';
   standalone: false,
   templateUrl: './law-firm-form-component.html',
   styleUrls: ['../../_shared/styles/common-form-style.scss'],
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]})
+  })
 export class LawFirmFormComponent extends BaseFormComponent {
 
   

@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-champer-of-commerce-form-dialog-component',
   standalone: false,
   templateUrl: './company-champer-of-commerce-form-dialog-component.html',
-  styleUrl: './company-champer-of-commerce-form-dialog-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class CompanyChamperOfCommerceFormDialogComponent extends BaseDialogFormComponent<CompanyChamberOfCommerce> {
 

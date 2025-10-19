@@ -1,5 +1,4 @@
 <div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
-    <!-- Header -->
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
@@ -18,12 +17,10 @@
         </button>
     </div>
 
-    <!-- Body -->
     <div class="dialog-body">
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
 
-                <!-- Person ID -->
                 <div class="form-group col-12">
                     <dl-select-auto-complete *ngIf="propertyTypeOfTitleId" [controlName]="'typeOfTitle'"
                         [formGroup]="formGroup" [isRequired]="true"
@@ -127,7 +124,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>

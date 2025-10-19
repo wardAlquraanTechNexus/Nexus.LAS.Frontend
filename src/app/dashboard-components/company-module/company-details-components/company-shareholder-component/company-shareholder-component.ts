@@ -22,7 +22,7 @@ import { LanguageService } from '../../../../services/language-service';
   selector: 'app-company-shareholder-component',
   standalone: false,
   templateUrl: './company-shareholder-component.html',
-  styleUrl: './company-shareholder-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class CompanyShareholderComponent extends TableFormComponent<CompaniesShareHolder> {
 
@@ -57,7 +57,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
   }
 
   override ngOnInit(): void {
-   
+
 
     this.params.companyId = this.company.id;
     super.ngOnInit();
@@ -70,7 +70,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
   }
 
   override setDisplayColumns(): void {
-     this.displayColumns = [
+    this.displayColumns = [
       {
         key: "registerName",
         label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Registers",
@@ -111,7 +111,7 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       {
         key: "action",
         label: this.langService.getLabel('COMMON.ACTIONS') || "Actions",
-        
+
       }
     ];
   }
@@ -138,10 +138,10 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
   onAddNew() {
     const element: CompaniesShareHolderDto = {
       id: 0,
-      shareHoldersGroupsId: undefined,
+      shareHoldersGroupsId: null,
       registersIdc: EntityIDc.Person,
-      registersIdn: 0,
-      numbersOfShares: 0,
+      registersIdn: null,
+      numbersOfShares: null,
       shareHolderDate: "",
       shareHolderActive: false,
       companyId: this.company.id,

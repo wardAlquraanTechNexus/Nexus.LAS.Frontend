@@ -1,9 +1,2 @@
-<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
-    <div class="dialog-body">
-        <ng-container>
-            <app-company-contract-form-component [element]="data" [showLoading]="showLoading"
-                (saveEmitter)="onSave($event)"
-                (cancelEditEmitter)="onCancel($event)"></app-company-contract-form-component>
-        </ng-container>
-    </div>
-</div>
+<app-company-contract-form-component [element]="data" [showLoading]="showLoading" (saveEmitter)="onSave($event)"
+    (cancelEditEmitter)="onCancel($event)"></app-company-contract-form-component>

@@ -13,10 +13,8 @@ import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config'
   selector: 'app-property-document-form',
   standalone: false,
   templateUrl: './property-document-form-component.html',
-  styleUrls: ['./property-document-form-component.scss'],
-  providers: [
-      ...DATE_FORMAT_PROVIDERS
-    ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
+
 })
 export class PropertyDocumentFormComponent extends BaseFormComponent {
   @Input() element!: PropertyDocumentDTO;
@@ -39,6 +37,6 @@ export class PropertyDocumentFormComponent extends BaseFormComponent {
     super.ngOnInit();
   }
 
-  
+
 
 }

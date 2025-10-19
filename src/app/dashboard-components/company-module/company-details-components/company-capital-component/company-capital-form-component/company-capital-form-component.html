@@ -22,21 +22,15 @@
 
                 <!-- Capital Date -->
                 <div class="col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMMON.DATE || 'Capital Date' }}</mat-label>
-                        <input matInput
-                               formControlName="capitalDate"
-                               [placeholder]="label.COMMON.DATE || 'DD/MM/YYYY'"
-                               [matDatepicker]="capitalDatePicker"
-                               required>
-                        <mat-datepicker-toggle matSuffix [for]="capitalDatePicker"></mat-datepicker-toggle>
-                        <mat-datepicker #capitalDatePicker></mat-datepicker>
-                        @if (formGroup.get('capitalDate')?.hasError('required')) {
-                        <mat-error>
-                            {{ label.COMMON.DATE || 'Capital Date is required' }}
-                        </mat-error>
-                        }
-                    </mat-form-field>
+
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'capitalDate'"
+                        [label]="label.COMMON.DATE"
+                        [requiredMsg]="label.COMMON.DATE_REQUIRED"
+                        [isRequired]="true"
+                        >
+                        </app-date-input>
                 </div>
 
                 <!-- Capital Amount -->

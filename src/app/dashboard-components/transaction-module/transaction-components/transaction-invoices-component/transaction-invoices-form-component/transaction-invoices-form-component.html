@@ -42,17 +42,12 @@
                 </mat-form-field>
             </div>
 
-
-            <div class="form-group">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.TRANSACTION.INVOICE_DATE }}</mat-label>
-                    <input matInput formControlName="invoiceDate" [matDatepicker]="invoiceDatePicker"
-                        [placeholder]="label.TRANSACTION.INVOICE_DATE || 'DD/MM/YYYY'">
-                    <mat-datepicker-toggle matSuffix [for]="invoiceDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #invoiceDatePicker></mat-datepicker>
-                </mat-form-field>
-            </div>
-
+            <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'invoiceDate'"
+                        [label]="label.TRANSACTION.INVOICE_DATE"
+                        >
+                </app-date-input>
 
             <div class="form-group col-12">
                 <mat-form-field appearance="outline" class="w-100">

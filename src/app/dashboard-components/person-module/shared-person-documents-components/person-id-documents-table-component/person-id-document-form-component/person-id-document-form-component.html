@@ -24,24 +24,7 @@
         <div class="form-side">
             <form [formGroup]="formGroup" class="dialog-content">
 
-                <!-- License File Upload -->
-                <!-- <div class="upload-area" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)"
-                    (dragleave)="onDragLeave($event)" [class.dragover]="isDragging">
-                    <label class="upload-button">
-                        <input type="file" accept=".svg,.png,.jpg,.jpeg,.pdf" (change)="onFileSelected($event)"
-                            hidden />
-                        <a mat-raised-button color="primary" type="button">
-                            {{ label.PERSON.UPLOAD_DOCUMENT || 'Click to Upload' }}
-                        </a>
-                    </label>
-                    <p>{{ label.PERSON.OR_DRAG_AND_DROP || 'or drag and drop' }}</p>
-                    <small>SVG, PNG, JPG, or PDF (max 3MB)</small>
-                </div>
-                <mat-error
-                    *ngIf="formGroup.get('file')?.invalid && (formGroup.get('file')?.touched || formGroup.touched)"
-                    class="mat-error">
-                    {{ label.PERSON.FILE_REQUIRED || 'File is required.' }}
-                </mat-error> -->
+               
 
                  <file-form-group
                 [formGroup]="formGroup"
@@ -91,28 +74,22 @@
                         </mat-form-field>
                     </div>
                     <div class="col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{ label.COMPANY.ISSUE_DATE || 'Issue Date' }}</mat-label>
-                            <input matInput formControlName="idIssueDate"
-                                [placeholder]="label.PERSON.SELECT_ISSUE_DATE || 'DD/MM/YYYY'"
-                                [matDatepicker]="issueDatePicker" required>
-                            <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #issueDatePicker></mat-datepicker>
-                            <mat-error
-                                *ngIf="formGroup.get('idIssueDate')?.hasError('required') && formGroup.get('idIssueDate')?.touched">
-                                {{ label.PERSON.ISSUE_DATE_REQUIRED || 'Issue Date is required' }}
-                            </mat-error>
-                        </mat-form-field>
+                        <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'idIssueDate'"
+                        [label]="label.COMMON.ISSUE_DATE"
+                        [requiredMsg]="label.PERSON.ISSUE_DATE_REQUIRED"
+                        [isRequired]="true"
+                        >
+                        </app-date-input>
                     </div>
                     <div class="col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
-                            <input matInput formControlName="expiryDate"
-                                [placeholder]="label.PERSON.SELECT_EXPIRY_DATE || 'DD/MM/YYYY'"
-                                [matDatepicker]="expiryDatePicker">
-                            <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
-                            <mat-datepicker #expiryDatePicker></mat-datepicker>
-                        </mat-form-field>
+                        <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'expiryDate'"
+                        [label]="label.COMPANY.EXPIRY_DATE"
+                        >
+                        </app-date-input>
                     </div>
                     <!-- Primary -->
                     <div class="full-width col-6">

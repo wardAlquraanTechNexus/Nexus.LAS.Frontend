@@ -119,10 +119,10 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
   onAddNew() {
     const element: CompanyBoardMemberDto = {
       id: 0,
-      personId: 0,
+      personId: null,
       appointmentDate: null,
       cessationDate: null,
-      position: 0,
+      position: null,
       companyId: this.company.id,
       isActive: false,
     };

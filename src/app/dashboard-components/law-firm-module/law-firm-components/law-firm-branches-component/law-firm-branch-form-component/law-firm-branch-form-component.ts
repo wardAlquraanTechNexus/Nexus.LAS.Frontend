@@ -12,7 +12,7 @@ import { BaseFormComponent } from '../../../../base-components/base-form-compone
   selector: 'app-law-firm-branch-form',
   standalone : false,
   templateUrl: './law-firm-branch-form-component.html',
-  styleUrl: './law-firm-branch-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class LawFirmBranchFormComponent  extends BaseFormComponent {
 

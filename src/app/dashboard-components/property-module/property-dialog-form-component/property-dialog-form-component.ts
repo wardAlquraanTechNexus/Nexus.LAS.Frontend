@@ -11,7 +11,8 @@ import { PropertyDTO } from '../../../models/property-models/property/dtos/prope
   selector: 'app-property-dialog-form-component',
   standalone: false,
   templateUrl: './property-dialog-form-component.html',
-  styleUrl: './property-dialog-form-component.scss'
+  styleUrls: ['../../_shared/styles/common-dialog-form-style.scss']
+
 })
 export class PropertyDialogFormComponent extends BaseDialogFormComponent<Property> {
 
@@ -25,6 +26,6 @@ export class PropertyDialogFormComponent extends BaseDialogFormComponent<Propert
     super(dialogRef, data, service, cdr, langService)
   }
 
-  
- 
+
+
 }

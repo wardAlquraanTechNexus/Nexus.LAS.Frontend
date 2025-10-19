@@ -9,17 +9,14 @@ import { Observable } from 'rxjs';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { environment } from '../../../../../../environment/environment';
 import { CompanyContractStatus } from '../../../../../enums/company-contract-status';
-import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
   selector: 'app-company-contract-form-component',
   standalone: false,
   templateUrl: './company-contract-form-component.html',
-  styleUrl: './company-contract-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+    styleUrls: ['../../../../_shared/styles/common-form-style.scss']
+
 })
 export class CompanyContractFormComponent extends BaseFormComponent {
 

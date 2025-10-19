@@ -15,7 +15,7 @@ import { CommonStatus } from '../../../../../enums/common-status';
   selector: 'app-property-link-form',
   standalone: false,
   templateUrl: './property-link-form-component.html',
-  styleUrls: ['./property-link-form-component.scss']
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class PropertyLinkFormComponent extends BaseFormComponent {
 
@@ -56,11 +56,11 @@ export class PropertyLinkFormComponent extends BaseFormComponent {
     return this.propertyService.getAllProperties({}).pipe(
       map(res => res.filter(p =>
         (p.code && p.code.toLowerCase().includes(search.toLowerCase())) &&
-        (id === null || p.id === id) 
+        (id === null || p.id === id)
         && p.id != this.element.propertyLinksValue
-        && p.status != CommonStatus[CommonStatus.New] 
+        && p.status != CommonStatus[CommonStatus.New]
       ))
-    );  
+    );
   }
 
   onPropertyChange(selectedPropertyId: any) {

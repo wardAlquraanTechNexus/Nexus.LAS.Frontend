@@ -10,9 +10,9 @@ import { LawFirmPerson } from '../../../../../models/law-firm-models/law-firm-pe
   selector: 'app-law-firm-person-dialog-form-component',
   standalone: false,
   templateUrl: './law-firm-person-dialog-form-component.html',
-  styleUrls: ['./law-firm-person-dialog-form-component.scss']
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
-export class LawFirmPersonDialogFormComponent  extends BaseDialogFormComponent<LawFirmPerson> {
+export class LawFirmPersonDialogFormComponent extends BaseDialogFormComponent<LawFirmPerson> {
 
   constructor(
     protected override dialogRef: MatDialogRef<LawFirmPersonDialogFormComponent>,
@@ -24,6 +24,6 @@ export class LawFirmPersonDialogFormComponent  extends BaseDialogFormComponent<L
     super(dialogRef, data, service, cdr, langService)
   }
 
-  
- 
+
+
 }

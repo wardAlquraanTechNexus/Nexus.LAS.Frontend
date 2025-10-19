@@ -17,9 +17,10 @@ import { Labels } from '../../../../models/consts/labels'; // Add this import
 
 @Component({
   selector: 'app-company-capital-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './company-capital-component.html',
-  styleUrl: './company-capital-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
+
 })
 export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> {
 
@@ -61,8 +62,8 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
   }
 
   override setDisplayColumns() {
-     this.displayColumns = [
-   
+    this.displayColumns = [
+
       {
         key: "capitalDate",
         label: this.langService.getLabel(this.label.COMMON.DATE) || "Date",
@@ -75,7 +76,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
         decimals: 2
       },
       {
-        key:"numberOfShares",
+        key: "numberOfShares",
         label: this.langService.getLabel(this.label.COMPANY.TOTAL_SHARES) || "NO. of Shares",
         pipes: ['number'],
         decimals: 0  // No decimals for share counts
@@ -109,7 +110,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       }, {
         key: "capitalActive",
         label: this.langService.getLabel(this.label.COMMON.STATUS) || "Status",
-        pipes:['capital-active'],
+        pipes: ['capital-active'],
       },
       {
         key: 'action',
@@ -152,7 +153,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       issuedShares: null,
       capitalCurrency: '',
       capitalActive: false,
-      
+
     };
     const dialogRef = this.dialog.open(CompanyCapitalDialogFormComponent, {
       disableClose: true,
@@ -167,7 +168,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
   }
 
   onEdit(row: any) {
-    const element = {...row};
+    const element = { ...row };
     const dialogRef = this.dialog.open(CompanyCapitalDialogFormComponent, {
       disableClose: true,
       data: element

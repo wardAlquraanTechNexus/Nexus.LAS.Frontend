@@ -26,7 +26,7 @@ import { PersonIdDetailViewComponent } from '../../person-id-detail-view/person-
   selector: 'app-person-id-documents-table-component',
   standalone: false,
   templateUrl: './person-id-documents-table-component.html',
-  styleUrl: './person-id-documents-table-component.scss'
+  styleUrls: ['../../../_shared/styles/table-style.scss']
 })
 export class PersonIdDocumentsTableComponent extends TableFormComponent<PersonsIDDetail> {
 

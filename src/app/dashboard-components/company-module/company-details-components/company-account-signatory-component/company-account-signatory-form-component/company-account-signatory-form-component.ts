@@ -17,10 +17,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-account-signatory-form-component',
   standalone: false,
   templateUrl: './company-account-signatory-form-component.html',
-  styleUrl: './company-account-signatory-form-component.scss',
-  providers: [
-    ...DATE_FORMAT_PROVIDERS
-  ]
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
   loadPersonssFn!: (search: string) => Observable<GetPersonsDTO[]>;
@@ -62,5 +59,5 @@ export class CompanyAccountSignatoryFormComponent extends BaseFormComponent {
     );
   }
 
-  
+
 }

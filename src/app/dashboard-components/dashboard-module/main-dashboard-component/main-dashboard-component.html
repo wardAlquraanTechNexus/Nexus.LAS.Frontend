@@ -28,27 +28,27 @@
       </h2>
     </div>
     <div class="quick-actions">
-      <button mat-raised-button color="primary" [routerLink]="['/Persons', 'Add-person']" class="action-btn">
+      <button mat-raised-button color="primary" (click)="onAddNewPerson()" class="action-btn">
         <mat-icon>person_add</mat-icon>
         <span>New Person</span>
       </button>
-      <button mat-raised-button color="primary" [routerLink]="['/Companies', 'Add-company']" class="action-btn">
+      <button mat-raised-button color="primary" (click)="onAddNewCompany()" class="action-btn">
         <mat-icon>domain</mat-icon>
         <span>New Company</span>
       </button>
-      <button mat-raised-button color="primary" [routerLink]="['/Real-Estates', 'Add-real-estate']" class="action-btn">
+      <button mat-raised-button color="primary" (click)="onAddNewRealEstate()" class="action-btn">
         <mat-icon>home_work</mat-icon>
         <span>New Real Estate</span>
       </button>
-      <button mat-raised-button color="primary" [routerLink]="['/Law-firms', 'add-law-firm']" class="action-btn">
+      <button mat-raised-button color="primary" (click)="onAddNewLawFirm()" class="action-btn">
         <mat-icon>gavel</mat-icon>
         <span>New Law Firm</span>
       </button>
-      <button mat-raised-button color="primary" [routerLink]="['/Transactions', 'add-transaction']" class="action-btn">
+      <button mat-raised-button color="primary" (click)="onAddNewTransaction()" class="action-btn">
         <mat-icon>swap_horiz</mat-icon>
         <span>New Transaction</span>
       </button>
-      <button mat-raised-button color="primary" [routerLink]="['/Fpcs', 'add-fpc']" class="action-btn">
+      <button mat-raised-button color="primary" (click)="onAddNewFPC()" class="action-btn">
         <mat-icon>business_center</mat-icon>
         <span>New FPC</span>
       </button>

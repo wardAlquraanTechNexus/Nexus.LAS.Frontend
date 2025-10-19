@@ -1,7 +1,30 @@
-<form *ngIf="formGroup" [formGroup]="formGroup">
-    <div class="container">
-        <div class="p-3">
-            <!-- English Name -->
+
+
+
+
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Enhanced Header with Icon and Professional Typography -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>monetization_on</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">{{element.id ? label.PERSON.EDIT_DOCUMENT : label.PERSON.ADD_PERSON}}</h2>
+                <p class="dialog-subtitle">{{ label.PERSON.ENTER_PERSON_DETAILS }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Enhanced Body with Smooth Scrolling -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+              <!-- English Name -->
             <div class="name-en">
                 <div class="row">
                     <div class="col-12">
@@ -58,16 +81,17 @@
                     </div>
                 </div>
             </div>
-    
-            <!-- Modern Action Buttons -->
-            <div class="action-buttons">
-                <button mat-stroked-button class="cancel-btn" type="button" (click)="cancelEdit()">
-                    <mat-icon>close</mat-icon>
-                    {{ label.COMMON.CANCEL || 'Cancel' }}
-                </button>
-                <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
-            </div>
 
+            </form>
         </div>
     </div>
-</form>
+
+    <!-- Modern Footer with Action Buttons -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+    </div>
+</div>

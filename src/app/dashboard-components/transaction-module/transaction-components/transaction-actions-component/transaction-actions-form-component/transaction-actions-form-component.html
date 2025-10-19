@@ -52,31 +52,21 @@
                 </mat-form-field>
             </div>
 
-            <!-- Due Date -->
-            <div class="form-group">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.TRANSACTION.DUE_DATE }}</mat-label>
-                    <input matInput formControlName="dueDate" [matDatepicker]="dueDatePicker" required
-                        [placeholder]="label.TRANSACTION.DUE_DATE || 'DD/MM/YYYY'">
-                    <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #dueDatePicker></mat-datepicker>
-                    <mat-error *ngIf="formGroup.get('dueDate')?.hasError('required')">
-                        {{ label.TRANSACTION.DUE_DATE_REQUIRED || 'Due Date is required' }}
-                    </mat-error>
-                </mat-form-field>
-            </div>
+                <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'dueDate'"
+                        [label]="label.TRANSACTION.DUE_DATE"
+                        [isRequired]="true"
+                        [requiredMsg]="label.TRANSACTION.DUE_DATE_REQUIRED"
+                        >
+                </app-date-input>
 
-            <!-- Closed Date -->
-            <div class="form-group">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.TRANSACTION.CLOSED_DATE }}</mat-label>
-                    <input matInput formControlName="closedDate" [matDatepicker]="closedDatePicker"
-                        [placeholder]="label.TRANSACTION.CLOSED_DATE || 'DD/MM/YYYY'">
-                    <mat-datepicker-toggle matSuffix [for]="closedDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #closedDatePicker></mat-datepicker>
-                </mat-form-field>
-            </div>
-
+            <app-date-input
+                    [formGroup]="formGroup"
+                    [controlName]="'closedDate'"
+                    [label]="label.TRANSACTION.CLOSED_DATE"
+                    >
+            </app-date-input>
             <div class="col-12">
                 <div class="nexus-filter-field">
                     <mat-form-field appearance="outline">

@@ -27,7 +27,8 @@ import { PersonOtherDocumentDialogViewComponent } from './person-other-document-
   selector: 'app-person-other-documents-table-component',
   standalone: false,
   templateUrl: './person-other-documents-table-component.html',
-  styleUrls: ['./person-other-documents-table-component.scss']
+  styleUrls: ['../../../_shared/styles/table-style.scss']
+  
 })
 export class PersonOtherDocumentsTableComponent extends TableFormComponent<PersonOtherDocument> implements OnInit {
   override displayColumns: DisplayColumn[] = [];

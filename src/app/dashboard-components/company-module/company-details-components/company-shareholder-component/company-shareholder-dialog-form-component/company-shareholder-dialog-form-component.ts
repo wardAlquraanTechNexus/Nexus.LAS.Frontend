@@ -11,7 +11,8 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-shareholder-dialog-form-component',
   standalone: false,
   templateUrl: './company-shareholder-dialog-form-component.html',
-  styleUrl: './company-shareholder-dialog-form-component.scss'
+   styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
+
 })
 export class CompanyShareholderDialogFormComponent  extends BaseDialogFormComponent<CompaniesShareHolder> {
   constructor(

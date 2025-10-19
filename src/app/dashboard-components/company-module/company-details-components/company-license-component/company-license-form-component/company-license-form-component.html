@@ -1,5 +1,4 @@
 <div class="modern-dialog-container wide-dialog" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
-    <!-- Header -->
     <div class="dialog-header">
         <div class="header-content">
             <div class="header-icon">
@@ -19,7 +18,6 @@
         </button>
     </div>
 
-    <!-- Body: 50/50 layout -->
     <div class="dialog-body split-layout">
         <!-- Left: Form -->
         <div class="form-side">
@@ -50,30 +48,22 @@
                         [placeholder]="label.COMPANY.LICENSE_NUMBER || 'Enter license number'" required />
                 </mat-form-field>
 
-                <!-- Issue Date field -->
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.ISSUE_DATE || 'Issue Date' }}</mat-label>
-                    <input matInput formControlName="licenseIssueDate"
-                        [placeholder]="label.COMPANY.ISSUE_DATE || 'DD/MM/YYYY'" [matDatepicker]="issueDatePicker"
-                        required>
-                    <mat-datepicker-toggle matSuffix [for]="issueDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #issueDatePicker></mat-datepicker>
-                    @if (formGroup.get('licenseIssueDate')?.hasError('required') &&
-                    formGroup.get('licenseIssueDate')?.touched) {
-                    <mat-error>
-                        {{ label.COMPANY.ISSUE_DATE_REQUIRED || 'Issue Date is required' }}
-                    </mat-error>
-                    }
-                </mat-form-field>
 
-                <!-- Expiry Date field -->
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.EXPIRY_DATE || 'Expiry Date' }}</mat-label>
-                    <input matInput formControlName="licenseExpiryDate"
-                        [placeholder]="label.COMPANY.EXPIRY_DATE || 'DD/MM/YYYY'" [matDatepicker]="expiryDatePicker">
-                    <mat-datepicker-toggle matSuffix [for]="expiryDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #expiryDatePicker></mat-datepicker>
-                </mat-form-field>
+                 <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'licenseIssueDate'"
+                        [label]="label.COMPANY.ISSUE_DATE"
+                        [requiredMsg]="label.COMPANY.ISSUE_DATE_REQUIRED"
+                        [isRequired]="true"
+                        >
+                        </app-date-input>
+
+                <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'licenseExpiryDate'"
+                        [label]="label.COMPANY.EXPIRY_DATE"
+                        >
+                        </app-date-input>
                 <div class="nexus-switch-wrapper">
                     <div class="nexus-switch-container">
                         <mat-slide-toggle formControlName="licenseExpiryActiveReminder" color="primary"
@@ -96,7 +86,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
