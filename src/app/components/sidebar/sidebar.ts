@@ -231,12 +231,16 @@ export class Sidebar implements OnInit, OnDestroy {
     }
   }
 
-  // Toggle expansion of menu items
+  // Toggle expansion of menu items (accordion-style: only one menu expanded at a time)
   toggleNode(node: MenuTree): void {
     if (this.hasChild(0, node)) {
       if (this.expandedNodes.has(node.menuId)) {
+        // Collapse if already expanded
         this.expandedNodes.delete(node.menuId);
       } else {
+        // Clear all other expanded nodes first (accordion behavior)
+        this.expandedNodes.clear();
+        // Then expand the clicked node
         this.expandedNodes.add(node.menuId);
       }
     }
