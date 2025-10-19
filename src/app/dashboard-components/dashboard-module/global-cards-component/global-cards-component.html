@@ -1,13 +1,18 @@
-<!-- ...existing code... -->
 <div class="main-dashboard">
   <div class="cards-grid">
-    <!-- Show spinner when fetching -->
-    <div class="spinner-container" *ngIf="isFetching">
-      <mat-progress-spinner
-        color="primary"
-        mode="indeterminate"
-        diameter="60">
-      </mat-progress-spinner>
+    <!-- Skeleton loading cards -->
+    <div *ngIf="isFetching" class="skeleton-grid" role="status" aria-live="polite" aria-label="Loading dashboard data">
+      <div *ngFor="let _ of [1,2,3]" class="skeleton-card">
+        <mat-card>
+          <mat-card-content class="card-content">
+            <div class="skeleton-icon"></div>
+            <div class="skeleton-info">
+              <div class="skeleton-count"></div>
+              <div class="skeleton-label"></div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
 
     <!-- Show cards when data is ready -->
@@ -15,10 +20,10 @@
       <a *ngFor="let item of globalInfo"
          class="dashboard-card"
          [routerLink]="item.path"
-         aria-label="{{item.name}}">
+         [attr.aria-label]="item.name + ': ' + item.count + ' records'">
         <mat-card>
           <mat-card-content class="card-content">
-            <div class="card-icon">
+            <div class="card-icon" [style.background]="getCardColor(item.idc)">
               <mat-icon>{{ item.icon }}</mat-icon>
             </div>
             <div class="card-info">
@@ -30,5 +35,4 @@
       </a>
     </ng-container>
   </div>
-
 </div>

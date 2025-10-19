@@ -1,2 +1,71 @@
-<global-cards></global-cards>
-<expired-documents></expired-documents>
+<div class="dashboard-container">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <div class="dashboard-welcome">
+      <h1>{{ getGreeting() }}, {{ currentUser }}</h1>
+      <p class="dashboard-subtitle">Here's what's happening with your LAS today</p>
+    </div>
+    <div class="dashboard-date">
+      <mat-icon>calendar_today</mat-icon>
+      <span>{{ currentDate | date:'fullDate' }}</span>
+    </div>
+  </div>
+
+  <!-- Overview Section -->
+  <section class="dashboard-section">
+    <div class="section-header">
+      <h2>Overview</h2>
+    </div>
+    <global-cards></global-cards>
+  </section>
+
+  <!-- Quick Actions Section -->
+  <section class="dashboard-section">
+    <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon section-icon-action">flash_on</mat-icon>
+        Quick Actions
+      </h2>
+    </div>
+    <div class="quick-actions">
+      <button mat-raised-button color="primary" [routerLink]="['/Persons', 'Add-person']" class="action-btn">
+        <mat-icon>person_add</mat-icon>
+        <span>New Person</span>
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/Companies', 'Add-company']" class="action-btn">
+        <mat-icon>domain</mat-icon>
+        <span>New Company</span>
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/Real-Estates', 'Add-real-estate']" class="action-btn">
+        <mat-icon>home_work</mat-icon>
+        <span>New Real Estate</span>
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/Law-firms', 'add-law-firm']" class="action-btn">
+        <mat-icon>gavel</mat-icon>
+        <span>New Law Firm</span>
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/Transactions', 'add-transaction']" class="action-btn">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>New Transaction</span>
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/Fpcs', 'add-fpc']" class="action-btn">
+        <mat-icon>business_center</mat-icon>
+        <span>New FPC</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Expired Documents Section -->
+  <section class="dashboard-section">
+    <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon">warning</mat-icon>
+        Documents Requiring Attention
+      </h2>
+    </div>
+    <expired-documents></expired-documents>
+  </section>
+</div>

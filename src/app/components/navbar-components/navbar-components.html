@@ -7,7 +7,7 @@
         <mat-icon>{{ sidebarOpen ? 'menu_open' : 'menu' }}</mat-icon>
       </button>
 
-      <div class="logo-container">
+      <div class="logo-container" (click)="navigateToDashboard()">
         <img src="../../../assets/images/Vector.svg" alt="Legal Assistance System Logo" class="header-logo" />
         <span class="app-title">{{label.COMMON.LEGAL_ASSISTANCE_SYSTEM}}</span>
       </div>

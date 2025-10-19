@@ -1,0 +1,170 @@
+@use '../../../../styles/themes/variables' as vars;
+
+// Dashboard Container
+.dashboard-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
+
+// Dashboard Header
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(1, 55, 114, 0.1);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .dashboard-welcome {
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: vars.$nexus-primary;
+      margin: 0 0 8px 0;
+      line-height: 1.2;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .dashboard-subtitle {
+      font-size: 1rem;
+      color: vars.$nexus-medium-gray;
+      margin: 0;
+      font-weight: 400;
+
+      @media (max-width: 768px) {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  .dashboard-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: vars.$nexus-light-gray;
+    border-radius: 8px;
+    color: vars.$nexus-primary;
+    font-weight: 500;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      font-size: 0.875rem;
+
+      @media (max-width: 768px) {
+        font-size: 0.8125rem;
+      }
+    }
+  }
+}
+
+// Dashboard Sections
+.dashboard-section {
+  margin-bottom: 32px;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: vars.$nexus-primary;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      @media (max-width: 768px) {
+        font-size: 1.25rem;
+      }
+
+      .section-icon {
+        color: vars.$nexus-warn;
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+
+      .section-icon-action {
+        color: vars.$nexus-info;
+      }
+    }
+  }
+}
+
+// Quick Actions
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-transform: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(1, 55, 114, 0.15);
+    transition: all 0.25s ease-in-out;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(1, 55, 114, 0.25);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Section Divider
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(1, 55, 114, 0.2), transparent);
+  margin: 40px 0;
+
+  @media (max-width: 768px) {
+    margin: 24px 0;
+  }
+}

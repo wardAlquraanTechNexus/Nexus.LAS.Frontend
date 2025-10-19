@@ -6,19 +6,23 @@
       <div *ngFor="let item of menuItems" class="menu-item-container">
         
         <!-- Parent Menu Item -->
-        <div class="menu-item" 
+        <div class="menu-item"
              (click)="onMenuItemClick(item, $event)"
              [class.has-children]="hasChild(0, item)"
              [class.expanded]="isExpanded(item)">
-          
-          <a *ngIf="!hasChild(0, item)"  
+
+          <a *ngIf="!hasChild(0, item)"
              class="tree-link"
-             routerLinkActive="router-link-active">
+             [class.active]="isMenuActive(item)"
+             routerLinkActive="router-link-active"
+             [routerLinkActiveOptions]="{exact: false}">
             <mat-icon *ngIf="item.iconClass">{{ item.iconClass }}</mat-icon>
             <span>{{ item.name }}</span>
           </a>
-          
-          <div *ngIf="hasChild(0, item)" class="tree-link expandable-link">
+
+          <div *ngIf="hasChild(0, item)"
+               class="tree-link expandable-link"
+               [class.has-active-child]="hasActiveChild(item)">
             <mat-icon *ngIf="item.iconClass">{{ item.iconClass }}</mat-icon>
             <span>{{ item.name }}</span>
             <mat-icon class="expand-icon">
@@ -28,13 +32,15 @@
         </div>
 
         <!-- Child Menu Items (Vertical Expansion) -->
-        <div *ngIf="hasChild(0, item) && isExpanded(item)" 
+        <div *ngIf="hasChild(0, item) && isExpanded(item)"
              class="child-menu-container slide-down">
           <div *ngFor="let child of item.children" class="child-menu-item">
-            <a *ngIf="child.path" 
+            <a *ngIf="child.path"
                (click)="onMenuItemClick(child, $event)"
                class="child-link"
-               routerLinkActive="router-link-active">
+               [class.active]="isMenuActive(child)"
+               routerLinkActive="router-link-active"
+               [routerLinkActiveOptions]="{exact: false}">
               <mat-icon *ngIf="child.iconClass">{{ child.iconClass }}</mat-icon>
               <span>{{ child.name }}</span>
             </a>

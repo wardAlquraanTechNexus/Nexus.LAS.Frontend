@@ -94,5 +94,21 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
     })
   }
 
+  getExpiryStatus(expiryDate: any): 'critical' | 'warning' | 'normal' {
+    if (!expiryDate) return 'normal';
+
+    const today = new Date();
+    const expiry = new Date(expiryDate);
+    const daysUntilExpiry = Math.floor((expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (daysUntilExpiry < 0) return 'critical'; // Already expired
+    if (daysUntilExpiry <= 30) return 'warning'; // Expiring soon
+    return 'normal';
+  }
+
+  getRowClass(row: GlobalDocumentExpiredDto): string {
+    const status = this.getExpiryStatus(row.expiryDate);
+    return `expiry-status-${status}`;
+  }
 
 }

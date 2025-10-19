@@ -47,10 +47,16 @@
         transform: translateX(-4px);
       }
 
-      &.router-link-active::before {
+      &.router-link-active::before,
+      &.active::before {
         left: auto;
         right: 0;
         border-radius: 4px 0 0 4px;
+      }
+
+      &.has-active-child::after {
+        right: auto;
+        left: 4px;
       }
     }
 
@@ -66,7 +72,8 @@
           transform: translateX(-4px);
         }
 
-        &.router-link-active::before {
+        &.router-link-active::before,
+        &.active::before {
           left: auto;
           right: 0;
           border-radius: 2px 0 0 2px;
@@ -258,11 +265,13 @@
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
 
-      &.router-link-active {
-        background: rgba(255, 255, 255, 0.2);
+      &.router-link-active,
+      &.active {
+        background: rgba(255, 255, 255, 0.25);
         color: rgba(255, 255, 255, 1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        font-weight: 600;
+
         &::before {
           content: '';
           position: absolute;
@@ -270,8 +279,33 @@
           top: 0;
           bottom: 0;
           width: 4px;
-          background: rgba(255, 255, 255, 0.8);
+          background: rgba(255, 255, 255, 0.95);
           border-radius: 0 4px 4px 0;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        mat-icon {
+          opacity: 1;
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+        }
+      }
+
+      &.has-active-child {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.95);
+
+        &::after {
+          content: '';
+          position: absolute;
+          right: 4px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.8);
+          box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
         }
       }
 
@@ -335,10 +369,13 @@
             transform: translateX(4px);
           }
           
-          &.router-link-active {
-            background: rgba(255, 255, 255, 0.15);
+          &.router-link-active,
+          &.active {
+            background: rgba(255, 255, 255, 0.2);
             color: rgba(255, 255, 255, 1);
-            
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
             &::before {
               content: '';
               position: absolute;
@@ -346,8 +383,15 @@
               top: 0;
               bottom: 0;
               width: 3px;
-              background: rgba(255, 255, 255, 0.6);
+              background: rgba(255, 255, 255, 0.9);
               border-radius: 0 2px 2px 0;
+              box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+            }
+
+            mat-icon {
+              opacity: 1;
+              transform: scale(1.1);
+              filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
             }
           }
           

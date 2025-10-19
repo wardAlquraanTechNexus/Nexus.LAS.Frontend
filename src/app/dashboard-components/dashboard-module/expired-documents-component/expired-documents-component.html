@@ -1,34 +1,31 @@
-<div  class="nexus-entity-container">
+<div class="nexus-entity-container">
 
-  <!-- SECTION 1: Title and Records -->
-  <div class="nexus-entity-section">
-    <div class="nexus-entity-header">
-      <div class="nexus-entity-title">
-        <h2>Expired Documents</h2>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- SECTION 3: Data Grid -->
+  <!-- SECTION 1: Data Grid -->
   <div class="nexus-entity-section">
     <div class="nexus-entity-data">
       <!-- Loading -->
-      <div *ngIf="showLoading" class="nexus-loading">
+      <div *ngIf="showLoading" class="nexus-loading" role="status" aria-live="polite">
         <mat-spinner></mat-spinner>
+        <span class="sr-only">Loading expired documents...</span>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!showLoading && data.totalRecords === 0" class="empty-state">
+        <mat-icon class="empty-icon">check_circle</mat-icon>
+        <h3>All Clear!</h3>
+        <p>No documents require attention at this time.</p>
       </div>
 
       <!-- Table -->
-      <div class="nexus-table-container" *ngIf="!showLoading">
-        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data" 
-          (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
-          >
+      <div class="nexus-table-container expired-docs-table" *ngIf="!showLoading && data.totalRecords > 0">
+        <app-shared-table
+          [displayedColumns]="displayColumns"
+          [paginateResult]="data"
+          (onChangePage)="changePage($event)"
+          (onSortChangeEvent)="changeSort($event)">
         </app-shared-table>
       </div>
     </div>
   </div>
-
-
 
 </div>

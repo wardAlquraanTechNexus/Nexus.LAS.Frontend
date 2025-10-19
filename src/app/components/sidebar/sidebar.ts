@@ -2,10 +2,11 @@ import { Component, Inject, PLATFORM_ID, OnDestroy, OnInit } from '@angular/core
 import { isPlatformBrowser } from '@angular/common';
 import { MenuTree } from '../../models/menus/menu-tree';
 import { environment } from '../../../environment/environment';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { LanguageService } from '../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,13 +17,15 @@ import { Subscription } from 'rxjs';
 export class Sidebar implements OnInit, OnDestroy {
   private isBrowser: boolean;
   private toggleListener: ((event: any) => void) | null = null;
+  private collapseListener: ((event: any) => void) | null = null;
   private langSub?: Subscription;
-
+  private routerSub?: Subscription;
 
   menuItems: MenuTree[] = [];
   originalMenuItems: MenuTree[] = []; // Store original menu items for translation
   sidebarOpen = true;
   expandedNodes = new Set<number>(); // Track expanded menu items
+  currentRoute: string = '';
   childrenAccessor = (node: any) => node.children ?? [];
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
@@ -47,6 +50,12 @@ export class Sidebar implements OnInit, OnDestroy {
           : "sidebar-toggle-btn";
       };
       document.addEventListener('toggleSidebar', this.toggleListener);
+
+      // Listen for collapse all menus event from navbar
+      this.collapseListener = (event: any) => {
+        this.collapseAllMenus();
+      };
+      document.addEventListener('collapseSidebar', this.collapseListener);
     }
   }
 
@@ -69,12 +78,25 @@ export class Sidebar implements OnInit, OnDestroy {
       } else {
         this.originalMenuItems = [];
       }
+
+      // Set current route
+      this.currentRoute = this.router.url;
+
+      // Subscribe to router events to track current route
+      this.routerSub = this.router.events
+        .pipe(filter(event => event instanceof NavigationEnd))
+        .subscribe((event: NavigationEnd) => {
+          this.currentRoute = event.urlAfterRedirects;
+          this.autoExpandActiveParent();
+        });
     } else {
       this.originalMenuItems = [];
     }
 
     this.translateMenuItems();
 
+    // Auto-expand parent of active child menu
+    this.autoExpandActiveParent();
 
     // Subscribe to language changes
     this.langSub = this.langService.language$.subscribe(lang => {
@@ -137,12 +159,50 @@ export class Sidebar implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.isBrowser && this.toggleListener) {
-      document.removeEventListener('toggleSidebar', this.toggleListener);
+    if (this.isBrowser) {
+      if (this.toggleListener) {
+        document.removeEventListener('toggleSidebar', this.toggleListener);
+      }
+      if (this.collapseListener) {
+        document.removeEventListener('collapseSidebar', this.collapseListener);
+      }
     }
     if (this.langSub) {
       this.langSub.unsubscribe();
     }
+    if (this.routerSub) {
+      this.routerSub.unsubscribe();
+    }
+  }
+
+  // Check if a menu item is active
+  isMenuActive(menuItem: MenuTree): boolean {
+    if (!menuItem.path) return false;
+
+    // Normalize paths for comparison
+    const currentPath = this.currentRoute.split('?')[0].toLowerCase();
+    const menuPath = menuItem.path.split('?')[0].toLowerCase();
+
+    // Exact match or starts with (for child routes)
+    return currentPath === menuPath || currentPath.startsWith(menuPath + '/');
+  }
+
+  // Check if parent menu has any active child
+  hasActiveChild(menuItem: MenuTree): boolean {
+    if (!menuItem.children || menuItem.children.length === 0) return false;
+    return menuItem.children.some(child => this.isMenuActive(child));
+  }
+
+  // Auto-expand parent menu if child is active
+  private autoExpandActiveParent(): void {
+    this.menuItems.forEach(parent => {
+      if (parent.children && parent.children.length > 0) {
+        const hasActiveChild = parent.children.some(child => this.isMenuActive(child));
+        if (hasActiveChild && !this.expandedNodes.has(parent.menuId)) {
+          this.expandedNodes.add(parent.menuId);
+        }
+      }
+    });
   }
 
   filterInDashboard(items: MenuTree[]): MenuTree[] {
@@ -196,8 +256,19 @@ export class Sidebar implements OnInit, OnDestroy {
       if(!node.path){
         node.path = "";
       }
+
+      // Collapse all menus when navigating to dashboard (root path)
+      if (node.path === '' || node.path === '/' || node.path.toLowerCase().includes('dashboard')) {
+        this.collapseAllMenus();
+      }
+
       // Always remove query params by navigating without preserving them
       this.router.navigate([node.path], { queryParams: {} });
     }
+  }
+
+  // Collapse all expanded menu items
+  collapseAllMenus(): void {
+    this.expandedNodes.clear();
   }
 }

@@ -1,0 +1,73 @@
+@use '../../../../styles/themes/variables' as vars;
+
+// Empty state styling
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: vars.$nexus-medium-gray;
+
+  .empty-icon {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: vars.$nexus-success;
+    margin: 0 auto 16px;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: vars.$nexus-primary;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+    color: vars.$nexus-medium-gray;
+  }
+}
+
+// Screen reader only class
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Expiry status styling - enhanced table appearance
+:host ::ng-deep {
+  .expired-docs-table {
+    // Add subtle styling to all rows
+    table tr {
+      transition: all 0.2s ease-in-out;
+      border-left: 4px solid transparent;
+
+      // Add hover effect
+      &:hover {
+        background-color: rgba(1, 55, 114, 0.03);
+      }
+    }
+
+    // Style specific rows based on expiry period (column data)
+    // This creates a visual hierarchy without needing rowClass binding
+    table tbody tr {
+      position: relative;
+
+      // If we can't bind rowClass, we'll use general table styling
+      // The color coding can be added via column pipes if needed
+      &:nth-child(odd) {
+        background-color: rgba(0, 0, 0, 0.01);
+      }
+    }
+  }
+
+  // Optional: Add icon or badge to expiry period column for visual indication
+  // This can be implemented via a custom pipe in the displayColumns configuration
+}

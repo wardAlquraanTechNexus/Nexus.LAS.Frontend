@@ -82,7 +82,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   listToCreated = [
     {
       name: "Person",
-      icon: "person",
+      icon: "person_add",
       value: environment.routes.AddPerson
     },
     {
@@ -112,8 +112,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
       value: environment.routes.AddFpc
     },
     {
-      name: "Documents Tracking",
-      icon: "description",
+      name: "Doc. Tracking",
+      icon: "track_changes",
       value: environment.routes.AddDocumentTracking
     },
   ]
@@ -309,6 +309,17 @@ export class NavbarComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  // Navigate to dashboard/home page
+  navigateToDashboard(): void {
+    // Collapse all sidebar menus
+    if (this.isBrowser) {
+      const event = new CustomEvent('collapseSidebar');
+      document.dispatchEvent(event);
+    }
+
+    this.router.navigate([environment.routes.dashboard]);
   }
 
   onAddNewCompany() {
