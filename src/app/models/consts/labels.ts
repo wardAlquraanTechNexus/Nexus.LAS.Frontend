@@ -11,7 +11,7 @@ export const Labels = {
             ACTIVE_PUBLIC_PERSONS: "Active Public Persons",
             ADD_PERSON: "Add Person",
             ENTER_PERSON_DETAILS: "Enter person details",
-            PERSON_ID_DOCUMENTS: "Person ID Documents",
+            PERSON_ID_DOCUMENTS: "ID Documents",
             UPLOAD_DOCUMENT: "Upload Document",
             EDIT_DOCUMENT: "Edit Document",
             EDIT_PERSON: "Edit Person",
@@ -54,7 +54,7 @@ export const Labels = {
             ADD_PERSON_IN_CHARGE: "Add Person In Charge",
             STATUS: "Status",
             PRIVATE: "Private",
-            ADD_NEW: "Add New Company",
+            ADD_NEW: "Add Company",
             ACTIVATE: "Activate",
             DEACTIVATE: "Deactivate",
             MARK_PUBLIC: "Mark as Public",
@@ -364,9 +364,6 @@ export const Labels = {
             RELATION_REQUIRED: "Relation is required",
             REAL_EASTATES: "Real Estates",
             REAL_EASTATE: "Real Estate",
-            ACTIVE_REAL_ESTATES: "Active Real Estates",
-            ACTIVE_PRIVATE_REAL_ESTATES: "Active Private Real Estates",
-            ACTIVE_PUBLIC_REAL_ESTATES: "Active Public Real Estates",
             ADD_NEW_PROPERTY: "Add New Property",
             OWNERS: "Owners",
             OWNER: "Owner",
@@ -406,6 +403,10 @@ export const Labels = {
             DOCUMENT: "Document",
             LEGAL_STATUS: "Legal Status",
             LEGAL_STATUS_REQUIRED: "Legal Status is required",
+            ACTIVE_REAL_ESTATES: "Active Real Estates",
+            ACTIVE_PRIVATE_REAL_ESTATES: "Active Private Real Estates",
+            ACTIVE_PUBLIC_REAL_ESTATES: "Active Public Real Estates",
+            ALL_REAL_ESTATES: "All Real Estates",
         },
         LAW_FIRM: {
             LAW_FIRMS: "Law Firms",
@@ -984,6 +985,7 @@ export const Labels = {
             LEGAL_STATUS: "الحالة القانونية",
             LEGAL_STATUS_REQUIRED: "الحالة القانونية مطلوبة",
             OWNER_REMARKS: "ملاحظات المالك",
+            
 
         },
         LAW_FIRM: {
