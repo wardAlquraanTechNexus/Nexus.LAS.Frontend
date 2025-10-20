@@ -38,8 +38,8 @@
             <!-- Person -->
             <div class="form-group" *ngIf="loadPersonsFn">
                 <select-auto-complete [controlName]="'personId'" [fnGet]="loadPersonsFn" [formGroup]="formGroup"
-                    [isRequired]="true" [label]="label.PROPERTY.OWNER || 'Person'" [keyToShow]="'personEnglishName'"
-                    [valueKey]="'id'">
+                    [isRequired]="true" [label]="label.PROPERTY.OWNER || 'Person'" [keyToShow]="'personName'"
+                    [valueKey]="'personsIdN'">
                 </select-auto-complete>
             </div>
 

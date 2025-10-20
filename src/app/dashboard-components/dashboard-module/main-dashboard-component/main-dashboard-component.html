@@ -68,4 +68,13 @@
     </div>
     <expired-documents></expired-documents>
   </section>
+  <section class="dashboard-section">
+    <!-- <div class="section-header">
+      <h2>
+        <mat-icon class="section-icon">warning</mat-icon>
+        Documents Requiring Attention
+      </h2>
+    </div> -->
+    <app-transaction-actions *ngIf="transactionActionStatuses" [isReadOnly]="true" [statuses]="transactionActionStatuses"></app-transaction-actions>
+  </section>
 </div>

@@ -341,12 +341,18 @@ export class TableDataPipe implements PipeTransform {
 
         case 'expired-before':
           switch (value) {
-            case 15:
+            case -15:
               return of("Expired Before 15 days");
-            case 30:
+            case -30:
               return of("Expired Before 30 days");
-            case 45:
-              return of("Expired Before 45 days or more");
+            case -45:
+              return of("Expired Before 15 days");
+              case 15:
+              return of("Expired within 15 days");
+              case 30:
+              return of("Expired within 30 days");
+              case 45:
+              return of("Expired within 45 days");
             default: return of(value);
           }
         case 'number-separator':

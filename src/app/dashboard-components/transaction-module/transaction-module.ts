@@ -38,7 +38,6 @@ import { TransactionRegisterPersonCompanyFormComponent } from './transaction-com
     TransactionRegistersComponent,
     TransactionRegisterFormComponent,
     TransactionRegisterDialogFormComponent,
-    TransactionActionsComponent,
     TransactionActionsDialogFormComponent,
     TransactionActionsFormComponent,
     TransactionActionViewDialogComponent,

@@ -70,7 +70,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   }
 
   initFormGroup(): void {
-    debugger;
     if (this.object) {
       const group: { [key: string]: FormControl } = {};
 

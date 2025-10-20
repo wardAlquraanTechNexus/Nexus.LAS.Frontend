@@ -8,6 +8,8 @@ import { GlobalInfoDTO } from '../../models/global-models/global-info/global-inf
 import { GlobalDocumentExpiredDto } from '../../models/global-models/global-document-expired/global-document-expired';
 import { PaginateRsult } from '../../models/paginate-result';
 import { BaseParam } from '../../models/base/base-param';
+import { GlobalExpiredDocumentQuery } from '../../models/global-models/global-document-expired/global-document-expired-param';
+import { ExportModel } from '../../models/export-to-excel-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +30,13 @@ export class GlobalService extends BaseService<GlobalDocumentExpiredDto>{
     return this.httpClient.get<GlobalInfoDTO[]>(`${this.url}/globalInfo`);
   }
 
-   globalExpiredDocuments(query:BaseParam): Observable<PaginateRsult<GlobalDocumentExpiredDto>> {
+   globalExpiredDocuments(query:GlobalExpiredDocumentQuery): Observable<PaginateRsult<GlobalDocumentExpiredDto>> {
     let param = this.httpParams(query);
     return this.httpClient.get<PaginateRsult<GlobalDocumentExpiredDto>>(`${this.url}/GlobalDocumentExpired` , {params : param});
   }
+
+    exportToExcel(): Observable<ExportModel> {
+      return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel");
+    }
 
 }

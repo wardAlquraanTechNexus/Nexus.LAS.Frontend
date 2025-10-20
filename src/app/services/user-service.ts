@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base/base-service';
 import { User } from '../models/user/user';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { UploadUserImageCommand } from '../models/user/upload-user-image/upload-user-image-command';
 import { Observable } from 'rxjs';
 import { UploadImageDto } from '../models/base/upload-image-dto';
 import { PaginateRsult } from '../models/paginate-result';
-import { UserDto } from '../models/user/get-user-dto/user-dto';
+import { UploadUserImageCommand } from '../models/user/param/upload-user-image-command';
+import { UserDto } from '../models/user/dtos/user-dto';
+import { LinkUserPersonParam } from '../models/user/param/link-user-person-param';
+import { GetLdStuddPersonsParam } from '../models/user/dtos/get-ld-studd-persons';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +37,15 @@ export class UserService extends BaseService<User> {
   searchUser(paramsObj?: { [param: string]: any }): Observable<PaginateRsult<UserDto>> {
     let params = this.httpParams(paramsObj)
     return this.httpClient.get<PaginateRsult<UserDto>>(this.url + "/SearchUser", { params });
+  }
+
+  getLdStuffPersons(query: GetLdStuddPersonsParam ): Observable<PaginateRsult<UserDto>> {
+    let params = this.httpParams(query)
+    return this.httpClient.get<PaginateRsult<UserDto>>(this.url + "/GetLdStuffPersons", { params });
+  }
+
+
+  linkUserToPerson(linkUserToPerson:LinkUserPersonParam): Observable<void> {
+    return this.httpClient.post<void>(`${this.url}/LinkUserWithPerson`, linkUserToPerson);
   }
 }

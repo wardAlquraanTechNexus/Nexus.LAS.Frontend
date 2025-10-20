@@ -9,6 +9,8 @@ import { PersonService } from '../../../../../services/person-services/person-se
 import { GetPersonsDTO } from '../../../../../models/person-models/get-persons/get-person-dto';
 import { map, Observable } from 'rxjs';
 import { TransactionActionStatus } from '../../../../../models/transaction-models/transaction-action/enums/transaction-action-status';
+import { UserService } from '../../../../../services/user-service';
+import { UserDto } from '../../../../../models/user/dtos/user-dto';
 
 @Component({
   selector: 'app-transaction-actions-form',
@@ -19,7 +21,7 @@ import { TransactionActionStatus } from '../../../../../models/transaction-model
 export class TransactionActionsFormComponent extends BaseFormComponent {
   @Input() element!: TransactionActionDto;
 
-  loadPersonsFn?: (search: string) => Observable<GetPersonsDTO[]>;
+  loadPersonsFn?: (search: string) => Observable<UserDto[]>;
   statuses: any[] = [];
 
   constructor(
@@ -28,7 +30,7 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
     protected override sanitizer: DomSanitizer,
     protected override errorHandler: ErrorHandlerService,
     override langService: LanguageService,
-    private personService: PersonService
+    private userService: UserService
   ) {
     super(fb, cdr, sanitizer, errorHandler, langService);
   }
@@ -94,9 +96,9 @@ export class TransactionActionsFormComponent extends BaseFormComponent {
   }
 
   private loadPersons(search: string) {
-    return this.personService.getAllPersons({ searchBy: search, page: 0, pageSize: 100 }).pipe(
-      map(res => res.filter(p =>
-        !search || p.personEnglishName?.toLowerCase().includes(search.toLowerCase())
+    return this.userService.getLdStuffPersons({ englishName: search, page: 0, pageSize: 100 }).pipe(
+      map(res => res.collection.filter(p =>
+        !search || p.personName?.toLowerCase().includes(search.toLowerCase())
       ))
     );
   }

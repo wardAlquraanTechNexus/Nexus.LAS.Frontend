@@ -4,8 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { PaginateRsult } from '../../../../models/paginate-result';
-import { GetUserParam } from '../../../../models/user/get-user-dto/get-user-param';
-import { UserDto } from '../../../../models/user/get-user-dto/user-dto';
 import { User } from '../../../../models/user/user';
 import { UserService } from '../../../../services/user-service';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
@@ -15,6 +13,8 @@ import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
 import { UpsertCollectionOfUsersCommand, UpsertUserCommand } from '../../../../models/user-group/upsert-collection-of-users/upsert-collection-of-users';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { UserDto } from '../../../../models/user/dtos/user-dto';
+import { GetUserParam } from '../../../../models/user/param/get-user-param';
 
 @Component({
   selector: 'app-user-settings-component',
@@ -77,6 +77,10 @@ export class UserSettingsComponent extends TableFormComponent<User> {
       key: "nTLogin",
       label: "NT Login",
     },
+    {
+      key: "Action",
+      label: "Actions",
+    }
 
   ]
 

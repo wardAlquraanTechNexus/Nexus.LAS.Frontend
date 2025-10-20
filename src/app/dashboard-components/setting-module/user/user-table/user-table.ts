@@ -1,24 +1,23 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { User } from '../../../../models/user/user';
-import { Sort } from '@angular/material/sort';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { PaginateRsult } from '../../../../models/paginate-result';
-import { BaseParam } from '../../../../models/base/base-param';
-import { GetUserParam } from '../../../../models/user/get-user-dto/get-user-param';
 import { UserService } from '../../../../services/user-service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
-import { UserDto } from '../../../../models/user/get-user-dto/user-dto';
 import { LanguageService } from '../../../../services/language-service';
+import { GetUserParam } from '../../../../models/user/param/get-user-param';
+import { UserDto } from '../../../../models/user/dtos/user-dto';
+import { UserDialogFormComponent } from './user-dialog-form-component/user-dialog-form-component';
 
 @Component({
   selector: 'app-user-table',
   standalone:false,
   templateUrl: './user-table.html',
-  styleUrl: './user-table.scss'
+  // styleUrls: ['./../../../_shared/styles/table-style.scss']
 })
 export class UserTable extends TableFormComponent<User>
 {
@@ -51,7 +50,8 @@ export class UserTable extends TableFormComponent<User>
       },
       {
         key: "personsIdN",
-        label: this.label.COMMON.ID,
+        label: this.label.PERSON.PERSON,
+        pipes: ['person']
       },
       {
         key: "email",
@@ -73,6 +73,10 @@ export class UserTable extends TableFormComponent<User>
         key: "nTLogin",
         label: this.label.COMMON.NT_LOGGIN,
       },
+      {
+        key: "action",
+        label: this.label.COMMON.ACTIONS,
+      }
     ];
   }
 
@@ -104,4 +108,22 @@ export class UserTable extends TableFormComponent<User>
       })
     })
   }
+
+  onEdit(row: any) {
+      const element = {
+        username: row.username,
+        personId: row.personsIdN
+      };
+      const dialogRef = this.dialog.open(UserDialogFormComponent, {
+        disableClose: true,
+        data: element,
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.fetchData();
+        }
+      })
+  
+    }
 }

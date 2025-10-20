@@ -16,17 +16,20 @@ import { MenuService } from '../../../../services/menu-service';
 import { TransactionActionViewDialogComponent } from './transaction-action-view-dialog-component/transaction-action-view-dialog-component';
 import { TransactionActionStatus } from '../../../../models/transaction-models/transaction-action/enums/transaction-action-status';
 import { map, Observable } from 'rxjs';
-import { GetPersonsDTO } from '../../../../models/person-models/get-persons/get-person-dto';
-import { PersonService } from '../../../../services/person-services/person-service';
+import { UserService } from '../../../../services/user-service';
+import { UserDto } from '../../../../models/user/dtos/user-dto';
 
 @Component({
   selector: 'app-transaction-actions',
   standalone: false,
   templateUrl: './transaction-actions-component.html',
-  styleUrls: ['../../../_shared/styles/table-style.scss']
+  styleUrls: ['../../../_shared/styles/table-style.scss', './transaction-actions-component.scss']
 })
 export class TransactionActionsComponent  extends TableFormComponent<TransactionAction> {
-  loadPersonsFn?: (search: string) => Observable<GetPersonsDTO[]>;
+  
+  @Input() isReadOnly = false;
+  @Input() statuses : TransactionActionStatus[] | null = null;
+  loadPersonsFn?: (search: string) => Observable<UserDto[]>;
   formGroup = new FormGroup({
     personId: new FormControl(null)
   });
@@ -35,7 +38,7 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   override params: GetTransactionActionParam = {
     page: 0,
     pageSize: 10,
-    transactionId: 0
+    transactionId: null,
   };
   override data: PaginateRsult<TransactionActionDto> = {
     collection: [],
@@ -55,14 +58,19 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
     private dialog: MatDialog,
     private menuService: MenuService,
     override langService: LanguageService,
-    private personService: PersonService
+    private userService: UserService
 
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
   override ngOnInit(): void {
-    this.params.transactionId = this.transaction.id;
+    if(this.transaction) {
+      this.params.transactionId = this.transaction.id;
+    }
+    if(this.statuses && this.statuses.length > 0){
+      this.params.statuses = this.statuses;
+    }
     super.ngOnInit();
     this.loadPersonsFn = (search: string) => this.loadPersons(search);
 
@@ -71,10 +79,6 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   override setDisplayColumns() {
     this.displayColumns = [
 
-      {
-        key: "id",
-        label: this.label.COMMON.ID,
-      },
       { 
         key: 'personId',
         label: this.label.PROPERTY.OWNER,
@@ -98,11 +102,14 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
         key: 'actionStatus',
         label: this.label.COMMON.STATUS,
       },
-      {
-        key: "action", 
-        label: this.label.COMMON.ACTIONS
-      }
+      
     ];
+    if(!this.isReadOnly){
+      this.displayColumns.push({
+        key: "action",
+        label: this.label.COMMON.ACTIONS,
+      });
+    }
 
   }
   override fetchData() {
@@ -200,9 +207,9 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   
 }
 private loadPersons(search: string) {
-  return this.personService.getAllPersons({ searchBy: search, page: 0, pageSize: 100 }).pipe(
-    map(res => res.filter(p =>
-      !search || p.personEnglishName?.toLowerCase().includes(search.toLowerCase())
+  return this.userService.getLdStuffPersons({ englishName: search , page: 0, pageSize: 100 }).pipe(
+    map(res => res.collection.filter(p =>
+      !search || p.personName?.toLowerCase().includes(search.toLowerCase())
     ))
   );
 }

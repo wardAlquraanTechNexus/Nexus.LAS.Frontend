@@ -3,6 +3,20 @@
   <!-- SECTION 1: Data Grid -->
   <div class="nexus-entity-section">
     <div class="nexus-entity-data">
+      <div class="nexus-entity-filters">
+        <div class="nexus-filters-container">
+          <select-expiry-dates [formGroup]="formGroup" [controlName]="'expiredPeriod'" [listDates]="listDates"
+            (onExpirySelect)="onExpirySelect($event)">
+
+          </select-expiry-dates>
+
+          <div class="nexus-filter-actions">
+            <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
+              <mat-icon>download</mat-icon> {{ label.COMPANY.EXPORT }}
+            </button>
+          </div>
+        </div>
+      </div>
       <!-- Loading -->
       <div *ngIf="showLoading" class="nexus-loading" role="status" aria-live="polite">
         <mat-spinner></mat-spinner>
@@ -18,11 +32,8 @@
 
       <!-- Table -->
       <div class="nexus-table-container expired-docs-table" *ngIf="!showLoading && data.totalRecords > 0">
-        <app-shared-table
-          [displayedColumns]="displayColumns"
-          [paginateResult]="data"
-          (onChangePage)="changePage($event)"
-          (onSortChangeEvent)="changeSort($event)">
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
+          (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
         </app-shared-table>
       </div>
     </div>

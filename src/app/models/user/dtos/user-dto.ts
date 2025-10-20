@@ -10,4 +10,5 @@ export interface UserDto {
     ntLogin?: string;
     personsIdN?: number;
     isChecked:boolean;
+    personName?: string;
 }

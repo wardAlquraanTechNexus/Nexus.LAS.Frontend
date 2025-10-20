@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth-service';
 import { environment } from '../../../../environment/environment';
-import { Language } from '../../../components/navbar-components/models/language';
 import { CommonStatus } from '../../../enums/common-status';
 import { GetCompanyDto } from '../../../models/company-models/get-company-query/get-company-dto';
 import { DocumentTrackingDto } from '../../../models/document-tracking-models/document-tracking/dtos/document-tracking-dto';
@@ -20,6 +19,8 @@ import { TransactionDialogFormComponent } from '../../transaction-module/transac
 import { Router } from '@angular/router';
 import { MenuService } from '../../../services/menu-service';
 import { MatDialog } from '@angular/material/dialog';
+import { TransactionActionStatus } from '../../../models/transaction-models/transaction-action/enums/transaction-action-status';
+import { GlobalService } from '../../../services/global-services/global-service';
 
 @Component({
   selector: 'app-main-dashboard-component',
@@ -31,10 +32,15 @@ export class MainDashboardComponent implements OnInit {
   currentUser: string = '';
   currentDate = new Date();
 
+  transactionActionStatuses: TransactionActionStatus[] = [
+    TransactionActionStatus.Pending,
+    TransactionActionStatus.New
+  ];
   constructor(
     private authService: AuthService, 
     private router:Router, 
     private menuService:MenuService,
+    private globalService:GlobalService,
     private dialog:MatDialog) {}
 
   ngOnInit(): void {
@@ -84,7 +90,7 @@ export class MainDashboardComponent implements OnInit {
     }
   
   
-  
+   
    
   
   

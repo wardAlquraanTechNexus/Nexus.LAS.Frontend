@@ -74,6 +74,7 @@ import { SelectExpiryDatesComponent } from './select-expiry-dates-component/sele
 import { SelectReminderComponent } from './select-reminder-component/select-reminder-component';
 import { PropertyFormComponent } from '../dashboard-components/property-module/property-form-component/property-form-component';
 import { PropertyDialogFormComponent } from '../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
+import { TransactionActionsComponent } from '../dashboard-components/transaction-module/transaction-components/transaction-actions-component/transaction-actions-component';
 
 
 
@@ -123,7 +124,8 @@ import { PropertyDialogFormComponent } from '../dashboard-components/property-mo
     SelectExpiryDatesComponent,
     SelectReminderComponent,
     PropertyDialogFormComponent,
-    PropertyFormComponent
+    PropertyFormComponent,
+    TransactionActionsComponent
 
   ],
   imports: [
@@ -237,7 +239,8 @@ import { PropertyDialogFormComponent } from '../dashboard-components/property-mo
     SelectExpiryDatesComponent,
     SelectReminderComponent,
     PropertyDialogFormComponent,
-    PropertyFormComponent
+    PropertyFormComponent,
+    TransactionActionsComponent
   ],
   providers: [
 

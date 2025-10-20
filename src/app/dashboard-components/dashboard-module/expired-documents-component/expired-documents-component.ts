@@ -5,7 +5,7 @@ import { GlobalDocumentExpiredDto } from '../../../models/global-models/global-d
 import { PaginateRsult } from '../../../models/paginate-result';
 import { BaseParam } from '../../../models/base/base-param';
 import { TableFormComponent } from '../../base-components/table-form-component/table-form-component';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../services/dynamic-list-service';
@@ -13,6 +13,8 @@ import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LanguageService } from '../../../services/language-service';
 import { MenuService } from '../../../services/menu-service';
 import { DisplayColumn } from '../../../models/columns/display-column';
+import { GlobalExpiredDocumentQuery } from '../../../models/global-models/global-document-expired/global-document-expired-param';
+import { downloadBlobFile } from '../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'expired-documents',
@@ -22,6 +24,9 @@ import { DisplayColumn } from '../../../models/columns/display-column';
 })
 export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocumentExpiredDto> {
 
+  formGroup = new FormGroup({
+    expiredPeriod: new FormControl(45)
+  })
   override displayColumns: DisplayColumn[] = [
     {
       key: "mainIdc",
@@ -60,10 +65,13 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
     totalRecords: 0,
     collection: []
   }
-  override params: BaseParam = {
+  override params: GlobalExpiredDocumentQuery = {
     page: 0,
-    pageSize: 10
+    pageSize: 10,
+    expiredPeriod: 45
   }
+
+  listDates: any[] = [];
   constructor(
     override service: GlobalService,
     override cdr: ChangeDetectorRef,
@@ -94,6 +102,24 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
     })
   }
 
+  exportToExcel() {
+    this.service.exportToExcel().subscribe(res => {
+      // Assuming res.data is base64 string:
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      const blob = new Blob([bytes], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      });
+
+      downloadBlobFile(blob, res.fileName || 'export.xlsx');
+    });
+  }
+
   getExpiryStatus(expiryDate: any): 'critical' | 'warning' | 'normal' {
     if (!expiryDate) return 'normal';
 
@@ -111,4 +137,43 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
     return `expiry-status-${status}`;
   }
 
+  override subscribeLanguage() {
+    this.langService.language$.subscribe(lang => {
+      this.listDates = [
+        {
+          label: this.label.COMMON.BEFORE_45_DAYS,
+          value: -45
+        },
+        {
+          label: this.label.COMMON.BEFORE_30_DAYS,
+          value: -30
+        },
+        {
+          label: this.label.COMMON.BEFORE_15_DAYS,
+          value: -15
+        },
+        {
+          label: this.label.COMMON.AFTER_15_DAYS,
+          value: 15
+        },
+        {
+          label: this.label.COMMON.AFTER_30_DAYS,
+          value: 30
+        },
+        {
+          label: this.label.COMMON.AFTER_45_DAYS,
+          value: 45
+        }
+      ];
+
+      this.applyLanguage(lang);
+      this.setDisplayColumns();
+    });
+
+  }
+
+  onExpirySelect(event: any) {
+    this.params.expiredPeriod = event;
+    this.fetchData();
+  }
 }

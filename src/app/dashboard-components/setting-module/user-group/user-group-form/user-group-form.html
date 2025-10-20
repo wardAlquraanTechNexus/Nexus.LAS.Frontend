@@ -51,9 +51,6 @@
             <mat-icon>close</mat-icon>
             Cancel
         </button>
-        <button mat-flat-button class="save-btn" (clickEmitter)="save(true)">
-            <mat-icon>save</mat-icon>
-            Save User Group
-        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save()"></app-save-button>
     </div>
 </div>
