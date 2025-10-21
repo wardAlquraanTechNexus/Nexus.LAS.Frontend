@@ -8,7 +8,7 @@ export const environment: Environment = {
   acceptFiles: "image/*,.pdf,.msg,.eml",
   routes: {
     // Core
-    dashboard: '',
+    dashboard: 'Dashboard',
 
     // Persons module
     Persons: 'Persons',
@@ -86,17 +86,17 @@ export const environment: Environment = {
     Users: 'Users',
     UserGroups: 'User-groups',
     Groups: 'Groups',
-    GroupsMenus: 'Groups-menus',
+    GroupsMenus: 'Group-menus',
     UserSettings: "User-settings",
 
 
     // Properties
     Properties: "Real-estates",
     AddProperty: "Add-real-estate",
-    AllProperties: "All-real-estates",
-    ActiveProperties: "Active-real-estates",
-    ActivePrivateProperties: "Active-private-real-estates",
-    ActivePublicProperties: "Active-public-real-estates",
+    AllProperties: "All-properties",
+    ActiveProperties: "Active-properties",
+    ActivePrivateProperties: "Active-private-properties",
+    ActivePublicProperties: "Active-public-properties",
   },
 
   rootDynamicLists: {

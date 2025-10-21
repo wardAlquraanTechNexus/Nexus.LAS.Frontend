@@ -5,5 +5,5 @@ export interface GetUserParam extends BaseParam {
     email?:string | null;
     firstName?:string | null;
     lastName?:string | null;
-    personsIdN:string|null,
+    personsIdN?:string|null,
 }

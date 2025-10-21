@@ -355,7 +355,7 @@ export const Labels = {
             BEFORE_45_DAYS: "Before 45 days",
             AFTER_15_DAYS: "Within 15 days",
             AFTER_30_DAYS: "Within 30 days",
-            AFTER_45_DAYS: "Withen 45 days",
+            AFTER_45_DAYS: "Within 45 days",
             ACTIVE_REMINDER: "Active Reminder",
             NOT_ACTIVE_REMINDER: "Not Active Reminder",
             LOAD_MORE: "Load more"

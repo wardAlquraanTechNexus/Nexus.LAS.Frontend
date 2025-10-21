@@ -114,7 +114,7 @@ export class MenuSettingComponent extends TableFormComponent<Menu> {
         this.data = users;
         this.selectedMenus = this.data.collection;
         this.groupMenuService.getAllGroupMenu({
-          groupId: this.groupId
+          groupId: this.groupId || null
         }).subscribe({
           next: (groupMenus => {
             this.groupMenus = groupMenus;

@@ -21,7 +21,8 @@ export class UserGroupService extends BaseService<UserGroup> {
     return this.httpClient.get<PaginateRsult<UserGroupDto>>(`${this.url}/GetUserGroups`, { params: this.httpParams(query) });
   }
   getAllUserGroupDTOs(query: GetAllUserGroupDTOQuery): Observable<UserGroupDto[]> {
-    return this.httpClient.get<UserGroupDto[]>(`${this.url}/GetAllUserGroups`, { params: this.httpParams(query) });
+    let params = this.httpParams(query)
+    return this.httpClient.get<UserGroupDto[]>(`${this.url}/GetAllUserGroups`, { params });
   }
    upsertCollectionOfUsers(query: UpsertCollectionOfUsersCommand): Observable<boolean> {
     return this.httpClient.put<boolean>(`${this.url}/UpsertCollectionOfUsers`, query);

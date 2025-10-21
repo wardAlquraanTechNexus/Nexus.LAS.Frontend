@@ -6,6 +6,11 @@ import { DashboardComponentModule } from './dashboard-component-module';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: environment.routes.dashboard ,
+    pathMatch: 'full'
+  },
+  {
     path: environment.routes.dashboard,
     loadChildren: () => import('./dashboard-module/dashboard-module').then(m => m.DashboardModule),
     canActivate: [authGuard]

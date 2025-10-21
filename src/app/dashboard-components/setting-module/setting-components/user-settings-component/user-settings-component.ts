@@ -110,8 +110,12 @@ export class UserSettingsComponent extends TableFormComponent<User> {
       next: (users => {
         this.data = users;
         this.selectedUsers = this.data.collection;
+        let groupId = null;
+        if(this.groupId && this.groupId >0){
+          groupId = this.groupId;
+        }
           this.userGroupService.getAllUserGroupDTOs({
-            groupId: this.groupId
+            groupId: groupId
           }).subscribe({
             next: (userGroups => {
               this.userGroups = userGroups;
