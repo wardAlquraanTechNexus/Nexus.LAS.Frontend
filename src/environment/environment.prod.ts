@@ -3,7 +3,7 @@ import type { Environment } from './types';
 export const environment: Environment = {
   production: true,
   serverUrls: {
-    host: 'https://localhost:44325/api/'
+    host: 'https://las-staging.royalgroupuae.com:8444/api/'
   },
   acceptFiles: "image/*,.pdf,.msg,.eml",
   routes: {
