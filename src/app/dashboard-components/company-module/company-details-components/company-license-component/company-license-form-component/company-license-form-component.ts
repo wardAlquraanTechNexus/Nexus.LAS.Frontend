@@ -17,8 +17,8 @@ import { LanguageService } from '../../../../../services/language-service';
 export class CompanyLicenseFormComponent extends BaseFormComponent {
   @Input() element!: CompanyLicenseDto;
   statusOptions = [
-    { label: 'Expired', value: CompanyLicenseStatus.Expired },
-    { label: 'Active', value: CompanyLicenseStatus.Active }
+    { label: 'Active', value: CompanyLicenseStatus.Active },
+    { label: 'Expired', value: CompanyLicenseStatus.Expired }
   ]; constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,

@@ -64,15 +64,13 @@
                         [label]="label.COMPANY.EXPIRY_DATE"
                         >
                         </app-date-input>
-                <div class="nexus-switch-wrapper">
+                <div class="nexus-switch-wrapper" style="display: flex; gap: 2rem; align-items: center;">
                     <div class="nexus-switch-container">
                         <mat-slide-toggle formControlName="licenseExpiryActiveReminder" color="primary"
                             class="nexus-switch">
                             {{ label.COMPANY.REMINDER || 'Active Reminder' }}
                         </mat-slide-toggle>
                     </div>
-                </div>
-                <div class="nexus-switch-wrapper">
                     <div class="nexus-switch-container">
                         <mat-slide-toggle formControlName="licensePrimary" color="primary" class="nexus-switch">
                             {{ label.COMMON.PRIMARY || 'Primary' }}

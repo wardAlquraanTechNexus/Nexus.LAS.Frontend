@@ -83,7 +83,7 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
       id: 0,
       companyIdn: this.company.id,
       licensePrimary: false,
-      licenseStatus: CompanyLicenseStatus.Expired,
+      licenseStatus: CompanyLicenseStatus.Active,
       licenseClassification: "",
       licenseNumber: "",
       licenseIssueDate: "",
