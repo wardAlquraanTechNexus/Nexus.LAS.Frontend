@@ -22,7 +22,6 @@ export class AllPropertiesComponent extends PropertyViewComponent
     override dialog: MatDialog,
     override cdr: ChangeDetectorRef,
   ) {
-    console.log('AllPropertiesComponent constructor');
     super(service, router, route, langService, dialog, cdr);
   }
 }

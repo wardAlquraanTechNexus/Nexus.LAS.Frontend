@@ -1,94 +1,153 @@
 <div class="modern-dialog-container wide-dialog" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
-    <div class="dialog-header">
-        <div class="header-content">
-            <div class="header-icon">
-                <mat-icon>article</mat-icon>
-            </div>
-            <div class="header-text">
-                <h2 class="dialog-title">
-                    {{element.id ? label.COMMON.EDIT || 'Edit' : label.COMMON.ADD || 'Add'}} {{
-                    label.COMPANY.LICENSES_AND_REGISTERS || 'Company Licenses & Register' }}
-                </h2>
-                <p class="dialog-subtitle">{{ label.COMPANY.ADD_LICENSE_OR_REGISTER || 'Enter Company License & Register
-                    Details' }}</p>
-            </div>
+  
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>article</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 class="dialog-title">
+          {{ element.id ? (label.COMMON.EDIT || 'Edit') : (label.COMMON.ADD || 'Add') }}
+          {{ label.COMPANY.LICENSES_AND_REGISTERS || 'Company Licenses & Register' }}
+        </h2>
+        <p class="dialog-subtitle">
+          {{ label.COMPANY.ADD_LICENSE_OR_REGISTER || 'Enter Company License & Register Details' }}
+        </p>
+      </div>
+    </div>
+    <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="dialog-body">
+    <form [formGroup]="formGroup" class="form-container">
+      
+      <!-- File Upload Section -->
+      <div class="form-section">
+        <file-form-group 
+          [formGroup]="formGroup" 
+          [controlName]="'file'" 
+          [element]="element"
+          [removeFileControlName]="'removeFile'" 
+          [isRequired]="true">
+        </file-form-group>
+      </div>
+
+      <!-- License Information Section -->
+        
+        <div class="row">
+          <!-- License Number -->
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{ label.COMPANY.LICENSE_NUMBER || 'License Number' }}</mat-label>
+              <input 
+                matInput 
+                formControlName="licenseNumber"
+                [placeholder]="label.COMPANY.LICENSE_NUMBER || 'Enter license number'" 
+                required>
+              <mat-error *ngIf="formGroup.get('licenseNumber')?.hasError('required')">
+                {{ label.COMPANY.LICENSE_NUMBER || 'License number is required' }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- License Classification -->
+          <div class="form-group col-md-6">
+  
+              <dl-select-auto-complete *ngIf="classificationParentId" [controlName]="'licenseClassification'" [formGroup]="formGroup"
+                        [label]="label.COMPANY.LICENSE_CLASSIFICATION || 'Classification'" [parentId]="classificationParentId" [isRequired]="true">
+                    </dl-select-auto-complete>
+          </div>
         </div>
-        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
 
-    <div class="dialog-body split-layout">
-        <!-- Left: Form -->
-        <div class="form-side">
-            <form [formGroup]="formGroup" class="dialog-content">
-
-                <file-form-group [formGroup]="formGroup" [controlName]="'file'" [element]="element"
-                    [removeFileControlName]="'removeFile'" [isRequired]="true">
-                </file-form-group>
-
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.STATUS || 'Status' }}</mat-label>
-                    <mat-select formControlName="licenseStatus" required>
-                        <mat-option *ngFor="let status of statusOptions" [value]="status.value">
-                            {{ status.label }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.LICENSE_CLASSIFICATION || 'Classification' }}</mat-label>
-                    <input matInput formControlName="licenseClassification"
-                        [placeholder]="label.COMPANY.LICENSE_CLASSIFICATION || 'Enter classification'" required />
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMPANY.LICENSE_NUMBER || 'License Number' }}</mat-label>
-                    <input matInput formControlName="licenseNumber"
-                        [placeholder]="label.COMPANY.LICENSE_NUMBER || 'Enter license number'" required />
-                </mat-form-field>
-
-
-                 <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'licenseIssueDate'"
-                        [label]="label.COMPANY.ISSUE_DATE"
-                        [requiredMsg]="label.COMPANY.ISSUE_DATE_REQUIRED"
-                        [isRequired]="true"
-                        >
-                        </app-date-input>
-
-                <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'licenseExpiryDate'"
-                        [label]="label.COMPANY.EXPIRY_DATE"
-                        >
-                        </app-date-input>
-                <div class="nexus-switch-wrapper" style="display: flex; gap: 2rem; align-items: center;">
-                    <div class="nexus-switch-container">
-                        <mat-slide-toggle formControlName="licenseExpiryActiveReminder" color="primary"
-                            class="nexus-switch">
-                            {{ label.COMPANY.REMINDER || 'Active Reminder' }}
-                        </mat-slide-toggle>
-                    </div>
-                    <div class="nexus-switch-container">
-                        <mat-slide-toggle formControlName="licensePrimary" color="primary" class="nexus-switch">
-                            {{ label.COMMON.PRIMARY || 'Primary' }}
-                        </mat-slide-toggle>
-                    </div>
-                </div>
-
-
-
-            </form>
+        <!-- Status -->
+        <div class="row">
+          <div class="form-group col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{ label.COMMON.STATUS || 'Status' }}</mat-label>
+              <mat-select formControlName="licenseStatus" required>
+                <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                  {{ status.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formGroup.get('licenseStatus')?.hasError('required')">
+                {{ label.COMMON.STATUS || 'Status is required' }}
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
-    </div>
 
-    <div class="dialog-footer">
-        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
-            <mat-icon>close</mat-icon>
-            {{ label.COMMON.CANCEL || 'Cancel' }}
-        </button>
-        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
-    </div>
+      <!-- Dates Section -->
+        
+        <div class="row">
+          <!-- Issue Date -->
+          <div class="form-group col-md-6">
+            <app-date-input
+              [formGroup]="formGroup"
+              [controlName]="'licenseIssueDate'"
+              [label]="label.COMPANY.ISSUE_DATE"
+              [requiredMsg]="label.COMPANY.ISSUE_DATE_REQUIRED"
+              [isRequired]="true">
+            </app-date-input>
+          </div>
+
+          <!-- Expiry Date -->
+          <div class="form-group col-md-6">
+            <app-date-input
+              [formGroup]="formGroup"
+              [controlName]="'licenseExpiryDate'"
+              [label]="label.COMPANY.EXPIRY_DATE">
+            </app-date-input>
+          </div>
+        </div>
+        
+        <div class="row toggles-row">
+          <!-- Active Reminder Toggle -->
+          <div class="form-group col-md-6">
+            <mat-slide-toggle 
+              formControlName="licenseExpiryActiveReminder" 
+              color="primary"
+              class="nexus-switch">
+              <span class="toggle-label">
+                {{ label.COMPANY.REMINDER || 'Active Reminder' }}
+              </span>
+            </mat-slide-toggle>
+          </div>
+
+          <!-- Primary Toggle -->
+          <div class="form-group col-md-6">
+            <mat-slide-toggle 
+              formControlName="licensePrimary" 
+              color="primary"
+              class="nexus-switch">
+              <span class="toggle-label">
+                {{ label.COMMON.PRIMARY || 'Primary' }}
+              </span>
+            </mat-slide-toggle>
+          </div>
+        </div>
+  
+`
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div class="dialog-footer">
+    <button 
+      mat-stroked-button 
+      class="cancel-btn" 
+      (click)="cancelEdit()"
+      type="button">
+      <mat-icon>close</mat-icon>
+      {{ label.COMMON.CANCEL || 'Cancel' }}
+    </button>
+    <app-save-button 
+      [showLoading]="showLoading" 
+      (clickEmitter)="save(true)">
+    </app-save-button>
+  </div>
+
 </div>

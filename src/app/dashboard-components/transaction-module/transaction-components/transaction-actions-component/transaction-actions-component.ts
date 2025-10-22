@@ -25,10 +25,11 @@ import { UserDto } from '../../../../models/user/dtos/user-dto';
   templateUrl: './transaction-actions-component.html',
   styleUrls: ['../../../_shared/styles/table-style.scss', './transaction-actions-component.scss']
 })
-export class TransactionActionsComponent  extends TableFormComponent<TransactionAction> {
-  
+export class TransactionActionsComponent extends TableFormComponent<TransactionAction> {
+
+  @Input() title = '';
   @Input() isReadOnly = false;
-  @Input() statuses : TransactionActionStatus[] | null = null;
+  @Input() statuses: TransactionActionStatus[] | null = null;
   loadPersonsFn?: (search: string) => Observable<UserDto[]>;
   formGroup = new FormGroup({
     personId: new FormControl(null)
@@ -65,21 +66,24 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   }
 
   override ngOnInit(): void {
-    if(this.transaction) {
+    if (this.transaction) {
       this.params.transactionId = this.transaction.id;
     }
-    if(this.statuses && this.statuses.length > 0){
+    if (this.statuses && this.statuses.length > 0) {
       this.params.statuses = this.statuses;
     }
     super.ngOnInit();
     this.loadPersonsFn = (search: string) => this.loadPersons(search);
+    if (!this.title) {
+      this.title = this.label.TRANSACTION.FOLLOW_UPS;
+    }
 
   }
 
   override setDisplayColumns() {
     this.displayColumns = [
 
-      { 
+      {
         key: 'personId',
         label: this.label.PROPERTY.OWNER,
         pipes: ['person']
@@ -98,13 +102,13 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
         label: this.label.TRANSACTION.CLOSED_DATE,
         pipes: ['date']
       },
-      { 
+      {
         key: 'actionStatus',
         label: this.label.COMMON.STATUS,
       },
-      
+
     ];
-    if(!this.isReadOnly){
+    if (!this.isReadOnly) {
       this.displayColumns.push({
         key: "action",
         label: this.label.COMMON.ACTIONS,
@@ -193,31 +197,31 @@ export class TransactionActionsComponent  extends TableFormComponent<Transaction
   }
 
   viewFiles(row: TransactionActionDto) {
-  if (!row.files || row.files.length === 0) {
-    this.errorHandler.handleError('No files available for this transaction action.');
-    return;
+    if (!row.files || row.files.length === 0) {
+      this.errorHandler.handleError('No files available for this transaction action.');
+      return;
+    }
+
+    // Option 1: Open a dialog (Angular Material example)
+    this.dialog.open(TransactionActionViewDialogComponent, {
+      width: '600px',
+      data: { files: row.files }
+    });
+
+
+  }
+  private loadPersons(search: string) {
+    return this.userService.getLdStuffPersons({ englishName: search, page: 0, pageSize: 100 }).pipe(
+      map(res => res.collection.filter(p =>
+        !search || p.personName?.toLowerCase().includes(search.toLowerCase())
+      ))
+    );
   }
 
-  // Option 1: Open a dialog (Angular Material example)
-  this.dialog.open(TransactionActionViewDialogComponent, {
-    width: '600px',
-    data: { files: row.files }
-  });
-
-  
-}
-private loadPersons(search: string) {
-  return this.userService.getLdStuffPersons({ englishName: search , page: 0, pageSize: 100 }).pipe(
-    map(res => res.collection.filter(p =>
-      !search || p.personName?.toLowerCase().includes(search.toLowerCase())
-    ))
-  );
-}
-
-onSelectOwner(event:number | null){
-  this.params.personId = event;
-  this.fetchData();
-}
+  onSelectOwner(event: number | null) {
+    this.params.personId = event;
+    this.fetchData();
+  }
 
 
 

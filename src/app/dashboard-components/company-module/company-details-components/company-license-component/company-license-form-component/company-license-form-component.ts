@@ -7,6 +7,9 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
 import { CompanyLicenseStatus } from '../../../../../enums/company-license-status';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 import { LanguageService } from '../../../../../services/language-service';
+import { Observable } from 'rxjs';
+import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
+import { environment } from '../../../../../../environment/environment';
 
 @Component({
   selector: 'app-company-license-form-component',
@@ -19,7 +22,11 @@ export class CompanyLicenseFormComponent extends BaseFormComponent {
   statusOptions = [
     { label: 'Active', value: CompanyLicenseStatus.Active },
     { label: 'Expired', value: CompanyLicenseStatus.Expired }
-  ]; constructor(
+  ];
+
+  classificationParentId =  environment.rootDynamicLists.companyClass;
+
+  constructor(
     protected override fb: FormBuilder,
     protected override cdr: ChangeDetectorRef,
     protected override sanitizer: DomSanitizer,

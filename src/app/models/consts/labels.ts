@@ -72,7 +72,7 @@ export const Labels = {
             EDIT_ACCOUNT_SIGNATORY: "Edit Account Signatory", // <-- Added
             ENTER_ACCOUNT_SIGNATORY_DETAILS: "Enter account signatory details", // <-- Added
             ACCOUNT_SIGNATORY: "Account Signatory",
-            ACCOUNT_SIGNATORY_DATE: "Account Signatory Date",
+            ACCOUNT_SIGNATORY_DATE: "Appointment Date",
             BOARD_MEMBER: "Board Member",
             ACCOUNT_SIGNATORIES: "Account Signatories",
             ACTIVE_COMPANIES: "Active Companies",
@@ -161,7 +161,9 @@ export const Labels = {
             NUMBER_OF_SHARES: "Number of Shares",
             NUMBER_OF_SHARES_REQUIRED: "Number of Shares is required",
             EDIT_BOARD_MEMBER: "Edit Board Member", // <-- Added
-            ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details", // <-- Added
+            ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details", 
+            SIGNATORIES: "Signatories",
+
         },
         COMMON: {
             DOCUMENTS: "Documents",
@@ -362,7 +364,8 @@ export const Labels = {
             AFTER_45_DAYS: "Within 45 days",
             ACTIVE_REMINDER: "Active Reminder",
             NOT_ACTIVE_REMINDER: "Not Active Reminder",
-            LOAD_MORE: "Load more"
+            LOAD_MORE: "Load more",
+            TO_DO_LIST: "To-Do List",
         },
         PROPERTY: {
             RELATION_REQUIRED: "Relation is required",
@@ -745,6 +748,8 @@ export const Labels = {
             ENTER_BOARD_MEMBER_DETAILS: "أدخل تفاصيل عضو مجلس الإدارة", // <-- Added
             ADDRESS: "العنوان",
             COUNTRY: "البلد",
+            SIGNATORIES: "الموقعون",
+
         },
         COMMON: {
             DOCUMENTS: "الوثائق",
@@ -944,7 +949,8 @@ export const Labels = {
             AFTER_45_DAYS: "خلال 45 يومًا",
             ACTIVE_REMINDER: "تذكير نشط",
             NOT_ACTIVE_REMINDER: "تذكير غير نشط",
-            LOAD_MORE: "تحميل المزيد"
+            LOAD_MORE: "تحميل المزيد",
+            TO_DO_LIST: "قائمة المهام",
         },
         PROPERTY: {
             RELATION_REQUIRED: "العلاقة مطلوبة",

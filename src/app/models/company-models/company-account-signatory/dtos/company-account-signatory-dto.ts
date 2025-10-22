@@ -3,12 +3,12 @@ export interface CompanyAccountSignatoryDto{
   companyBankAccountId: number;
   personId?: number | null;
   rule?: number | null;
-  fromAmount: number;   
-  toAmount: number;     
-  description: string;  
-  accountSignatoryDate: string;
+  fromAmount?: number | null;   
+  toAmount?: number | null;     
+  description?: string | null;
+  accountSignatoryDate?: string | null;
   accountSignatoryActive: boolean;
   cessationDate?: string | null;
-  companyNameEn?:string;
-  companyNameAr?:string;
+  companyNameEn?:string | null;
+  companyNameAr?:string | null;
 }

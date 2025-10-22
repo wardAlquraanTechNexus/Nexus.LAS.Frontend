@@ -5,7 +5,7 @@ export interface CompanyLicense extends BaseEntity {
     companyIdn: number;
     licensePrimary: boolean;
     licenseStatus: string;
-    licenseClassification: string;
+    licenseClassification?: number | null;
     licenseNumber: string;
     licenseIssueDate: string;
     licenseExpiryDate?: string;

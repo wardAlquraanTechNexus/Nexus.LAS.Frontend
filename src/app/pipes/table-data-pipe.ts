@@ -139,6 +139,13 @@ export class TableDataPipe implements PipeTransform {
               return found ? found.name : '';
             })
           );
+        case 'company-classification':
+          return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyClass).pipe(
+            map(list => {
+              const found = list.find(x => x.id == value);
+              return found ? found.name : '';
+            })
+          );
         case 'dl-by-comparekey':
           if (column.compareKey) {
             return this.dlService.GetAllByParentId(element[column.compareKey]).pipe(
@@ -347,11 +354,11 @@ export class TableDataPipe implements PipeTransform {
               return of("Expired Before 30 days");
             case -45:
               return of("Expired Before 15 days");
-              case 15:
+            case 15:
               return of("Expired within 15 days");
-              case 30:
+            case 30:
               return of("Expired within 30 days");
-              case 45:
+            case 45:
               return of("Expired within 45 days");
             default: return of(value);
           }

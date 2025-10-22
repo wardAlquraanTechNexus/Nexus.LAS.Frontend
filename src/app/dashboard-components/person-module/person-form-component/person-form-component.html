@@ -48,7 +48,7 @@
                     <div class="col-12">
                         <mat-form-field class="w-100" appearance="outline">
                             <mat-label>{{ label.COMMON.NAME_AR || 'Arabic Name' }}</mat-label>
-                            <input matInput [placeholder]="label.COMMON.ADD_NAME_AR || 'Add Arabic Name'" formControlName="personArabicName"
+                            <input matInput [dir]="'rtl'" [placeholder]="label.COMMON.ADD_NAME_AR || 'Add Arabic Name'" formControlName="personArabicName"
                                 required />
                             @if (formGroup.get('personArabicName')?.touched && formGroup.get('personArabicName')?.hasError('required')) {
                                 <mat-error>

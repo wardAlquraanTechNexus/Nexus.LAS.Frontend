@@ -10,7 +10,7 @@ import { FPC } from '../../../models/fpc-models/fpc/fpc';
   selector: 'app-fpc-dialog-form-component',
   standalone: false,
   templateUrl: './fpc-dialog-form-component.html',
-  styleUrls: ['../../_shared/styles/common-dialog-form-style.scss' , './fpc-dialog-form-component.scss'],
+  styleUrls: ['../../_shared/styles/common-dialog-form-style.scss' ],
 })
 export class FpcDialogFormComponent  extends BaseDialogFormComponent<FPC> {
 

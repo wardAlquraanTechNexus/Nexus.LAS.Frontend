@@ -27,6 +27,7 @@ import { UpdatePersonCommand } from '../../../../models/person-models/update-per
 import { downloadBlob, downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 import { PersonDialogFormComponent } from '../../person-dialog-form-component/person-dialog-form-component';
 import { PersonDto } from '../../../../models/person-models/person-dto';
+import { navigate } from '../../../_shared/shared-methods/navigate';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -314,14 +315,19 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { id: result.id },
-        });
-      }
-    })
+    let path =
+          this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
+        let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            navigate(this.router , basePath , path, result.id);
+          }
+        })
 
   }
 

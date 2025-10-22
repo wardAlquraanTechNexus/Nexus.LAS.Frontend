@@ -17,10 +17,9 @@ import { EntityIDc } from '../../../../enums/entity-idc';
   styleUrl: './property-view-component.scss'
 })
 export class PropertyViewComponent implements OnInit, OnDestroy {
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
 
+
+  label!: any ;
   currentLang: LanguageCode = 'en';
 
   @Output() backToTableEmit = new EventEmitter();
@@ -40,7 +39,6 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
     protected cdr: ChangeDetectorRef,
 
   ) {
-    console.log('PropertyViewComponent constructor');
   }
 
   ngOnInit() {
@@ -48,11 +46,12 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
       if (params['id']) {
         this.propertyId = parseInt(params['id']);
         this.getProperty();
-      }else{
+      } else {
         this.backToTable();
       }
     });
     this.langService.language$.subscribe(lang => {
+      this.label = Labels[lang as keyof typeof Labels];
       this.applyLanguage(lang);
     });
 
@@ -74,7 +73,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
   navigateToTable() {
     this.backToTableEmit.emit();
   }
-   getStatusStyle() {
+  getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     switch (this.property?.status) {
@@ -150,20 +149,19 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
     });
   }
 
-   backToTable(){
+  backToTable() {
     this.propertyId = 0;
     this.router.navigate([], {
-      relativeTo: this.route, 
-      queryParams: {  }, 
+      relativeTo: this.route,
+      queryParams: {},
     });
   }
 
 
   ngOnDestroy(): void {
-    console.log('PropertyViewComponent ngOnDestroy');
   }
 
- 
+
 
 }
 

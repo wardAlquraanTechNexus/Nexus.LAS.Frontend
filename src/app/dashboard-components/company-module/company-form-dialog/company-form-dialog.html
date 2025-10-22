@@ -1,10 +1,2 @@
-@if (showLoading) {
-  <div class="spinner-overlay">
-    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
-  </div>
-}
-
-@if (!showLoading) {
-  <app-company-form [company]="element" (saveEmitter)="onSave($event)"
-    (cancelEditEmitter)="onCancel($event)"></app-company-form>
-}
+<app-company-form [company]="element" (saveEmitter)="onSave($event)" [showLoading]="showLoading"
+  (cancelEditEmitter)="onCancel($event)"></app-company-form>

@@ -65,7 +65,7 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
      this.displayColumns = [
       {
         key:"personId",
-        label: this.langService.getLabel('COMPANY.ACCOUNT_SIGNATORIES') || "Account Signatory",
+        label: this.label.COMPANY.SIGNATORIES,
         pipes:["person" , "link"]
       },
       {
@@ -89,6 +89,11 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
         key:"accountSignatoryDate",
         label: this.langService.getLabel('COMMON.DATE_OF_APPOINTMENT') || "Appointment Date",
         pipes:["date"]
+      },
+      {
+        key:"cessationDate",
+        label: this.label.COMPANY.CESSATION_DATE,
+        pipes:['date']
       },
       {
         key:"accountSignatoryActive",
@@ -126,10 +131,10 @@ export class CompanyAccountSignatoryComponent  extends TableFormComponent<Compan
       companyBankAccountId: this.companyBankAccount.id,
       personId: null,
       rule: null,
-      fromAmount: 0,
-      toAmount: 0,
-      description: "",
-      accountSignatoryDate: "",
+      fromAmount: null,
+      toAmount: null,
+      description: null,
+      accountSignatoryDate: null,
       cessationDate: null,
       accountSignatoryActive: false
     };

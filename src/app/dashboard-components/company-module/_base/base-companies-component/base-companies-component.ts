@@ -20,10 +20,11 @@ import { CompanyFormDialog } from '../../company-form-dialog/company-form-dialog
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 import { LanguageService } from '../../../../services/language-service'; // Adjust path as needed
 import { Labels } from '../../../../models/consts/labels';
+import { navigate } from '../../../_shared/shared-methods/navigate';
 
 @Component({
   selector: 'app-base-companies-component',
-  standalone:false,
+  standalone: false,
   templateUrl: './base-companies-component.html',
   styleUrl: './base-companies-component.scss'
 })
@@ -56,7 +57,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     status: true,
     private: true
   };
-  labels:any;
+  labels: any;
 
   activeStatus = CompanyStatus.Active;
   inActiveStatus = CompanyStatus.Inactive;
@@ -89,10 +90,10 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     override langService: LanguageService
 
   ) {
-    super(service, cdr, fb, router, errorHandler, route,langService);
+    super(service, cdr, fb, router, errorHandler, route, langService);
   }
 
- 
+
 
   override ngOnInit(): void {
     let routerSplitted = this.router.url.split('/');
@@ -331,12 +332,17 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       data: companyDto
     });
 
-       dialogRef.afterClosed().subscribe(result => {
+    let path =
+      this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
+    let basePath = this.menuService.getMenuByPath(environment.routes.Companies);
+
+
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { id: result.id },
-        });
+        navigate(this.router , basePath , path, result.id);
       }
     })
   }
@@ -355,7 +361,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     this.showFilters = !this.showFilters;
   }
 
-    getAuditTooltip(person: any): string {
+  getAuditTooltip(person: any): string {
     const createdBy = person?.createdBy || 'N/A';
     const createdAt = person?.createdAt ? new Date(person.createdAt).toLocaleDateString('en-GB') : 'N/A';
     const modifiedBy = person?.modifiedBy || 'N/A';
@@ -364,7 +370,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     return `Created by: ${createdBy}\nCreated at: ${createdAt}\n\nModified by: ${modifiedBy}\nModified at: ${modifiedAt}`;
   }
 
-   exportToExcel() {
+  exportToExcel() {
     this.service.exportToExcel(this.params).subscribe(res => {
       // Assuming res.data is base64 string:
       const binaryString = atob(res.data);
@@ -383,23 +389,23 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
     });
   }
 
-  
-    exportToPdf(id: number) {
-      this.service.exportToPdf({ id: id }).subscribe(res => {
-        // Assuming res.data is a base64 string
-        const binaryString = atob(res.data);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-  
-        const blob = new Blob([bytes], {
-          type: 'application/pdf'
-        });
-  
-        downloadBlobFile(blob, res.fileName || 'report.pdf');
+
+  exportToPdf(id: number) {
+    this.service.exportToPdf({ id: id }).subscribe(res => {
+      // Assuming res.data is a base64 string
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      const blob = new Blob([bytes], {
+        type: 'application/pdf'
       });
-    }
+
+      downloadBlobFile(blob, res.fileName || 'report.pdf');
+    });
+  }
 
 }

@@ -11,7 +11,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-activity-form-dialog-component',
   standalone: false,
   templateUrl: './company-activity-form-dialog-component.html',
-  styleUrl: './company-activity-form-dialog-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss' ],
 })
 export class CompanyActivityFormDialogComponent  extends BaseDialogFormComponent<CompanyActivity> {
   constructor(

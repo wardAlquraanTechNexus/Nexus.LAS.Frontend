@@ -44,7 +44,7 @@
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.COMMON.NAME_AR || 'Name Ar' }}</mat-label>
-                        <input matInput formControlName="companyArabicName" required [placeholder]="label.COMMON.NAME_AR || 'Name Ar'" />
+                        <input matInput dir="rtl" formControlName="companyArabicName" required [placeholder]="label.COMMON.NAME_AR || 'Name Ar'" />
                         <mat-error
                             *ngIf="formGroup.get('companyArabicName')?.hasError('required') && formGroup.get('companyArabicName')?.touched">
                             {{ label.COMMON.NAME_AR || 'Name Ar is required' }}

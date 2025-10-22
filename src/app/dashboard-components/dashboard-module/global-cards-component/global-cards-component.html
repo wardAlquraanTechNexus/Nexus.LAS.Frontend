@@ -19,7 +19,7 @@
     <ng-container *ngIf="!isFetching">
       <a *ngFor="let item of globalInfo"
          class="dashboard-card"
-         [routerLink]="item.path"
+         [routerLink]="'../' + item.path"
          [attr.aria-label]="item.name + ': ' + item.count + ' records'">
         <mat-card>
           <mat-card-content class="card-content">

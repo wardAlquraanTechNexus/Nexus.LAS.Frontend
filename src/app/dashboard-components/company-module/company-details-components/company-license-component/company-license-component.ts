@@ -67,7 +67,7 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
 
   override setDisplayColumns() {
     this.displayColumns = getDisplayColumns(this.langService, [
-      { key: "licenseClassification", labelKey: 'COMPANY.CLASS' },
+      { key: "licenseClassification", labelKey: 'COMPANY.CLASS', pipes: ['company-classification'] },
       { key: "licenseNumber", labelKey: 'COMPANY.CODE' },
       { key: "licenseIssueDate", labelKey: 'COMPANY.ISSUE_DATE', pipes: ["date"] },
       { key: "licenseExpiryDate", labelKey: 'COMPANY.EXPIRY_DATE', pipes: ["date"] },
@@ -84,10 +84,10 @@ export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> 
       companyIdn: this.company.id,
       licensePrimary: false,
       licenseStatus: CompanyLicenseStatus.Active,
-      licenseClassification: "",
-      licenseNumber: "",
-      licenseIssueDate: "",
-      licenseExpiryDate: "",
+      licenseClassification: null,
+      licenseNumber: null,
+      licenseIssueDate: null,
+      licenseExpiryDate: null,
       licenseExpiryActiveReminder: false,
       file: null,
     };

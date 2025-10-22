@@ -14,7 +14,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-company-activity-form-component',
   standalone: false,
   templateUrl: './company-activity-form-component.html',
-  styleUrl: './company-activity-form-component.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss'],
 })
 export class CompanyActivityFormComponent extends BaseFormComponent {
   @Input() element!: CompanyActivityDto;

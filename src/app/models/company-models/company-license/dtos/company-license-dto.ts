@@ -6,10 +6,10 @@ export interface CompanyLicenseDto extends FileDto{
   companyIdn: number;
   licensePrimary: boolean;
   licenseStatus?: CompanyLicenseStatus;
-  licenseClassification: string;
-  licenseNumber: string;
-  licenseIssueDate: string;
-  licenseExpiryDate?: string;
+  licenseClassification?: number | null;
+  licenseNumber?: string | null;
+  licenseIssueDate: string | null;
+  licenseExpiryDate?: string | null;
   licenseExpiryActiveReminder: boolean;
   removeFile?: string | null;
 }
