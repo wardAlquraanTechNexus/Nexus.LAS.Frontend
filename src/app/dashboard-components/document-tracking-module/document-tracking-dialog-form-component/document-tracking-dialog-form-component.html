@@ -1,8 +1,10 @@
 
+<base-dialog-form>
 
   <app-document-tracking-form 
     [showLoading]="showLoading"
     [element]="data"
     (saveEmitter)="onSave($event)"
     (cancelEditEmitter)="onCancel($event)">
-</app-document-tracking-form>
+  </app-document-tracking-form>
+</base-dialog-form>

@@ -1,7 +1,8 @@
-
-<app-company-activity-form-component 
-[showLoading]="showLoading"
-[element]="data"
-(saveEmitter)="onSave($event)"
-(cancelEditEmitter)="onCancel($event)"
-></app-company-activity-form-component>
+<base-dialog-form>
+    <app-company-activity-form-component
+        [showLoading]="showLoading"
+        [element]="data"
+        (saveEmitter)="onSave($event)"
+        (cancelEditEmitter)="onCancel($event)"
+    ></app-company-activity-form-component>
+</base-dialog-form> 

@@ -1,3 +1,5 @@
-<app-company-champer-of-commerce-form-component [showLoading]="showLoading" [element]="data"
-    (saveEmitter)="onSave($event)"
-    (cancelEditEmitter)="onCancel($event)"></app-company-champer-of-commerce-form-component>
+<base-dialog-form>
+    <app-company-champer-of-commerce-form-component [showLoading]="showLoading" [element]="data"
+        (saveEmitter)="onSave($event)"
+        (cancelEditEmitter)="onCancel($event)"></app-company-champer-of-commerce-form-component>
+</base-dialog-form>

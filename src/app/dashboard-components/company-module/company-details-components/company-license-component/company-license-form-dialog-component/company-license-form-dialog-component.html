@@ -1,20 +1,11 @@
-<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
 
+   <base-dialog-form>
 
-
-
-    <!-- Enhanced Body with Smooth Scrolling -->
-    <div class="dialog-body">
-
-        <ng-container>
-            <app-company-license-form-component
+   <app-company-license-form-component
             [showLoading]="showLoading"
         [element]="data"
         (saveEmitter)="onSave($event)"
         (cancelEditEmitter)="onCancel($event)">
     </app-company-license-form-component>
-        </ng-container>
-    </div>
 
-
-</div>
+   </base-dialog-form>

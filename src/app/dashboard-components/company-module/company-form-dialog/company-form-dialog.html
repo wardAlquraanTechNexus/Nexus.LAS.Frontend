@@ -1,2 +1,4 @@
-<app-company-form [company]="element" (saveEmitter)="onSave($event)" [showLoading]="showLoading"
-  (cancelEditEmitter)="onCancel($event)"></app-company-form>
+<base-dialog-form>
+  <app-company-form [company]="element" (saveEmitter)="onSave($event)" [showLoading]="showLoading"
+    (cancelEditEmitter)="onCancel($event)"></app-company-form>
+</base-dialog-form>

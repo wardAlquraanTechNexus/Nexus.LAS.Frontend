@@ -6,7 +6,7 @@ import { Labels } from '../../../models/consts/labels';
 import { LanguageCode } from '../../../models/types/lang-type';
 
 @Component({
-  selector: 'app-base-dialog-form-component',
+  selector: 'base-dialog-form',
   standalone: false,
   templateUrl: './base-dialog-form-component.html',
   styleUrl: './base-dialog-form-component.scss'

@@ -1,7 +1,8 @@
-
-<app-company-person-in-charge-form-component 
-[showLoading]="showLoading"
-[element]="data"
-(saveEmitter)="onSave($event)"
-(cancelEditEmitter)="onCancel($event)"
-></app-company-person-in-charge-form-component>
+<base-dialog-form>
+   <app-company-person-in-charge-form-component 
+       [showLoading]="showLoading"
+       [element]="data"
+       (saveEmitter)="onSave($event)"
+       (cancelEditEmitter)="onCancel($event)"
+   ></app-company-person-in-charge-form-component>
+</base-dialog-form>

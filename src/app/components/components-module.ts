@@ -75,6 +75,7 @@ import { SelectReminderComponent } from './select-reminder-component/select-remi
 import { PropertyFormComponent } from '../dashboard-components/property-module/property-form-component/property-form-component';
 import { PropertyDialogFormComponent } from '../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
 import { TransactionActionsComponent } from '../dashboard-components/transaction-module/transaction-components/transaction-actions-component/transaction-actions-component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -159,7 +160,8 @@ import { TransactionActionsComponent } from '../dashboard-components/transaction
     MatCardModule,
     MatTooltipModule,
     MatExpansionModule,
-    DatePickerModule
+    DatePickerModule,
+    DragDropModule
 
   ],
   exports: [
@@ -240,7 +242,8 @@ import { TransactionActionsComponent } from '../dashboard-components/transaction
     SelectReminderComponent,
     PropertyDialogFormComponent,
     PropertyFormComponent,
-    TransactionActionsComponent
+    TransactionActionsComponent,
+    DragDropModule
   ],
   providers: [
 

@@ -1,2 +1,4 @@
-<app-company-contract-form-component [element]="data" [showLoading]="showLoading" (saveEmitter)="onSave($event)"
-    (cancelEditEmitter)="onCancel($event)"></app-company-contract-form-component>
+<base-dialog-form>
+    <app-company-contract-form-component [element]="data" [showLoading]="showLoading" (saveEmitter)="onSave($event)"
+        (cancelEditEmitter)="onCancel($event)"></app-company-contract-form-component>
+</base-dialog-form> 

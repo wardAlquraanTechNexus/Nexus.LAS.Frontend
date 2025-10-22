@@ -1,7 +1,9 @@
 
-<app-company-account-signatory-form-component
-[showLoading]="showLoading"
-[element]="data"
-(saveEmitter)="onSave($event)"
-(cancelEditEmitter)="onCancel($event)"
-></app-company-account-signatory-form-component>
+    <base-dialog-form>
+      <app-company-account-signatory-form-component
+        [showLoading]="showLoading"
+        [element]="data"
+        (saveEmitter)="onSave($event)"
+        (cancelEditEmitter)="onCancel($event)"
+      ></app-company-account-signatory-form-component>
+    </base-dialog-form>

@@ -1,8 +1,9 @@
 
-
-<app-company-phone-form-component
-[showLoading]="showLoading"
-[element]="data"
-(saveEmitter)="onSave($event)"
-(cancelEditEmitter)="onCancel($event)"
-></app-company-phone-form-component>
+<base-dialog-form>
+    <app-company-phone-form-component
+        [showLoading]="showLoading"
+        [element]="data"
+        (saveEmitter)="onSave($event)"
+        (cancelEditEmitter)="onCancel($event)"
+    ></app-company-phone-form-component>
+</base-dialog-form>
