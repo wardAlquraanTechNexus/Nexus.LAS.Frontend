@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { LanguageService } from '../../../../services/language-service';
 import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
-import { environment } from '../../../../../environment/environment.prod';
+import { environment } from '../../../../../environment/environment';
 import { CommonStatus } from '../../../../enums/common-status';
 import { CompanyStatus } from '../../../../enums/company-status';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';

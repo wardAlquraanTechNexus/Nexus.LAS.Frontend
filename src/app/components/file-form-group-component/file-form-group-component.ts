@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { environment } from '../../../environment/environment.prod';
+import { environment } from '../../../environment/environment';
 import { LanguageService } from '../../services/language-service';
 import { base64ToBlob, downloadBlobFile } from '../../dashboard-components/_shared/shared-methods/downloadBlob';
 import { Labels } from '../../models/consts/labels';

@@ -3,7 +3,7 @@ import { CompanyBoardMemberDto } from '../../../../../models/company-models/comp
 import { FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthRequest } from '../models/auth-request';
-import { environment } from '../../environment/environment.prod';
+import { environment } from '../../environment/environment';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { RegisterResponse } from '../models/register-response';

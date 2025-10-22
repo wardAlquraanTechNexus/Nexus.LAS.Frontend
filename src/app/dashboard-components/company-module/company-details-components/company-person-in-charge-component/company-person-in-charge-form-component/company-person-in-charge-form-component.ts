@@ -9,7 +9,7 @@ import { filter, map, Observable } from 'rxjs';
 import { PersonService } from '../../../../../services/person-services/person-service';
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 import { LanguageService } from '../../../../../services/language-service';
 

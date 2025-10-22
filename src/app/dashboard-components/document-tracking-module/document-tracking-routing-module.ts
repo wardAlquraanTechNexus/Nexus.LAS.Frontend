@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllDocumentTrackingsComponent } from './all-document-trackings-component/all-document-trackings-component';
-import { environment } from '../../../environment/environment.prod';
+import { environment } from '../../../environment/environment';
 
 const routes: Routes = [
   {

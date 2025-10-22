@@ -7,7 +7,7 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { Observable } from 'rxjs';
 import { DynamicList } from '../../../../../models/dynamic-list/dynamic-list';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({

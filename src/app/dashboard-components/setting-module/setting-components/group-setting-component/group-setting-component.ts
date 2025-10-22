@@ -11,7 +11,7 @@ import { PaginateRsult } from '../../../../models/paginate-result';
 import { GroupService } from '../../../../services/group-service';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { GroupFormDialog } from '../../group/group-table/group-form-dialog/group-form-dialog';
-import { environment } from '../../../../../environment/environment.prod';
+import { environment } from '../../../../../environment/environment';
 import { LanguageService } from '../../../../services/language-service';
 
 @Component({

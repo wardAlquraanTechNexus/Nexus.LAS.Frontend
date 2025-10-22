@@ -15,7 +15,7 @@ import { CompanyService } from '../../../../../services/company-services/company
 import { PersonService } from '../../../../../services/person-services/person-service';
 import { EntityIDc } from '../../../../../enums/entity-idc';
 import { Company } from '../../../../../models/company-models/company';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 
 @Component({
   selector: 'app-property-owner-form',

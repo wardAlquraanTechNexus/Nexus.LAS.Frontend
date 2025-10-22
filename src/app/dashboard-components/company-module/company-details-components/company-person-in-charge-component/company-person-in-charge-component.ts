@@ -13,7 +13,7 @@ import { PaginateRsult } from '../../../../models/paginate-result';
 import { CompanyPersonInChargeDialogFormComponent } from './company-person-in-charge-dialog-form-component/company-person-in-charge-dialog-form-component';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../../../services/menu-service';
-import { environment } from '../../../../../environment/environment.prod';
+import { environment } from '../../../../../environment/environment';
 import { LanguageService } from '../../../../services/language-service';
 import { Labels } from '../../../../models/consts/labels';
 

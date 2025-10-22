@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { LawFirmBranchDto } from '../../../../../models/law-firm-models/law-firm-branch/dtos/law-firm-branch-dto';
 import { FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { LanguageService } from '../../../../../services/language-service';

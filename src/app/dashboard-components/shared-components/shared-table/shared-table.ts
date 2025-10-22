@@ -11,7 +11,7 @@ import { LanguageService } from '../../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DynamicListService } from '../../../services/dynamic-list-service';
-import { environment } from '../../../../environment/environment.prod';
+import { environment } from '../../../../environment/environment';
 import { map, Observable, of } from 'rxjs';
 import { PersonService } from '../../../services/person-services/person-service';
 import { CompanyService } from '../../../services/company-services/company-service';

@@ -10,7 +10,7 @@ import { LawFirmExpertiseService } from '../../../../services/law-firm-services/
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../../environment/environment.prod';
+import { environment } from '../../../../../environment/environment';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageService } from '../../../../services/language-service';
 import { MenuService } from '../../../../services/menu-service';

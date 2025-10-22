@@ -15,7 +15,7 @@ import { CompanyShareholderDialogFormComponent } from './company-shareholder-dia
 import { EntityIDc } from '../../../../enums/entity-idc';
 import { CompanyCapitalService } from '../../../../services/company-services/company-capital-service';
 import { MenuService } from '../../../../services/menu-service';
-import { environment } from '../../../../../environment/environment.prod';
+import { environment } from '../../../../../environment/environment';
 import { LanguageService } from '../../../../services/language-service';
 
 @Component({

@@ -5,7 +5,7 @@ import { DynamicListService } from '../../../services/dynamic-list-service';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { map, Observable, tap } from 'rxjs';
-import { environment } from '../../../../environment/environment.prod';
+import { environment } from '../../../../environment/environment';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LanguageService } from '../../../services/language-service';
 import { DynamicList } from '../../../models/dynamic-list/dynamic-list';

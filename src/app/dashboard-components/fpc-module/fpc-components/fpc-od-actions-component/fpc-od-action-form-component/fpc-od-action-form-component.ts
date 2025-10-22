@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { FPCODDto } from '../../../../../models/fpc-models/fpc-od/dtos/fpc-od-dto';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';

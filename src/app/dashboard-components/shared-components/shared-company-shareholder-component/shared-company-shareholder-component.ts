@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../environment/environment.prod';
+import { environment } from '../../../../environment/environment';
 import { EntityIDc } from '../../../enums/entity-idc';
 import { DisplayColumn } from '../../../models/columns/display-column';
 import { CompaniesShareHolder } from '../../../models/company-models/company-share-holder/company-share-holder';

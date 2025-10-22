@@ -8,7 +8,7 @@ import { ErrorHandlerService } from '../../../../../services/error-handler.servi
 import { LanguageService } from '../../../../../services/language-service';
 import { LawFirmService } from '../../../../../services/law-firm-services/law-firm-service';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { base64ToBlob, downloadBlobFile } from '../../../../_shared/shared-methods/downloadBlob';
 
 @Component({

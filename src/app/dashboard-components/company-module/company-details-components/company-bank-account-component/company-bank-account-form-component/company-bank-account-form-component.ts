@@ -3,7 +3,7 @@ import { BaseFormComponent } from '../../../../base-components/base-form-compone
 import { CompanyBankAccountDto } from '../../../../../models/company-models/company-bank-account/dtos/company-bank-account-dto';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from '../../../../../../environment/environment.prod';
+import { environment } from '../../../../../../environment/environment';
 import { DynamicListService } from '../../../../../services/dynamic-list-service';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';

@@ -12,7 +12,7 @@ import { EditPersonOtherDocumentView } from '../../person-other-document-view/ed
 import { PersonOtherDocument } from '../../../../models/person-models/person-other-document/person-other-document';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { Observable, Subscription } from 'rxjs';
-import { environment } from '../../../../../environment/environment.prod';
+import { environment } from '../../../../../environment/environment';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { LanguageService } from '../../../../services/language-service';
