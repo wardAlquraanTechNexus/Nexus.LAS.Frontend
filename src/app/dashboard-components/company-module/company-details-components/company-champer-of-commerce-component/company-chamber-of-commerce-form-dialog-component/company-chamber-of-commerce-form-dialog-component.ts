@@ -1,23 +1,23 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
-import { CompanyChamperOfCommerceService } from '../../../../../services/company-services/company-champer-of-commerce-service';
+import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-chamber-of-commerce/dtos/company-chamber-of-commerce-dto';
+import { CompanyChamberOfCommerceService } from '../../../../../services/company-services/company-chamber-of-commerce-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BaseDialogFormComponent } from '../../../../base-components/base-dialog-form-component/base-dialog-form-component';
-import { CompanyChamberOfCommerce } from '../../../../../models/company-models/company-champer-of-commerce/company-champer-of-commerce';
+import { CompanyChamberOfCommerce } from '../../../../../models/company-models/company-chamber-of-commerce/company-chamber-of-commerce';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
-  selector: 'app-company-champer-of-commerce-form-dialog-component',
+  selector: 'app-company-chamber-of-commerce-form-dialog-component',
   standalone: false,
-  templateUrl: './company-champer-of-commerce-form-dialog-component.html',
+  templateUrl: './company-chamber-of-commerce-form-dialog-component.html',
   styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
-export class CompanyChamperOfCommerceFormDialogComponent extends BaseDialogFormComponent<CompanyChamberOfCommerce> {
+export class CompanyChamberOfCommerceFormDialogComponent extends BaseDialogFormComponent<CompanyChamberOfCommerce> {
 
   constructor(
-    override dialogRef: MatDialogRef<CompanyChamperOfCommerceFormDialogComponent>,
+    override dialogRef: MatDialogRef<CompanyChamberOfCommerceFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public override data: CompanyChamberOfCommerceDTO,
-    override service: CompanyChamperOfCommerceService,
+    override service: CompanyChamberOfCommerceService,
     override cdr: ChangeDetectorRef,
     protected override langService: LanguageService
   ) {

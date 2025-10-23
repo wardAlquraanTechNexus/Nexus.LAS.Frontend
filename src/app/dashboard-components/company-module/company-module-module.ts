@@ -12,12 +12,12 @@ import { CompanyOverviewComponent } from './company-details-components/company-o
 import { CompanyPersonInChargeComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-component';
 import { CompanyPersonInChargeDialogFormComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-dialog-form-component/company-person-in-charge-dialog-form-component';
 import { CompanyPersonInChargeFormComponent } from './company-details-components/company-person-in-charge-component/company-person-in-charge-form-component/company-person-in-charge-form-component';
-import { CompanyChamperOfCommerceComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-component';
+import { CompanyChamberOfCommerceComponent } from './company-details-components/company-chamber-of-commerce-component/company-chamber-of-commerce-component';
 import { CompanyLicenseComponent } from './company-details-components/company-license-component/company-license-component';
 import { CompanyLicenseFormComponent } from './company-details-components/company-license-component/company-license-form-component/company-license-form-component';
 import { CompanyLicenseFormDialogComponent } from './company-details-components/company-license-component/company-license-form-dialog-component/company-license-form-dialog-component';
-import { CompanyChamperOfCommerceFormComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-form-component/company-champer-of-commerce-form-component';
-import { CompanyChamperOfCommerceFormDialogComponent } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-form-dialog-component/company-champer-of-commerce-form-dialog-component';
+import { CompanyChamberOfCommerceFormComponent } from './company-details-components/company-chamber-of-commerce-component/company-chamber-of-commerce-form-component/company-chamber-of-commerce-form-component';
+import { CompanyChamberOfCommerceFormDialogComponent } from './company-details-components/company-chamber-of-commerce-component/company-chamber-of-commerce-form-dialog-component/company-chamber-of-commerce-form-dialog-component';
 import { CompanyActivityComponent } from './company-details-components/company-activity-component/company-activity-component';
 import { CompanyActivityFormComponent } from './company-details-components/company-activity-component/company-activity-form-component/company-activity-form-component';
 import { CompanyActivityFormDialogComponent } from './company-details-components/company-activity-component/company-activity-form-dialog-component/company-activity-form-dialog-component';
@@ -58,7 +58,7 @@ import { ActivePrivateCompaniesTableComponent } from './active-private-companies
 import { ActivePublicCompaniesComponent } from './active-public-companies-component/active-public-companies-component';
 import { ActivePublicCompaniesTableComponent } from './active-public-companies-component/active-public-caompanies-table-component/active-public-companies-table-component';
 import { ActiveCompaniesTableComponent } from './active-companies-component/active-companies-table-component/active-companies-table-component';
-import { CompanyChamperOfCommerceViewDialog } from './company-details-components/company-champer-of-commerce-component/company-champer-of-commerce-view-dialog/company-champer-of-commerce-view-dialog';
+import { CompanyChamberOfCommerceViewDialog } from './company-details-components/company-chamber-of-commerce-component/company-chamber-of-commerce-view-dialog/company-chamber-of-commerce-view-dialog';
 import { CompanyLicenseViewDialogComponent } from './company-details-components/company-license-component/company-license-view-dialog-component/company-license-view-dialog-component';
 
 
@@ -73,14 +73,14 @@ import { CompanyLicenseViewDialogComponent } from './company-details-components/
     CompanyPersonInChargeComponent,
     CompanyPersonInChargeDialogFormComponent,
     CompanyPersonInChargeFormComponent,
-    CompanyChamperOfCommerceComponent,
-    CompanyChamperOfCommerceViewDialog,
+    CompanyChamberOfCommerceComponent,
+    CompanyChamberOfCommerceViewDialog,
     CompanyLicenseComponent,
     CompanyLicenseFormComponent,
     CompanyLicenseFormDialogComponent,
     CompanyLicenseViewDialogComponent,
-    CompanyChamperOfCommerceFormComponent,
-    CompanyChamperOfCommerceFormDialogComponent,
+    CompanyChamberOfCommerceFormComponent,
+    CompanyChamberOfCommerceFormDialogComponent,
     CompanyActivityComponent,
     CompanyActivityFormComponent,
     CompanyActivityFormDialogComponent,

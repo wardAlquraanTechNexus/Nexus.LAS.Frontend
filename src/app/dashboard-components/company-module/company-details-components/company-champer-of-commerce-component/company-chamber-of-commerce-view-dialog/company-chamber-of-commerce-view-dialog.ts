@@ -1,37 +1,37 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { CompanyChamperOfCommerceService } from '../../../../../services/company-services/company-champer-of-commerce-service';
+import { CompanyChamberOfCommerceService } from '../../../../../services/company-services/company-chamber-of-commerce-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { base64ToBlob, downloadBlob } from '../../../../_shared/shared-methods/downloadBlob';
-import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
+import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-chamber-of-commerce/dtos/company-chamber-of-commerce-dto';
 import { LanguageService } from '../../../../../services/language-service';
 import { Labels } from '../../../../../models/consts/labels';
 import { LanguageCode } from '../../../../../models/types/lang-type';
 
 @Component({
-  selector: 'app-company-champer-of-commerce-view-dialog',
+  selector: 'app-company-chamber-of-commerce-view-dialog',
   standalone: false,
-  templateUrl: './company-champer-of-commerce-view-dialog.html',
-  styleUrl: './company-champer-of-commerce-view-dialog.scss'
+  templateUrl: './company-chamber-of-commerce-view-dialog.html',
+  styleUrl: './company-chamber-of-commerce-view-dialog.scss'
 })
-export class CompanyChamperOfCommerceViewDialog  implements OnInit {
+export class CompanyChamberOfCommerceViewDialog  implements OnInit {
 
   fileUrl:any;
    currentLang: LanguageCode = 'en';
     get label() {
       return Labels[this.currentLang as keyof typeof Labels];
     }
-    
+
   constructor(
-    private service: CompanyChamperOfCommerceService,
+    private service: CompanyChamberOfCommerceService,
     protected router: Router,
     private errorHandler: ErrorHandlerService,
     protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
-    protected dialogRef: MatDialogRef<CompanyChamperOfCommerceViewDialog>,
+    protected dialogRef: MatDialogRef<CompanyChamberOfCommerceViewDialog>,
     @Inject(MAT_DIALOG_DATA) public data: CompanyChamberOfCommerceDTO,
     private langService: LanguageService,
   ) {

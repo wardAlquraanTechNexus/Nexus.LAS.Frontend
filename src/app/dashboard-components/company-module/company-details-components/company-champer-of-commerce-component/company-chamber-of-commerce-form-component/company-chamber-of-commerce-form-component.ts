@@ -4,17 +4,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { CompanyLicenseDto } from '../../../../../models/company-models/company-license/dtos/company-license-dto';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { BaseFormComponent } from '../../../../base-components/base-form-component/base-form-component';
-import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
+import { CompanyChamberOfCommerceDTO } from '../../../../../models/company-models/company-chamber-of-commerce/dtos/company-chamber-of-commerce-dto';
 import { DATE_FORMAT_PROVIDERS } from '../../../../../shared/date-format.config';
 import { LanguageService } from '../../../../../services/language-service';
 
 @Component({
-  selector: 'app-company-champer-of-commerce-form-component',
+  selector: 'app-company-chamber-of-commerce-form-component',
   standalone: false,
-  templateUrl: './company-champer-of-commerce-form-component.html',
+  templateUrl: './company-chamber-of-commerce-form-component.html',
   styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
-export class CompanyChamperOfCommerceFormComponent extends BaseFormComponent {
+export class CompanyChamberOfCommerceFormComponent extends BaseFormComponent {
   @Input() element!: CompanyChamberOfCommerceDTO;
 
   constructor(

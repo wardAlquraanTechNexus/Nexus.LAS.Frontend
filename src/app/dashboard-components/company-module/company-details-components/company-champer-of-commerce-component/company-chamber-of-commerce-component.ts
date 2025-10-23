@@ -1,43 +1,43 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { CompanyChamberOfCommerce } from '../../../../models/company-models/company-champer-of-commerce/company-champer-of-commerce';
+import { CompanyChamberOfCommerce } from '../../../../models/company-models/company-chamber-of-commerce/company-chamber-of-commerce';
 import { BaseParam } from '../../../../models/base/base-param';
-import { GetCompanyChamperOfCommerceParams } from '../../../../models/company-models/company-champer-of-commerce/params/get-company-champer-of-commerce-command';
+import { GetCompanyChamberOfCommerceParams } from '../../../../models/company-models/company-chamber-of-commerce/params/get-company-chamber-of-commerce-command';
 import { DisplayColumn } from '../../../../models/columns/display-column';
-import { CompanyChamperOfCommerceService } from '../../../../services/company-services/company-champer-of-commerce-service';
+import { CompanyChamberOfCommerceService } from '../../../../services/company-services/company-chamber-of-commerce-service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
-import { CompanyChamberOfCommerceDTO } from '../../../../models/company-models/company-champer-of-commerce/dtos/company-champer-of-commerce-dto';
-import { CompanyChamperOfCommerceFormDialogComponent } from './company-champer-of-commerce-form-dialog-component/company-champer-of-commerce-form-dialog-component';
+import { CompanyChamberOfCommerceDTO } from '../../../../models/company-models/company-chamber-of-commerce/dtos/company-chamber-of-commerce-dto';
+import { CompanyChamberOfCommerceFormDialogComponent } from './company-chamber-of-commerce-form-dialog-component/company-chamber-of-commerce-form-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { CompanyChamperOfCommerceViewDialog } from './company-champer-of-commerce-view-dialog/company-champer-of-commerce-view-dialog';
+import { CompanyChamberOfCommerceViewDialog } from './company-chamber-of-commerce-view-dialog/company-chamber-of-commerce-view-dialog';
 import { base64ToBlob } from '../../../_shared/shared-methods/downloadBlob';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LanguageService } from '../../../../services/language-service';
 
 @Component({
-  selector: 'app-company-champer-of-commerce-component',
+  selector: 'app-company-chamber-of-commerce-component',
   standalone: false,
-  templateUrl: './company-champer-of-commerce-component.html',
-  styleUrl: './company-champer-of-commerce-component.scss'
+  templateUrl: './company-chamber-of-commerce-component.html',
+  styleUrl: './company-chamber-of-commerce-component.scss'
 })
-export class CompanyChamperOfCommerceComponent extends TableFormComponent<CompanyChamberOfCommerce> {
+export class CompanyChamberOfCommerceComponent extends TableFormComponent<CompanyChamberOfCommerce> {
 
 
   formGroup = new FormGroup({
     expiryDate: new FormControl(null),
     activeReminder: new FormControl(null)
   });
-  override params: GetCompanyChamperOfCommerceParams = {
+  override params: GetCompanyChamberOfCommerceParams = {
     page: 0,
     pageSize: 10
   };
   @Input() company!: GetCompanyDto;
 
   constructor(
-    override service: CompanyChamperOfCommerceService,
+    override service: CompanyChamberOfCommerceService,
     override cdr: ChangeDetectorRef,
     override fb: FormBuilder,
     override router: Router,
@@ -103,7 +103,7 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
       cciPassword: "",
       file: null
     };
-    const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
+    const dialogRef = this.dialog.open(CompanyChamberOfCommerceFormDialogComponent, {
       disableClose: true,
       data: element
     });
@@ -118,7 +118,7 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
   onEdit(row: any) {
     row.removeFile = false;
 
-    const dialogRef = this.dialog.open(CompanyChamperOfCommerceFormDialogComponent, {
+    const dialogRef = this.dialog.open(CompanyChamberOfCommerceFormDialogComponent, {
       disableClose: true,
       data: row
     });
@@ -131,7 +131,7 @@ export class CompanyChamperOfCommerceComponent extends TableFormComponent<Compan
   }
 
   onView(row: any) {
-    const dialogRef = this.dialog.open(CompanyChamperOfCommerceViewDialog, {
+    const dialogRef = this.dialog.open(CompanyChamberOfCommerceViewDialog, {
       disableClose: true,
       data: row
     });

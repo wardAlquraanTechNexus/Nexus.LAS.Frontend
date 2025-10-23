@@ -25,7 +25,9 @@
       "Bash(tree:*)",
       "Bash(del \"C:\\Dev\\Nexus.LAS.Frontend\\src\\app\\dashboard-components\\shared-components\\shared-register-note\\shared-register-note-table\\shared-register-note-table.scss\")",
       "Bash(curl:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(git mv:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": [],

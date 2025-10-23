@@ -1,6 +1,6 @@
 import { BaseParam } from "../../../base/base-param";
 
-export interface GetCompanyChamperOfCommerceParams extends BaseParam {
+export interface GetCompanyChamberOfCommerceParams extends BaseParam {
     id?: number;
     companyIdn?: number;
     cciNumber?: string;
