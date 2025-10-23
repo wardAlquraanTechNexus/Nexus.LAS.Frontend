@@ -192,14 +192,14 @@
   .mdc-text-field__input {
     color: #333 !important;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
-    padding: 16px 12px !important;
-    
+
+
     // Hide placeholder by default to prevent overlap with label
     &::placeholder {
       color: transparent !important;
       transition: color vars.$nexus-transition-fast;
     }
-    
+
     // Remove custom focus-visible to avoid double borders
     &:focus-visible {
       outline: none !important;
