@@ -33,7 +33,7 @@
                 <div class="form-group col-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.COMMON.NAME_AR || 'Name (AR)' }}</mat-label>
-                        <input matInput type="text" formControlName="arabicName"
+                        <input matInput type="text"  dir="rtl" formControlName="arabicName"
                             [placeholder]="label.COMMON.NAME_AR || 'Enter Name (AR)'" required>
                     </mat-form-field>
                 </div>
@@ -44,14 +44,14 @@
                             [placeholder]="label.COMMON.SHORT_NAME || 'Enter Short Name'" required>
                     </mat-form-field>
                 </div>
-
+  <div class="form-group col-6">
                 <app-date-input
                         [formGroup]="formGroup"
                         [controlName]="'lasDate'"
                         [label]="label.LAW_FIRM.LAS_DATE"
                         >
                         </app-date-input>
-
+                    </div>
                 <div class="form-group col-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.LAW_FIRM.EST_YEAR || 'Est. Year' }}</mat-label>

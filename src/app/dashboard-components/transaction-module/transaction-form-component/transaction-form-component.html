@@ -24,7 +24,16 @@
     <div class="dialog-body">
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
-                 <div class="form-group col-12">
+                              <div class="form-group col-6">
+                    <div *ngIf="transactionTypeParentId">
+                         <dl-select-auto-complete [isRequired]="true" [controlName]="'subjectType'"
+                            [formGroup]="formGroup" [label]="label.TRANSACTION.SUBJECT_TYPE || 'Subject Type'"
+                            [parentId]="transactionTypeParentId">
+                        </dl-select-auto-complete>
+                    </div>
+                </div>
+                
+                 <div class="form-group col-6">
                     <app-date-input
                         [formGroup]="formGroup"
                         [controlName]="'transactionDate'"
@@ -33,14 +42,7 @@
                     </app-date-input>
                 </div>
 
-                <div class="form-group col-12">
-                    <div *ngIf="transactionTypeParentId">
-                         <dl-select-auto-complete [isRequired]="true" [controlName]="'subjectType'"
-                            [formGroup]="formGroup" [label]="label.TRANSACTION.SUBJECT_TYPE || 'Subject Type'"
-                            [parentId]="transactionTypeParentId">
-                        </dl-select-auto-complete>
-                    </div>
-                </div>
+  
 
                
 
