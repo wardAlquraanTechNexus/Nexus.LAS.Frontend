@@ -136,12 +136,12 @@
 
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPublic(row)"
         class="nexus-menu-item nexus-menu-info">
-        <mat-icon class="nexus-icon-public">visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
+        <mat-icon class="nexus-icon-public">public</mat-icon> {{ label.COMMON.MARK_PUBLIC }}
       </button>
 
       <button mat-menu-item *ngIf="currentMenu?.canUpdate" (click)="markPrivate(row)"
         class="nexus-menu-item nexus-menu-neutral">
-        <mat-icon class="nexus-icon-private">visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
+        <mat-icon class="nexus-icon-private">lock</mat-icon> {{ label.COMMON.MARK_PRIVATE }}
       </button> -->
 
       <button mat-menu-item *ngIf="currentMenu?.canDelete" [confirmDelete]="deleteFpc(row)"
