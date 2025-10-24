@@ -51,14 +51,6 @@
     <!-- Right Section: User Controls -->
     <div class="navbar-right">
       <div class="control-item">
-        <button class="control-button" [matMenuTriggerFor]="languages_menu">
-          <mat-icon>language</mat-icon>
-          <span class="control-text">{{selectedLanguage.name}}</span>
-          <mat-icon class="dropdown-icon">expand_more</mat-icon>
-        </button>
-      </div>
-
-      <div class="control-item">
         <button class="control-button user-profile" [matMenuTriggerFor]="profile">
           <div class="avatar-container">
             <mat-icon>account_circle</mat-icon>
@@ -99,14 +91,11 @@
       <span class="profile-email">{{user?.email || 'user@las.com'}}</span>
     </div>
   </div>
+
   <mat-divider></mat-divider>
-  <button mat-menu-item>
-    <mat-icon>person_outline</mat-icon>
-    <span>Profile Settings</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>settings</mat-icon>
-    <span>Preferences</span>
+  <button mat-menu-item [matMenuTriggerFor]="languages_menu">
+    <mat-icon>language</mat-icon>
+    <span>Language: {{selectedLanguage.name}}</span>
   </button>
   <mat-divider></mat-divider>
   <button mat-menu-item (click)="logout()" class="logout-item">
