@@ -3,7 +3,7 @@
 <!-- SECTION 1: Title and Add Button -->
 <div class="section section-title">
   <div class="title-content">
-    <h2>{{ label.COMMON.ADDRESSES || '{{label.COMMON.ADDRESSES}}' }}</h2>
+    <h2>{{ label.COMMON.ADDRESSES || 'Addresses' }}</h2>
   </div>
   <button mat-raised-button color="primary" (click)="onAdd()">
     <mat-icon>add</mat-icon> {{ label.COMMON.ADD_ADDRESS || 'Add Address' }}
@@ -13,55 +13,83 @@
 <!-- SECTION 2: Address List -->
 <div class="section section-content">
   <!-- Loading State -->
-  <div *ngIf="showLoading" class="loading-container">
-    <mat-spinner></mat-spinner>
-  </div>
+  @if (showLoading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!showLoading && (!companyAddresses || companyAddresses.length === 0)) {
+    <div class="empty-table">
+      <mat-icon class="empty-icon">inbox</mat-icon>
+      <span class="empty-text">{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
+    </div>
+  }
 
   <!-- Address Items -->
-  <div *ngIf="!showLoading" class="content-list">
-    <div *ngFor="let companyAddress of companyAddresses" class="content-item">
-      
-      <!-- Address Icon -->
-      <div class="item-icon">
-        <div class="icon-container">
-          <mat-icon>location_on</mat-icon>
-        </div>
-      </div>
+  @if (!showLoading && companyAddresses && companyAddresses.length > 0) {
+    <div class="content-list">
+      @for (companyAddress of companyAddresses; track companyAddress.id) {
+        <div class="content-item">
 
-      <!-- Address Info -->
-      <div class="item-content">
-        <div class="primary-text">
-          <span *ngIf="companyAddress.addressLine1">{{companyAddress.addressLine1}}</span>
-          <span *ngIf="companyAddress.addressLine2">, {{companyAddress.addressLine2}}</span>
-          <span *ngIf="companyAddress.addressLine3">, {{companyAddress.addressLine3}}</span>
-          <span *ngIf="companyAddress.addressPrimary" class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
-        </div>
-        <div class="secondary-text">
-          <div *ngIf="companyAddress.poBoxNumber">{{ companyAddress.poBoxNumber }}</div>
-          <div *ngIf="companyAddress.poBoxCity && cities">{{ cities.get(companyAddress.poBoxCity) }}</div>
-          <div *ngIf="companyAddress.poBoxCountry && countries">{{ countries.get(companyAddress.poBoxCountry) }}</div>
-        </div>
-      </div>
+          <!-- Address Icon -->
+          <div class="item-icon">
+            <div class="icon-container">
+              <mat-icon>location_on</mat-icon>
+            </div>
+          </div>
 
-      <!-- Actions -->
-      <div class="item-actions">
-        <button mat-icon-button [matMenuTriggerFor]="addressMenu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #addressMenu="matMenu">
-          <button mat-menu-item (click)="onEdit(companyAddress)">
-            <mat-icon>edit</mat-icon>
-            <span>{{ label.COMMON.EDIT_ADDRESS || 'Edit Address' }}</span>
-          </button>
-          <button mat-menu-item [confirmDelete]="getRemoveCallback(companyAddress.id!)">
-            <mat-icon>delete</mat-icon>
-            <span>{{ label.COMMON.DELETE_ADDRESS || 'Delete Address' }}</span>
-          </button>
-        </mat-menu>
-      </div>
+          <!-- Address Info -->
+          <div class="item-content">
+            <div class="primary-text">
+              @if (companyAddress.addressLine1) {
+                <span>{{companyAddress.addressLine1}}</span>
+              }
+              @if (companyAddress.addressLine2) {
+                <span>, {{companyAddress.addressLine2}}</span>
+              }
+              @if (companyAddress.addressLine3) {
+                <span>, {{companyAddress.addressLine3}}</span>
+              }
+              @if (companyAddress.addressPrimary) {
+                <span class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
+              }
+            </div>
+            <div class="secondary-text">
+              @if (companyAddress.poBoxNumber) {
+                <div>{{ companyAddress.poBoxNumber }}</div>
+              }
+              @if (companyAddress.poBoxCity && cities) {
+                <div>{{ cities.get(companyAddress.poBoxCity) }}</div>
+              }
+              @if (companyAddress.poBoxCountry && countries) {
+                <div>{{ countries.get(companyAddress.poBoxCountry) }}</div>
+              }
+            </div>
+          </div>
 
+          <!-- Actions -->
+          <div class="item-actions">
+            <button mat-icon-button [matMenuTriggerFor]="addressMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #addressMenu="matMenu">
+              <button mat-menu-item (click)="onEdit(companyAddress)">
+                <mat-icon>edit</mat-icon>
+                <span>{{ label.COMMON.EDIT_ADDRESS || 'Edit Address' }}</span>
+              </button>
+              <button mat-menu-item [confirmDelete]="getRemoveCallback(companyAddress.id!)">
+                <mat-icon>delete</mat-icon>
+                <span>{{ label.COMMON.DELETE_ADDRESS || 'Delete Address' }}</span>
+              </button>
+            </mat-menu>
+          </div>
+
+        </div>
+      }
     </div>
-  </div>
+  }
 </div>
 
 </div>

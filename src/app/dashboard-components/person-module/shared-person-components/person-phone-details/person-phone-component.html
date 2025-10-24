@@ -13,13 +13,23 @@
 <!-- SECTION 2: Phone List -->
 <div class="section section-content">
   <!-- Loading State -->
-  <div *ngIf="showLoading" class="loading-container">
-    <mat-spinner></mat-spinner>
-  </div>
+  @if (showLoading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!showLoading && personPhones.length === 0) {
+    <div class="empty-table">
+      <mat-icon class="empty-icon">inbox</mat-icon>
+      <span class="empty-text">{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
+    </div>
+  }
 
   <!-- Phone Items -->
-  <div *ngIf="!showLoading" class="content-list">
-    @if (personPhones.length > 0) {
+  @if (!showLoading && personPhones.length > 0) {
+    <div class="content-list">
       @for (personPhone of personPhones; track personPhone.id) {
         <div class="content-item">
           <!-- Phone Icon -->
@@ -32,36 +42,33 @@
           <div class="item-content">
             <div class="primary-text">
               <span>{{ personPhone.phoneNumber }}</span>
-              <span *ngIf="personPhone.phonePrimary" class="primary-badge">
-                {{ label.COMMON.PRIMARY || 'Primary' }}
-              </span>
+              @if (personPhone.phonePrimary) {
+                <span class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
+              }
             </div>
           </div>
           <!-- Actions -->
-          <div class="item-actions" *ngIf="!readOnly">
-            <button mat-icon-button [matMenuTriggerFor]="phoneMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #phoneMenu="matMenu">
-              <button mat-menu-item (click)="openFormDetails(personPhone)">
-                <mat-icon>edit</mat-icon>
-                <span>{{ label.COMMON.EDIT_PHONE || 'Edit Phone' }}</span>
+          @if (!readOnly) {
+            <div class="item-actions">
+              <button mat-icon-button [matMenuTriggerFor]="phoneMenu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-menu-item [confirmDelete]="getRemoveCallback(personPhone.id!)">
-                <mat-icon>delete</mat-icon>
-                <span>{{ label.COMMON.DELETE_PHONE || 'Delete Phone' }}</span>
-              </button>
-            </mat-menu>
-          </div>
+              <mat-menu #phoneMenu="matMenu">
+                <button mat-menu-item (click)="openFormDetails(personPhone)">
+                  <mat-icon>edit</mat-icon>
+                  <span>{{ label.COMMON.EDIT_PHONE || 'Edit Phone' }}</span>
+                </button>
+                <button mat-menu-item [confirmDelete]="getRemoveCallback(personPhone.id!)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{ label.COMMON.DELETE_PHONE || 'Delete Phone' }}</span>
+                </button>
+              </mat-menu>
+            </div>
+          }
         </div>
       }
-    } @else {
-      <div class="no-records-hint">
-        <mat-icon color="disabled">info</mat-icon>
-        <span>{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
-      </div>
-    }
-  </div>
+    </div>
+  }
 </div>
 
 </div>

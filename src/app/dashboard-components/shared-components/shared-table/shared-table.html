@@ -1,6 +1,7 @@
 <div *ngIf="labels">
-  <div class="empty-table" *ngIf="paginateResult.totalRecords == 0">
-    {{labels.COMMON.NO_RECORDS}}
+  <div class="empty-table" *ngIf="paginateResult.totalRecords == 0" [dir]="dir">
+    <mat-icon class="empty-icon">inbox</mat-icon>
+    <span class="empty-text">{{labels.COMMON.NO_RECORDS}}</span>
   </div>
   <div *ngIf="paginateResult.totalRecords > 0" class="mat-elevation-z8">
     <div class="table-scroll-container">
@@ -72,10 +73,7 @@
                       [ngStyle]="getCellStyle(element[keyPipe.key] , keyPipe.pipes)">
                       <span>{{ element[keyPipe.key] | tableDataPipe: element : column : keyPipe.pipes | async }}
                         <mat-icon *ngIf="column.hasIcon">{{getIcon(element[keyPipe.key] , keyPipe.pipes)}}</mat-icon>
-
                       </span>
-                        
-                      
                     </span>
                   </ng-template>
                 </div>

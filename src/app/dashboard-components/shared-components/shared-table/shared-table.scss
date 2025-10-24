@@ -52,18 +52,37 @@ table[dir="rtl"] {
 
 .empty-table {
   display: flex;
-  color: #000000;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 256px;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 16px;
   width: 100%;
-  font-size: 18px;
-  border-top: 1px solid #E0E0E0;
+  max-width: 350px;
+  margin: 0 auto;
+  background: transparent;
+  border-top: 1px solid rgba(1, 55, 114, 0.1);
+
+  .empty-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+    color: rgba(1, 55, 114, 0.3);
+  }
+
+  .empty-text {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+  }
 
   // Make empty message responsive to language
   &[dir="rtl"] {
-    font-size: 20px;
-    font-weight: 500;
+    .empty-text {
+      font-size: 17px;
+      font-weight: 500;
+    }
   }
 }
 

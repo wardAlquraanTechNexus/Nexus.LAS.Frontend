@@ -8,15 +8,24 @@
     </div>
 
     <!-- Loading -->
-    <ng-container *ngIf="showLoading; else listContent">
+    @if (showLoading) {
         <div class="loading">
             <mat-progress-spinner diameter="50" mode="indeterminate" color="primary"></mat-progress-spinner>
             <span>Loading...</span>
         </div>
-    </ng-container>
+    }
 
-    <ng-template #listContent>
-        <ng-container *ngFor="let item of list; let i = index">
+    <!-- Empty State -->
+    @if (!showLoading && (!list || list.length === 0)) {
+        <div class="empty-table">
+            <mat-icon class="empty-icon">inbox</mat-icon>
+            <span class="empty-text">{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
+        </div>
+    }
+
+    <!-- Bank Account List -->
+    @if (!showLoading && list && list.length > 0) {
+        @for (item of list; track item.id; let i = $index) {
             <mat-card class="bank-card">
                 <mat-card-header>
                     <div class="card-header-content">
@@ -50,6 +59,6 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-        </ng-container>
-    </ng-template>
+        }
+    }
 </div>

@@ -15,64 +15,83 @@
   <!-- SECTION 2: Address List -->
   <div class="section section-content">
     <!-- Loading State -->
-    <div *ngIf="showLoading" class="loading-container">
-      <mat-spinner></mat-spinner>
-    </div>
+    @if (showLoading) {
+      <div class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!showLoading && personAddresses.length === 0) {
+      <div class="empty-table">
+        <mat-icon class="empty-icon">inbox</mat-icon>
+        <span class="empty-text">{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
+      </div>
+    }
 
     <!-- Address Items -->
-    <div *ngIf="!showLoading" class="content-list">
-      @if (personAddresses.length > 0) {
-      @for (personAddress of personAddresses; track personAddress.id) {
-      <div class="content-item">
-        <!-- Address Icon -->
-        <div class="item-icon">
-          <div class="icon-container">
-            <mat-icon>location_on</mat-icon>
-          </div>
-        </div>
+    @if (!showLoading && personAddresses.length > 0) {
+      <div class="content-list">
+        @for (personAddress of personAddresses; track personAddress.id) {
+          <div class="content-item">
+            <!-- Address Icon -->
+            <div class="item-icon">
+              <div class="icon-container">
+                <mat-icon>location_on</mat-icon>
+              </div>
+            </div>
 
-        <!-- Address Info -->
-        <div class="item-content">
-          <div class="primary-text">
-            <span *ngIf="personAddress.addressLine1">{{personAddress.addressLine1}}</span>
-            <span *ngIf="personAddress.addressLine2">, {{personAddress.addressLine2}}</span>
-            <span *ngIf="personAddress.addressLine3">, {{personAddress.addressLine3}}</span>
-            <span *ngIf="personAddress.addressPrimary" class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
-          </div>
-          <div class="secondary-text">
-            <div *ngIf="personAddress.poBoxNumber">{{ personAddress.poBoxNumber }}</div>
-            <div *ngIf="personAddress.poBoxCity && cities">{{ cities.get(personAddress.poBoxCity) }}</div>
-            <div *ngIf="personAddress.poBoxCountry && countries">{{ countries.get(personAddress.poBoxCountry) }}</div>
-          </div>
-        </div>
+            <!-- Address Info -->
+            <div class="item-content">
+              <div class="primary-text">
+                @if (personAddress.addressLine1) {
+                  <span>{{personAddress.addressLine1}}</span>
+                }
+                @if (personAddress.addressLine2) {
+                  <span>, {{personAddress.addressLine2}}</span>
+                }
+                @if (personAddress.addressLine3) {
+                  <span>, {{personAddress.addressLine3}}</span>
+                }
+                @if (personAddress.addressPrimary) {
+                  <span class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
+                }
+              </div>
+              <div class="secondary-text">
+                @if (personAddress.poBoxNumber) {
+                  <div>{{ personAddress.poBoxNumber }}</div>
+                }
+                @if (personAddress.poBoxCity && cities) {
+                  <div>{{ cities.get(personAddress.poBoxCity) }}</div>
+                }
+                @if (personAddress.poBoxCountry && countries) {
+                  <div>{{ countries.get(personAddress.poBoxCountry) }}</div>
+                }
+              </div>
+            </div>
 
-        <!-- Actions -->
-        @if(!readOnly) {
-        <div class="item-actions">
-          <button mat-icon-button [matMenuTriggerFor]="addressMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #addressMenu="matMenu">
-            <button mat-menu-item (click)="openFormDetails(personAddress)">
-              <mat-icon>edit</mat-icon>
-              <span>{{ label.COMMON.EDIT_ADDRESS || 'Edit Address' }}</span>
-            </button>
-            <button mat-menu-item [confirmDelete]="getRemoveCallback(personAddress.id!)">
-              <mat-icon>delete</mat-icon>
-              <span>{{ label.COMMON.DELETE_ADDRESS || 'Delete Address' }}</span>
-            </button>
-          </mat-menu>
-        </div>
+            <!-- Actions -->
+            @if(!readOnly) {
+              <div class="item-actions">
+                <button mat-icon-button [matMenuTriggerFor]="addressMenu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #addressMenu="matMenu">
+                  <button mat-menu-item (click)="openFormDetails(personAddress)">
+                    <mat-icon>edit</mat-icon>
+                    <span>{{ label.COMMON.EDIT_ADDRESS || 'Edit Address' }}</span>
+                  </button>
+                  <button mat-menu-item [confirmDelete]="getRemoveCallback(personAddress.id!)">
+                    <mat-icon>delete</mat-icon>
+                    <span>{{ label.COMMON.DELETE_ADDRESS || 'Delete Address' }}</span>
+                  </button>
+                </mat-menu>
+              </div>
+            }
+          </div>
         }
       </div>
-      }
-      } @else {
-      <div class="no-records-hint">
-        <mat-icon color="disabled">info</mat-icon>
-        <span>{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
-      </div>
-      }
-    </div>
+    }
   </div>
 
 </div>

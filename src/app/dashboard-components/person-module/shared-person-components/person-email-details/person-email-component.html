@@ -13,13 +13,23 @@
 <!-- SECTION 2: Email List -->
 <div class="section section-content">
   <!-- Loading State -->
-  <div *ngIf="showLoading" class="loading-container">
-    <mat-spinner></mat-spinner>
-  </div>
+  @if (showLoading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!showLoading && personEmails.length === 0) {
+    <div class="empty-table">
+      <mat-icon class="empty-icon">inbox</mat-icon>
+      <span class="empty-text">{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
+    </div>
+  }
 
   <!-- Email Items -->
-  <div *ngIf="!showLoading" class="content-list">
-    @if (personEmails.length > 0) {
+  @if (!showLoading && personEmails.length > 0) {
+    <div class="content-list">
       @for (personEmail of personEmails; track personEmail.id) {
         <div class="content-item">
           <!-- Email Icon -->
@@ -32,36 +42,33 @@
           <div class="item-content">
             <div class="primary-text">
               <span>{{ personEmail.email }}</span>
-              <span *ngIf="personEmail.emailPrimary" class="primary-badge">
-                {{ label.COMMON.PRIMARY  }}
-              </span>
+              @if (personEmail.emailPrimary) {
+                <span class="primary-badge">{{ label.COMMON.PRIMARY }}</span>
+              }
             </div>
           </div>
           <!-- Actions -->
-          <div class="item-actions" *ngIf="!readOnly">
-            <button mat-icon-button [matMenuTriggerFor]="emailMenu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #emailMenu="matMenu">
-              <button mat-menu-item (click)="openFormDetails(personEmail)">
-                <mat-icon>edit</mat-icon>
-                <span>{{ label.COMMON.EDIT_EMAIL }}</span>
+          @if (!readOnly) {
+            <div class="item-actions">
+              <button mat-icon-button [matMenuTriggerFor]="emailMenu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-menu-item [confirmDelete]="getRemoveCallback(personEmail.id!)">
-                <mat-icon>delete</mat-icon>
-                <span>{{ label.COMMON.DELETE_EMAIL }}</span>
-              </button>
-            </mat-menu>
-          </div>
+              <mat-menu #emailMenu="matMenu">
+                <button mat-menu-item (click)="openFormDetails(personEmail)">
+                  <mat-icon>edit</mat-icon>
+                  <span>{{ label.COMMON.EDIT_EMAIL }}</span>
+                </button>
+                <button mat-menu-item [confirmDelete]="getRemoveCallback(personEmail.id!)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{ label.COMMON.DELETE_EMAIL }}</span>
+                </button>
+              </mat-menu>
+            </div>
+          }
         </div>
       }
-    } @else {
-      <div class="no-records-hint">
-        <mat-icon color="disabled">info</mat-icon>
-        <span>{{ label.COMMON.NO_RECORDS || 'No records available' }}</span>
-      </div>
-    }
-  </div>
+    </div>
+  }
 </div>
 
 </div>
