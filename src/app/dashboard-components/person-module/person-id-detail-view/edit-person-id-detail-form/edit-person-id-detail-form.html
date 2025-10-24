@@ -85,12 +85,20 @@
 
                         <!-- Toggles Section -->
                         <div class="toggles-section">
-                            <mat-slide-toggle formControlName="isPrimary">
-                                <span class="label-toggel">Primary Document</span>
-                            </mat-slide-toggle>
-                            <mat-slide-toggle formControlName="activeReminder">
-                                <span class="label-toggel">Active Reminder</span>
-                            </mat-slide-toggle>
+                            <div class="nexus-switch-wrapper">
+                                <div class="nexus-switch-container">
+                                    <mat-slide-toggle formControlName="isPrimary" color="primary" class="nexus-switch">
+                                        Primary Document
+                                    </mat-slide-toggle>
+                                </div>
+                            </div>
+                            <div class="nexus-switch-wrapper">
+                                <div class="nexus-switch-container">
+                                    <mat-slide-toggle formControlName="activeReminder" color="primary" class="nexus-switch">
+                                        Active Reminder
+                                    </mat-slide-toggle>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

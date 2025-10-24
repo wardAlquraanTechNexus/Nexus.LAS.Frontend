@@ -148,22 +148,6 @@
           background: white;
           border-radius: 8px;
           border: 1px solid rgba(1, 55, 114, 0.1);
-
-          mat-slide-toggle {
-            display: block;
-            margin-bottom: 16px;
-
-            &:last-child {
-              margin-bottom: 0;
-            }
-
-            .label-toggel {
-              color: #013772;
-              font-weight: 500;
-              margin-left: 8px;
-              font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            }
-          }
         }
       }
     }

@@ -72,17 +72,17 @@ export class MenuSettingComponent extends TableFormComponent<Menu> {
     },
     {
       key: "canInsert",
-      label: "Can Insert",
+      label: "Insert",
       inputType: 'mat-slide-toggle'
     },
     {
       key: "canUpdate",
-      label: "Can Update",
+      label: "Update",
       inputType: 'mat-slide-toggle'
     },
     {
       key: "canDelete",
-      label: "Can Delete",
+      label: "Delete",
       inputType: 'mat-slide-toggle'
     },
 

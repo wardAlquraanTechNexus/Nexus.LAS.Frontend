@@ -61,15 +61,15 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
     },
     {
       key: "canInsert",
-      label: "Can Insert",
+      label: "Insert",
     },
     {
       key: "canUpdate",
-      label: "Can Update",
+      label: "Update",
     },
     {
       key: "canDelete",
-      label: "Can Delete",
+      label: "Delete",
     },
     {
       key: "admin",
