@@ -148,6 +148,17 @@ table[dir="rtl"] {
   }
 }
 
+// Action column should display buttons horizontally
+.mat-column-action {
+  white-space: nowrap !important;
+  overflow: visible !important;
+
+  button {
+    display: inline-flex !important;
+    vertical-align: middle;
+  }
+}
+
 .mat-mdc-header-cell {
   max-width: 300px; /* Fixed max width for header cells */
   overflow: hidden;
