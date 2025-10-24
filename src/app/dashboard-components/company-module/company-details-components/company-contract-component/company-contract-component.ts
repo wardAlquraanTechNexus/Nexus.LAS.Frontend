@@ -68,11 +68,6 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
   override setDisplayColumns() {
     this.displayColumns = [
       {
-        key: "fileName",
-        label: this.langService.getLabel('COMMON.FILE_NAME') ?? "File Name",
-        pipes: ["link"]
-      },
-      {
         key: "contractType",
         label: this.langService.getLabel('COMPANY.CONTRACT_TYPE') ?? "Contract Type",
         pipes: ["company-contract-type"]
@@ -201,9 +196,6 @@ export class CompanyContractComponent extends TableFormComponent<CompanyContract
           this.showLoading = false;
         })
       })
-    }
-    else if(event.key == 'fileName'){
-      downloadBlob(event.element.data , event.element.contentType , event.element.fileName);
     }
   }
 
