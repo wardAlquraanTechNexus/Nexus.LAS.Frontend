@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LawFirm } from '../../../../models/law-firm-models/law-firm/law-firm';
 import { CommonStatus } from '../../../../enums/common-status';
 import { LawFirmDialogFormComponent } from '../../law-firm-dialog-form-component/law-firm-dialog-form-component';
+import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-law-firm-view',
@@ -160,7 +161,23 @@ export class LawFirmViewComponent  implements OnInit {
       queryParams: {  }, 
     });
   }
+  exportToPdf() {
+    this.service.exportToPdf({ id: this.lawFirm.id }).subscribe(res => {
+      // Assuming res.data is a base64 string
+      const binaryString = atob(res.data);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
 
+      const blob = new Blob([bytes], {
+        type: 'application/pdf'
+      });
+
+      downloadBlobFile(blob, res.fileName || 'report.pdf');
+    });
+  }
 }
 
 

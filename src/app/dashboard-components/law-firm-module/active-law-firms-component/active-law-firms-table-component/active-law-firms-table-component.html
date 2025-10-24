@@ -124,10 +124,10 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuRow="matMenu" class="nexus-action-menu">
-            <!-- <button mat-menu-item class="nexus-menu-item nexus-menu-neutral">
+            <button mat-menu-item class="nexus-menu-item nexus-menu-neutral" (click)="exportToPdf(row.id)">
                 <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
             </button>
- -->
+
 
             <button mat-menu-item (click)="markPublic(row)" class="nexus-menu-item nexus-menu-info">
                 <mat-icon class="nexus-icon-public">public</mat-icon> {{ label.COMMON.MARK_PUBLIC }}

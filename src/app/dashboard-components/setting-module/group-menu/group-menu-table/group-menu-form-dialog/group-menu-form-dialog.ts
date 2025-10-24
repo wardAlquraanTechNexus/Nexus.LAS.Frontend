@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   selector: 'app-user-group-form-dialog',
   standalone: false,
   templateUrl: './group-menu-form-dialog.html',
-  styleUrl: './group-menu-form-dialog.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class GroupMenuFormDialog extends BaseDialogComponent {
   showLoading = false;

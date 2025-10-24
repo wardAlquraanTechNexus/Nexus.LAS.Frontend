@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../services/language-service';
   selector: 'app-shared-register-note-form-dialog',
   standalone: false,
   templateUrl: './shared-register-note-form-dialog.html',
-  styleUrl: './shared-register-note-form-dialog.scss'
+  styleUrls: ['../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class SharedRegisterNoteFormDialog extends BaseDialogFormComponent<RegisterNote> {
 

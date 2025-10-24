@@ -63,6 +63,14 @@
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
+                     <button mat-menu-item (click)="exportToPdf()">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                        {{ label.COMMON.PRINT }}
+                    </button>
+                    <button mat-menu-item>
+                        <mat-icon>people</mat-icon>
+                        {{ label.COMPANY.ORG_CHART }}
+                    </button>
                 </mat-menu>
             </div>
         </div>

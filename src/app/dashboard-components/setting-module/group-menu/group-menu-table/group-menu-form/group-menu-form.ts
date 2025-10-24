@@ -17,7 +17,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-user-group-form',
   standalone: false,
   templateUrl: './group-menu-form.html',
-  styleUrl: './group-menu-form.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class GroupMenuForm extends BaseFormComponent {
   @Input() groupMenu!: SearchGroupMenuDTO;

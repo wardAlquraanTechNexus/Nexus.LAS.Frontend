@@ -15,7 +15,7 @@ import { LanguageService } from '../../../../services/language-service';
   selector: 'app-user-group-form',
   standalone: false,
   templateUrl: './user-group-form.html',
-  styleUrl: './user-group-form.scss'
+  styleUrls: ['../../../_shared/styles/common-form-style.scss']
 })
 export class UserGroupForm extends BaseFormComponent {
   @Input() userGroup!: any;

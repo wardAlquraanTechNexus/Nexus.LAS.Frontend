@@ -15,50 +15,129 @@
 
     <!-- Center Section: Search -->
     <div class="navbar-center">
-      <div class="search-container">
+      <div class="search-wrapper-container">
+        <!-- Enhanced Search Input with better UX -->
         <div class="search-input-wrapper">
-          <mat-icon class="search-icon">search</mat-icon>
+          <mat-icon class="search-prefix-icon">search</mat-icon>
 
-          <input type="text" class="search-input" [(ngModel)]="params.search" [ngModelOptions]="{standalone: true}"
-            [placeholder]="label.COMMON.MASTER_SEARCH_PLACEHLDER || 'Search persons, companies, real estates...'"
-            (keyup.enter)="onSearch(); menuTrigger.openMenu()" #searchInput />
+          <input 
+            type="text" 
+            class="search-input" 
+            [(ngModel)]="params.search" 
+            [ngModelOptions]="{standalone: true}"
+            [placeholder]="label.COMMON.MASTER_SEARCH_PLACEHLDER || 'Search persons, companies, properties...'"
+            (keyup)="onSearch()"
+            (keyup.enter)="onSearch()"
+            (focus)="showSearchMenu()"
+            #searchInput
+            autocomplete="off">
 
-          <!-- Search Button / Spinner -->
-          <button class="search-button"
-                  (click)="onSearch(); menuTrigger.openMenu()"
-                  [matMenuTriggerFor]="searchMenu"
-                  #menuTrigger="matMenuTrigger"
-                  *ngIf="params.search"
-                  [disabled]="isSearching"
-                  [matMenuTriggerRestoreFocus]="false">
-            <ng-container *ngIf="!isSearching; else loadingSpinner">
-              <mat-icon>arrow_forward</mat-icon>
-            </ng-container>
-            <ng-template #loadingSpinner>
-              <mat-progress-spinner diameter="20" mode="indeterminate" color="primary"></mat-progress-spinner>
-            </ng-template>
+          <!-- Clear Button -->
+          <button 
+            *ngIf="params.search" 
+            class="search-clear-btn"
+            mat-icon-button
+            type="button"
+            (click)="clearSearch(); $event.stopPropagation()"
+            [attr.aria-label]="'Clear search'">
+            <mat-icon>close</mat-icon>
           </button>
         </div>
 
-        <!-- Quick Create Button -->
-        <button class="create-button" [matMenuTriggerFor]="listToCreate_menu">
-          <mat-icon>add</mat-icon>
-          <span>{{ label.COMMON.CREATE }}</span>
-        </button>
+        <!-- Redesigned Search Results Dropdown -->
+        <div class="search-results-dropdown" *ngIf="showSearchResults && params.search">
+          
+          <!-- Loading State with better styling -->
+          <div *ngIf="isSearching" class="search-loading">
+            <div class="loading-content">
+              <mat-progress-spinner diameter="28" mode="indeterminate" color="primary"></mat-progress-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+            </div>
+          </div>
+
+          <!-- No Results State -->
+          <div *ngIf="!isSearching && searchResults.length === 0" class="no-results-state">
+            <div class="empty-state-content">
+              <mat-icon>search_off</mat-icon>
+              <p class="empty-title">{{ label.COMMON.NO_RESULTS_FOUND || 'No results found' }}</p>
+              <p class="empty-hint">Try different keywords or filters</p>
+            </div>
+          </div>
+
+          <!-- Search Results List with improved styling -->
+          <div *ngIf="searchResults.length > 0" class="search-results-list">
+            <!-- Results Header -->
+            <div class="results-header">
+              <span class="results-count">{{ searchResults.length }} results</span>
+            </div>
+
+            <!-- Results Items with better organization -->
+            <button 
+              class="search-result-item"
+              type="button"
+              *ngFor="let result of searchResults | slice:0:10"
+              (click)="openEntity(result)"
+              [attr.aria-label]="result.entityCode + ' - ' + result.entityType">
+              <div class="result-icon-wrapper">
+                <div class="result-icon">
+                  <mat-icon>{{ getEntityIcon(result.entityType) }}</mat-icon>
+                </div>
+              </div>
+              <div class="result-content">
+                <div class="result-main">
+                  <span class="result-code">{{ result.entityCode }}</span>
+                  <span class="result-type-badge">{{ result.entityType }}</span>
+                </div>
+              </div>
+              <mat-icon class="result-arrow">arrow_forward</mat-icon>
+            </button>
+
+            <!-- Load More Button -->
+            <ng-container *ngIf="hasMoreResults">
+              <button 
+                class="load-more-btn"
+                type="button"
+                (click)="loadMore($event)"
+                [disabled]="isLoadingMore">
+                <ng-container *ngIf="!isLoadingMore">
+                  <span>{{ label.COMMON.LOAD_MORE || 'Load More' }}</span>
+                  <mat-icon>expand_more</mat-icon>
+                </ng-container>
+                <ng-container *ngIf="isLoadingMore">
+                  <mat-progress-spinner diameter="14" strokeWidth="2" mode="indeterminate" color="primary"></mat-progress-spinner>
+                  <span>Loading...</span>
+                </ng-container>
+              </button>
+            </ng-container>
+          </div>
+        </div>
       </div>
+
+      <!-- Quick Create Button -->
+      <button 
+        class="create-button" 
+        [matMenuTriggerFor]="listToCreate_menu"
+        [attr.aria-label]="label.COMMON.CREATE || 'Create'">
+        <mat-icon>add</mat-icon>
+        <span>{{ label.COMMON.CREATE }}</span>
+      </button>
     </div>
 
     <!-- Right Section: User Controls -->
     <div class="navbar-right">
       <div class="control-item">
-        <button class="control-button user-profile" [matMenuTriggerFor]="profile">
+        <button class="control-button user-profile" [matMenuTriggerFor]="profile" #profileButton>
           <div class="avatar-container">
-            <mat-icon>account_circle</mat-icon>
+            <div class="avatar-badge">
+              <mat-icon class="avatar-icon">account_circle</mat-icon>
+              <span class="online-indicator"></span>
+            </div>
           </div>
           <div class="user-info">
             <span class="username">{{user?.userName}}</span>
-            <mat-icon class="dropdown-icon">expand_more</mat-icon>
+            <!-- <span class="user-role">{{user?.role || 'User'}}</span> -->
           </div>
+          <mat-icon class="dropdown-icon">expand_more</mat-icon>
         </button>
       </div>
     </div>
@@ -74,80 +153,53 @@
   </button>
 </mat-menu>
 
+<!-- Profile Menu -->
+<mat-menu #profile="matMenu" class="profile-menu" [hasBackdrop]="true">
+  <!-- Profile Header Section -->
+  <div class="profile-menu-header" mat-menu-item disabled>
+    <div class="profile-header-content">
+      <div class="profile-avatar-large">
+        <mat-icon>account_circle</mat-icon>
+        <span class="online-indicator-large"></span>
+      </div>
+      <div class="profile-user-details">
+        <span class="profile-username">{{user?.userName}}</span>
+        <!-- <span class="profile-role">{{user?.role || 'User'}}</span> -->
+        <span class="profile-email">{{user?.email || 'user@las.com'}}</span>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="profile-divider"></mat-divider>
+
+
+
+  <!-- Language & Preferences Section -->
+  <div class="profile-section">
+    <span class="section-label">Preferences</span>
+    <button mat-menu-item [matMenuTriggerFor]="languages_menu" class="profile-menu-item">
+      <mat-icon>language</mat-icon>
+      <span>Language: {{selectedLanguage.name}}</span>
+      <mat-icon class="item-arrow">arrow_forward</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="profile-divider"></mat-divider>
+
+  <!-- Logout Section -->
+  <button mat-menu-item (click)="logout()" class="profile-menu-item logout-item">
+    <mat-icon>logout</mat-icon>
+    <span>Sign Out</span>
+    <mat-icon class="item-arrow">arrow_forward</mat-icon>
+  </button>
+</mat-menu>
+
 <!-- Language Menu -->
-<mat-menu #languages_menu="matMenu">
-  <button mat-menu-item *ngFor="let language of languages" (click)="selectDirection(language)">
-    <mat-icon>language</mat-icon>
+<mat-menu #languages_menu="matMenu" class="language-menu">
+  <button mat-menu-item *ngFor="let language of languages" (click)="selectDirection(language)" class="language-menu-item">
+    <mat-icon class="language-check">{{ selectedLanguage.value === language.value ? 'check_circle' : 'language' }}</mat-icon>
     <span>{{ language.name }}</span>
   </button>
 </mat-menu>
 
-<!-- Profile Menu -->
-<mat-menu #profile="matMenu" class="profile-menu">
-  <div class="profile-header">
-    <mat-icon class="profile-avatar">account_circle</mat-icon>
-    <div class="profile-details">
-      <span class="profile-name">{{user?.userName}}</span>
-      <span class="profile-email">{{user?.email || 'user@las.com'}}</span>
-    </div>
-  </div>
 
-  <mat-divider></mat-divider>
-  <button mat-menu-item [matMenuTriggerFor]="languages_menu">
-    <mat-icon>language</mat-icon>
-    <span>Language: {{selectedLanguage.name}}</span>
-  </button>
-  <mat-divider></mat-divider>
-  <button mat-menu-item (click)="logout()" class="logout-item">
-    <mat-icon>logout</mat-icon>
-    <span>Sign Out</span>
-  </button>
-</mat-menu>
-
-<!-- Search Results Menu -->
-<mat-menu #searchMenu="matMenu" class="search-menu">
-  <div class="search-results" style="max-height: 300px; overflow-y: auto;" (click)="$event.stopPropagation()">
-    <ng-container *ngIf="searchResults.length; else noResults">
-
-      <!-- List of results -->
-      <button mat-menu-item *ngFor="let result of searchResults"
-              class="search-result-item"
-              (click)="openEntity(result); $event.stopPropagation()">
-        <mat-icon>search</mat-icon>
-        <div class="result-content">
-          <span class="result-code">{{ result.entityCode }}</span>
-          <small class="result-type">{{ result.entityType }}</small>
-        </div>
-      </button>
-
-      <!-- Load more button -->
-      <div class="load-more-container" *ngIf="hasMoreResults && !isLoadingMore">
-        <button mat-button color="primary"
-                (click)="loadMore($event); $event.stopPropagation()"
-                matMenuItem
-                [disableRipple]="true">
-          {{ label.COMMON.LOAD_MORE || 'Load More' }}
-        </button>
-      </div>
-
-      <!-- Loading spinner for load more -->
-      <div class="load-more-container" *ngIf="isLoadingMore">
-        <mat-progress-spinner diameter="24" mode="indeterminate" color="primary"></mat-progress-spinner>
-      </div>
-
-    </ng-container>
-
-    <!-- No Results -->
-    <ng-template #noResults>
-      <div class="no-results">
-        <mat-icon>search_off</mat-icon>
-        <span>{{ label.COMMON.NO_RESULTS_FOUND }}</span>
-      </div>
-    </ng-template>
-  </div>
-</mat-menu>
-
-<!-- Show spinner overlay when navigating -->
-<div *ngIf="isNavigating" class="navigation-spinner-overlay">
-  <mat-progress-spinner mode="indeterminate" diameter="48" color="primary"></mat-progress-spinner>
-</div>

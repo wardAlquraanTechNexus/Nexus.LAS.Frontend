@@ -31,6 +31,7 @@ import { DocumentTrackingDialogFormComponent } from '../../dashboard-components/
 import { GlobalService } from '../../services/global-services/global-service';
 import { GlobalSearchDTO } from '../../models/global-models/global-search/global-search-dto';
 import { GlobalSearchQuery } from '../../models/global-models/global-search/global-search-param';
+import { EntityIDc } from '../../enums/entity-idc';
 
 
 @Component({
@@ -40,22 +41,21 @@ import { GlobalSearchQuery } from '../../models/global-models/global-search/glob
   standalone: false
 })
 export class NavbarComponent implements OnDestroy, OnInit {
-  
+
   sidebarOpen = true;
   currentLang: LanguageCode = 'en';
 
   params: GlobalSearchQuery = {
-    search : "",
+    search: "",
     page: 0,
     pageSize: 5
   };
   searchResults: GlobalSearchDTO[] = [];
   isSearching = false;
   isLoadingMore = false;
-  hasMoreResults = false; 
+  hasMoreResults = false;
 
 
-  isNavigating = false;
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
   }
@@ -142,17 +142,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
 
-    this.router.events
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((event: RouterEvent) => {
-        if (event instanceof NavigationStart) {
-          this.isNavigating = true;
-        }
-        if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
-          this.isNavigating = false;
-        }
-      });
-
+    
 
   }
 
@@ -172,28 +162,31 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   onSearch(): void {
     if (!this.params.search) return;
-  
+
     this.params.page = 0;
     this.isSearching = true;
-  
+
     this.globalService.globalSearch(this.params).subscribe({
       next: (results) => {
         this.searchResults = results;
         this.hasMoreResults = results.length === this.params.pageSize;
+        this.cdr.markForCheck();
         this.isSearching = false;
       },
       error: (err) => {
         console.error('Search failed:', err);
         this.isSearching = false;
+        
+        this.cdr.markForCheck();
       },
     });
   }
-  
+
   loadMore(event: MouseEvent): void {
     event.stopPropagation(); // 🧠 Prevents mat-menu from closing
     this.isLoadingMore = true;
     this.params.page++;
-  
+
     this.globalService.globalSearch(this.params).subscribe({
       next: (results) => {
         this.searchResults = [...this.searchResults, ...results];
@@ -207,11 +200,14 @@ export class NavbarComponent implements OnDestroy, OnInit {
       },
     });
   }
-  
-  
+
+
+
   openEntity(result: GlobalSearchDTO): void {
-    // navigate to the entity details or perform another action
-    console.log('Opening:', result);
+    let path = this.getPathByIdc(result.entityIdc);
+    let basePath = this.getBasePathByIdc(result.entityIdc);
+    this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + result.entityId);
+
   }
 
   toggleSidebar() {
@@ -267,11 +263,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   private onAddNewPerson() {
-    let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-      // this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+    let path = this.getPathByIdc(EntityIDc.Person);
+    let basePath = this.getBasePathByIdc(EntityIDc.Person);
 
     let person: PersonDto = {
       id: 0,
@@ -323,12 +316,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   onAddNewCompany() {
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Companies);
+    let path = this.getPathByIdc(EntityIDc.Company);
+    let basePath = this.getBasePathByIdc(EntityIDc.Company);
 
     let companyDto: GetCompanyDto = {
       id: 0,
@@ -405,12 +394,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
     };
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Properties);
+    let path = this.getPathByIdc(EntityIDc.Properties);
+    let basePath = this.getBasePathByIdc(EntityIDc.Properties);
 
 
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
@@ -453,12 +438,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
       panelClass: 'property-dialog-panel'
     });
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllLawFirms) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveLawFirms) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateLawFirms) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicLawFirms);
-    let basePath = this.menuService.getMenuByPath(environment.routes.LawFirms);
+    let path = this.getPathByIdc(EntityIDc.LawFirm);
+    let basePath = this.getBasePathByIdc(EntityIDc.LawFirm);
 
 
     dialogRef.afterClosed().subscribe(result => {
@@ -490,12 +471,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
       panelClass: 'property-dialog-panel'
     });
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllTransactions) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveTransactions) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateTransactions) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicTransactions);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Transactions);
+    let path = this.getPathByIdc(EntityIDc.Transactions);
+    let basePath = this.getBasePathByIdc(EntityIDc.Transactions);
 
 
     dialogRef.afterClosed().subscribe(result => {
@@ -521,10 +498,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
     let path =
-      this.menuService.getMenuByPath(environment.routes.AllFPCs) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateFPCs) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicFPCs);
-    let basePath = this.menuService.getMenuByPath(environment.routes.FPCs);
+      this.getPathByIdc(EntityIDc.FPCs);
+    let basePath = this.getBasePathByIdc(EntityIDc.FPCs);
 
 
     dialogRef.afterClosed().subscribe(result => {
@@ -551,8 +526,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
     });
 
     let path =
-      this.menuService.getMenuByPath(environment.routes.AllDocumentTrackings);
-    let basePath = this.menuService.getMenuByPath(environment.routes.DocumentTrackings);
+      this.getPathByIdc(EntityIDc.DocumentTracking);
+    let basePath = this.getBasePathByIdc(EntityIDc.DocumentTracking);
 
 
     dialogRef.afterClosed().subscribe(result => {
@@ -566,7 +541,96 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
 
 
+  getBasePathByIdc(idc: string) {
+    switch (idc) {
+      case EntityIDc.Person:
+        return this.menuService.getMenuByPath(environment.routes.Persons);
+      case EntityIDc.Company:
+        return this.menuService.getMenuByPath(environment.routes.Companies);
+      case EntityIDc.Properties:
+        return this.menuService.getMenuByPath(environment.routes.Properties);
+      case EntityIDc.LawFirm:
+        return this.menuService.getMenuByPath(environment.routes.LawFirms);
+      case EntityIDc.Transactions:
+        return this.menuService.getMenuByPath(environment.routes.Transactions);
+      case EntityIDc.FPCs:
+        return this.menuService.getMenuByPath(environment.routes.FPCs);
+      case EntityIDc.DocumentTracking:
+        return this.menuService.getMenuByPath(environment.routes.DocumentTrackings);
+      default:
+        return null;
+    }
+  }
 
+  getPathByIdc(idc: string) {
+    switch (idc) {
+      case EntityIDc.Person:
+        return this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
+      case EntityIDc.Company:
+        return this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
+          this.menuService.getMenuByPath(environment.routes.ActiveCompanies)
+          || this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
+      case EntityIDc.Properties:
+        return this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
+          this.menuService.getMenuByPath(environment.routes.AllProperties) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
+      case EntityIDc.LawFirm:
+        return this.menuService.getMenuByPath(environment.routes.AllLawFirms) ||
+          this.menuService.getMenuByPath(environment.routes.ActiveLawFirms) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateLawFirms) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicLawFirms);
+      case EntityIDc.Transactions:
+        return this.menuService.getMenuByPath(environment.routes.AllTransactions) ||
+          this.menuService.getMenuByPath(environment.routes.ActiveTransactions) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateTransactions) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicTransactions);
+      case EntityIDc.FPCs:
+        return this.menuService.getMenuByPath(environment.routes.AllFPCs) ||
+          this.menuService.getMenuByPath(environment.routes.ActiveFPCs) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateFPCs) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicFPCs);
+      case EntityIDc.DocumentTracking:
+        return this.menuService.getMenuByPath(environment.routes.AllDocumentTrackings) ||
+          this.menuService.getMenuByPath(environment.routes.ActiveDocumentTrackings) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateDocumentTrackings) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicDocumentTrackings);
+      default:
+        return null;
+    }
+  }
+
+  clearSearch() {
+    this.params.search = '';
+    this.searchResults = [];
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
+  }
+
+  getEntityIcon(entityType: string): string {
+  const iconMap: { [key: string]: string } = {
+    'Person': 'person',
+    'Company': 'business',
+    'RealEstate': 'home_work',
+    'LawFirm': 'gavel',
+    'FPC': 'account_balance',
+    'Transaction': 'receipt_long'
+  };
+  return iconMap[entityType] || 'search';
 }
 
+searchTimeout: any;
+showSearchResults = false;
 
+
+showSearchMenu() {
+  this.showSearchResults = true;
+  this.menuTrigger.openMenu();
+}
+
+}

@@ -10,6 +10,7 @@ import { PaginateRsult } from '../../models/paginate-result';
 import { BaseParam } from '../../models/base/base-param';
 import { GlobalExpiredDocumentQuery } from '../../models/global-models/global-document-expired/global-document-expired-param';
 import { ExportModel } from '../../models/export-to-excel-dto';
+import { DeactivateGlobalReminderParam } from '../../models/global-models/global-document-expired/deactivate-global-reminder-param';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,10 @@ export class GlobalService extends BaseService<GlobalDocumentExpiredDto>{
    globalExpiredDocuments(query:GlobalExpiredDocumentQuery): Observable<PaginateRsult<GlobalDocumentExpiredDto>> {
     let param = this.httpParams(query);
     return this.httpClient.get<PaginateRsult<GlobalDocumentExpiredDto>>(`${this.url}/GlobalDocumentExpired` , {params : param});
+  }
+
+  deactiveReminder(params: DeactivateGlobalReminderParam): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${this.url}/DeactiveReminder`, params);
   }
 
     exportToExcel(): Observable<ExportModel> {

@@ -176,4 +176,19 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
     this.params.expiredPeriod = event;
     this.fetchData();
   }
+
+  onRowClick(row:any){
+    if(row.key == 'activeReminder'){
+      this.showLoading = true;
+      this.service.deactiveReminder({id:row.element.id, subIdc: row.element.subIdc}).subscribe({
+        next: _=>{
+          this.fetchData();
+        },
+        error: _=>{
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }
+      });
+  }
+}
 }

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommonStatus } from '../../../../enums/common-status';
 import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
 import { EntityIDc } from '../../../../enums/entity-idc';
+import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-property-view',
@@ -160,6 +161,25 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
+
+   exportToPdf() {
+      this.service.exportToPdf({ id: this.property.id }).subscribe(res => {
+        // Assuming res.data is a base64 string
+        const binaryString = atob(res.data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+  
+        const blob = new Blob([bytes], {
+          type: 'application/pdf'
+        });
+  
+        downloadBlobFile(blob, res.fileName || 'report.pdf');
+      });
+    }
+  
 
 
 

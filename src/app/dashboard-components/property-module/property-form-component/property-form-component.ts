@@ -57,9 +57,14 @@ export class PropertyFormComponent extends BaseFormComponent {
     this.countryParentId = environment.rootDynamicLists.country;
     if(this.element?.locationCountryId){
       this.cityParentId = this.element.locationCountryId;
+      this.onCountryChange(this.cityParentId);
     }
     if(this.element?.locationCityId){
       this.areaParentId = this.element.locationCityId;
+      this.onCityChange(this.areaParentId);
+    }
+    if(this.element?.locationAreaId){
+      this.formGroup.get('locationAreaId')?.setValue(this.element.locationAreaId);
     }
 
     this.propertyStatuses = this.propertyStatuses = this.dlService.GetAllByParentId(this.propertyStatusId)
@@ -82,6 +87,8 @@ export class PropertyFormComponent extends BaseFormComponent {
   onCityChange(id: number) {
     this.showZone = false;
     this.areaParentId = id;
+    this.formGroup.get('locationCityId')?.setValue(id);
+
     this.formGroup.get('locationAreaId')?.setValue(null);
        setTimeout(() => {
       this.showZone = true;

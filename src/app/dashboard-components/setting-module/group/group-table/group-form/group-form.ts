@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-group-form',
   standalone: false,
   templateUrl: './group-form.html',
-  styleUrl: './group-form.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class GroupForm extends BaseFormComponent {
   @Input() group!: GroupDTO;

@@ -9,6 +9,7 @@ import { Labels } from '../../../models/consts/labels';
 import { CompanyFormDialog } from '../company-form-dialog/company-form-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyBoardDto } from '../../../models/company-models/company-board/dtos/company-board-dto';
+import { downloadBlobFile } from '../../_shared/shared-methods/downloadBlob';
 
 @Component({
   selector: 'app-company-view-component',
@@ -156,6 +157,24 @@ export class CompanyViewComponent implements OnInit {
       this.cdr.markForCheck();
     })
   }
+
+   exportToPdf() {
+      this.service.exportToPdf({ id: this.company.id }).subscribe(res => {
+        // Assuming res.data is a base64 string
+        const binaryString = atob(res.data);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+  
+        const blob = new Blob([bytes], {
+          type: 'application/pdf'
+        });
+  
+        downloadBlobFile(blob, res.fileName || 'report.pdf');
+      });
+    }
 
 }
 

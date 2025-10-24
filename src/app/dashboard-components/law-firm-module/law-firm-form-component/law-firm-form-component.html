@@ -55,7 +55,7 @@
                 <div class="form-group col-6">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.LAW_FIRM.EST_YEAR || 'Est. Year' }}</mat-label>
-                        <input matInput type="text" formControlName="estYear"
+                        <input matInput type="text" formControlName="estYear" (input)="onEstYearInput($event)"
                             [placeholder]="label.LAW_FIRM.EST_YEAR || 'Enter Est. Year'">
                         <mat-error *ngIf="formGroup.get('estYear')?.hasError('min')">
                             {{ label.LAW_FIRM.EST_YEAR_MIN || 'Minimum year is 1800' }}

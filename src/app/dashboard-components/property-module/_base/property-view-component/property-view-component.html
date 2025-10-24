@@ -59,7 +59,10 @@
                         {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
                     </button>
                     <mat-menu #moreMenu="matMenu">
-                        <!-- Add menu items here if needed -->
+                        <button mat-menu-item (click)="exportToPdf()">
+                            <mat-icon>picture_as_pdf</mat-icon>
+                            {{ label.COMMON.PRINT }}
+                        </button>
                     </mat-menu>
                 </div>
             </div>

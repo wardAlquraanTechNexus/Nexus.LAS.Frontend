@@ -59,4 +59,9 @@ export class PropertyService extends BaseService<Property> {
     return this.httpClient.get<ExportModel>(this.url + "/ExportToExcel", { params });
   }
 
+  exportToPdf(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToPdf", { params });
+  }
+
 }

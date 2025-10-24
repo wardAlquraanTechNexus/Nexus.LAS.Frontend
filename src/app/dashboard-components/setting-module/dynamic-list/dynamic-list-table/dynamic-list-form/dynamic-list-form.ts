@@ -9,7 +9,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-dynamic-list-form',
   standalone: false,
   templateUrl: './dynamic-list-form.html',
-  styleUrl: './dynamic-list-form.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class DynamicListForm extends BaseFormComponent {
   @Input() dynamicList!: any;

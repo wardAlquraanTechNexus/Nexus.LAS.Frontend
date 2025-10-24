@@ -8,7 +8,7 @@ import { GroupService } from '../../../../../services/group-service';
   selector: 'app-group-form-dialog',
   standalone:false,
   templateUrl: './group-form-dialog.html',
-  styleUrl: './group-form-dialog.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class GroupFormDialog extends BaseDialogComponent {
  showLoading = false;

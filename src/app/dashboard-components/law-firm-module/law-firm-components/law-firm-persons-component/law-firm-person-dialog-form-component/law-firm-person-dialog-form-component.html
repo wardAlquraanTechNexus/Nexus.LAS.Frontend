@@ -1,8 +1,9 @@
-
-
-  <app-law-firm-person-form 
-    [showLoading]="showLoading"
-    [element]="data"
-    (saveEmitter)="onSave($event)"
-    (cancelEditEmitter)="onCancel($event)">
+<base-dialog-form>
+<app-law-firm-person-form 
+  [showLoading]="showLoading"
+  [element]="data"
+  (saveEmitter)="onSave($event)"
+  (cancelEditEmitter)="onCancel($event)">
 </app-law-firm-person-form> 
+
+</base-dialog-form>

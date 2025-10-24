@@ -111,10 +111,10 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuRow="matMenu" class="nexus-action-menu">
-            <!-- <button mat-menu-item class="nexus-menu-item nexus-menu-neutral">
+            <button mat-menu-item class="nexus-menu-item nexus-menu-neutral" (click)="exportToPdf(row.id)">
                 <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
             </button>
- -->
+
 
             <button mat-menu-item [confirmDelete]="deleteCompany(row)" class="nexus-menu-item nexus-menu-danger">
                 <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}

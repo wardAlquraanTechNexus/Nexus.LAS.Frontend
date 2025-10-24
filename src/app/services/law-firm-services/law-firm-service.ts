@@ -56,4 +56,9 @@ export class LawFirmService extends BaseService<LawFirm> {
     return this.httpClient.get<LawFirmDTO>(this.url + "/" + id);
   }
 
+  exportToPdf(filter: any): Observable<ExportModel> {
+    var params = this.httpParams(filter);
+    return this.httpClient.get<ExportModel>(this.url + "/ExportToPdf", { params });
+  }
+
 }

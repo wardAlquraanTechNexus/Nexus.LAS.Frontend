@@ -52,4 +52,10 @@ export class LawFirmFormComponent extends BaseFormComponent {
 
   }
 
+  onEstYearInput(event: any) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/\D/g, '').slice(0, 4);
+    this.formGroup.get('estYear')?.setValue(input.value, { emitEvent: false });
+  }
+
 }

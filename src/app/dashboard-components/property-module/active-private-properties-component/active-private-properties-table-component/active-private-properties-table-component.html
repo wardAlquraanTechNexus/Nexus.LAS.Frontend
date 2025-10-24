@@ -93,7 +93,7 @@
             <div class="nexus-bulk-actions" *ngIf="selectedProperties.length">
                 <span class="nexus-bulk-count">{{ selectedProperties.length }} {{ label.COMMON.SELECTED }}</span>
                 <div class="nexus-bulk-buttons">
-        
+
                 </div>
             </div>
         </div>
@@ -127,6 +127,9 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuRow="matMenu" class="nexus-action-menu">
+            <button mat-menu-item class="nexus-menu-item nexus-menu-neutral" (click)="exportToPdf(row.id)">
+                <mat-icon class="nexus-icon-print">print</mat-icon> {{ label.COMMON.PRINT }}
+            </button>
 
             <button mat-menu-item [confirmDelete]="deleteCompany(row)" class="nexus-menu-item nexus-menu-danger">
                 <mat-icon class="nexus-icon-delete">delete</mat-icon> {{ label.COMMON.DELETE }}

@@ -33,7 +33,10 @@
       <!-- Table -->
       <div class="nexus-table-container expired-docs-table" *ngIf="!showLoading && data.totalRecords > 0">
         <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
-          (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+          (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)"
+          (rowClick)="onRowClick($event)"
+          >
+          
         </app-shared-table>
       </div>
     </div>

@@ -11,7 +11,7 @@ import { TransactionRegisterDialogFormComponent } from '../transaction-register-
   selector: 'app-transaction-register-person-company-form-dialog-component',
   standalone: false,
   templateUrl: './transaction-register-person-company-form-dialog-component.html',
-  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss','./transaction-register-person-company-form-dialog-component.scss']
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class TransactionRegisterPersonCompanyFormDialogComponent extends BaseDialogFormComponent<TransactionRegister> {
 

@@ -1,9 +1,7 @@
-  <div class="spinner-overlay" *ngIf="showLoading">
-    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
-  </div>
-
+<base-dialog-form>
 <app-dynamic-list-form *ngIf="!showLoading"
 [dynamicList]="element"
 (saveEmitter)="onSave($event)"
 (cancelEditEmitter)="onCancel($event)"
 ></app-dynamic-list-form>
+</base-dialog-form>

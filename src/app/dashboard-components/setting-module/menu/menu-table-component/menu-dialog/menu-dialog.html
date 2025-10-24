@@ -1,9 +1,8 @@
-  <div class="spinner-overlay" *ngIf="showLoading">
-    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
-  </div>
-
+<base-dialog-form>
 <app-menu-form *ngIf="!showLoading"
 [menu]="element"
 (saveEmitter)="onSave($event)"
 (cancelEditEmitter)="onCancel($event)"
 ></app-menu-form>
+
+</base-dialog-form>

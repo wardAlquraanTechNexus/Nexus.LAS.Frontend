@@ -9,7 +9,7 @@ import { LanguageService } from '../../../../../services/language-service';
   selector: 'app-menu-form',
   standalone: false,
   templateUrl: './menu-form.html',
-  styleUrl: './menu-form.scss'
+  styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class MenuForm extends BaseFormComponent {
   @Input() menu!: any;

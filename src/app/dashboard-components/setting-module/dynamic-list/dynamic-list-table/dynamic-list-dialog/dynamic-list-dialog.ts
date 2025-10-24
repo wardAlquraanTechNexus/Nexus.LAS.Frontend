@@ -7,7 +7,7 @@ import { DynamicListService } from '../../../../../services/dynamic-list-service
   selector: 'app-dynamic-list-dialog',
   standalone: false,
   templateUrl: './dynamic-list-dialog.html',
-  styleUrl: './dynamic-list-dialog.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class DynamicListDialog extends BaseDialogComponent {
   showLoading = false;

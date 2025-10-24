@@ -14,7 +14,7 @@ import { LanguageService } from '../../../../services/language-service';
   selector: 'app-shared-register-note-form',
   standalone: false,
   templateUrl: './shared-register-note-form.html',
-  styleUrl: './shared-register-note-form.scss',
+  styleUrls: ['../../../_shared/styles/common-form-style.scss'],
   providers: [
     ...DATE_FORMAT_PROVIDERS
   ]

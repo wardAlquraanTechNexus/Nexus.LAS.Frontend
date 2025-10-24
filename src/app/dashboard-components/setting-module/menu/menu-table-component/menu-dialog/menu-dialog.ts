@@ -7,7 +7,7 @@ import { MenuService } from '../../../../../services/menu-service';
   selector: 'app-menu-dialog',
   standalone:false,
   templateUrl: './menu-dialog.html',
-  styleUrl: './menu-dialog.scss'
+  styleUrls: ['../../../../_shared/styles/common-dialog-form-style.scss']
 })
 export class MenuDialog extends BaseDialogComponent {
   showLoading = false;
