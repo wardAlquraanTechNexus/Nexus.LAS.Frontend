@@ -115,6 +115,37 @@ table[dir="rtl"] {
   text-overflow: ellipsis;
   white-space: wrap;
   overflow-wrap: break-word;
+
+  // Status badges and styled cells should not wrap
+  span[style*="border-radius: 20px"] {
+    white-space: nowrap !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+
+    mat-icon {
+      flex-shrink: 0;
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+      line-height: 18px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      vertical-align: middle;
+    }
+
+    // Override any padding classes on icon
+    mat-icon.pt-1 {
+      padding-top: 0 !important;
+    }
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      line-height: 1.2;
+    }
+  }
 }
 
 .mat-mdc-header-cell {
