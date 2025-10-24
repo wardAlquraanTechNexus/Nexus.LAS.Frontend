@@ -112,17 +112,17 @@
                 <div class="nexus-bulk-buttons">
                     <button mat-stroked-button class="nexus-btn nexus-bulk-success"
                         (click)="bulkChangeStatus(activeStatus)">
-                        <mat-icon>check_circle</mat-icon> {{ label.COMPANY.ACTIVATE }}
+                        <mat-icon>check_circle</mat-icon> {{ label.COMMON.ACTIVATE }}
                     </button>
                     <button mat-stroked-button class="nexus-btn nexus-bulk-warning"
                         (click)="bulkChangeStatus(inactiveStatus)">
-                        <mat-icon>cancel</mat-icon> {{ label.COMPANY.DEACTIVATE }}
+                        <mat-icon>cancel</mat-icon> {{ label.COMMON.DEACTIVATE }}
                     </button>
                     <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(false)">
-                        <mat-icon>visibility</mat-icon> {{ label.COMPANY.PUBLIC }}
+                        <mat-icon>public</mat-icon> {{ label.COMMON.MARK_PUBLIC }}
                     </button>
                     <button mat-stroked-button class="nexus-btn nexus-bulk-info" (click)="bulkChangePrivate(true)">
-                        <mat-icon>visibility_off</mat-icon> {{ label.COMPANY.PRIVATE }}
+                        <mat-icon>lock</mat-icon> {{ label.COMMON.MARK_PRIVATE }}
                     </button>
                 </div>
             </div>
