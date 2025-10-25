@@ -28,83 +28,47 @@
                     </dl-select-auto-complete>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-4">
                     <dl-select-auto-complete *ngIf="countryParentId" [controlName]="'locationCountryId'"
                         [formGroup]="formGroup" [label]="label.COMMON.COUNTRY || 'Location Country'"
                         [parentId]="countryParentId" (selectEmitter)="onCountryChange($event)">
                     </dl-select-auto-complete>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-4">
                     <dl-select-auto-complete *ngIf="cityParentId && showCity" [controlName]="'locationCityId'"
                         [formGroup]="formGroup" [label]="label.COMMON.CITY || 'Location City'" [parentId]="cityParentId"
                         (selectEmitter)="onCityChange($event)">
                     </dl-select-auto-complete>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-4">
                     <dl-select-auto-complete *ngIf="areaParentId && showZone" [controlName]="'locationAreaId'"
                         [formGroup]="formGroup" [label]="label.COMMON.ZONE || 'Location Zone'"
                         [parentId]="areaParentId">
                     </dl-select-auto-complete>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-4">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.PROPERTY.PLOT || 'Plot' }}</mat-label>
                         <input matInput type="text" formControlName="plot"
                             [placeholder]="label.PROPERTY.PLOT || 'Enter plot'">
                     </mat-form-field>
                 </div>
-
-           
-                <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.PROPERTY.PLOT_F_AREA || 'Plot F Area' }}</mat-label>
-                        <input matInput type="number" formControlName="plotFArea"
-                            [placeholder]="label.PROPERTY.PLOT_F_AREA || 'Enter plot F Area'">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.PROPERTY.PLOT_M_AREA || 'Plot M Area' }}</mat-label>
-                        <input matInput type="number" formControlName="plotMArea"
-                            [placeholder]="label.PROPERTY.PLOT_M_AREA || 'Enter plot M Area'">
-                    </mat-form-field>
-                </div>
-
-                <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.PROPERTY.PROPERTY_F_AREA || 'Property F Area' }}</mat-label>
-                        <input matInput type="number" formControlName="propertyFArea"
-                            [placeholder]="label.PROPERTY.PROPERTY_F_AREA || 'Enter property F Area'">
-                    </mat-form-field>
-                </div>
-                <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.PROPERTY.PROPERTY_M_AREA || 'Property M Area' }}</mat-label>
-                        <input matInput type="number" formControlName="propertyMArea"
-                            [placeholder]="label.PROPERTY.PROPERTY_M_AREA || 'Enter property M Area'">
-                    </mat-form-field>
-                </div>
-
-
-
-                <div class="form-group col-6">
+                <div class="form-group col-4">
                     <dl-select-auto-complete *ngIf="propertyTypeId" [controlName]="'type'" [formGroup]="formGroup"
                         [label]="label.PROPERTY.PROPERTY_TYPE || 'Property Type'" [parentId]="propertyTypeId">
                     </dl-select-auto-complete>
                 </div>
 
-                <div class="form-group col-6">
+                <div class="form-group col-4">
                     <dl-select-auto-complete *ngIf="propertyPurposeId" [controlName]="'purpose'" [formGroup]="formGroup"
                         [label]="label.PROPERTY.PROPERTY_PURPOSE || 'Property Purpose'" [parentId]="propertyPurposeId">
                     </dl-select-auto-complete>
                 </div>
-
-
-
-                <div class="form-group col-12">
+           
+                                <div class="form-group col-12">
                     <label class="form-label">{{ label.PROPERTY.LEGAL_STATUS || 'Legal Status' }}</label>
                     <mat-button-toggle-group #toggleGroup="matButtonToggleGroup" (change)="changeStatus(toggleGroup.value)"
                         multiple class="nexus-toggle-compact"  formControlName="legalStatusIds">
@@ -116,7 +80,43 @@
                     </mat-button-toggle-group>
                 </div>
 
-                    <div class="form-group col-12 mt-3">
+
+
+
+                <div class="form-group col-6 mt-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.PROPERTY.PLOT_M_AREA || 'Plot M Area' }}</mat-label>
+                        <input matInput type="number" formControlName="plotMArea"
+                            [placeholder]="label.PROPERTY.PLOT_M_AREA || 'Enter plot M Area'">
+                    </mat-form-field>
+                </div>
+                                               <div class="form-group col-6 mt-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.PROPERTY.PROPERTY_M_AREA || 'Property M Area' }}</mat-label>
+                        <input matInput type="number" formControlName="propertyMArea"
+                            [placeholder]="label.PROPERTY.PROPERTY_M_AREA || 'Enter property M Area'">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.PROPERTY.PLOT_F_AREA || 'Plot F Area' }}</mat-label>
+                        <input matInput type="number" formControlName="plotFArea"
+                            [placeholder]="label.PROPERTY.PLOT_F_AREA || 'Enter plot F Area'">
+                    </mat-form-field>
+                </div>
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.PROPERTY.PROPERTY_F_AREA || 'Property F Area' }}</mat-label>
+                        <input matInput type="number" formControlName="propertyFArea"
+                            [placeholder]="label.PROPERTY.PROPERTY_F_AREA || 'Enter property F Area'">
+                    </mat-form-field>
+                </div>
+ 
+
+
+
+                    <div class="form-group col-12">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>{{ label.PROPERTY.LOCATION_DETAILS || 'Location Details' }}</mat-label>
                         <textarea matInput formControlName="locationDetails"
