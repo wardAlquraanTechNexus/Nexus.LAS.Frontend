@@ -7,7 +7,7 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id != 0 ? label.COMPANY.EDIT_BOARD_MEMBER || 'Edit' : label.COMPANY.ADD_BOARD_MEMBER || 'Add'}} {{ label.COMPANY.BOARD_MEMBER || 'Board Member' }}
+                    {{element.id != 0 ? label.COMPANY.EDIT_BOARD_MEMBER || 'Edit' : label.COMPANY.ADD_BOARD_MEMBER || 'Add'}} 
                 </h2>
                 <p class="dialog-subtitle">{{ label.COMPANY.ENTER_BOARD_MEMBER_DETAILS || 'Enter Board Member' }}</p>
             </div>
@@ -39,7 +39,7 @@
                     </select-auto-complete>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
       
                     <app-date-input
                         [formGroup]="formGroup"
@@ -51,7 +51,7 @@
                         </app-date-input>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                      <app-date-input
                         [formGroup]="formGroup"
                         [controlName]="'cessationDate'"

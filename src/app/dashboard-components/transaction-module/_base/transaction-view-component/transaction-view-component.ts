@@ -117,9 +117,9 @@ export class TransactionViewComponent implements OnInit {
 
   getIcon() {
     switch (this.transaction?.status) {
-      case CommonStatus.Active:
+      case CommonStatus.Active || 1:
         return 'check_circle';
-      case CommonStatus.Inactive:
+      case CommonStatus.Inactive || 2:
         return 'cancel';
       default:
         return 'star';

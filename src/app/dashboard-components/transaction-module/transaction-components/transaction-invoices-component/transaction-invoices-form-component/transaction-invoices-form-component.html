@@ -34,13 +34,14 @@
                 </select-auto-complete>
             </div>
 
-            <div class="form-group col-12">
+            <div class="form-group col-4">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.TRANSACTION.INVOICE_NUMBER }}</mat-label>
                     <input matInput type="text" formControlName="invoice"
                         [placeholder]="label.TRANSACTION.INVOICE_NUMBER || 'Enter Invoice Number'">
                 </mat-form-field>
             </div>
+            <div class="form-group col-4">
 
             <app-date-input
                         [formGroup]="formGroup"
@@ -48,8 +49,13 @@
                         [label]="label.TRANSACTION.INVOICE_DATE"
                         >
                 </app-date-input>
-
-            <div class="form-group col-12">
+</div>
+      <div class="form-group col-4" *ngIf="currencyDlId">
+                <dl-select-auto-complete [controlName]="'currency'" [formGroup]="formGroup"
+                    [label]="label.TRANSACTION.INVOICE_CURRENCY" [parentId]="currencyDlId">
+                </dl-select-auto-complete>
+            </div>
+            <div class="form-group col-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.TRANSACTION.AMOUNT }}</mat-label>
                     <input matInput type="number" formControlName="amount"
@@ -57,7 +63,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="form-group col-12">
+            <div class="form-group col-6">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>{{ label.TRANSACTION.PAID }}</mat-label>
                     <input matInput type="number" formControlName="paid"
@@ -65,11 +71,7 @@
                 </mat-form-field>
             </div>
 
-            <div class="form-group col-12" *ngIf="currencyDlId">
-                <dl-select-auto-complete [controlName]="'currency'" [formGroup]="formGroup"
-                    [label]="label.TRANSACTION.INVOICE_CURRENCY" [parentId]="currencyDlId">
-                </dl-select-auto-complete>
-            </div>
+      
 
             <div class="form-group col-12">
                 <mat-form-field appearance="outline" class="w-100">

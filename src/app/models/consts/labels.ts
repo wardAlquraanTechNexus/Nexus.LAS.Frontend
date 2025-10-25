@@ -40,6 +40,7 @@ export const Labels = {
             PERSON_CREATED_SUCCESSFULLY: "Person Created Successfully",
             CAPACITIES_IN_COMPANIES: "Capacities In Companies",
             BOARD_MEMBERSHIP: "Board Membership",
+
             ACCOUNT_SIGNATORIES: "Account Signatories",
             ADD_ADDRESS: "Add Address",
             EDIT_ADDRESS: "Edit Address",
@@ -84,7 +85,7 @@ export const Labels = {
             PUBLIC: "Public",
             EXPORT: "Export",
             ADVANCED_FILTER: "Advanced Filter",
-            CAPITAL_AMOUNT: "Capital Amount",
+            CAPITAL_AMOUNT: "Capital",
             TOTAL_SHARES: "Total Shares",
             NUMBER_OF_PARTNERS: "Number of Partners",
             TYPE: "Type",
@@ -163,6 +164,10 @@ export const Labels = {
             EDIT_BOARD_MEMBER: "Edit Board Member", // <-- Added
             ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details", 
             SIGNATORIES: "Signatories",
+            BOARDS: "Boards",
+            BOARD: "Board",
+            ADD_BOARD: "Add Board",
+            EDIT_BOARD: "Edit Board",
 
         },
         COMMON: {
@@ -656,6 +661,10 @@ export const Labels = {
             EXPORT_EXCEL: "تصدير إلى Excel",
             BOARD_MEMBERSHIP: "عضوية مجلس الإدارة",
             BOARD_MEMBER: "عضو مجلس إدارة",
+            BOARDS: "المجالس الإدارية",
+            BOARD: "مجلس الإدارة",
+            ADD_BOARD: "إضافة مجلس إدارة",
+            EDIT_BOARD: "تعديل مجلس الإدارة",
             REGISTRATIONS: "التسجيلات",
             ACCOUNT_SIGNATORIES: "المفوضون بالتوقيع",
             EXPORT_PDF: "تصدير إلى PDF",
