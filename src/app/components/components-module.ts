@@ -76,6 +76,7 @@ import { PropertyFormComponent } from '../dashboard-components/property-module/p
 import { PropertyDialogFormComponent } from '../dashboard-components/property-module/property-dialog-form-component/property-dialog-form-component';
 import { TransactionActionsComponent } from '../dashboard-components/transaction-module/transaction-components/transaction-actions-component/transaction-actions-component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { StartEndDatesInputComponent } from './start-end-dates-input-component/start-end-dates-input-component';
 
 
 
@@ -126,7 +127,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SelectReminderComponent,
     PropertyDialogFormComponent,
     PropertyFormComponent,
-    TransactionActionsComponent
+    TransactionActionsComponent,
+    StartEndDatesInputComponent
 
   ],
   imports: [
@@ -243,7 +245,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     PropertyDialogFormComponent,
     PropertyFormComponent,
     TransactionActionsComponent,
-    DragDropModule
+    DragDropModule,
+    StartEndDatesInputComponent
   ],
   providers: [
 

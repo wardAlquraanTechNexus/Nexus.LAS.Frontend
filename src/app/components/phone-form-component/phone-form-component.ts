@@ -45,7 +45,7 @@ export class PhoneFormComponent implements OnInit {
 
   onPhoneInput(event: any) {
     const input = event.target as HTMLInputElement;
-    input.value = input.value.replace(/\D/g, '').slice(0, 15);
+    input.value = input.value.replace(/\D/g, '').slice(0, 14);
     this.formGroup.get('phone')?.setValue(input.value, { emitEvent: false });
   }
 

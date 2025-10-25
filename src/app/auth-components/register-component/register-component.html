@@ -31,16 +31,23 @@
                         </mat-form-field>
                     </div>
                     <div class="col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Mobile Number</mat-label>
-                            <input formControlName="phoneNumber" matInput placeholder="eg. 97150000000" required>
-                        </mat-form-field>
+                        <phone-form
+                            [controlName]="'phoneNumber'"
+                            [labelValue]="'Mobile Number'"
+                            [formGroup]="registerForm"
+                            [required]="true"
+                        >
+                        </phone-form>
+                    
                     </div>
                     <div class="col-6">
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Email</mat-label>
-                            <input formControlName="email" matInput placeholder="name@example.com" required>
-                        </mat-form-field>
+                         <email-form
+                            [controlName]="'email'"
+                            [labelValue]="'Email'"
+                            [formGroup]="registerForm"
+                            [required]="true"
+                        >
+                        </email-form>
                     </div>
                     <div class="col-6">
                         <mat-form-field appearance="outline" class="w-100">

@@ -31,356 +31,342 @@ export class TableDataPipe implements PipeTransform {
   ) { }
 
   transform(value: any, element: any, column: DisplayColumn, pipes?: string[]): Observable<string> {
+    
+    // Handle case when no pipes are provided
     if (!pipes || pipes.length === 0) {
-      // Check if value is a number and format it with thousand separators
-      if (typeof value === 'number' && !isNaN(value)) {
-        const decimals = column.decimals ?? this.numberFormatConfig.getConfig().defaultDecimals;
-        return of(this.formatNumberWithSeparator(value, decimals));
-      }
-      return of(value?.toString() ?? '');
+      return this.handleDefaultTransform(value, column);
     }
 
-    const getLabel = this.languageService.getLabel.bind(this.languageService);
-
+    // Process each pipe
     for (const pipe of pipes) {
-      switch (pipe.toLowerCase()) {
-        case 'person-status':
-          switch (value) {
-            case PersonStatus.New:
-              return of(getLabel('COMMON.NEW') ?? 'New');
-            case PersonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
-            case PersonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
-            default: return of(value?.toString() ?? '');
-          }
-        case 'company-status':
-          switch (value) {
-            case CompanyStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
-            case CompanyStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
-            case CompanyStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
-            default: return of(value?.toString() ?? '');
-          }
-        case 'common-status':
-          switch (value) {
-            case CommonStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
-            case CommonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
-            case CommonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
-            default: return of(value?.toString() ?? '');
-          }
-
-        case 'company-contract-status':
-          switch (value) {
-            case CompanyContractStatus.Expired: return of(getLabel('COMMON.EXPIRED') ?? 'Expired');
-            case CompanyContractStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
-            default: return of(value?.toString() ?? '');
-          }
-        case 'company-license-status':
-          switch (value) {
-            case CompanyLicenseStatus.Expired: return of(getLabel('COMMON.EXPIRED') ?? 'Expired');
-            case CompanyLicenseStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
-            default: return of(value?.toString() ?? '');
-          }
-
-        case 'private-person':
-        case 'private-company':
-        case 'private':
-
-          return of(value === true ? getLabel('COMPANY.PRIVATE') : getLabel('COMPANY.PUBLIC'));
-
-        case 'signatory-active':
-        case 'capital-active':
-        case 'active':
-          return of(value === true ? getLabel('COMMON.ACTIVE') ?? 'Active' : getLabel('COMMON.INACTIVE') ?? 'Inactive');
-
-        case 'person-document-primary':
-        case 'person-in-charge-primary':
-        case 'primary':
-          return of(value === true ? getLabel('COMMON.PRIMARY') ?? 'Primary' : '');
-
-        case 'date-time':
-          const dateTime = value instanceof Date ? value : new Date(value);
-          return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
-
-        case 'date':
-          if (!value) {
-            return of("")
-          }
-          const date = value instanceof Date ? value : new Date(value);
-          return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
-
-        case 'company-activity':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyActivity).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-
-        case 'number':
-          if (value === null || value === undefined) {
-            return of('');
-          }
-          const numValue = typeof value === 'string' ? parseFloat(value) : value;
-          if (isNaN(numValue)) {
-            return of(value?.toString() ?? '');
-          }
-          const numberDecimals = column.decimals ?? this.numberFormatConfig.getConfig().defaultDecimals;
-          return of(this.formatNumberWithSeparator(numValue, numberDecimals));
-
-        case 'percentage':
-          const percentDecimals = column.decimals ?? this.numberFormatConfig.getConfig().percentageDecimals;
-          const percentValue = this.formatNumberWithSeparator(value, percentDecimals);
-          return of(percentValue + "%")
-
-        case 'document-nationality':
-        case 'country':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.country).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'company-classification':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyClass).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'dl-by-comparekey':
-          if (column.compareKey) {
-            return this.dlService.GetAllByParentId(element[column.compareKey]).pipe(
-              map(list => {
-                const found = list.find(x => x.id == value);
-                return found ? found.name : '';
-              })
-            );
-          }
-          return of(value?.toString() ?? '');
-
-        case 'original-document-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentTypes).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'original-document-action-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.originalDocumentActionTypes).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'property-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyType).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'property-type-of-title':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyTypeOfTitle).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'property-owner-relation':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyOwnerRelation).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'staff-level':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.lawFirmsCounselLevels).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'property-document-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.propertyDocumentType).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'other-document-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.otherDocumentType).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'designations':
-          // value can be a comma-separated string like "1,2,3" or an array [1,2,3]
-          const ids = Array.isArray(value)
-            ? value
-            : typeof value === 'string'
-              ? value.split(',').map(v => v.trim()).filter(v => v !== '')
-              : [value];
-
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.designation).pipe(
-            map(list => {
-              const names = ids
-                .map(id => {
-                  const found = list.find(x => x.id == id);
-                  return found ? found.name : '';
-                })
-                .filter(name => name); // remove empty names
-              return names.join(', ');
-            })
-          );
-
-        case 'designation':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.designation).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'company-contract-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.companyContractType).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'transaction-type':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.transactionTypes).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'board-position':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.boardPosition).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'rule':
-          return this.dlService.GetAllByParentId(environment.rootDynamicLists.rule).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found ? found.name : '';
-            })
-          );
-        case 'person':
-          return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found?.personEnglishName || ""
-            })
-          );
-
-        case 'register':
-          if (element[column.compareKey!] == EntityIDc.Person) {
-            return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
-              map(list => {
-                const found = list.find(x => x.id == value);
-                return found?.personEnglishName || ""
-              })
-            );
-
-          } else if (element[column.compareKey!] == EntityIDc.Company) {
-            return this.companyService.getAllCompanies({ pageSize: 100, page: 1 }).pipe(
-              map(list => {
-                const found = list.find(x => x.id == value);
-                return found?.companyEnglishName || "N/A"
-              })
-            );
-          } else if (element[column.compareKey!] == EntityIDc.LawFirm) {
-            return this.lawFirmService.getAllLawFirms({ pageSize: 100, page: 1 }).pipe(
-              map(list => {
-                const found = list.find(x => x.id == value);
-                return found?.englishName || "N/A"
-              })
-            );
-          } else {
-            return of('');
-          }
-
-        case 'law-firm':
-          return this.lawFirmService.getAllLawFirms({ pageSize: 100, page: 1 }).pipe(
-            map(list => {
-              const found = list.find(x => x.id == value);
-              return found?.englishName || "N/A"
-            })
-          );
-        case 'currency':
-          const currencyDecimals = column.decimals ?? this.numberFormatConfig.getConfig().currencyDecimals;
-          if (column.compareKey) {
-            return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(
-              map(list => {
-                const found = list.find(x => x.id == element[column.compareKey!]);
-                const formattedValue = this.formatNumberWithSeparator(value, currencyDecimals);
-                return found ? `${formattedValue} ${found.name}` : `${formattedValue}`;
-              })
-            );
-          }
-          else {
-            return of(this.formatNumberWithSeparator(value, currencyDecimals))
-          }
-
-
-        case 'company-shareholder-status':
-          return of(value === true ? getLabel('COMMON.ACTIVE') ?? 'Active' : getLabel('COMMON.INACTIVE') ?? 'Inactive');
-
-        case 'register-type':
-          if (value === EntityIDc.Person) return of(getLabel('COMMON.PERSON') ?? 'Person');
-          if (value === EntityIDc.Company) return of(getLabel('COMMON.COMPANY') ?? 'Company');
-          if (value === EntityIDc.LawFirm) return of(getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm');
-          if (value === EntityIDc.Transactions) return of(getLabel('TRANSACTION.TRANSACTION') ?? 'Transaction');
-          if (value === EntityIDc.FPCs) return of(getLabel('FPC.FPC') ?? 'FPC');
-          if (value === EntityIDc.DocumentTracking) return of(getLabel('DOCUMENT_TRACKING.DOCUMENT_TRACKING') ?? 'Document Tracking');
-          if (value === EntityIDc.Properties) return of(getLabel('PROPERTY.REAL_EASTATE') ?? 'Real Estate');
-          if (value === EntityIDc.PersonIdDetail) return of(getLabel('PERSON.PERSON_ID_DOCUMENTS'));
-          if (value === EntityIDc.CompaniesChamberOfCommerces) return of(getLabel('COMPANY.CHAMBER_OF_COMMERCE'));
-          if (value === EntityIDc.CompaniesLicenseIDC) return of(getLabel('COMPANY.LICENSES_AND_REGISTERS'));
-          if (value === EntityIDc.CompaniesContracts) return of(getLabel('COMPANY.CONTRACT'));
-          if (value === EntityIDc.PropertyDocuments) return of(getLabel('PROPERTY.PROPERTY_DOCUMENTS') ?? 'Real Estate');
-
-
-          return of(value?.toString() ?? '');
-
-        case 'expired-before':
-          switch (value) {
-            case -15:
-              return of("Expired Before 15 days");
-            case -30:
-              return of("Expired Before 30 days");
-            case -45:
-              return of("Expired Before 15 days");
-            case 15:
-              return of("Expired within 15 days");
-            case 30:
-              return of("Expired within 30 days");
-            case 45:
-              return of("Expired within 45 days");
-            default: return of(value);
-          }
-        case 'number-separator':
-          if (value === null || value === undefined || value === '') {
-            return of('');
-          }
-          const strValue = value.toString();
-          // Separate every 3 characters from the right
-          const separated = strValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-          return of(separated);
-
-        default:
-          return of(value?.toString() ?? '');
+      const result = this.processPipe(pipe.toLowerCase(), value, element, column);
+      if (result) {
+        return result;
       }
     }
 
     return of(value?.toString() ?? '');
   }
 
+  private handleDefaultTransform(value: any, column: DisplayColumn): Observable<string> {
+    // if (typeof value === 'number' && !isNaN(value)) {
+    //   const decimals = column.decimals ?? this.numberFormatConfig.getConfig().defaultDecimals;
+    //   return of(this.formatNumberWithSeparator(value, decimals));
+    // }
+    return of(value?.toString() ?? '');
+  }
+
+  private processPipe(pipe: string, value: any, element: any, column: DisplayColumn): Observable<string> | null {
+    const pipeHandlers: { [key: string]: () => Observable<string> } = {
+      // Status pipes
+      'person-status': () => this.handlePersonStatus(value),
+      'company-status': () => this.handleCompanyStatus(value),
+      'common-status': () => this.handleCommonStatus(value),
+      'company-contract-status': () => this.handleCompanyContractStatus(value),
+      'company-license-status': () => this.handleCompanyLicenseStatus(value),
+
+      // Boolean pipes
+      'private-person': () => this.handlePrivateStatus(value),
+      'private-company': () => this.handlePrivateStatus(value),
+      'private': () => this.handlePrivateStatus(value),
+      'signatory-active': () => this.handleActiveStatus(value),
+      'capital-active': () => this.handleActiveStatus(value),
+      'active': () => this.handleActiveStatus(value),
+      'company-shareholder-status': () => this.handleActiveStatus(value),
+      'person-document-primary': () => this.handlePrimaryStatus(value),
+      'person-in-charge-primary': () => this.handlePrimaryStatus(value),
+      'primary': () => this.handlePrimaryStatus(value),
+
+      // Date pipes
+      'date-time': () => this.handleDateTime(value),
+      'date': () => this.handleDate(value),
+
+      // Number pipes
+      'number': () => this.handleNumber(value, column),
+      'percentage': () => this.handlePercentage(value, column),
+      'currency': () => this.handleCurrency(value, element, column),
+      'number-separator': () => this.handleNumberSeparator(value),
+
+      // Dynamic list pipes
+      'company-activity': () => this.handleDynamicList(value, environment.rootDynamicLists.companyActivity),
+      'document-nationality': () => this.handleDynamicList(value, environment.rootDynamicLists.country),
+      'country': () => this.handleDynamicList(value, environment.rootDynamicLists.country),
+      'company-classification': () => this.handleDynamicList(value, environment.rootDynamicLists.companyClass),
+      'original-document-type': () => this.handleDynamicList(value, environment.rootDynamicLists.originalDocumentTypes),
+      'original-document-action-type': () => this.handleDynamicList(value, environment.rootDynamicLists.originalDocumentActionTypes),
+      'property-type': () => this.handleDynamicList(value, environment.rootDynamicLists.propertyType),
+      'property-type-of-title': () => this.handleDynamicList(value, environment.rootDynamicLists.propertyTypeOfTitle),
+      'property-owner-relation': () => this.handleDynamicList(value, environment.rootDynamicLists.propertyOwnerRelation),
+      'staff-level': () => this.handleDynamicList(value, environment.rootDynamicLists.lawFirmsCounselLevels),
+      'property-document-type': () => this.handleDynamicList(value, environment.rootDynamicLists.propertyDocumentType),
+      'other-document-type': () => this.handleDynamicList(value, environment.rootDynamicLists.otherDocumentType),
+      'designation': () => this.handleDynamicList(value, environment.rootDynamicLists.designation),
+      'company-contract-type': () => this.handleDynamicList(value, environment.rootDynamicLists.companyContractType),
+      'transaction-type': () => this.handleDynamicList(value, environment.rootDynamicLists.transactionTypes),
+      'board-position': () => this.handleDynamicList(value, environment.rootDynamicLists.boardPosition),
+      'rule': () => this.handleDynamicList(value, environment.rootDynamicLists.rule),
+
+      // Special pipes
+      'designations': () => this.handleDesignations(value),
+      'dl-by-comparekey': () => this.handleDynamicListByCompareKey(value, element, column),
+      'person': () => this.handlePerson(value),
+      'register': () => this.handleRegister(value, element, column),
+      'law-firm': () => this.handleLawFirm(value),
+      'register-type': () => this.handleRegisterType(value),
+      'expired-before': () => this.handleExpiredBefore(value),
+    };
+
+    const handler = pipeHandlers[pipe];
+    return handler ? handler() : null;
+  }
+
+  // Status handlers
+  private handlePersonStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    const statusMap: { [key: number]: string } = {
+      [PersonStatus.New]: getLabel('COMMON.NEW') ?? 'New',
+      [PersonStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active',
+      [PersonStatus.Inactive]: getLabel('COMMON.INACTIVE') ?? 'Inactive'
+    };
+    return of(statusMap[value] ?? value?.toString() ?? '');
+  }
+
+  private handleCompanyStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    const statusMap: { [key: number]: string } = {
+      [CompanyStatus.New]: getLabel('COMMON.NEW') ?? 'New',
+      [CompanyStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active',
+      [CompanyStatus.Inactive]: getLabel('COMMON.INACTIVE') ?? 'Inactive'
+    };
+    return of(statusMap[value] ?? value?.toString() ?? '');
+  }
+
+  private handleCommonStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    const statusMap: { [key: number]: string } = {
+      [CommonStatus.New]: getLabel('COMMON.NEW') ?? 'New',
+      [CommonStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active',
+      [CommonStatus.Inactive]: getLabel('COMMON.INACTIVE') ?? 'Inactive'
+    };
+    return of(statusMap[value] ?? value?.toString() ?? '');
+  }
+
+  private handleCompanyContractStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    const statusMap: { [key: number]: string } = {
+      [CompanyContractStatus.Expired]: getLabel('COMMON.EXPIRED') ?? 'Expired',
+      [CompanyContractStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active'
+    };
+    return of(statusMap[value] ?? value?.toString() ?? '');
+  }
+
+  private handleCompanyLicenseStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    const statusMap: { [key: number]: string } = {
+      [CompanyLicenseStatus.Expired]: getLabel('COMMON.EXPIRED') ?? 'Expired',
+      [CompanyLicenseStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active'
+    };
+    return of(statusMap[value] ?? value?.toString() ?? '');
+  }
+
+  // Boolean handlers
+  private handlePrivateStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    return of(value === true ? getLabel('COMPANY.PRIVATE') : getLabel('COMPANY.PUBLIC'));
+  }
+
+  private handleActiveStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    return of(value === true ? getLabel('COMMON.ACTIVE') ?? 'Active' : getLabel('COMMON.INACTIVE') ?? 'Inactive');
+  }
+
+  private handlePrimaryStatus(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    return of(value === true ? getLabel('COMMON.PRIMARY') ?? 'Primary' : '');
+  }
+
+  // Date handlers
+  private handleDateTime(value: any): Observable<string> {
+    const dateTime = value instanceof Date ? value : new Date(value);
+    return of(isNaN(dateTime.getTime()) ? '' : this.formatDateTime(dateTime));
+  }
+
+  private handleDate(value: any): Observable<string> {
+    if (!value) return of('');
+    const date = value instanceof Date ? value : new Date(value);
+    return of(isNaN(date.getTime()) ? '' : this.formatDate(date));
+  }
+
+  // Number handlers
+  private handleNumber(value: any, column: DisplayColumn): Observable<string> {
+    if (value === null || value === undefined) return of('');
+    
+    const numValue = typeof value === 'string' ? parseFloat(value) : value;
+    if (isNaN(numValue)) return of(value?.toString() ?? '');
+    
+    const decimals = column.decimals ?? this.numberFormatConfig.getConfig().defaultDecimals;
+    return of(this.formatNumberWithSeparator(numValue, decimals));
+  }
+
+  private handlePercentage(value: any, column: DisplayColumn): Observable<string> {
+    const decimals = column.decimals ?? this.numberFormatConfig.getConfig().percentageDecimals;
+    const percentValue = this.formatNumberWithSeparator(value, decimals);
+    return of(percentValue + '%');
+  }
+
+  private handleCurrency(value: any, element: any, column: DisplayColumn): Observable<string> {
+    const decimals = column.decimals ?? this.numberFormatConfig.getConfig().currencyDecimals;
+    
+    if (column.compareKey) {
+      return this.dlService.GetAllByParentId(environment.rootDynamicLists.currencies).pipe(
+        map(list => {
+          const found = list.find(x => x.id == element[column.compareKey!]);
+          const formattedValue = this.formatNumberWithSeparator(value, decimals);
+          return found ? `${formattedValue} ${found.name}` : `${formattedValue}`;
+        })
+      );
+    }
+    return of(this.formatNumberWithSeparator(value, decimals));
+  }
+
+  private handleNumberSeparator(value: any): Observable<string> {
+    if (value === null || value === undefined || value === '') return of('');
+    
+    const strValue = value.toString();
+    const separated = strValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return of(separated);
+  }
+
+  // Dynamic list handlers
+  private handleDynamicList(value: any, parentId: number): Observable<string> {
+    return this.dlService.GetAllByParentId(parentId).pipe(
+      map(list => {
+        const found = list.find(x => x.id == value);
+        return found ? found.name : '';
+      })
+    );
+  }
+
+  private handleDynamicListByCompareKey(value: any, element: any, column: DisplayColumn): Observable<string> {
+    if (!column.compareKey) return of(value?.toString() ?? '');
+    
+    return this.dlService.GetAllByParentId(element[column.compareKey]).pipe(
+      map(list => {
+        const found = list.find(x => x.id == value);
+        return found ? found.name : '';
+      })
+    );
+  }
+
+  private handleDesignations(value: any): Observable<string> {
+    const ids = Array.isArray(value)
+      ? value
+      : typeof value === 'string'
+        ? value.split(',').map(v => v.trim()).filter(v => v !== '')
+        : [value];
+
+    return this.dlService.GetAllByParentId(environment.rootDynamicLists.designation).pipe(
+      map(list => {
+        const names = ids
+          .map(id => {
+            const found = list.find(x => x.id == id);
+            return found ? found.name : '';
+          })
+          .filter(name => name);
+        return names.join(', ');
+      })
+    );
+  }
+
+  // Entity handlers
+  private handlePerson(value: any): Observable<string> {
+    return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
+      map(list => {
+        const found = list.find(x => x.id == value);
+        return found?.personEnglishName || '';
+      })
+    );
+  }
+
+  private handleLawFirm(value: any): Observable<string> {
+    return this.lawFirmService.getAllLawFirms({ pageSize: 100, page: 1 }).pipe(
+      map(list => {
+        const found = list.find(x => x.id == value);
+        return found?.englishName || 'N/A';
+      })
+    );
+  }
+
+  private handleRegister(value: any, element: any, column: DisplayColumn): Observable<string> {
+    const entityType = element[column.compareKey!];
+    
+    switch (entityType) {
+      case EntityIDc.Person:
+        return this.personService.getAllPersons({ pageSize: 100, page: 1 }).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found?.personEnglishName || '';
+          })
+        );
+      
+      case EntityIDc.Company:
+        return this.companyService.getAllCompanies({ pageSize: 100, page: 1 }).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found?.companyEnglishName || 'N/A';
+          })
+        );
+      
+      case EntityIDc.LawFirm:
+        return this.lawFirmService.getAllLawFirms({ pageSize: 100, page: 1 }).pipe(
+          map(list => {
+            const found = list.find(x => x.id == value);
+            return found?.englishName || 'N/A';
+          })
+        );
+      
+      default:
+        return of('');
+    }
+  }
+
+  private handleRegisterType(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    
+    const typeMap: { [key: string]: string } = {
+      [EntityIDc.Person]: getLabel('COMMON.PERSON') ?? 'Person',
+      [EntityIDc.Company]: getLabel('COMMON.COMPANY') ?? 'Company',
+      [EntityIDc.LawFirm]: getLabel('LAW_FIRM.LAW_FIRM') ?? 'Law Firm',
+      [EntityIDc.Transactions]: getLabel('TRANSACTION.TRANSACTION') ?? 'Transaction',
+      [EntityIDc.FPCs]: getLabel('FPC.FPC') ?? 'FPC',
+      [EntityIDc.DocumentTracking]: getLabel('DOCUMENT_TRACKING.DOCUMENT_TRACKING') ?? 'Document Tracking',
+      [EntityIDc.Properties]: getLabel('PROPERTY.REAL_EASTATE') ?? 'Real Estate',
+      [EntityIDc.PersonIdDetail]: getLabel('PERSON.PERSON_ID_DOCUMENTS'),
+      [EntityIDc.CompaniesChamberOfCommerces]: getLabel('COMPANY.CHAMBER_OF_COMMERCE'),
+      [EntityIDc.CompaniesLicenseIDC]: getLabel('COMPANY.LICENSES_AND_REGISTERS'),
+      [EntityIDc.CompaniesContracts]: getLabel('COMPANY.CONTRACT'),
+      [EntityIDc.PropertyDocuments]: getLabel('PROPERTY.PROPERTY_DOCUMENTS') ?? 'Real Estate'
+    };
+    
+    return of(typeMap[value] ?? value?.toString() ?? '');
+  }
+
+  private handleExpiredBefore(value: any): Observable<string> {
+    const expiredMap: { [key: number]: string } = {
+      [-15]: 'Expired Before 15 days',
+      [-30]: 'Expired Before 30 days',
+      [-45]: 'Expired Before 45 days',
+      [15]: 'Expired within 15 days',
+      [30]: 'Expired within 30 days',
+      [45]: 'Expired within 45 days'
+    };
+    
+    return of(expiredMap[value] ?? value);
+  }
+
+  // Formatting utilities
   private formatDateTime(date: Date): string {
-    return date.toLocaleString(); // adjust as needed
+    return date.toLocaleString();
   }
 
   private formatDate(date: Date): string {
@@ -395,22 +381,16 @@ export class TableDataPipe implements PipeTransform {
       return '';
     }
 
-    // Convert to number if it's a string
     const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-
     if (isNaN(numericValue)) {
       return value?.toString() ?? '';
     }
 
     const config = this.numberFormatConfig.getConfig();
-
-    // Check if the original value has decimals
     const stringValue = value.toString();
     const hasDecimals = stringValue.includes('.');
     const actualDecimals = hasDecimals ? (stringValue.split('.')[1] || '').length : 0;
 
-    // Use Intl.NumberFormat for consistent formatting
-    // Only show decimals if the original value has them or if decimals is explicitly set > 0 for currencies/percentages
     const formatter = new Intl.NumberFormat('en-US', {
       minimumFractionDigits: hasDecimals ? Math.min(decimals, actualDecimals) : 0,
       maximumFractionDigits: decimals,
@@ -419,7 +399,6 @@ export class TableDataPipe implements PipeTransform {
 
     let formatted = formatter.format(numericValue);
 
-    // Replace separators based on config if different from default
     if (config.thousandSeparator !== ',') {
       formatted = formatted.replace(/,/g, config.thousandSeparator);
     }

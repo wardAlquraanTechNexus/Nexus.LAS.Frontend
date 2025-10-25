@@ -45,22 +45,17 @@
             [label]="label.COMPANY.AUTHORITY_RULE || 'Authority Rule'" [keyToShow]="'name'" [valueKey]="'id'">
           </select-auto-complete>
         </div>
-        <div class="col-6">
-          <app-date-input [formGroup]="formGroup" [controlName]="'personInChargeDate'"
-            [label]="label.COMPANY.APPOINTMENT_DATE">
-          </app-date-input>
-
-        </div>
-
-        <div class="col-6">
        
-          <app-date-input
+        <div class="form-group col-12">
+                    <start-end-dates-input
                         [formGroup]="formGroup"
-                        [controlName]="'cessationDate'"
-                        [label]="label.COMPANY.CESSATION_DATE"
-                        >
-            </app-date-input>
-        </div>
+                        [startControlName]="'personInChargeDate'"
+                        [endControlName]="'cessationDate'"
+                        [startLabel]="label.COMPANY.APPOINTMENT_DATE"
+                        [endLabel]="label.COMPANY.CESSATION_DATE"
+                    ></start-end-dates-input>
+                </div>
+
 
         <!-- Notes -->
         <div class="col-12">

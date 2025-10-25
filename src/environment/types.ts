@@ -1,6 +1,8 @@
 // Shared types for environment configuration to prevent drift between dev and prod
 
 export interface Routes {
+  onBoarding: string,
+
   // Core
   dashboard: string;
 
@@ -81,7 +83,7 @@ export interface Routes {
   UserGroups: string;
   Groups: string;
   GroupsMenus: string;
-  UserSettings:string;
+  UserSettings: string;
 
 
 
@@ -105,21 +107,21 @@ export interface Environment {
   acceptFiles: string;
 
   rootDynamicLists: {
-    companyType:number,
-    companyClass:number,
-    groupCompany:number,
-    relevantCompany:number,
-    legalType:number,
-    placeOfRegistration:number,
-    companyActivity:number,
-    currencies:number,
+    companyType: number,
+    companyClass: number,
+    groupCompany: number,
+    relevantCompany: number,
+    legalType: number,
+    placeOfRegistration: number,
+    companyActivity: number,
+    currencies: number,
     PersonsPhonesTypes: number,
-    originalDocumentTypes:number
-    otherDocumentType:number;
+    originalDocumentTypes: number
+    otherDocumentType: number;
     companyContractType: number;
-    rule : number;
+    rule: number;
     boardPosition: number;
-    designation : number;
+    designation: number;
     country: number;
     classOfShares: number;
     propertyTypeOfTitle: number;

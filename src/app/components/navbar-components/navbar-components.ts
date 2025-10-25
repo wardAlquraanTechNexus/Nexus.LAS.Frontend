@@ -32,6 +32,7 @@ import { GlobalService } from '../../services/global-services/global-service';
 import { GlobalSearchDTO } from '../../models/global-models/global-search/global-search-dto';
 import { GlobalSearchQuery } from '../../models/global-models/global-search/global-search-param';
 import { EntityIDc } from '../../enums/entity-idc';
+import { entityIcons } from '../../enums/entity-icon';
 
 
 @Component({
@@ -42,6 +43,7 @@ import { EntityIDc } from '../../enums/entity-idc';
 })
 export class NavbarComponent implements OnDestroy, OnInit {
 
+  entityIdc = EntityIDc;
   sidebarOpen = true;
   currentLang: LanguageCode = 'en';
 
@@ -79,44 +81,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     }
   ]
 
-  listToCreated = [
-    {
-      name: "Person",
-      icon: "person_add",
-      value: environment.routes.AddPerson
-    },
-    {
-      name: "Company",
-      icon: "business",
-      value: environment.routes.AddCompany
-    },
-    {
-      name: "Real Estate",
-      icon: "home_work",
-      value: environment.routes.AddProperty
-    },
-
-    {
-      name: "Law Firm",
-      icon: "gavel",
-      value: environment.routes.AddLawFirm
-    },
-    {
-      name: "Transaction",
-      icon: "swap_horiz",
-      value: environment.routes.AddTransaction
-    },
-    {
-      name: "FPC",
-      icon: "business_center",
-      value: environment.routes.AddFpc
-    },
-    {
-      name: "Doc. Tracking",
-      icon: "track_changes",
-      value: environment.routes.AddDocumentTracking
-    },
-  ]
+  listToCreated:any = [];
 
   selectedLanguage = this.languages[0];
 
@@ -139,13 +104,51 @@ export class NavbarComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
+      this.listToCreated = this.getListOfCreated();
     });
-
-
-    
-
   }
 
+
+  getListOfCreated() {
+    return [
+    {
+      name: this.label.PERSON.PERSON,
+      icon: entityIcons[EntityIDc.Person],
+      value: environment.routes.AddPerson
+    },
+    {
+      name: this.label.COMPANY.COMPANY,
+      icon: entityIcons[EntityIDc.Company],
+      value: environment.routes.AddCompany
+    },
+    {
+      name: this.label.PROPERTY.REAL_EASTATE,
+      icon: entityIcons[EntityIDc.Properties],
+      value: environment.routes.AddProperty
+    },
+
+    {
+      name: this.label.LAW_FIRM.LAW_FIRM,
+      icon: entityIcons[EntityIDc.LawFirm],
+      value: environment.routes.AddLawFirm
+    },
+    {
+      name: this.label.TRANSACTION.TRANSACTION,
+      icon: entityIcons[EntityIDc.Transactions],
+      value: environment.routes.AddTransaction
+    },
+    {
+      name: this.label.FPC.FPC,
+      icon: entityIcons[EntityIDc.FPCs],
+      value: environment.routes.AddFpc
+    },
+    {
+      name: this.label.DOCUMENT_TRACKING.DOCUMENT_TRACKING,
+      icon: entityIcons[EntityIDc.DocumentTracking],
+      value: environment.routes.AddDocumentTracking
+    },
+  ]
+  }
   private get isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
@@ -612,16 +615,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
     }
   }
 
-  getEntityIcon(entityType: string): string {
-  const iconMap: { [key: string]: string } = {
-    'Person': 'person',
-    'Company': 'business',
-    'RealEstate': 'home_work',
-    'LawFirm': 'gavel',
-    'FPC': 'account_balance',
-    'Transaction': 'receipt_long'
-  };
-  return iconMap[entityType] || 'search';
+  getEntityIcon(idc: string): string {
+  return entityIcons[idc] || 'help_outline';
 }
 
 searchTimeout: any;

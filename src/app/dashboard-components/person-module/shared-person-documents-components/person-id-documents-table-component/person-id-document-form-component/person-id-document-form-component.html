@@ -73,24 +73,18 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-6">
-                        <app-date-input
+                      <div class="form-group col-12">
+                    <start-end-dates-input
                         [formGroup]="formGroup"
-                        [controlName]="'idIssueDate'"
-                        [label]="label.COMMON.ISSUE_DATE"
-                        [requiredMsg]="label.PERSON.ISSUE_DATE_REQUIRED"
-                        [isRequired]="true"
-                        >
-                        </app-date-input>
-                    </div>
-                    <div class="col-6">
-                        <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'expiryDate'"
-                        [label]="label.COMPANY.EXPIRY_DATE"
-                        >
-                        </app-date-input>
-                    </div>
+                        [startControlName]="'idIssueDate'"
+                        [endControlName]="'expiryDate'"
+                        [startLabel]="label.COMMON.ISSUE_DATE"
+                        [endLabel]="label.COMMON.EXPIRY_DATE"
+                        [isStartRequired]="true"
+                        [startRequiredMsg]="label.PERSON.ISSUE_DATE_REQUIRED"
+                    ></start-end-dates-input>
+                </div>
+               
                     <!-- Primary -->
                     <div class="full-width col-6">
                         <div class="nexus-switch-wrapper">

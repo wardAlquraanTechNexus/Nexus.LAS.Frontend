@@ -57,6 +57,11 @@ const routes: Routes = [
     loadChildren: () => import('./document-tracking-module/document-tracking-module').then(m => m.DocumentTrackingModule),
     canActivate: [authGuard]
   }
+  ,
+  {
+    path: environment.routes.onBoarding,
+    loadChildren: () => import('./on-boarding-module/on-boarding-module').then(m => m.OnBoardingModule)
+  }
 ];
 
 @NgModule({

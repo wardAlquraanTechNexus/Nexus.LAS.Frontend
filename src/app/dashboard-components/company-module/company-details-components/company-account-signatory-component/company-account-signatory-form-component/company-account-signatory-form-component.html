@@ -68,27 +68,18 @@
                     </mat-form-field>
                 </div>
 
-                <!-- Account Signatory Date -->
-                <div class="form-group col-6">
-                    <app-date-input
-                    [formGroup]="formGroup"
-                    [controlName]="'accountSignatoryDate'"
-                    [label]="label.COMPANY.ACCOUNT_SIGNATORY_DATE"
-                    >
-                    </app-date-input>
-                </div>
 
+                <start-end-dates-input
+                [formGroup]="formGroup"
+                [startControlName]="'accountSignatoryDate'"
+                [endControlName]="'cessationDate'"
+                [startLabel]="label.COMPANY.ACCOUNT_SIGNATORY_DATE"
+                [endLabel]="label.COMPANY.CESSATION_DATE"
 
-                <!-- Cessation Date -->
-                <div class="form-group col-6">
-                    <app-date-input
-                    [formGroup]="formGroup"
-                    [controlName]="'cessationDate'"
-                    [label]="label.COMPANY.CESSATION_DATE"
-                    >
-                    </app-date-input>
-                    
-                </div>
+                >
+
+                </start-end-dates-input>
+               
 
             </form>
         </div>

@@ -174,8 +174,8 @@ export class SharedTable implements OnInit, OnChanges {
           }
         case 'person-company-in-charge':
           {
-            if (value == 'active') return 'check_circle';
-            else if (value == 'inactive') return 'cancel';
+            if (value.toLowerCase() == 'active') return 'check_circle';
+            else if (value.toLowerCase() == 'inactive') return 'cancel';
             else return 'star';
 
           }

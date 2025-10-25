@@ -32,6 +32,7 @@ import { LanguageCode } from '../../../models/types/lang-type';
   styleUrl: './main-dashboard-component.scss'
 })
 export class MainDashboardComponent implements OnInit {
+  isHaveAccess = false;
   currentUser: string = '';
   currentDate = new Date();
   get label() {
@@ -52,6 +53,11 @@ export class MainDashboardComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    let path = this.menuService.getMenuByPath(environment.routes.dashboard);
+    this.isHaveAccess = (path != null);
+    if(!this.isHaveAccess){
+      this.router.navigateByUrl('/' + environment.routes.onBoarding);
+    }
     const user = this.authService.getUser();
     this.currentUser = user?.userName || 'User';
 

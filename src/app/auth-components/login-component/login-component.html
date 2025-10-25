@@ -19,8 +19,8 @@
 
                 <form *ngIf="loginForm" class="row g-3 justify-content-center" [formGroup]="loginForm">
                     <mat-form-field class="col-12" appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input formControlName="email" matInput placeholder="name@example.com">
+                        <mat-label>Email Or Username</mat-label>
+                        <input formControlName="email" matInput placeholder="enter your email or username" required>
                     </mat-form-field>
                     <mat-form-field class="col-12 mb-1" appearance="outline">
                         <mat-label>Password</mat-label>

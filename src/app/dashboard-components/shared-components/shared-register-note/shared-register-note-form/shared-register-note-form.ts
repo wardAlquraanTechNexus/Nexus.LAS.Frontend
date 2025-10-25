@@ -34,8 +34,12 @@ export class SharedRegisterNoteForm extends BaseFormComponent {
   }
 
   override ngOnInit(): void {
+    if (!this.registerNote.id) {
+      this.registerNote.noteDate = new Date();
+    }
     this.setup(this.registerNote);
     super.ngOnInit();
+    
   }
 
 

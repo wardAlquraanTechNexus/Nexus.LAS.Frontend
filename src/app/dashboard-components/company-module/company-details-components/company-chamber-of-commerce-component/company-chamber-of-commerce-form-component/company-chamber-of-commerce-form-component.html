@@ -41,28 +41,18 @@
                     </mat-form-field>
                 </div>
 
-                <!-- CCI Issue Date -->
-                <div class="col-12">
-                    <app-date-input
+                <div class="form-group col-12">
+                    <start-end-dates-input
                         [formGroup]="formGroup"
-                        [controlName]="'cciIssueDate'"
-                        [label]="label.COMMON.ISSUE_DATE"
-                        [requiredMsg]="label.COMPANY.CCI_ISSUE_DATE_REQUIRED"
-                        [isRequired]="true"
-                        >
-                        </app-date-input>
+                        [startControlName]="'cciIssueDate'"
+                        [endControlName]="'cciExpiryDate'"
+                        [startLabel]="label.COMMON.ISSUE_DATE"
+                        [endLabel]="label.COMPANY.CCI_EXPIRY_DATE"
+                        [isStartRequired]="true"
+                        [startRequiredMsg]="label.COMPANY.CCI_ISSUE_DATE_REQUIRED"
+                    ></start-end-dates-input>
                 </div>
 
-                <!-- CCI Expiry Date -->
-                <div class="col-12">
-                 
-                    <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'cciExpiryDate'"
-                        [label]="label.COMPANY.CCI_EXPIRY_DATE"
-                        >
-                        </app-date-input>
-                </div>
 
                 <!-- Expiry Reminder -->
                 <div class="col-12">

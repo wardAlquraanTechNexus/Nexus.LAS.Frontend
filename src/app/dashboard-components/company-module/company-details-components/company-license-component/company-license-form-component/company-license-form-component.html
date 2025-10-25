@@ -82,27 +82,19 @@
 
       <!-- Dates Section -->
         
-        <div class="row">
-          <!-- Issue Date -->
-          <div class="form-group col-md-6">
-            <app-date-input
+      <div class="form-group col-12">
+          <start-end-dates-input
               [formGroup]="formGroup"
-              [controlName]="'licenseIssueDate'"
-              [label]="label.COMPANY.ISSUE_DATE"
-              [requiredMsg]="label.COMPANY.ISSUE_DATE_REQUIRED"
-              [isRequired]="true">
-            </app-date-input>
-          </div>
+              [startControlName]="'licenseIssueDate'"
+              [endControlName]="'licenseExpiryDate'"
+              [startLabel]="label.COMPANY.ISSUE_DATE"
+              [endLabel]="label.COMPANY.EXPIRY_DATE"
+              [isStartRequired]="true"
+              [startRequiredMsg]="label.COMPANY.ISSUE_DATE_REQUIRED"
+          ></start-end-dates-input>
+      </div>
 
-          <!-- Expiry Date -->
-          <div class="form-group col-md-6">
-            <app-date-input
-              [formGroup]="formGroup"
-              [controlName]="'licenseExpiryDate'"
-              [label]="label.COMPANY.EXPIRY_DATE">
-            </app-date-input>
-          </div>
-        </div>
+    
         
         <div class="row toggles-row">
           <!-- Active Reminder Toggle -->

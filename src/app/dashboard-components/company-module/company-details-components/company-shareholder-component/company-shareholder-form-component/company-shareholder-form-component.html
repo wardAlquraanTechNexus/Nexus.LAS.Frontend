@@ -65,26 +65,18 @@
                 <div class="row">
 
                     <!-- ShareHolderDate -->
-                    <div class="col-6">
-                       
-                        <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'shareHolderDate'"
-                        [label]="label.COMPANY.APPOINTMENT_DATE"
-                        [requiredMsg]="label.COMMON.APPOINTMENT_DATE_REQUIRED"
-                        [isRequired]="true"
-                        >
-                        </app-date-input>
+                     <div class="form-group col-12">
+                        <start-end-dates-input
+                            [formGroup]="formGroup"
+                            [startControlName]="'shareHolderDate'"
+                            [endControlName]="'cessationDate'"
+                            [startLabel]="label.COMPANY.APPOINTMENT_DATE"
+                            [endLabel]="label.COMPANY.CESSATION_DATE"
+                            [isStartRequired]="true"
+                            [startRequiredMsg]="label.COMMON.APPOINTMENT_DATE_REQUIRED"
+                        ></start-end-dates-input>
                     </div>
 
-                    <div class="col-6">
-                         <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'cessationDate'"
-                        [label]="label.COMPANY.CESSATION_DATE"
-                        >
-                        </app-date-input>
-                    </div>
                 </div>
             </form>
         </div>

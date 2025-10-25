@@ -80,7 +80,7 @@
               [attr.aria-label]="result.entityCode + ' - ' + result.entityType">
               <div class="result-icon-wrapper">
                 <div class="result-icon">
-                  <mat-icon>{{ getEntityIcon(result.entityType) }}</mat-icon>
+                  <mat-icon>{{ getEntityIcon(result.entityIdc) }}</mat-icon>
                 </div>
               </div>
               <div class="result-content">
@@ -134,7 +134,7 @@
             </div>
           </div>
           <div class="user-info">
-            <span class="username">{{user?.userName}}</span>
+            <span class="username">{{user?.firstName}} {{user?.lastName}}</span>
             <!-- <span class="user-role">{{user?.role || 'User'}}</span> -->
           </div>
           <mat-icon class="dropdown-icon">expand_more</mat-icon>

@@ -25,6 +25,10 @@ export class FileFormGroupComponent implements OnInit {
   @Input() fileIdControlName: string = 'fileId';
   @Input() isRequired: boolean = false;
 
+  readonly MAX_FILE_SIZE = 35 * 1024 * 1024; // 35MB in bytes
+  fileSizeError: string = '';
+  fileSize: number = 0;
+
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
   }
@@ -66,20 +70,73 @@ export class FileFormGroupComponent implements OnInit {
     fileInput.click();
   }
 
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    
+    if (!file) {
+      return;
+    }
 
-    this.file = input.files[0];
+    // Clear previous errors
+    this.fileSizeError = '';
+
+    // Validate file size
+    if (!this.validateFileSize(file)) {
+      event.target.value = ''; // Clear the input
+      return;
+    }
+
+    // Store file size for display
+    this.fileSize = file.size;
+
+    this.file = file;
 
     this.formGroup.patchValue({
       [this.controlName]: this.file,
-      [this.fileNameControl]: this.file.name
+      [this.fileNameControl]: this.file!.name
     });
 
     this.cdr.detectChanges();
+    event.target.value = '';
+  }
 
-    input.value = '';
+  // Separate validation method for reusability
+  private validateFileSize(file: File): boolean {
+    if (file.size > this.MAX_FILE_SIZE) {
+      const fileSize = this.formatFileSize(file.size);
+      const maxSize = this.formatFileSize(this.MAX_FILE_SIZE);
+      
+      this.fileSizeError = `File size (${fileSize}) exceeds the maximum limit of ${maxSize}. Please select a smaller file.`;
+      
+      // Also set form control error
+      const fileControl = this.formGroup.get(this.controlName);
+      if (fileControl) {
+        fileControl.setErrors({ fileSizeExceeded: true });
+      }
+      
+      return false;
+    }
+    
+    // Clear any previous file size errors
+    const fileControl = this.formGroup.get(this.controlName);
+    if (fileControl && fileControl.errors?.['fileSizeExceeded']) {
+      delete fileControl.errors['fileSizeExceeded'];
+      if (Object.keys(fileControl.errors).length === 0) {
+        fileControl.setErrors(null);
+      }
+    }
+    
+    return true;
+  }
+
+  formatFileSize(bytes: number): string {
+    if (bytes === 0) return '0 Bytes';
+    
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
   get fileUrl(): string | null {
@@ -102,6 +159,9 @@ export class FileFormGroupComponent implements OnInit {
   }
 
   removeFileControl(): void {
+    // Clear file size when removing
+    this.fileSize = 0;
+    this.fileSizeError = '';
     this.file = null;
     this.formGroup.patchValue({
       [this.controlName]: null,

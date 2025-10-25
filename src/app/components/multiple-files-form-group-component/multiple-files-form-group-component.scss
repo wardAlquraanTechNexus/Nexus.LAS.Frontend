@@ -1,0 +1,7 @@
+.grey-button {
+  color: #2685cdf7 !important; // Material Design grey-600
+  
+  &:hover {
+    background-color: rgba(117, 117, 117, 0.1) !important;
+  }
+}

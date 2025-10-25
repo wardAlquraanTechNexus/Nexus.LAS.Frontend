@@ -5,8 +5,9 @@ export const environment: Environment = {
   serverUrls: {
     host: 'https://las-staging.royalgroupuae.com:8444/api/'
   },
-  acceptFiles: "image/*,.pdf,.msg,.eml",
+  acceptFiles: "image/*,.pdf,.msg,.eml,xlsx,.docx,.pptx,.csv",
   routes: {
+    onBoarding: 'On-boarding',
     // Core
     dashboard: 'Dashboard',
 

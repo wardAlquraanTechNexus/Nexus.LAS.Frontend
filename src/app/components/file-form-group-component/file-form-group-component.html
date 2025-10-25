@@ -2,34 +2,56 @@
     <!-- Hidden file input -->
     <input type="file" hidden #fileInput [accept]="acceptFiles" (change)="onFileChange($event)">
 
-    <!-- Upload button -->
-    <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)">
+    <!-- Upload button with file size info -->
+    <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)" class="upload-btn">
         <mat-icon>attach_file</mat-icon>
         {{ label.COMMON.UPLOAD_FILE || 'Upload File' }}
+        <span class="file-size-hint">(Max 35MB)</span>
     </button>
+
+    <!-- File size error message -->
+    <div class="file-error mt-2" *ngIf="fileSizeError">
+        <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            {{ fileSizeError }}
+        </mat-error>
+    </div>
 
     <!-- Uploaded file -->
     <div class="mt-2" *ngIf="formGroup.get(fileNameControl)?.value">
-        <div class="d-flex align-items-center mb-2">
-            <mat-form-field appearance="outline" class="flex-grow-1">
-                <input matInput [value]="formGroup.get(fileNameControl)?.value" readonly (click)="previewFile()">
-
-            </mat-form-field>
-
-            <button mat-icon-button color="primary" type="button" (click)="previewFile()">
-                <mat-icon>visibility</mat-icon>
-            </button>
-            <button mat-icon-button color="primary" type="button" (click)="downloadFile()">
-                <mat-icon>download</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" type="button" (click)="removeFileControl()">
-                <mat-icon>delete</mat-icon>
-            </button>
+        <div class="file-display-container">
+            <div class="file-info">
+                <mat-icon class="file-icon">description</mat-icon>
+                <div class="file-details">
+                    <span class="file-name">{{ formGroup.get(fileNameControl)?.value }}</span>
+                    <span class="file-size" *ngIf="fileSize">{{ formatFileSize(fileSize) }}</span>
+                </div>
+            </div>
+            
+            <div class="file-actions">
+                <button mat-icon-button color="primary" type="button" 
+                        (click)="previewFile()"
+                        matTooltip="Preview">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" type="button" 
+                        (click)="downloadFile()"
+                        matTooltip="Download">
+                    <mat-icon>download</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" type="button" 
+                        (click)="removeFileControl()"
+                        matTooltip="Remove">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
-    @if(formGroup.get(controlName)?.invalid &&
-    formGroup.get(controlName)?.touched ){
-        <mat-error>
+
+    <!-- Validation errors -->
+    @if(formGroup.get(controlName)?.invalid && formGroup.get(controlName)?.touched) {
+        <mat-error class="mt-2">
+            <mat-icon>error_outline</mat-icon>
             {{ label.PERSON.FILE_REQUIRED || 'File is required.' }}
         </mat-error>
     }

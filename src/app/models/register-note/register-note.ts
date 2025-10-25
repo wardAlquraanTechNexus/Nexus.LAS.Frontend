@@ -4,5 +4,5 @@ export interface RegisterNote extends BaseEntity {
   registersIdc: string;
   registersIdn: number;
   registersNotesText: string;
-  noteDate: Date;
+  noteDate: string | Date;
 }
