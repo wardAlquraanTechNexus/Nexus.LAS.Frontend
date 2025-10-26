@@ -47,10 +47,19 @@ export class CompanyChamberOfCommerceViewDialog  implements OnInit {
       this.cdr.markForCheck();
     }
 
-    
+
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
     });
+  }
+
+  isImageFile(): boolean {
+    const imageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
+    return imageTypes.includes(this.data.contentType?.toLowerCase() || '');
+  }
+
+  canPreview(): boolean {
+    return this.data.contentType === 'application/pdf' || this.isImageFile();
   }
 
   download() {
