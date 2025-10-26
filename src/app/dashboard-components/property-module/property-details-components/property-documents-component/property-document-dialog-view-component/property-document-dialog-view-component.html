@@ -48,12 +48,26 @@
       <!-- Right: Document Preview -->
       <div class="col-md-8">
         <div class="image-wrapper">
-          <ng-container *ngIf="data.contentType === 'application/pdf'; else showImage">
+          <ng-container *ngIf="data.contentType === 'application/pdf'">
             <iframe [src]="fileUrl" width="100%" height="500px" type="application/pdf"></iframe>
           </ng-container>
-          <ng-template #showImage>
+
+          <ng-container *ngIf="isImageFile()">
             <img *ngIf="fileUrl" [src]="fileUrl" alt="Document" class="img-fluid" />
-          </ng-template>
+          </ng-container>
+
+          <ng-container *ngIf="!canPreview()">
+            <div class="unsupported-preview">
+              <mat-icon class="large-icon">file_download</mat-icon>
+              <h3>Preview Not Available</h3>
+              <p>This file type cannot be previewed in the browser.</p>
+              <p class="download-instruction">Please click the Download button to view this file.</p>
+              <button mat-raised-button color="primary" (click)="download()">
+                <mat-icon>download</mat-icon>
+                {{ label.COMMON.DOWNLOAD || 'Download' }}
+              </button>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>

@@ -31,8 +31,27 @@ export class TransactionActionViewDialogComponent extends BaseDialogFormComponen
     this.dialogRef.close();
   }
 
+  isImageFile(contentType?: string | null): boolean {
+    if (!contentType) return false;
+    const imageTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/bmp', 'image/webp', 'image/svg+xml'];
+    return imageTypes.includes(contentType.toLowerCase());
+  }
+
+  canPreview(contentType?: string | null): boolean {
+    if (!contentType) return false;
+    return contentType === 'application/pdf' || this.isImageFile(contentType);
+  }
+
   previewFile(file: FileDto) {
     if (!file.data || !file.contentType) return;
+
+    // If file cannot be previewed in browser, download it instead
+    if (!this.canPreview(file.contentType)) {
+      this.downloadFile(file);
+      return;
+    }
+
+    // Otherwise, open in new window for preview
     const blob = base64ToBlob(file.data, file.contentType);
     const fileURL = URL.createObjectURL(blob);
     window.open(fileURL, '_blank');
