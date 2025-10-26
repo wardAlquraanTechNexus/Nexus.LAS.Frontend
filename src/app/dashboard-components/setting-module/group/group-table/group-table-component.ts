@@ -18,10 +18,10 @@ import { LanguageService } from '../../../../services/language-service';
 @Component({
   selector: 'app-group-table',
   standalone: false,
-  templateUrl: './group-table.html',
-  styleUrl: './group-table.scss'
+  templateUrl: './group-table-component.html',
+  styleUrls: ['./group-table-component.scss']
 })
-export class GroupTable extends TableFormComponent<Group> {
+export class GroupTableComponent extends TableFormComponent<Group> {
   override data: PaginateRsult<GroupDTO> = {
     collection: [],
     totalPages: 0,
@@ -59,16 +59,14 @@ export class GroupTable extends TableFormComponent<Group> {
   override setDisplayColumns() {
     this.displayColumns = [
       {
-        key: "id",
-        label: this.label.COMMON.ID,
-      },
-      {
         key: "groupName",
         label: this.label.COMMON.NAME,
+        pipes: ['link']
       },
       {
         key: "description",
         label: this.label.COMMON.DESCRIPTION,
+        pipes: ['link']
       },
       {
         key: "action",
@@ -77,7 +75,7 @@ export class GroupTable extends TableFormComponent<Group> {
     ];
   }
 
-  
+
 
   override fetchData() {
     this.showLoading = true;
@@ -105,11 +103,12 @@ export class GroupTable extends TableFormComponent<Group> {
       disableClose: true,
       data: group
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.fetchData();
-    }})
+      if (result) {
+        this.fetchData();
+      }
+    })
   }
 
 
@@ -118,7 +117,7 @@ export class GroupTable extends TableFormComponent<Group> {
       disableClose: true,
       data: group
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.data.collection = [
@@ -130,7 +129,7 @@ export class GroupTable extends TableFormComponent<Group> {
     });
   }
 
-   
+
   getRemoveCallback(id: number): () => void {
     return () => this.delete(id);
   }
@@ -138,13 +137,21 @@ export class GroupTable extends TableFormComponent<Group> {
   delete(id: number) {
     this.showLoading = true;
     this.service.delete(id).subscribe({
-      next:res=>{
+      next: res => {
         this.fetchData();
       },
-      error:(err=>{
+      error: (err => {
         this.showLoading = false;
       })
     })
   }
 
+  onRowClick(row: any) {
+    if(row.key !== 'action'){
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { id: row.element.id }
+      });
+    }
+  }
 }

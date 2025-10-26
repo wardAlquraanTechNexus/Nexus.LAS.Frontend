@@ -26,7 +26,7 @@ export class UserSettingsComponent extends TableFormComponent<User> {
 
   selectedUsers: UserDto[] = [];
   @Input() groupId!: number;
-  userGroups: UserGroupDto[] = [];
+  userGroups!: PaginateRsult<UserGroupDto>;
   override data: PaginateRsult<UserDto> = {
     collection: [],
     totalPages: 0,
@@ -114,13 +114,13 @@ export class UserSettingsComponent extends TableFormComponent<User> {
         if(this.groupId && this.groupId >0){
           groupId = this.groupId;
         }
-          this.userGroupService.getAllUserGroupDTOs({
+          this.userGroupService.getAllGroupsByUser({
             groupId: groupId
           }).subscribe({
             next: (userGroups => {
               this.userGroups = userGroups;
               this.data.collection.forEach(user => {
-                const exists = this.userGroups.some(g => g.userId === parseInt(user.id));
+                const exists = this.userGroups.collection.some(g => g.userId === parseInt(user.id));
                 user.isChecked = exists;
               });
               this.showLoading = false;

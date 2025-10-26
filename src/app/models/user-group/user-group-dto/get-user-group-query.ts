@@ -7,8 +7,7 @@ export interface GetUserGroupDTOQuery extends BaseParam {
     groupId?: number | null;
 }
 
-export interface GetAllUserGroupDTOQuery {
-    username?: string | null;
+export interface GetAllGroupByUserQuery {
     groupName?: string | null;
     userId?: number | null;
     groupId?: number | null;

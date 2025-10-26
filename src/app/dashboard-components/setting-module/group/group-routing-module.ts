@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GroupTable } from './group-table/group-table';
+import { GroupTableComponent } from './group-table/group-table-component';
+import { GroupTableViewComponent } from './group-table-view-component/group-table-view-component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:GroupTable
+    path: '',
+    component: GroupTableViewComponent
   }
 ];
 

@@ -4,14 +4,10 @@
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>Groups</h2>
+        <h2>{{label.SETTINGS.MEMBERS}}</h2>
       </div>
-      <button mat-raised-button class="nexus-btn nexus-btn-primary" (click)="onAddNew()">
-        <mat-icon>add</mat-icon> Add Group
-      </button>
     </div>
   </div>
-
 
   <!-- SECTION 3: Data Grid -->
   <div class="nexus-entity-section">
@@ -23,8 +19,13 @@
 
       <!-- Table -->
       <div class="nexus-table-container" *ngIf="!showLoading">
-        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
-          [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+        <app-shared-table 
+        [displayedColumns]="displayColumns" 
+        [paginateResult]="data" 
+        (rowClick)="onRowClick($event)"
+        [action]="actionButtonsTemplate" 
+        (onChangePage)="changePage($event)" 
+        (onSortChangeEvent)="changeSort($event)">
         </app-shared-table>
       </div>
     </div>
@@ -36,14 +37,14 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menuRow="matMenu" class="nexus-action-menu">
-      <button mat-menu-item (click)="edit(row)" class="nexus-menu-item nexus-menu-info">
+      <!-- <button mat-menu-item class="nexus-menu-item nexus-menu-info" (click)="onEdit(row)">
         <mat-icon class="nexus-icon-edit">edit</mat-icon>
         <span>{{label.COMMON.EDIT}}</span>
-      </button>
-      <button mat-menu-item [confirmDelete]="getRemoveCallback(row.id)" class="nexus-menu-item nexus-menu-danger">
+      </button> -->
+      <!-- <button mat-menu-item class="nexus-menu-item nexus-menu-danger">
         <mat-icon class="nexus-icon-delete">delete</mat-icon>
-        <span>{{label.COMMON.DELETE}}</span>
-      </button>
+        <span>Delete</span>
+      </button> -->
     </mat-menu>
   </ng-template>
 

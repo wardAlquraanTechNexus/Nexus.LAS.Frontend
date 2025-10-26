@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing-module';
-import { UserTable } from './user-table/user-table';
 import { ComponentsModule } from '../../../components/components-module';
 import { UserFormComponent } from './user-table/user-form-component/user-form-component';
 import { UserDialogFormComponent } from './user-table/user-dialog-form-component/user-dialog-form-component';
+import { UserTableComponent } from './user-table/user-table-component';
 
 
 @NgModule({
   declarations: [
-    UserTable,
+    UserTableComponent,
     UserFormComponent,
-    UserDialogFormComponent
+    UserDialogFormComponent,
   ],
   imports: [
     CommonModule,

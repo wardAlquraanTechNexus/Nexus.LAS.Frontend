@@ -10,7 +10,6 @@ import { SettingsTapsComponent } from './setting-components/settings-taps-compon
 import { MenuSettingComponent } from './setting-components/menu-setting-component/menu-setting-component';
 
 
-
 @NgModule({
   declarations: [
     GroupSettingComponent,
@@ -18,12 +17,13 @@ import { MenuSettingComponent } from './setting-components/menu-setting-componen
     GroupForm,
     UserSettingsComponent,
     SettingsTapsComponent,
-    MenuSettingComponent
+    MenuSettingComponent,
   ],
   imports: [
     CommonModule,
     SettingRoutingModule,
     ComponentsModule
-  ]
+  ],
+  exports : []
 })
 export class SettingModule { }

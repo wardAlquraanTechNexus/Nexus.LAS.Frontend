@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../../../../environment/environment';
-import { UserTable } from './user-table/user-table';
+import { UserTableComponent } from './user-table/user-table-component';
 
 const routes: Routes = [
   {
     path: "",
-    component: UserTable
+    component: UserTableComponent
   }
 ];
 

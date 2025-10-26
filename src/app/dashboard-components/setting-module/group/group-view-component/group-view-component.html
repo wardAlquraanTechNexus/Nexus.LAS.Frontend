@@ -1,0 +1,94 @@
+<div class="main-container">
+
+    <!-- SECTION 1: Loading State -->
+    <div *ngIf="showLoading" class="section loading-section">
+        <div class="loading">
+            <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+        </div>
+    </div>
+
+    <!-- SECTION 2:  Header -->
+    <div *ngIf="!showLoading && group" class="section section-header">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb-nav">
+            <a (click)="navigateToTable()" class="breadcrumb-link">
+                <mat-icon>arrow_back</mat-icon>
+                {{ label.SETTINGS.GROUPS }}
+            </a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="current-page">{{ group.groupName | titlecase }}</span>
+        </div>
+
+        <div class="header-card">
+            <div class="profile-section">
+
+
+                <div class="profile-details">
+                    <div class="profile-name-section">
+                        <div class="name-and-badges">
+                            <h1 class="profile-name">{{ group.groupName | titlecase }}</h1>
+                            <div class="status-badges">
+                                <!-- <span class="status-badge">
+                                    {{ group.description }}
+                                </span> -->
+                                <!-- <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
+                                    <mat-icon>{{ lawFirm.private ? 'lock' : 'public' }}</mat-icon>
+                                    {{ lawFirm.private | textPipe: 'private' | async }}
+                                </span> -->
+                            </div>
+                        </div>
+                        <!-- <div class="profile-name-arabic">{{ lawFirm.arabicName | titlecase }}</div> -->
+                    </div>
+
+                    <div class="meta-info">
+                        <!-- <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.ID || 'ID:' }}</span>
+                            <span class="info-value">{{ group.id }}</span>
+                        </div> -->
+                        <div class="info-item">
+                            <span class="info-label">{{ label.COMMON.DESCRIPTION || 'Description:' }}</span>
+                            <span class="info-value">{{ group.description | uppercase }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-action">
+                <!-- <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
+                    <mat-icon>edit</mat-icon>
+                    {{ label.LAW_FIRM.EDIT_LAW_FIRM }}
+                </button> -->
+
+              
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: Content Tabs -->
+    <div *ngIf="!showLoading" class="section section-content">
+        <div class="tabs-container">
+            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
+                (selectedIndexChange)="selectedTab = $event">
+               
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>people</mat-icon>
+                            <span>{{ label.SETTINGS.MEMBERS || 'Members' }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
+                        <div class="overview-component">
+                             <app-users-by-group [groupId]="groupId!"></app-users-by-group>
+                        </div>
+                        <div class="overview-component">
+                        </div>
+                    </div>
+                </mat-tab>
+
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

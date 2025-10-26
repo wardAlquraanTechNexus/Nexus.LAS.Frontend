@@ -11,6 +11,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { MatDialog } from '@angular/material/dialog';
 import { UserGroupFormDialog } from '../user-group-form-dialog/user-group-form-dialog';
 import { LanguageService } from '../../../../services/language-service';
+import { UserGroupDto } from '../../../../models/user-group/user-group-dto/user-group-dto';
 
 @Component({
   selector: 'app-user-group-table',
@@ -20,7 +21,7 @@ import { LanguageService } from '../../../../services/language-service';
 })
 export class UserGroupTable extends TableFormComponent<UserGroup> {
 
-  override data: PaginateRsult<UserGroup> = {
+  override data: PaginateRsult<UserGroupDto> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,

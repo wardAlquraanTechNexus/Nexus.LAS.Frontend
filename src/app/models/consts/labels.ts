@@ -589,6 +589,17 @@ export const Labels = {
             ADD_FOLLOW_UP: "Add Follow Up",
             EDIT_FOLLOW_UP: "Edit Follow Up",
             ENTER_FOLLOW_UP_DETAILS: "Enter Follow Up Details"
+        },
+        SETTINGS: {
+            GROUPS: "Groups",
+            GROUP: "Group",
+            THE_GROUP: "The Group",
+            IS_USER_IN_GROUP: "Is user in group?",
+            MEMBERS: "Members",
+            USERNAMES: "Usernames",
+            USERNAME: "Username",
+            USER_FULL_NAME: "User Full Name",
+
         }
     },
     ar: {
@@ -1182,6 +1193,16 @@ export const Labels = {
             ADD_FOLLOW_UP: "إضافة متابعة",
             EDIT_FOLLOW_UP: "تعديل المتابعة",
             ENTER_FOLLOW_UP_DETAILS: "ادخل متابعة التفاصيل"
+        },
+        SETTINGS: {
+            GROUPS: "المجموعات",
+            GROUP: "مجموعة",
+            THE_GROUP: "المجموعة",
+            IS_USER_IN_GROUP: "هل المستخدم في المجموعة؟",
+            MEMBERS: "الأعضاء",
+            USERNAMES: "أسماء المستخدمين",
+            USERNAME: "اسم المستخدم",
+            USER_FULL_NAME: "الاسم الكامل للمستخدم",
         }
     }
 } as const;

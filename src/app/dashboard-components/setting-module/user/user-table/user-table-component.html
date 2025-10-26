@@ -61,7 +61,7 @@
 
       <!-- Table -->
       <div class="nexus-table-container" *ngIf="!showLoading">
-        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data"
+        <app-shared-table [displayedColumns]="displayColumns" [paginateResult]="data" (rowClick)="onRowClick($event)"
           [action]="actionButtonsTemplate" (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
         </app-shared-table>
       </div>
@@ -86,3 +86,6 @@
   </ng-template>
 
 </div>
+
+
+<app-groups-by-user *ngIf="showUserGroups && userId" [userId]="userId"></app-groups-by-user>
