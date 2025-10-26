@@ -23,72 +23,83 @@
         <div class="form-side">
             <form [formGroup]="formGroup" class="dialog-content">
 
-                <file-form-group [formGroup]="formGroup" [controlName]="'file'" [element]="element"
-                    [removeFileControlName]="'removeFile'" [isRequired]="true">
-                </file-form-group>
-                <div class="col-12">
-                    <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
-                        [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup"
-                        [label]="label.COMPANY.CONTRACT_TYPE || 'Contract Type'" [keyToShow]="'name'" [valueKey]="'id'">
-                    </select-auto-complete>
+                <!-- File Upload - Full Width -->
+                <div class="row">
+                    <div class="col-12">
+                        <file-form-group [formGroup]="formGroup" [controlName]="'file'" [element]="element"
+                            [removeFileControlName]="'removeFile'" [isRequired]="true">
+                        </file-form-group>
+                    </div>
                 </div>
 
-          
-
-                 <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'documentDate'"
-                        [label]="label.COMPANY.DOCUMENT_DATE"
-                        >
+                <!-- Row 1: Contract Type & Document Date -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <select-auto-complete *ngIf="loadCompanyContractTypesFn" [controlName]="'contractType'"
+                            [fnGet]="loadCompanyContractTypesFn" [formGroup]="formGroup"
+                            [label]="label.COMPANY.CONTRACT_TYPE || 'Contract Type'" [keyToShow]="'name'" [valueKey]="'id'">
+                        </select-auto-complete>
+                    </div>
+                    <div class="col-md-6">
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'documentDate'"
+                            [label]="label.COMPANY.DOCUMENT_DATE">
                         </app-date-input>
-
-                <!-- Commencement Date -->
-                <div>
-                    
-                     <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'commencementDate'"
-                        [label]="label.COMPANY.COMMENCEMENT_DATE"
-                        [isRequired]="true"
-                        [requiredMsg]="label.COMPANY.COMMENCEMENT_DATE"
-                        >
-                        </app-date-input>
+                    </div>
                 </div>
 
-
-
-                <!-- Contract Description -->
-                <mat-form-field appearance="outline">
-                    <mat-label>{{ label.COMPANY.DESCRIPTION || 'Contract Description' }}</mat-label>
-                    <textarea matInput formControlName="contractDescription" rows="3"></textarea>
-                </mat-form-field>
-
-                <!-- Contract Status -->
-                <mat-form-field appearance="outline">
-                    <mat-label>{{ label.COMPANY.STATUS || 'Contract Status' }}</mat-label>
-                    <mat-select formControlName="contractStatus">
-                        <mat-option *ngFor="let option of statusOptions" [value]="option.value">
-                            {{ option.label }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <!-- Contract Expiry Date -->
-         
-                 <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'contractExpiryDate'"
-                        [label]="label.COMPANY.EXPIRY_DATE"
-
-                        >
+                <!-- Row 2: Commencement Date & Expiry Date -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'commencementDate'"
+                            [label]="label.COMPANY.COMMENCEMENT_DATE"
+                            [isRequired]="true"
+                            [requiredMsg]="label.COMPANY.COMMENCEMENT_DATE">
                         </app-date-input>
-                <div class="col-12">
-                    <div class="nexus-switch-wrapper">
-                        <div class="nexus-switch-container">
-                            <mat-slide-toggle formControlName="contractExpiryActiveReminder" color="primary"
-                                class="nexus-switch">
-                                {{ label.COMPANY.REMINDER || 'Active Reminder' }}
-                            </mat-slide-toggle>
+                    </div>
+                    <div class="col-md-6">
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'contractExpiryDate'"
+                            [label]="label.COMPANY.EXPIRY_DATE">
+                        </app-date-input>
+                    </div>
+                </div>
+
+                <!-- Row 3: Contract Status & Reminder Toggle -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ label.COMPANY.STATUS || 'Contract Status' }}</mat-label>
+                            <mat-select formControlName="contractStatus">
+                                <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+                                    {{ option.label }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="nexus-switch-wrapper">
+                            <div class="nexus-switch-container">
+                                <mat-slide-toggle formControlName="contractExpiryActiveReminder" color="primary"
+                                    class="nexus-switch">
+                                    {{ label.COMPANY.REMINDER || 'Active Reminder' }}
+                                </mat-slide-toggle>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Row 4: Contract Description - Full Width -->
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{ label.COMPANY.DESCRIPTION || 'Contract Description' }}</mat-label>
+                            <textarea matInput formControlName="contractDescription" rows="3"></textarea>
+                        </mat-form-field>
                     </div>
                 </div>
             </form>
