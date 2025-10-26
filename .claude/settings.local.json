@@ -29,7 +29,9 @@
       "Bash(git mv:*)",
       "Bash(git add:*)",
       "Bash(powershell -Command:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": [],

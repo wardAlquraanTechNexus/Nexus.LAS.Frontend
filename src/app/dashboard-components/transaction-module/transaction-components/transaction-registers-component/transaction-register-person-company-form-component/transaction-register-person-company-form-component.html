@@ -25,7 +25,7 @@
             <form [formGroup]="formGroup" class="row w-100">
 
                 
-                <div class="col-6" *ngIf="loadCompaniesFn">
+                <div class="col-12" *ngIf="loadCompaniesFn">
                     <select-auto-complete
                         [controlName]="'companyId'" 
                         [fnGet]="loadCompaniesFn" 
@@ -41,7 +41,7 @@
                 </div>
                 
 
-                <div class="col-6" *ngIf="showPersonField && loadPersonssFn">
+                <div class="col-12" *ngIf="showPersonField && loadPersonssFn">
                     <select-auto-complete
                         [controlName]="'personId'" 
                         [fnGet]="loadPersonssFn" 
