@@ -10,22 +10,20 @@
                             <div class="mb-3">
                                 <img src="assets/images/logo.jpg" alt="Legal Assistance System" class="logo-img mb-2">
                                 <h3 class="system-name mb-2">Legal Assistance System</h3>
-                                <p class="system-subtitle text-muted mb-0">Nexus LAS</p>
                             </div>
                             <hr class="my-3">
                             <p class="h4 text-gray-900 mb-2">Login to your account!</p>
-                            <span class="text-muted">Welcome Back! Please enter your details</span>
                         </div>
 
                 <form *ngIf="loginForm" class="row g-3 justify-content-center" [formGroup]="loginForm">
                     <mat-form-field class="col-12" appearance="outline">
-                        <mat-label>Email Or Username</mat-label>
+                        <mat-label>Email or Username</mat-label>
                         <input formControlName="email" matInput placeholder="enter your email or username" required>
                     </mat-form-field>
                     <mat-form-field class="col-12 mb-1" appearance="outline">
                         <mat-label>Password</mat-label>
                         <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Enter Your Password"
-                            formControlName="password" />
+                            formControlName="password" autocomplete="current-password" />
                         <button type="button" mat-icon-button matSuffix (click)="showPassword = !showPassword">
                             <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                         </button>
@@ -45,6 +43,9 @@
                             </mat-progress-spinner>
 
                         </button>
+                    </div>
+                    <div class="col-12 text-center mt-5">
+                        Don't have an account? <a routerLink="./register">Register</a>
 
                     </div>
                         </form>

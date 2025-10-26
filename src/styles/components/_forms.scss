@@ -1,5 +1,17 @@
 @use '../themes/variables' as vars;
 
+// Hide native password reveal button in browsers (Edge, Chrome, IE)
+// This prevents double eye icons when using custom password toggle
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-reveal {
+  display: none;
+}
+
 // Form container styles - Material fields are styled globally now
 .nexus-form {
   // Additional form-specific enhancements can be added here
