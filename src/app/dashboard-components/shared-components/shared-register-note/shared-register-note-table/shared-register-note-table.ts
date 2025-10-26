@@ -17,7 +17,7 @@ import { LanguageService } from '../../../../services/language-service';
   selector: 'app-shared-register-note-table',
   standalone: false,
   templateUrl: './shared-register-note-table.html',
-  styleUrls: ['../../../_shared/styles/table-style.scss']
+  styleUrls: ['../../../_shared/styles/table-style.scss', './shared-register-note-table.scss']
 })
 export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> implements OnInit {
   @Input() registersIdc!: string;
@@ -59,14 +59,14 @@ export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> im
     this.displayColumns = [
       {
         sort: true,
-        key: "registersNotesText",
-        label: this.langService.getLabel('COMMON.NOTES') || "Note"
-      },
-      {
-        sort: true,
         key: "noteDate",
         label: this.langService.getLabel('COMMON.DATE') || "Date",
         pipes: ["date"]
+      },
+      {
+        sort: true,
+        key: "registersNotesText",
+        label: this.langService.getLabel('COMMON.NOTES') || "Note"
       }
     ];
 

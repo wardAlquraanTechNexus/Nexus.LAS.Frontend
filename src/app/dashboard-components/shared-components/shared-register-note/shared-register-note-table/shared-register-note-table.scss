@@ -1,0 +1,38 @@
+// Custom column width distribution for Register Notes table
+::ng-deep app-shared-register-note-table {
+
+  // Table column width customization
+  app-shared-table {
+
+    table {
+      table-layout: fixed; // Enable fixed layout for consistent column widths
+      width: 100%;
+
+      // Date column - narrow (15% of table width)
+      th.mat-column-noteDate,
+      td.mat-column-noteDate {
+        width: 15%;
+        min-width: 120px;
+      }
+
+      // Notes column - takes most space (70% of table width)
+      th.mat-column-registersNotesText,
+      td.mat-column-registersNotesText {
+        width: 70%;
+
+        // Allow text wrapping for long notes
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+      }
+
+      // Action column - narrow (15% of table width)
+      th.mat-column-action,
+      td.mat-column-action {
+        width: 15%;
+        min-width: 80px;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@use '../../../styles/themes/variables' as vars;
+
+// Date range form container
+.date-range-form {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+// Horizontal layout container
+.date-range-container {
+  display: flex;
+  gap: vars.$nexus-spacing-md;
+  align-items: flex-start;
+  width: 100%;
+
+  // Each date input takes equal width
+  .date-input-group {
+    flex: 1;
+    min-width: 0; // Allows flex items to shrink below content size
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  // Responsive: Stack vertically on small screens
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: vars.$nexus-spacing-sm;
+
+    .date-input-group {
+      width: 100%;
+    }
+  }
+}

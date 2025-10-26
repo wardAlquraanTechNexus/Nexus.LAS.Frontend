@@ -1,18 +1,18 @@
-<form *ngIf="formGroup" [formGroup]="formGroup" class="form-group col-12">
+<form *ngIf="formGroup" [formGroup]="formGroup" class="date-range-form">
   <div class="date-range-container" [formGroup]="formGroup">
-  
+
     <!-- Start Date -->
     <div class="date-input-group">
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline">
         <mat-label>{{ startLabel || labels.COMMON.START_DATE }}</mat-label>
-        <input 
-          matInput 
+        <input
+          matInput
           [matDatepicker]="startPicker"
           [formControlName]="startControlName"
           readonly>
         <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
-        
+
         <!-- Start Date Errors -->
         <mat-error *ngIf="hasStartError">
           <mat-icon>error_outline</mat-icon>
@@ -23,16 +23,16 @@
 
     <!-- End Date -->
     <div class="date-input-group">
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline">
         <mat-label>{{ endLabel || labels.COMMON.END_DATE }}</mat-label>
-        <input 
-          matInput 
+        <input
+          matInput
           [matDatepicker]="endPicker"
           [formControlName]="endControlName"
           readonly>
         <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
-        
+
         <!-- End Date Errors -->
         <mat-error *ngIf="hasEndError">
           <mat-icon>error_outline</mat-icon>

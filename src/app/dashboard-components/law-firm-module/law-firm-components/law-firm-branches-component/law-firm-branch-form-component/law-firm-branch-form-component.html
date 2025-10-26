@@ -33,62 +33,72 @@
                     </mat-error>
                 </mat-form-field>
 
-                <div class="form-group col-12">
+                <div class="form-group col-6">
                     <dl-select-auto-complete *ngIf="countryId" [controlName]="'countryId'" [formGroup]="formGroup"
                         [label]="label.COMMON.COUNTRY || 'Country'" [parentId]="countryId" [isRequired]="true">
                     </dl-select-auto-complete>
                 </div>
 
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.CITY }}</mat-label>
-                    <input matInput type="text" formControlName="city" [placeholder]="label.COMMON.CITY || 'Enter City'"
-                        required>
-                    <mat-error *ngIf="formGroup.get('city')?.hasError('required')">
-                        {{ label.COMMON.CITY_REQUIRED || 'City is required' }}
-                    </mat-error>
-                </mat-form-field>
-                <phone-form
-                [formGroup]="formGroup"
-                [controlName]="'phone1'"
-                [labelValue]="label.COMMON.PHONE_1 || 'Enter Phone 1'"
-                >
-                </phone-form>
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.CITY }}</mat-label>
+                        <input matInput type="text" formControlName="city" [placeholder]="label.COMMON.CITY || 'Enter City'"
+                            required>
+                        <mat-error *ngIf="formGroup.get('city')?.hasError('required')">
+                            {{ label.COMMON.CITY_REQUIRED || 'City is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
-                 <phone-form
-                [formGroup]="formGroup"
-                [controlName]="'phone2'"
-                [labelValue]="label.COMMON.PHONE_2 || 'Enter Phone 2'"
-                >
-                </phone-form>
+                <div class="form-group col-6">
+                    <phone-form
+                        [formGroup]="formGroup"
+                        [controlName]="'phone1'"
+                        [labelValue]="label.COMMON.PHONE_1 || 'Enter Phone 1'">
+                    </phone-form>
+                </div>
 
-                 <phone-form
-                [formGroup]="formGroup"
-                [controlName]="'phone3'"
-                [labelValue]="label.COMMON.PHONE_3 || 'Enter Phone 3'"
-                >
-                </phone-form>
-`
-               
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.FAX }}</mat-label>
-                    <input matInput type="text" formControlName="fax" [placeholder]="label.COMMON.FAX || 'Enter Fax'">
-                    <mat-error *ngIf="formGroup.get('fax')?.hasError('invalidPhoneFax')">
-                        {{ label.COMMON.FAX_INVALID || 'Fax must contain only digits (7-15 digits)' }}
-                    </mat-error>
-                </mat-form-field>
+                <div class="form-group col-6">
+                    <phone-form
+                        [formGroup]="formGroup"
+                        [controlName]="'phone2'"
+                        [labelValue]="label.COMMON.PHONE_2 || 'Enter Phone 2'">
+                    </phone-form>
+                </div>
 
-               <email-form
-               [formGroup]="formGroup"
-               [controlName]="'email1'"
-               [labelValue]="label.COMMON.EMAIL_1 || 'Enter Email 1'">
-               </email-form>
-               
-               <email-form
-               [formGroup]="formGroup"
-               [controlName]="'email2'"
-               [labelValue]="label.COMMON.EMAIL_2 || 'Enter Email 2'">
-               </email-form>
+                <div class="form-group col-6">
+                    <phone-form
+                        [formGroup]="formGroup"
+                        [controlName]="'phone3'"
+                        [labelValue]="label.COMMON.PHONE_3 || 'Enter Phone 3'">
+                    </phone-form>
+                </div>
 
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.FAX }}</mat-label>
+                        <input matInput type="text" formControlName="fax" [placeholder]="label.COMMON.FAX || 'Enter Fax'">
+                        <mat-error *ngIf="formGroup.get('fax')?.hasError('invalidPhoneFax')">
+                            {{ label.COMMON.FAX_INVALID || 'Fax must contain only digits (7-15 digits)' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group col-6">
+                    <email-form
+                        [formGroup]="formGroup"
+                        [controlName]="'email1'"
+                        [labelValue]="label.COMMON.EMAIL_1 || 'Enter Email 1'">
+                    </email-form>
+                </div>
+
+                <div class="form-group col-6">
+                    <email-form
+                        [formGroup]="formGroup"
+                        [controlName]="'email2'"
+                        [labelValue]="label.COMMON.EMAIL_2 || 'Enter Email 2'">
+                    </email-form>
+                </div>
                 <div class="nexus-switch-container">
                     <mat-slide-toggle formControlName="branchPrimary" color="primary" class="nexus-switch">
                         {{ label.COMMON.PRIMARY || 'Primary' }}

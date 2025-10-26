@@ -97,6 +97,18 @@
     
         
         <div class="row toggles-row">
+                    <!-- Primary Toggle -->
+          <div class="form-group col-md-6">
+            <mat-slide-toggle 
+              formControlName="licensePrimary" 
+              color="primary"
+              class="nexus-switch">
+              <span class="toggle-label">
+                {{ label.COMMON.PRIMARY || 'Primary' }}
+              </span>
+            </mat-slide-toggle>
+          </div>
+          
           <!-- Active Reminder Toggle -->
           <div class="form-group col-md-6">
             <mat-slide-toggle 
@@ -109,17 +121,7 @@
             </mat-slide-toggle>
           </div>
 
-          <!-- Primary Toggle -->
-          <div class="form-group col-md-6">
-            <mat-slide-toggle 
-              formControlName="licensePrimary" 
-              color="primary"
-              class="nexus-switch">
-              <span class="toggle-label">
-                {{ label.COMMON.PRIMARY || 'Primary' }}
-              </span>
-            </mat-slide-toggle>
-          </div>
+
         </div>
   
 `

@@ -141,7 +141,7 @@ export const Labels = {
             CCI_NUMBER: "CCI Number",
             CCI_ISSUE_DATE: "CCI Issue Date",
             CCI_ISSUE_DATE_REQUIRED: "CCI Issue Date is required",
-            CCI_EXPIRY_DATE: "CCI Expiry Date",
+            CCI_EXPIRY_DATE: "Expiry Date",
             CCI_USERNAME: "CCI Username",
             CCI_PASSWORD: "CCI Password",
             ADD_BOARD_MEMBER: "Add Board Member", // <-- Added
