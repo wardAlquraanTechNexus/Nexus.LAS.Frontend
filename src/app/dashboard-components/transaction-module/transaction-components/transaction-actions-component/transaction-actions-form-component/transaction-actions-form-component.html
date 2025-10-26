@@ -21,56 +21,34 @@
 
     <!-- Body -->
     <div class="dialog-body">
-        <form [formGroup]="formGroup" class="form-container row w-100">
+        <form [formGroup]="formGroup" class="form-container">
 
-            <!-- Description -->
-            <div class="form-group">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.DESCRIPTION }}</mat-label>
-                    <textarea matInput formControlName="description" required
-                        [placeholder]="label.COMMON.DESCRIPTION || 'Enter Description'"></textarea>
-                    <mat-error *ngIf="formGroup.get('description')?.hasError('required')">
-                        {{ label.COMMON.DESCRIPTION_REQUIRED || 'Description is required' }}
-                    </mat-error>
-                </mat-form-field>
+            <!-- Row 1: Description (Full Width) -->
+            <div class="form-row">
+                <div class="form-field full-width">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.COMMON.DESCRIPTION }}</mat-label>
+                        <textarea matInput formControlName="description" required rows="3"
+                            [placeholder]="label.COMMON.DESCRIPTION || 'Enter Description'"></textarea>
+                        <mat-error *ngIf="formGroup.get('description')?.hasError('required')">
+                            {{ label.COMMON.DESCRIPTION_REQUIRED || 'Description is required' }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
             </div>
 
-            <!-- Person -->
-            <div class="form-group" *ngIf="loadPersonsFn">
-                <select-auto-complete [controlName]="'personId'" [fnGet]="loadPersonsFn" [formGroup]="formGroup"
-                    [isRequired]="true" [label]="label.PROPERTY.OWNER || 'Person'" [keyToShow]="'personName'"
-                    [valueKey]="'personsIdN'">
-                </select-auto-complete>
-            </div>
+            <!-- Row 2: Person & Action Status -->
+            <div class="form-row">
+                <div class="form-field" *ngIf="loadPersonsFn">
+                    <select-auto-complete [controlName]="'personId'" [fnGet]="loadPersonsFn" [formGroup]="formGroup"
+                        [isRequired]="true" [label]="label.PROPERTY.OWNER || 'Person'" [keyToShow]="'personName'"
+                        [valueKey]="'personsIdN'">
+                    </select-auto-complete>
+                </div>
 
-            <!-- Time -->
-            <div class="form-group">
-                <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.TRANSACTION.MINUTES }}</mat-label>
-                    <input matInput formControlName="time" type="number"
-                        [placeholder]="label.TRANSACTION.MINUTES || 'Enter Minutes'">
-                </mat-form-field>
-            </div>
-
-                <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'dueDate'"
-                        [label]="label.TRANSACTION.DUE_DATE"
-                        [isRequired]="true"
-                        [requiredMsg]="label.TRANSACTION.DUE_DATE_REQUIRED"
-                        >
-                </app-date-input>
-
-            <app-date-input
-                    [formGroup]="formGroup"
-                    [controlName]="'closedDate'"
-                    [label]="label.TRANSACTION.CLOSED_DATE"
-                    >
-            </app-date-input>
-            <div class="col-12">
-                <div class="nexus-filter-field">
-                    <mat-form-field appearance="outline">
-                        <mat-label>{{label.TRANSACTION.ACTION_STATUS}}</mat-label>
+                <div class="form-field">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.TRANSACTION.ACTION_STATUS }}</mat-label>
                         <mat-select formControlName="actionStatus">
                             <mat-option *ngFor="let status of statuses" [value]="status.value">
                                 {{ status.label }}
@@ -80,18 +58,52 @@
                 </div>
             </div>
 
-            <!-- File Upload -->
-            <div class="form-group col-12">
-                <multiple-files-form-group 
-                [formGroup]="formGroup" 
-                [filesControlName]="'files'"
-                [fileIdControlName]="'fileId'"
-                [fileNameControl]="'fileName'"
-                [fileIdsToRemoveControlName]="'fileIdsToRemove'"
-                [fileDtos]="element.files || []">
-                </multiple-files-form-group>
+            <!-- Row 3: Due Date & Closed Date -->
+            <div class="form-row">
+                <div class="form-field">
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'dueDate'"
+                        [label]="label.TRANSACTION.DUE_DATE"
+                        [isRequired]="true"
+                        [requiredMsg]="label.TRANSACTION.DUE_DATE_REQUIRED">
+                    </app-date-input>
+                </div>
+
+                <div class="form-field">
+                    <app-date-input
+                        [formGroup]="formGroup"
+                        [controlName]="'closedDate'"
+                        [label]="label.TRANSACTION.CLOSED_DATE">
+                    </app-date-input>
+                </div>
             </div>
 
+            <!-- Row 4: Time (Half Width) -->
+            <div class="form-row">
+                <div class="form-field">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>{{ label.TRANSACTION.MINUTES }}</mat-label>
+                        <input matInput formControlName="time" type="number"
+                            [placeholder]="label.TRANSACTION.MINUTES || 'Enter Minutes'">
+                    </mat-form-field>
+                </div>
+                <div class="form-field"></div>
+            </div>
+
+            <!-- Row 5: File Upload (Full Width) -->
+            <div class="form-row">
+                <div class="form-field full-width">
+                    <multiple-files-form-group
+                        [formGroup]="formGroup"
+                        [filesControlName]="'files'"
+                        [fileIdControlName]="'fileId'"
+                        [fileNameControl]="'fileName'"
+                        [fileIdsToRemoveControlName]="'fileIdsToRemove'"
+                        [fileDtos]="element.files || []">
+                    </multiple-files-form-group>
+                </div>
+            </div>
 
         </form>
     </div>
