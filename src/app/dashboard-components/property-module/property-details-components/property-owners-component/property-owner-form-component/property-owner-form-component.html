@@ -22,79 +22,79 @@
     <div class="dialog-body">
         <div class="form-container">
             <form [formGroup]="formGroup" class="row w-100">
-              
 
-                <div class="form-group col-12">
-                    <dl-select-auto-complete *ngIf="propertyRelationId" [controlName]="'relation'"
-                        [formGroup]="formGroup" [isRequired]="true"
-                        [label]="label.PROPERTY.RELATION || 'Relation'" [parentId]="propertyRelationId">
-                    </dl-select-auto-complete>
-                </div>
+                <!-- Row 1: Relation & Register Type -->
+                <div class="row w-100">
+                    <div class="form-group col-md-6">
+                        <dl-select-auto-complete *ngIf="propertyRelationId" [controlName]="'relation'"
+                            [formGroup]="formGroup" [isRequired]="true"
+                            [label]="label.PROPERTY.RELATION || 'Relation'" [parentId]="propertyRelationId">
+                        </dl-select-auto-complete>
+                    </div>
 
-                <div class="form-group col-12">
-                      <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>{{ label.COMMON.REGISTER_TYPE || 'Type' }}</mat-label>
-                    <mat-select formControlName="registerIdc" required>
-                        <mat-option [value]="EntityIDc.Person">{{ label.COMMON.PERSON || 'Person' }}</mat-option>
-                        <mat-option [value]="EntityIDc.Company">{{ label.COMMON.COMPANY || 'Company' }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('registerIdc')?.hasError('required')">
-                        {{ label.COMMON.REGISTER_TYPE_REQUIRED || 'Register type is required' }}
-                    </mat-error>
-                </mat-form-field>
-                </div>
-              
-                <div class="form-group col-12">
-                    <select-auto-complete *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Person && loadPersonssFn"
-                        [controlName]="'registerIdn'"
-                        [fnGet]="loadPersonssFn"
-                        [formGroup]="formGroup"
-                        [isRequired]="true"
-                        [label]="label.COMMON.PERSON || 'Person'"
-                        [keyToShow]="'personEnglishName'"
-                        [valueKey]="'id'">
-                    </select-auto-complete>
+                    <div class="form-group col-md-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{ label.COMMON.REGISTER_TYPE || 'Type' }}</mat-label>
+                            <mat-select formControlName="registerIdc" required>
+                                <mat-option [value]="EntityIDc.Person">{{ label.COMMON.PERSON || 'Person' }}</mat-option>
+                                <mat-option [value]="EntityIDc.Company">{{ label.COMMON.COMPANY || 'Company' }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.get('registerIdc')?.hasError('required')">
+                                {{ label.COMMON.REGISTER_TYPE_REQUIRED || 'Register type is required' }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
 
-                <div class="form-group col-12">
-                    <select-auto-complete *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Company && loadCompaniesFn"
-                        [controlName]="'registerIdn'"
-                        [fnGet]="loadCompaniesFn"
-                        [formGroup]="formGroup"
-                        [isRequired]="true"
-                        [label]="label.COMMON.COMPANY || 'Company'"
-                        [keyToShow]="'companyEnglishName'"
-                        [valueKey]="'id'">
-                    </select-auto-complete>
+                <!-- Row 2: Person/Company Selection  -->
+                <div class="row w-100">
+                    <div class="form-group col-md-12">
+                        <select-auto-complete *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Person && loadPersonssFn"
+                            [controlName]="'registerIdn'"
+                            [fnGet]="loadPersonssFn"
+                            [formGroup]="formGroup"
+                            [isRequired]="true"
+                            [label]="label.COMMON.PERSON || 'Person'"
+                            [keyToShow]="'personEnglishName'"
+                            [valueKey]="'id'">
+                        </select-auto-complete>
+
+                        <select-auto-complete *ngIf="formGroup.get('registerIdc')?.value === EntityIDc.Company && loadCompaniesFn"
+                            [controlName]="'registerIdn'"
+                            [fnGet]="loadCompaniesFn"
+                            [formGroup]="formGroup"
+                            [isRequired]="true"
+                            [label]="label.COMMON.COMPANY || 'Company'"
+                            [keyToShow]="'companyEnglishName'"
+                            [valueKey]="'id'">
+                        </select-auto-complete>
+                    </div>
+        <!-- Row 3: Date Range -->
+                <div class="row w-100">
+                    <div class="form-group col-md-12">
+                        <start-end-dates-input
+                            [formGroup]="formGroup"
+                            [startControlName]="'ownStartDate'"
+                            [endControlName]="'ownFinishDate'"
+                            [startLabel]="label.COMMON.START_DATE"
+                            [endLabel]="label.COMMON.END_DATE"
+                            [isStartRequired]="true"
+                            [startRequiredMsg]="label.COMMON.START_DATE_REQUIRED">
+                        </start-end-dates-input>
+                    </div>
+                </div>
                 </div>
 
-                   <div class="form-group col-12">
-                        <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'ownStartDate'"
-                        [label]="label.COMMON.START_DATE"
-                        [isRequired]="true"
-                        [requiredMsg]="label.COMMON.START_DATE_REQUIRED"
-                        >
-                        </app-date-input>
-                </div>
-                  <div class="form-group col-12">
-                    <app-date-input
-                        [formGroup]="formGroup"
-                        [controlName]="'ownFinishDate'"
-                        [label]="label.COMMON.END_DATE"
-                        >
-                        </app-date-input>
-                </div>
-
-                  <div class="col-12">
+                <!-- Row 4: Remarks - Full Width -->
+                <div class="row w-100">
+                    <div class="col-12">
                         <mat-form-field appearance="outline" class="w-100">
                             <mat-label>{{ label.PROPERTY.OWNER_REMARKS}}</mat-label>
                             <textarea matInput formControlName="remarks"
                                 [placeholder]="label.PROPERTY.OWNER_REMARKS || 'Enter notes'" rows="3"></textarea>
                         </mat-form-field>
                     </div>
-
+                </div>
 
             </form>
 

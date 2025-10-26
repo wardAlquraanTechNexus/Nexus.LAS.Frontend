@@ -65,7 +65,7 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
       this.displayColumns = [
     {
       key: "personNameEn",
-      label: this.label.COMMON.NAME_EN,
+      label: this.label.COMMON.NAME,
       pipes: ["link"]
     },
     {

@@ -254,8 +254,9 @@ export const Labels = {
             ASSETS: "Assets",
             NOTES: "Notes",
             NOTES_REQUIRED: "Notes is required",
-            NAME_EN: "English Name",
-            NAME_AR: "Arabic Name",
+            NAME_EN: "Name En",
+   
+            NAME_AR: "Name Ar",
             SHOW: "Show",
             HIDE: "Hide",
             ADD_NOTE: "Add Note",

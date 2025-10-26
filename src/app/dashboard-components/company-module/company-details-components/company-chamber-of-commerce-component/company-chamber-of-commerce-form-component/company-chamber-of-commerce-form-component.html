@@ -41,44 +41,51 @@
                     </mat-form-field>
                 </div>
 
-                <div class="form-group col-12">
-                    <start-end-dates-input
-                        [formGroup]="formGroup"
-                        [startControlName]="'cciIssueDate'"
-                        [endControlName]="'cciExpiryDate'"
-                        [startLabel]="label.COMMON.ISSUE_DATE"
-                        [endLabel]="label.COMPANY.CCI_EXPIRY_DATE"
-                        [isStartRequired]="true"
-                        [startRequiredMsg]="label.COMPANY.CCI_ISSUE_DATE_REQUIRED"
-                    ></start-end-dates-input>
-                </div>
+                <!-- Date Range Row -->
+                <div class="row w-100">
+                    <div class="col-md-6">
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'cciIssueDate'"
+                            [label]="label.COMMON.ISSUE_DATE"
+                            [isRequired]="true"
+                            [requiredMsg]="label.COMPANY.CCI_ISSUE_DATE_REQUIRED">
+                        </app-date-input>
+                    </div>
 
+                    <div class="col-md-6">
+                        <app-date-input
+                            [formGroup]="formGroup"
+                            [controlName]="'cciExpiryDate'"
+                            [label]="label.COMPANY.CCI_EXPIRY_DATE">
+                        </app-date-input>
 
-                <!-- Expiry Reminder -->
-                <div class="col-12">
-                    <div class="nexus-switch-wrapper">
-                        <div class="nexus-switch-container">
-                            <mat-slide-toggle formControlName="cciExpiryActiveReminder" color="primary" class="nexus-switch">
-                                {{ label.COMPANY.REMINDER || 'Active Reminder' }}
-                            </mat-slide-toggle>
+                        <!-- Expiry Reminder - directly under end date -->
+                        <div class="nexus-switch-wrapper mt-2">
+                            <div class="nexus-switch-container">
+                                <mat-slide-toggle formControlName="cciExpiryActiveReminder" color="primary" class="nexus-switch">
+                                    {{ label.COMPANY.REMINDER || 'Active Reminder' }}
+                                </mat-slide-toggle>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Username -->
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.CCI_USERNAME || 'CCI Username' }}</mat-label>
-                        <input matInput formControlName="cciUsername" [placeholder]="label.COMPANY.CCI_USERNAME || 'Enter username'" />
-                    </mat-form-field>
-                </div>
+                <!-- Username & Password Row -->
+                <div class="row w-100">
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{ label.COMPANY.CCI_USERNAME || 'CCI Username' }}</mat-label>
+                            <input matInput formControlName="cciUsername" [placeholder]="label.COMPANY.CCI_USERNAME || 'Enter username'" />
+                        </mat-form-field>
+                    </div>
 
-                <!-- Password -->
-                <div class="col-12">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMPANY.CCI_PASSWORD || 'CCI Password' }}</mat-label>
-                        <input matInput type="password" formControlName="cciPassword" [placeholder]="label.COMPANY.CCI_PASSWORD || 'Enter password'" />
-                    </mat-form-field>
+                    <div class="col-6">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>{{ label.COMPANY.CCI_PASSWORD || 'CCI Password' }}</mat-label>
+                            <input matInput type="password" formControlName="cciPassword" [placeholder]="label.COMPANY.CCI_PASSWORD || 'Enter password'" />
+                        </mat-form-field>
+                    </div>
                 </div>
 
             </form>

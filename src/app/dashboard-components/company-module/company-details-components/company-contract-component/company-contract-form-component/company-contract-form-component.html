@@ -51,21 +51,16 @@
 
                 <!-- Row 2: Commencement Date & Expiry Date -->
                 <div class="row">
-                    <div class="col-md-6">
-                        <app-date-input
+                    <div class="col-12">
+                        <start-end-dates-input
                             [formGroup]="formGroup"
-                            [controlName]="'commencementDate'"
-                            [label]="label.COMPANY.COMMENCEMENT_DATE"
-                            [isRequired]="true"
-                            [requiredMsg]="label.COMPANY.COMMENCEMENT_DATE">
-                        </app-date-input>
-                    </div>
-                    <div class="col-md-6">
-                        <app-date-input
-                            [formGroup]="formGroup"
-                            [controlName]="'contractExpiryDate'"
-                            [label]="label.COMPANY.EXPIRY_DATE">
-                        </app-date-input>
+                            [startControlName]="'commencementDate'"
+                            [endControlName]="'contractExpiryDate'"
+                            [startLabel]="label.COMPANY.COMMENCEMENT_DATE"
+                            [endLabel]="label.COMPANY.EXPIRY_DATE"
+                            [isStartRequired]="true"
+                            [startRequiredMsg]="label.COMPANY.COMMENCEMENT_DATE">
+                        </start-end-dates-input>
                     </div>
                 </div>
 

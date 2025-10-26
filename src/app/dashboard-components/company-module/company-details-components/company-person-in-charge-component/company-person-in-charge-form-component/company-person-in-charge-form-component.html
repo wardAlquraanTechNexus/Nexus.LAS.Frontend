@@ -31,7 +31,7 @@
         </div>
 
         <!-- designation -->
-        <div class="col-12">
+        <div class="col-6">
           <select-auto-complete *ngIf="loadDesignation" [controlName]="'designation'" [fnGet]="loadDesignation"
             [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Designation'"
             [keyToShow]="'name'" [valueKey]="'id'">
@@ -39,7 +39,7 @@
         </div>
 
         <!-- Authority Rule -->
-        <div class="col-12">
+        <div class="col-6">
           <select-auto-complete *ngIf="loadAuthorityRulesFn" [controlName]="'authorityRule'"
             [fnGet]="loadAuthorityRulesFn" [formGroup]="formGroup"
             [label]="label.COMPANY.AUTHORITY_RULE || 'Authority Rule'" [keyToShow]="'name'" [valueKey]="'id'">
