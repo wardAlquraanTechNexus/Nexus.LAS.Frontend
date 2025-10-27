@@ -29,7 +29,7 @@ export class PersonViewComponent implements OnInit {
   selectedTab = 0
   showLoading = false;
   person: PersonDto | null = null;
-  personId = 0;
+  personId : number | null = null;
 
   currentLang: LanguageCode = 'en';
   get label() {
@@ -52,7 +52,7 @@ export class PersonViewComponent implements OnInit {
     // react to query param changes
     this.route.queryParams.subscribe(params => {
       let personId = params['id'];
-      if (personId) {
+      if (personId > 0) {
         this.personId = parseInt(personId, 10);
         this.getPerson();
         this.personsUrl =
@@ -72,7 +72,7 @@ export class PersonViewComponent implements OnInit {
 
   private getPerson() {
     this.showLoading = true;
-    this.personService.getPersonDto(this.personId).subscribe({
+    this.personService.getPersonDto(this.personId!).subscribe({
       next: (data) => {
         this.person = data;
 
@@ -211,7 +211,7 @@ export class PersonViewComponent implements OnInit {
 
     const file = event.target.files[0];
     this.showLoading = true;
-    this.personService.uploadImage({ file: file, personId: this.personId }).subscribe({
+    this.personService.uploadImage({ file: file, personId: this.personId! }).subscribe({
       next: (res => {
         this.errorHandler.showSuccess("Image Uploaded Successfully")
         this.getPerson();

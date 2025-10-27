@@ -25,7 +25,7 @@ export class FileFormGroupComponent implements OnInit {
   @Input() fileIdControlName: string = 'fileId';
   @Input() isRequired: boolean = false;
 
-  readonly MAX_FILE_SIZE = 35 * 1024 * 1024; // 35MB in bytes
+  MAX_FILE_SIZE!:number; // 50MB in bytes
   fileSizeError: string = '';
   fileSize: number = 0;
 
@@ -45,6 +45,7 @@ export class FileFormGroupComponent implements OnInit {
       this.currentLang = lang;
     });
     this.acceptFiles = environment.acceptFiles;
+    this.MAX_FILE_SIZE = environment.maxFileSizeInMB * 1024 * 1024;
     if (this.element?.data) {
       const fileBlob = base64ToBlob(this.element.data, this.element.contentType!);
       const file = new File([fileBlob], this.element.fileName || 'file', { type: this.element.contentType! });
@@ -170,4 +171,41 @@ export class FileFormGroupComponent implements OnInit {
     });
   }
 
+  // Add this method to your FileFormGroupComponent
+  getFormattedFileTypes(): string {
+    if (!this.acceptFiles) {
+      return this.label.COMMON.ALL_FILES || 'All files';
+    }
+
+    // Convert accept string to readable format
+    const types = this.acceptFiles.split(',').map(type => type.trim());
+    const readableTypes = types.map(type => {
+      // Handle MIME types
+      if (type.includes('/')) {
+        const mimeMap: { [key: string]: string } = {
+          'image/jpeg': 'JPEG',
+          'image/jpg': 'JPG', 
+          'image/png': 'PNG',
+          'image/gif': 'GIF',
+          'application/pdf': 'PDF',
+          'application/msword': 'DOC',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
+          'application/vnd.ms-excel': 'XLS',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'XLSX',
+          'text/plain': 'TXT',
+          'text/csv': 'CSV'
+        };
+        return mimeMap[type] || type.split('/')[1].toUpperCase();
+      }
+      
+      // Handle file extensions
+      if (type.startsWith('.')) {
+        return type.substring(1).toUpperCase();
+      }
+      
+      return type.toUpperCase();
+    });
+
+    return readableTypes.join(', ');
+  }
 }

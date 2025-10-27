@@ -77,8 +77,8 @@ import { PropertyDialogFormComponent } from '../dashboard-components/property-mo
 import { TransactionActionsComponent } from '../dashboard-components/transaction-module/transaction-components/transaction-actions-component/transaction-actions-component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StartEndDatesInputComponent } from './start-end-dates-input-component/start-end-dates-input-component';
-import { GroupsByUserComponent } from '../dashboard-components/setting-module/_shared-components/groups-by-user-component/groups-by-user-component';
-import { UsersByGroupComponent } from '../dashboard-components/setting-module/_shared-components/users-by-group-component/users-by-group-component';
+import { GroupsByUserComponent } from '../dashboard-components/setting-module/user/groups-by-user-component/groups-by-user-component';
+import { UsersByGroupComponent } from '../dashboard-components/setting-module/group/group-components/users-by-group-component/users-by-group-component';
 
 
 
@@ -131,8 +131,6 @@ import { UsersByGroupComponent } from '../dashboard-components/setting-module/_s
     PropertyFormComponent,
     TransactionActionsComponent,
     StartEndDatesInputComponent,
-    GroupsByUserComponent,
-    UsersByGroupComponent
 
   ],
   imports: [
@@ -251,8 +249,6 @@ import { UsersByGroupComponent } from '../dashboard-components/setting-module/_s
     TransactionActionsComponent,
     DragDropModule,
     StartEndDatesInputComponent,
-    GroupsByUserComponent,
-    UsersByGroupComponent
   ],
   providers: [
 

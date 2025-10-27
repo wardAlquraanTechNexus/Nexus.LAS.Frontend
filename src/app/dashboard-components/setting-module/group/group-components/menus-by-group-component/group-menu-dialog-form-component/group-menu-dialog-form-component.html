@@ -1,0 +1,10 @@
+
+<base-dialog-form>
+
+  <app-group-menu-form 
+    [showLoading]="showLoading"
+    [element]="data"
+    (saveEmitter)="onSave($event)"
+    (cancelEditEmitter)="onCancel($event)">
+  </app-group-menu-form>
+</base-dialog-form>

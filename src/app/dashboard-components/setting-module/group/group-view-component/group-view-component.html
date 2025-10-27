@@ -82,7 +82,19 @@
                         <div class="overview-component">
                              <app-users-by-group [groupId]="groupId!"></app-users-by-group>
                         </div>
+                    </div>
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <div class="tab-label">
+                            <mat-icon>menu</mat-icon>
+                            <span>{{ label.SETTINGS.MENUS }}</span>
+                        </div>
+                    </ng-template>
+                    <div class="tab-content">
                         <div class="overview-component">
+                             <app-menus-by-group [groupId]="groupId!"></app-menus-by-group>
                         </div>
                     </div>
                 </mat-tab>

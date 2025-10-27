@@ -5,3 +5,169 @@
     background-color: rgba(117, 117, 117, 0.1) !important;
   }
 }
+
+.upload-btn {
+  width: 100%;
+  padding: 12px;
+  
+  .file-size-hint {
+    font-size: 11px;
+    color: #6c757d;
+    margin-left: 4px;
+  }
+}
+
+.file-hints {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 8px;
+
+  .hint-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .hint-icon {
+      color: #6c757d;
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+
+    .hint-text {
+      font-size: 12px;
+      color: #6c757d;
+      line-height: 1.4;
+    }
+  }
+}
+
+.file-error {
+  mat-error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.files-header {
+  margin-bottom: 16px;
+  
+  .files-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    
+    mat-icon {
+      color: #1976d2;
+      font-size: 18px;
+    }
+  }
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #1976d2;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+  }
+
+  .file-input {
+    flex: 1;
+    margin: 0;
+  }
+
+  .file-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+}
+
+.grey-button {
+  color: #757575 !important;
+  
+  &:hover {
+    background-color: rgba(117, 117, 117, 0.1) !important;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+
+  .empty-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+
+  .empty-text {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .file-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    .file-actions {
+      justify-content: center;
+    }
+  }
+}
+
+// Dark theme support
+.dark-theme {
+  .file-hints {
+    background: #2d3748;
+    border-color: #4a5568;
+    
+    .hint-icon,
+    .hint-text {
+      color: #a0aec0;
+    }
+  }
+
+  .file-item {
+    background: #2d3748;
+    border-color: #4a5568;
+    
+    &:hover {
+      border-color: #63b3ed;
+    }
+  }
+}

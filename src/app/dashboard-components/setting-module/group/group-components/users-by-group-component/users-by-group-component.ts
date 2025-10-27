@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PaginateRsult } from '../../../../models/paginate-result';
-import { UserGroup } from '../../../../models/user-group/user-group';
-import { GetUserGroupDTOQuery } from '../../../../models/user-group/user-group-dto/get-user-group-query';
-import { UserGroupDto } from '../../../../models/user-group/user-group-dto/user-group-dto';
-import { ErrorHandlerService } from '../../../../services/error-handler.service';
-import { LanguageService } from '../../../../services/language-service';
-import { UserGroupService } from '../../../../services/user-group-service';
-import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
+import { PaginateRsult } from '../../../../../models/paginate-result';
+import { UserGroup } from '../../../../../models/user-group/user-group';
+import { GetUserGroupDTOQuery } from '../../../../../models/user-group/user-group-dto/get-user-group-query';
+import { UserGroupDto } from '../../../../../models/user-group/user-group-dto/user-group-dto';
+import { ErrorHandlerService } from '../../../../../services/error-handler.service';
+import { LanguageService } from '../../../../../services/language-service';
+import { UserGroupService } from '../../../../../services/user-group-service';
+import { TableFormComponent } from '../../../../base-components/table-form-component/table-form-component';
 
 @Component({
   selector: 'app-users-by-group',

@@ -94,12 +94,12 @@ export class TransactionViewComponent implements OnInit {
    getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    switch (this.transaction?.status) {
-      case CommonStatus.Active:
+    switch (this.transaction!.status?.toString()) {
+      case CommonStatus[CommonStatus.Active]:
         borderColor = '#22C993';
         color = '#22C993';
         break;
-      case CommonStatus.Inactive:
+      case CommonStatus[CommonStatus.Inactive]:
         borderColor = '#423e3ede';
         color = '#423e3ede';
         break;
@@ -116,10 +116,10 @@ export class TransactionViewComponent implements OnInit {
   }
 
   getIcon() {
-    switch (this.transaction?.status) {
-      case CommonStatus.Active || 1:
+    switch (this.transaction?.status?.toString()) {
+      case CommonStatus[CommonStatus.Active]:
         return 'check_circle';
-      case CommonStatus.Inactive || 2:
+      case CommonStatus[CommonStatus.Inactive] || 2:
         return 'cancel';
       default:
         return 'star';

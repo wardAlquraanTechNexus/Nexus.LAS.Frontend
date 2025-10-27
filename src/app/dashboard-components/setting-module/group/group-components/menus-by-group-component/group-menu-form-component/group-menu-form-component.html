@@ -1,0 +1,85 @@
+<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Header -->
+    <div class="dialog-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <mat-icon>gavel</mat-icon>
+            </div>
+            <div class="header-text">
+                <h2 class="dialog-title">
+                    {{ label.SETTINGS.GROUP_MENU_SETTINGS || 'Group Menu Settings' }}
+                </h2>
+                <p class="dialog-subtitle">{{ label.SETTINGS.GROUP_MENU_SUBTITLE || 'Manage group menu settings' }}</p>
+            </div>
+        </div>
+        <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div class="dialog-body">
+        <div class="form-container">
+            <form [formGroup]="formGroup" class="row w-100">
+
+                     <div class="permission-item">
+                        <div class="permission-info">
+                            <mat-icon class="permission-icon">add</mat-icon>
+                            <div class="permission-text">
+                                <span class="permission-title">{{ label.SETTINGS.CAN_INSERT || 'Can Insert' }}</span>
+                                <span class="permission-description">{{ label.SETTINGS.INSERT_DESCRIPTION || 'Allow creating new records' }}</span>
+                            </div>
+                        </div>
+                        <mat-slide-toggle formControlName="canInsert" color="primary"></mat-slide-toggle>
+                    </div>
+
+                    <!-- Update Permission -->
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <mat-icon class="permission-icon">edit</mat-icon>
+                            <div class="permission-text">
+                                <span class="permission-title">{{ label.SETTINGS.CAN_UPDATE || 'Can Update' }}</span>
+                                <span class="permission-description">{{ label.SETTINGS.UPDATE_DESCRIPTION || 'Allow editing existing records' }}</span>
+                            </div>
+                        </div>
+                        <mat-slide-toggle formControlName="canUpdate" color="primary"></mat-slide-toggle>
+                    </div>
+
+                    <!-- Delete Permission -->
+                    <div class="permission-item">
+                        <div class="permission-info">
+                            <mat-icon class="permission-icon">delete</mat-icon>
+                            <div class="permission-text">
+                                <span class="permission-title">{{ label.SETTINGS.CAN_DELETE || 'Can Delete' }}</span>
+                                <span class="permission-description">{{ label.SETTINGS.DELETE_DESCRIPTION || 'Allow deleting records' }}</span>
+                            </div>
+                        </div>
+                        <mat-slide-toggle formControlName="canDelete" color="warn"></mat-slide-toggle>
+                    </div>
+
+                    <div class="permission-item admin-permission">
+                        <div class="permission-info">
+                            <mat-icon class="permission-icon">admin_panel_settings</mat-icon>
+                            <div class="permission-text">
+                                <span class="permission-title">{{ label.SETTINGS.ADMIN || 'Admin' }}</span>
+                                <span class="permission-description">{{ label.SETTINGS.ADMIN_DESCRIPTION || 'Full administrative access' }}</span>
+                            </div>
+                        </div>
+                        <mat-slide-toggle formControlName="admin" color="accent"></mat-slide-toggle>
+                    </div>
+
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="dialog-footer">
+        <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+            {{ label.COMMON.CANCEL || 'Cancel' }}
+        </button>
+        <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
+
+    </div>
+</div>

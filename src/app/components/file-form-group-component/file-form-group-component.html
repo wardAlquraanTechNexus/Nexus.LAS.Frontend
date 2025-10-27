@@ -6,8 +6,23 @@
     <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)" class="upload-btn">
         <mat-icon>attach_file</mat-icon>
         {{ label.COMMON.UPLOAD_FILE || 'Upload File' }}
-        <span class="file-size-hint">(Max 35MB)</span>
     </button>
+
+    <!-- File type and size hints -->
+    <div class="file-hints mt-1" *ngIf="acceptFiles">
+        <div class="hint-item">
+            <mat-icon class="hint-icon">info</mat-icon>
+            <span class="hint-text">
+                {{ label.COMMON.ALLOWED_TYPES || 'Allowed types' }}: {{ getFormattedFileTypes() }}
+            </span>
+        </div>
+        <div class="hint-item">
+            <mat-icon class="hint-icon">storage</mat-icon>
+            <span class="hint-text">
+                {{ label.COMMON.MAX_SIZE || 'Maximum size' }}: {{ formatFileSize(MAX_FILE_SIZE) }}
+            </span>
+        </div>
+    </div>
 
     <!-- File size error message -->
     <div class="file-error mt-2" *ngIf="fileSizeError">

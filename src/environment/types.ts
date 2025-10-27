@@ -105,6 +105,7 @@ export interface Environment {
   routes: Routes;
 
   acceptFiles: string;
+  maxFileSizeInMB: number;
 
   rootDynamicLists: {
     companyType: number,

@@ -2,14 +2,12 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { GroupMenu } from '../../../../models/group-menu/group-menu';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
 import { PaginateRsult } from '../../../../models/paginate-result';
-import { SearchGroupMenuQuery } from '../../../../models/group-menu/search-group-menu/search-group-menu-query';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GroupMenuService } from '../../../../services/group-menu-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { SearchGroupMenuDTO } from '../../../../models/group-menu/search-group-menu/search-group-menu-dto';
 import { map, Observable, takeUntil, tap } from 'rxjs';
 import { GroupMenuFormDialog } from './group-menu-form-dialog/group-menu-form-dialog';
 import { Group } from '../../../../models/group/group';
@@ -17,6 +15,8 @@ import { Menu } from '../../../../models/menus/menu';
 import { GroupService } from '../../../../services/group-service';
 import { MenuService } from '../../../../services/menu-service';
 import { LanguageService } from '../../../../services/language-service';
+import { GroupMenuDTO } from '../../../../models/group-menu/dtos/group-menu-dto';
+import { SearchGroupMenuQuery } from '../../../../models/group-menu/params/search-group-menu-query';
 
 @Component({
   selector: 'app-group-menu-table',
@@ -25,7 +25,7 @@ import { LanguageService } from '../../../../services/language-service';
   styleUrl: './group-menu-table.scss'
 })
 export class GroupMenuTable extends TableFormComponent<GroupMenu> {
-  override data: PaginateRsult<SearchGroupMenuDTO> = {
+  override data: PaginateRsult<GroupMenuDTO> = {
     collection: [],
     totalPages: 0,
     totalRecords: 0,
@@ -146,7 +146,7 @@ export class GroupMenuTable extends TableFormComponent<GroupMenu> {
 
 
   onAddNew() {
-    let groupMenu: SearchGroupMenuDTO = {
+    let groupMenu: GroupMenuDTO = {
       id: 0,
       menuId: 0,
       groupId: 0,

@@ -1,7 +1,9 @@
 
-<app-person-address-form-component 
-[showLoading]="showLoading"
-  [personAddress]="personAddress" 
-  (saveEmitter)="onSave($event)" 
-  (cancelEditEmitter)="onCancel()">
-</app-person-address-form-component>
+<base-dialog-form>
+  <app-person-address-form-component 
+  [showLoading]="showLoading"
+    [personAddress]="personAddress" 
+    (saveEmitter)="onSave($event)" 
+    (cancelEditEmitter)="onCancel()">
+  </app-person-address-form-component>
+</base-dialog-form>

@@ -9,9 +9,9 @@ import { map, Observable } from 'rxjs';
 import { MenuService } from '../../../../../services/menu-service';
 import { GroupService } from '../../../../../services/group-service';
 import { Menu } from '../../../../../models/menus/menu';
-import { SearchGroupMenuDTO } from '../../../../../models/group-menu/search-group-menu/search-group-menu-dto';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { LanguageService } from '../../../../../services/language-service';
+import { GroupMenuDTO } from '../../../../../models/group-menu/dtos/group-menu-dto';
 
 @Component({
   selector: 'app-user-group-form',
@@ -20,7 +20,7 @@ import { LanguageService } from '../../../../../services/language-service';
   styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
 export class GroupMenuForm extends BaseFormComponent {
-  @Input() groupMenu!: SearchGroupMenuDTO;
+  @Input() groupMenu!: GroupMenuDTO;
 
   loadGroupFn!: (search: string) => Observable<Group[]>;
   loadMenusFn!: (search: string) => Observable<Menu[]>;

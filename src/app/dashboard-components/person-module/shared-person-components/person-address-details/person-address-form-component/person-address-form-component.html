@@ -71,7 +71,7 @@
 
                  <div class="col-4 ps-2">
                     <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'poBoxCountry'"
-                        [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="label.COMMON.NATIONALITY || 'Nationality'"
+                        [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="label.COMMON.COUNTRY || 'Country'"
                         [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="false"
                         (selectEmitter)="onSelectCountry($event)">
                     </select-auto-complete>

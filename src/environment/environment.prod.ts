@@ -6,6 +6,7 @@ export const environment: Environment = {
     host: 'https://las-prod.royalgroupuae.com:8443/api/'
   },
   acceptFiles: "image/*,.pdf,.msg,.eml,xlsx,.docx,.pptx,.csv",
+  maxFileSizeInMB: 50,
   routes: {
     onBoarding: 'On-boarding',
     // Core

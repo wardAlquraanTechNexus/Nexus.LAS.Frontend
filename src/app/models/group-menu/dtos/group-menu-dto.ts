@@ -1,4 +1,4 @@
-export interface SearchGroupMenuDTO
+export interface GroupMenuDTO
 {
     id:number,
     menuId:number,
@@ -10,5 +10,7 @@ export interface SearchGroupMenuDTO
     canUpdate:boolean,
     canDelete:boolean,
     admin:boolean,
+    isChecked?:boolean | null,
+
 
 }

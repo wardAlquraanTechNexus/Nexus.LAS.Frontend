@@ -6,6 +6,7 @@ import { ComponentsModule } from '../../../components/components-module';
 import { UserFormComponent } from './user-table/user-form-component/user-form-component';
 import { UserDialogFormComponent } from './user-table/user-dialog-form-component/user-dialog-form-component';
 import { UserTableComponent } from './user-table/user-table-component';
+import { GroupsByUserComponent } from './groups-by-user-component/groups-by-user-component';
 
 
 @NgModule({
@@ -13,6 +14,8 @@ import { UserTableComponent } from './user-table/user-table-component';
     UserTableComponent,
     UserFormComponent,
     UserDialogFormComponent,
+    GroupsByUserComponent,
+
   ],
   imports: [
     CommonModule,

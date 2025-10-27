@@ -2,29 +2,84 @@
     <!-- Hidden file input -->
     <input type="file" multiple hidden #fileInput [accept]="acceptedFiles" (change)="onFileChange($event)">
 
-    <!-- Upload button -->
-    <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)">
+    <!-- Upload button with file size info -->
+    <button mat-stroked-button type="button" (click)="triggerFileInput(fileInput)" class="upload-btn">
         <mat-icon>attach_file</mat-icon>
-        {{ label.COMMON.UPLOAD_FILES  }}
+        {{ label.COMMON.UPLOAD_FILES || 'Upload Files' }}
     </button>
 
+    <!-- File type and size hints -->
+    <div class="file-hints mt-1" *ngIf="acceptedFiles">
+        <div class="hint-item">
+            <mat-icon class="hint-icon">info</mat-icon>
+            <span class="hint-text">
+                {{ label.COMMON.ALLOWED_TYPES || 'Allowed types' }}: {{ getFormattedFileTypes() }}
+            </span>
+        </div>
+        <div class="hint-item">
+            <mat-icon class="hint-icon">storage</mat-icon>
+            <span class="hint-text">
+                {{ label.COMMON.MAX_SIZE || 'Maximum size' }}: 35MB {{ label.COMMON.PER_FILE || 'per file' }}
+            </span>
+        </div>
+        <div class="hint-item">
+            <mat-icon class="hint-icon">file_copy</mat-icon>
+            <span class="hint-text">
+                {{ label.COMMON.MULTIPLE_FILES || 'You can select multiple files at once' }}
+            </span>
+        </div>
+    </div>
+
+    <!-- File size error message -->
+    <div class="file-error mt-2" *ngIf="fileSizeError">
+        <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            {{ fileSizeError }}
+        </mat-error>
+    </div>
+
     <!-- Uploaded files list -->
-    <div formArrayName="files" class="mt-2">
+    <div formArrayName="files" class="mt-2" *ngIf="files.length > 0">
+        <div class="files-header">
+            <h4 class="files-title">
+                <mat-icon>folder_open</mat-icon>
+                {{ label.COMMON.UPLOADED_FILES || 'Uploaded Files' }} ({{ files.length }})
+            </h4>
+        </div>
+        
         <div *ngFor="let fileGroup of files.controls; let i = index" [formGroupName]="i"
-            class="d-flex align-items-center mb-2">
-            <mat-form-field appearance="outline" class="flex-grow-1">
-                <input matInput [value]="(i + 1) + '. ' +  fileGroup.get(fileNameControl)?.value" readonly (click)="previewFile(i)">
+            class="file-item">
+            <mat-form-field appearance="outline" class="file-input">
+                <mat-label>{{ label.COMMON.FILE || 'File' }} {{ i + 1 }}</mat-label>
+                <input matInput [value]="fileGroup.get(fileNameControl)?.value" 
+                       readonly (click)="previewFile(i)"
+                       [matTooltip]="fileGroup.get(fileNameControl)?.value">
+                <mat-icon matSuffix>description</mat-icon>
             </mat-form-field>
 
-            <button mat-icon-button color="primary" type="button" (click)="previewFile(i)">
-                <mat-icon>visibility</mat-icon>
-            </button>
-            <button mat-icon-button class="grey-button" type="button" (click)="downloadFile(i)">
-                <mat-icon>download</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" type="button" (click)="removeFileControl(i, fileGroup)">
-                <mat-icon>delete</mat-icon>
-            </button>
+            <div class="file-actions">
+                <button mat-icon-button color="primary" type="button" 
+                        (click)="previewFile(i)"
+                        [matTooltip]="label.COMMON.PREVIEW || 'Preview'">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button class="grey-button" type="button" 
+                        (click)="downloadFile(i)"
+                        [matTooltip]="label.COMMON.DOWNLOAD || 'Download'">
+                    <mat-icon>download</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" type="button" 
+                        (click)="removeFileControl(i, fileGroup)"
+                        [matTooltip]="label.COMMON.REMOVE || 'Remove'">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state mt-2" *ngIf="files.length === 0">
+        <mat-icon class="empty-icon">cloud_upload</mat-icon>
+        <p class="empty-text">{{ label.COMMON.NO_FILES_UPLOADED || 'No files uploaded yet' }}</p>
     </div>
 </form>

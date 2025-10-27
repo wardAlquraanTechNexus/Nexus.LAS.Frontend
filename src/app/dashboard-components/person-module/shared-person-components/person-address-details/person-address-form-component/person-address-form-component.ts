@@ -48,6 +48,11 @@ export class PersonAddressFormComponent extends BaseFormComponent {
       this.dlService.GetAllByParentId(environment.rootDynamicLists.country, search);
 
     this.loadCitiesFn = (search: string) => this.loadCitis(search);
+    
+    if(this.personAddress?.poBoxCountry){
+      this.onSelectCountry(this.personAddress.poBoxCountry);
+      this.formGroup.get('poBoxCity')?.setValue(this.personAddress?.poBoxCity);
+    }
   }
 
   onSelectCountry(event: number) {

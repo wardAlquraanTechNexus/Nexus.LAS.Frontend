@@ -59,7 +59,7 @@ export class MainDashboardComponent implements OnInit {
       this.router.navigateByUrl('/' + environment.routes.onBoarding);
     }
     const user = this.authService.getUser();
-    this.currentUser = user?.userName || 'User';
+    this.currentUser = user?.firstName + ' ' + user?.lastName || 'User';
 
   }
 

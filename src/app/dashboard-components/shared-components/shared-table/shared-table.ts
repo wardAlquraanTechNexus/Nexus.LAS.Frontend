@@ -343,6 +343,20 @@ export class SharedTable implements OnInit, OnChanges {
           }
           break;
 
+          case 'yes-no':
+          {
+            let color = '#9E77ED';
+            if (value === true) color = '#22C993';
+            else if (value === false) color = '#423e3ede';
+            Object.assign(styles, {
+              'border': `2px solid ${color}`,
+              'color': color,
+              'border-radius': '20px',
+              'padding': '10px'
+            });
+          }
+          break;
+
         default:
           break;
       }

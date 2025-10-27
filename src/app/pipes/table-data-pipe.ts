@@ -114,6 +114,8 @@ export class TableDataPipe implements PipeTransform {
       'law-firm': () => this.handleLawFirm(value),
       'register-type': () => this.handleRegisterType(value),
       'expired-before': () => this.handleExpiredBefore(value),
+      'yes-no': () => this.handleYesNo(value),
+
     };
 
     const handler = pipeHandlers[pipe];
@@ -173,6 +175,11 @@ export class TableDataPipe implements PipeTransform {
   private handlePrivateStatus(value: any): Observable<string> {
     const getLabel = this.languageService.getLabel.bind(this.languageService);
     return of(value === true ? getLabel('COMPANY.PRIVATE') : getLabel('COMPANY.PUBLIC'));
+  }
+
+  private handleYesNo(value: any): Observable<string> {
+    const getLabel = this.languageService.getLabel.bind(this.languageService);
+    return of(value === true ? getLabel('COMMON.YES') : getLabel('COMMON.NO'));
   }
 
   private handleActiveStatus(value: any): Observable<string> {

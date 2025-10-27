@@ -6,6 +6,7 @@ export const environment: Environment = {
     host: 'https://localhost:44325/api/'
   },
   acceptFiles: "image/*,.pdf,.msg,.eml,xlsx,.docx,.pptx,.csv",
+  maxFileSizeInMB: 50,
   routes: {
     onBoarding: 'On-boarding',
     // Core

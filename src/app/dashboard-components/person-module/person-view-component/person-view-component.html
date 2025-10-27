@@ -1,4 +1,4 @@
-<div class="main-container">
+<div *ngIf="personId && personId > 0" class="main-container">
 
   <!-- SECTION 1: Loading State -->
   @if (showLoading) {
