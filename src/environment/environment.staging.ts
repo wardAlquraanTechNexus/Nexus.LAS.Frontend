@@ -3,7 +3,7 @@ import type { Environment } from './types';
 export const environment: Environment = {
   production: true,
   serverUrls: {
-    host: 'https://las-prod.royalgroupuae.com:8443/api/'
+    host: 'https://las-staging.royalgroupuae.com:8444/api/'
   },
   acceptFiles: "image/*,.pdf,.msg,.eml,xlsx,.docx,.pptx,.csv",
   routes: {
@@ -35,7 +35,7 @@ export const environment: Environment = {
     AddCompany: 'Add-company',
     EditCompany: 'Edit-company',
 
-  
+
     // Law Firms module
     LawFirms: 'Law-firms',
     AllLawFirms: 'All-law-firms',
