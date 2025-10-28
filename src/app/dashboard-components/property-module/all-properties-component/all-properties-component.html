@@ -1,12 +1,6 @@
-@if(!showLoading){
-    @if(!propertyId)
-    {
-        <app-all-properties-table-component></app-all-properties-table-component>
-    
-    }@else {
-        <app-property-view 
-            (backToTableEmit)="backToTable()">
-        </app-property-view>
-    
-    }
+@if(showTable == true && !itemId){
+<app-all-properties-table-component></app-all-properties-table-component>
+
+}@else if(showTable == false && itemId && itemId > 0){
+<app-property-view></app-property-view>
 }

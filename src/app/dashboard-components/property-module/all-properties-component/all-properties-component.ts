@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../../services/language-service';
 import { PropertyService } from '../../../services/property-services/property-service';
+import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-all-properties-component',
@@ -11,17 +12,8 @@ import { PropertyService } from '../../../services/property-services/property-se
   templateUrl: './all-properties-component.html',
   styleUrl: './all-properties-component.scss'
 })
-export class AllPropertiesComponent extends PropertyViewComponent
+export class AllPropertiesComponent extends BaseTableViewComponent
 {
 
-  constructor(
-    override service: PropertyService,
-    override router: Router,
-    override route: ActivatedRoute,
-    override langService: LanguageService,
-    override dialog: MatDialog,
-    override cdr: ChangeDetectorRef,
-  ) {
-    super(service, router, route, langService, dialog, cdr);
-  }
+  
 }

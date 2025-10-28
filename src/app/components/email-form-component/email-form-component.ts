@@ -25,10 +25,10 @@ export class EmailFormComponent  implements OnInit {
   constructor(private langService: LanguageService) { }
 
   ngOnInit(): void {
-     this.formGroup.get('email')?.setValidators([
+     this.formGroup.get(this.controlName)?.setValidators([
       Validators.email
     ]);
-    this.formGroup.get('email')?.updateValueAndValidity();
+    this.formGroup.get(this.controlName)?.updateValueAndValidity();
 
     if (!this.labelValue) {
       this.labelValue = this.label.COMMON.EMAIL ;

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,6 +40,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
     pageSize: 10
   };
   @Input() company!: GetCompanyDto;
+  @Output() onEditEmitter = new EventEmitter<CompanyCapitalDto>();
 
   constructor(
     override service: CompanyCapitalService,
@@ -177,6 +178,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchData();
+        this.onEditEmitter.emit(result);
       }
     })
 

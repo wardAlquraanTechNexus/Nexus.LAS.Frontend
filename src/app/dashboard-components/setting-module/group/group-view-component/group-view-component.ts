@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LanguageCode } from '../../../../models/types/lang-type';
 import { Labels } from '../../../../models/consts/labels';
-import { GroupDTO } from '../../../../models/group/group-dto/group-dto';
 import { GroupService } from '../../../../services/group-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../../../services/language-service';

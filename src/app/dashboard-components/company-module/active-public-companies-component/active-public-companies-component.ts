@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CompanyTableView } from '../_base/company-table-view/company-table-view';
+import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-active-public-companies-component',
   standalone:false,
   templateUrl: './active-public-companies-component.html',
-  styleUrl: './active-public-companies-component.scss'
+  styleUrls: ['./active-public-companies-component.scss']
 })
-export class ActivePublicCompaniesComponent extends CompanyTableView {
+export class ActivePublicCompaniesComponent extends BaseTableViewComponent {
 
 }

@@ -1,2 +1,7 @@
-<app-active-fpcs-table *ngIf="!showLoading && !fpcId"></app-active-fpcs-table>
-<app-fpc-table-view-component *ngIf="!showLoading && fpcId" (backToTableEmit)="backToTable()"></app-fpc-table-view-component>
+
+
+@if(showTable == true && !itemId){
+    <app-active-fpcs-table></app-active-fpcs-table>
+}@else if(showTable == false && itemId){
+    <app-fpc-table-view-component></app-fpc-table-view-component>
+}

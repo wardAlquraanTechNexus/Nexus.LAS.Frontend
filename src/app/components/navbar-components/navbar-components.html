@@ -85,7 +85,11 @@
               </div>
               <div class="result-content">
                 <div class="result-main">
-                  <span class="result-code">{{ result.entityCode }}</span>
+                  @if(!result.fullName){
+                    <span class="result-code">{{ result.entityCode }}</span>
+                  }@else {
+                    <span class="result-fullname">{{ result.fullName }} ({{ result.entityCode }})</span>
+                  }
                   <span class="result-type-badge">{{ result.entityType }}</span>
                 </div>
               </div>

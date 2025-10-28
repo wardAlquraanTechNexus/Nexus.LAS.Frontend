@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PersonTableView } from '../_base/person-table-view/person-table-view';
+import { Component } from '@angular/core';
+import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-all-persons',
@@ -8,7 +7,7 @@ import { PersonTableView } from '../_base/person-table-view/person-table-view';
   templateUrl: './all-persons.html',
   styleUrls: ['./all-persons.scss', '../_base/base-persons-component/base-persons-component.scss']
 })
-export class AllPersons extends PersonTableView{
+export class AllPersons extends BaseTableViewComponent{
   
 
 }

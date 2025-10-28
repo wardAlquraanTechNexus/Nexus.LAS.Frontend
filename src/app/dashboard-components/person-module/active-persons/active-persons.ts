@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { PersonTableView } from '../_base/person-table-view/person-table-view';
+import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-active-persons',
@@ -8,5 +8,5 @@ import { PersonTableView } from '../_base/person-table-view/person-table-view';
   templateUrl: './active-persons.html',
   styleUrls: ['./active-persons.scss','../_base/base-persons-component/base-persons-component.scss']
 })
-export class ActivePersons extends PersonTableView{ 
+export class ActivePersons extends BaseTableViewComponent{ 
 }

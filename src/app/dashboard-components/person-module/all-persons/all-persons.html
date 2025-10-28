@@ -1,2 +1,8 @@
-<app-all-person-table *ngIf="!showLoading && !personId"></app-all-person-table>
-<app-person-view-component *ngIf="!showLoading && personId" (backToTableEmit)="backToTable()"></app-person-view-component>
+
+
+@if(showTable == true && !itemId){
+<app-all-person-table></app-all-person-table>
+
+}@else if(showTable == false && itemId){
+<app-person-view-component></app-person-view-component>
+}

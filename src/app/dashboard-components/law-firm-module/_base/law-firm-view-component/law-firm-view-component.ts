@@ -49,7 +49,7 @@ export class LawFirmViewComponent  implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
-        this.lawFirmId = parseInt(params['id']);
+        this.lawFirmId = +params['id'];
         this.getLawFirm();
       }else{
         this.backToTable();

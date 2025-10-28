@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Labels } from '../../../../models/consts/labels';
 import { LanguageCode } from '../../../../models/types/lang-type';
 import { PropertyDTO } from '../../../../models/property-models/property/dtos/propery-dto';
@@ -19,18 +20,20 @@ import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 })
 export class PropertyViewComponent implements OnInit, OnDestroy {
 
+  // Unsubscribe subject
+  private destroy$ = new Subject<void>();
 
-  label!: any ;
+  label!: any;
   currentLang: LanguageCode = 'en';
 
-  @Output() backToTableEmit = new EventEmitter();
   property!: PropertyDTO;
   showLoading = false;
-  propertyId = 0;
+  propertyId?: number | null = null;
 
   propertyIdc = EntityIDc.Properties;
 
   selectedTab = 0;
+
   constructor(
     protected service: PropertyService,
     protected router: Router,
@@ -38,45 +41,62 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
     protected langService: LanguageService,
     protected dialog: MatDialog,
     protected cdr: ChangeDetectorRef,
-
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params['id']) {
-        this.propertyId = parseInt(params['id']);
-        this.getProperty();
-      } else {
-        this.backToTable();
-      }
-    });
-    this.langService.language$.subscribe(lang => {
-      this.label = Labels[lang as keyof typeof Labels];
-      this.applyLanguage(lang);
-    });
+    // Subscribe to query params with unsubscribe logic
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        if (params['id']) {
+          this.propertyId = parseInt(params['id']);
+          this.getProperty();
+        } else {
+          this.backToTable();
+        }
+      });
 
+    // Subscribe to language changes with unsubscribe logic
+    this.langService.language$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(lang => {
+        this.label = Labels[lang as keyof typeof Labels];
+        this.applyLanguage(lang);
+      });
+  }
+
+  ngOnDestroy(): void {
+    // Complete the destroy subject to unsubscribe from all observables
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private getProperty() {
     this.showLoading = true;
-    this.service.getDtoById(this.propertyId).subscribe({
-      next: (res => {
-        this.property = res;
-        this.showLoading = false;
-        this.cdr.markForCheck();
-      }), error: (err => {
-        this.showLoading = false;
-      })
-    });
+    
+    this.service.getDtoById(this.propertyId!)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res => {
+          this.property = res;
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }),
+        error: (err => {
+          this.showLoading = false;
+          console.error('Error fetching property:', err);
+        })
+      });
   }
 
   navigateToTable() {
-    this.backToTableEmit.emit();
+    this.backToTable();
   }
+
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
+    
     switch (this.property?.status) {
       case CommonStatus.Active:
         borderColor = '#22C993';
@@ -93,9 +113,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
       'color': color,
       'border-radius': '20px',
       'padding': '10px',
-
     };
-
   }
 
   getIcon() {
@@ -112,26 +130,23 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
+    
     if (!this.property?.private) {
       borderColor = '#FFA500';
       color = '#FFA500';
     }
+    
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
       'border-radius': '20px',
       'padding': '10px',
-
     };
-
   }
-
 
   protected applyLanguage(lang: LanguageCode) {
     this.currentLang = lang;
   }
-
-
 
   onEdit() {
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
@@ -143,46 +158,50 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
       panelClass: 'property-dialog-panel'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.getProperty();
-      }
-    });
+    // Subscribe to dialog close with unsubscribe logic
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        if (result) {
+          this.getProperty();
+        }
+      });
   }
 
   backToTable() {
-    this.propertyId = 0;
+    this.propertyId = null;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {},
     });
   }
 
+  exportToPdf() {
+    this.service.exportToPdf({ id: this.property.id })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          // Convert base64 to blob
+          const binaryString = atob(res.data);
+          const len = binaryString.length;
+          const bytes = new Uint8Array(len);
+          
+          for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
 
-  ngOnDestroy(): void {
-  }
+          const blob = new Blob([bytes], {
+            type: 'application/pdf'
+          });
 
-   exportToPdf() {
-      this.service.exportToPdf({ id: this.property.id }).subscribe(res => {
-        // Assuming res.data is a base64 string
-        const binaryString = atob(res.data);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
+          downloadBlobFile(blob, res.fileName || 'property-report.pdf');
+        },
+        error: (err) => {
+          console.error('Error exporting PDF:', err);
+          // Add user notification here if needed
         }
-  
-        const blob = new Blob([bytes], {
-          type: 'application/pdf'
-        });
-  
-        downloadBlobFile(blob, res.fileName || 'report.pdf');
       });
-    }
-  
-
-
-
+  }
 }
 
 

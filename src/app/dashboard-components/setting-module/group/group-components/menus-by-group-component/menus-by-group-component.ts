@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LanguageService } from '../../../../../services/language-service';
-import { GroupMenuFormDialog } from '../../../group-menu/group-menu-table/group-menu-form-dialog/group-menu-form-dialog';
 import { GroupMenuDialogFormComponent } from './group-menu-dialog-form-component/group-menu-dialog-form-component';
 
 @Component({

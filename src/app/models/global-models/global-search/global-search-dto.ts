@@ -3,5 +3,6 @@ export interface GlobalSearchDTO {
     entityIdc: string;
     entityCode: string;
     entityType: string;
+    fullName?: string | null;
     createdAt: string;
   }

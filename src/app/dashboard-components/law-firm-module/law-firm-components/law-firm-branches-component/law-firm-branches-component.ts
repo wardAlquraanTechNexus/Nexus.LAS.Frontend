@@ -81,7 +81,9 @@ export class LawFirmBranchesComponent extends TableFormComponent<LawFirmBranch> 
       },
       {
         key: "city",
-        label: this.label.COMMON.CITY
+        label: this.label.COMMON.CITY,
+        pipes: ['dl-by-comparekey'],
+        compareKey: 'countryId'
       },
       {
         key: "phone1",
@@ -142,8 +144,8 @@ export class LawFirmBranchesComponent extends TableFormComponent<LawFirmBranch> 
       id: 0,
       lawFirmId: this.lawFirm.id,
       branchName: '',
-      countryId: undefined,
-      city: '',
+      countryId: null,
+      city: null,
       phone1: '',
       phone2: '',
       phone3: '',

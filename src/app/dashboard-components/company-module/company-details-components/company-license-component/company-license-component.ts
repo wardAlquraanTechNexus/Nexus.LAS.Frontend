@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { CompanyLicense } from '../../../../models/company-models/company-license/company-license';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
@@ -27,6 +27,7 @@ import { getDisplayColumns } from '../../../_shared/shared-methods/getDisplayCol
 })
 export class CompanyLicenseComponent extends TableFormComponent<CompanyLicense> implements OnInit, OnDestroy {
   
+
   formGroup = new FormGroup({
     expiryDate: new FormControl(null),
     activeReminder: new FormControl(null)

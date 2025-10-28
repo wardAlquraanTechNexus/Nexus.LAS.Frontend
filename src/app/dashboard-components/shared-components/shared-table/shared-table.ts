@@ -221,7 +221,9 @@ export class SharedTable implements OnInit, OnChanges {
           if (value) {
             const isActive = value == CompanyContractStatus.Active;
             const isExpired = value == CompanyContractStatus.Expired;
-            const color = isActive ? '#22C993' : isExpired ? '#423e3ede' : '';
+            const isAmended = value == CompanyContractStatus.Amended;
+
+            const color = isActive ? '#22C993' : isExpired ? '#423e3ede' : isAmended ? '#9E77ED' : '';
             Object.assign(styles, {
               'border': `2px solid ${color}`,
               'color': color,

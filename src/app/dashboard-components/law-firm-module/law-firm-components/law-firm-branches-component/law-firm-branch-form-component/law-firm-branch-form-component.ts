@@ -10,13 +10,16 @@ import { BaseFormComponent } from '../../../../base-components/base-form-compone
 
 @Component({
   selector: 'app-law-firm-branch-form',
-  standalone : false,
+  standalone: false,
   templateUrl: './law-firm-branch-form-component.html',
   styleUrls: ['../../../../_shared/styles/common-form-style.scss']
 })
-export class LawFirmBranchFormComponent  extends BaseFormComponent {
+export class LawFirmBranchFormComponent extends BaseFormComponent {
 
-  countryId!: number;
+  parentCountryId!: number;
+  parentCityId?: number | null = null;
+  showCityField: boolean = false;
+
 
   @Input() element!: LawFirmBranchDto;
 
@@ -39,18 +42,34 @@ export class LawFirmBranchFormComponent  extends BaseFormComponent {
     return /^\d{7,15}$/.test(value) ? null : { invalidPhoneFax: true };
   }
 
-  
+
 
   override ngOnInit(): void {
     this.setup(this.element);
     super.ngOnInit();
 
-    this.countryId = environment.rootDynamicLists.country;
-
+    this.parentCountryId = environment.rootDynamicLists.country;
+    if (this.element.city) {
+      this.showCityField = true;
+      this.parentCityId = this.element.countryId;
+      this.formGroup.get('city')?.setValue(this.element.city);
+      this.cdr.markForCheck();
+    }
     this.formGroup.get('fax')?.setValidators([
       this.phoneFaxValidator.bind(this)
     ]);
     this.formGroup.get('fax')?.updateValueAndValidity();
+  }
+
+  onCountrySelected(event: number) {
+    this.showCityField = false;
+    setTimeout(() => {
+      this.parentCityId = event;
+      this.formGroup.get('city')?.reset();
+      this.showCityField = true;
+      this.cdr.markForCheck();
+      
+    }, 100);
   }
 
 }

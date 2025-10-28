@@ -79,6 +79,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StartEndDatesInputComponent } from './start-end-dates-input-component/start-end-dates-input-component';
 import { GroupsByUserComponent } from '../dashboard-components/setting-module/user/groups-by-user-component/groups-by-user-component';
 import { UsersByGroupComponent } from '../dashboard-components/setting-module/group/group-components/users-by-group-component/users-by-group-component';
+import { BaseTableViewComponent } from './base-table-view-component/base-table-view-component';
 
 
 
@@ -131,6 +132,7 @@ import { UsersByGroupComponent } from '../dashboard-components/setting-module/gr
     PropertyFormComponent,
     TransactionActionsComponent,
     StartEndDatesInputComponent,
+    BaseTableViewComponent
 
   ],
   imports: [
@@ -249,6 +251,8 @@ import { UsersByGroupComponent } from '../dashboard-components/setting-module/gr
     TransactionActionsComponent,
     DragDropModule,
     StartEndDatesInputComponent,
+    BaseTableViewComponent
+
   ],
   providers: [
 

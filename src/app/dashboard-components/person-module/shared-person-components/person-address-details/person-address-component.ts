@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { Country } from '../../../../models/country/country';
 import { PersonAddressService } from '../../../../services/person-services/person-address-service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,23 +20,26 @@ import { LanguageService } from '../../../../services/language-service';
   templateUrl: './person-address-component.html',
   styleUrl: './person-address-component.scss'
 })
-export class PersonAddressComponent implements OnInit {
-  @Input() person!:PersonDto;
+export class PersonAddressComponent implements OnInit, OnDestroy {
+  @Input() person!: PersonDto;
   @Input() readOnly = false;
 
-  showLoading = false;
-  countries:Map<number , string> = new Map<number,string>();
-  cities:Map<number , string> = new Map<number,string>();
+  // Unsubscribe subject
+  private destroy$ = new Subject<void>();
 
+  showLoading = false;
+  countries: Map<number, string> = new Map<number, string>();
+  cities: Map<number, string> = new Map<number, string>();
 
   searchControl = new FormControl('');
   filteredCountries$!: Observable<Country[]>;
   personAddresses: PersonAddress[] = [];
-   get label() {
-      return Labels[this.currentLang as keyof typeof Labels];
-    }
-    currentLang: LanguageCode = 'en';
   
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -45,50 +48,71 @@ export class PersonAddressComponent implements OnInit {
     private dialog: MatDialog,
     private dlService: DynamicListService,
     public langService: LanguageService,
-
   ) { }
 
-
-
   ngOnInit(): void {
-
     this.showLoading = true;
     if (this.person) {
       this.fetchData();
     }
 
-    this.dlService.GetAllByParentId(environment.rootDynamicLists.country).subscribe(res=>{
-      res.forEach(country=>{
-        this.countries.set(country.id,country.name);
-        this.dlService.GetAllByParentId(country.id).subscribe(res=>{
-          res.forEach(city=>{
-            this.cities.set(city.id,city.name);
-          })
-        })
-      })
-    });
+    // Subscribe to countries and cities with unsubscribe logic
+    this.dlService.GetAllByParentId(environment.rootDynamicLists.country)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          res.forEach(country => {
+            this.countries.set(country.id, country.name);
+            
+            // Subscribe to cities for each country with unsubscribe logic
+            this.dlService.GetAllByParentId(country.id)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe({
+                next: (cityRes) => {
+                  cityRes.forEach(city => {
+                    this.cities.set(city.id, city.name);
+                  });
+                },
+                error: (err) => {
+                  console.error('Error fetching cities:', err);
+                }
+              });
+          });
+        },
+        error: (err) => {
+          console.error('Error fetching countries:', err);
+        }
+      });
 
-    this.langService.language$.subscribe(lang => {
-      this.currentLang = lang;
-    });
+    // Subscribe to language changes with unsubscribe logic
+    this.langService.language$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(lang => {
+        this.currentLang = lang;
+      });
   }
 
-
+  ngOnDestroy(): void {
+    // Complete the destroy subject to unsubscribe from all observables
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   private fetchData() {
-    this.personAddressService.getAllByParams({ "personsIdn": this.person.id }).subscribe(
-      {
-        next: (res => {
+    this.personAddressService.getAllByParams({ "personsIdn": this.person.id })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
           this.showLoading = false;
           this.personAddresses = res;
           this.cdr.detectChanges();
-        }),
-        error: (err => {
+        },
+        error: (err) => {
           this.showLoading = false;
+          console.error('Error fetching person addresses:', err);
           this.cdr.detectChanges();
-        })
-      }
-    );
+        }
+      });
   }
 
   getRemoveCallback(id: number): () => void {
@@ -98,16 +122,18 @@ export class PersonAddressComponent implements OnInit {
   removeAddress(id: number): void {
     this.showLoading = true;
 
-    this.personAddressService.delete(id).subscribe({
-      next: (res => {
-        this.showLoading = false;
-
-        this.fetchData();
-      }),
-      error: (err => {
-        this.showLoading = false;
-      })
-    })
+    this.personAddressService.delete(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.showLoading = false;
+          this.fetchData();
+        },
+        error: (err) => {
+          this.showLoading = false;
+          console.error('Error removing address:', err);
+        }
+      });
   }
 
   openFormDetails(personAddress: PersonAddress = {
@@ -126,15 +152,17 @@ export class PersonAddressComponent implements OnInit {
       panelClass: 'dialog-container',
       disableClose: true,
       data: personAddress
+    });
 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchData();
-      }
-    });
+    // Subscribe to dialog close with unsubscribe logic
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        if (result) {
+          this.fetchData();
+        }
+      });
   }
-
 
   getPrimaryStyle(isPrimary: boolean) {
     let borderColor = '#025EBA';
@@ -147,9 +175,6 @@ export class PersonAddressComponent implements OnInit {
       'color': color,
       'border-radius': '20px',
       'padding': '10px',
-
     };
   }
-
-
 }

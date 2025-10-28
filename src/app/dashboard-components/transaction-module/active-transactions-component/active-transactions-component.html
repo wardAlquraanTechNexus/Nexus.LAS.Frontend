@@ -1,4 +1,9 @@
-<app-active-transactions-table-component *ngIf="!showLoading && !transactionId"></app-active-transactions-table-component>
-<app-transaction-view *ngIf="!showLoading && transactionId" 
-    (backToTableEmit)="backToTable()">
-</app-transaction-view>
+
+
+@if(showTable == true && !itemId){
+    <app-active-transactions-table-component></app-active-transactions-table-component>
+    
+}@else if(showTable == false && itemId){
+    <app-transaction-view></app-transaction-view>
+    
+}

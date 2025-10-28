@@ -157,7 +157,8 @@ export class TableDataPipe implements PipeTransform {
     const getLabel = this.languageService.getLabel.bind(this.languageService);
     const statusMap: { [key: number]: string } = {
       [CompanyContractStatus.Expired]: getLabel('COMMON.EXPIRED') ?? 'Expired',
-      [CompanyContractStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active'
+      [CompanyContractStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active',
+      [CompanyContractStatus.Amended]: getLabel('COMMON.AMENDED') ?? 'Amended'
     };
     return of(statusMap[value] ?? value?.toString() ?? '');
   }

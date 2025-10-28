@@ -132,7 +132,7 @@
                     </ng-template>
                     <div class="tab-content">
                         <div class="overview-component">
-                            <app-company-capital-component [company]="company"></app-company-capital-component>
+                            <app-company-capital-component (onEditEmitter)="onEditCapital($event)" [company]="company"></app-company-capital-component>
                         </div>
                         <div class="overview-component">
                             <app-company-shareholder-component [company]="company"></app-company-shareholder-component>

@@ -2,15 +2,13 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-group-table-view',
+  selector: 'app-base-table-view-component',
   standalone: false,
-  templateUrl: './group-table-view-component.html',
-  styleUrls: ['./group-table-view-component.scss']
+  templateUrl: './base-table-view-component.html',
+  styleUrls: ['./base-table-view-component.scss']
 })
-export class GroupTableViewComponent {
-
-
-  groupId : number | null = null;
+export class BaseTableViewComponent {
+  itemId : number | null = null;
   showTable?: boolean | null = null;
   constructor(
     private route: ActivatedRoute,
@@ -23,12 +21,12 @@ export class GroupTableViewComponent {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
-        this.groupId = parseInt(params['id']);
+        this.itemId = parseInt(params['id']);
         this.showTable = false;
         // this.getGroup();
       }else{
         this.showTable = true;
-        this.groupId = null;
+        this.itemId = null;
         // this.backToTable();
       }
     });

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CompanyTableView } from '../_base/company-table-view/company-table-view';
+import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-all-companies-component',
@@ -7,6 +7,7 @@ import { CompanyTableView } from '../_base/company-table-view/company-table-view
   templateUrl: './all-companies-component.html',
   styleUrls: ['./all-companies-component.scss']
 })
-export class AllCompaniesComponent extends CompanyTableView {
+export class AllCompaniesComponent extends BaseTableViewComponent {
+
 
 }

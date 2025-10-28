@@ -1,75 +1,77 @@
-<div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
-    <!-- Header -->
-    <div class="dialog-header">
-        <div class="header-content">
-            <div class="header-icon">
-                <mat-icon>assignment</mat-icon>
+<base-dialog-form>
+    <div class="modern-dialog-container" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+        <!-- Header -->
+        <div class="dialog-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <mat-icon>assignment</mat-icon>
+                </div>
+                <div class="header-text">
+                    <h2 class="dialog-title">
+                        {{ label.COMMON.VIEW || 'View' }} {{ label.COMPANY.LICENSES_AND_REGISTERS || 'License' }}
+                    </h2>
+                    <p class="dialog-subtitle">{{ data.fileName }}</p>
+                </div>
             </div>
-            <div class="header-text">
-                <h2 class="dialog-title">
-                    {{ label.COMMON.VIEW || 'View' }} {{ label.COMPANY.LICENSES_AND_REGISTERS || 'License' }}
-                </h2>
-                <p class="dialog-subtitle">{{ data.fileName }}</p>
-            </div>
-        </div>
-        <div class="header-actions">
-            <button mat-icon-button (click)="download()" aria-label="{{ label.COMMON.DOWNLOAD || 'Download' }}">
-                <mat-icon>download</mat-icon>
-            </button>
-            <button mat-icon-button class="close-button" (click)="close()" aria-label="{{ label.COMMON.CLOSE || 'Close' }}">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
-    </div>
-
-    <!-- Body -->
-    <div class="dialog-body">
-        <div class="row view">
-        <div class="col-md-4 props">
-            <div class="detail-box p-3">
-                <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">{{ label.COMPANY.LICENSE_CLASSIFICATION || 'Classification' }}</span>
-                    <span class="value">{{ data.licenseClassification}}</span>
-                </div>
-                <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">{{ label.COMPANY.LICENSE_NUMBER || 'Number' }}</span>
-                    <span class="value">{{ data.licenseNumber }}</span>
-                </div>
-                <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">{{ label.COMMON.ISSUE_DATE || 'Issue Date' }}</span>
-                    <span class="value">{{ data.licenseIssueDate | textPipe: 'date' | async }}</span>
-                </div>
-                <div class="detail-item d-flex justify-content-between mb-3">
-                    <span class="label text-muted">{{ label.COMMON.EXPIRY_DATE || 'Expiry Date' }}</span>
-                    <span class="value">{{ data.licenseExpiryDate | textPipe: 'date' | async }}</span>
-                </div>
+            <div class="header-actions">
+                <button mat-icon-button (click)="download()" aria-label="{{ label.COMMON.DOWNLOAD || 'Download' }}">
+                    <mat-icon>download</mat-icon>
+                </button>
+                <button mat-icon-button class="close-button" (click)="close()" aria-label="{{ label.COMMON.CLOSE || 'Close' }}">
+                    <mat-icon>close</mat-icon>
+                </button>
             </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="image-wrapper">
-                <ng-container *ngIf="data.contentType === 'application/pdf'">
-                    <iframe [src]="fileUrl" width="100%" height="100%" type="application/pdf"></iframe>
-                </ng-container>
-
-                <ng-container *ngIf="isImageFile()">
-                    <img *ngIf="fileUrl" [src]="fileUrl" alt="Document" class="img-fluid" />
-                </ng-container>
-
-                <ng-container *ngIf="!canPreview()">
-                    <div class="unsupported-preview">
-                        <mat-icon class="large-icon">file_download</mat-icon>
-                        <h3>Preview Not Available</h3>
-                        <p>This file type cannot be previewed in the browser.</p>
-                        <p class="download-instruction">Please click the Download button to view this file.</p>
-                        <button mat-raised-button color="primary" (click)="download()">
-                            <mat-icon>download</mat-icon>
-                            {{ label.COMMON.DOWNLOAD || 'Download' }}
-                        </button>
+        <!-- Body -->
+        <div class="dialog-body">
+            <div class="row view">
+            <div class="col-md-4 props">
+                <div class="detail-box p-3">
+                    <div class="detail-item d-flex justify-content-between mb-3">
+                        <span class="label text-muted">{{ label.COMPANY.LICENSE_CLASSIFICATION || 'Classification' }}</span>
+                        <span class="value">{{ data.licenseClassification}}</span>
                     </div>
-                </ng-container>
+                    <div class="detail-item d-flex justify-content-between mb-3">
+                        <span class="label text-muted">{{ label.COMPANY.LICENSE_NUMBER || 'Number' }}</span>
+                        <span class="value">{{ data.licenseNumber }}</span>
+                    </div>
+                    <div class="detail-item d-flex justify-content-between mb-3">
+                        <span class="label text-muted">{{ label.COMMON.ISSUE_DATE || 'Issue Date' }}</span>
+                        <span class="value">{{ data.licenseIssueDate | textPipe: 'date' | async }}</span>
+                    </div>
+                    <div class="detail-item d-flex justify-content-between mb-3">
+                        <span class="label text-muted">{{ label.COMMON.EXPIRY_DATE || 'Expiry Date' }}</span>
+                        <span class="value">{{ data.licenseExpiryDate | textPipe: 'date' | async }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="image-wrapper">
+                    <ng-container *ngIf="data.contentType === 'application/pdf'">
+                        <iframe [src]="fileUrl" width="100%" height="100%" type="application/pdf"></iframe>
+                    </ng-container>
+
+                    <ng-container *ngIf="isImageFile()">
+                        <img *ngIf="fileUrl" [src]="fileUrl" alt="Document" class="img-fluid" />
+                    </ng-container>
+
+                    <ng-container *ngIf="!canPreview()">
+                        <div class="unsupported-preview">
+                            <mat-icon class="large-icon">file_download</mat-icon>
+                            <h3>Preview Not Available</h3>
+                            <p>This file type cannot be previewed in the browser.</p>
+                            <p class="download-instruction">Please click the Download button to view this file.</p>
+                            <button mat-raised-button color="primary" (click)="download()">
+                                <mat-icon>download</mat-icon>
+                                {{ label.COMMON.DOWNLOAD || 'Download' }}
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
             </div>
         </div>
+        </div>
     </div>
-    </div>
-</div>
+</base-dialog-form>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../services/person-services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
@@ -14,6 +14,7 @@ import { PersonDialogFormComponent } from '../person-dialog-form-component/perso
 import { LanguageService } from '../../../services/language-service';
 import { LanguageCode } from '../../../models/types/lang-type';
 import { Labels } from '../../../models/consts/labels';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-person-view-component',
@@ -21,7 +22,11 @@ import { Labels } from '../../../models/consts/labels';
   templateUrl: './person-view-component.html',
   styleUrl: './person-view-component.scss'
 })
-export class PersonViewComponent implements OnInit {
+export class PersonViewComponent implements OnInit, OnDestroy {
+  
+  // Unsubscribe subject
+  private destroy$ = new Subject<void>();
+
   personIdc = EntityIDc.Person
   personsUrl: any;
   imageUrl: any;
@@ -36,7 +41,6 @@ export class PersonViewComponent implements OnInit {
     return Labels[this.currentLang as keyof typeof Labels];
   }
 
-  @Output() backToTableEmit = new EventEmitter();
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -48,54 +52,74 @@ export class PersonViewComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private langService: LanguageService,
   ) { }
-  ngOnInit(): void {
-    // react to query param changes
-    this.route.queryParams.subscribe(params => {
-      let personId = params['id'];
-      if (personId > 0) {
-        this.personId = parseInt(personId, 10);
-        this.getPerson();
-        this.personsUrl =
-          this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
-      }
-    });
 
-    // still keep language subscription
-    this.langService.language$.subscribe(lang => {
-      this.currentLang = lang;
-    });
+  ngOnInit(): void {
+    // Subscribe to query params with unsubscribe logic
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        let personId = params['id'];
+        if (personId > 0) {
+          this.personId = parseInt(personId, 10);
+          this.getPerson();
+          this.personsUrl =
+            this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+            this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+            this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
+            this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
+        }
+      });
+
+    // Subscribe to language changes with unsubscribe logic
+    this.langService.language$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(lang => {
+        this.currentLang = lang;
+      });
   }
 
+  ngOnDestroy(): void {
+    // Complete the destroy subject to unsubscribe from all observables
+    this.destroy$.next();
+    this.destroy$.complete();
+    
+    // Clean up image URL to prevent memory leaks
+    if (this.imageUrl) {
+      URL.revokeObjectURL(this.imageUrl);
+    }
+  }
 
   private getPerson() {
     this.showLoading = true;
-    this.personService.getPersonDto(this.personId!).subscribe({
-      next: (data) => {
-        this.person = data;
-
-        this.showLoading = false;
-        if (data?.personImage && data?.contentType) {
-
-          // If dataFile is base64
-          const base64Data = data?.personImage;
-          const blob = this.base64ToBlob(base64Data, data.contentType);
-          const url = URL.createObjectURL(blob);
-          this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    
+    this.personService.getPersonDto(this.personId!)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          this.person = data;
+          this.showLoading = false;
+          
+          if (data?.personImage && data?.contentType) {
+            // Clean up previous image URL
+            if (this.imageUrl) {
+              URL.revokeObjectURL(this.imageUrl);
+            }
+            
+            // If dataFile is base64
+            const base64Data = data?.personImage;
+            const blob = this.base64ToBlob(base64Data, data.contentType);
+            const url = URL.createObjectURL(blob);
+            this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          }
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          this.showLoading = false;
+          console.error('Error fetching person:', err);
+          this.cdr.detectChanges();
         }
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        this.showLoading = false;
-        this.cdr.detectChanges();
-
-      }
-    });
+      });
   }
-
-
 
   base64ToBlob(base64: any, contentType: string): Blob {
     const byteCharacters = atob(base64);
@@ -110,8 +134,12 @@ export class PersonViewComponent implements OnInit {
   }
 
   navigateToPersons() {
-    this.backToTableEmit.emit();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {},
+    });
   }
+
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
@@ -131,20 +159,18 @@ export class PersonViewComponent implements OnInit {
       'color': color,
       'border-radius': '20px',
       'padding': '10px',
-
     };
-
   }
 
-   getIcon(){
-      switch (this.person?.personStatus) {
-        case PersonStatus.Active:
-          return 'check_circle';
-        case PersonStatus.Inactive:
-          return 'cancel';
-        default:
-          return 'star';
-      }
+  getIcon(){
+    switch (this.person?.personStatus) {
+      case PersonStatus.Active:
+        return 'check_circle';
+      case PersonStatus.Inactive:
+        return 'cancel';
+      default:
+        return 'star';
+    }
   }
 
   getPrivateStyle() {
@@ -159,9 +185,7 @@ export class PersonViewComponent implements OnInit {
       'color': color,
       'border-radius': '20px',
       'padding': '10px',
-
     };
-
   }
 
   openPersonDialog(): void {
@@ -171,36 +195,44 @@ export class PersonViewComponent implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.cdr.markForCheck();
-
-        this.person = result;
-
-      }
-    });
+    // Subscribe to dialog close with unsubscribe logic
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        if (result) {
+          this.cdr.markForCheck();
+          this.person = result;
+        }
+      });
   }
 
   exportToPdf() {
-    this.personService.exportToPdf({ id: this.personId }).subscribe(res => {
-      // Assuming res.data is a base64 string
-      const binaryString = atob(res.data);
-      const len = binaryString.length;
-      const bytes = new Uint8Array(len);
-      for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-      }
+    this.personService.exportToPdf({ id: this.personId })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          // Assuming res.data is a base64 string
+          const binaryString = atob(res.data);
+          const len = binaryString.length;
+          const bytes = new Uint8Array(len);
+          for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
 
-      const blob = new Blob([bytes], {
-        type: 'application/pdf'
+          const blob = new Blob([bytes], {
+            type: 'application/pdf'
+          });
+
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = res.fileName || 'report.pdf';
+          link.click();
+          URL.revokeObjectURL(link.href);
+        },
+        error: (err) => {
+          console.error('Error exporting PDF:', err);
+        }
       });
-
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = res.fileName || 'report.pdf';
-      link.click();
-      URL.revokeObjectURL(link.href);
-    });
   }
 
   openFilePicker(fileInput: HTMLInputElement) {
@@ -208,18 +240,23 @@ export class PersonViewComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-
     const file = event.target.files[0];
+    if (!file) return;
+
     this.showLoading = true;
-    this.personService.uploadImage({ file: file, personId: this.personId! }).subscribe({
-      next: (res => {
-        this.errorHandler.showSuccess("Image Uploaded Successfully")
-        this.getPerson();
-      }), error: (err => {
-        this.showLoading = false;
-        this.errorHandler.handleApiError(err, 'Image Upload');
-      })
-    })
+    
+    this.personService.uploadImage({ file: file, personId: this.personId! })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.errorHandler.showSuccess("Image Uploaded Successfully");
+          this.getPerson();
+        },
+        error: (err) => {
+          this.showLoading = false;
+          this.errorHandler.handleApiError(err, 'Image Upload');
+        }
+      });
   }
 }
 

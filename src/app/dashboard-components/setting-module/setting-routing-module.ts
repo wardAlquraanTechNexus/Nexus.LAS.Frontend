@@ -33,19 +33,8 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: environment.routes.UserGroups,
-    loadChildren: () => import('./user-group/user-group-module').then(m => m.UserGroupModule),
-    canActivate: [authGuard]
-  }
-  ,
-  {
     path: environment.routes.Groups,
     loadChildren: () => import('./group/group-module').then(m => m.GroupModule),
-    canActivate: [authGuard]
-  },
-  {
-    path: environment.routes.GroupsMenus,
-    loadChildren: () => import('./group-menu/group-menu-module').then(m => m.GroupMenuModule),
     canActivate: [authGuard]
   }
 ];

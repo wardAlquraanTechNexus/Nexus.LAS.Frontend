@@ -24,8 +24,9 @@ export class CompanyContractFormComponent extends BaseFormComponent {
   loadCompanyContractTypesFn!: (search: string) => Observable<DynamicList[]>;
   statusOptions = [
     { label: 'None', value: null },
+    { label: 'Active', value: CompanyContractStatus.Active },
+    { label: 'Amended', value: CompanyContractStatus.Amended },
     { label: 'Expired', value: CompanyContractStatus.Expired },
-    { label: 'Active', value: CompanyContractStatus.Active }
   ]
   constructor(
     protected override fb: FormBuilder,

@@ -1,2 +1,6 @@
-<app-all-document-tracking-table *ngIf="!showLoading && !documentTrackingId"></app-all-document-tracking-table>
-<app-document-tracking-view *ngIf="!showLoading && documentTrackingId" (backToTableEmit)="backToTable()"></app-document-tracking-view>
+@if(showTable == true && !itemId){
+    <app-all-document-tracking-table></app-all-document-tracking-table>
+    
+}@else if(showTable == false && itemId){
+    <app-document-tracking-view></app-document-tracking-view>
+}

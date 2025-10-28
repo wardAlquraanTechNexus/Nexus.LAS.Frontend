@@ -1,4 +1,8 @@
-<app-active-public-properties-table-component *ngIf="!showLoading && !propertyId"></app-active-public-properties-table-component>
-<app-property-view *ngIf="!showLoading && propertyId" 
-    (backToTableEmit)="backToTable()">
-</app-property-view>
+
+
+@if(showTable == true && !itemId){
+    <app-active-public-properties-table-component></app-active-public-properties-table-component>
+
+}@else if(showTable == false && itemId){
+    <app-property-view></app-property-view>
+}

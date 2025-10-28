@@ -34,20 +34,16 @@
                 </mat-form-field>
 
                 <div class="form-group col-6">
-                    <dl-select-auto-complete *ngIf="countryId" [controlName]="'countryId'" [formGroup]="formGroup"
-                        [label]="label.COMMON.COUNTRY || 'Country'" [parentId]="countryId" [isRequired]="true">
+                    <dl-select-auto-complete *ngIf="parentCountryId" [controlName]="'countryId'" [formGroup]="formGroup"
+                        [label]="label.COMMON.COUNTRY || 'Country'" [parentId]="parentCountryId" [isRequired]="true"
+                        (selectEmitter)="onCountrySelected($event)">
                     </dl-select-auto-complete>
                 </div>
 
                 <div class="form-group col-6">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>{{ label.COMMON.CITY }}</mat-label>
-                        <input matInput type="text" formControlName="city" [placeholder]="label.COMMON.CITY || 'Enter City'"
-                            required>
-                        <mat-error *ngIf="formGroup.get('city')?.hasError('required')">
-                            {{ label.COMMON.CITY_REQUIRED || 'City is required' }}
-                        </mat-error>
-                    </mat-form-field>
+                    <dl-select-auto-complete *ngIf="showCityField" [controlName]="'city'" [formGroup]="formGroup"
+                        [label]="label.COMMON.CITY || 'City'" [parentId]="parentCityId!" [isRequired]="false">
+                    </dl-select-auto-complete>
                 </div>
 
                 <div class="form-group col-6">

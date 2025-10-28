@@ -388,6 +388,7 @@ export const Labels = {
             PREVIEW: "Preview",
             REMOVE: "Remove",
             NO_FILES_UPLOADED: "No files uploaded",
+            AMENDED: "Amended"
         },
         PROPERTY: {
             RELATION_REQUIRED: "Relation is required",
@@ -1018,6 +1019,7 @@ export const Labels = {
             PREVIEW: "معاينة",
             REMOVE: "إزالة",
             NO_FILES_UPLOADED: "لم يتم رفع أي ملفات",
+            AMENDED: "تم التعديل",
         },
         PROPERTY: {
             RELATION_REQUIRED: "العلاقة مطلوبة",

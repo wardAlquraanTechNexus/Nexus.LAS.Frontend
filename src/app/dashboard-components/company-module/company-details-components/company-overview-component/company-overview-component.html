@@ -32,12 +32,12 @@
 
   <div class="section-row">
     <div class="section-subject">{{ label.COMPANY.TOTAL_SHARES || 'Total Shares' }}</div>
-    <div class="section-body">{{ company.totalShares }}</div>
+    <div class="section-body">{{ company.totalShares | numberSeperator }}</div>
   </div>
 
   <div class="section-row">
     <div class="section-subject">{{ label.COMPANY.CAPITAL_AMOUNT || 'Amount' }}</div>
-    <div class="section-body">{{ company.capitalAmount }}</div>
+    <div class="section-body">{{ company.capitalAmount | numberSeperator}}</div>
   </div>
 
   <div class="section-row">

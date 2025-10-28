@@ -15,6 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { GetCompanyBoardMemberParams } from '../../../../models/company-models/company-board-member/params/get-company-board-member';
 import { GetCompanyDto } from '../../../../models/company-models/get-company-query/get-company-dto';
 import { LanguageService } from '../../../../services/language-service';
+import { MenuService } from '../../../../services/menu-service';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-company-board-member-component',
@@ -33,7 +35,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     totalRecords: 0
   };
 
- 
+
 
   override params: GetCompanyBoardMemberParams = {
     companyId: 0,
@@ -48,6 +50,7 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     override router: Router,
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
+    private menuService: MenuService,
     private dialog: MatDialog,
     override langService: LanguageService
   ) {
@@ -58,17 +61,17 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
     this.params.companyId = this.company.id;
 
     // Apply label logic based on langService.getLabel
-   
+
 
     super.ngOnInit();
   }
 
   override setDisplayColumns(): void {
-     this.displayColumns = [
+    this.displayColumns = [
       {
         key: "personId",
         label: this.langService.getLabel('COMMON.PERSON') || "Person",
-        pipes: ["person"]
+        pipes: ["person", 'link'],
       },
       {
         key: "position",
@@ -173,6 +176,18 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
   showTable = true;
   toggleTable() {
     this.showTable = !this.showTable;
+  }
+
+  onRowClick(row: any) {
+    if (row.key == 'personId') {
+      let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
+      let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+
+      this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + row.element.personId);
+    }
   }
 
 

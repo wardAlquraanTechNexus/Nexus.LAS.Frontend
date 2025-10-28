@@ -1,2 +1,7 @@
-<app-active-private-persons-table *ngIf="!showLoading && !personId"></app-active-private-persons-table>
-<app-person-view-component *ngIf="!showLoading && personId" (backToTableEmit)="backToTable()"></app-person-view-component>
+
+@if(showTable == true && !itemId){
+    <app-active-private-persons-table></app-active-private-persons-table>
+        
+}@else if(showTable == false && itemId){
+    <app-person-view-component></app-person-view-component>
+}
