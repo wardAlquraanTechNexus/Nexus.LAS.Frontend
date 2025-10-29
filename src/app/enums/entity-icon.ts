@@ -8,4 +8,5 @@ export const entityIcons : { [key: string]: string } = {
     [EntityIDc.FPCs]: 'business_center',
     [EntityIDc.Transactions]: 'swap_horiz',
     [EntityIDc.DocumentTracking]: 'track_changes',
+    [EntityIDc.Group]: 'groups'
   };

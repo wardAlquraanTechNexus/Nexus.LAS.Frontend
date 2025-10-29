@@ -15,9 +15,7 @@ import { LanguageService } from '../../../../services/language-service';
 import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
 import { environment } from '../../../../../environment/environment';
 import { CommonStatus } from '../../../../enums/common-status';
-import { CompanyStatus } from '../../../../enums/company-status';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
-import { navigate } from '../../../_shared/shared-methods/navigate';
 
 @Component({
   selector: 'app-base-properties-component',
@@ -41,7 +39,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     }
   ];
 
-  
+
 
   selectedProperties: PropertyDTO[] = [];
   override data: PaginateRsult<PropertyDTO> = {
@@ -100,7 +98,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
         legalStatus: [null],
 
       },
-    )
+    );
 
     this.propertyPurposeId = environment.rootDynamicLists.propertyPurpose;
     this.propertyStatusId = environment.rootDynamicLists.propertyStatus;
@@ -167,20 +165,11 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
       panelClass: 'property-dialog-panel'
     });
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Properties);
-
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: { id: result.id },
-        });
+          this.router.navigate([],{queryParams: {id: result.id}, relativeTo: this.route});
+          this.cdr.markForCheck();
       }
     })
   }
@@ -401,7 +390,7 @@ export class BasePropertiesComponent extends TableFormComponent<Property> implem
     });
   }
 
-  exportToPdf(id:number) {
+  exportToPdf(id: number) {
     this.service.exportToPdf({ id: id }).subscribe(res => {
       // Assuming res.data is a base64 string
       const binaryString = atob(res.data);

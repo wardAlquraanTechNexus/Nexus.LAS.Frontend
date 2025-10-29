@@ -43,7 +43,6 @@ export class BaseDialogFormComponent<T> implements OnInit {
           this.showLoading = false;
           element.element.id = res;
           this.dialogRef.close(element.element);
-          this.cdr.markForCheck();
         }), error: (err => {
           this.showLoading = false;
           this.cdr.markForCheck();

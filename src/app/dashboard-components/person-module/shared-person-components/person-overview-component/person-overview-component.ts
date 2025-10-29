@@ -8,7 +8,7 @@ import { Labels } from '../../../../models/consts/labels';
   selector: 'app-person-overview-component',
   standalone: false,
   templateUrl: './person-overview-component.html',
-  styleUrls: ['./../../../_shared/styles/model-view-style.scss']
+  styleUrls: ['./../../../_shared/styles/model-overview-style.scss']
 })
 export class PersonOverviewComponent implements OnInit, OnChanges {
 

@@ -6,83 +6,58 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LanguageService } from '../../../../services/language-service';
 import { MatDialog } from '@angular/material/dialog';
 import { Group } from '../../../../models/group/group';
+import { BaseViewComponent } from '../../../base-components/base-view-component/base-view-component';
+import { EntityIDc } from '../../../../enums/entity-idc';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-group-view',
   standalone: false,
   templateUrl: './group-view-component.html',
-  styleUrls: ['./group-view-component.scss']
+  styleUrls: ['../../../_shared/styles/model-view-style.scss', './group-view-component.scss']
 })
-export class GroupViewComponent implements OnInit {
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
+export class GroupViewComponent extends BaseViewComponent {
 
-  currentLang: LanguageCode = 'en';
-
-  @Output() backToTableEmit = new EventEmitter();
+  override idc = EntityIDc.Group;
   group!: Group;
   showLoading = false;
-  groupId: number | null = null;
 
-  selectedTab = 0;
   constructor(
     private service: GroupService,
-    private router: Router,
-    private route: ActivatedRoute,
-    protected langService: LanguageService,
-    private dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
+    override cdr: ChangeDetectorRef,
 
   ) {
-
+    super(cdr, langService, router, route);
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params['id']) {
-        this.groupId = parseInt(params['id']);
-        this.getGroup();
-      }else{
-        this.backToTable();
-      }
-    });
-    this.langService.language$.subscribe(lang => {
-      this.applyLanguage(lang);
-    });
-
+  override ngOnInit() {
+    super.ngOnInit();
+    if (this.id) {
+      this.getGroup();
+    } else {
+      this.backToTable();
+    }
   }
 
   private getGroup() {
     this.showLoading = true;
-    this.service.getById(this.groupId!)
-    .subscribe({
-      next: (res => {
-        this.group = res;
-        this.showLoading = false;
-        this.cdr.markForCheck();
-      }), error: (err => {
-        this.showLoading = false;
-      })
-    });
-  }
-
-  navigateToTable() {
-    this.backToTable();
+    this.service.getById(this.id!)
+    .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res => {
+          this.group = res;
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+        })
+      });
   }
 
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
-
-   backToTable(){
-    this.groupId = null;
-    this.router.navigate([], {
-      relativeTo: this.route, 
-      queryParams: {  }, 
-    });
-  }
 
 }
 

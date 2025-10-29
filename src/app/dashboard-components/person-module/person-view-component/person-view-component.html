@@ -1,4 +1,4 @@
-<div *ngIf="personId && personId > 0" class="main-container">
+<div *ngIf="person" class="main-container">
 
   <!-- SECTION 1: Loading State -->
   @if (showLoading) {
@@ -9,7 +9,7 @@
   </div>
   }
 
-  <!-- SECTION 2: Person Header -->
+  <!-- SECTION 2: Header -->
   @if (!showLoading) {
   <div class="section section-header">
     <!-- Breadcrumb -->
@@ -19,17 +19,17 @@
         {{ label.PERSON.PERSONS }}
       </a>
       <span class="breadcrumb-separator">/</span>
-      <span class="current-page">{{ person?.personEnglishName | titlecase }}</span>
+      <span class="current-page">{{ person.personEnglishName | titlecase }}</span>
     </div>
 
-    <!-- Person Header Card -->
-    <div class="person-header-card">
-      <div class="person-profile-section">
+    <!-- Header Card -->
+    <div class="header-card">
+      <div class="profile-section">
         <!-- Profile Image -->
-        <div class="person-image-container">
-          <img *ngIf="imageUrl" [src]="imageUrl" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]" class="person-image" />
+        <div class="image-container">
+          <img *ngIf="imageUrl" [src]="imageUrl" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]" class="image" />
           <img *ngIf="!imageUrl" [src]="fallbackImage" [alt]="[label.PERSON.PERSON_ID_DOCUMENTS]"
-            class="person-image" />
+            class="image" />
 
           <!-- Hidden file input -->
           <input type="file" accept="image/*" #fileInput style="display: none" (change)="onFileSelected($event)" />
@@ -41,39 +41,39 @@
         </div>
 
         <!-- Person Details -->
-        <div class="person-details">
-          <div class="person-name-section">
+        <div class="details">
+          <div class="name-section">
             <div class="name-and-badges">
-              <h1 class="person-name">{{ person?.personEnglishName | titlecase }}</h1>
-              <div class="person-status-badges">
+              <h1 class="name">{{ person.personEnglishName | titlecase }}</h1>
+              <div class="status-badges">
                 <span class="status-badge" [ngStyle]="getStatusStyle()">
                   <mat-icon>{{ getIcon() }}</mat-icon>
-                  {{ person?.personStatus | textPipe : 'person-status' | async}}
+                  {{ person.personStatus | textPipe : 'person-status' | async}}
                 </span>
                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
-                  <mat-icon>{{ person?.private ? 'lock' : 'public' }}</mat-icon>
-                  {{ person?.private | textPipe : 'private-person' | async}}
+                  <mat-icon>{{ person.private ? 'lock' : 'public' }}</mat-icon>
+                  {{ person.private | textPipe : 'private-person' | async}}
                 </span>
               </div>
             </div>
-            <div class="person-name-arabic">{{ person?.personArabicName | titlecase }}</div>
+            <div class="name-arabic">{{ person.personArabicName | titlecase }}</div>
           </div>
 
-          <div class="person-meta-info">
+          <div class="meta-info">
             <div class="info-item">
               <span class="info-label">{{ label.PERSON.ID_NUMBER }}:</span>
-              <span class="info-value">{{ person?.personCode }}</span>
+              <span class="info-value">{{ person.personCode }}</span>
             </div>
-            <div class="info-item" *ngIf="person?.personShortName">
+            <div class="info-item" *ngIf="person.personShortName">
               <span class="info-label">{{ label.COMMON.SHORT_NAME }}:</span>
-              <span class="info-value">{{ person?.personShortName | uppercase }}</span>
+              <span class="info-value">{{ person.personShortName | uppercase }}</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Action Buttons -->
-      <div class="person-actions">
+      <div class="actions">
         <button mat-raised-button color="primary" (click)="openPersonDialog()" class="action-btn">
           <mat-icon>edit</mat-icon>
           {{ label.PERSON.EDIT_PERSON }}
@@ -99,7 +99,9 @@
   @if (!showLoading) {
   <div class="section section-content">
     <div class="tabs-container">
-      <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab = $event">
+      <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab" (selectedIndexChange)="onTabChange($event)">
+        
+        <!-- Tab 0: Overview -->
         <mat-tab>
           <ng-template mat-tab-label>
             <div class="tab-label">
@@ -108,6 +110,7 @@
             </div>
           </ng-template>
           <div class="tab-content">
+            @if (loadedTabs.has(0)) {
             <mat-accordion multi>
               <!-- Personal Information Group -->
               <mat-expansion-panel expanded="true" class="overview-panel">
@@ -124,7 +127,7 @@
                     }
                   </div>
                   <div class="contact-section">
-                    <app-shared-register-note-table [registersIdc]="personIdc" [registersIdn]="personId"
+                    <app-shared-register-note-table [registersIdc]="idc" [registersIdn]="id!"
                       [canCrud]="false"></app-shared-register-note-table>
                   </div>
                 </div>
@@ -184,9 +187,16 @@
                 </div>
               </mat-expansion-panel>
             </mat-accordion>
+            } @else {
+            <div class="tab-loading">
+              <mat-spinner diameter="30"></mat-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+            </div>
+            }
           </div>
         </mat-tab>
 
+        <!-- Tab 1: Documents -->
         <mat-tab>
           <ng-template mat-tab-label>
             <div class="tab-label">
@@ -195,15 +205,23 @@
             </div>
           </ng-template>
           <div class="tab-content">
+            @if (loadedTabs.has(1)) {
             <div class="contact-section">
               <app-person-id-documents-table-component></app-person-id-documents-table-component>
             </div>
             <div class="contact-section">
               <app-person-other-documents-table-component></app-person-other-documents-table-component>
             </div>
+            } @else {
+            <div class="tab-loading">
+              <mat-spinner diameter="30"></mat-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+            </div>
+            }
           </div>
         </mat-tab>
 
+        <!-- Tab 2: Contacts -->
         <mat-tab>
           <ng-template mat-tab-label>
             <div class="tab-label">
@@ -212,6 +230,7 @@
             </div>
           </ng-template>
           <div class="tab-content">
+            @if (loadedTabs.has(2)) {
             <div class="row">
               <div class="contact-section col-6">
                 @if(person) {
@@ -229,9 +248,16 @@
                 }
               </div>
             </div>
+            } @else {
+            <div class="tab-loading">
+              <mat-spinner diameter="30"></mat-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+            </div>
+            }
           </div>
         </mat-tab>
 
+        <!-- Tab 3: Assets -->
         <mat-tab>
           <ng-template mat-tab-label>
             <div class="tab-label">
@@ -240,19 +266,26 @@
             </div>
           </ng-template>
           <div class="tab-content">
-            @if (person) {
+            @if (loadedTabs.has(3)) {
             <div class="company-overview-component">
-              <app-shared-company-shareholder-component [registersIdc]="personIdc"
+              <app-shared-company-shareholder-component [registersIdc]="idc"
                 [registersIdn]="person!.id"></app-shared-company-shareholder-component>
             </div>
 
             <div class="company-overview-component">
-              <app-shared-property-component [registersIdc]="personIdc"
+              <app-shared-property-component [registersIdc]="idc"
                 [registersIdn]="person!.id"></app-shared-property-component>
+            </div>
+            } @else {
+            <div class="tab-loading">
+              <mat-spinner diameter="30"></mat-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
             </div>
             }
           </div>
         </mat-tab>
+
+        <!-- Tab 4: Transactions -->
         <mat-tab>
           <ng-template mat-tab-label>
             <div class="tab-label">
@@ -261,12 +294,21 @@
             </div>
           </ng-template>
           <div class="tab-content">
+            @if (loadedTabs.has(4)) {
             <div class="overview-component">
-              <app-shared-transaction-register [idc]="personIdc!"
+              <app-shared-transaction-register [idc]="idc!"
                 [id]="person!.id"></app-shared-transaction-register>
             </div>
+            } @else {
+            <div class="tab-loading">
+              <mat-spinner diameter="30"></mat-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+            </div>
+            }
           </div>
         </mat-tab>
+
+        <!-- Tab 5: Notes -->
         <mat-tab>
           <ng-template mat-tab-label>
             <div class="tab-label">
@@ -275,10 +317,18 @@
             </div>
           </ng-template>
           <div class="tab-content">
-            <app-shared-register-note-table [registersIdc]="personIdc"
-              [registersIdn]="personId"></app-shared-register-note-table>
+            @if (loadedTabs.has(5)) {
+            <app-shared-register-note-table [registersIdc]="idc"
+              [registersIdn]="id!"></app-shared-register-note-table>
+            } @else {
+            <div class="tab-loading">
+              <mat-spinner diameter="30"></mat-spinner>
+              <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+            </div>
+            }
           </div>
         </mat-tab>
+
       </mat-tab-group>
     </div>
   </div>

@@ -81,7 +81,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     }
   ]
 
-  listToCreated:any = [];
+  listToCreated: any = [];
 
   selectedLanguage = this.languages[0];
 
@@ -111,43 +111,43 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   getListOfCreated() {
     return [
-    {
-      name: this.label.PERSON.PERSON,
-      icon: entityIcons[EntityIDc.Person],
-      value: environment.routes.AddPerson
-    },
-    {
-      name: this.label.COMPANY.COMPANY,
-      icon: entityIcons[EntityIDc.Company],
-      value: environment.routes.AddCompany
-    },
-    {
-      name: this.label.PROPERTY.REAL_EASTATE,
-      icon: entityIcons[EntityIDc.Properties],
-      value: environment.routes.AddProperty
-    },
+      {
+        name: this.label.PERSON.PERSON,
+        icon: entityIcons[EntityIDc.Person],
+        value: environment.routes.AddPerson
+      },
+      {
+        name: this.label.COMPANY.COMPANY,
+        icon: entityIcons[EntityIDc.Company],
+        value: environment.routes.AddCompany
+      },
+      {
+        name: this.label.PROPERTY.REAL_EASTATE,
+        icon: entityIcons[EntityIDc.Properties],
+        value: environment.routes.AddProperty
+      },
 
-    {
-      name: this.label.LAW_FIRM.LAW_FIRM,
-      icon: entityIcons[EntityIDc.LawFirm],
-      value: environment.routes.AddLawFirm
-    },
-    {
-      name: this.label.TRANSACTION.TRANSACTION,
-      icon: entityIcons[EntityIDc.Transactions],
-      value: environment.routes.AddTransaction
-    },
-    {
-      name: this.label.FPC.FPC,
-      icon: entityIcons[EntityIDc.FPCs],
-      value: environment.routes.AddFpc
-    },
-    {
-      name: this.label.DOCUMENT_TRACKING.DOCUMENT_TRACKING,
-      icon: entityIcons[EntityIDc.DocumentTracking],
-      value: environment.routes.AddDocumentTracking
-    },
-  ]
+      {
+        name: this.label.LAW_FIRM.LAW_FIRM,
+        icon: entityIcons[EntityIDc.LawFirm],
+        value: environment.routes.AddLawFirm
+      },
+      {
+        name: this.label.TRANSACTION.TRANSACTION,
+        icon: entityIcons[EntityIDc.Transactions],
+        value: environment.routes.AddTransaction
+      },
+      {
+        name: this.label.FPC.FPC,
+        icon: entityIcons[EntityIDc.FPCs],
+        value: environment.routes.AddFpc
+      },
+      {
+        name: this.label.DOCUMENT_TRACKING.DOCUMENT_TRACKING,
+        icon: entityIcons[EntityIDc.DocumentTracking],
+        value: environment.routes.AddDocumentTracking
+      },
+    ]
   }
   private get isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
@@ -179,7 +179,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       error: (err) => {
         console.error('Search failed:', err);
         this.isSearching = false;
-        
+
         this.cdr.markForCheck();
       },
     });
@@ -616,16 +616,18 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   getEntityIcon(idc: string): string {
-  return entityIcons[idc] || 'help_outline';
-}
+    return entityIcons[idc] || 'help_outline';
+  }
 
-searchTimeout: any;
-showSearchResults = false;
+  searchTimeout: any;
+  showSearchResults = false;
 
 
-showSearchMenu() {
-  this.showSearchResults = true;
-  this.menuTrigger.openMenu();
-}
+  showSearchMenu() {
+    this.showSearchResults = true;
+    if (this.menuTrigger) {
+      this.menuTrigger.openMenu();
+    }
+  }
 
 }

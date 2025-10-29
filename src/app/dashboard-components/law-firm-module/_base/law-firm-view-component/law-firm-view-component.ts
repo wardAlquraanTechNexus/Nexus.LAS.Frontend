@@ -11,74 +11,63 @@ import { LawFirm } from '../../../../models/law-firm-models/law-firm/law-firm';
 import { CommonStatus } from '../../../../enums/common-status';
 import { LawFirmDialogFormComponent } from '../../law-firm-dialog-form-component/law-firm-dialog-form-component';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
+import { BaseViewComponent } from '../../../base-components/base-view-component/base-view-component';
+import { entityIcons } from '../../../../enums/entity-icon';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-law-firm-view',
   standalone: false,
   templateUrl: './law-firm-view-component.html',
-  styleUrls: ['./law-firm-view-component.scss']
+  styleUrls: ['../../../_shared/styles/model-view-style.scss', './law-firm-view-component.scss']
 })
-export class LawFirmViewComponent  implements OnInit {
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
-
-  currentLang: LanguageCode = 'en';
-
-  @Output() backToTableEmit = new EventEmitter();
+export class LawFirmViewComponent extends BaseViewComponent {
+  
   lawFirm!: LawFirmDTO;
   showLoading = false;
-  lawFirmId = 0;
 
-  idc = EntityIDc.LawFirm;
+  override idc = EntityIDc.LawFirm;
   statuses = CommonStatus;
 
-  selectedTab = 0;
   constructor(
     private service: LawFirmService,
-    private router: Router,
-    private route: ActivatedRoute,
-    protected langService: LanguageService,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
     private dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
+    override cdr: ChangeDetectorRef,
 
   ) {
-
+    super(cdr, langService, router, route);
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params['id']) {
-        this.lawFirmId = +params['id'];
-        this.getLawFirm();
-      }else{
-        this.backToTable();
-      }
-    });
-    this.langService.language$.subscribe(lang => {
-      this.applyLanguage(lang);
-    });
+  override ngOnInit() {
+    super.ngOnInit();
+    if (this.id) {
+      this.getLawFirm();
+    } else {
+      this.backToTable();
+    }
 
   }
 
   private getLawFirm() {
     this.showLoading = true;
-    this.service.getDtoById(this.lawFirmId)
-    .subscribe({
-      next: (res => {
-        this.lawFirm = res;
-        this.showLoading = false;
-        this.cdr.markForCheck();
-      }), error: (err => {
-        this.showLoading = false;
-      })
-    });
+    this.service.getDtoById(this.id!)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res => {
+          this.lawFirm = res;
+          this.showLoading = false;
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.showLoading = false;
+        })
+      });
   }
 
-  navigateToTable() {
-    this.backToTableEmit.emit();
-  }
-   getStatusStyle() {
+
+  getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     switch (this.lawFirm?.status && this.lawFirm?.status.toString()) {
@@ -131,11 +120,6 @@ export class LawFirmViewComponent  implements OnInit {
   }
 
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
-
-
 
   onEdit() {
     const dialogRef = this.dialog.open(LawFirmDialogFormComponent, {
@@ -154,13 +138,6 @@ export class LawFirmViewComponent  implements OnInit {
     });
   }
 
-   backToTable(){
-    this.lawFirmId = 0;
-    this.router.navigate([], {
-      relativeTo: this.route, 
-      queryParams: {  }, 
-    });
-  }
   exportToPdf() {
     this.service.exportToPdf({ id: this.lawFirm.id }).subscribe(res => {
       // Assuming res.data is a base64 string

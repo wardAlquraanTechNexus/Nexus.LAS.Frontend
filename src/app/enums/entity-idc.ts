@@ -1,5 +1,5 @@
 export class EntityIDc {
-  static readonly Person = "P";
+  static readonly Person = "PP";
   static readonly Company = "C";
   static readonly Properties = "R";
   static readonly LawFirm = "LF";
@@ -11,6 +11,7 @@ export class EntityIDc {
   static readonly CompaniesLicenseIDC = "CL";
   static readonly CompaniesContracts = "CLC";
   static readonly PropertyDocuments = "PD";
+  static readonly Group = "GR";
 }
 
 // Define the type based on the values

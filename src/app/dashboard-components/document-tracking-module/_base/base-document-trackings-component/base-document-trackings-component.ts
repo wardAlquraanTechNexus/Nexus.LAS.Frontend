@@ -149,6 +149,7 @@ export class BaseDocumentTrackingsComponent extends TableFormComponent<DocumentT
           relativeTo: this.route,
           queryParams: { id: result.id },
         });
+        this.cdr.markForCheck();
       }
     })
   }

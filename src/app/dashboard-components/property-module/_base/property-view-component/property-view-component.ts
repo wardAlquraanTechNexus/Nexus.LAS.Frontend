@@ -1,80 +1,55 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { Labels } from '../../../../models/consts/labels';
-import { LanguageCode } from '../../../../models/types/lang-type';
+import { takeUntil } from 'rxjs';
 import { PropertyDTO } from '../../../../models/property-models/property/dtos/propery-dto';
 import { PropertyService } from '../../../../services/property-services/property-service';
 import { LanguageService } from '../../../../services/language-service';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonStatus } from '../../../../enums/common-status';
 import { PropertyDialogFormComponent } from '../../property-dialog-form-component/property-dialog-form-component';
-import { EntityIDc } from '../../../../enums/entity-idc';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
+import { BaseViewComponent } from '../../../base-components/base-view-component/base-view-component';
+import { EntityIDc } from '../../../../enums/entity-idc';
 
 @Component({
   selector: 'app-property-view',
   standalone: false,
   templateUrl: './property-view-component.html',
-  styleUrl: './property-view-component.scss'
+  styleUrls: ['../../../_shared/styles/model-view-style.scss', './property-view-component.scss']
 })
-export class PropertyViewComponent implements OnInit, OnDestroy {
+export class PropertyViewComponent extends BaseViewComponent {
 
-  // Unsubscribe subject
-  private destroy$ = new Subject<void>();
-
-  label!: any;
-  currentLang: LanguageCode = 'en';
+  override idc = EntityIDc.Properties;
 
   property!: PropertyDTO;
   showLoading = false;
-  propertyId?: number | null = null;
-
-  propertyIdc = EntityIDc.Properties;
-
-  selectedTab = 0;
 
   constructor(
     protected service: PropertyService,
-    protected router: Router,
-    protected route: ActivatedRoute,
-    protected langService: LanguageService,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
     protected dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
-  ) {}
-
-  ngOnInit() {
-    // Subscribe to query params with unsubscribe logic
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        if (params['id']) {
-          this.propertyId = parseInt(params['id']);
-          this.getProperty();
-        } else {
-          this.backToTable();
-        }
-      });
-
-    // Subscribe to language changes with unsubscribe logic
-    this.langService.language$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(lang => {
-        this.label = Labels[lang as keyof typeof Labels];
-        this.applyLanguage(lang);
-      });
+    override cdr: ChangeDetectorRef,
+  ) {
+    super(cdr, langService, router, route);
   }
 
-  ngOnDestroy(): void {
-    // Complete the destroy subject to unsubscribe from all observables
-    this.destroy$.next();
-    this.destroy$.complete();
+  override ngOnInit() {
+    super.ngOnInit();
+    if (this.id) {
+      this.getProperty();
+    } else {
+      this.backToTable();
+    }
+
   }
+
 
   private getProperty() {
     this.showLoading = true;
-    
-    this.service.getDtoById(this.propertyId!)
+
+    this.service.getDtoById(this.id!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res => {
@@ -89,14 +64,12 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  navigateToTable() {
-    this.backToTable();
-  }
+ 
 
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    
+
     switch (this.property?.status) {
       case CommonStatus.Active:
         borderColor = '#22C993';
@@ -130,12 +103,12 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
-    
+
     if (!this.property?.private) {
       borderColor = '#FFA500';
       color = '#FFA500';
     }
-    
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -144,9 +117,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
     };
   }
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
+
 
   onEdit() {
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {
@@ -168,13 +139,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  backToTable() {
-    this.propertyId = null;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {},
-    });
-  }
+
 
   exportToPdf() {
     this.service.exportToPdf({ id: this.property.id })
@@ -185,7 +150,7 @@ export class PropertyViewComponent implements OnInit, OnDestroy {
           const binaryString = atob(res.data);
           const len = binaryString.length;
           const bytes = new Uint8Array(len);
-          
+
           for (let i = 0; i < len; i++) {
             bytes[i] = binaryString.charCodeAt(i);
           }

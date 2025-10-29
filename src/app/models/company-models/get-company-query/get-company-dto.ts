@@ -1,3 +1,5 @@
+import { CommonStatus } from "../../../enums/common-status";
+
 export interface GetCompanyDto {
   id: number;
   companyIdc: string | null;
@@ -6,7 +8,7 @@ export interface GetCompanyDto {
   companyArabicName?: string | null;
   companyShortName?: string | null;
   incorporationDate?: Date | null;
-  companyStatus: number;
+  companyStatus: CommonStatus;
   companyTypeIdn?: number | null;
   companyClassIdn?: number | null;
   groupCompanyIdn?: number | null;

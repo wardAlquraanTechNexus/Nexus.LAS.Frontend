@@ -1,84 +1,64 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CompanyService } from '../../../services/company-services/company-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GetCompanyDto } from '../../../models/company-models/get-company-query/get-company-dto';
-import { CompanyStatus } from '../../../enums/company-status';
 import { LanguageService } from '../../../services/language-service';
-import { LanguageCode } from '../../../models/types/lang-type';
-import { Labels } from '../../../models/consts/labels';
 import { CompanyFormDialog } from '../company-form-dialog/company-form-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyBoardDto } from '../../../models/company-models/company-board/dtos/company-board-dto';
 import { downloadBlobFile } from '../../_shared/shared-methods/downloadBlob';
 import { CompanyCapitalDto } from '../../../models/company-models/company-capital/dtos/company-capital-dto';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { BaseViewComponent } from '../../base-components/base-view-component/base-view-component';
+import { CommonStatus } from '../../../enums/common-status';
+import { EntityIDc } from '../../../enums/entity-idc';
 
 @Component({
   selector: 'app-company-view-component',
   standalone: false,
   templateUrl: './company-view-component.html',
-  styleUrl: './company-view-component.scss'
+  styleUrls: ['../../_shared/styles/model-view-style.scss' , './company-view-component.scss']
 })
-export class CompanyViewComponent implements OnInit, OnDestroy {
+export class CompanyViewComponent extends BaseViewComponent {
   
-  // Unsubscribe subject
-  private destroy$ = new Subject<void>();
 
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
-  currentLang: LanguageCode = 'en';
-
+  override idc: EntityIDc = EntityIDc.Company;
   selectedCompanyBoard?: CompanyBoardDto | null;
-  @Output() backToTableEmit = new EventEmitter();
   company!: GetCompanyDto
   showLoading = false;
-  companyId?: number | null = null;
-  labels: any;
 
-  selectedTab = 0;
   showBoardMember = false;
 
   constructor(
     private service: CompanyService,
-    private router: Router,
-    private route: ActivatedRoute,
-    protected langService: LanguageService,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
     private dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
-  ) {}
+    override cdr: ChangeDetectorRef,
+  ) {
+    super(cdr, langService, router, route);
+  }
 
-  ngOnInit() {
+  override ngOnInit() {
+    super.ngOnInit();
     // Subscribe to query params with unsubscribe logic
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        if (params['id']) {
-          this.companyId = parseInt(params['id']);
+   
+        if (this.id) {
           this.getCompany();
         } else {
           this.backToTable();
         }
-      });
+    
 
-    // Subscribe to language changes with unsubscribe logic
-    this.langService.language$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(lang => {
-        this.applyLanguage(lang);
-      });
   }
 
-  ngOnDestroy(): void {
-    // Complete the destroy subject to unsubscribe from all observables
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  
 
   private getCompany() {
     this.showLoading = true;
     
-    this.service.getCompanyById(this.companyId!)
+    this.service.getCompanyById(this.id!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res => {
@@ -93,24 +73,18 @@ export class CompanyViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  backToTable() {
-    this.companyId = null;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {},
-    });
-  }
+ 
 
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
     
-    switch (this.company?.companyStatus) {
-      case CompanyStatus.Active:
+    switch (this.company?.companyStatus.toString()) {
+      case CommonStatus[CommonStatus.Active]:
         borderColor = '#22C993';
         color = '#22C993';
         break;
-      case CompanyStatus.Inactive:
+      case CommonStatus[CommonStatus.Inactive]:
         borderColor = '#423e3ede';
         color = '#423e3ede';
         break;
@@ -126,9 +100,9 @@ export class CompanyViewComponent implements OnInit, OnDestroy {
 
   getIcon() {
     switch (this.company?.companyStatus) {
-      case CompanyStatus.Active:
+      case CommonStatus.Active:
         return 'check_circle';
-      case CompanyStatus.Inactive:
+      case CommonStatus.Inactive:
         return 'cancel';
       default:
         return 'star';
@@ -152,10 +126,7 @@ export class CompanyViewComponent implements OnInit, OnDestroy {
     };
   }
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-    this.labels = Labels[lang as keyof typeof Labels];
-  }
+
 
   onEditCapital(event: CompanyCapitalDto) {
     this.getCompany();

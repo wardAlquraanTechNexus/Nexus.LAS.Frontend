@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,20 +6,15 @@ import { DisplayColumn } from '../../../models/columns/display-column';
 import { PaginateRsult } from '../../../models/paginate-result';
 import { BaseParam } from '../../../models/base/base-param';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Person } from '../../../models/person-models/person';
 import { LanguageService } from '../../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DynamicListService } from '../../../services/dynamic-list-service';
-import { environment } from '../../../../environment/environment';
-import { map, Observable, of } from 'rxjs';
 import { PersonService } from '../../../services/person-services/person-service';
 import { CompanyService } from '../../../services/company-services/company-service';
-import { EntityIDc } from '../../../enums/entity-idc';
 import { CompanyContractStatus } from '../../../enums/company-contract-status';
 import { CompanyLicenseStatus } from '../../../enums/company-license-status';
 import { PersonStatus } from '../../../enums/person-status';
-import { CompanyStatus } from '../../../enums/company-status';
 import { CommonStatus } from '../../../enums/common-status';
 
 @Component({
@@ -150,17 +145,6 @@ export class SharedTable implements OnInit, OnChanges {
                 return 'star';
             }
           }
-        case 'company-status':
-          {
-            switch (value) {
-              case CompanyStatus.Active:
-                return 'check_circle';
-              case CompanyStatus.Inactive:
-                return 'cancel';
-              default:
-                return 'star';
-            }
-          }
         case 'common-status':
           {
             switch (value) {
@@ -247,19 +231,7 @@ export class SharedTable implements OnInit, OnChanges {
           }
           break;
 
-        case 'company-status':
-          {
-            let color = '#9E77ED';
-            if (value === CompanyStatus.Active) color = '#22C993';
-            else if (value === CompanyStatus.Inactive) color = '#423e3ede';
-            Object.assign(styles, {
-              'border': `2px solid ${color}`,
-              'color': color,
-              'border-radius': '20px',
-              'padding': '10px'
-            });
-          }
-          break;
+       
         case 'common-status':
           {
             let color = '#9E77ED';

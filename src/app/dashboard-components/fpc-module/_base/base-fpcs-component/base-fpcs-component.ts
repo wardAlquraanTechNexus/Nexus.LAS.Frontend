@@ -229,6 +229,7 @@ export class BaseFpcsComponent extends TableFormComponent<FPC> {
           relativeTo: this.route,
           queryParams: { id: result.id },
         });
+        this.cdr.markForCheck();
       }
     })
   }

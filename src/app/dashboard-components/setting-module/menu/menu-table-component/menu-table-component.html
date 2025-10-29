@@ -3,10 +3,10 @@
   <!-- SECTION 1: Title and Records -->
   <div class="section section-title">
     <div class="title-content">
-      <h2>Menus</h2>
+      <h2>{{label.SETTINGS.MENUS}}</h2>
     </div>
     <button mat-raised-button color="primary" (click)="onAddNew()">
-      <mat-icon>add</mat-icon> Add Menu
+      <mat-icon>add</mat-icon> {{label.SETTINGS.ADD_MENU}}
     </button>
   </div>
 
@@ -18,7 +18,7 @@
         <nav class="breadcrumb">
           <a (click)="onPathClick(null)" class="breadcrumb-link">
             <mat-icon class="breadcrumb-icon">home</mat-icon>
-            Root
+            {{label.SETTINGS.ROOT}}
           </a>
           <ng-container *ngFor="let parent of parents">
             <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
@@ -56,20 +56,20 @@
         <!-- Previous Button -->
         <button mat-stroked-button class="pagination-btn" (click)="onPrev()" [disabled]="params.page === 0">
             <mat-icon>chevron_left</mat-icon>
-            Previous
+            {{label.SETTINGS.PREVIOUS}}
         </button>
 
         <!-- Pagination Info -->
         <div class="pagination-info">
             <div class="page-info">
-                Page <span class="highlight">{{ params.page + 1 }}</span> 
-                of <span class="highlight">{{ !menus.totalPages ? 1 : menus.totalPages }}</span>
+                {{label.SETTINGS.PAGE}} <span class="highlight">{{ params.page + 1 }}</span> 
+                {{label.SETTINGS.OF}} <span class="highlight">{{ !menus.totalPages ? 1 : menus.totalPages }}</span>
             </div>
             <div class="records-info">
-                <span class="info-label">Page Size:</span> 
+                <span class="info-label">{{label.SETTINGS.PAGE_SIZE}}:</span> 
                 <span class="highlight">{{ params.pageSize }}</span>
                 <span class="divider">|</span>
-                <span class="info-label">Total Records:</span> 
+                <span class="info-label">{{label.SETTINGS.TOTAL}}:</span> 
                 <span class="highlight">{{ menus.totalRecords }}</span>
             </div>
         </div>
@@ -77,7 +77,7 @@
         <!-- Next Button -->
         <button mat-stroked-button class="pagination-btn" (click)="onNext()"
                 [disabled]="(params.page + 1) >= menus.totalPages">
-            Next
+            {{label.SETTINGS.NEXT}}
             <mat-icon>chevron_right</mat-icon>
         </button>
     </div>

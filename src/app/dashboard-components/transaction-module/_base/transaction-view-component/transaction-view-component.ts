@@ -11,21 +11,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { TransactionDialogFormComponent } from '../../transaction-dialog-form-component/transaction-dialog-form-component';
 import { downloadBlob } from '../../../_shared/shared-methods/downloadBlob';
 import { Subject, takeUntil } from 'rxjs';
+import { BaseViewComponent } from '../../../base-components/base-view-component/base-view-component';
+import { entityIcons } from '../../../../enums/entity-icon';
 
 @Component({
   selector: 'app-transaction-view',
   standalone: false,
   templateUrl: './transaction-view-component.html',
-  styleUrl: './transaction-view-component.scss'
+  styleUrls: ['../../../_shared/styles/model-view-style.scss', './transaction-view-component.scss']
 })
-export class TransactionViewComponent implements OnInit, OnDestroy {
-  
-  // Unsubscribe subject
-  private destroy$ = new Subject<void>();
-
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  };
+export class TransactionViewComponent extends BaseViewComponent {
 
   EntityIDc = EntityIDc;
 
@@ -33,40 +28,35 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
 
   lawFirmRegisterTypes?: { idc: string, name: string }[];
 
-  currentLang: LanguageCode = 'en';
-
   transaction!: TransactionDto;
   showLoading = false;
-  transactionId = 0;
 
-  idc = EntityIDc.Transactions;
+  override idc = EntityIDc.Transactions;
   statuses = CommonStatus;
 
-  selectedTab = 0;
 
   constructor(
     private service: TransactionService,
-    private router: Router,
-    private route: ActivatedRoute,
-    protected langService: LanguageService,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
     private dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
-  ) {}
+    override cdr: ChangeDetectorRef,
+  ) {
+    super(cdr, langService, router, route);
+  }
 
-  ngOnInit() {
-    // Subscribe to query params with unsubscribe logic
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        if (params['id']) {
-          this.transactionId = parseInt(params['id']);
-          this.getTransaction();
-        } else {
-          this.backToTable();
-        }
-      });
+  override ngOnInit() {
+    super.ngOnInit();
 
-    // Subscribe to language changes with unsubscribe logic
+    if (this.id) {
+      this.getTransaction();
+    } else {
+      this.backToTable();
+    }
+  }
+
+  override subscribeLang(): void {
     this.langService.language$
       .pipe(takeUntil(this.destroy$))
       .subscribe(lang => {
@@ -82,16 +72,11 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    // Complete the destroy subject to unsubscribe from all observables
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   private getTransaction() {
     this.showLoading = true;
-    
-    this.service.getDtoById(this.transactionId)
+
+    this.service.getDtoById(this.id!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -106,14 +91,12 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  navigateToTable() {
-    this.backToTable();
-  }
+
 
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    
+
     switch (this.transaction?.status?.toString()) {
       case CommonStatus[CommonStatus.Active]:
         borderColor = '#22C993';
@@ -147,12 +130,12 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
-    
+
     if (!this.transaction?.private) {
       borderColor = '#FFA500';
       color = '#FFA500';
     }
-    
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -161,9 +144,7 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
     };
   }
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
+
 
   onEdit() {
     const dialogRef = this.dialog.open(TransactionDialogFormComponent, {
@@ -186,7 +167,7 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
   }
 
   exportToPdf() {
-    this.service.exportToPdf({ id: this.transactionId })
+    this.service.exportToPdf({ id: this.id! })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -198,13 +179,7 @@ export class TransactionViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  backToTable() {
-    this.transactionId = 0;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {},
-    });
-  }
+
 }
 
 

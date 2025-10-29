@@ -80,6 +80,7 @@ import { StartEndDatesInputComponent } from './start-end-dates-input-component/s
 import { GroupsByUserComponent } from '../dashboard-components/setting-module/user/groups-by-user-component/groups-by-user-component';
 import { UsersByGroupComponent } from '../dashboard-components/setting-module/group/group-components/users-by-group-component/users-by-group-component';
 import { BaseTableViewComponent } from './base-table-view-component/base-table-view-component';
+import { BaseViewComponent } from '../dashboard-components/base-components/base-view-component/base-view-component';
 
 
 
@@ -132,7 +133,8 @@ import { BaseTableViewComponent } from './base-table-view-component/base-table-v
     PropertyFormComponent,
     TransactionActionsComponent,
     StartEndDatesInputComponent,
-    BaseTableViewComponent
+    BaseTableViewComponent,
+    BaseViewComponent
 
   ],
   imports: [
@@ -251,7 +253,8 @@ import { BaseTableViewComponent } from './base-table-view-component/base-table-v
     TransactionActionsComponent,
     DragDropModule,
     StartEndDatesInputComponent,
-    BaseTableViewComponent
+    BaseTableViewComponent,
+    BaseViewComponent
 
   ],
   providers: [

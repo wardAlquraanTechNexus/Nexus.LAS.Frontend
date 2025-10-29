@@ -162,7 +162,7 @@ export const Labels = {
             NUMBER_OF_SHARES: "Number of Shares",
             NUMBER_OF_SHARES_REQUIRED: "Number of Shares is required",
             EDIT_BOARD_MEMBER: "Edit Board Member", // <-- Added
-            ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details", 
+            ENTER_BOARD_MEMBER_DETAILS: "Enter Board Member Details",
             SIGNATORIES: "Signatories",
             BOARDS: "Boards",
             BOARD: "Board",
@@ -171,6 +171,8 @@ export const Labels = {
 
         },
         COMMON: {
+            DASHBOARD: "Dashboard",
+            SETTINGS: "Settings",
             DOCUMENTS: "Documents",
             DESCRIPTION: "Description",
             NT_LOGIN: "NT Login",
@@ -255,7 +257,7 @@ export const Labels = {
             NOTES: "Notes",
             NOTES_REQUIRED: "Notes is required",
             NAME_EN: "Name En",
-   
+
             NAME_AR: "Name Ar",
             SHOW: "Show",
             HIDE: "Hide",
@@ -388,13 +390,19 @@ export const Labels = {
             PREVIEW: "Preview",
             REMOVE: "Remove",
             NO_FILES_UPLOADED: "No files uploaded",
-            AMENDED: "Amended"
+            AMENDED: "Amended",
+            IS_ACTIVE: "Is Active",
         },
         PROPERTY: {
             RELATION_REQUIRED: "Relation is required",
             REAL_EASTATES: "Real Estates",
             REAL_EASTATE: "Real Estate",
             ADD_NEW_PROPERTY: "Add New Property",
+            ALL_PROPERTIES: "All Properties",
+            ACTIVE_PROPERTIES: "Active Properties",
+            INACTIVE_PROPERTIES: "Inactive Properties",
+            ACTIVE_PUBLIC_PROPERTIES: "Active Public Properties",
+            ACTIVE_PRIVATE_PROPERTIES: "Active Private Properties",
             OWNERS: "Owners",
             OWNER: "Owner",
             EDIT_PROPERTY: "Edit Property",
@@ -626,7 +634,24 @@ export const Labels = {
             INSERT_DESCRIPTION: "Allows user to add new records.",
             UPDATE_DESCRIPTION: "Allows user to edit existing records.",
             DELETE_DESCRIPTION: "Allows user to delete existing records.",
-            ADMIN_DESCRIPTION: "Allows user to manage group menu settings."
+            ADMIN_DESCRIPTION: "Allows user to manage group menu settings.",
+            ADD_MENU: "Add Menu",
+            EDIT_MENU: "Edit Menu",
+            ENTER_MENU_DETAILS: "Enter menu details",
+            ROOT: "Root",
+            NEXT: "Next",
+            PREVIOUS: "Previous",
+            PAGE: "Page",
+            OF: "of",
+            TOTAL: "Total",
+            ITEMS: "Items",
+            PAGE_SIZE: "Page Size",
+            PATH: "Path",
+            ICON_CLASS: "Icon Class",
+            RANK: "Rank",
+            SHOW_IN_DASHBOARD: "Show in Dashboard",
+            RANK_REQUIRED: "Rank is required",
+            DYNAMIC_LIST: "Dynamic List",
         }
     },
     ar: {
@@ -803,6 +828,8 @@ export const Labels = {
 
         },
         COMMON: {
+            DASHBOARD: "لوحة التحكم",
+            SETTINGS: "الإعدادات",
             DOCUMENTS: "الوثائق",
             NT_LOGIN: "تسجيل الدخول NT",
             DESCRIPTION: "الوصف",
@@ -1020,6 +1047,7 @@ export const Labels = {
             REMOVE: "إزالة",
             NO_FILES_UPLOADED: "لم يتم رفع أي ملفات",
             AMENDED: "تم التعديل",
+            IS_ACTIVE: "نشط",
         },
         PROPERTY: {
             RELATION_REQUIRED: "العلاقة مطلوبة",
@@ -1028,6 +1056,11 @@ export const Labels = {
             ACTIVE_REAL_ESTATES: "العقارات النشطة",
             ACTIVE_PRIVATE_REAL_ESTATES: "العقارات الخاصة النشطة",
             ACTIVE_PUBLIC_REAL_ESTATES: "العقارات العامة النشطة",
+            ALL_PROPERTIES: "جميع العقارات",
+            ACTIVE_PROPERTIES: "العقارات النشطة",
+            INACTIVE_PROPERTIES: "العقارات غير النشطة",
+            ACTIVE_PUBLIC_PROPERTIES: "العقارات العامة النشطة",
+            ACTIVE_PRIVATE_PROPERTIES: "العقارات الخاصة النشطة",
             ADD_NEW_PROPERTY: "إضافة عقار جديد",
             EDIT_PROPERTY: "تعديل العقار",
             OWNERS: "المالكون",
@@ -1067,7 +1100,7 @@ export const Labels = {
             LEGAL_STATUS: "الحالة القانونية",
             LEGAL_STATUS_REQUIRED: "الحالة القانونية مطلوبة",
             OWNER_REMARKS: "ملاحظات المالك",
-            
+
 
         },
         LAW_FIRM: {
@@ -1258,7 +1291,24 @@ export const Labels = {
             INSERT_DESCRIPTION: "يسمح للمستخدم بإضافة سجلات جديدة.",
             UPDATE_DESCRIPTION: "يسمح للمستخدم بتعديل السجلات الموجودة.",
             DELETE_DESCRIPTION: "يسمح للمستخدم بحذف السجلات.",
-            ADMIN_DESCRIPTION: "يسمح للمستخدم بإدارة إعدادات قائمة المجموعة."
+            ADMIN_DESCRIPTION: "يسمح للمستخدم بإدارة إعدادات قائمة المجموعة.",
+            ADD_MENU: "إضافة قائمة",
+            EDIT_MENU: "تعديل قائمة",
+            ENTER_MENU_DETAILS: "أدخل تفاصيل القائمة",
+            ROOT: "الجذر",
+            NEXT: "التالي",
+            PREVIOUS: "السابق",
+            PAGE: "صفحة",
+            OF: "من",
+            ITEMS: "عناصر",
+            TOTAL: "إجمالي",
+            PAGE_SIZE: "حجم الصفحة",
+            PATH: "المسار",
+            ICON_CLASS: "فئة الأيقونة",
+            RANK: "الرتبة",
+            SHOW_IN_DASHBOARD: "عرض في لوحة القيادة",
+            RANK_REQUIRED: "الرتبة مطلوبة",
+            DYNAMIC_LIST: "قائمة ديناميكية",
         }
     }
 } as const;

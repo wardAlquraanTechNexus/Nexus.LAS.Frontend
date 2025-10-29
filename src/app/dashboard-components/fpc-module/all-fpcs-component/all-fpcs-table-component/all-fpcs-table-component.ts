@@ -1,14 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { FPCDto } from '../../../../models/fpc-models/fpc/dtos/fpc-dto';
-import { CommonStatus } from '../../../../enums/common-status';
-import { FpcDialogFormComponent } from '../../fpc-dialog-form-component/fpc-dialog-form-component';
-import { CompanyStatus } from '../../../../enums/company-status';
 import { FPCService } from '../../../../services/fpc-services/fpc-service';
-import { FPC } from '../../../../models/fpc-models/fpc/fpc';
-import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { PaginateRsult } from '../../../../models/paginate-result';
-import { GetFPCParam } from '../../../../models/fpc-models/fpc/params/get-fpc-param';
-import { MenuTree } from '../../../../models/menus/menu-tree';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
@@ -16,7 +7,6 @@ import { MenuService } from '../../../../services/menu-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
 import { LanguageService } from '../../../../services/language-service';
-import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 import { BaseFpcsComponent } from '../../_base/base-fpcs-component/base-fpcs-component';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 

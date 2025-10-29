@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LawFirmViewComponent } from '../_base/law-firm-view-component/law-firm-view-component';
+import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-all-law-firms-component',
@@ -7,7 +8,7 @@ import { LawFirmViewComponent } from '../_base/law-firm-view-component/law-firm-
   templateUrl: './all-law-firms-component.html',
   styleUrl: './all-law-firms-component.scss'
 })
-export class AllLawFirmsComponent  extends LawFirmViewComponent
+export class AllLawFirmsComponent  extends BaseTableViewComponent
 {
 
 }

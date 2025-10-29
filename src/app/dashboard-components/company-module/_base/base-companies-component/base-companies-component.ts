@@ -15,12 +15,12 @@ import { PaginateRsult } from '../../../../models/paginate-result';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environment/environment';
-import { CompanyStatus } from '../../../../enums/company-status';
 import { CompanyFormDialog } from '../../company-form-dialog/company-form-dialog';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 import { LanguageService } from '../../../../services/language-service'; // Adjust path as needed
 import { Labels } from '../../../../models/consts/labels';
 import { navigate } from '../../../_shared/shared-methods/navigate';
+import { CommonStatus } from '../../../../enums/common-status';
 
 @Component({
   selector: 'app-base-companies-component',
@@ -59,8 +59,8 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
   };
   labels: any;
 
-  activeStatus = CompanyStatus.Active;
-  inActiveStatus = CompanyStatus.Inactive;
+  activeStatus = CommonStatus.Active;
+  inActiveStatus = CommonStatus.Inactive;
 
   currentMenu: MenuTree | null = null;
   loadCompanyTypesFn!: (search: string) => Observable<DynamicList[]>;
@@ -191,10 +191,10 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
 
 
   activate(event: any) {
-    this.changeStatus(event, CompanyStatus.Active);
+    this.changeStatus(event, CommonStatus.Active);
   }
   deactivate(event: any) {
-    this.changeStatus(event, CompanyStatus.Inactive);
+    this.changeStatus(event, CommonStatus.Inactive);
   }
   markPublic(event: any) {
     this.changePrivate(event, false);
@@ -221,7 +221,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
   }
 
 
-  changeStatus(event: any, status: CompanyStatus) {
+  changeStatus(event: any, status: CommonStatus) {
     this.showLoading = true;
     this.service.updateStatus({
       ids: [event.id],
@@ -261,7 +261,7 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
   }
 
 
-  bulkChangeStatus(status: CompanyStatus) {
+  bulkChangeStatus(status: CommonStatus) {
     this.showLoading = true;
     this.service.updateStatus({
       ids: this.selectedCompanies.map(x => x.id),
@@ -332,17 +332,10 @@ export class BaseCompaniesComponent extends TableFormComponent<Company> implemen
       data: companyDto
     });
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Companies);
-
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        navigate(this.router , basePath , path, result.id);
+        this.router.navigate([], { queryParams: { id: result.id }, relativeTo: this.route });
+        this.cdr.markForCheck();
       }
     })
   }

@@ -5,7 +5,6 @@ import { EntityIDc } from '../enums/entity-idc';
 import { environment } from '../../environment/environment';
 import { DisplayColumn } from '../models/columns/display-column';
 import { PersonStatus } from '../enums/person-status';
-import { CompanyStatus } from '../enums/company-status';
 import { CompanyContractStatus } from '../enums/company-contract-status';
 import { PersonService } from '../services/person-services/person-service';
 import { LanguageService } from '../services/language-service';
@@ -60,7 +59,6 @@ export class TableDataPipe implements PipeTransform {
     const pipeHandlers: { [key: string]: () => Observable<string> } = {
       // Status pipes
       'person-status': () => this.handlePersonStatus(value),
-      'company-status': () => this.handleCompanyStatus(value),
       'common-status': () => this.handleCommonStatus(value),
       'company-contract-status': () => this.handleCompanyContractStatus(value),
       'company-license-status': () => this.handleCompanyLicenseStatus(value),
@@ -133,15 +131,6 @@ export class TableDataPipe implements PipeTransform {
     return of(statusMap[value] ?? value?.toString() ?? '');
   }
 
-  private handleCompanyStatus(value: any): Observable<string> {
-    const getLabel = this.languageService.getLabel.bind(this.languageService);
-    const statusMap: { [key: number]: string } = {
-      [CompanyStatus.New]: getLabel('COMMON.NEW') ?? 'New',
-      [CompanyStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active',
-      [CompanyStatus.Inactive]: getLabel('COMMON.INACTIVE') ?? 'Inactive'
-    };
-    return of(statusMap[value] ?? value?.toString() ?? '');
-  }
 
   private handleCommonStatus(value: any): Observable<string> {
     const getLabel = this.languageService.getLabel.bind(this.languageService);

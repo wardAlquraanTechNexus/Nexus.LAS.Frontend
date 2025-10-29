@@ -21,16 +21,19 @@
 
         <div class="header-card">
             <div class="profile-section">
+                <!-- FPC Icon Section -->
+                <div class="icon-container">
+                    <mat-icon class="icon">{{icon}}</mat-icon>
+                </div>
 
-
-                <div class="profile-details">
-                    <div class="profile-name-section">
+                <div class="details">
+                    <div class="name-section">
                         <div class="name-and-badges">
-                            <h1 class="profile-name">{{ fpc.fpcCode | titlecase }}</h1>
+                            <h1 class="name">{{ fpc.fpcCode | titlecase }}</h1>
                             <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getStatusStyle()">
                                     <mat-icon>{{ getIcon() }}</mat-icon>
-                                    {{ fpc.fpcStatus | textPipe: 'company-status' | async}}
+                                    {{ fpc.fpcStatus | textPipe: 'common-status' | async}}
                                 </span>
                                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
                                     <mat-icon>{{ fpc.private ? 'lock' : 'public' }}</mat-icon>
@@ -42,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="profile-action">
+            <div class="actions">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
                     {{ label.FPC.EDIT_FPC }}
@@ -67,7 +70,9 @@
     <div *ngIf="!showLoading" class="section section-content">
         <div class="tabs-container">
             <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
-                (selectedIndexChange)="selectedTab = $event">
+                (selectedIndexChange)="onTabChange($event)">
+                
+                <!-- Tab 0: Overview -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -76,12 +81,20 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(0)) {
                         <div class="overview-component">
                             <app-fpc-overview [fpc]="fpc"></app-fpc-overview>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
 
+                <!-- Tab 1: FPC OD -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -90,6 +103,7 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(1)) {
                         <div class="overview-component">
                             <app-fpc-ods *ngIf="showFpcOd" [fpc]="fpc"
                                 (onChangeOd)="loadFocOdActions($event)"></app-fpc-ods>
@@ -98,12 +112,16 @@
                             <app-fpc-od-actions *ngIf="showFpcOdActions" [fpcOd]="selectedOd"
                                 (onSave)="onActionEdit()"></app-fpc-od-actions>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
 
-
-
-
+                <!-- Tab 2: Notes -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -112,13 +130,20 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(2)) {
                         <div class="overview-component">
                             <app-shared-register-note-table [registersIdn]="fpc.id"
                                 [registersIdc]="idc"></app-shared-register-note-table>
-
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
+
             </mat-tab-group>
         </div>
     </div>

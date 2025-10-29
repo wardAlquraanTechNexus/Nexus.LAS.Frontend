@@ -4,5 +4,5 @@
 @if(showTable == true && !itemId){
     <app-active-public-fpcs-table></app-active-public-fpcs-table>
 }@else if(showTable == false && itemId){
-    <app-fpc-table-view-component></app-fpc-table-view-component>
+    <app-fpc-table-view-component [id]="itemId"></app-fpc-table-view-component>
 }

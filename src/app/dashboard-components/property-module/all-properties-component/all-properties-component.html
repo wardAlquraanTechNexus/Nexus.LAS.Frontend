@@ -2,5 +2,4 @@
 <app-all-properties-table-component></app-all-properties-table-component>
 
 }@else if(showTable == false && itemId && itemId > 0){
-<app-property-view></app-property-view>
-}
+<app-property-view [id]="itemId"></app-property-view>}

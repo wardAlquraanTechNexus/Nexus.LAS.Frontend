@@ -167,20 +167,14 @@ export class BaseLawFirmsComponent extends TableFormComponent<LawFirm> implement
       panelClass: 'property-dialog-panel'
     });
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllLawFirms) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveLawFirms) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateLawFirms) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicLawFirms);
-    let basePath = this.menuService.getMenuByPath(environment.routes.LawFirms);
-
-
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.router.navigate([], {
           relativeTo: this.route,
           queryParams: { id: result.id },
         });
+        this.cdr.markForCheck();
       }
     })
   }

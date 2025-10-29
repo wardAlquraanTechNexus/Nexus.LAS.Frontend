@@ -8,7 +8,7 @@ import { Labels } from '../../../../models/consts/labels';
   selector: 'app-document-tracking-overview',
   standalone: false,
   templateUrl: './document-tracking-overview-component.html',
-  styleUrls: ['./../../../_shared/styles/model-view-style.scss']
+  styleUrls: ['./../../../_shared/styles/model-overview-style.scss']
 })
 export class DocumentTrackingOverviewComponent implements OnInit, OnChanges {
   

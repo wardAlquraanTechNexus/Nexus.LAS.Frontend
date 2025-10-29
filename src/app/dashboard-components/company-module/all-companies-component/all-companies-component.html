@@ -3,5 +3,5 @@
     <app-all-companies-table></app-all-companies-table>
 
 }@else if(showTable == false && itemId){
-    <app-company-view-component ></app-company-view-component>
+<app-company-view-component [id]="itemId"></app-company-view-component>
 }

@@ -1,4 +1,8 @@
-<app-active-private-law-firms-table-component *ngIf="!showLoading && !lawFirmId"></app-active-private-law-firms-table-component>
-<app-law-firm-view *ngIf="!showLoading && lawFirmId" 
-    (backToTableEmit)="backToTable()">
-</app-law-firm-view>
+
+
+@if(showTable == true && !itemId)
+{
+    <app-active-private-law-firms-table-component></app-active-private-law-firms-table-component>
+}@else if(showTable == false && itemId){
+    <app-law-firm-view [id]="itemId"></app-law-firm-view>
+}

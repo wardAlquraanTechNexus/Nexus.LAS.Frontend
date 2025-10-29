@@ -11,7 +11,7 @@ export class BaseTableViewComponent {
   itemId : number | null = null;
   showTable?: boolean | null = null;
   constructor(
-    private route: ActivatedRoute,
+    protected route: ActivatedRoute,
     protected cdr: ChangeDetectorRef,
 
   ) {

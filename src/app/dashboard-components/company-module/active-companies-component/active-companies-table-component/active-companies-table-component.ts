@@ -10,8 +10,8 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { MenuService } from '../../../../services/menu-service';
 import { BaseCompaniesComponent } from '../../_base/base-companies-component/base-companies-component';
 import GetCompanyQuery from '../../../../models/company-models/get-company-query/get-company-dto-command';
-import { CompanyStatus } from '../../../../enums/company-status';
 import { LanguageService } from '../../../../services/language-service';
+import { CommonStatus } from '../../../../enums/common-status';
 
 @Component({
   selector: 'app-active-companies-table-component',
@@ -24,7 +24,7 @@ export class ActiveCompaniesTableComponent extends BaseCompaniesComponent {
   override params: GetCompanyQuery = {
     searchBy: null,
     private: null,
-    status: CompanyStatus.Active,
+    status: CommonStatus.Active,
     page: 0,
     pageSize: 10,
     orderBy: 'id',

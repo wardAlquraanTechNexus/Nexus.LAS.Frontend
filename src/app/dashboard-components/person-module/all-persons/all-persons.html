@@ -4,5 +4,5 @@
 <app-all-person-table></app-all-person-table>
 
 }@else if(showTable == false && itemId){
-<app-person-view-component></app-person-view-component>
+<app-person-view-component [id]="itemId"></app-person-view-component>
 }

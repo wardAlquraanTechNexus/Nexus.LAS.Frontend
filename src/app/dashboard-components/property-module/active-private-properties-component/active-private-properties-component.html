@@ -4,5 +4,5 @@
     <app-active-private-properties-table-component></app-active-private-properties-table-component>
     
 }@else if(showTable == false && itemId){
-    <app-property-view></app-property-view>
+    <app-property-view [id]="itemId"></app-property-view>
 }

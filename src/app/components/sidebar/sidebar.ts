@@ -7,6 +7,8 @@ import { LanguageService } from '../../services/language-service';
 import { Direction } from '@angular/cdk/bidi';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { Labels } from '../../models/consts/labels';
+import { LanguageCode } from '../../models/types/lang-type';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,7 +32,12 @@ export class Sidebar implements OnInit, OnDestroy {
   hasChild = (_: number, node: any) => !!node.children && node.children.length > 0;
 
   dir: Direction = 'ltr';
-  labels: any;
+  get labels() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  };
+
+  currentLang: LanguageCode = 'en';
+
 
   iconClass = "sidebar-toggle-btn-opened";
 
@@ -101,7 +108,7 @@ export class Sidebar implements OnInit, OnDestroy {
     // Subscribe to language changes
     this.langSub = this.langService.language$.subscribe(lang => {
       this.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      this.labels = this.langService.getLabels(lang);
+      this.currentLang = lang;
       this.translateMenuItems();
     });
   }
@@ -113,7 +120,7 @@ export class Sidebar implements OnInit, OnDestroy {
   private translateMenuTree(items: MenuTree[]): MenuTree[] {
     return items.map(item => ({
       ...item,
-      name: this.getTranslatedMenuName(item.name),
+      name: this.getTranslatedMenuName(item.name.toLowerCase()),
       children: item.children ? this.translateMenuTree(item.children) : []
     }));
   }
@@ -121,41 +128,65 @@ export class Sidebar implements OnInit, OnDestroy {
   private getTranslatedMenuName(name: string): string {
     if (!this.labels) return name;
 
-    // Map common menu names to translations
+    // Map common menu names to translations (case-insensitive)
     const menuTranslations: { [key: string]: string } = {
       // Common menu items
-      'Home': this.labels.COMMON?.HOME || 'Home',
-      'Dashboard': this.labels.COMMON?.DASHBOARD || 'Dashboard',
-      'Companies': this.labels.COMPANY?.COMPANIES || 'Companies',
-      'Persons': this.labels.PERSON?.PERSONS || 'Persons',
-      'Settings': this.labels.COMMON?.SETTINGS || 'Settings',
-      'Users': this.labels.COMMON?.USERS || 'Users',
-      'Groups': this.labels.COMMON?.GROUPS || 'Groups',
-      'Menus': this.labels.COMMON?.MENUS || 'Menus',
-      'Reports': this.labels.COMMON?.REPORTS || 'Reports',
+      'dashboard': this.labels.COMMON?.DASHBOARD || 'Dashboard',
+      'companies': this.labels.COMPANY?.COMPANIES || 'Companies',
+      'persons': this.labels.PERSON?.PERSONS || 'Persons',
+      'settings': this.labels.COMMON?.SETTINGS || 'Settings',
+      'users': this.labels.COMMON?.USERS || 'Users',
+      'groups': this.labels.SETTINGS.GROUPS || 'Groups',
+      'menus': this.labels.SETTINGS?.MENUS || 'Menus',
+      // 'reports': this.labels.COMMON?.REPORTS || 'Reports',
 
+      "real estates": this.labels.PROPERTY.REAL_EASTATES || 'Real Estates',
+      "all properties": this.labels.PROPERTY.ALL_PROPERTIES || 'ALL Properties',
+      "active properties": this.labels.PROPERTY.ACTIVE_PROPERTIES || 'Active Properties',
+      "inactive properties": this.labels.PROPERTY.INACTIVE_PROPERTIES || 'Inactive Properties',
+      "active public properties": this.labels.PROPERTY.ACTIVE_PUBLIC_PROPERTIES || 'Active Public Properties',
+      "active private properties": this.labels.PROPERTY.ACTIVE_PRIVATE_PROPERTIES || 'Active Private Properties',
       // Company submenu
-      'All Companies': this.labels.COMPANY?.ALL_COMPANIES || 'All Companies',
-      'Active Companies': this.labels.COMPANY?.ACTIVE_COMPANIES || 'Active Companies',
-      'Active Public Companies': this.labels.COMPANY?.ACTIVE_PUBLIC_COMPANIES || 'Active Public Companies',
-      'Active Private Companies': this.labels.COMPANY?.ACTIVE_PRIVATE_COMPANIES || 'Active Private Companies',
+      'all companies': this.labels.COMPANY?.ALL_COMPANIES || 'All Companies',
+      'active companies': this.labels.COMPANY?.ACTIVE_COMPANIES || 'Active Companies',
+      'active public companies': this.labels.COMPANY?.ACTIVE_PUBLIC_COMPANIES || 'Active Public Companies',
+      'active private companies': this.labels.COMPANY?.ACTIVE_PRIVATE_COMPANIES || 'Active Private Companies',
 
+      "law firms": this.labels.LAW_FIRM.LAW_FIRMS || 'Law Firms',
+      "all law firms": this.labels.LAW_FIRM.ALL_LAW_FIRMS || 'All Law Firms',
+      "active law firms": this.labels.LAW_FIRM.ACTIVE_LAW_FIRMS || 'Active Law Firms',
+      "active public law firms": this.labels.LAW_FIRM.ACTIVE_PUBLIC_LAW_FIRMS || 'Active Public Law Firms',
+      "active private law firms": this.labels.LAW_FIRM.ACTIVE_PRIVATE_LAW_FIRMS || 'Active Private Law Firms',
+      // "inactive law firms": this.labels.LAW_FIRM.INACTIVE_LAW_FIRMS || 'Inactive Law Firms',
+
+      "transactions": this.labels.TRANSACTION.TRANSACTIONS || 'Transactions',
+      "all transactions": this.labels.TRANSACTION.ALL_TRANSACTIONS || 'All Transactions',
+      "active transactions": this.labels.TRANSACTION.ACTIVE_TRANSACTIONS || 'Active Transactions',
+      "active public transactions": this.labels.TRANSACTION.ACTIVE_PUBLIC_TRANSACTIONS || 'Active Public Transactions',
+      "active private transactions": this.labels.TRANSACTION.ACTIVE_PRIVATE_TRANSACTIONS || 'Active Private Transactions',
+      // "inactive transactions": this.labels.TRANSACTION.INACTIVE_TRANSACTIONS || 'Inactive Transactions',
+
+      "fpcs": this.labels.FPC.FPCS || 'FPCs',
+      "all fpcs": this.labels.FPC.ALL_FPCS || 'All FPCs',
+      "active fpcs": this.labels.FPC.ACTIVE_FPCS || 'Active FPCs',
+      "active public fpcs": this.labels.FPC.ACTIVE_PUBLIC_FPCS || 'Active Public FPCs',
+      "active private fpcs": this.labels.FPC.ACTIVE_PRIVATE_FPCS || 'Active Private FPCs',
+      // "inactive fpcs": this.labels.FPC.INACTIVE_FPCS || 'Inactive FPCs',
+
+      "doc. tracking": this.labels.DOCUMENT_TRACKING.DOCUMENT_TRACKING || 'Doc. Tracking',
+      "all doc. trackings": this.labels.DOCUMENT_TRACKING.DOCUMENT_TRACKINGS || 'All Doc. Trackings',
       // Person submenu
-      'All Persons': this.labels.PERSON?.ALL_PERSONS || 'All Persons',
-      'Active Persons': this.labels.PERSON?.ACTIVE_PERSONS || 'Active Persons',
-      'Active Public Persons': this.labels.PERSON?.ACTIVE_PUBLIC_PERSONS || 'Active Public Persons',
-      'Active Private Persons': this.labels.PERSON?.ACTIVE_PRIVATE_PERSONS || 'Active Private Persons',
+      'all persons': this.labels.PERSON?.ALL_PERSONS || 'All Persons',
+      'active persons': this.labels.PERSON?.ACTIVE_PERSONS || 'Active Persons',
+      'active public persons': this.labels.PERSON?.ACTIVE_PUBLIC_PERSONS || 'Active Public Persons',
+      'active private persons': this.labels.PERSON?.ACTIVE_PRIVATE_PERSONS || 'Active Private Persons',
 
-      // Settings submenu
-      'User Management': this.labels.COMMON?.USER_MANAGEMENT || 'User Management',
-      'Group Management': this.labels.COMMON?.GROUP_MANAGEMENT || 'Group Management',
-      'Menu Management': this.labels.COMMON?.MENU_MANAGEMENT || 'Menu Management',
-      'Dynamic Lists': this.labels.COMMON?.DYNAMIC_LISTS || 'Dynamic Lists',
-      'User Groups': this.labels.COMMON?.USER_GROUPS || 'User Groups',
-      'Group Menus': this.labels.COMMON?.GROUP_MENUS || 'Group Menus'
+      "dynamic list": this.labels.SETTINGS.DYNAMIC_LIST || 'Dynamic List',
+
     };
 
-    return menuTranslations[name] || name;
+    // Convert input name to lowercase for case-insensitive lookup
+    return menuTranslations[name.toLowerCase()] || name;
   }
 
   ngOnDestroy(): void {
@@ -257,7 +288,7 @@ export class Sidebar implements OnInit, OnDestroy {
     if (this.hasChild(0, node)) {
       this.toggleNode(node);
     } else {
-      if(!node.path){
+      if (!node.path) {
         node.path = "";
       }
 

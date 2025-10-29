@@ -4,5 +4,5 @@
     <app-all-transactions-table-component></app-all-transactions-table-component>
     
 }@else if(showTable == false && itemId){
-    <app-transaction-view></app-transaction-view>
+    <app-transaction-view [id]="itemId"></app-transaction-view>
 }

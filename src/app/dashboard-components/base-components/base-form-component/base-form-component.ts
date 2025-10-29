@@ -153,7 +153,6 @@ export class BaseFormComponent implements OnInit, OnDestroy {
 
         }
       });
-
       if (isFormData) {
         this.saveEmitter.emit({ element: this.object, formData });
       } else {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../services/person-services/person-service';
 import { PersonStatus } from '../../../enums/person-status';
@@ -8,81 +8,59 @@ import { PersonDto } from '../../../models/person-models/person-dto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MenuService } from '../../../services/menu-service';
 import { environment } from '../../../../environment/environment';
-import { EntityIDc } from '../../../enums/entity-idc';
-import { PersonFormComponent } from '../person-form-component/person-form-component';
 import { PersonDialogFormComponent } from '../person-dialog-form-component/person-dialog-form-component';
 import { LanguageService } from '../../../services/language-service';
-import { LanguageCode } from '../../../models/types/lang-type';
-import { Labels } from '../../../models/consts/labels';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { BaseViewComponent } from '../../base-components/base-view-component/base-view-component';
+import { EntityIDc } from '../../../enums/entity-idc';
 
 @Component({
   selector: 'app-person-view-component',
   standalone: false,
   templateUrl: './person-view-component.html',
-  styleUrl: './person-view-component.scss'
+  styleUrls: ['../../_shared/styles/model-view-style.scss']
 })
-export class PersonViewComponent implements OnInit, OnDestroy {
-  
-  // Unsubscribe subject
-  private destroy$ = new Subject<void>();
+export class PersonViewComponent extends BaseViewComponent {
 
-  personIdc = EntityIDc.Person
-  personsUrl: any;
+
+  override idc: EntityIDc = EntityIDc.Person;
   imageUrl: any;
   fallbackImage: string = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mP8z8BQDwAFgwJ/lcu6zQAAAABJRU5ErkJggg==';
-  selectedTab = 0
   showLoading = false;
   person: PersonDto | null = null;
-  personId : number | null = null;
 
-  currentLang: LanguageCode = 'en';
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  }
+
+  // Add these new properties
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    override route: ActivatedRoute,
+    override router: Router,
     private personService: PersonService,
-    private menuService: MenuService,
-    private cdr: ChangeDetectorRef,
+    protected override cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private sanitizer: DomSanitizer,
     private errorHandler: ErrorHandlerService,
-    private langService: LanguageService,
-  ) { }
-
-  ngOnInit(): void {
-    // Subscribe to query params with unsubscribe logic
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        let personId = params['id'];
-        if (personId > 0) {
-          this.personId = parseInt(personId, 10);
-          this.getPerson();
-          this.personsUrl =
-            this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-            this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-            this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
-            this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
-        }
-      });
-
-    // Subscribe to language changes with unsubscribe logic
-    this.langService.language$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(lang => {
-        this.currentLang = lang;
-      });
+    override langService: LanguageService,
+  ) {
+    super(cdr, langService, router, route);
   }
 
-  ngOnDestroy(): void {
-    // Complete the destroy subject to unsubscribe from all observables
-    this.destroy$.next();
-    this.destroy$.complete();
-    
+  override ngOnInit(): void {
+    // Subscribe to query params with unsubscribe logic
+    super.ngOnInit();
+
+    if (this.id) {
+      this.getPerson();
+    } else {
+      this.backToTable();
+    }
+
+
+
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
     // Clean up image URL to prevent memory leaks
     if (this.imageUrl) {
       URL.revokeObjectURL(this.imageUrl);
@@ -91,20 +69,20 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
   private getPerson() {
     this.showLoading = true;
-    
-    this.personService.getPersonDto(this.personId!)
+
+    this.personService.getPersonDto(this.id!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
           this.person = data;
           this.showLoading = false;
-          
+
           if (data?.personImage && data?.contentType) {
             // Clean up previous image URL
             if (this.imageUrl) {
               URL.revokeObjectURL(this.imageUrl);
             }
-            
+
             // If dataFile is base64
             const base64Data = data?.personImage;
             const blob = this.base64ToBlob(base64Data, data.contentType);
@@ -162,7 +140,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     };
   }
 
-  getIcon(){
+  getIcon() {
     switch (this.person?.personStatus) {
       case PersonStatus.Active:
         return 'check_circle';
@@ -207,7 +185,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   exportToPdf() {
-    this.personService.exportToPdf({ id: this.personId })
+    this.personService.exportToPdf({ id: this.id })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -244,8 +222,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     if (!file) return;
 
     this.showLoading = true;
-    
-    this.personService.uploadImage({ file: file, personId: this.personId! })
+
+    this.personService.uploadImage({ file: file, personId: this.id! })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -258,6 +236,12 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+
+
+
+
+
 }
 
 

@@ -12,6 +12,7 @@ import { GetRegisterNoteParam } from '../../../../models/register-note/params/ge
 import { SharedRegisterNoteForm } from '../shared-register-note-form/shared-register-note-form';
 import { SharedRegisterNoteFormDialog } from '../shared-register-note-form-dialog/shared-register-note-form-dialog';
 import { LanguageService } from '../../../../services/language-service';
+import { EntityIDc } from '../../../../enums/entity-idc';
 
 @Component({
   selector: 'app-shared-register-note-table',
@@ -20,7 +21,7 @@ import { LanguageService } from '../../../../services/language-service';
   styleUrls: ['../../../_shared/styles/table-style.scss', './shared-register-note-table.scss']
 })
 export class SharedRegisterNoteTable extends TableFormComponent<RegisterNote> implements OnInit {
-  @Input() registersIdc!: string;
+  @Input() registersIdc!: EntityIDc;
   @Input() registersIdn!: number;
   @Input() canCrud: boolean = true;
   showTable: boolean = true;

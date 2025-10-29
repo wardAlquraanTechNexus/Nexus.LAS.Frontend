@@ -106,7 +106,8 @@ export class GroupTableComponent extends TableFormComponent<Group> {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.fetchData();
+        this.router.navigate([],{queryParams: {id: result.id}, relativeTo: this.route});
+          this.cdr.markForCheck();
       }
     })
   }

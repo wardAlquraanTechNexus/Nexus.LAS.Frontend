@@ -6,8 +6,8 @@
                 <mat-icon>menu</mat-icon>
             </div>
             <div class="header-text">
-                <h2 class="dialog-title">{{label.COMMON.ADD_NEW_MENU_ITEM}}</h2>
-                <p class="dialog-subtitle">Create a new menu item for navigation</p>
+                <h2 class="dialog-title">{{menu.id ? label.SETTINGS.EDIT_MENU : label.SETTINGS.ADD_MENU}}</h2>
+                <p class="dialog-subtitle">{{label.SETTINGS.ENTER_MENU_DETAILS}}</p>
             </div>
         </div>
         <button mat-icon-button class="close-button" (click)="cancelEdit()" aria-label="Close dialog">
@@ -21,41 +21,41 @@
             <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100">
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Name</mat-label>
-                        <input matInput formControlName="name" required placeholder="Enter menu name" />
+                        <mat-label>{{label.COMMON.NAME}}</mat-label>
+                        <input matInput formControlName="name" required [placeholder]="label.COMMON.NAME" />
                         <mat-error
                             *ngIf="formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched">
-                            Name is required
+                            {{label.COMMON.NAME_REQUIRED}} 
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Path</mat-label>
-                        <input matInput formControlName="path" placeholder="Enter navigation path" />
+                        <mat-label>{{label.SETTINGS.PATH}}</mat-label>
+                        <input matInput formControlName="path" [placeholder]="label.SETTINGS.PATH" />
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput formControlName="description" placeholder="Enter description"
+                        <mat-label>{{label.COMMON.DESCRIPTION}}</mat-label>
+                        <textarea matInput formControlName="description" [placeholder]="label.COMMON.DESCRIPTION"
                             rows="3"></textarea>
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Icon Class</mat-label>
-                        <input matInput formControlName="iconClass" placeholder="Enter icon class" />
+                        <mat-label>{{label.SETTINGS.ICON_CLASS}}</mat-label>
+                        <input matInput formControlName="iconClass" [placeholder]="label.SETTINGS.ICON_CLASS" />
                     </mat-form-field>
                 </div>
                 <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Rank</mat-label>
+                        <mat-label>{{label.SETTINGS.RANK}}</mat-label>
                         <input matInput formControlName="rank" required type="number"
-                            placeholder="Enter display order" />
+                            [placeholder]="label.SETTINGS.RANK" />
                         <mat-error
                             *ngIf="formGroup.get('rank')?.hasError('required') && formGroup.get('rank')?.touched">
-                            Rank is required
+                            {{label.SETTINGS.RANK_REQUIRED}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="nexus-switch-wrapper">
                         <div class="nexus-switch-container">
                             <mat-slide-toggle formControlName="inDashboard" color="primary" class="nexus-switch">
-                                Show in Dashboard
+                                {{label.SETTINGS.SHOW_IN_DASHBOARD}}
                             </mat-slide-toggle>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
     <div class="dialog-footer">
         <button mat-stroked-button class="cancel-btn" (click)="cancelEdit()">
             <mat-icon>close</mat-icon>
-            Cancel
+            {{ label.COMMON.CANCEL || 'Cancel' }}
         </button>
         <app-save-button [showLoading]="showLoading" (clickEmitter)="save(true)"></app-save-button>
 

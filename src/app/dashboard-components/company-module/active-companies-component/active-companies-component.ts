@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseTableViewComponent } from '../../../components/base-table-view-component/base-table-view-component';
+import { EntityIDc } from '../../../enums/entity-idc';
 
 @Component({
   selector: 'app-active-companies-component',
@@ -8,5 +9,4 @@ import { BaseTableViewComponent } from '../../../components/base-table-view-comp
   styleUrls: ['./active-companies-component.scss']
 })
 export class ActiveCompaniesComponent  extends BaseTableViewComponent {
-
 }

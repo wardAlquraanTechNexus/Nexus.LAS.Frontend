@@ -4,5 +4,5 @@
 @if(showTable == true && !itemId){
     <app-active-persons-table></app-active-persons-table>    
 }@else if(showTable == false && itemId){
-    <app-person-view-component></app-person-view-component>
+    <app-person-view-component [id]="itemId"></app-person-view-component>
 }

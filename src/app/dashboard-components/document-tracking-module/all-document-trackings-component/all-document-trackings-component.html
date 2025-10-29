@@ -2,5 +2,5 @@
     <app-all-document-tracking-table></app-all-document-tracking-table>
     
 }@else if(showTable == false && itemId){
-    <app-document-tracking-view></app-document-tracking-view>
+    <app-document-tracking-view [id]="itemId" [idc]="idc"></app-document-tracking-view>
 }

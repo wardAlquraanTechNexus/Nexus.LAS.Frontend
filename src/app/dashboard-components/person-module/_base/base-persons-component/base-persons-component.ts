@@ -313,19 +313,12 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
     });
 
-    let path =
-          this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
-        let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
-
-    
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            navigate(this.router , basePath , path, result.id);
-          }
-        })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate([], { queryParams: { id: result.id }, relativeTo: this.route });
+        this.cdr.markForCheck();
+      }
+    })
 
   }
 

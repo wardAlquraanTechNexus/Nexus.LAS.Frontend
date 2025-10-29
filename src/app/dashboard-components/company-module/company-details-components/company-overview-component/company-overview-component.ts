@@ -11,7 +11,7 @@ import { LanguageCode } from '../../../../models/types/lang-type';
   selector: 'app-company-overview-component',
   standalone: false,
   templateUrl: './company-overview-component.html',
-  styleUrls: ['./../../../_shared/styles/model-view-style.scss']
+  styleUrls: ['./../../../_shared/styles/model-overview-style.scss']
 })
 export class CompanyOverviewComponent implements OnInit, OnChanges {
   companyType$!: Observable<string>;

@@ -1,5 +1,5 @@
 @if(showTable == true && !itemId){
     <app-active-public-transactions-table-component></app-active-public-transactions-table-component>
 }@else if(showTable == false && itemId){
-    <app-transaction-view></app-transaction-view>
+    <app-transaction-view [id]="itemId"></app-transaction-view>
 }

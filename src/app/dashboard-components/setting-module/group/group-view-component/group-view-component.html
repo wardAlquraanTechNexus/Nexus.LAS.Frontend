@@ -11,7 +11,7 @@
     <div *ngIf="!showLoading && group" class="section section-header">
         <!-- Breadcrumb -->
         <div class="breadcrumb-nav">
-            <a (click)="navigateToTable()" class="breadcrumb-link">
+            <a (click)="backToTable()" class="breadcrumb-link">
                 <mat-icon>arrow_back</mat-icon>
                 {{ label.SETTINGS.GROUPS }}
             </a>
@@ -21,12 +21,15 @@
 
         <div class="header-card">
             <div class="profile-section">
+                <!-- Group Icon Section -->
+                <div class="icon-container">
+                    <mat-icon class="icon">{{icon}}</mat-icon>
+                </div>
 
-
-                <div class="profile-details">
-                    <div class="profile-name-section">
+                <div class="details">
+                    <div class="name-section">
                         <div class="name-and-badges">
-                            <h1 class="profile-name">{{ group.groupName | titlecase }}</h1>
+                            <h1 class="name">{{ group.groupName | titlecase }}</h1>
                             <div class="status-badges">
                                 <!-- <span class="status-badge">
                                     {{ group.description }}
@@ -37,7 +40,7 @@
                                 </span> -->
                             </div>
                         </div>
-                        <!-- <div class="profile-name-arabic">{{ lawFirm.arabicName | titlecase }}</div> -->
+                        <!-- <div class="name-arabic">{{ lawFirm.arabicName | titlecase }}</div> -->
                     </div>
 
                     <div class="meta-info">
@@ -53,13 +56,11 @@
                 </div>
             </div>
 
-            <div class="profile-action">
+            <div class="actions">
                 <!-- <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
                     {{ label.LAW_FIRM.EDIT_LAW_FIRM }}
                 </button> -->
-
-              
             </div>
         </div>
     </div>
@@ -68,9 +69,9 @@
     <div *ngIf="!showLoading" class="section section-content">
         <div class="tabs-container">
             <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
-                (selectedIndexChange)="selectedTab = $event">
+                (selectedIndexChange)="onTabChange($event)">
                
-
+                <!-- Tab 0: Members -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -79,12 +80,20 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(0)) {
                         <div class="overview-component">
-                             <app-users-by-group [groupId]="groupId!"></app-users-by-group>
+                             <app-users-by-group [groupId]="id!"></app-users-by-group>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
 
+                <!-- Tab 1: Menus -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -93,9 +102,16 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(1)) {
                         <div class="overview-component">
-                             <app-menus-by-group [groupId]="groupId!"></app-menus-by-group>
+                             <app-menus-by-group [groupId]="id!"></app-menus-by-group>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
 

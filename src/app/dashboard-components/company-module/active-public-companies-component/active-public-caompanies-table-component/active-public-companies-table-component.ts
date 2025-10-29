@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CompanyStatus } from '../../../../enums/company-status';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import GetCompanyQuery from '../../../../models/company-models/get-company-query/get-company-dto-command';
 import { CompanyService } from '../../../../services/company-services/company-service';
@@ -12,6 +11,7 @@ import { ErrorHandlerService } from '../../../../services/error-handler.service'
 import { MenuService } from '../../../../services/menu-service';
 import { BaseCompaniesComponent } from '../../_base/base-companies-component/base-companies-component';
 import { LanguageService } from '../../../../services/language-service';
+import { CommonStatus } from '../../../../enums/common-status';
 
 @Component({
   selector: 'app-active-public-companies-table-component',
@@ -23,7 +23,7 @@ export class ActivePublicCompaniesTableComponent extends BaseCompaniesComponent 
   override params: GetCompanyQuery = {
     searchBy: null,
     private: false,
-    status: CompanyStatus.Active,
+    status: CommonStatus.Active,
     page: 0,
     pageSize: 10,
     orderBy: 'id',

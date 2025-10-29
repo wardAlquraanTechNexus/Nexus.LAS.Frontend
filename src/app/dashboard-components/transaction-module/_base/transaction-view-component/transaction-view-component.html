@@ -11,7 +11,7 @@
     <div *ngIf="!showLoading && transaction" class="section section-header">
         <!-- Breadcrumb -->
         <div class="breadcrumb-nav">
-            <a (click)="navigateToTable()" class="breadcrumb-link">
+            <a (click)="backToTable()" class="breadcrumb-link">
                 <mat-icon>arrow_back</mat-icon>
                 {{ label.TRANSACTION.TRANSACTIONS }}
             </a>
@@ -21,12 +21,15 @@
 
         <div class="header-card">
             <div class="profile-section">
+                <!-- Transaction Icon Section -->
+                <div class="icon-container">
+                    <mat-icon class="icon">{{icon}}</mat-icon>
+                </div>
 
-
-                <div class="profile-details">
-                    <div class="profile-name-section">
+                <div class="details">
+                    <div class="name-section">
                         <div class="name-and-badges">
-                            <h1 class="profile-name">{{ transaction.transactionCode | titlecase }}</h1>
+                            <h1 class="name">{{ transaction.transactionCode | titlecase }}</h1>
                             <div class="status-badges">
                                 <span class="status-badge" [ngStyle]="getStatusStyle()">
                                     <mat-icon>{{ getIcon() }}</mat-icon>
@@ -38,20 +41,17 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="profile-name-arabic">{{ transaction.transactionCode | titlecase }}</div> -->
-                    </div>
-
-                    <!-- <div class="meta-info">
-                        <div class="info-item">
-                            <span class="info-label">{{ label.COMMON.CODE || 'ID:' }}</span>
-                            <span class="info-value">{{ transaction.transactionCode }}</span>
+                        <div class="meta-info">
+                            <div class="info-item">
+                                <span class="info-label">{{ label.COMMON.CODE }}</span>
+                                <span class="info-value">{{ transaction.transactionCode }}</span>
+                            </div>
                         </div>
-                        
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
-            <div class="profile-action">
+            <div class="person-actions">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
                     {{ label.TRANSACTION.EDIT_TRANSACTION }}
@@ -59,7 +59,7 @@
 
                 <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
                     <mat-icon>more_vert</mat-icon>
-                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
+                    {{ label.COMMON.MORE_ACTIONS }}
                 </button>
 
                 <mat-menu #moreMenu="matMenu">
@@ -75,29 +75,31 @@
     <!-- SECTION 3: Content Tabs -->
     <div *ngIf="!showLoading" class="section section-content">
         <div class="tabs-container">
-            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
-                (selectedIndexChange)="selectedTab = $event">
+            <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab" (selectedIndexChange)="onTabChange($event)">
+                
+                <!-- Tab 0: Overview -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
                             <mat-icon>dashboard</mat-icon>
-                            <span>{{ label.COMMON.OVERVIEW || 'Overview' }}</span>
+                            <span>{{ label.COMMON.OVERVIEW }}</span>
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(0)) {
                         <div class="overview-component">
                             <app-transaction-overview [transaction]="transaction"></app-transaction-overview>
                         </div>
-                        <div class="overview-component">
-                            <app-transaction-registers [readonly]="true"
-                                [transaction]="transaction"></app-transaction-registers>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING }}</span>
                         </div>
-
+                        }
                     </div>
                 </mat-tab>
 
-
-
+                <!-- Tab 1: Transaction Registers -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -106,62 +108,20 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(1)) {
                         <div class="overview-component">
-                            <app-transaction-registers [readonly]="false" [idc]="EntityIDc.Company"
-                                [transaction]="transaction"
-                                [registerTypes]="companyPersonRegisterTypes"></app-transaction-registers>
+                            <app-transaction-registers [transaction]="transaction"></app-transaction-registers>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
 
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>insert_drive_file</mat-icon>
-                            <span>{{ label.TRANSACTION.OTFS }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-transaction-registers [readonly]="false" [idc]="EntityIDc.LawFirm"
-                                [transaction]="transaction" [registerTypes]="lawFirmRegisterTypes"
-                                [title]="label.TRANSACTION.OTFS" [addLabel]="label.TRANSACTION.ADD_OTF"
-                                [editLabel]="label.TRANSACTION.EDIT_OTF"
-                                [enterDetailsLabel]="label.TRANSACTION.ENTER_OTF_DETAILS"
-                                [icon]="'insert_drive_file'"></app-transaction-registers>
-                        </div>
-
-                    </div>
-                </mat-tab>
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>assignment</mat-icon>
-                            <span>{{ label.TRANSACTION.FOLLOW_UPS }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
-                        </div>
-                    </div>
-                </mat-tab>
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <div class="tab-label">
-                            <mat-icon>request_quote</mat-icon>
-                            <span>{{ label.TRANSACTION.INVOICES }}</span>
-                        </div>
-                    </ng-template>
-                    <div class="tab-content">
-                        <div class="overview-component">
-                            <app-transaction-invoices [transaction]="transaction"></app-transaction-invoices>
-                        </div>
-                    </div>
-                </mat-tab>
-
+                <!-- Tab 2: Notes -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -170,13 +130,19 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(2)) {
                         <div class="overview-component">
-                            <app-shared-register-note-table [registersIdn]="transactionId"
-                                [registersIdc]="idc"></app-shared-register-note-table>
-
+                            <app-shared-register-note-table [registersIdn]="id!" [registersIdc]="idc"></app-shared-register-note-table>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
+
             </mat-tab-group>
         </div>
     </div>

@@ -12,21 +12,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { FPCODDto } from '../../../../models/fpc-models/fpc-od/dtos/fpc-od-dto';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 import { Subject, takeUntil } from 'rxjs';
+import { BaseViewComponent } from '../../../base-components/base-view-component/base-view-component';
+import { entityIcons } from '../../../../enums/entity-icon';
 
 @Component({
   selector: 'app-fpc-table-view-component',
   standalone: false,
   templateUrl: './fpc-table-view-component.html',
-  styleUrls: ['./fpc-table-view-component.scss']
+  styleUrls: ['../../../_shared/styles/model-view-style.scss', './fpc-table-view-component.scss']
 })
-export class FpcTableViewComponent implements OnInit, OnDestroy {
-  
-  // Unsubscribe subject
-  private destroy$ = new Subject<void>();
+export class FpcTableViewComponent extends BaseViewComponent {
 
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  };
+  override idc: EntityIDc = EntityIDc.FPCs;
 
   EntityIDc = EntityIDc;
 
@@ -34,64 +31,51 @@ export class FpcTableViewComponent implements OnInit, OnDestroy {
   showFpcOdActions = false;
   selectedOd!: FPCODDto;
 
-  currentLang: LanguageCode = 'en';
 
   fpc!: FPCDto;
   showLoading = false;
-  fpcId = 0;
 
-  idc = EntityIDc.FPCs;
   statuses = CommonStatus;
 
-  selectedTab = 0;
 
   constructor(
     private service: FPCService,
-    private router: Router,
-    private route: ActivatedRoute,
-    protected langService: LanguageService,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
     private dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
-  ) {}
+    override cdr: ChangeDetectorRef,
+  ) {
+    super(cdr, langService, router, route);
+  }
 
-  ngOnInit() {
+  override ngOnInit() {
+    super.ngOnInit();
     // Subscribe to query params with unsubscribe logic
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        if (params['id']) {
-          this.fpcId = parseInt(params['id']);
-          this.getFpc();
-        } else {
-          this.backToTable();
-        }
-      });
 
-    // Subscribe to language changes with unsubscribe logic
-    this.langService.language$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(lang => {
-        this.applyLanguage(lang);
-      });
+    if (this.id) {
+      this.getFpc();
+    } else {
+      this.backToTable();
+    }
+
+
+
   }
 
-  ngOnDestroy(): void {
-    // Complete the destroy subject to unsubscribe from all observables
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+
 
   private getFpc() {
     this.showLoading = true;
-    
-    this.service.getDtoById(this.fpcId)
+
+    this.service.getDtoById(this.id!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
           this.fpc = res;
           this.showLoading = false;
           this.cdr.markForCheck();
-        }, 
+        },
         error: (err) => {
           this.showLoading = false;
           console.error('Error fetching FPC:', err);
@@ -106,7 +90,7 @@ export class FpcTableViewComponent implements OnInit, OnDestroy {
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    
+
     switch (this.fpc?.fpcStatus) {
       case CommonStatus.Active:
         borderColor = '#22C993';
@@ -140,12 +124,12 @@ export class FpcTableViewComponent implements OnInit, OnDestroy {
   getPrivateStyle() {
     let borderColor = '#025EBA';
     let color = '#025EBA';
-    
+
     if (!this.fpc?.private) {
       borderColor = '#FFA500';
       color = '#FFA500';
     }
-    
+
     return {
       'border': `2px solid ${borderColor}`,
       'color': color,
@@ -154,9 +138,7 @@ export class FpcTableViewComponent implements OnInit, OnDestroy {
     };
   }
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
+
 
   onEdit() {
     const dialogRef = this.dialog.open(FpcDialogFormComponent, {
@@ -190,13 +172,7 @@ export class FpcTableViewComponent implements OnInit, OnDestroy {
     }, 100);
   }
 
-  backToTable() {
-    this.fpcId = 0;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {},
-    });
-  }
+
 
   onActionEdit() {
     this.showFpcOd = false;
@@ -207,7 +183,7 @@ export class FpcTableViewComponent implements OnInit, OnDestroy {
   }
 
   exportToPdf() {
-    this.service.exportToPdf({ id: this.fpcId })
+    this.service.exportToPdf({ id: this.id! })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {

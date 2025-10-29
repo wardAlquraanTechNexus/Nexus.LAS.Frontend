@@ -1,7 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { Labels } from '../../../../models/consts/labels';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { EntityIDc } from '../../../../enums/entity-idc';
-import { LanguageCode } from '../../../../models/types/lang-type';
 import { DocumentTrackingDto } from '../../../../models/document-tracking-models/document-tracking/dtos/document-tracking-dto';
 import { DocumentTrackingService } from '../../../../services/document-tracking-services/document-tracking-service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,78 +7,55 @@ import { LanguageService } from '../../../../services/language-service';
 import { MatDialog } from '@angular/material/dialog';
 import { DocumentTrackingDialogFormComponent } from '../../document-tracking-dialog-form-component/document-tracking-dialog-form-component';
 import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
-import { Subject, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { BaseViewComponent } from '../../../base-components/base-view-component/base-view-component';
+import { entityIcons } from '../../../../enums/entity-icon';
 
 @Component({
   selector: 'app-document-tracking-view',
   standalone: false,
   templateUrl: './document-tracking-view-component.html',
-  styleUrls: ['./document-tracking-view-component.scss']
+  styleUrls: ['../../../_shared/styles/model-view-style.scss', './document-tracking-view-component.scss']
 })
-export class DocumentTrackingViewComponent implements OnInit, OnDestroy {
-  
-  // Unsubscribe subject
-  private destroy$ = new Subject<void>();
+export class DocumentTrackingViewComponent extends BaseViewComponent {
 
-  get label() {
-    return Labels[this.currentLang as keyof typeof Labels];
-  };
-
-  EntityIDc = EntityIDc;
+  override idc: EntityIDc = EntityIDc.DocumentTracking;
 
   showFpcOd = true;
   showFpcOdActions = false;
 
-  currentLang: LanguageCode = 'en';
-
   documentTracking!: DocumentTrackingDto;
   showLoading = false;
-  documentTrackingId = 0;
 
-  idc = EntityIDc.DocumentTracking;
 
-  selectedTab = 0;
 
   constructor(
     private service: DocumentTrackingService,
-    private router: Router,
-    private route: ActivatedRoute,
-    protected langService: LanguageService,
+    override router: Router,
+    override route: ActivatedRoute,
+    override langService: LanguageService,
     private dialog: MatDialog,
-    protected cdr: ChangeDetectorRef,
-  ) {}
+    override cdr: ChangeDetectorRef,
+  ) {
+    super(cdr, langService , router, route);
+  }
 
-  ngOnInit() {
+  override ngOnInit() {
+    super.ngOnInit();
     // Subscribe to query params with unsubscribe logic
-    this.route.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(params => {
-        if (params['id']) {
-          this.documentTrackingId = parseInt(params['id']);
-          this.getDocumentTracking();
-        } else {
-          this.backToTable();
-        }
-      });
-
-    // Subscribe to language changes with unsubscribe logic
-    this.langService.language$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(lang => {
-        this.applyLanguage(lang);
-      });
+    if (this.id) {
+      this.getDocumentTracking();
+    } else {
+      this.backToTable();
+    }
   }
 
-  ngOnDestroy(): void {
-    // Complete the destroy subject to unsubscribe from all observables
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+
 
   private getDocumentTracking() {
     this.showLoading = true;
-    
-    this.service.getDtoById(this.documentTrackingId)
+
+    this.service.getDtoById(this.id!)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -95,13 +70,7 @@ export class DocumentTrackingViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  navigateToTable() {
-    this.backToTable();
-  }
 
-  protected applyLanguage(lang: LanguageCode) {
-    this.currentLang = lang;
-  }
 
   onEdit() {
     const dialogRef = this.dialog.open(DocumentTrackingDialogFormComponent, {
@@ -123,16 +92,10 @@ export class DocumentTrackingViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  backToTable() {
-    this.documentTrackingId = 0;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {},
-    });
-  }
+
 
   exportToPdf() {
-    this.service.exportToPdf({ id: this.documentTrackingId })
+    this.service.exportToPdf({ id: this.id! })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -140,7 +103,7 @@ export class DocumentTrackingViewComponent implements OnInit, OnDestroy {
           const binaryString = atob(res.data);
           const len = binaryString.length;
           const bytes = new Uint8Array(len);
-          
+
           for (let i = 0; i < len; i++) {
             bytes[i] = binaryString.charCodeAt(i);
           }

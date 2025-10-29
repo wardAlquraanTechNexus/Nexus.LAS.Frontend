@@ -11,7 +11,7 @@
     <div *ngIf="!showLoading && documentTracking" class="section section-header">
         <!-- Breadcrumb -->
         <div class="breadcrumb-nav">
-            <a (click)="navigateToTable()" class="breadcrumb-link">
+            <a (click)="backToTable()" class="breadcrumb-link">
                 <mat-icon>arrow_back</mat-icon>
                 {{ label.DOCUMENT_TRACKING.DOCUMENT_TRACKINGS }}
             </a>
@@ -21,44 +21,26 @@
 
         <div class="header-card">
             <div class="profile-section">
-
+                <!-- Document Tracking Icon Section -->
+                <div class="icon-container">
+                    <mat-icon class="icon">{{icon}}</mat-icon>
+                </div>
 
                 <div class="profile-details">
-                    <div class="profile-name-section">
+                    <div class="name-section">
                         <div class="name-and-badges">
-                            <h1 class="profile-name">{{ documentTracking.documentTrackingCode | titlecase }}</h1>
-                            <!-- <div class="status-badges">
-                                <span class="status-badge" [ngStyle]="getStatusStyle()">
-                                    <mat-icon>{{ getIcon() }}</mat-icon>
-                                    {{ documentTracking.documentTrackingStatus | textPipe: 'company-status' | async}}
-                                </span>
-                                <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
-                                    <mat-icon>{{ documentTracking.private ? 'lock' : 'public' }}</mat-icon>
-                                    {{ documentTracking.private | textPipe: 'private-company' | async }}
-                                </span>
-                            </div> -->
+                            <h1 class="name">{{ documentTracking.documentTrackingCode | titlecase }}</h1>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="profile-action">
+            <div class="actions">
                 <button mat-raised-button color="primary" class="action-btn" (click)="onEdit()">
                     <mat-icon>edit</mat-icon>
                     {{ label.DOCUMENT_TRACKING.EDIT_DOCUMENT_TRACKING || 'Edit Document Tracking' }}
                 </button>
 
-                <!-- <button mat-button [matMenuTriggerFor]="moreMenu" class="more-actions-btn">
-                    <mat-icon>more_vert</mat-icon>
-                    {{ label.COMMON.MORE_ACTIONS || 'More Actions' }}
-                </button> -->
-
-                <!-- <mat-menu #moreMenu="matMenu">
-                    <button mat-menu-item (click)="exportToPdf()">
-                        <mat-icon>picture_as_pdf</mat-icon>
-                        {{ label.COMMON.PRINT }}
-                    </button>
-                </mat-menu> -->
             </div>
         </div>
     </div>
@@ -67,7 +49,9 @@
     <div *ngIf="!showLoading" class="section section-content">
         <div class="tabs-container">
             <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
-                (selectedIndexChange)="selectedTab = $event">
+                (selectedIndexChange)="onTabChange($event)">
+                
+                <!-- Tab 0: Overview -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -76,12 +60,20 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(0)) {
                         <div class="overview-component">
                             <app-document-tracking-overview [documentTracking]="documentTracking"></app-document-tracking-overview>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
 
+                <!-- Tab 1: Document Tracking Actions -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -90,12 +82,20 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(1)) {
                         <div class="overview-component">
                             <app-document-tracking-action [documentTracking]="documentTracking"></app-document-tracking-action>
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
                 
+                <!-- Tab 2: Notes -->
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <div class="tab-label">
@@ -104,11 +104,17 @@
                         </div>
                     </ng-template>
                     <div class="tab-content">
+                        @if (loadedTabs.has(2)) {
                         <div class="overview-component">
                             <app-shared-register-note-table [registersIdn]="documentTracking.id!"
                                 [registersIdc]="idc"></app-shared-register-note-table>
-
                         </div>
+                        } @else {
+                        <div class="tab-loading">
+                            <mat-spinner diameter="30"></mat-spinner>
+                            <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                        </div>
+                        }
                     </div>
                 </mat-tab>
             </mat-tab-group>

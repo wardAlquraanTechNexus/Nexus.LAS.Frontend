@@ -143,13 +143,7 @@ export class BaseTransactionsComponent extends TableFormComponent<Transaction> {
       panelClass: 'property-dialog-panel'
     });
 
-    let path =
-      this.menuService.getMenuByPath(environment.routes.AllTransactions) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveTransactions) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateTransactions) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicTransactions);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Transactions);
-
+    
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -157,6 +151,7 @@ export class BaseTransactionsComponent extends TableFormComponent<Transaction> {
           relativeTo: this.route,
           queryParams: { id: result.id },
         });
+        this.cdr.markForCheck();
       }
     })
   }

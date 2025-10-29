@@ -1,8 +1,7 @@
-@if(showTable == true && !groupId){
+@if(showTable == true && !itemId){
     <app-group-table>
     
     </app-group-table>
-}@else if(showTable == false && groupId){
-    <app-group-view>
-    </app-group-view>
+}@else if(showTable == false && itemId){
+    <app-group-view [id]="itemId"></app-group-view>
 }

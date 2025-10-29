@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BaseTableViewComponent } from '../../../../components/base-table-view-component/base-table-view-component';
 
 @Component({
   selector: 'app-group-table-view',
@@ -7,32 +8,15 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './group-table-view-component.html',
   styleUrls: ['./group-table-view-component.scss']
 })
-export class GroupTableViewComponent {
+export class GroupTableViewComponent extends BaseTableViewComponent {
 
 
-  groupId : number | null = null;
-  showTable?: boolean | null = null;
   constructor(
-    private route: ActivatedRoute,
-    protected cdr: ChangeDetectorRef,
+    override cdr: ChangeDetectorRef,
+    override route: ActivatedRoute,
 
   ) {
-
+    super(route , cdr);
   }
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params['id']) {
-        this.groupId = parseInt(params['id']);
-        this.showTable = false;
-        // this.getGroup();
-      }else{
-        this.showTable = true;
-        this.groupId = null;
-        // this.backToTable();
-      }
-    });
-  
-
-  }
 }

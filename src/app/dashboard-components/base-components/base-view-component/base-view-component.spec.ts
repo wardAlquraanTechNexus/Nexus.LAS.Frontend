@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaseDialogFormComponent } from './base-dialog-form-component';
+import { BaseViewComponent } from './base-view-component';
 
-describe('BaseDialogFormComponent', () => {
-  let component: BaseDialogFormComponent;
-  let fixture: ComponentFixture<BaseDialogFormComponent>;
+describe('BaseViewComponent', () => {
+  let component: BaseViewComponent;
+  let fixture: ComponentFixture<BaseViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BaseDialogFormComponent]
+      imports: [BaseViewComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BaseDialogFormComponent);
+    fixture = TestBed.createComponent(BaseViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

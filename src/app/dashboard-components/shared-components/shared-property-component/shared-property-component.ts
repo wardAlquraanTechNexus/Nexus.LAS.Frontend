@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { LanguageService } from '../../../services/language-service';
 import { PropertyService } from '../../../services/property-services/property-service';
+import { EntityIDc } from '../../../enums/entity-idc';
 
 @Component({
   selector: 'app-shared-property-component',
@@ -19,7 +20,7 @@ import { PropertyService } from '../../../services/property-services/property-se
 })
 export class SharedPropertyComponent extends TableFormComponent<Property> {
 
-  @Input() registersIdc!: string;
+  @Input() registersIdc!: EntityIDc;
   @Input() registersIdn!: number
 
   override data: PaginateRsult<SharedPropertyDTO> = {

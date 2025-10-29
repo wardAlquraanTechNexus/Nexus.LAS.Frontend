@@ -116,8 +116,8 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
         label: this.langService.getLabel(this.label.COMPANY.CLASS_OF_SHARES) || "Class of Shares",
       }, {
         key: "capitalActive",
-        label: this.langService.getLabel(this.label.COMMON.STATUS) || "Status",
-        pipes: ['capital-active'],
+        label: this.langService.getLabel(this.label.COMMON.IS_ACTIVE) || "Status",
+        inputType: 'mat-slide-toggle'
       },
       {
         key: 'action',
@@ -206,6 +206,21 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
         this.showLoading = false;
       })
     })
+  }
+
+  onRowClick(row: any) {
+    if(row.key == 'capitalActive'){
+      this.showLoading = true;
+      this.service.update(row.element).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          this.errorHandler.showSuccess("Status Updated Successfully");
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.fetchData();
+        })
+      });
+    }
   }
 
   showTable = true;

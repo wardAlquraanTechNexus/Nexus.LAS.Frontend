@@ -27,7 +27,7 @@ import { LanguageService } from '../../../services/language-service';
 })
 export class SharedCompanyShareholderComponent extends TableFormComponent<CompaniesShareHolder> {
 
-  @Input() registersIdc!: string;
+  @Input() registersIdc!: EntityIDc;
   @Input() registersIdn!: number
 
   override data: PaginateRsult<ShareholderAssetsDto> = {

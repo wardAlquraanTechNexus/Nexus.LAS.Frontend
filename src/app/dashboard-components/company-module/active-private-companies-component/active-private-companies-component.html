@@ -2,5 +2,5 @@
 <app-active-private-companies-table-component></app-active-private-companies-table-component>
 
 }@else if(showTable == false && itemId){
-<app-company-view-component></app-company-view-component>
+<app-company-view-component [id]="itemId"></app-company-view-component>
 }

@@ -46,7 +46,7 @@ export class AllCompaniesTable extends BaseCompaniesComponent {
       { key: "companyEnglishName", label: this.label.COMMON.NAME_EN, pipes: ["link"], sort: true },
       { key: "companyArabicName", label: this.label.COMMON.NAME_AR, pipes: ["link"], sort: true },
       { key: "companyShortName", label: this.label.COMPANY.SHORT_NAME, pipes: ["link"], sort: true },
-      { key: "companyStatus", label: this.label.COMPANY.STATUS, pipes: ["company-Status"], sort: true, hasIcon: true },
+      { key: "companyStatus", label: this.label.COMPANY.STATUS, pipes: ["common-status"], sort: true, hasIcon: true },
       { key: "fpcCode", label: this.label.COMPANY.FPC_CODE, sort: true },
       { key: "private", label: this.label.COMPANY.PRIVATE, pipes: ["private"], sort: true, hasIcon: true },
       { key: "action", label: this.label.COMMON.ACTIONS }

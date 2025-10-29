@@ -25,7 +25,7 @@ import { environment } from '../../../../environment/environment';
 })
 export class SharedTransactionRegisterComponent extends TableFormComponent<TransactionRegister> {
 
-  @Input() idc!: string;
+  @Input() idc!: EntityIDc;
   @Input() id!: number;
 
   @Input() readonly = false;

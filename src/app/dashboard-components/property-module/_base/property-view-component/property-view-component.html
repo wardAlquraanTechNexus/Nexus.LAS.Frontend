@@ -14,7 +14,7 @@
         <div class="section section-header">
             <!-- Breadcrumb -->
             <div class="breadcrumb-nav">
-                <a (click)="navigateToTable()" class="breadcrumb-link">
+                <a (click)="backToTable()" class="breadcrumb-link">
                     <mat-icon>arrow_back</mat-icon>
                     {{ label.PROPERTY.REAL_EASTATES || 'Real Estates' }}
                 </a>
@@ -23,6 +23,11 @@
             <!--  Header Card -->
             <div class="header-card">
                 <div class="profile-section">
+                     <!-- Property Icon Section -->
+                    <div class="icon-container">
+                        <mat-icon class="icon">{{icon}}</mat-icon>
+                    </div>
+
                     <!--  Details -->
                     <div class="details">
                         <div class="name-section">
@@ -74,7 +79,9 @@
         <div class="section section-content">
             <div class="tabs-container">
                 <mat-tab-group class="modern-tabs" [selectedIndex]="selectedTab"
-                    (selectedIndexChange)="selectedTab = $event">
+                    (selectedIndexChange)="onTabChange($event)">
+                    
+                    <!-- Tab 0: Overview -->
                     <mat-tab>
                         <ng-template mat-tab-label>
                             <div class="tab-label">
@@ -83,14 +90,23 @@
                             </div>
                         </ng-template>
                         <div class="tab-content">
+                            @if (loadedTabs.has(0)) {
                             <div class="overview-component">
                                 <app-property-overview [property]="property"></app-property-overview>
                             </div>
                             <div class="overview-component">
                                 <app-property-links [readonly]="true" [property]="property"></app-property-links>
                             </div>
+                            } @else {
+                            <div class="tab-loading">
+                                <mat-spinner diameter="30"></mat-spinner>
+                                <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                            </div>
+                            }
                         </div>
                     </mat-tab>
+
+                    <!-- Tab 1: Owners -->
                     <mat-tab>
                         <ng-template mat-tab-label>
                             <div class="tab-label">
@@ -99,11 +115,20 @@
                             </div>
                         </ng-template>
                         <div class="tab-content">
+                            @if (loadedTabs.has(1)) {
                             <div class="overview-component">
                                 <app-property-owners [property]="property"></app-property-owners>
                             </div>
+                            } @else {
+                            <div class="tab-loading">
+                                <mat-spinner diameter="30"></mat-spinner>
+                                <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                            </div>
+                            }
                         </div>
                     </mat-tab>
+
+                    <!-- Tab 2: Links -->
                     <mat-tab>
                         <ng-template mat-tab-label>
                             <div class="tab-label">
@@ -112,11 +137,20 @@
                             </div>
                         </ng-template>
                         <div class="tab-content">
+                            @if (loadedTabs.has(2)) {
                             <div class="overview-component">
                                 <app-property-links [property]="property"></app-property-links>
                             </div>
+                            } @else {
+                            <div class="tab-loading">
+                                <mat-spinner diameter="30"></mat-spinner>
+                                <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                            </div>
+                            }
                         </div>
                     </mat-tab>
+
+                    <!-- Tab 3: Documents -->
                     <mat-tab>
                         <ng-template mat-tab-label>
                             <div class="tab-label">
@@ -125,11 +159,20 @@
                             </div>
                         </ng-template>
                         <div class="tab-content">
+                            @if (loadedTabs.has(3)) {
                             <div class="overview-component">
                                 <app-property-documents [property]="property"></app-property-documents>
                             </div>
+                            } @else {
+                            <div class="tab-loading">
+                                <mat-spinner diameter="30"></mat-spinner>
+                                <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                            </div>
+                            }
                         </div>
                     </mat-tab>
+
+                    <!-- Tab 4: Notes -->
                     <mat-tab>
                         <ng-template mat-tab-label>
                             <div class="tab-label">
@@ -138,11 +181,19 @@
                             </div>
                         </ng-template>
                         <div class="tab-content">
+                            @if (loadedTabs.has(4)) {
                             <div class="overview-component">
-                                <app-shared-register-note-table [registersIdn]="property.id" [registersIdc]="propertyIdc"></app-shared-register-note-table>
+                                <app-shared-register-note-table [registersIdn]="property.id" [registersIdc]="idc"></app-shared-register-note-table>
                             </div>
+                            } @else {
+                            <div class="tab-loading">
+                                <mat-spinner diameter="30"></mat-spinner>
+                                <span>{{ label.COMMON.LOADING || 'Loading...' }}</span>
+                            </div>
+                            }
                         </div>
                     </mat-tab>
+
                 </mat-tab-group>
             </div>
         </div>

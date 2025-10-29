@@ -18,7 +18,8 @@
   [paginateResult]="data"
   (onChangePage)="changePage($event)"
   (onSortChangeEvent)="changeSort($event)"
-  [action]="actionButtonsTemplate">
+  [action]="actionButtonsTemplate"
+  (rowClick)="onRowClick($event)">
 </app-shared-table>
 
 <ng-template #actionButtonsTemplate let-row>

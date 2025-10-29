@@ -105,8 +105,8 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
       },
       {
         key: "shareHolderActive",
-        label: this.langService.getLabel('COMMON.STATUS') || "Status",
-        pipes: ['company-shareholder-status']
+        label: this.langService.getLabel('COMMON.IS_ACTIVE') || "Is Active",
+        inputType: 'mat-slide-toggle'
       },
       {
         key: "action",
@@ -230,7 +230,17 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
         window.open(url, '_blank');
       }
 
+    }else if (event.key == 'shareHolderActive') {
+      this.showLoading = true;
+      this.service.update(event.element).subscribe({
+        next: (res => {
+          this.showLoading = false;
+          this.errorHandler.showSuccess("Status Updated Successfully");
+          this.cdr.markForCheck();
+        }), error: (err => {
+          this.fetchData();
+        })
+      });
     }
   }
-
 }

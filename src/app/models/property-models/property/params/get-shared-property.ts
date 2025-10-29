@@ -1,6 +1,7 @@
+import { EntityIDc } from "../../../../enums/entity-idc";
 import { BaseParam } from "../../../base/base-param";
 
 export interface GetSharedPropertyParams extends BaseParam{
-    idc? : string | null;
+    idc? : EntityIDc | null;
     idn? : number | null;    
 }

@@ -72,7 +72,7 @@ export const environment: Environment = {
 
     // Document Trackings module
     DocumentTrackings: 'Doc-tracking',
-    AllDocumentTrackings: 'All-documents',
+    AllDocumentTrackings: '',
     ActiveDocumentTrackings: 'Active-document-trackings',
     ActivePrivateDocumentTrackings: 'Active-private-document-trackings',
     ActivePublicDocumentTrackings: 'Active-public-document-trackings',

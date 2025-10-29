@@ -1,3 +1,4 @@
+import { CommonStatus } from "../../enums/common-status";
 import { BaseEntity } from "../base/base-entity";
 
 export interface Company extends BaseEntity{
@@ -29,6 +30,6 @@ export interface Company extends BaseEntity{
   updateDate?: string; // ISO date string
   updateDescription?: string;
   personsIdn?: number;
-  companyStatus: number;
+  companyStatus: CommonStatus;
   private: boolean; // consider renaming to isPrivate in TS
 }
