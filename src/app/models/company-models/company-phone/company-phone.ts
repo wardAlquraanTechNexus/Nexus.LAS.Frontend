@@ -6,4 +6,5 @@ export interface CompanyPhone extends BaseEntity {
   phonePrimary?: boolean;
   phoneType?: string;
   phoneNumber?: string;
+  phoneNumberNote?: string;
 }

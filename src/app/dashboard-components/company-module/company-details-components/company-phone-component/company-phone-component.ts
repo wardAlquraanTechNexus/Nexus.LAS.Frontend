@@ -91,7 +91,8 @@ export class CompanyPhoneComponent implements OnInit {
       companyId: this.company.id,
       phonePrimary: false,
       phoneType: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      phoneNumberNote: ''
     };
 
     const dialogRef = this.dialog.open(CompanyPhoneDialogFormComponent, {

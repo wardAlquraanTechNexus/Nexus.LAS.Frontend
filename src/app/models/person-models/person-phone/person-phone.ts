@@ -7,4 +7,5 @@ export interface PersonPhone extends BaseEntity {
     phonePrimary?: boolean;
     phoneType?: number;
     phoneNumber?: string;
+    phoneNumberNote?: string;
 }

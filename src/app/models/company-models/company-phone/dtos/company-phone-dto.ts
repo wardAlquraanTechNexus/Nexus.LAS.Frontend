@@ -4,4 +4,5 @@ export interface CompanyPhoneDto {
   phonePrimary?: boolean;
   phoneType?: string;
   phoneNumber?: string;
+  phoneNumberNote?: string;
 }

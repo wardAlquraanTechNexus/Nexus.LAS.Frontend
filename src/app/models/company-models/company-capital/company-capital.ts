@@ -7,6 +7,7 @@ export interface CompanyCapital extends BaseEntity {
     nominalValueOfShare?: number;
     classOfShares?: string;
     numberOfShares?: number;
+    numberOfPartners?: number;
     capitalAuthorized?: number;
     capitalPaid?: number;
     issuedShares?: number;

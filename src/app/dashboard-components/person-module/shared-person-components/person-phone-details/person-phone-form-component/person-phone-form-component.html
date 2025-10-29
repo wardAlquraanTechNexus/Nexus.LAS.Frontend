@@ -25,6 +25,13 @@
     <div class="form-container">
       <form [formGroup]="formGroup" *ngIf="formGroup" class="row w-100 nexus-form">
 
+                <!-- Phone Type -->
+        <div class="col-12">
+          <select-auto-complete *ngIf="loadPersonsPhonesFn" [controlName]="'phoneType'" [fnGet]="loadPersonsPhonesFn"
+            [formGroup]="formGroup" [label]="label.COMMON.PHONE_TYPE || 'Phone Type'" [keyToShow]="'name'"
+            [valueKey]="'id'" [withNullOption]="false">
+          </select-auto-complete>
+        </div>
         <!-- Phone -->
         <div class="col-12">
           <phone-form 
@@ -35,12 +42,14 @@
 
         </div>
 
-        <!-- Phone Type -->
+
+
+        <!-- Phone Number Note -->
         <div class="col-12">
-          <select-auto-complete *ngIf="loadPersonsPhonesFn" [controlName]="'phoneType'" [fnGet]="loadPersonsPhonesFn"
-            [formGroup]="formGroup" [label]="label.COMMON.PHONE_TYPE || 'Phone Type'" [keyToShow]="'name'"
-            [valueKey]="'id'" [withNullOption]="false">
-          </select-auto-complete>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ label.COMMON.NOTES || 'Notes' }}</mat-label>
+            <textarea matInput formControlName="phoneNumberNote" rows="3"></textarea>
+          </mat-form-field>
         </div>
 
         <!-- Primary Phone -->

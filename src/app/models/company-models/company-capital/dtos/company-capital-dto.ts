@@ -6,6 +6,7 @@ export interface CompanyCapitalDto {
     nominalValueOfShare?: number | null;
     classOfShares?: string | null;
     numberOfShares?: number | null;
+    numberOfPartners?: number | null;
     capitalAuthorized?: number | null;
     capitalPaid?: number | null;
     issuedShares?: number | null;

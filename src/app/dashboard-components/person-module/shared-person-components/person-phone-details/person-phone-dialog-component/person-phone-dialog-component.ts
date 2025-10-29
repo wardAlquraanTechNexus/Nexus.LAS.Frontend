@@ -30,7 +30,7 @@ export class PersonPhoneDialogComponent extends BaseDialogComponent {
   onSave(object: any) {
     this.showLoading = true;
     if (this.isInsert) {
-      this.service.create(object.element).subscribe( 
+      this.service.create(object.element).subscribe(
         {
           next:(res=>{
             this.dialogRef.close(object.element);
@@ -42,8 +42,14 @@ export class PersonPhoneDialogComponent extends BaseDialogComponent {
       })
     }
     else  {
-      this.service.update(object.element).subscribe(res => {
-        this.dialogRef.close();
+      this.service.update(object.element).subscribe({
+        next: (res => {
+          this.dialogRef.close(object.element);
+          this.showLoading = false;
+        }),
+        error: (err => {
+          this.showLoading = false;
+        })
       })
     }
   }

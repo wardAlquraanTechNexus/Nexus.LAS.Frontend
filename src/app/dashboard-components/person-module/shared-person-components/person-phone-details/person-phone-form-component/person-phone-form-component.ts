@@ -33,6 +33,10 @@ export class PersonPhoneFormComponent extends BaseFormComponent {
   }
 
   override ngOnInit(): void {
+    // Ensure phoneNumberNote property exists before setup
+    if (this.personPhone && !this.personPhone.hasOwnProperty('phoneNumberNote')) {
+      this.personPhone.phoneNumberNote = '';
+    }
     this.setup(this.personPhone);
     super.ngOnInit();
     this.loadPersonsPhonesFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.PersonsPhonesTypes, search)

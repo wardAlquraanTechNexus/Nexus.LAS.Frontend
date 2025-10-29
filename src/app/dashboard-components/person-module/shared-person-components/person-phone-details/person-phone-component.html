@@ -46,7 +46,20 @@
                 <span class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
               }
             </div>
+            @if (personPhone.phoneNumberNote) {
+              <div class="secondary-text">
+                <span>{{ personPhone.phoneNumberNote }}</span>
+              </div>
+            }
           </div>
+
+          <!-- Phone Type -->
+          <div class="item-content">
+            <div class="primary-text">
+              <span>{{ getPhoneTypeName(personPhone.phoneType) }}</span>
+            </div>
+          </div>
+
           <!-- Actions -->
           @if (!readOnly) {
             <div class="item-actions">

@@ -82,6 +82,19 @@
                     </mat-form-field>
                 </div>
 
+                <!-- Number of Partners -->
+                <div class="col-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{ label.COMPANY.NUMBER_OF_PARTNERS || 'Number of Partners' }}</mat-label>
+                        <input matInput type="number" formControlName="numberOfPartners" required>
+                        @if (formGroup.get('numberOfPartners')?.hasError('required')) {
+                        <mat-error>
+                            {{ label.COMPANY.NUMBER_OF_PARTNERS || 'Number of Partners is required' }}
+                        </mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+
                 <!-- Capital Authorized -->
                 <div class="col-6">
                     <mat-form-field appearance="outline">

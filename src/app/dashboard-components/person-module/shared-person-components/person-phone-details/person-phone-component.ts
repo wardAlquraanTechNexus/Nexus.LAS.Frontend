@@ -10,6 +10,9 @@ import { PersonDto } from '../../../../models/person-models/person-dto';
 import { LanguageService } from '../../../../services/language-service';
 import { LanguageCode } from '../../../../models/types/lang-type';
 import { Labels } from '../../../../models/consts/labels';
+import { DynamicListService } from '../../../../services/dynamic-list-service';
+import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-phone-component',
@@ -23,6 +26,7 @@ export class PersonPhoneComponent implements OnInit {
   personPhones: PersonPhone[] = [];
   showLoading = false;
   @Input() readOnly = false;
+  phoneTypes: DynamicList[] = [];
 
   get label() {
     return Labels[this.currentLang as keyof typeof Labels];
@@ -37,6 +41,7 @@ export class PersonPhoneComponent implements OnInit {
     private service: PersonPhoneService,
     private dialog: MatDialog,
     public langService: LanguageService,
+    private dlService: DynamicListService
 
   ) { }
 
@@ -47,9 +52,22 @@ export class PersonPhoneComponent implements OnInit {
       phones: this.fb.array([])
     });
 
+    this.loadPhoneTypes();
     this.fetchData();
     this.langService.language$.subscribe(lang => {
       this.currentLang = lang;
+    });
+  }
+
+  private loadPhoneTypes(): void {
+    this.dlService.GetAllByParentId(environment.rootDynamicLists.PersonsPhonesTypes, '').subscribe({
+      next: (res) => {
+        this.phoneTypes = res;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Failed to load phone types', err);
+      }
     });
   }
 
@@ -85,12 +103,19 @@ export class PersonPhoneComponent implements OnInit {
     };
   }
 
+  getPhoneTypeName(phoneTypeId?: number): string {
+    if (!phoneTypeId) return '';
+    const phoneType = this.phoneTypes.find(pt => pt.id === phoneTypeId);
+    return phoneType?.name || '';
+  }
+
 
   openFormDetails(personPhone: PersonPhone = {
     phoneNumber: "",
     personsIdn: this.person.id,
     phonePrimary: false,
-    phoneType: 0
+    phoneType: 0,
+    phoneNumberNote: ""
   }) {
     const dialogRef = this.dialog.open(PersonPhoneDialogComponent, {
       panelClass: 'dialog-container',

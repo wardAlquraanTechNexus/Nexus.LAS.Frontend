@@ -83,6 +83,12 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
         decimals: 0  // No decimals for share counts
       },
       {
+        key: "numberOfPartners",
+        label: this.langService.getLabel(this.label.COMPANY.NUMBER_OF_PARTNERS) || "NO. of Partners",
+        pipes: ['number'],
+        decimals: 0  // No decimals for partner counts
+      },
+      {
         key: "nominalValueOfShare",
         label: this.langService.getLabel(this.label.COMPANY.NOMINAL_VALUE_OF_SHARE) || "Nominal Value of share",
         pipes: ['currency'],
@@ -149,6 +155,7 @@ export class CompanyCapitalComponent extends TableFormComponent<CompanyCapital> 
       nominalValueOfShare: null,
       classOfShares: '',
       numberOfShares: null,
+      numberOfPartners: null,
       capitalAuthorized: null,
       capitalPaid: null,
       issuedShares: null,

@@ -34,6 +34,10 @@ export class CompanyPhoneFormComponent extends BaseFormComponent {
   }
 
   override ngOnInit(): void {
+    // Ensure phoneNumberNote property exists before setup
+    if (this.element && !this.element.hasOwnProperty('phoneNumberNote')) {
+      this.element.phoneNumberNote = '';
+    }
     this.setup(this.element);
     super.ngOnInit();
     // Add validators to phoneNumber control using formGroup
@@ -41,7 +45,7 @@ export class CompanyPhoneFormComponent extends BaseFormComponent {
       const ctrl = this.formGroup.get('phoneNumber');
       const existingValidators = ctrl?.validator ? [ctrl.validator] : [];
       ctrl?.setValidators([
-        ...existingValidators,    
+        ...existingValidators,
         Validators.minLength(6),
         Validators.maxLength(14)
       ]);

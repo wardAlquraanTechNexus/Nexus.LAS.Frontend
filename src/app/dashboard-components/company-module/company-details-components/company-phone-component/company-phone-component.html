@@ -48,6 +48,11 @@
                 <span class="primary-badge">{{ label.COMMON.PRIMARY || 'Primary' }}</span>
               }
             </div>
+            @if (companyPhone.phoneNumberNote) {
+              <div class="secondary-text">
+                <span>{{ companyPhone.phoneNumberNote }}</span>
+              </div>
+            }
           </div>
 
           <div class="item-content">

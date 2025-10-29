@@ -6,7 +6,7 @@
         <mat-icon>phone</mat-icon>
       </div>
       <div class="header-text">
-        <h2 class="dialog-title">{{element.id ? label.COMMON.EDIT_PHONE || 'Edit Phone' : label.COMMON.ADD_PHONE || 'Add Phone'}} {{ label.COMMON.PHONE_NUMBER || 'Company Phone' }}</h2>
+        <h2 class="dialog-title">{{element.id ? label.COMMON.EDIT_PHONE || 'Edit' : label.COMMON.ADD_PHONE || 'Add'}} {{ label.COMMON.PHONE_NUMBER || 'Company Phone' }}</h2>
         <p class="dialog-subtitle">{{ label.COMPANY.ENTER_COMPANY_PHONE_DETAILS || 'Enter company phone details' }}</p>
       </div>
     </div>
@@ -40,7 +40,14 @@
                 controlName="phoneNumber"
                 [required]="true">
           </phone-form>
-      
+
+        <!-- Phone Number Note -->
+        <div class="col-12">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ label.COMMON.NOTES || 'Notes' }}</mat-label>
+            <textarea matInput formControlName="phoneNumberNote" rows="3"></textarea>
+          </mat-form-field>
+        </div>
 
         <!-- Primary Phone -->
         <div class="col-12">

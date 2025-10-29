@@ -31,7 +31,11 @@
       "Bash(powershell -Command:*)",
       "Bash(git restore:*)",
       "Bash(netstat:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Read(//c/Dev/Nexus.LAS/Nexus.LAS.Application/DTOs/**)",
+      "Read(//c/Dev/Nexus.LAS/Nexus.LAS.Domain/Entities/**)",
+      "Bash(dir /s /b \"C:\\Dev\\Nexus.LAS\\Nexus.LAS.Domain\\Entities\\*PersonPhone*.cs\")",
+      "Read(//c/Dev/Nexus.LAS/Nexus.LAS.Domain/**)"
     ],
     "deny": [],
     "ask": [],
