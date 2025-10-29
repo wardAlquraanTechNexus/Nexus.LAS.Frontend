@@ -8,5 +8,5 @@
 </div>
 
 <app-shared-table *ngIf="showTable && !showLoading" [displayedColumns]="displayColumns" [paginateResult]="data"
-    (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)">
+    (onChangePage)="changePage($event)" (onSortChangeEvent)="changeSort($event)" (rowClick)="onRowClick($event)">
 </app-shared-table>

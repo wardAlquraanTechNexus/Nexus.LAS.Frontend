@@ -13,6 +13,8 @@ import { CompanyAccountSignatoryService } from '../../../../services/company-ser
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { PersonDto } from '../../../../models/person-models/person-dto';
 import { LanguageService } from '../../../../services/language-service';
+import { MenuService } from '../../../../services/menu-service';
+import { environment } from '../../../../../environment/environment';
 
 @Component({
   selector: 'app-person-account-signatory-component',
@@ -45,7 +47,8 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
     override errorHandler: ErrorHandlerService,
     override route: ActivatedRoute,
     private dialog: MatDialog,
-    override langService: LanguageService
+    override langService: LanguageService,
+    private menuService: MenuService
   ) {
     super(service, cdr, fb, router, errorHandler, route, langService)
   }
@@ -63,6 +66,7 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
       {
         key:"companyNameEn",
         label: this.langService.getLabel('COMPANY.COMPANY_NAME') || "Company Name",
+        pipes: ['link']
       },
       {
         key:"rule",
@@ -110,5 +114,24 @@ export class PersonAccountSignatoryComponent  extends TableFormComponent<Company
   showTable = true;
   toggleTable() {
     this.showTable = !this.showTable;
+  }
+
+  onRowClick(event: any): void {
+    if (event.key === 'companyNameEn' && event.element?.companyId) {
+      const baseCompanyPath = this.menuService.getMenuByPath(environment.routes.Companies);
+      const companyPath =
+        this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
+        this.menuService.getMenuByPath(environment.routes.ActiveCompanies) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies);
+
+      if (!baseCompanyPath || !companyPath) {
+        this.errorHandler.showWarning("You have no access to view the company");
+      } else {
+        this.router.navigate([`${baseCompanyPath.path}/${companyPath.path}`], {
+          queryParams: { id: event.element.companyId }
+        });
+      }
+    }
   }
 }
