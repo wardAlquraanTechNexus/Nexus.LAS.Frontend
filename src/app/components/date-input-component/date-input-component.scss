@@ -1,3 +1,15 @@
 .flatpickr-calendar {
   z-index: 1000 !important;
 }
+
+// Clear button styling for date picker
+mat-form-field {
+  button[matSuffix] {
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+}

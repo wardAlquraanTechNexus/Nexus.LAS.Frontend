@@ -51,7 +51,16 @@ export class DateInputComponent implements OnInit {
 
   }
 
+  // Helper method for template
+  get control() {
+    return this.formGroup.get(this.controlName);
+  }
 
-
+  // Clear date method
+  clearDate(event: Event) {
+    event.stopPropagation();
+    this.control?.setValue(null);
+    this.control?.markAsTouched();
+  }
 
 }

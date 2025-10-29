@@ -173,4 +173,17 @@ export class StartEndDatesInputComponent {
     }
     return '';
   }
+
+  // Clear date methods
+  clearStartDate(event: Event) {
+    event.stopPropagation();
+    this.startControl?.setValue(null);
+    this.startControl?.markAsTouched();
+  }
+
+  clearEndDate(event: Event) {
+    event.stopPropagation();
+    this.endControl?.setValue(null);
+    this.endControl?.markAsTouched();
+  }
 }
