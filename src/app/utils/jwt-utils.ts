@@ -99,7 +99,6 @@ export function getTokenRemainingTime(token: string): number {
  */
 export function shouldRefreshToken(token: string): boolean {
   const remainingTime = getTokenRemainingTime(token);
-  
   // Refresh if less than 5 minutes remaining
   return remainingTime > 0 && remainingTime < 300;
 }

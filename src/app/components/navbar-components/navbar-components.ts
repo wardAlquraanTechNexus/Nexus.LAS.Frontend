@@ -154,11 +154,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   logout() {
-    if (this.isBrowser) {
-      localStorage.clear();
-      window.location.reload();
-    }
-    this.router.navigateByUrl("");
+    this.authService.logout();
   }
 
 

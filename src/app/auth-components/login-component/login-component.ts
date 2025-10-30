@@ -15,17 +15,18 @@ import { MenuService } from '../../services/menu-service';
 })
 export class LoginComponent implements OnInit {
 
-
   isSaving = false;
   loginForm!: FormGroup;
   showPassword = false;
+  
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private menuService: MenuService,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -36,34 +37,44 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-
       let authRequest: AuthRequest = this.loginForm.getRawValue();
       this.isSaving = true;
+      
       this.authService.login(authRequest)
+        .pipe(
+          finalize(() => {
+            this.isSaving = false;
+            this.cdr.detectChanges();
+          })
+        )
         .subscribe({
           next: (res) => {
-            this.authService.saveSession(res);
+            console.log('Login successful:', res);
+            
             this.menuService.getMenus().subscribe({
-              next: (menu => {
-                this.isSaving = false;
-                this.cdr.detectChanges();
-                this.router.navigate(['../'], { relativeTo: this.route });
-              })
-            }
-            )
+              next: (menu) => {
+                console.log('Menus loaded:', menu);
+                // Get return URL or go to home
+                const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                this.router.navigate([returnUrl]);
+              },
+              error: (menuError) => {
+                console.error('Failed to load menus:', menuError);
+                // Even if menu fails, redirect to home
+                const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                this.router.navigate([returnUrl]);
+              }
+            });
           },
           error: (err) => {
-
-            this.isSaving = false
-            this.cdr.detectChanges();
+            console.error('Login failed:', err);
+            // Handle login error (show error message)
           }
-        })
+        });
     } else {
       this.loginForm.markAllAsTouched();
-      this.isSaving = false
+      this.isSaving = false;
       this.cdr.detectChanges();
-
     }
   }
-
 }
