@@ -8,7 +8,8 @@ export interface PersonDto {
   personArabicName?: string;
   personShortName?: string;
   personStatus: CommonStatus;
-  nationality?: number | null;
+  nationality?: string | null;
+  nationalityIds?: number[] | null;
   fpcCode: string;
   private: boolean;
   dateOfBirth?: Date | null;

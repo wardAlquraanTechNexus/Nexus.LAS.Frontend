@@ -85,9 +85,10 @@
             <div class="form-group col-12">
                 <dl-select-auto-complete *ngIf="nationalityParentId" 
                 [parentId]="nationalityParentId"
-                [controlName]="'nationality'" 
+                [controlName]="'nationalityIds'" 
                 [formGroup]="formGroup" 
                 [label]="label.COMMON.NATIONALITY || 'Nationality'"
+                [isMultiple]="true"
                     >
                 </dl-select-auto-complete>
             </div>

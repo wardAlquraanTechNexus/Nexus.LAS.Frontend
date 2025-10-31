@@ -277,7 +277,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
       private: true,
       fileName: "",
       nationality: null,
-      dateOfBirth: null
+      dateOfBirth: null,
+      nationalityIds: [],
     };
     const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',

@@ -57,7 +57,7 @@ export class AllPersonTable extends BasePersonsComponent {
         { key: "fpcCode", label: "رمز FPC" },
         { key: "private", label: "خاص", pipes: ['private'], sort: true, hasIcon: true },
         { key: "dateOfBirth", label: "تاريخ الميلاد", pipes: ['date'], sort: true },
-        { key: "nationality", label: "الجنسية", pipes: ['country'] },
+        { key: "nationalityIds", label: "الجنسية", pipes: ['countries'] },
         { key: "action", label: "إجراءات" },
       ];
     } else {
@@ -72,7 +72,7 @@ export class AllPersonTable extends BasePersonsComponent {
         { key: "fpcCode", label: "FPC Code" },
         { key: "private", label: "Private", pipes: ['private'], sort: true, hasIcon: true },
         { key: "dateOfBirth", label: "Date of Birth", pipes: ['date'], sort: true },
-        { key: "nationality", label: "Nationality", pipes: ['country'] },
+        { key: "nationalityIds", label: "Nationality", pipes: ['countries'] },
         { key: "action", label: "Action" },
       ];
     }

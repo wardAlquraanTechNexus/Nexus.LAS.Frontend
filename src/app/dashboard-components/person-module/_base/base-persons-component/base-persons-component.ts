@@ -302,7 +302,8 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       private: true,
       fileName: "",
       nationality: null,
-      dateOfBirth: null
+      dateOfBirth: null,
+      nationalityIds: [],
     };
     const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',
@@ -342,6 +343,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
   onSelectNationality(event: any) {
+    debugger;
     this.params.nationality = event;
     this.fetchData();
   }

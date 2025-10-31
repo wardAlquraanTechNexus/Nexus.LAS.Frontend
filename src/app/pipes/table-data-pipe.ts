@@ -87,6 +87,7 @@ export class TableDataPipe implements PipeTransform {
       'company-activity': () => this.handleDynamicList(value, environment.rootDynamicLists.companyActivity),
       'document-nationality': () => this.handleDynamicList(value, environment.rootDynamicLists.country),
       'country': () => this.handleDynamicList(value, environment.rootDynamicLists.country),
+      'countries': () => this.handleListDynamicList(value, environment.rootDynamicLists.country),
       'company-classification': () => this.handleDynamicList(value, environment.rootDynamicLists.companyClass),
       'original-document-type': () => this.handleDynamicList(value, environment.rootDynamicLists.originalDocumentTypes),
       'original-document-action-type': () => this.handleDynamicList(value, environment.rootDynamicLists.originalDocumentActionTypes),
@@ -229,6 +230,20 @@ export class TableDataPipe implements PipeTransform {
       map(list => {
         const found = list.find(x => x.id == value);
         return found ? found.name : '';
+      })
+    );
+  }
+  private handleListDynamicList(value: any, parentId: number): Observable<string> {
+    return this.dlService.GetAllByParentId(parentId).pipe(
+      map(list => {
+        let names: string[] = [];
+        if (Array.isArray(value)) {
+          names = value.map((val: any) => {
+            const found = list.find(x => x.id == val);
+            return found ? found.name : '';
+          });
+        }
+        return names.join(', ');
       })
     );
   }
