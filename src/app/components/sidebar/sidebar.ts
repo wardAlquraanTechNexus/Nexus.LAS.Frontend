@@ -141,11 +141,10 @@ export class Sidebar implements OnInit, OnDestroy {
       // 'reports': this.labels.COMMON?.REPORTS || 'Reports',
 
       "real estate": this.labels.PROPERTY.REAL_ESTATE || 'Real Estate',
-      "all properties": this.labels.PROPERTY.ALL_PROPERTIES || 'ALL Properties',
-      "active properties": this.labels.PROPERTY.ACTIVE_PROPERTIES || 'Active Properties',
-      "inactive properties": this.labels.PROPERTY.INACTIVE_PROPERTIES || 'Inactive Properties',
-      "active public properties": this.labels.PROPERTY.ACTIVE_PUBLIC_PROPERTIES || 'Active Public Properties',
-      "active private properties": this.labels.PROPERTY.ACTIVE_PRIVATE_PROPERTIES || 'Active Private Properties',
+      "all real estate": this.labels.PROPERTY.ALL_REAL_ESTATE || 'ALL Real Estate',
+      "active real estate": this.labels.PROPERTY.ACTIVE_REAL_ESTATE || 'Active Real Estate',
+      "active public real estate": this.labels.PROPERTY.ACTIVE_PUBLIC_REAL_ESTATE || 'Active Public Real Estate',
+      "active private real estate": this.labels.PROPERTY.ACTIVE_PRIVATE_REAL_ESTATE || 'Active Private Real Estate',
       // Company submenu
       'all companies': this.labels.COMPANY?.ALL_COMPANIES || 'All Companies',
       'active companies': this.labels.COMPANY?.ACTIVE_COMPANIES || 'Active Companies',

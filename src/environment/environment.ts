@@ -13,13 +13,13 @@ export const environment: Environment = {
     dashboard: 'Dashboard',
 
     // Persons module
-    Persons: 'Persons',
-    AllPersons: 'All-persons',
-    ActivePersons: 'Active-persons',
-    ActivePrivatePersons: 'Active-private-persons',
-    ActivePublicPersons: 'Active-public-persons',
-    InactivePersons: 'Inactive-persons',
-    ViewPersons: 'View-persons',
+    Persons: 'People',
+    AllPersons: 'All-people',
+    ActivePersons: 'Active-people',
+    ActivePrivatePersons: 'Active-private-people',
+    ActivePublicPersons: 'Active-public-people',
+    InactivePersons: 'Inactive-people',
+    ViewPersons: 'View-people',
     AddPerson: 'Add-person',
     EditPerson: 'Edit-person',
     ViewPersonIdDetail: 'Person/view-person-id-detail',
@@ -93,12 +93,12 @@ export const environment: Environment = {
 
 
     // Properties
-    Properties: "Real-estates",
+    Properties: "Real-estate",
     AddProperty: "Add-real-estate",
-    AllProperties: "All-properties",
-    ActiveProperties: "Active-properties",
-    ActivePrivateProperties: "Active-private-properties",
-    ActivePublicProperties: "Active-public-properties",
+    AllProperties: "All-real-estate",
+    ActiveProperties: "Active-real-estate",
+    ActivePrivateProperties: "Active-private-real-estate",
+    ActivePublicProperties: "Active-public-real-estate",
   },
 
   rootDynamicLists: {
