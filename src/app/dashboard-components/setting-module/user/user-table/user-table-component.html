@@ -4,7 +4,7 @@
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>Users</h2>
+        <h2>{{label.SETTINGS.USERS}}</h2>
       </div>
     </div>
   </div>
@@ -15,35 +15,35 @@
       <div class="nexus-filters-container">
         <div class="nexus-search-field">
           <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" placeholder="Enter username">
+            <mat-label>{{label.SETTINGS.USERNAME}}</mat-label>
+            <input matInput [(ngModel)]="params.username" (keyup.enter)="search()" [placeholder]="label.SETTINGS.USERNAME">
           </mat-form-field>
         </div>
 
         <div class="nexus-filter-field">
           <mat-form-field appearance="outline">
-            <mat-label>First Name</mat-label>
-            <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" placeholder="Enter first name">
+            <mat-label>{{label.COMMON.FIRST_NAME}}</mat-label>
+            <input matInput [(ngModel)]="params.firstName" (keyup.enter)="search()" [placeholder]="label.COMMON.FIRST_NAME">
           </mat-form-field>
         </div>
 
         <div class="nexus-filter-field">
           <mat-form-field appearance="outline">
-            <mat-label>Last Name</mat-label>
-            <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" placeholder="Enter last name">
+            <mat-label>{{label.COMMON.LAST_NAME}}</mat-label>
+            <input matInput [(ngModel)]="params.lastName" (keyup.enter)="search()" [placeholder]="label.COMMON.LAST_NAME">
           </mat-form-field>
         </div>
 
         <div class="nexus-filter-field">
           <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" placeholder="Enter email">
+            <mat-label>{{label.COMMON.EMAIL}}</mat-label>
+            <input matInput [(ngModel)]="params.email" (keyup.enter)="search()" [placeholder]="label.COMMON.EMAIL">
           </mat-form-field>
         </div>
 
         <div class="nexus-filter-actions">
           <button mat-stroked-button class="nexus-btn nexus-btn-primary" (click)="search()">
-            <mat-icon>search</mat-icon> Search
+            <mat-icon>search</mat-icon> {{label.COMMON.SEARCH}}
           </button>
         </div>
 

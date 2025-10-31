@@ -82,6 +82,25 @@
                 </div>
             </div>
 
+            <div class="form-group col-12">
+                <dl-select-auto-complete *ngIf="nationalityParentId" 
+                [parentId]="nationalityParentId"
+                [controlName]="'nationality'" 
+                [formGroup]="formGroup" 
+                [label]="label.COMMON.NATIONALITY || 'Nationality'"
+                    >
+                </dl-select-auto-complete>
+            </div>
+                <div class="form-group col-12">
+                    <app-date-input
+                    [formGroup]="formGroup"
+                    [controlName]="'dateOfBirth'"
+                    [label]="label.PERSON.DATE_OF_BIRTH || 'Date of Birth'"
+                    
+                    >
+                        
+                    </app-date-input>
+                </div>
             </form>
         </div>
     </div>

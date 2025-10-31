@@ -6,4 +6,7 @@ export interface GetPersonsQuery extends BaseParam{
     nationality?:string | null,
     private?:boolean | null,
     status?:number | null,
+    personEnglishName?:string | null,
+    personArabicName?:string | null,
+    personShortName?:string | null
 }

@@ -96,7 +96,7 @@ export class DocumentTrackingFormComponent extends BaseFormComponent {
       this.registerTypes = [
         { idc: EntityIDc.Person, name: this.label.PERSON.PERSON },
         { idc: EntityIDc.Company, name: this.label.COMPANY.COMPANY },
-        { idc: EntityIDc.Properties, name: this.label.PROPERTY.REAL_EASTATE },
+        { idc: EntityIDc.Properties, name: this.label.PROPERTY.REAL_ESTATE },
         { idc: EntityIDc.LawFirm, name: this.label.LAW_FIRM.LAW_FIRM },
         { idc: EntityIDc.Transactions, name: this.label.TRANSACTION.TRANSACTION },
         { idc: EntityIDc.FPCs, name: this.label.FPC.FPC },

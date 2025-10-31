@@ -3,7 +3,7 @@
   <div class="dashboard-header">
     <div class="dashboard-welcome">
       <h1>{{ getGreeting() }}, {{ currentUser }}</h1>
-      <p class="dashboard-subtitle">Here's what's happening with your LAS today</p>
+      <p class="dashboard-subtitle">{{ label.COMMON.WELCOME_MESSAGE }}</p>
     </div>
     <div class="dashboard-date">
       <mat-icon>calendar_today</mat-icon>
@@ -14,7 +14,7 @@
   <!-- Overview Section -->
   <section class="dashboard-section">
     <div class="section-header">
-      <h2>Overview</h2>
+      <h2>{{ label.COMMON.OVERVIEW }}</h2>
     </div>
     <global-cards></global-cards>
   </section>
@@ -24,33 +24,33 @@
     <div class="section-header">
       <h2>
         <mat-icon class="section-icon section-icon-action">flash_on</mat-icon>
-        Quick Actions
+        {{ label.COMMON.QUICK_ACTIONS }}
       </h2>
     </div>
     <div class="quick-actions">
       <button mat-raised-button color="primary" (click)="onAddNewPerson()" class="action-btn">
         <mat-icon>person_add</mat-icon>
-        <span>New Person</span>
+        <span>{{ label.PERSON.ADD_PERSON }}</span>
       </button>
       <button mat-raised-button color="primary" (click)="onAddNewCompany()" class="action-btn">
         <mat-icon>domain</mat-icon>
-        <span>New Company</span>
+        <span>{{ label.COMMON.ADD_COMPANY }}</span>
       </button>
       <button mat-raised-button color="primary" (click)="onAddNewRealEstate()" class="action-btn">
         <mat-icon>home_work</mat-icon>
-        <span>New Real Estate</span>
+        <span>{{ label.PROPERTY.ADD_REAL_ESTATE }}</span>
       </button>
       <button mat-raised-button color="primary" (click)="onAddNewLawFirm()" class="action-btn">
         <mat-icon>gavel</mat-icon>
-        <span>New Law Firm</span>
+        <span>{{ label.LAW_FIRM.ADD_LAW_FIRM }}</span>
       </button>
       <button mat-raised-button color="primary" (click)="onAddNewTransaction()" class="action-btn">
         <mat-icon>swap_horiz</mat-icon>
-        <span>New Transaction</span>
+        <span>{{ label.TRANSACTION.ADD_TRANSACTION }}</span>
       </button>
       <button mat-raised-button color="primary" (click)="onAddNewFPC()" class="action-btn">
         <mat-icon>business_center</mat-icon>
-        <span>New FPC</span>
+        <span>{{ label.FPC.ADD_FPC }}</span>
       </button>
     </div>
   </section>
@@ -63,18 +63,12 @@
     <div class="section-header">
       <h2>
         <mat-icon class="section-icon">warning</mat-icon>
-        Documents Requiring Attention
+        {{ label.COMMON.DOCUMENTS_REQUIRING_ATTENTION }}
       </h2>
     </div>
     <expired-documents></expired-documents>
   </section>
   <section class="dashboard-section">
-    <!-- <div class="section-header">
-      <h2>
-        <mat-icon class="section-icon">warning</mat-icon>
-        Documents Requiring Attention
-      </h2>
-    </div> -->
     <app-transaction-actions *ngIf="transactionActionStatuses" [isReadOnly]="true" [statuses]="transactionActionStatuses" [title]="label.COMMON.TO_DO_LIST"></app-transaction-actions>
   </section>
 </div>

@@ -4,7 +4,7 @@
   <div class="nexus-entity-section">
     <div class="nexus-entity-header">
       <div class="nexus-entity-title">
-        <h2>{{ label.PERSON.ACTIVE_PRIVATE_PERSONS }}</h2>
+        <h2>{{ label.PERSON.ACTIVE_PRIVATE_PEOPLE }}</h2>
       </div>
       <button *ngIf="currentMenu?.canInsert" mat-raised-button class="nexus-btn nexus-btn-primary" (click)="openAddDialog()">
         <mat-icon>add</mat-icon> {{ label.PERSON.ADD_PERSON }}
@@ -20,7 +20,7 @@
         <div class="nexus-search-field">
           <mat-form-field appearance="outline">
             <mat-label>{{ label.COMMON.SEARCH }}</mat-label>
-            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="{{ label.PERSON.ACTIVE_PRIVATE_PERSONS }}">
+            <input matInput [(ngModel)]="params.searchBy" (keyup.enter)="search()" placeholder="{{ label.PERSON.ACTIVE_PRIVATE_PEOPLE }}">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
@@ -32,12 +32,61 @@
           </select-auto-complete>
         </div>
 
-        <div class="nexus-filter-actions">
+      <div class="nexus-filter-actions">
+          <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="toggleFilters()">
+            <mat-icon>{{ showFilters ? 'close' : 'filter_list' }}</mat-icon>
+            {{ label.COMMON.FILTERS }}
+          </button>
           <button mat-stroked-button class="nexus-btn nexus-btn-secondary" (click)="exportToExcel()">
-            <mat-icon>download</mat-icon> {{ label.COMMON.EXPORT }}
+            <mat-icon>download</mat-icon> {{label.COMMON.EXPORT}}
           </button>
         </div>
 
+
+      </div>
+
+      <div class="additional-filters" *ngIf="showFilters">
+
+        <div class="section">
+          <div class="section-header">
+            <h3>{{ label.COMPANY.ADVANCED_FILTER }}</h3>
+          </div>
+          <div class="section-body">
+
+            <!-- Basic Information -->
+            <div class="row mb-3">
+              <div>
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>{{ label.PERSON.PERSON_ENGLISH_NAME }}</mat-label>
+                  <input matInput [(ngModel)]="params.personEnglishName" (keyup.enter)="search()">
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>{{ label.PERSON.PERSON_ARABIC_NAME }}</mat-label>
+                  <input matInput [(ngModel)]="params.personArabicName" (keyup.enter)="search()">
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>{{ label.PERSON.PERSON_SHORT_NAME }}</mat-label>
+                  <input matInput [(ngModel)]="params.personShortName" (keyup.enter)="search()">
+                </mat-form-field>
+              </div>
+
+              <div>
+                <select-auto-complete *ngIf="loadNationalitiesFn" [controlName]="'nationality'"
+                  [fnGet]="loadNationalitiesFn" [formGroup]="formGroup" [label]="label.COMMON.NATIONALITY"
+                  [keyToShow]="'name'" [valueKey]="'id'" [withNullOption]="true"
+                  (selectEmitter)="onSelectNationality($event)" [withNullOption]="true">
+                </select-auto-complete>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Bulk Actions -->

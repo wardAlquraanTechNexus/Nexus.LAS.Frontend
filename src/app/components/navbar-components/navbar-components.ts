@@ -122,7 +122,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
         value: environment.routes.AddCompany
       },
       {
-        name: this.label.PROPERTY.REAL_EASTATE,
+        name: this.label.PROPERTY.REAL_ESTATE,
         icon: entityIcons[EntityIDc.Properties],
         value: environment.routes.AddProperty
       },
@@ -275,7 +275,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
       personStatus: 0,
       fpcCode: "",
       private: true,
-      fileName: ""
+      fileName: "",
+      nationality: null,
+      dateOfBirth: null
     };
     const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',

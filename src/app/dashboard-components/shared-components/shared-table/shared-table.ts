@@ -14,7 +14,6 @@ import { PersonService } from '../../../services/person-services/person-service'
 import { CompanyService } from '../../../services/company-services/company-service';
 import { CompanyContractStatus } from '../../../enums/company-contract-status';
 import { CompanyLicenseStatus } from '../../../enums/company-license-status';
-import { PersonStatus } from '../../../enums/person-status';
 import { CommonStatus } from '../../../enums/common-status';
 
 @Component({
@@ -128,22 +127,12 @@ export class SharedTable implements OnInit, OnChanges {
             }
           }
         case 'capital-active':
+        case 'active':
           {
             if (value)
               return 'check_circle';
             else
               return 'cancel';
-          }
-        case 'person-status':
-          {
-            switch (value) {
-              case PersonStatus.Active:
-                return 'check_circle';
-              case PersonStatus.Inactive:
-                return 'cancel';
-              default:
-                return 'star';
-            }
           }
         case 'common-status':
           {
@@ -217,21 +206,6 @@ export class SharedTable implements OnInit, OnChanges {
           }
           break;
 
-        case 'person-status':
-          {
-            let color = '#9E77ED';
-            if (value === PersonStatus.Active) color = '#22C993';
-            else if (value === PersonStatus.Inactive) color = '#423e3ede';
-            Object.assign(styles, {
-              'border': `2px solid ${color}`,
-              'color': color,
-              'border-radius': '20px',
-              'padding': '10px'
-            });
-          }
-          break;
-
-       
         case 'common-status':
           {
             let color = '#9E77ED';
@@ -317,7 +291,7 @@ export class SharedTable implements OnInit, OnChanges {
           }
           break;
 
-          case 'yes-no':
+        case 'yes-no':
           {
             let color = '#9E77ED';
             if (value === true) color = '#22C993';

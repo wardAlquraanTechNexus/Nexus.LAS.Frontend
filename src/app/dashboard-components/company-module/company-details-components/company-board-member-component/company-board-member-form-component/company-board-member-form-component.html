@@ -7,7 +7,8 @@
             </div>
             <div class="header-text">
                 <h2 class="dialog-title">
-                    {{element.id != 0 ? label.COMPANY.EDIT_BOARD_MEMBER || 'Edit' : label.COMPANY.ADD_BOARD_MEMBER || 'Add'}} 
+                    {{element.id != 0 ? label.COMPANY.EDIT_BOARD_MEMBER || 'Edit' : label.COMPANY.ADD_BOARD_MEMBER ||
+                    'Add'}}
                 </h2>
                 <p class="dialog-subtitle">{{ label.COMPANY.ENTER_BOARD_MEMBER_DETAILS || 'Enter Board Member' }}</p>
             </div>
@@ -34,25 +35,29 @@
 
                 <div class="form-group col-12">
                     <select-auto-complete *ngIf="loadPersonsFn" [controlName]="'position'" [fnGet]="loadPositionsFn"
-                        [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Position'" [keyToShow]="'name'"
-                        [valueKey]="'id'">
+                        [formGroup]="formGroup" [isRequired]="true" [label]="label.COMPANY.DESIGNATION || 'Position'"
+                        [keyToShow]="'name'" [valueKey]="'id'">
                     </select-auto-complete>
                 </div>
 
                 <div class="form-group col-12">
-                    <start-end-dates-input
-                        [formGroup]="formGroup"
-                        [startControlName]="'appointmentDate'"
-                        [endControlName]="'cessationDate'"
-                        [startLabel]="label.COMPANY.APPOINTMENT_DATE"
-                        [endLabel]="label.COMPANY.CESSATION_DATE"
-                        [isStartRequired]="true"
-                        [isEndRequired]="true"
+                    <start-end-dates-input [formGroup]="formGroup" [startControlName]="'appointmentDate'"
+                        [endControlName]="'cessationDate'" [startLabel]="label.COMPANY.APPOINTMENT_DATE"
+                        [endLabel]="label.COMPANY.CESSATION_DATE" [isStartRequired]="true" [isEndRequired]="true"
                         [startRequiredMsg]="label.COMMON.APPOINTMENT_DATE_REQUIRED"
-                        [endRequiredMsg]="label.COMMON.CESSATION_DATE_REQUIRED"
-                    ></start-end-dates-input>
+                        [endRequiredMsg]="label.COMMON.CESSATION_DATE_REQUIRED"></start-end-dates-input>
                 </div>
 
+                <div class="form-group col-6">
+                    <mat-form-field appearance="outline" class="full-width col-12">
+                        <mat-select formControlName="isActive">
+                            <mat-option *ngFor="let status of statuses" [value]="status.key">
+                                {{ status.value }}
+                            </mat-option>
+                        </mat-select>
+
+                    </mat-form-field>
+                </div>
 
 
             </form>

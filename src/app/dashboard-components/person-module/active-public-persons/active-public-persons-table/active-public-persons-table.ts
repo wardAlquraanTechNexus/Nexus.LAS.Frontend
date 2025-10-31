@@ -3,7 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonStatus } from '../../../../enums/person-status';
 import { DisplayColumn } from '../../../../models/columns/display-column';
 import { GetPersonsQuery } from '../../../../models/person-models/get-persons/get-persons-query';
 import { DynamicListService } from '../../../../services/dynamic-list-service';
@@ -13,6 +12,7 @@ import { BasePersonsComponent } from '../../_base/base-persons-component/base-pe
 import { LanguageService } from '../../../../services/language-service';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { LanguageCode } from '../../../../models/types/lang-type';
+import { CommonStatus } from '../../../../enums/common-status';
 
 @Component({
   selector: 'app-active-public-persons-table',
@@ -26,7 +26,7 @@ export class ActivePublicPersonsTable  extends BasePersonsComponent {
       searchBy: null,
       nationality: null,
       private: false,
-      status: PersonStatus.Active,
+      status: CommonStatus.Active,
       page: 0,
       pageSize: 10,
       orderBy: 'id',

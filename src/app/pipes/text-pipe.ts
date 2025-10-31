@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import { PersonStatus } from '../enums/person-status';
 import { DynamicListService } from '../services/dynamic-list-service';
 import { environment } from '../../environment/environment';
 import { LanguageService } from '../services/language-service'; // <-- Import LanguageService
@@ -29,14 +28,7 @@ export class TextPipe implements PipeTransform {
           case CommonStatus[CommonStatus.Inactive].toLowerCase(): return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
           default: return of(value?.toString() ?? '');
         }
-      
-      case 'person-status':
-        switch (value) {
-          case PersonStatus.New: return of(getLabel('COMMON.NEW') ?? 'New');
-          case PersonStatus.Active: return of(getLabel('COMMON.ACTIVE') ?? 'Active');
-          case PersonStatus.Inactive: return of(getLabel('COMMON.INACTIVE') ?? 'Inactive');
-          default: return of(value?.toString() ?? '');
-        }
+    
      
       case 'private-person':
       case 'private-company':

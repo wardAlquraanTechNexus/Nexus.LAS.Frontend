@@ -26,8 +26,8 @@
       <!-- Empty State -->
       <div *ngIf="!showLoading && data.totalRecords === 0" class="empty-state">
         <mat-icon class="empty-icon">check_circle</mat-icon>
-        <h3>All Clear!</h3>
-        <p>No documents require attention at this time.</p>
+        <h3>{{ label.COMMON.ALL_CLEAR}}</h3>
+        <p>{{ label.COMMON.NO_DOCUMENTS}}</p>
       </div>
 
       <!-- Table -->

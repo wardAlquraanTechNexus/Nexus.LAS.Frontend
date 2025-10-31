@@ -133,14 +133,14 @@ export class Sidebar implements OnInit, OnDestroy {
       // Common menu items
       'dashboard': this.labels.COMMON?.DASHBOARD || 'Dashboard',
       'companies': this.labels.COMPANY?.COMPANIES || 'Companies',
-      'persons': this.labels.PERSON?.PERSONS || 'Persons',
+      'people': this.labels.PERSON?.PEOPLE || 'People',
       'settings': this.labels.COMMON?.SETTINGS || 'Settings',
       'users': this.labels.COMMON?.USERS || 'Users',
       'groups': this.labels.SETTINGS.GROUPS || 'Groups',
       'menus': this.labels.SETTINGS?.MENUS || 'Menus',
       // 'reports': this.labels.COMMON?.REPORTS || 'Reports',
 
-      "real estates": this.labels.PROPERTY.REAL_EASTATES || 'Real Estates',
+      "real estate": this.labels.PROPERTY.REAL_ESTATE || 'Real Estate',
       "all properties": this.labels.PROPERTY.ALL_PROPERTIES || 'ALL Properties',
       "active properties": this.labels.PROPERTY.ACTIVE_PROPERTIES || 'Active Properties',
       "inactive properties": this.labels.PROPERTY.INACTIVE_PROPERTIES || 'Inactive Properties',
@@ -176,10 +176,10 @@ export class Sidebar implements OnInit, OnDestroy {
       "doc. tracking": this.labels.DOCUMENT_TRACKING.DOCUMENT_TRACKING || 'Doc. Tracking',
       "all doc. trackings": this.labels.DOCUMENT_TRACKING.DOCUMENT_TRACKINGS || 'All Doc. Trackings',
       // Person submenu
-      'all persons': this.labels.PERSON?.ALL_PERSONS || 'All Persons',
-      'active persons': this.labels.PERSON?.ACTIVE_PERSONS || 'Active Persons',
-      'active public persons': this.labels.PERSON?.ACTIVE_PUBLIC_PERSONS || 'Active Public Persons',
-      'active private persons': this.labels.PERSON?.ACTIVE_PRIVATE_PERSONS || 'Active Private Persons',
+      'all people': this.labels.PERSON?.ALL_PEOPLE || 'All People',
+      'active people': this.labels.PERSON?.ACTIVE_PEOPLE || 'Active People',
+      'active public people': this.labels.PERSON?.ACTIVE_PUBLIC_PEOPLE || 'Active Public People',
+      'active private people': this.labels.PERSON?.ACTIVE_PRIVATE_PEOPLE || 'Active Private People',
 
       "dynamic list": this.labels.SETTINGS.DYNAMIC_LIST || 'Dynamic List',
 

@@ -7,6 +7,7 @@ import { PersonDto } from '../../../models/person-models/person-dto';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LanguageService } from '../../../services/language-service';
+import { environment } from '../../../../environment/environment';
 
 @Component({
   selector: 'app-person-form-component',
@@ -17,7 +18,7 @@ import { LanguageService } from '../../../services/language-service';
 })
 export class PersonFormComponent extends BaseFormComponent {
   @Input() element!: PersonDto;
-
+  nationalityParentId = environment.rootDynamicLists.country;
 
 
   constructor(

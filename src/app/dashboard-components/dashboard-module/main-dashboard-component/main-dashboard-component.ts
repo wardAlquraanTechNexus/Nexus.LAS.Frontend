@@ -58,6 +58,7 @@ export class MainDashboardComponent implements OnInit {
     if(!this.isHaveAccess){
       this.router.navigateByUrl('/' + environment.routes.onBoarding);
     }
+    this.subscribeLanguage();
     const user = this.authService.getUser();
     this.currentUser = user?.firstName + ' ' + user?.lastName || 'User';
 
@@ -72,9 +73,9 @@ export class MainDashboardComponent implements OnInit {
 
   getGreeting(): string {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good Morning';
-    if (hour < 18) return 'Good Afternoon';
-    return 'Good Evening';
+    if (hour < 12) return this.label.COMMON.GOOD_MORNING;
+    if (hour < 18) return this.label.COMMON.GOOD_AFTERNOON;
+    return this.label.COMMON.GOOD_EVENING;
   }
 
 

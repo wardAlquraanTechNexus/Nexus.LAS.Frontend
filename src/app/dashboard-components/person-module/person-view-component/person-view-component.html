@@ -16,7 +16,7 @@
     <div class="breadcrumb-nav">
       <a (click)="navigateToPersons()" class="breadcrumb-link">
         <mat-icon>arrow_back</mat-icon>
-        {{ label.PERSON.PERSONS }}
+        {{ label.PERSON.PEOPLE }}
       </a>
       <span class="breadcrumb-separator">/</span>
       <span class="current-page">{{ person.personEnglishName | titlecase }}</span>
@@ -48,7 +48,7 @@
               <div class="status-badges">
                 <span class="status-badge" [ngStyle]="getStatusStyle()">
                   <mat-icon>{{ getIcon() }}</mat-icon>
-                  {{ person.personStatus | textPipe : 'person-status' | async}}
+                  {{ person.personStatus | textPipe : 'common-status' | async}}
                 </span>
                 <span class="privacy-badge" [ngStyle]="getPrivateStyle()">
                   <mat-icon>{{ person.private ? 'lock' : 'public' }}</mat-icon>
@@ -117,7 +117,7 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>person</mat-icon>
-                    <span>{{ 'Personal Information' }}</span>
+                    <span>{{ label.PERSON.PERSONAL_INFORMATION }}</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="panel-content">
@@ -138,7 +138,7 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>contact_mail</mat-icon>
-                    <span>{{ 'Contact Information' }}</span>
+                    <span>{{ label.PERSON.CONTACT_INFORMATION }}</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="panel-content">
@@ -165,7 +165,7 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>business</mat-icon>
-                    <span>{{ 'Business Relationships' }}</span>
+                    <span>{{ label.PERSON.BUSINESS_RELATIONSHIP }}</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="panel-content">

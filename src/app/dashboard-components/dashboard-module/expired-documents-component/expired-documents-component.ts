@@ -139,6 +139,7 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
 
   override subscribeLanguage() {
     this.langService.language$.subscribe(lang => {
+      this.applyLanguage(lang);
       this.listDates = [
         {
           label: this.label.COMMON.BEFORE_45_DAYS,
@@ -166,7 +167,6 @@ export class ExpiredDocumentsComponent extends TableFormComponent<GlobalDocument
         }
       ];
 
-      this.applyLanguage(lang);
       this.setDisplayColumns();
     });
 

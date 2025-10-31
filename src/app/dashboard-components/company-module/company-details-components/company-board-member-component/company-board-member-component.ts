@@ -91,7 +91,8 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
       {
         key: "isActive",
         label: this.langService.getLabel('COMMON.STATUS') || "Status",
-        pipes: ["active"]
+        pipes: ["active"],
+        hasIcon: true,
       },
       {
         key: 'action',

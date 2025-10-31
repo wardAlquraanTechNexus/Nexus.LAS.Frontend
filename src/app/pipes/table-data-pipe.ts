@@ -4,7 +4,6 @@ import { map, Observable, of } from 'rxjs';
 import { EntityIDc } from '../enums/entity-idc';
 import { environment } from '../../environment/environment';
 import { DisplayColumn } from '../models/columns/display-column';
-import { PersonStatus } from '../enums/person-status';
 import { CompanyContractStatus } from '../enums/company-contract-status';
 import { PersonService } from '../services/person-services/person-service';
 import { LanguageService } from '../services/language-service';
@@ -58,7 +57,6 @@ export class TableDataPipe implements PipeTransform {
   private processPipe(pipe: string, value: any, element: any, column: DisplayColumn): Observable<string> | null {
     const pipeHandlers: { [key: string]: () => Observable<string> } = {
       // Status pipes
-      'person-status': () => this.handlePersonStatus(value),
       'common-status': () => this.handleCommonStatus(value),
       'company-contract-status': () => this.handleCompanyContractStatus(value),
       'company-license-status': () => this.handleCompanyLicenseStatus(value),
@@ -120,16 +118,7 @@ export class TableDataPipe implements PipeTransform {
     return handler ? handler() : null;
   }
 
-  // Status handlers
-  private handlePersonStatus(value: any): Observable<string> {
-    const getLabel = this.languageService.getLabel.bind(this.languageService);
-    const statusMap: { [key: number]: string } = {
-      [PersonStatus.New]: getLabel('COMMON.NEW') ?? 'New',
-      [PersonStatus.Active]: getLabel('COMMON.ACTIVE') ?? 'Active',
-      [PersonStatus.Inactive]: getLabel('COMMON.INACTIVE') ?? 'Inactive'
-    };
-    return of(statusMap[value] ?? value?.toString() ?? '');
-  }
+
 
 
   private handleCommonStatus(value: any): Observable<string> {
@@ -337,7 +326,7 @@ export class TableDataPipe implements PipeTransform {
       [EntityIDc.Transactions]: getLabel('TRANSACTION.TRANSACTION') ?? 'Transaction',
       [EntityIDc.FPCs]: getLabel('FPC.FPC') ?? 'FPC',
       [EntityIDc.DocumentTracking]: getLabel('DOCUMENT_TRACKING.DOCUMENT_TRACKING') ?? 'Document Tracking',
-      [EntityIDc.Properties]: getLabel('PROPERTY.REAL_EASTATE') ?? 'Real Estate',
+      [EntityIDc.Properties]: getLabel('PROPERTY.REAL_ESTATE') ?? 'Real Estate',
       [EntityIDc.PersonIdDetail]: getLabel('PERSON.PERSON_ID_DOCUMENTS'),
       [EntityIDc.CompaniesChamberOfCommerces]: getLabel('COMPANY.CHAMBER_OF_COMMERCE'),
       [EntityIDc.CompaniesLicenseIDC]: getLabel('COMPANY.LICENSES_AND_REGISTERS'),

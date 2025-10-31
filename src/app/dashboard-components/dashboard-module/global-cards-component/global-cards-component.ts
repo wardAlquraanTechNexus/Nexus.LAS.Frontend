@@ -1,6 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { GlobalInfoDTO } from '../../../models/global-models/global-info/global-info-dto';
 import { GlobalService } from '../../../services/global-services/global-service';
+import { LanguageService } from '../../../services/language-service';
+import { Labels } from '../../../models/consts/labels';
+import { LanguageCode } from '../../../models/types/lang-type';
+import { EntityIDc } from '../../../enums/entity-idc';
 
 @Component({
   selector: 'global-cards',
@@ -14,18 +18,30 @@ export class GlobalCardsComponent implements OnInit, OnDestroy {
   globalInfo: GlobalInfoDTO[] = [];
   private refreshInterval?: any;
 
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
+
   constructor(
     private globalService: GlobalService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private langService: LanguageService
+  ) { }
 
   ngOnInit(): void {
     this.fetchData();
-
-    // Auto-refresh every 5 minutes
+    this.subscribeLanguage();
     this.refreshInterval = setInterval(() => {
       this.fetchData();
     }, 5 * 60 * 1000);
+  }
+
+  subscribeLanguage() {
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -73,6 +89,25 @@ export class GlobalCardsComponent implements OnInit, OnDestroy {
     }
 
     return 'linear-gradient(135deg, #013772, #0056b3)'; // Default Nexus blue
+  }
+
+  getNameTranslated(info: GlobalInfoDTO): string {
+    switch(info.idc){
+      case EntityIDc.Person:
+        return this.label.COMMON.PERSON;
+      case EntityIDc.Company:
+        return this.label.COMMON.COMPANY;
+      case EntityIDc.Properties:
+        return this.label.PROPERTY.REAL_ESTATE;
+      case EntityIDc.LawFirm:
+        return this.label.LAW_FIRM.LAW_FIRM;
+      case EntityIDc.Transactions:
+        return this.label.TRANSACTION.TRANSACTION;
+      case EntityIDc.FPCs:
+        return this.label.FPC.FPC;
+      default:
+        return info.name || '';
+    }
   }
 
 }

@@ -53,9 +53,11 @@ export class AllPersonTable extends BasePersonsComponent {
         { key: "personEnglishName", label: "الاسم بالانجليزية", pipes: ["link"], sort: true },
         { key: "personArabicName", label: "الاسم بالعربية", pipes: ["link"], sort: true },
         { key: "personShortName", label: "الاسم المختصر", sort: true },
-        { key: "personStatus", label: "الحالة", pipes: ["person-Status"], sort: true, hasIcon: true },
+        { key: "personStatus", label: "الحالة", pipes: ["common-Status"], sort: true, hasIcon: true },
         { key: "fpcCode", label: "رمز FPC" },
         { key: "private", label: "خاص", pipes: ['private'], sort: true, hasIcon: true },
+        { key: "dateOfBirth", label: "تاريخ الميلاد", pipes: ['date'], sort: true },
+        { key: "nationality", label: "الجنسية", pipes: ['country'] },
         { key: "action", label: "إجراءات" },
       ];
     } else {
@@ -66,9 +68,11 @@ export class AllPersonTable extends BasePersonsComponent {
         { key: "personEnglishName", label: "Name En", pipes: ["link"], sort: true },
         { key: "personArabicName", label: "Name Ar", pipes: ["link"], sort: true },
         { key: "personShortName", label: "Short Name", sort: true },
-        { key: "personStatus", label: "Status", pipes: ["person-Status"], sort: true, hasIcon: true },
+        { key: "personStatus", label: "Status", pipes: ["common-Status"], sort: true, hasIcon: true },
         { key: "fpcCode", label: "FPC Code" },
         { key: "private", label: "Private", pipes: ['private'], sort: true, hasIcon: true },
+        { key: "dateOfBirth", label: "Date of Birth", pipes: ['date'], sort: true },
+        { key: "nationality", label: "Nationality", pipes: ['country'] },
         { key: "action", label: "Action" },
       ];
     }

@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PaginateRsult } from '../../../../models/paginate-result';
 import { GetDynamicListParam } from '../../../../models/dynamic-list/get-dynamic-list-param';
 import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
+import { LanguageService } from '../../../../services/language-service';
+import { Labels } from '../../../../models/consts/labels';
+import { LanguageCode } from '../../../../models/types/lang-type';
 
 
 @Component({
@@ -16,6 +19,10 @@ import { DynamicList } from '../../../../models/dynamic-list/dynamic-list';
 })
 export class DynamicListTable implements OnInit {
 
+  get label() {
+    return Labels[this.currentLang as keyof typeof Labels];
+  }
+  currentLang: LanguageCode = 'en';
 
   rowsPerPageOptions = [5, 10, 25, 50, 100]
   parents: DynamicList[] = [];
@@ -24,7 +31,7 @@ export class DynamicListTable implements OnInit {
     page: 0,
     pageSize: 10,
     id: null,
-    name:null
+    name: null
   }
   showLoading = false;
   parent: DynamicList | null = null;
@@ -40,14 +47,22 @@ export class DynamicListTable implements OnInit {
   constructor(
     private dynamicListService: DynamicListService,
     private dialog: MatDialog,
-    private route: ActivatedRoute,
-    private router: Router,
+    private langService: LanguageService,
     private cdr: ChangeDetectorRef
   ) {
   }
   ngOnInit(): void {
     this.loadData();
+    this.subscribeLanguage();
   }
+  subscribeLanguage() {
+    this.langService.language$.subscribe(lang => {
+      this.currentLang = lang;
+    });
+
+  }
+
+
 
   private loadData() {
     this.fetchData();
@@ -195,7 +210,7 @@ export class DynamicListTable implements OnInit {
     this.loadData();
   }
 
-  onSearchByName(){
+  onSearchByName() {
     this.loadData();
   }
 

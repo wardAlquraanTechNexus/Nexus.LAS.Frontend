@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Person } from '../../../../models/person-models/person';
 import { TableFormComponent } from '../../../base-components/table-form-component/table-form-component';
-import { PersonStatus } from '../../../../enums/person-status';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ErrorHandlerService } from '../../../../services/error-handler.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +25,7 @@ import { downloadBlobFile } from '../../../_shared/shared-methods/downloadBlob';
 import { PersonDialogFormComponent } from '../../person-dialog-form-component/person-dialog-form-component';
 import { PersonDto } from '../../../../models/person-models/person-dto';
 import { navigate } from '../../../_shared/shared-methods/navigate';
+import { CommonStatus } from '../../../../enums/common-status';
 
 @Component({
   selector: 'app-base-persons-component',
@@ -42,11 +42,11 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     page: 0,
     pageSize: 10,
     orderBy: 'id',
-    orderDir: 'desc'
+    orderDir: 'asc'
   }
 
-  activeStatus = PersonStatus.Active;
-  inactiveStatus = PersonStatus.Inactive;
+  activeStatus = CommonStatus.Active;
+  inactiveStatus = CommonStatus.Inactive;
   selectedPersons: Person[] = [];
 
 
@@ -91,17 +91,16 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
   }
 
   override fetchData() {
-    this.cdr.detectChanges();
     this.showLoading = true;
     this.service.getPersons(this.params).subscribe({
       next: (res => {
         this.data = res;
         this.showLoading = false;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
       }),
       error: (err => {
         this.showLoading = false;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
 
       })
     })
@@ -165,12 +164,12 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
 
   activate(person: GetPersonsDTO) {
     const command = this.initUpdatePerson(person);
-    command.personStatus = PersonStatus.Active;
+    command.personStatus = CommonStatus.Active;
     this.updatePerson(command);
   }
   deactivate(person: GetPersonsDTO) {
     const command = this.initUpdatePerson(person);
-    command.personStatus = PersonStatus.Inactive;
+    command.personStatus = CommonStatus.Inactive;
     this.updatePerson(command);
   }
   markPublic(person: GetPersonsDTO) {
@@ -190,7 +189,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       personEnglishName: person.personEnglishName,
       personArabicName: person.personArabicName,
       personShortName: person.personShortName ?? "",
-      personStatus: person.personStatus ?? PersonStatus.New,
+      personStatus: person.personStatus ?? CommonStatus.New,
       private: person.private ?? true,
       id: person.id ?? 0
     }
@@ -239,7 +238,7 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     })
   }
 
-  bulkChangeStatus(status: PersonStatus) {
+  bulkChangeStatus(status: CommonStatus) {
     let command: BulkChangeStatusCommand = {
       ids: this.selectedPersons.map(x => x.id).filter((id): id is number => id !== undefined),
       status: status
@@ -301,7 +300,9 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
       personStatus: 0,
       fpcCode: "",
       private: true,
-      fileName: ""
+      fileName: "",
+      nationality: null,
+      dateOfBirth: null
     };
     const dialogRef = this.dialog.open(PersonDialogFormComponent, {
       width: '600px',
@@ -344,6 +345,13 @@ export class BasePersonsComponent extends TableFormComponent<Person> implements 
     this.params.nationality = event;
     this.fetchData();
   }
+
+  showFilters = false;
+
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
+
 
 
 

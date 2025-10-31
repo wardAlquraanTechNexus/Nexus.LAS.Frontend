@@ -24,6 +24,7 @@ export class CompanyBoardMemberFormComponent extends BaseFormComponent {
   loadPositionsFn!: (search: string) => Observable<DynamicList[]>;
   loadPersonsFn!: (search: string) => Observable<GetPersonsDTO[]>;
 
+  statuses:any[] = [];
 
   constructor(
     protected override fb: FormBuilder,
@@ -45,7 +46,12 @@ export class CompanyBoardMemberFormComponent extends BaseFormComponent {
     this.loadPersonsFn = (search: string) => this.loadPersons(search);
     this.loadPositionsFn = (search: string) => this.dlService.GetAllByParentId(environment.rootDynamicLists.boardPosition, search);
 
+    this.statuses = [
+      { key: true, value: this.label.COMMON.ACTIVE },
+      { key: false, value: this.label.COMMON.INACTIVE }
+    ]
   }
+  
   loadPersons(search: string) {
     return this.personService.getAllPersons({
       searchBy: search,

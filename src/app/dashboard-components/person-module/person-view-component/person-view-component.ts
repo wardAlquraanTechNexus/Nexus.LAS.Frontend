@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonService } from '../../../services/person-services/person-service';
-import { PersonStatus } from '../../../enums/person-status';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorHandlerService } from '../../../services/error-handler.service';
 import { PersonDto } from '../../../models/person-models/person-dto';
@@ -13,6 +12,7 @@ import { LanguageService } from '../../../services/language-service';
 import { takeUntil } from 'rxjs';
 import { BaseViewComponent } from '../../base-components/base-view-component/base-view-component';
 import { EntityIDc } from '../../../enums/entity-idc';
+import { CommonStatus } from '../../../enums/common-status';
 
 @Component({
   selector: 'app-person-view-component',
@@ -89,12 +89,12 @@ export class PersonViewComponent extends BaseViewComponent {
             const url = URL.createObjectURL(blob);
             this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
           }
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         },
         error: (err) => {
           this.showLoading = false;
           console.error('Error fetching person:', err);
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         }
       });
   }
@@ -121,12 +121,12 @@ export class PersonViewComponent extends BaseViewComponent {
   getStatusStyle() {
     let borderColor = '#9E77ED';
     let color = '#9E77ED';
-    switch (this.person?.personStatus) {
-      case PersonStatus.Active:
+    switch (this.person?.personStatus.toString()) {
+      case CommonStatus[CommonStatus.Active]:
         borderColor = '#22C993';
         color = '#22C993';
         break;
-      case PersonStatus.Inactive:
+      case CommonStatus[CommonStatus.Inactive]:
         borderColor = '#423e3ede';
         color = '#423e3ede';
         break;
@@ -142,9 +142,9 @@ export class PersonViewComponent extends BaseViewComponent {
 
   getIcon() {
     switch (this.person?.personStatus) {
-      case PersonStatus.Active:
+      case CommonStatus.Active:
         return 'check_circle';
-      case PersonStatus.Inactive:
+      case CommonStatus.Inactive:
         return 'cancel';
       default:
         return 'star';
