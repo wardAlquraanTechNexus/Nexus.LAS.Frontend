@@ -80,11 +80,11 @@ export class MainDashboardComponent implements OnInit {
 
 
   onAddNewPerson() {
-    let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-      // this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+    let path = this.menuService.getMenuByPath(environment.routes.AllPeople) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePeople) ||
+      // this.menuService.getMenuByPath(environment.routes.ActivePrivatePeople) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicPeople);
+    let basePath = this.menuService.getMenuByPath(environment.routes.People);
 
     let person: PersonDto = {
       id: 0,
@@ -208,11 +208,11 @@ export class MainDashboardComponent implements OnInit {
     };
 
     let path =
-      this.menuService.getMenuByPath(environment.routes.AllProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
-      this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
-    let basePath = this.menuService.getMenuByPath(environment.routes.Properties);
+      this.menuService.getMenuByPath(environment.routes.AllRealEstate) ||
+      this.menuService.getMenuByPath(environment.routes.ActiveRealEstate) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePrivateRealEstate) ||
+      this.menuService.getMenuByPath(environment.routes.ActivePublicRealEstate);
+    let basePath = this.menuService.getMenuByPath(environment.routes.RealEstate);
 
 
     const dialogRef = this.dialog.open(PropertyDialogFormComponent, {

@@ -181,11 +181,11 @@ export class CompanyBoardMemberComponent extends TableFormComponent<CompanyBoard
 
   onRowClick(row: any) {
     if (row.key == 'personId') {
-      let path = this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
-      let basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+      let path = this.menuService.getMenuByPath(environment.routes.AllPeople) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePeople) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePrivatePeople) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePublicPeople);
+      let basePath = this.menuService.getMenuByPath(environment.routes.People);
 
       this.router.navigateByUrl(basePath?.path + '/' + path?.path + '?id=' + row.element.personId);
     }

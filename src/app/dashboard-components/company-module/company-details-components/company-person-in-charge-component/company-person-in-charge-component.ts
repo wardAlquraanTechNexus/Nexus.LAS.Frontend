@@ -208,12 +208,12 @@ export class CompanyPersonInChargeComponent extends TableFormComponent<CompanyPe
         })
       })
     } else if (event.key == "personNameEn") {
-      let basePersonPath = this.menuService.getMenuByPath(environment.routes.Persons);
+      let basePersonPath = this.menuService.getMenuByPath(environment.routes.People);
       let personPath =
-        this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
-        this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
+        this.menuService.getMenuByPath(environment.routes.AllPeople) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePeople) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePublicPeople) ||
+        this.menuService.getMenuByPath(environment.routes.ActivePrivatePeople);
 
       if (!basePersonPath || !personPath) {
         this.errorHandler.showWarning("You have no access to view the person");

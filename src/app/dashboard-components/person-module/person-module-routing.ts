@@ -12,28 +12,24 @@ import { PersonIdDetailViewComponent } from './person-id-detail-view/person-id-d
 
 const routes: Routes = [
     {
-      path: environment.routes.AllPersons,
+      path: environment.routes.AllPeople,
       component: AllPersons,
     },
     {
-      path: environment.routes.ActivePersons,
+      path: environment.routes.ActivePeople,
       component: ActivePersons,
     },
     {
-      path: environment.routes.ActivePublicPersons,
+      path: environment.routes.ActivePublicPeople,
       component: ActivePublicPersons,
     },
     {
-      path: environment.routes.ActivePrivatePersons,
+      path: environment.routes.ActivePrivatePeople,
       component: ActivePrivatePersons,
     },
     {
       path: environment.routes.AddPerson,
       component: PersonDialogFormComponent,
-    },
-    {
-      path: environment.routes.ViewPersons,
-      component: PersonViewComponent,
     }
     ,
     {

@@ -16,7 +16,7 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: environment.routes.Persons,
+    path: environment.routes.People,
     loadChildren: () => import('./person-module/person-module').then(m => m.PersonModule),
     canActivate: [authGuard]
   },
@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: environment.routes.Properties,
+    path: environment.routes.RealEstate,
     loadChildren: () => import('./property-module/property-module').then(m => m.PropertyModule),
     canActivate: [authGuard]
   },

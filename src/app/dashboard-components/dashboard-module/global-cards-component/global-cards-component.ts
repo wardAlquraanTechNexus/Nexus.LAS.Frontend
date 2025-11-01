@@ -5,6 +5,9 @@ import { LanguageService } from '../../../services/language-service';
 import { Labels } from '../../../models/consts/labels';
 import { LanguageCode } from '../../../models/types/lang-type';
 import { EntityIDc } from '../../../enums/entity-idc';
+import { environment } from '../../../../environment/environment';
+import { MenuService } from '../../../services/menu-service';
+import { info } from 'console';
 
 @Component({
   selector: 'global-cards',
@@ -26,7 +29,8 @@ export class GlobalCardsComponent implements OnInit, OnDestroy {
   constructor(
     private globalService: GlobalService,
     private cdr: ChangeDetectorRef,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private menuService: MenuService
   ) { }
 
   ngOnInit(): void {
@@ -109,5 +113,77 @@ export class GlobalCardsComponent implements OnInit, OnDestroy {
         return info.name || '';
     }
   }
+
+  getPath(idc:string): string {
+    switch(idc){
+      case EntityIDc.Person:
+        let path = 
+        this.menuService.getMenuByPath(environment.routes.AllPeople)
+        || this.menuService.getMenuByPath(environment.routes.ActivePeople)
+        || this.menuService.getMenuByPath(environment.routes.InactivePeople)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivatePeople)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicPeople);
+        return  environment.routes.People+"/" +path?.path;
+
+      case EntityIDc.Company:
+        let companyPath =
+        this.menuService.getMenuByPath(environment.routes.AllCompanies)
+        || this.menuService.getMenuByPath(environment.routes.ActiveCompanies)
+        || this.menuService.getMenuByPath(environment.routes.InactiveCompanies)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
+        return  environment.routes.Companies+"/" +companyPath?.path;
+      case EntityIDc.LawFirm:
+        let lawFirmPath =
+        this.menuService.getMenuByPath(environment.routes.AllLawFirms)
+        || this.menuService.getMenuByPath(environment.routes.ActiveLawFirms)
+        || this.menuService.getMenuByPath(environment.routes.InactiveLawFirms)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivateLawFirms)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicLawFirms);
+        return  environment.routes.LawFirms+"/" +lawFirmPath?.path;
+      case EntityIDc.Transactions:
+        let transactionPath =
+        this.menuService.getMenuByPath(environment.routes.AllTransactions)
+        || this.menuService.getMenuByPath(environment.routes.ActiveTransactions)
+        || this.menuService.getMenuByPath(environment.routes.InactiveTransactions)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivateTransactions)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicTransactions);
+        return  environment.routes.Transactions+"/" +transactionPath?.path;
+      case EntityIDc.FPCs:
+        let fpcPath =
+        this.menuService.getMenuByPath(environment.routes.AllFPCs)
+        || this.menuService.getMenuByPath(environment.routes.ActiveFPCs)
+        || this.menuService.getMenuByPath(environment.routes.InactiveFPCs)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivateFPCs)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicFPCs);
+        return  environment.routes.FPCs+"/" +fpcPath?.path;
+      case EntityIDc.Properties:
+        let propertyPath =
+        this.menuService.getMenuByPath(environment.routes.AllRealEstate)
+        || this.menuService.getMenuByPath(environment.routes.ActiveRealEstate)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivateRealEstate)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicRealEstate);
+        return  environment.routes.RealEstate+"/" +propertyPath?.path;
+      case EntityIDc.DocumentTracking:
+        let documentPath =
+        this.menuService.getMenuByPath(environment.routes.AllDocumentTrackings)
+        || this.menuService.getMenuByPath(environment.routes.ActiveDocumentTrackings)
+        || this.menuService.getMenuByPath(environment.routes.ActivePrivateDocumentTrackings)
+        || this.menuService.getMenuByPath(environment.routes.ActivePublicDocumentTrackings);
+        return  environment.routes.DocumentTrackings+"/" +documentPath?.path;
+        case EntityIDc.FPCs:
+          let fpcPaths =
+          this.menuService.getMenuByPath(environment.routes.AllFPCs)
+          || this.menuService.getMenuByPath(environment.routes.ActiveFPCs)
+          || this.menuService.getMenuByPath(environment.routes.InactiveFPCs)
+          || this.menuService.getMenuByPath(environment.routes.ActivePrivateFPCs)
+          || this.menuService.getMenuByPath(environment.routes.ActivePublicFPCs);
+          return  environment.routes.FPCs+"/" +fpcPaths?.path;
+      default:
+        return '';
+    }
+  }
+
+
 
 }

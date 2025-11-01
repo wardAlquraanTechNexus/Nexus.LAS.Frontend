@@ -6,14 +6,14 @@ export interface Routes {
   // Core
   dashboard: string;
 
-  // Persons module
-  Persons: string;
-  AllPersons: string;
-  ActivePersons: string;
-  ActivePrivatePersons: string;
-  ActivePublicPersons: string;
-  InactivePersons: string;
-  ViewPersons: string;
+  // People module
+  People: string;
+  AllPeople: string;
+  ActivePeople: string;
+  ActivePrivatePeople: string;
+  ActivePublicPeople: string;
+  InactivePeople: string;
+  ViewPeople: string;
   AddPerson: string;
   EditPerson: string;
   ViewPersonIdDetail: string;
@@ -87,13 +87,13 @@ export interface Routes {
 
 
 
-  // Properties
-  Properties: string;
-  AddProperty: string;
-  AllProperties: string;
-  ActiveProperties: string;
-  ActivePrivateProperties: string;
-  ActivePublicProperties: string;
+  // RealEstate
+  RealEstate: string;
+  AddRealEstate: string;
+  AllRealEstate: string;
+  ActiveRealEstate: string;
+  ActivePrivateRealEstate: string;
+  ActivePublicRealEstate: string;
 
 }
 

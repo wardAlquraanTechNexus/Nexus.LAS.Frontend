@@ -124,7 +124,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       {
         name: this.label.PROPERTY.REAL_ESTATE,
         icon: entityIcons[EntityIDc.Properties],
-        value: environment.routes.AddProperty
+        value: environment.routes.AddRealEstate
       },
 
       {
@@ -240,7 +240,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       case environment.routes.AddCompany:
         this.onAddNewCompany();
         break;
-      case environment.routes.AddProperty:
+      case environment.routes.AddRealEstate:
         this.onAddNewRealEstate();
         break;
       case environment.routes.AddLawFirm:
@@ -546,11 +546,11 @@ export class NavbarComponent implements OnDestroy, OnInit {
   getBasePathByIdc(idc: string) {
     switch (idc) {
       case EntityIDc.Person:
-        return this.menuService.getMenuByPath(environment.routes.Persons);
+        return this.menuService.getMenuByPath(environment.routes.People);
       case EntityIDc.Company:
         return this.menuService.getMenuByPath(environment.routes.Companies);
       case EntityIDc.Properties:
-        return this.menuService.getMenuByPath(environment.routes.Properties);
+        return this.menuService.getMenuByPath(environment.routes.RealEstate);
       case EntityIDc.LawFirm:
         return this.menuService.getMenuByPath(environment.routes.LawFirms);
       case EntityIDc.Transactions:
@@ -567,20 +567,20 @@ export class NavbarComponent implements OnDestroy, OnInit {
   getPathByIdc(idc: string) {
     switch (idc) {
       case EntityIDc.Person:
-        return this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons);
+        return this.menuService.getMenuByPath(environment.routes.AllPeople) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePeople) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivatePeople) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicPeople);
       case EntityIDc.Company:
         return this.menuService.getMenuByPath(environment.routes.AllCompanies) ||
           this.menuService.getMenuByPath(environment.routes.ActiveCompanies)
           || this.menuService.getMenuByPath(environment.routes.ActivePrivateCompanies) ||
           this.menuService.getMenuByPath(environment.routes.ActivePublicCompanies);
       case EntityIDc.Properties:
-        return this.menuService.getMenuByPath(environment.routes.ActiveProperties) ||
-          this.menuService.getMenuByPath(environment.routes.AllProperties) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePrivateProperties) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePublicProperties);
+        return this.menuService.getMenuByPath(environment.routes.ActiveRealEstate) ||
+          this.menuService.getMenuByPath(environment.routes.AllRealEstate) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivateRealEstate) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicRealEstate);
       case EntityIDc.LawFirm:
         return this.menuService.getMenuByPath(environment.routes.AllLawFirms) ||
           this.menuService.getMenuByPath(environment.routes.ActiveLawFirms) ||

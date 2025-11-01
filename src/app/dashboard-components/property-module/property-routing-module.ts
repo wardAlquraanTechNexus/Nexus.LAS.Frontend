@@ -8,19 +8,19 @@ import { ActivePrivatePropertiesComponent } from './active-private-properties-co
 
 const routes: Routes = [
   {
-    path: environment.routes.AllProperties,
+    path: environment.routes.AllRealEstate,
     component: AllPropertiesComponent,
   },
   {
-    path: environment.routes.ActiveProperties,
+    path: environment.routes.ActiveRealEstate,
     component: ActivePropertiesComponent,
   },
   {
-    path: environment.routes.ActivePublicProperties,
+    path: environment.routes.ActivePublicRealEstate,
     component: ActivePublicPropertiesComponent,
   },
   {
-    path: environment.routes.ActivePrivateProperties,
+    path: environment.routes.ActivePrivateRealEstate,
     component: ActivePrivatePropertiesComponent,
   },
 ];

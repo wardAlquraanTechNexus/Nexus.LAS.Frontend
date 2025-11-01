@@ -203,12 +203,12 @@ export class CompanyShareholderComponent extends TableFormComponent<CompaniesSha
     if (event.key == "registerName") {
       let elementIdc = event.element.registersIdc;
       if (elementIdc == EntityIDc.Person) {
-        basePath = this.menuService.getMenuByPath(environment.routes.Persons);
+        basePath = this.menuService.getMenuByPath(environment.routes.People);
         path =
-          this.menuService.getMenuByPath(environment.routes.AllPersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePublicPersons) ||
-          this.menuService.getMenuByPath(environment.routes.ActivePrivatePersons);
+          this.menuService.getMenuByPath(environment.routes.AllPeople) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePeople) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePublicPeople) ||
+          this.menuService.getMenuByPath(environment.routes.ActivePrivatePeople);
       } else if (elementIdc == EntityIDc.Company) {
         basePath = this.menuService.getMenuByPath(environment.routes.Companies);
         path =
